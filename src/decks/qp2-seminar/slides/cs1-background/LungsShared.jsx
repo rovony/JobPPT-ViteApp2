@@ -3,27 +3,34 @@ import { motion } from 'framer-motion';
 import LungsDiagram from './LungsDiagram';
 
 /**
- * LungsShared — literal port of v0's shared lung pattern
- * (4-Apps/1_Inbox/V0/.../slides/CaseDividerSlide.tsx + LungContextSlide.tsx).
+ * LungsShared — the Lynch lung with a shared layoutId that morphs across
+ * slide 5 (divider, right-column small) and slide 6 (background, center
+ * big). Matches the HTML version's camera-pullback feel.
  *
- * Both slide 5 (divider) and slide 6 (background) render this component
- * with the same layoutId. framer-motion matches the two instances across
- * AnimatePresence mode="sync" and morphs the bounding box between them.
+ * Two animations coexist:
+ *   1. Opacity fade-in (0 -> 1 over 0.9s) — runs every time this component
+ *      mounts. Gives the "slowly appears" look the HTML deck has.
+ *   2. Layout morph via layoutId — fires when framer-motion's LayoutGroup
+ *      detects a matching layoutId on an adjacent slide. Position + size
+ *      interpolate over 1s with cubic-bezier easing.
  *
- * No initial/animate on the motion.div itself — the layoutId match is the
- * entrance animation. Adding initial/animate would produce a competing
- * opacity/scale animation that fights the morph and manifests as
- * "the lung disappears / pops in" artifacts.
- *
- * Spring config matches v0 exactly (1s cubic-bezier) so feel is identical.
+ * Opacity and layout are independent transforms, so the two animations
+ * don't fight each other: during a 5->6 morph, the bbox flies AND the
+ * alpha rises, which reads as "the lung drifts in while materializing."
  */
 const LAYOUT_TRANSITION = { duration: 1, ease: [0.4, 0, 0.2, 1] };
+const ENTRANCE_TRANSITION = { duration: 0.9, ease: [0.4, 0, 0.2, 1] };
 
 export default function LungsShared({ layoutId = 'lung-lynch' }) {
   return (
     <motion.div
       layoutId={layoutId}
-      transition={{ layout: LAYOUT_TRANSITION }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{
+        opacity: ENTRANCE_TRANSITION,
+        layout: LAYOUT_TRANSITION,
+      }}
       style={{ width: '100%', height: '100%' }}
     >
       <LungsDiagram />

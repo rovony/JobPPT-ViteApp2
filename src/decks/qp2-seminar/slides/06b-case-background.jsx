@@ -68,11 +68,15 @@ function BackgroundLayout({ reduce, ease }) {
         minHeight: 0,
       }}
     >
-      {/* ─── Cards row ─── */}
+      {/* ─── Cards row ─── 3 columns: text card · centered lung · text card.
+          The lung is a free-floating free-flying element in the middle
+          column. Both flanking cards are text-only (no visual slot) so
+          the lung reads as the shared subject between them.
+          This matches the HTML version's camera-pullback layout. */}
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+          gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 1fr)',
           columnGap: 'var(--space-5)',
           alignItems: 'stretch',
           alignContent: 'center',
@@ -102,8 +106,21 @@ function BackgroundLayout({ reduce, ease }) {
               <PathwayChips />
             </>
           }
-          visual={<LungsShared layoutId="lung-lynch" />}
         />
+
+        {/* CENTER · shared Lynch lung (free-floating, layoutId morph from slide 5) */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minWidth: 0,
+            minHeight: 0,
+            padding: 'var(--space-3)',
+          }}
+        >
+          <LungsShared layoutId="lung-lynch" />
+        </div>
 
         {/* CARD 02 · THE DRUG */}
         <CaseBodyCard
