@@ -65,11 +65,19 @@ function BackgroundLayout({ reduce, ease }) {
         height: '100%',
         display: 'grid',
         // Grid rows (per user ask 2026-04-23):
-        //   row 1 — cards row with lung overlay between them (~2/3 height)
-        //   row 2 — full-width timeline chart                (~1/3 height)
+        //   row 1 — cards row with lung overlay between them
+        //   row 2 — full-width timeline chart
         //   row 3 — auto transition line
-        gridTemplateRows: '2fr 1fr auto',
-        rowGap: 'var(--space-4)',
+        //
+        // Updated 2026-04-23 pm: 1.6fr/1fr leaves visible breather
+        // between cards and timeline; the extra row-gap adds the
+        // explicit whitespace the user asked for.
+        gridTemplateRows: '1.75fr 1fr auto',
+        // Large row-gap gives explicit breathing between the cards
+        // row and the timeline row (user ask: 'space between lung
+        // and bottom card'). 1.75/1 ratio keeps cards shorter than
+        // default while still fitting both body paragraphs + footer.
+        rowGap: 'var(--space-7, 56px)',
         minHeight: 0,
       }}
     >
@@ -81,9 +89,16 @@ function BackgroundLayout({ reduce, ease }) {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)',
-            columnGap: 'clamp(220px, 28vw, 480px)',
+            // Narrower cards (0.85fr each) + wider gap (32vw) — user
+            // ask: 'reduce width and increase lung size'. The wider
+            // gap both shrinks the cards AND gives the lung more room.
+            gridTemplateColumns: 'minmax(0, 0.8fr) minmax(0, 0.8fr)',
+            // Wider gap (36vw) than lung width (30vw) so each card has
+            // ~3vw of clear air between its edge and the lung — user
+            // ask: 'increase space between 2 cards and lung'.
+            columnGap: 'clamp(340px, 36vw, 640px)',
             alignItems: 'stretch',
+            justifyContent: 'center',
             minHeight: 0,
             height: '100%',
             position: 'relative',
@@ -101,13 +116,11 @@ function BackgroundLayout({ reduce, ease }) {
                 <p style={{ margin: 0 }}>
                   WHO Group 1 pulmonary hypertension —{' '}
                   <CardHighlight>endothelin-1-mediated vasoconstriction</CardHighlight>{' '}
-                  plus progressive vascular remodeling in the small pulmonary arteries.
-                  Progressive, fatal if untreated, leading to right-ventricular failure.
-                  Adult untreated survival ~2.8 years. Pediatric prevalence{' '}
-                  <CardHighlight>14–20 per million children</CardHighlight> in Europe.
+                  plus progressive vascular remodeling. Fatal if untreated; right-ventricular failure.
                 </p>
                 <p style={{ margin: 'var(--space-2) 0 0 0' }}>
-                  Three pharmacologic pathways are targetable; endothelin is one.
+                  Adult untreated survival ~2.8 years. Pediatric prevalence{' '}
+                  <CardHighlight>14–20 per million children</CardHighlight> in Europe.
                 </p>
               </>
             }
@@ -137,7 +150,10 @@ function BackgroundLayout({ reduce, ease }) {
           />
         </div>
 
-        {/* Lung overlay pinned to the cards row only */}
+        {/* Lung overlay pinned to the cards row only. overflow:hidden
+            clips the lung vertically if its aspect-ratio-derived height
+            exceeds the (now shorter) cards row — keeps the breather
+            gap to the timeline row clean. */}
         <div
           style={{
             position: 'absolute',
@@ -147,6 +163,7 @@ function BackgroundLayout({ reduce, ease }) {
             justifyContent: 'center',
             pointerEvents: 'none',
             zIndex: 0,
+            overflow: 'hidden',
           }}
         >
           <LungsShared layoutId="lung-lynch" variant="context" />

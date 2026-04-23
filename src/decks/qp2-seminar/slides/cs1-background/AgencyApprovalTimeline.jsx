@@ -21,20 +21,22 @@ export default function AgencyApprovalTimeline({
   const reduce = useReducedMotion();
   const ease = [0.2, 0.7, 0.3, 1];
 
-  // `compact` variant used when the timeline is INLINED inside a
-  // case-body-card (slide 06b Card 02). In that context the card
-  // already has a mono eyebrow + separator line above the chart,
-  // and the pediatric "unresolved" row is redundant/overflow. A
-  // shorter viewBox also prevents the SVG from scaling vertically
-  // taller than the card's remaining space.
-  const W = 420;
-  const H = compact ? 110 : 220;
-  const m = { t: compact ? 18 : 32, r: 24, b: compact ? 18 : 30, l: 24 };
+  // Compact mode viewBox is wider (6.9:1 aspect vs 1.9:1 full) so the
+  // timeline actually USES the full-width slide 06 row. At 420×110
+  // the SVG scaled to fit row height shrank to ~300px wide leaving
+  // labels piled at the left. 900×130 scales up to the full 1400+px
+  // row width cleanly, with room for staggered agency labels +
+  // continuous-coverage bar running 2007→2025.
+  const W = compact ? 900 : 420;
+  const H = compact ? 130 : 220;
+  const m = compact
+    ? { t: 36, r: 60, b: 28, l: 60 }
+    : { t: 32, r: 24, b: 30, l: 24 };
   const iw = W - m.l - m.r;
 
-  const yAdult = m.t + (compact ? 28 : 48);        // adult marker track
-  const yAxis = m.t + (compact ? 58 : 82);         // axis baseline
-  const yPedi = m.t + 118;                          // pediatric — hidden when compact
+  const yAdult = m.t + (compact ? 18 : 48);        // adult marker track
+  const yAxis  = m.t + (compact ? 50 : 82);        // axis baseline
+  const yPedi  = m.t + 118;                         // pediatric — hidden when compact
 
   // Year → x-coordinate mapping (2005 → 2025)
   const YEAR_MIN = 2005;
@@ -42,15 +44,22 @@ export default function AgencyApprovalTimeline({
   const x = (yr) => m.l + ((yr - YEAR_MIN) / (YEAR_MAX - YEAR_MIN)) * iw;
 
   const TICKS = [2005, 2010, 2015, 2020, 2025];
-  // Label anchor offsets — FDA (2007) and EMA (2008) are only 1 year
-  // apart so their text labels collide. We stagger them vertically:
-  // FDA labeled above, EMA labeled slightly higher still (with a short
-  // leader line down to its dot). PMDA at 2010 clears naturally.
-  const APPROVALS = [
-    { agency: 'FDA', year: 2007, labelYOffset: 0,  labelXAnchor: 'end' },
-    { agency: 'EMA', year: 2008, labelYOffset: -14, labelXAnchor: 'start' },
-    { agency: 'PMDA', year: 2010, labelYOffset: 0,  labelXAnchor: 'middle' },
-  ];
+  // Label stagger — FDA (2007) and EMA (2008) are only 1 userspace
+  // unit apart; with a 900-unit viewBox that's still 43 units between
+  // centers which is enough breathing room for 60px labels. Use a
+  // stacked 3-row pattern in compact mode: FDA high, EMA higher still
+  // with a leader, PMDA mid — every label clears its neighbor.
+  const APPROVALS = compact
+    ? [
+        { agency: 'FDA',  year: 2007, labelYOffset: -6,  labelXAnchor: 'middle' },
+        { agency: 'EMA',  year: 2008, labelYOffset: -28, labelXAnchor: 'middle' },
+        { agency: 'PMDA', year: 2010, labelYOffset: -6,  labelXAnchor: 'middle' },
+      ]
+    : [
+        { agency: 'FDA',  year: 2007, labelYOffset: 0,   labelXAnchor: 'end'    },
+        { agency: 'EMA',  year: 2008, labelYOffset: -14, labelXAnchor: 'start'  },
+        { agency: 'PMDA', year: 2010, labelYOffset: 0,   labelXAnchor: 'middle' },
+      ];
 
   return (
     <svg
@@ -122,6 +131,41 @@ export default function AgencyApprovalTimeline({
         </motion.text>
       )}
 
+      {/* Coverage bar (compact only) — continuous coral stripe from
+          FDA 2007 across the full axis, reading 'adult label in force
+          through 2025'. Sits just below the axis hairline. */}
+      {compact && (
+        <>
+          <motion.rect
+            x={x(2007)}
+            y={yAxis + 14}
+            width={x(YEAR_MAX) - x(2007)}
+            height={4}
+            rx={1}
+            fill={color}
+            opacity={0.35}
+            initial={reduce ? { scaleX: 1, opacity: 0.35 } : { scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 0.35 }}
+            transition={{ duration: reduce ? 0 : 0.9, ease, delay: reduce ? 0 : delay + 1.1 }}
+            style={{ transformOrigin: `${x(2007)}px ${yAxis + 16}px` }}
+          />
+          <motion.text
+            x={(x(2007) + x(YEAR_MAX)) / 2}
+            y={yAxis + 32}
+            textAnchor="middle"
+            fontFamily="var(--font-mono)"
+            fontSize="11"
+            letterSpacing="0.22em"
+            fill="var(--cream-faint)"
+            initial={reduce ? { opacity: 1 } : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: reduce ? 0 : 0.4, delay: reduce ? 0 : delay + 1.6 }}
+          >
+            ADULT LABEL IN FORCE
+          </motion.text>
+        </>
+      )}
+
       {/* Adult approval markers */}
       {APPROVALS.map((a, i) => (
         <g key={a.agency}>
@@ -178,7 +222,8 @@ export default function AgencyApprovalTimeline({
             y={yAdult - 4 + (a.labelYOffset || 0)}
             textAnchor={a.labelXAnchor}
             fontFamily="var(--font-mono)"
-            fontSize="12"
+            fontSize={compact ? 13 : 12}
+            letterSpacing={compact ? '0.08em' : 'normal'}
             fontWeight={600}
             fill="var(--cream)"
             initial={reduce ? { opacity: 1 } : { opacity: 0 }}

@@ -138,12 +138,13 @@ export default function CaseBodyCard({
           {title}
         </h2>
 
-        {/* BODY — ports HTML .cbc-body (15pt, lh 1.55) */}
+        {/* BODY — ports HTML .cbc-body, resized for shorter cards so
+            both paragraphs + highlights fit without clipping. */}
         <div
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(0.92rem, 1.1vw, 1.12rem)',
-            lineHeight: 1.55,
+            fontSize: 'clamp(0.86rem, 0.98vw, 1.02rem)',
+            lineHeight: 1.5,
             color: 'var(--cream-muted)',
             minHeight: 0,
             overflow: 'hidden',

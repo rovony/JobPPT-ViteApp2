@@ -97,6 +97,17 @@ src/
   `zajalyapps@gmail.com` is rejected by GitHub email privacy)
 - Vercel auto-deploys on push; `main` → production URL, `dev` → preview URL
 
+## Request queueing — don't abandon in-progress work
+
+When the user sends a new ask while you're mid-task:
+
+1. **Finish the current in-progress task first** — don't jump to the new ask and leave the old one half-done. Half-finished work accumulates faster than you can clean it up.
+2. **Queue the new ask at the END of your TodoWrite list** — even if it feels urgent, it goes to the end so the in-progress batch gets committed as an atomic unit.
+3. **If the new ask invalidates the in-progress work** (user says "never mind, do X instead"), THEN stop, discard in-flight changes explicitly, and start the new ask.
+4. **When in doubt, acknowledge both**: "Queued [new ask] — finishing [in-progress] first, then will handle it." Don't silently switch priorities.
+
+This matters because partial edits across 2–3 files without a commit leave the app in a broken build state — which bites the next time the user reloads.
+
 ## Workspace Conventions (from JobHunt2026 CLAUDE.md)
 
 - **Response footer mandatory** on every non-trivial response:

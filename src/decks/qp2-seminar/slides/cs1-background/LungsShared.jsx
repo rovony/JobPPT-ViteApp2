@@ -35,9 +35,11 @@ const LAYOUT_TRANSITION = { duration: 1.8, ease: [0.4, 0, 0.2, 1] };
 
 const DIMENSIONS = {
   hero:    { width: 'clamp(180px, 22vw, 300px)', aspectRatio: '482 / 581' },
-  // Sized to fit the ~32vw gap between Card 01 and Card 02. Bigger than
-  // hero (clear 5->6 pullback) but constrained so cards aren't clipped.
-  context: { width: 'clamp(260px, 26vw, 440px)', aspectRatio: '482 / 581' },
+  // 22vw / 420px max sits inside the cards row vertically (at 1920x1080
+  // the row is ~515px tall; a 420px-wide lung is ~506px tall via aspect
+  // ratio — fits with a small breather and doesn't trigger the
+  // overflow:hidden clip on the wrapper).
+  context: { width: 'clamp(280px, 22vw, 420px)', aspectRatio: '482 / 581' },
 };
 
 export default function LungsShared({
