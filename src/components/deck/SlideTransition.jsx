@@ -21,7 +21,16 @@ import { resolveTransition, THREE_D_PRESETS } from '@/lib/slide-transitions';
  * Respects prefers-reduced-motion: if the user prefers reduced motion,
  * we collapse to a zero-duration fade so nothing slides, zooms, or rotates.
  */
-export default function SlideTransition({ transition, children }) {
+// forwardRef is required because DeckRunner wraps this in
+// <AnimatePresence mode="popLayout">, which internally wraps each child in
+// a PopChild component that needs to forward a ref to the underlying DOM
+// node so it can measure and position the exiting slide out-of-flow.
+// Without forwardRef, React logs "Function components cannot be given refs"
+// and popLayout can't synthesize the shared-element (layoutId) morph.
+const SlideTransition = React.forwardRef(function SlideTransition(
+  { transition, children },
+  forwardedRef,
+) {
   const variants = resolveTransition(transition);
   const is3D = typeof transition === 'string' && THREE_D_PRESETS.has(transition);
 
@@ -72,8 +81,12 @@ export default function SlideTransition({ transition, children }) {
       }
     : { width: '100%', height: '100%' };
 
+  // Pass the forwarded ref to the OUTER element so popLayout can measure it.
+  // For 3D presets the outer is a plain div (perspective container); for
+  // simple presets the outer IS the motion.div.
   const motionLayer = (
     <motion.div
+      ref={is3D ? undefined : forwardedRef}
       initial={applied.initial}
       animate={applied.animate}
       exit={applied.exit}
@@ -86,5 +99,7 @@ export default function SlideTransition({ transition, children }) {
 
   if (!is3D || prefersReduced) return motionLayer;
 
-  return <div style={outerStyle}>{motionLayer}</div>;
-}
+  return <div ref={forwardedRef} style={outerStyle}>{motionLayer}</div>;
+});
+
+export default SlideTransition;

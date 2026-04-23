@@ -179,7 +179,11 @@ function DeckStage({ deck }) {
       style={{ cursor: cursorHidden ? 'none' : 'auto' }}
     >
       <ProgressBar />
-      <AnimatePresence mode="wait">
+      {/* popLayout keeps the exiting slide in the DOM (out of flow) while
+          the incoming slide mounts, so framer-motion can match layoutId
+          between elements on adjacent slides and run shared-element
+          transitions (e.g. the Lynch lungs morphing from slide 5 → 6). */}
+      <AnimatePresence mode="popLayout">
         {Slide && (
           <SlideTransition
             key={slideMeta.id || index}
