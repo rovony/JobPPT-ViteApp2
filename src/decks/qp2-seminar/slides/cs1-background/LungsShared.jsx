@@ -18,7 +18,11 @@ import { useReducedMotionPref } from '@/lib/motion';
  * layoutId so framer-motion falls back to a plain swap instead of a
  * flight animation. The static image still looks correct on each slide.
  */
-const SPRING = { type: 'spring', stiffness: 80, damping: 20, mass: 1 };
+// Layout transition: the shared-element morph between slide 5 and slide 6.
+// Smooth cubic-bezier over 1s — long enough to read as "camera pull-back,"
+// short enough to not block navigation. The easing matches v0's working
+// prototype so the feel is consistent across the two deck implementations.
+const LAYOUT_TRANSITION = { duration: 1, ease: [0.4, 0, 0.2, 1] };
 
 export default function LungsShared({ layoutId = 'lung-lynch' }) {
   const reduce = useReducedMotionPref();
@@ -34,8 +38,12 @@ export default function LungsShared({ layoutId = 'lung-lynch' }) {
   return (
     <motion.div
       layoutId={layoutId}
+      // initial={false} skips the entrance animation on mount — the
+      // layoutId match from the previous slide handles positioning.
+      // Without this, the lung would pop-in at mount THEN morph, which
+      // reads as two animations competing.
       initial={false}
-      transition={SPRING}
+      transition={{ layout: LAYOUT_TRANSITION }}
       style={{ width: '100%', height: '100%' }}
     >
       <LungsDiagram />

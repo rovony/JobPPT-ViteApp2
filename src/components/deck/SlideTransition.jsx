@@ -55,15 +55,22 @@ const SlideTransition = React.forwardRef(function SlideTransition(
   // keystoned at large rotations; above ~3000px the depth flattens out.
   // We clamp the lower bound for narrow viewports (phones) where 2400px
   // would feel too "telescoped" relative to the ~360px stage width.
+  // position:absolute + inset:0 means consecutive slides (exiting and
+  // entering under AnimatePresence mode="sync") stack at the same
+  // coordinates instead of flowing vertically. That stacking is what
+  // makes cross-slide layoutId morphs actually work — both endpoints
+  // are on screen simultaneously while framer-motion animates the
+  // shared element between them.
+  const stackStyle = { position: 'absolute', inset: 0 };
+
   const outerStyle = is3D && !prefersReduced
     ? {
-        width: '100%',
-        height: '100%',
+        ...stackStyle,
         perspective: 'clamp(1400px, 180vw, 2600px)',
         perspectiveOrigin: '50% 50%',
         transformStyle: 'preserve-3d',
       }
-    : { width: '100%', height: '100%' };
+    : stackStyle;
 
   const innerStyle = is3D && !prefersReduced
     ? {
@@ -81,16 +88,32 @@ const SlideTransition = React.forwardRef(function SlideTransition(
       }
     : { width: '100%', height: '100%' };
 
-  // Pass the forwarded ref to the OUTER element so popLayout can measure it.
-  // For 3D presets the outer is a plain div (perspective container); for
-  // simple presets the outer IS the motion.div.
+  // Pass the forwarded ref to the OUTER element so framer-motion can
+  // measure it for AnimatePresence bookkeeping. For 3D presets the outer
+  // is a plain div (perspective container); for simple presets the outer
+  // IS the motion.div.
+  //
+  // `layout` prop: tells framer-motion to track layout changes on this
+  // wrapper AND its descendants. Required so that shared-element layoutId
+  // morphs (e.g. the Lynch lung between slides 5 and 6) have correct
+  // old/new bbox measurements even when nested inside multiple motion
+  // layers. Without it, the shared element renders but doesn't morph.
+  //
+  // `transition.layout` gives layout animations their own timing window
+  // separate from the slide's fade/slide-in exit — so the shared-element
+  // morph can run longer (0.8s smooth) than the slide fade.
+  const layoutTransition = prefersReduced
+    ? { duration: 0 }
+    : { duration: 0.8, ease: [0.4, 0, 0.2, 1] };
+
   const motionLayer = (
     <motion.div
       ref={is3D ? undefined : forwardedRef}
+      layout
       initial={applied.initial}
       animate={applied.animate}
       exit={applied.exit}
-      transition={applied.transition}
+      transition={{ ...applied.transition, layout: layoutTransition }}
       style={innerStyle}
     >
       {children}

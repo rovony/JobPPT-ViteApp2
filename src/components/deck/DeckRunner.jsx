@@ -179,11 +179,16 @@ function DeckStage({ deck }) {
       style={{ cursor: cursorHidden ? 'none' : 'auto' }}
     >
       <ProgressBar />
-      {/* popLayout keeps the exiting slide in the DOM (out of flow) while
-          the incoming slide mounts, so framer-motion can match layoutId
-          between elements on adjacent slides and run shared-element
-          transitions (e.g. the Lynch lungs morphing from slide 5 → 6). */}
-      <AnimatePresence mode="popLayout">
+      {/* mode="sync" — both the exiting and entering slides render
+          simultaneously during the transition. Combined with
+          position:absolute on SlideTransition's motion.div (so they
+          stack at the same coordinates), this lets framer-motion match
+          layoutId elements between adjacent slides with both endpoints
+          actually present on screen at once, producing a real morph
+          instead of a fade+disappear. popLayout removed the exiting
+          slide from flow, and its parent's opacity fade was consuming
+          the shared element before the morph could complete. */}
+      <AnimatePresence mode="sync">
         {Slide && (
           <SlideTransition
             key={slideMeta.id || index}
