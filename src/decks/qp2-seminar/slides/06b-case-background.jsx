@@ -60,6 +60,7 @@ function BackgroundLayout({ reduce, ease }) {
   return (
     <div
       style={{
+        position: 'relative',
         width: '100%',
         height: '100%',
         display: 'grid',
@@ -68,16 +69,20 @@ function BackgroundLayout({ reduce, ease }) {
         minHeight: 0,
       }}
     >
-      {/* ─── Cards row ─── 3 columns: text card · centered lung · text card.
-          The lung is a free-floating free-flying element in the middle
-          column. Both flanking cards are text-only (no visual slot) so
-          the lung reads as the shared subject between them.
-          This matches the HTML version's camera-pullback layout. */}
+      {/* ─── Cards row ─── 2 cards side-by-side. The lung floats as an
+          ABSOLUTE OVERLAY between them (see below) — NOT inside a grid
+          column. v0's LungContextSlide uses this exact pattern, and
+          HTML slide 06 does the same (.lung-pullback is position:absolute).
+          Why it matters for the flicker: if the lung were in a grid cell,
+          framer-motion would measure it mid-grid-resolution on slide 6
+          mount, giving a transient wrong bbox for the layoutId morph.
+          An absolute overlay's bbox is resolved immediately from the
+          nearest positioned ancestor — no layout race. */}
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 1fr)',
-          columnGap: 'var(--space-5)',
+          gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)',
+          columnGap: 'clamp(260px, 32vw, 560px)',
           alignItems: 'stretch',
           alignContent: 'center',
           minHeight: 0,
@@ -108,20 +113,6 @@ function BackgroundLayout({ reduce, ease }) {
           }
         />
 
-        {/* CENTER · shared Lynch lung (free-floating, layoutId morph from slide 5) */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            minWidth: 0,
-            minHeight: 0,
-            padding: 'var(--space-3)',
-          }}
-        >
-          <LungsShared layoutId="lung-lynch" variant="context" />
-        </div>
-
         {/* CARD 02 · THE DRUG */}
         <CaseBodyCard
           number="02"
@@ -145,6 +136,25 @@ function BackgroundLayout({ reduce, ease }) {
           }
           visual={<AgencyApprovalTimeline delay={2.5} />}
         />
+      </div>
+
+      {/* ─── LUNG OVERLAY ───
+          Free-floating absolute layer pinned to the cards-row (row 1)
+          of the parent grid. Z-indexed above the cards so the lung
+          visually bridges them. pointer-events:none so clicks pass
+          through to card content / right-rail export UI. */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          pointerEvents: 'none',
+          zIndex: 5,
+        }}
+      >
+        <LungsShared layoutId="lung-lynch" variant="context" />
       </div>
 
       {/* ─── Transition line ─── */}
