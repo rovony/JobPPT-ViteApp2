@@ -23,8 +23,14 @@ import { resolveTransition, THREE_D_PRESETS } from '@/lib/slide-transitions';
  * 3D presets (canvas-pan/cube/flip/depth) still opt into their perspective
  * containers — they don't use layoutId so the extra transforms are fine.
  */
+// Incoming slides appear at full opacity immediately. The flicker of
+// the lung during 5->6 was coming from slide 6's wrapper fading in
+// from opacity:0 — while its own layoutId-morphing lung inherited the
+// low opacity for the first ~150ms, reading as "disappear briefly."
+// Only the EXIT fades. The entering slide is visible the moment it
+// mounts, so the shared lung's layoutId morph is never hidden.
 const DEFAULT_FADE = {
-  initial: { opacity: 0 },
+  initial: { opacity: 1 },
   animate: { opacity: 1 },
   exit: { opacity: 0 },
   transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
