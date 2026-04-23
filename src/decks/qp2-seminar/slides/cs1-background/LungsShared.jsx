@@ -48,6 +48,13 @@ export default function LungsShared({
   return (
     <motion.div
       layoutId={layoutId}
+      // `layout` prop in addition to `layoutId` tells framer-motion to
+      // set up layout tracking eagerly on mount (before the next paint)
+      // rather than after the first render. Without it there's a
+      // ~1-frame window where the new element renders at its natural
+      // position BEFORE the FLIP transform applies — reads as the
+      // 'flicker / disappears for a sec' bug.
+      layout
       initial={isHero ? { opacity: 0, scale: 0.85 } : false}
       animate={isHero ? { opacity: 1, scale: 1 } : undefined}
       transition={{

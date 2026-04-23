@@ -17,9 +17,14 @@ export default function AgencyApprovalTimeline({ color = 'var(--case, var(--cora
   const reduce = useReducedMotion();
   const ease = [0.2, 0.7, 0.3, 1];
 
-  const W = 360;
-  const H = 200;
-  const m = { t: 28, r: 20, b: 28, l: 20 };
+  // Wider viewBox so when the SVG scales to fit a narrow card-visual
+  // slot the text is still legible relative to container width. Text
+  // fontSize is in SVG userspace units (scales with the SVG), but a
+  // wider viewBox means each userspace unit renders slightly smaller
+  // visually, which reads as "more content, better proportions."
+  const W = 420;
+  const H = 220;
+  const m = { t: 32, r: 24, b: 30, l: 24 };
   const iw = W - m.l - m.r;
 
   const yAdult = m.t + 48;        // adult marker track
@@ -83,7 +88,7 @@ export default function AgencyApprovalTimeline({ color = 'var(--case, var(--cora
             y={yAxis + 14}
             textAnchor="middle"
             fontFamily="var(--font-mono)"
-            fontSize="9"
+            fontSize="11"
             fill="var(--cream-faint)"
             initial={reduce ? { opacity: 1 } : { opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -99,7 +104,7 @@ export default function AgencyApprovalTimeline({ color = 'var(--case, var(--cora
         x={m.l}
         y={m.t + 10}
         fontFamily="var(--font-mono)"
-        fontSize="9"
+        fontSize="11"
         letterSpacing="0.18em"
         fill="var(--cream-muted)"
         initial={reduce ? { opacity: 1 } : { opacity: 0 }}
@@ -165,7 +170,7 @@ export default function AgencyApprovalTimeline({ color = 'var(--case, var(--cora
             y={yAdult - 4 + (a.labelYOffset || 0)}
             textAnchor={a.labelXAnchor}
             fontFamily="var(--font-mono)"
-            fontSize="10"
+            fontSize="12"
             fontWeight={600}
             fill="var(--cream)"
             initial={reduce ? { opacity: 1 } : { opacity: 0 }}
@@ -182,7 +187,7 @@ export default function AgencyApprovalTimeline({ color = 'var(--case, var(--cora
         x={m.l}
         y={yPedi - 6}
         fontFamily="var(--font-mono)"
-        fontSize="9"
+        fontSize="11"
         letterSpacing="0.18em"
         fill="var(--cream-faint)"
         initial={reduce ? { opacity: 1 } : { opacity: 0 }}
@@ -210,7 +215,7 @@ export default function AgencyApprovalTimeline({ color = 'var(--case, var(--cora
         y={yPedi + 20}
         textAnchor="end"
         fontFamily="var(--font-mono)"
-        fontSize="9.5"
+        fontSize="11"
         letterSpacing="0.12em"
         fill="var(--cream-faint)"
         fontStyle="italic"

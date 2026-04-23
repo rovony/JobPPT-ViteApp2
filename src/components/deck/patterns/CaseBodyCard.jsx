@@ -61,7 +61,7 @@ export default function CaseBodyCard({
         columnGap: 'var(--space-5)',
         padding: 'var(--space-5)',
         paddingLeft: 'calc(var(--space-5) + 8px)',
-        background: 'color-mix(in srgb, var(--panel) 55%, transparent)',
+        background: 'color-mix(in srgb, var(--panel) 92%, transparent)',
         borderRadius: 'var(--radius-md)',
         minWidth: 0,
         minHeight: 0,
