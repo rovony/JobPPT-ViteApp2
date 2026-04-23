@@ -1,0 +1,605 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Font imports — v3.3 stack
+   Fraunces (display, variable opsz) · Inter (body) · JetBrains Mono (chrome)
+
+   Inter + JetBrains Mono are SELF-HOSTED via @fontsource packages
+   (installed as deps) — no Google Fonts CDN roundtrip, no FOUT from
+   DNS/TLS, no third-party request. Fraunces stays on the CDN because
+   no Fontsource package ships its variable opsz axis yet, and that
+   axis is what makes the deck's display type feel editorial.
+   ============================================================ */
+@import '@fontsource-variable/inter/index.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap');
+
+@layer base {
+  :root {
+    /* =========================================================
+       shadcn base tokens (unchanged — needed by shadcn/ui)
+       ========================================================= */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* =========================================================
+       DECK v3.3 — SINGLE SOURCE OF TRUTH
+       Edit tokens here; every slide updates.
+       ========================================================= */
+
+    /* =========================================================
+       SEMANTIC SURFACE + INK — the deck's dark "clinical" default.
+       Per-deck themes override these under [data-deck-theme="..."],
+       and light mode overrides them under [data-theme-mode="light"].
+       Everything downstream reads --bg / --cream / --panel / tints,
+       never the concrete hex literals.
+       ========================================================= */
+    --bg:               #1B1B1E;
+    --panel:            #27272B;
+    --panel-elevated:   #32323A;
+    --cream:            #D7D4CC;   /* primary ink */
+
+    /* Ink tints — opacity hierarchy. Never raw rgba elsewhere. */
+    --cream-muted:      rgba(215, 212, 204, 0.62);
+    --cream-faint:      rgba(215, 212, 204, 0.38);
+    --cream-dim:        rgba(215, 212, 204, 0.24);
+    --cream-hairline:   rgba(215, 212, 204, 0.14);
+    --cream-ghost:      rgba(215, 212, 204, 0.06);
+
+    /* --- Accent family (theme + case-study markers) --- */
+    --amber:            #FFE14D;    /* theme 01 · QP replaces study */
+    --cyan:             #7DD3FC;    /* theme 02 · dose precision    (CS2) */
+    --sage:             #6B8E73;    /* theme 03 · global strategy */
+    --violet:           #A78BFA;    /* theme 04 · novel methods     (CS3) */
+    --coral:            #FB923C;    /* theme 05 · judgment          (CS1) */
+
+    /* Per-case override — a slide/deck sets this ONE variable.
+       Default accent is amber so decks without an explicit case get
+       the brand primary rather than the case-study coral. */
+    --case:             var(--amber);
+
+    /* --- Semantic status (decoupled from case-study accents) --- */
+    --success:          #6B8E73;   /* sage */
+    --warn:             #F59E0B;
+    --danger:           #EF4444;
+    --info:             #7DD3FC;   /* cyan */
+
+    /* --- Typography stacks --- */
+    --font-display:     'Fraunces', Georgia, 'Times New Roman', serif;
+    --font-body:        'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    --font-mono:        'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+    /* --- Size scale (anchored in pt for 1920×1080 authoring) --- */
+    --fs-hero:          128pt;
+    --fs-hero-num:      132pt;
+    --fs-display:       96pt;
+    --fs-bignum:        220pt;
+    --fs-watermark:     380pt;
+    --fs-h1:            60pt;
+    --fs-h1-lg:         72pt;
+    --fs-h2:            48pt;
+    --fs-quote:         42pt;
+    --fs-h3:            36pt;
+    --fs-lead:          28pt;
+    --fs-kicker:        22pt;
+    --fs-body-lg:       19pt;
+    --fs-body:          16pt;
+    --fs-body-sm:       14pt;
+    --fs-meta:          13pt;
+    --fs-micro:         11pt;
+    --fs-nano:          9pt;
+
+    /* --- Font weight --- */
+    --fw-display-md:    500;
+    --fw-display-bold:  700;
+    --fw-body:          400;
+    --fw-body-md:       500;
+    --fw-body-semi:     600;
+    --fw-body-bold:     700;
+
+    /* --- Line height --- */
+    --lh-tight:         0.94;
+    --lh-snug:          1.10;
+    --lh-base:          1.30;
+    --lh-loose:         1.45;
+
+    /* --- Letter spacing --- */
+    --ls-display:       -0.03em;
+    --ls-headline:      -0.025em;
+    --ls-mono-tight:    0.12em;
+    --ls-mono:          0.18em;
+    --ls-mono-wide:     0.26em;
+
+    /* --- Layout --- */
+    --slide-w:          1920px;
+    --slide-h:          1080px;
+    --margin:           96px;
+    --margin-inner:     48px;
+    --gutter:           24px;
+    --stack-xs:         8pt;
+    --stack-sm:         12pt;
+    --stack-md:         18pt;
+    --stack-lg:         32pt;
+    --stack-xl:         48pt;
+
+    /* --- Strokes --- */
+    --stroke-hair:      1px;
+    --stroke-rule:      2px;
+    --stroke-hero:      6px;
+
+    /* --- Motion / narrative timeline --- */
+    --ease-out:         cubic-bezier(0.2, 0.7, 0.3, 1);
+    --ease-overshoot:   cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    --dur-draw:         2.4s;
+    --dur-draw-fast:    1.2s;
+    --dur-pop:          0.6s;
+    --dur-fade:         0.6s;
+    --dur-slide:        0.7s;
+    --dur-pulse:        2.4s;
+
+    --delay-kicker:     0.10s;
+    --delay-headline:   0.25s;
+    --delay-curve:      0.60s;
+    --delay-secondary:  1.10s;
+    --delay-milestones: 2.00s;
+    --delay-leaders:    2.20s;
+    --delay-labels:     2.60s;
+    --delay-cards:      2.90s;
+    --delay-annotate:   3.40s;
+    --delay-author:     3.60s;
+    --delay-meta:       3.80s;
+
+    /* =========================================================
+       BACK-COMPAT alias layer — keeps older components working
+       while we migrate everyone onto the v3.3 tokens.
+       All --deck-* HSL tokens map to v3.3 equivalents or to the
+       HSL values that existing components expect.
+       ========================================================= */
+    --deck-bg:                 240 7% 11%;   /* #1B1B1E */
+    --deck-surface:            240 6% 16%;   /* #27272B */
+    --deck-surface-elevated:   240 5% 20%;
+    --deck-ink:                42 13% 82%;   /* cream */
+    --deck-ink-muted:          42 13% 82%;
+    --deck-ink-subtle:         42 13% 82%;
+    --deck-rule:               42 13% 82%;
+    --deck-accent:             52 100% 65%;  /* amber */
+    --deck-accent-2:           25 95% 61%;   /* coral */
+    --deck-signal:             132 15% 49%;  /* sage */
+    --deck-warn:               35 95% 60%;
+    --deck-data-1:             199 94% 74%;  /* cyan */
+    --deck-data-2:             258 90% 76%;  /* violet */
+    --deck-data-3:             132 15% 49%;  /* sage */
+    --deck-data-4:             25 95% 61%;   /* coral */
+    --deck-data-5:             52 100% 65%;  /* amber */
+    --deck-data-6:             220 15% 55%;
+
+    --deck-font-display:       var(--font-display);
+    --deck-font-body:          var(--font-body);
+    --deck-font-mono:          var(--font-mono);
+
+    --deck-dur-fast:           180ms;
+    --deck-dur-base:           320ms;
+    --deck-dur-slow:           640ms;
+    --deck-dur-narrative:      900ms;
+    --deck-ease-out:           var(--ease-out);
+    --deck-ease-in-out:        cubic-bezier(0.65, 0, 0.35, 1);
+    --deck-ease-standard:      cubic-bezier(0.4, 0, 0.2, 1);
+
+    --deck-max-w:              1280px;
+    --deck-gutter:             clamp(2rem, 4.5vw, 4.5rem);
+    --deck-slide-pad:          clamp(1rem, 3.5vw, 5rem);
+    --deck-pad-top:            clamp(1rem, 3.5vh, 4rem);
+    --deck-pad-bottom:         clamp(3rem, 6vh, 6rem);
+    --deck-grid-colgap:        clamp(0.75rem, 1.2vw, 1.25rem);
+    --deck-grid-rowgap:        clamp(0.4rem, 0.8vh, 0.75rem);
+
+    /* Responsive breakpoints (read-only tokens for reference) */
+    --bp-sm: 640px;
+    --bp-md: 768px;
+    --bp-lg: 1024px;
+
+    /* =========================================================
+       FLUID TYPE SCALE — rem-based, responsive to both width AND
+       height so text stays proportional on short viewports
+       (phones in landscape, split windows). Every slide consumes
+       these tokens via SlideParts; slides never hardcode px/clamp.
+
+       Formula: clamp(floor, preferred, ceiling) where preferred
+       uses min(vw, vh * ratio) so narrow OR short viewports both
+       shrink the text. The ratio (~1.6) keeps a 16:10 slide aspect
+       in mind — vh dominates on short/landscape phones; vw
+       dominates on tall/portrait.
+       ========================================================= */
+    --fs-slide-eyebrow:  clamp(0.62rem, min(0.85vw, 1.4vh), 0.8rem);
+    --fs-slide-topright: clamp(0.6rem,  min(0.78vw, 1.3vh), 0.78rem);
+    --fs-slide-headline: clamp(1.5rem,  min(3.6vw, 6vh),    3.6rem);
+    --fs-slide-subhead:  clamp(0.8rem,  min(1.1vw, 1.8vh),  1.1rem);
+    --fs-slide-kicker:   clamp(0.58rem, min(0.78vw, 1.3vh), 0.78rem);
+    --fs-slide-tagline:  clamp(0.8rem,  min(1.15vw, 1.9vh), 1.15rem);
+    --fs-slide-pageno:   clamp(0.55rem, min(0.68vw, 1.1vh), 0.7rem);
+
+    /* =========================================================
+       Shape + elevation tokens
+       ========================================================= */
+    --radius-xs:  2px;
+    --radius-sm:  4px;
+    --radius-md:  8px;
+    --radius-lg:  10px;
+    --radius-xl:  14px;
+    --radius-pill: 999px;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.32);
+    --shadow-lg: 0 10px 32px rgba(0, 0, 0, 0.42);
+    --shadow-glow-case: 0 0 24px color-mix(in srgb, var(--case) 35%, transparent);
+
+    /* Modal scrim — used behind dialogs/overlays. Dark translucent wash
+       reads legibly in both light and dark mode. */
+    --scrim: rgba(0, 0, 0, 0.72);
+
+    /* =========================================================
+       Z-index scale — deck chrome, overlays, dialogs.
+       ========================================================= */
+    --z-slide:     1;
+    --z-chrome:    40;   /* NavControls, ProgressBar */
+    --z-overview:  60;   /* DeckOverview grid */
+    --z-presenter: 70;   /* PresenterView */
+    --z-overlay:   80;   /* Pending-fullscreen tap shield */
+    --z-dialog:    90;   /* Shadcn dialogs */
+    --z-toast:    100;
+
+    /* =========================================================
+       Numeric spacing scale (px-based, independent of --stack-*
+       which is pt-based for 1920×1080 authoring). Use these in
+       component gutters, card padding, grid gaps.
+       ========================================================= */
+    --space-1:   4px;
+    --space-2:   8px;
+    --space-3:   12px;
+    --space-4:   16px;
+    --space-5:   20px;
+    --space-6:   24px;
+    --space-8:   32px;
+    --space-10:  40px;
+    --space-12:  48px;
+    --space-16:  64px;
+  }
+
+  /* =========================================================
+     LIGHT MODE — global opt-in via
+     <html data-theme-mode="light"> OR on a deck-root via
+     <div data-theme-mode="light" class="deck-root">
+     Only the semantic surface + ink tokens flip; accents stay.
+     ========================================================= */
+  /* Light mode — stronger ink tint alphas. In dark mode, a 0.38 cream
+     sits on a near-black panel and still reads at ~6:1 contrast. In
+     light mode, the same 0.38 of near-black on a cream panel drops to
+     ~3:1 — below WCAG AA for small text. These bumped alphas restore
+     axis labels, chrome, and captions to readable contrast while
+     keeping the hierarchy (body > muted > faint > dim > hairline). */
+  [data-theme-mode="light"] {
+    --bg:             #F5F3ED;
+    --panel:          #FFFFFF;
+    --panel-elevated: #FAF8F2;
+    --cream:          #1B1B1E;   /* "cream" = primary ink; flips to near-black */
+    --cream-muted:    rgba(27, 27, 30, 0.78);
+    --cream-faint:    rgba(27, 27, 30, 0.58);
+    --cream-dim:      rgba(27, 27, 30, 0.36);
+    --cream-hairline: rgba(27, 27, 30, 0.18);
+    --cream-ghost:    rgba(27, 27, 30, 0.08);
+    /* Accents re-tuned for legibility on light paper. Amber is the
+       biggest offender (#FFE14D ~ 1.3:1 on cream) — darken to a burnt
+       gold that still reads as the same semantic color. */
+    --amber:          #B5830A;
+  }
+
+  /* =========================================================
+     PER-DECK THEMES — opt-in via <div data-deck-theme="..."> on
+     the deck-root. Each theme only overrides what it changes.
+     Add more themes here as decks register them.
+
+     ⚠ THEMING CONTRACT — READ BEFORE ADDING A THEME ⚠
+     Themes may override ONLY these semantic families:
+       • Surface + ink ...... --bg, --panel, --panel-elevated,
+                              --cream and its tint family
+       • Accent ............. --case (the per-deck case color)
+       • Font stacks ........ --font-display, --font-body, --font-mono
+     Themes MUST NOT override layout/spacing/grid tokens:
+       --slide-w, --slide-h, --margin*, --gutter, --stack-*,
+       --deck-gutter, --deck-slide-pad, --deck-pad-*, --deck-grid-*,
+       --fs-slide-*, --space-*, --z-*
+     These are the STRUCTURAL contract — grid geometry, rail
+     positions, chrome spacing, fluid type scale. Every slide
+     relies on them being identical across every deck.
+     ========================================================= */
+
+  /* Keynote noir — deeper ink, monochrome accent.
+     Only applies its dark palette when the theme-mode is NOT light,
+     so a light-mode deck-root or app-root correctly flips surfaces
+     back to paper values. The :not() guard defers to the light block. */
+  [data-deck-theme="keynote-noir"]:not([data-theme-mode="light"]) {
+    --bg:             #0E0E10;
+    --panel:          #1A1A1D;
+    --panel-elevated: #26262A;
+    --case:           var(--amber);
+  }
+  [data-deck-theme="keynote-noir"][data-theme-mode="light"] {
+    --case:           var(--amber);
+  }
+
+  /* Light editorial — white paper, black type, amber accent.
+     Amber #FFE14D has ~1.3:1 contrast on cream — unreadable. Darken to
+     a burnt-gold (#B8860B-ish) that hits WCAG AA on both white and cream
+     while still reading as "amber" next to the dark-mode palette. */
+  [data-deck-theme="light-editorial"] {
+    --bg:             #FFFFFF;
+    --panel:          #F7F5EF;
+    --panel-elevated: #FAF8F2;
+    --cream:          #1B1B1E;
+    --cream-muted:    rgba(27, 27, 30, 0.78);
+    --cream-faint:    rgba(27, 27, 30, 0.58);
+    --cream-dim:      rgba(27, 27, 30, 0.36);
+    --cream-hairline: rgba(27, 27, 30, 0.18);
+    --cream-ghost:    rgba(27, 27, 30, 0.08);
+    --amber:          #B5830A;
+    --case:           var(--amber);
+  }
+
+  /* Clinical — the deck default; declared for clarity even though
+     it matches :root. Makes intent explicit in DeckRunner.
+     No surface overrides, so light mode flows through naturally. */
+  [data-deck-theme="clinical"] {
+    --case: var(--amber);
+  }
+
+  /* When a light-mode is explicitly requested INSIDE a deck-themed
+     scope, inherit the light paper palette from the parent :root
+     light block. This handles nested cases like Home's deck cards
+     where each card sets data-deck-theme + data-theme-mode="light". */
+  [data-deck-theme][data-theme-mode="light"] {
+    --bg:             #F5F3ED;
+    --panel:          #FFFFFF;
+    --panel-elevated: #FAF8F2;
+    --cream:          #1B1B1E;
+    --cream-muted:    rgba(27, 27, 30, 0.78);
+    --cream-faint:    rgba(27, 27, 30, 0.58);
+    --cream-dim:      rgba(27, 27, 30, 0.36);
+    --cream-hairline: rgba(27, 27, 30, 0.18);
+    --cream-ghost:    rgba(27, 27, 30, 0.08);
+    --amber:          #B5830A;
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  /* =========================================================
+     Per-case theme overrides. A deck/slide root sets one of:
+     data-case="coral" | "cyan" | "violet" | "amber" | "sage"
+     ========================================================= */
+  [data-case="coral"]  { --case: var(--coral); }
+  [data-case="cyan"]   { --case: var(--cyan); }
+  [data-case="violet"] { --case: var(--violet); }
+  [data-case="amber"]  { --case: var(--amber); }
+  [data-case="sage"]   { --case: var(--sage); }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+@layer components {
+  /* deck-root: the wrapping surface for any slide runner or page */
+  .deck-root {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: var(--font-body);
+    min-height: 100vh;
+  }
+
+  /* Typography utility classes — prefer these over inline styles */
+  .deck-display {
+    font-family: var(--font-display);
+    letter-spacing: var(--ls-display);
+    font-weight: var(--fw-display-bold);
+    font-variation-settings: 'opsz' 144;
+  }
+  .deck-mono {
+    font-family: var(--font-mono);
+    letter-spacing: var(--ls-mono);
+  }
+  .deck-body {
+    font-family: var(--font-body);
+    font-weight: var(--fw-body);
+  }
+
+  .deck-rule        { border-color: var(--cream-hairline); }
+  .deck-ink         { color: var(--cream); }
+  .deck-ink-muted   { color: var(--cream-muted); }
+  .deck-ink-faint   { color: var(--cream-faint); }
+  .deck-ink-subtle  { color: var(--cream-faint); }
+
+  /* ----- Shared keyframes (v3.3) ----- */
+  @keyframes tk-draw      { to { stroke-dashoffset: 0; } }
+  @keyframes tk-fade      { to { opacity: 1; } }
+  @keyframes tk-pop       { 0%   { opacity: 0; transform: scale(0.4); }
+                            100% { opacity: 1; transform: scale(1); } }
+  @keyframes tk-pulse     { 0%,100% { opacity: 0.22; transform: scale(1); }
+                            50%     { opacity: 0;    transform: scale(2.2); } }
+  @keyframes tk-slide-up  { from { opacity: 0; transform: translateY(12px); }
+                            to   { opacity: 1; transform: translateY(0); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .deck-motion-safe { transition: none !important; animation: none !important; }
+  }
+
+  /* =========================================================
+     Presenter speaker-notes prose styles
+     ========================================================= */
+  .notes-prose {
+    font-family: var(--font-body);
+    color: var(--cream);
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+  .notes-prose > *:first-child { margin-top: 0; }
+  .notes-prose > *:last-child  { margin-bottom: 0; }
+
+  .notes-h1 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: var(--ls-headline);
+    color: var(--cream);
+    margin: 1rem 0 0.5rem;
+    line-height: 1.15;
+  }
+  .notes-h2 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: var(--ls-headline);
+    color: var(--cream);
+    margin: 0.9rem 0 0.4rem;
+    line-height: 1.2;
+  }
+  .notes-h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin: 0.75rem 0 0.3rem;
+  }
+  .notes-p  { margin: 0.5rem 0; }
+  .notes-ul { list-style: disc;    padding-left: 1.25rem; margin: 0.5rem 0; }
+  .notes-ol { list-style: decimal; padding-left: 1.5rem;  margin: 0.5rem 0; }
+  .notes-li { margin: 0.2rem 0; }
+  .notes-li::marker { color: var(--case, var(--amber)); }
+
+  .notes-strong { color: var(--cream); font-weight: 700; }
+  .notes-em     { color: var(--cream-muted); font-style: italic; }
+
+  .notes-mark {
+    background: color-mix(in srgb, var(--case, #FFE14D) 30%, transparent);
+    color: var(--cream);
+    padding: 0 0.2em;
+    border-radius: 2px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  /* ========================================================
+     Reading mode — used by PresenterNotesPane in dual-screen.
+     Larger breathing room, stronger hierarchy, brighter
+     highlights so the presenter can find their cue at a glance.
+     ======================================================== */
+  .notes-prose--reading { font-size: inherit; line-height: inherit; }
+  .notes-prose--reading .notes-h1 { font-size: 1.55em; margin: 1.2em 0 0.5em; }
+  .notes-prose--reading .notes-h2 { font-size: 1.22em; margin: 1em 0 0.4em; color: var(--case, var(--amber)); }
+  .notes-prose--reading .notes-h3 { font-size: 1.05em; margin: 0.8em 0 0.3em; }
+  .notes-prose--reading .notes-p  { margin: 0.65em 0; }
+  .notes-prose--reading .notes-ul,
+  .notes-prose--reading .notes-ol { margin: 0.7em 0; padding-left: 1.4em; }
+  .notes-prose--reading .notes-li { margin: 0.35em 0; }
+  .notes-prose--reading .notes-strong { color: var(--cream); }
+  .notes-prose--reading .notes-mark {
+    background: color-mix(in srgb, var(--case, #FFE14D) 45%, transparent);
+    font-weight: 600;
+    padding: 0.05em 0.3em;
+  }
+  .notes-prose--reading .notes-quote {
+    border-left-width: 4px;
+    padding: 0.3em 0 0.3em 1em;
+    margin: 0.9em 0;
+    font-size: 0.95em;
+  }
+
+  .notes-quote {
+    border-left: 3px solid var(--case, var(--amber));
+    padding: 0.15rem 0 0.15rem 0.9rem;
+    margin: 0.7rem 0;
+    color: var(--cream-muted);
+    font-style: italic;
+  }
+  .notes-code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    padding: 0.1em 0.35em;
+    background: rgba(255,255,255,0.06);
+    border-radius: 3px;
+    color: var(--cream);
+  }
+}

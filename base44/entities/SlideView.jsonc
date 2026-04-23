@@ -1,0 +1,51 @@
+{
+  "name": "SlideView",
+  "type": "object",
+  "properties": {
+    "deck_id": {
+      "type": "string",
+      "description": "Deck this view belongs to (e.g. 'qp2-seminar')"
+    },
+    "slide_id": {
+      "type": "string",
+      "description": "The slide the viewer was on during this view"
+    },
+    "slide_index": {
+      "type": "number",
+      "description": "Numeric index of the slide within the deck at view time"
+    },
+    "duration_ms": {
+      "type": "number",
+      "description": "Milliseconds the slide was on screen (time spent)"
+    },
+    "entered_from_slide_id": {
+      "type": "string",
+      "description": "Slide id the viewer came from (for navigation flow). Null/empty if this was the first slide of the session."
+    },
+    "direction": {
+      "type": "string",
+      "enum": [
+        "forward",
+        "backward",
+        "jump",
+        "entry"
+      ],
+      "default": "forward",
+      "description": "How the viewer arrived: forward (next), backward (prev), jump (overview/url), entry (first slide of session)"
+    },
+    "session_id": {
+      "type": "string",
+      "description": "Per-browser-tab session id so consecutive views can be chained into a viewing session"
+    },
+    "is_presenter": {
+      "type": "boolean",
+      "default": false,
+      "description": "True if this view came from a presenter-mode session (so it can be excluded from audience analytics)"
+    }
+  },
+  "required": [
+    "deck_id",
+    "slide_id",
+    "duration_ms"
+  ]
+}

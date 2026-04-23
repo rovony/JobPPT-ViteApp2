@@ -1,0 +1,6 @@
+<!-- Paste your <svg>...</svg> markup here.
+     Tips:
+       · Keep a viewBox (e.g. viewBox="0 0 240 320") so it scales.
+       · Use stroke="currentColor" / fill="currentColor" if you want
+         the wrapper's color prop to tint it.
+-->

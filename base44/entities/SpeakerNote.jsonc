@@ -1,0 +1,26 @@
+{
+  "name": "SpeakerNote",
+  "type": "object",
+  "properties": {
+    "deck_id": {
+      "type": "string",
+      "description": "ID of the deck this note belongs to (e.g. 'qp2-seminar')"
+    },
+    "slide_id": {
+      "type": "string",
+      "description": "ID of the slide within the deck (e.g. 'title', 'hook')"
+    },
+    "slide_index": {
+      "type": "number",
+      "description": "Numeric index of the slide within the deck, for sorting/lookup"
+    },
+    "content": {
+      "type": "string",
+      "description": "The speaker-notes body (markdown supported)"
+    }
+  },
+  "required": [
+    "deck_id",
+    "slide_id"
+  ]
+}

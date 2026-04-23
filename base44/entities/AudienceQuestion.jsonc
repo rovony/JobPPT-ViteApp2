@@ -1,0 +1,46 @@
+{
+  "name": "AudienceQuestion",
+  "type": "object",
+  "properties": {
+    "deck_id": {
+      "type": "string",
+      "description": "Deck the question belongs to (e.g. 'qp2-seminar')"
+    },
+    "slide_id": {
+      "type": "string",
+      "description": "Slide id the question is tagged to. 'general' for questions not tied to a specific slide."
+    },
+    "slide_index": {
+      "type": "number",
+      "description": "Denormalized numeric index of the slide at submission time, for sorting/display"
+    },
+    "question": {
+      "type": "string",
+      "description": "The question text as submitted by the audience member"
+    },
+    "author_name": {
+      "type": "string",
+      "description": "Display name the audience member chose (optional, may be 'Anonymous')"
+    },
+    "votes": {
+      "type": "number",
+      "default": 0,
+      "description": "Count of audience upvotes"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "new",
+        "surfaced",
+        "answered",
+        "hidden"
+      ],
+      "default": "new",
+      "description": "Moderation status. new=incoming, surfaced=highlighted by presenter, answered=addressed live, hidden=moderated out"
+    }
+  },
+  "required": [
+    "deck_id",
+    "question"
+  ]
+}
