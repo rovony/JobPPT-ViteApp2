@@ -255,7 +255,7 @@ function PathwayChips() {
     ...chipBase,
     background: 'var(--coral-wash, rgba(251,146,60,0.14))',
     borderColor: 'transparent',
-    color: '#F4B382',
+    color: 'var(--coral-highlight)',
   };
   const sep = { color: 'var(--cream-dim)', margin: '0 4px' };
   return (

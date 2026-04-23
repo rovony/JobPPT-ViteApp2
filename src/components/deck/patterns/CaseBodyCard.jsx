@@ -193,7 +193,7 @@ export function CardHighlight({ children }) {
     <span
       style={{
         background: 'var(--coral-wash, rgba(251,146,60,0.14))',
-        color: '#F4B382',
+        color: 'var(--coral-highlight)',
         padding: '2px 8px',
         borderRadius: 4,
         fontWeight: 500,

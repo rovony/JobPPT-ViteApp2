@@ -10,8 +10,11 @@ import Slide11c from './slides/11c-case-build';
 import Slide11d from './slides/11d-case-fit';
 import Slide11e from './slides/11e-case-exposure-match';
 import Slide11f from './slides/11f-case-exposure-response';
-import Slide12 from './slides/12-case-fit';
-import Slide13 from './slides/13-case-impact';
+// Slide 13 (impact numerals) lives in 13-case-impact.jsx.
+// Slide 14 (bridge) lives in 14-case-bridge.jsx. Variable names kept
+// as Slide12/Slide13 for now to avoid churn in the rest of the file.
+import Slide12 from './slides/13-case-impact';
+import Slide13 from './slides/14-case-bridge';
 import Slide14Case2 from './slides/14-case2-divider';
 import Slide15Case2Challenge from './slides/15-case2-challenge';
 import Slide16Case2Strategy from './slides/16-case2-strategy';

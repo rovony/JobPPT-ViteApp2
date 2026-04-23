@@ -86,6 +86,8 @@
     --sage:             #6B8E73;    /* theme 03 · global strategy */
     --violet:           #A78BFA;    /* theme 04 · novel methods     (CS3) */
     --coral:            #FB923C;    /* theme 05 · judgment          (CS1) */
+    --coral-highlight:  #F4B382;    /* warm coral ink for highlight chips / active pills */
+    --coral-wash:       rgba(251, 146, 60, 0.14);  /* translucent coral for highlight/pill backgrounds */
 
     /* Per-case override — a slide/deck sets this ONE variable.
        Default accent is amber so decks without an explicit case get

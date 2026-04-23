@@ -1,327 +1,350 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Check } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import { useTokens } from '@/lib/token';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Viz, Footer } from '@/components/deck/SlideParts';
 import { QP2_THEMES } from '../themes';
-import PipelineBridgeCard from './cs1-bridge/PipelineBridgeCard';
+import ApprovalTimeline from '@/components/deck/patterns/ApprovalTimeline';
 
 /**
- * Slide 13 · CS1 Bridge forward + Framework recap.
+ * Slide 12 · CS1 Impact — "Same data. Same model. Two regulators approved."
  *
- * Layout (top → bottom):
- *   1. Centered amber headline      "The methodology travels."
- *   2. Two-column split:
- *        LEFT  — "THE TEMPLATE" checklist (5 bullets, checkmark icons)
- *        RIGHT — PipelineBridgeCard (amber) — "Where it applies — [company]"
- *   3. Full-width amber payoff line: "The value isn't one dose — it's a
- *      reusable template for pediatric extrapolation."
- *   4. Four framework-theme tiles (only active themes 01/02/03/05 shown;
- *      theme 04 "Novel methods" intentionally omitted from this case).
+ * Asymmetric editorial hero:
+ *   • Faint coral arc (SVG, low opacity) sweeps behind three oversized numerals
+ *   • ×2 (coral, dominant left) · ~3% (amber, upper-right, tilted -4°) · 39 (cream, lower-right)
+ *   • Each number count-ups in sync with its pop-in
+ *   • Inline typographic theme meta bottom-left (01·02·03 active)
  *
- * The right-side pipeline bridge is extracted so Merck (Sotatercept / WINREVAIR)
- * can be swapped for another compound/company with a one-prop change.
+ * Regulator attribution: EMA (Sep 2021) + PMDA (Apr 2021) — NOT FDA/HC.
+ *
+ * Motion:
+ *   1. Arc stroke-dashoffset draws in (1.5s)
+ *   2. Numbers stagger-pop at 1.5s / 2.0s / 2.5s
+ *   3. Count-ups run 900ms synced to each pop
+ *   4. Captions fade 0.6s after their parent settles
  */
+const ACTIVE_THEME_NUMS = ['01', '02', '03'];
 
-// Which themes this case actually exercised (CS1: 01, 02, 03, 05 — NOT 04)
-const ACTIVE_NUMS = ['01', '02', '03', '05'];
-
-// Template checklist — 5 bullets per the mockup
-const TEMPLATE_BULLETS = [
-  'Build the adult PopPK model on the full adult evidence base',
-  'Predict pediatric concentrations (pcVPC) before fitting',
-  'Fit pediatric-specific model with allometric scaling fixed',
-  'Compare exposure distributions — not just means',
-  'Anchor the regulatory narrative in exposure-matching, not a separate efficacy study',
-];
-
-// Per-theme detail lines (the body under each theme title in the ribbon)
-const THEME_DETAIL = {
-  '01': 'The pediatric PopPK model substituted for a pediatric efficacy trial.',
-  '02': 'Exposure matching enabled defensible weight-based pediatric dosing.',
-  '03': 'The same evidence produced different outcomes at EMA, FDA, and Health Canada.',
-  '05': 'Parsimony decisions on allometric scaling and covariates required judgment with limited pediatric data.',
-};
-
-export default function Slide13() {
+export default function Slide12() {
   const ease = [0.2, 0.7, 0.3, 1];
   const D = {
-    chrome: 0.10, headline: 0.30,
-    leftLabel: 0.60, bullets: 0.75,
-    bridge: 1.10,
-    payoff: 1.80,
-    themesLabel: 2.10, themes: 2.25,
-    source: 3.20,
+    chrome: 0.10, headline: 0.25,
+    arc: 0.4,
+    n1: 1.5, n1Caption: 2.1,
+    n2: 2.0, n2Caption: 2.6,
+    n3: 2.5, n3Caption: 3.1,
+    themes: 3.4,
   };
 
-  const T = useTokens([
-    '--coral', '--amber', '--cyan', '--sage', '--violet',
-    '--cream', '--cream-muted', '--cream-faint', '--cream-hairline',
-  ]);
+  const T = useTokens(['--coral', '--amber', '--cream', '--cream-muted', '--cream-faint', '--cream-hairline', '--cream-dim']);
   const tk = (n, fb = 'transparent') => (T ? T[n] || fb : fb);
-
-  const activeThemes = QP2_THEMES.filter((t) => ACTIVE_NUMS.includes(t.num));
 
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
-      <Eyebrow color="var(--cream-muted)" delay={D.chrome}>CS1 · Bridge forward + Framework recap</Eyebrow>
-      <Headline delay={D.headline} maxChars={28}>
-        <span style={{ color: 'var(--amber)', fontStyle: 'italic', fontWeight: 700 }}>
-          The methodology travels.
-        </span>
+      <Eyebrow color="var(--coral)" delay={D.chrome}>Case 01 · Impact · Regulatory outcome</Eyebrow>
+      <Headline delay={D.headline} maxChars={32}>
+        Same data. Same model.
+        <br />
+        <span style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 700 }}>
+          Two independent regulators
+        </span>{' '}
+        <span style={{ color: 'var(--amber)', fontWeight: 700 }}>approved</span>.
       </Headline>
 
       <Viz>
-        <div style={{ width: '100%', height: '100%', display: 'grid', gridTemplateRows: 'auto auto 1fr', rowGap: 'var(--space-4)', minHeight: 0 }}>
-      {/* ═══════════ Top split: template · pipeline ═══════════ */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1.15fr 1fr',
-          gap: 'var(--space-10)',
-          alignItems: 'start',
-        }}
+        <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: 0 }}>
+      {/* ─── Arc SVG — ties the three numbers together ─── */}
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        viewBox="0 0 1920 720"
+        preserveAspectRatio="xMidYMid slice"
+        aria-hidden
       >
-        {/* LEFT — Template checklist */}
-        <div>
-          <motion.div
-            className="deck-mono uppercase"
-            style={{
-              fontSize: '0.72rem',
-              letterSpacing: 'var(--ls-mono-wide)',
-              color: 'var(--cream-muted)',
-              marginBottom: '18px',
-              lineHeight: 1.4,
-              maxWidth: '52ch',
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, ease, delay: D.leftLabel }}
-          >
-            The template — generalizes to any oral small-molecule entering a pediatric population
-          </motion.div>
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              rowGap: '14px',
-              columnGap: '24px',
-            }}
-          >
-            {TEMPLATE_BULLETS.map((b, i) => (
-              <TemplateBullet
-                key={i}
-                text={b}
-                delay={D.bullets + i * 0.10}
-                // last bullet (full-width emphasis) spans both cols
-                full={i === TEMPLATE_BULLETS.length - 1}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* RIGHT — Swappable pipeline bridge card */}
-        <PipelineBridgeCard
-          label="Where it applies — Merck pipeline"
-          body={
-            <>
-              <strong style={{ color: 'var(--cream)', fontWeight: 600 }}>
-                Sotatercept (WINREVAIR)
-              </strong>{' '}
-              faces a structurally similar question: pediatric PAH extrapolation, with a PIP agreed with EMA{' '}
-              <span style={{ color: 'var(--amber)' }}>(P/0414/2022)</span> and a pediatric PK study{' '}
-              <span style={{ color: 'var(--amber)' }}>NCT05587712</span> underway.
-              <br />
-              <br />
-              Biologic versus small molecule changes the PK — but the regulatory logic (exposure-matching,
-              cross-agency narrative, E-R defensibility) is the{' '}
-              <em style={{ color: 'var(--cream)', fontStyle: 'italic' }}>same framework</em> applied for ambrisentan.
-            </>
-          }
-          footer="WINREVAIR pipeline bridge"
-          delay={D.bridge}
-          accent="var(--amber)"
+        <motion.path
+          d="M 180,820
+             C 520,720 780,420 1200,300
+             C 1420,240 1620,260 1780,360
+             C 1840,420 1780,560 1600,660
+             C 1460,720 1360,740 1220,760"
+          fill="none"
+          stroke={tk('--coral')}
+          strokeOpacity={0.1}
+          strokeWidth={6}
+          strokeLinecap="round"
+          strokeDasharray={3200}
+          initial={{ strokeDashoffset: 3200 }}
+          animate={{ strokeDashoffset: 0 }}
+          transition={{ duration: 1.5, ease, delay: D.arc }}
         />
-      </div>
+      </svg>
 
-      {/* ─── Amber payoff line ─── */}
+      {/* ─── ×2  (dominant, left) ───────────────── */}
       <motion.div
-        style={{ textAlign: 'center' }}
-        initial={{ opacity: 0, y: 10 }}
+        className="absolute"
+        style={{ top: '28%', left: 0, maxWidth: '540px' }}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease, delay: D.payoff }}
+        transition={{ duration: 0.7, ease, delay: D.n1 }}
       >
-        <div
-          className="deck-display"
-          style={{
-            fontSize: 'clamp(1.1rem, 1.5vw, 1.65rem)',
-            color: 'var(--amber)',
-            fontWeight: 700,
-            letterSpacing: 'var(--ls-headline)',
-            lineHeight: 1.2,
-          }}
-        >
-          The value isn't one dose — it's a reusable template for pediatric extrapolation.
+        <div className="deck-display flex items-baseline" style={{ lineHeight: 'var(--lh-tight)' }}>
+          <span
+            className="deck-display"
+            style={{
+              fontSize: 'clamp(5rem, 10vw, 11rem)',
+              fontWeight: 600,
+              color: 'var(--cream-muted)',
+              marginRight: '0.1em',
+              transform: 'translateY(-0.08em)',
+              display: 'inline-block',
+            }}
+          >
+            ×
+          </span>
+          <CountUpDigit
+            target={2}
+            delay={D.n1}
+            duration={0.9}
+            style={{
+              fontSize: 'clamp(9rem, 18vw, 20rem)',
+              fontWeight: 700,
+              color: 'var(--coral)',
+              letterSpacing: '-0.02em',
+            }}
+          />
         </div>
+        <Caption
+          delay={D.n1Caption}
+          lead="EMA + PMDA — same PopPK-driven label."
+          meta="European Medicines Agency (Sep 2021) and PMDA (Apr 2021) each accepted the modeling-based pediatric dose on the same underlying evidence."
+          marginLeft="18px"
+        />
       </motion.div>
 
-      {/* ═══════════ Framework themes ribbon ═══════════ */}
-      <div style={{ minHeight: 0 }}>
-        <motion.div
-          className="deck-mono uppercase"
-          style={{
-            textAlign: 'center',
-            fontSize: '0.72rem',
-            letterSpacing: 'var(--ls-mono-wide)',
-            color: 'var(--coral)',
-            fontWeight: 700,
-            marginBottom: '14px',
-            paddingTop: '18px',
-            borderTop: '1px solid var(--cream-hairline)',
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, ease, delay: D.themesLabel }}
-        >
-          Framework themes in this case study
-        </motion.div>
-
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '16px',
-          }}
-        >
-          {activeThemes.map((theme, i) => (
-            <ThemeTile
-              key={theme.num}
-              theme={theme}
-              detail={THEME_DETAIL[theme.num]}
-              delay={D.themes + i * 0.12}
-              tk={tk}
-            />
-          ))}
+      {/* ─── ~3% (amber, upper-right, tilted -4°) ── */}
+      <motion.div
+        className="absolute"
+        style={{
+          top: 0,
+          right: '4%',
+          maxWidth: '440px',
+          textAlign: 'right',
+          transformOrigin: 'right center',
+        }}
+        initial={{ opacity: 0, y: 12, rotate: -4 }}
+        animate={{ opacity: 1, y: 0, rotate: -4 }}
+        transition={{ duration: 0.7, ease, delay: D.n2 }}
+      >
+        <div className="deck-display flex items-baseline justify-end" style={{ lineHeight: 'var(--lh-tight)' }}>
+          <span
+            className="deck-display"
+            style={{
+              fontSize: 'clamp(3.5rem, 7vw, 7.5rem)',
+              fontWeight: 500,
+              color: 'var(--cream-muted)',
+              marginRight: '0.05em',
+            }}
+          >
+            ~
+          </span>
+          <CountUpDigit
+            target={3}
+            delay={D.n2}
+            duration={0.9}
+            style={{
+              fontSize: 'clamp(5.5rem, 12vw, 13rem)',
+              fontWeight: 700,
+              color: 'var(--amber)',
+              letterSpacing: '-0.02em',
+            }}
+          />
+          <span
+            className="deck-display"
+            style={{
+              fontSize: 'clamp(2.8rem, 5.5vw, 6rem)',
+              fontWeight: 600,
+              color: 'var(--coral)',
+              marginLeft: '0.04em',
+            }}
+          >
+            %
+          </span>
         </div>
-      </div>
+        <Caption
+          delay={D.n2Caption}
+          lead="Weight-band dosing within 3% of adult exposure."
+          meta={
+            <>
+              Three tiers (≥35 kg → 10 mg · 20–&lt;35 kg → 7.5 mg · 10–&lt;20 kg → 5 mg) deliver matched AUC
+              <sub>ss</sub>.
+            </>
+          }
+          align="right"
+        />
+      </motion.div>
+
+      {/* ─── 39 (cream, lower-right) ─────────────── */}
+      <motion.div
+        className="absolute"
+        style={{
+          bottom: '8%',
+          right: '8%',
+          maxWidth: '420px',
+          textAlign: 'right',
+        }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease, delay: D.n3 }}
+      >
+        <div className="deck-display flex items-baseline justify-end" style={{ lineHeight: 'var(--lh-tight)' }}>
+          <CountUpDigit
+            target={39}
+            delay={D.n3}
+            duration={0.9}
+            style={{
+              fontSize: 'clamp(5rem, 10vw, 11rem)',
+              fontWeight: 700,
+              color: 'var(--cream)',
+              letterSpacing: '-0.02em',
+            }}
+          />
+        </div>
+        <Caption
+          delay={D.n3Caption}
+          lead="Thirty-nine pediatric subjects carried the label."
+          meta="No new pediatric efficacy trial required — the model was the evidence the agencies accepted."
+          align="right"
+        />
+      </motion.div>
+
+      {/* ─── Approval timeline (closed-up) ───
+          Shared layoutId with slide 11. When user navigates 11→13,
+          framer-motion morphs the timeline: the dashed pediatric silence
+          (2007→2021) fills in with solid coral, the "19 YEARS" amber
+          silence label morphs into "PMDA APR 2021 · EMA SEP 2021".
+          Editorial payoff of the case. */}
+      <motion.div
+        className="absolute"
+        style={{
+          left: 0,
+          right: 0,
+          bottom: 60,
+          padding: 'var(--space-3) var(--space-4)',
+          borderTop: '1px solid var(--cream-hairline)',
+          borderBottom: '1px solid var(--cream-hairline)',
+          background: 'color-mix(in srgb, var(--panel) 40%, transparent)',
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: D.themes + 0.1 }}
+      >
+        <ApprovalTimeline state="closed-up" compact delay={D.themes + 0.3} />
+      </motion.div>
+
+      {/* ─── Inline theme meta (bottom-left) ─── */}
+      <motion.div
+        className="absolute deck-mono uppercase"
+        style={{
+          left: 0,
+          bottom: 0,
+          fontSize: 'var(--fs-slide-pageno)',
+          letterSpacing: 'var(--ls-mono)',
+          color: 'var(--cream-muted)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 'var(--space-3)',
+          flexWrap: 'wrap',
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, ease, delay: D.themes }}
+      >
+        <span style={{ color: 'var(--cream-faint)' }}>Themes exercised</span>
+        {ACTIVE_THEME_NUMS.map((num, i) => {
+          const theme = QP2_THEMES.find((t) => t.num === num);
+          if (!theme) return null;
+          return (
+            <React.Fragment key={num}>
+              {i > 0 && <span style={{ color: 'var(--cream-dim)' }}>·</span>}
+              <span style={{ color: 'var(--cream)', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ color: 'var(--coral)', fontWeight: 700 }}>{theme.num}</span>
+                <span style={{ color: 'var(--cream)' }}>{theme.glyph}</span>
+              </span>
+            </React.Fragment>
+          );
+        })}
+      </motion.div>
 
         </div>
       </Viz>
 
       <Footer
-        kicker="Case 01 · Bridge"
-        tagline="Source · CS1 Reading Pt. 3 · Framework themes recap"
-        delay={D.source}
+        kicker="Case 01 · Impact"
+        tagline="Source · CS1 Reading Pt. 3 · Okour et al. JCP 2023 · EMA + PMDA labels (2021)"
+        delay={D.themes + 0.3}
       />
     </SlideGrid>
   );
 }
 
 /* ========================================================
-   TemplateBullet — checkmark + single-line text
-   Last one spans both cols for visual emphasis.
+   CountUpDigit — animates 0 → target, synced to parent pop.
    ======================================================== */
-function TemplateBullet({ text, delay, full }) {
-  const ease = [0.2, 0.7, 0.3, 1];
+function CountUpDigit({ target, delay = 0, duration = 0.9, style }) {
+  const count = useMotionValue(0);
+  const rounded = useTransform(count, (v) => Math.round(v));
+
+  useEffect(() => {
+    const controls = animate(count, target, {
+      duration,
+      delay,
+      ease: [0.2, 0.7, 0.3, 1],
+    });
+    return controls.stop;
+  }, [count, target, duration, delay]);
+
   return (
-    <motion.div
-      style={{
-        display: 'flex',
-        alignItems: 'flex-start',
-        gap: 12,
-        gridColumn: full ? '1 / -1' : 'auto',
-      }}
-      initial={{ opacity: 0, x: -8 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5, ease, delay }}
-    >
-      <span
-        style={{
-          flex: '0 0 auto',
-          width: 22,
-          height: 22,
-          borderRadius: '50%',
-          border: '1px solid var(--cream-hairline)',
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: 2,
-        }}
-      >
-        <Check size={12} strokeWidth={2.5} color="var(--cream-muted)" />
-      </span>
-      <span
-        style={{
-          fontFamily: 'var(--font-body)',
-          fontSize: 'clamp(0.82rem, 0.92vw, 0.98rem)',
-          lineHeight: 1.4,
-          color: 'var(--cream)',
-        }}
-      >
-        {text}
-      </span>
-    </motion.div>
+    <motion.span className="deck-display tabular-nums" style={style}>
+      {rounded}
+    </motion.span>
   );
 }
 
 /* ========================================================
-   ThemeTile — bordered tile for the framework ribbon
+   Caption — lead line + muted meta. Fades in on delay.
    ======================================================== */
-function ThemeTile({ theme, detail, delay, tk }) {
-  const ease = [0.2, 0.7, 0.3, 1];
-  const color = tk(`--${theme.token}`);
+function Caption({ lead, meta, delay, align = 'left', marginLeft }) {
   return (
     <motion.div
+      className="deck-display italic"
       style={{
-        padding: '18px 20px 20px 20px',
-        borderRadius: 4,
-        border: '1px solid var(--cream-hairline)',
-        background: 'color-mix(in srgb, var(--panel) 35%, transparent)',
+        marginTop: '20pt',
+        marginLeft: align === 'right' ? 'auto' : marginLeft,
+        textAlign: align,
+        fontSize: 'clamp(0.9rem, 1.1vw, 1.2rem)',
+        lineHeight: 'var(--lh-base)',
+        color: 'var(--cream)',
+        fontWeight: 500,
+        maxWidth: align === 'right' ? '420px' : '520px',
       }}
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, ease, delay }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.2, 0.7, 0.3, 1], delay }}
     >
-      {/* Glyph */}
-      <div
+      {lead}
+      <span
+        className="deck-body"
         style={{
-          fontSize: '1.6rem',
-          color,
-          lineHeight: 1,
-          marginBottom: '14px',
-        }}
-      >
-        {theme.glyph}
-      </div>
-
-      {/* Title */}
-      <div
-        className="deck-mono uppercase"
-        style={{
-          fontSize: '0.72rem',
-          letterSpacing: 'var(--ls-mono-wide)',
-          color: 'var(--cream)',
-          fontWeight: 700,
-          marginBottom: '8px',
-        }}
-      >
-        {theme.title}
-      </div>
-
-      {/* Detail */}
-      <div
-        className="deck-display italic"
-        style={{
-          fontSize: 'clamp(0.74rem, 0.84vw, 0.9rem)',
-          lineHeight: 1.4,
-          color: 'var(--cream-muted)',
+          display: 'block',
+          marginTop: '6pt',
+          fontStyle: 'normal',
           fontWeight: 400,
+          fontSize: 'clamp(0.7rem, 0.82vw, 0.88rem)',
+          color: 'var(--cream-muted)',
+          lineHeight: 1.45,
         }}
       >
-        {detail}
-      </div>
+        {meta}
+      </span>
     </motion.div>
   );
 }
