@@ -26,11 +26,16 @@ import lungsSvgUrl from './lungs.svg';
  * the LayoutGroup in DeckRunner. Layout transition is 1s cubic-bezier
  * matching v0 exactly.
  */
-const LAYOUT_TRANSITION = { duration: 1, ease: [0.4, 0, 0.2, 1] };
+// Slow enough to read as a deliberate "camera pullback" rather than a
+// quick snap. 1.8s feels like the lens intentionally drifting, 1s felt
+// like a fast zoom. Cubic-bezier preserves the smooth acceleration.
+const LAYOUT_TRANSITION = { duration: 1.8, ease: [0.4, 0, 0.2, 1] };
 
 const DIMENSIONS = {
   hero:    { width: 'clamp(180px, 22vw, 300px)', aspectRatio: '482 / 581' },
-  context: { width: 'clamp(320px, 38vw, 520px)', aspectRatio: '482 / 581' },
+  // Bigger on slide 6 so the lung dominates the center column and the
+  // 5->6 morph reads as a strong pullback (small right -> big center).
+  context: { width: 'clamp(420px, 50vw, 720px)', aspectRatio: '482 / 581' },
 };
 
 export default function LungsShared({
