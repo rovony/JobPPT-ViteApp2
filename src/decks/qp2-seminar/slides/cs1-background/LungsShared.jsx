@@ -3,34 +3,27 @@ import { motion } from 'framer-motion';
 import LungsDiagram from './LungsDiagram';
 
 /**
- * LungsShared — the Lynch lung with a shared layoutId that morphs across
- * slide 5 (divider, right-column small) and slide 6 (background, center
- * big). Matches the HTML version's camera-pullback feel.
+ * LungsShared — Lynch lung with shared layoutId that morphs across slide 5
+ * (divider, right-column small) and slide 6 (background, center big).
+ * Literal port of v0's LungContextSlide pattern.
  *
- * Two animations coexist:
- *   1. Opacity fade-in (0 -> 1 over 0.9s) — runs every time this component
- *      mounts. Gives the "slowly appears" look the HTML deck has.
- *   2. Layout morph via layoutId — fires when framer-motion's LayoutGroup
- *      detects a matching layoutId on an adjacent slide. Position + size
- *      interpolate over 1s with cubic-bezier easing.
+ * CRITICAL: NO initial/animate prop. Adding `initial={{opacity:0}}` makes
+ * the element invisible for the first N ms — framer-motion still runs the
+ * layoutId morph in that window, but since the lung is invisible the user
+ * sees nothing until opacity reaches 1, at which point the lung is already
+ * at its new position. The result looks exactly like a jump-cut.
  *
- * Opacity and layout are independent transforms, so the two animations
- * don't fight each other: during a 5->6 morph, the bbox flies AND the
- * alpha rises, which reads as "the lung drifts in while materializing."
+ * The layoutId morph itself (1s cubic-bezier) is the animation. That's
+ * how v0 does it; that's how the friend's minimal repro does it; that's
+ * the only way it works.
  */
 const LAYOUT_TRANSITION = { duration: 1, ease: [0.4, 0, 0.2, 1] };
-const ENTRANCE_TRANSITION = { duration: 0.9, ease: [0.4, 0, 0.2, 1] };
 
 export default function LungsShared({ layoutId = 'lung-lynch' }) {
   return (
     <motion.div
       layoutId={layoutId}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{
-        opacity: ENTRANCE_TRANSITION,
-        layout: LAYOUT_TRANSITION,
-      }}
+      transition={{ layout: LAYOUT_TRANSITION }}
       style={{ width: '100%', height: '100%' }}
     >
       <LungsDiagram />

@@ -55,7 +55,7 @@ export default function CaseHeroDivider({
   return (
     <motion.section
       data-case={caseToken}
-      className="relative w-full h-[100dvh] overflow-hidden"
+      className="relative w-full h-[100dvh]"
       style={{ background: 'var(--bg)' }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
