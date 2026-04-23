@@ -4,6 +4,7 @@ import { useTokens } from '@/lib/token';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Viz, Footer } from '@/components/deck/SlideParts';
 import { QP2_THEMES } from '../themes';
+import ApprovalTimeline from '@/components/deck/patterns/ApprovalTimeline';
 
 /**
  * Slide 12 · CS1 Impact — "Same data. Same model. Two regulators approved."
@@ -213,6 +214,30 @@ export default function Slide12() {
           meta="No new pediatric efficacy trial required — the model was the evidence the agencies accepted."
           align="right"
         />
+      </motion.div>
+
+      {/* ─── Approval timeline (closed-up) ───
+          Shared layoutId with slide 11. When user navigates 11→13,
+          framer-motion morphs the timeline: the dashed pediatric silence
+          (2007→2021) fills in with solid coral, the "19 YEARS" amber
+          silence label morphs into "PMDA APR 2021 · EMA SEP 2021".
+          Editorial payoff of the case. */}
+      <motion.div
+        className="absolute"
+        style={{
+          left: 0,
+          right: 0,
+          bottom: 60,
+          padding: 'var(--space-3) var(--space-4)',
+          borderTop: '1px solid var(--cream-hairline)',
+          borderBottom: '1px solid var(--cream-hairline)',
+          background: 'color-mix(in srgb, var(--panel) 40%, transparent)',
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: D.themes + 0.1 }}
+      >
+        <ApprovalTimeline state="closed-up" compact delay={D.themes + 0.3} />
       </motion.div>
 
       {/* ─── Inline theme meta (bottom-left) ─── */}

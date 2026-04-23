@@ -4,6 +4,7 @@ import SlideFrame from '@/components/deck/SlideFrame';
 import SurvivalMiniChart from './cs1-challenge/SurvivalMiniChart';
 import LabelCoverageChart from './cs1-challenge/LabelCoverageChart';
 import SparsePKChart from './cs1-challenge/SparsePKChart';
+import ApprovalTimeline from '@/components/deck/patterns/ApprovalTimeline';
 
 // Token resolver passed to charts — reads a CSS custom property from
 // :root so chart internals can stay token-driven without importing any
@@ -93,11 +94,16 @@ function ChallengeStack() {
       {/* ─── COL 1 · spine ─── */}
       <SpineRail />
 
-      {/* ─── COL 2 · stack of 3 cards + focal ─── */}
+      {/* ─── COL 2 · stack of 3 cards + approval-timeline footer + focal ───
+          The ApprovalTimeline footer-strip shows the 19-year pediatric
+          silence. Shared layoutId with slide 13 (impact) — when the
+          user navigates 11 → ... → 13, the silence visually 'closes up'
+          as the dashed pediatric section fills in. User confirmed
+          hybrid C approach (2026-04-23). */}
       <div
         style={{
           display: 'grid',
-          gridTemplateRows: '1fr 1fr 1fr auto',
+          gridTemplateRows: 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) auto auto',
           rowGap: 'var(--space-3)',
           minHeight: 0,
         }}
@@ -153,6 +159,22 @@ function ChallengeStack() {
           chart={<SparsePKChart tk={tk} delay={2.5} />}
           cardDelay={2.3}
         />
+
+        {/* Approval-timeline footer-strip — pediatric silence (2007→2021).
+            Shared layoutId morphs into slide 13's closed-up state. */}
+        <motion.div
+          style={{
+            padding: 'var(--space-3) var(--space-4)',
+            borderTop: '1px solid var(--cream-hairline)',
+            borderBottom: '1px solid var(--cream-hairline)',
+            background: 'color-mix(in srgb, var(--panel) 40%, transparent)',
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 2.8 }}
+        >
+          <ApprovalTimeline state="silence-emphasized" compact delay={3.0} />
+        </motion.div>
 
         <FocalQuestion />
       </div>
