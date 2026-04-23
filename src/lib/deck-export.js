@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import html2canvas from 'html2canvas';
+import { toPng } from 'html-to-image';
 import { jsPDF } from 'jspdf';
 import pptxgen from 'pptxgenjs';
 import { DeckProvider } from '@/lib/deck-store';
@@ -83,19 +83,16 @@ async function captureSlide(deck, slideIdx, host, onProgress) {
   await sleep(SETTLE_MS);
   onProgress?.(`Rendering slide ${slideIdx + 1}/${deck.slides.length}`);
 
-  // Rasterize. scale:1 since our frame IS already at export resolution.
-  const canvas = await html2canvas(frame, {
+  // Rasterize with html-to-image — uses SVG foreignObject so the browser
+  // renders modern CSS (color-mix, oklch, color(display-p3)) natively.
+  // html2canvas replaced 2026-04-23 because it cannot parse color() functions.
+  const dataUrl = await toPng(frame, {
     width: SLIDE_W,
     height: SLIDE_H,
-    windowWidth: SLIDE_W,
-    windowHeight: SLIDE_H,
-    scale: 1,
-    backgroundColor: null,
-    useCORS: true,
-    logging: false,
+    pixelRatio: 1,
+    backgroundColor: undefined,
+    cacheBust: true,
   });
-
-  const dataUrl = canvas.toDataURL('image/png');
 
   // Clean up this slide's root before the next one
   root.unmount();
