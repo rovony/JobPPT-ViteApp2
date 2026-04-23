@@ -29,7 +29,7 @@ export default function Slide10() {
         ['Agencies', 'EMA + PMDA'],
       ]}
       verdict="APPROVED"
-      illustration={<LungsShared layoutId="lung-lynch" />}
+      illustration={<LungsShared layoutId="lung-lynch" variant="hero" />}
       source="Okour et al. · J Clin Pharmacol · 2023 · Published"
     />
   );

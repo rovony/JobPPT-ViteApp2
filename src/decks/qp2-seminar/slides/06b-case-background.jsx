@@ -119,7 +119,7 @@ function BackgroundLayout({ reduce, ease }) {
             padding: 'var(--space-3)',
           }}
         >
-          <LungsShared layoutId="lung-lynch" />
+          <LungsShared layoutId="lung-lynch" variant="context" />
         </div>
 
         {/* CARD 02 · THE DRUG */}
