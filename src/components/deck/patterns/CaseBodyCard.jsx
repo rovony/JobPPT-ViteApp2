@@ -121,7 +121,7 @@ export default function CaseBodyCard({
           id={labelledBy}
           style={{
             fontFamily: 'var(--font-display, var(--font-body))',
-            fontSize: 'clamp(1.45rem, 2.0vw, 2.05rem)',
+            fontSize: 'clamp(1.55rem, 2.4vw, 2.45rem)',
             fontWeight: 600,
             color: 'var(--cream)',
             lineHeight: 1.15,

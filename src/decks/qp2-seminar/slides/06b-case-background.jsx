@@ -86,6 +86,8 @@ function BackgroundLayout({ reduce, ease }) {
           alignItems: 'stretch',
           alignContent: 'center',
           minHeight: 0,
+          position: 'relative',
+          zIndex: 2, // cards win visual overlap with the lung overlay behind
         }}
       >
         {/* CARD 01 · THE DISEASE */}
@@ -132,17 +134,40 @@ function BackgroundLayout({ reduce, ease }) {
                 <CardHighlight>5 mg / 10 mg once daily</CardHighlight>.
               </p>
               <CommercialSplit />
+              {/* Inline timeline — separator line + label + chart,
+                  matching HTML .cbc-inline-chart pattern. */}
+              <div
+                style={{
+                  marginTop: 22,
+                  paddingTop: 18,
+                  borderTop: '1px solid var(--cream-hairline)',
+                }}
+              >
+                <span
+                  style={{
+                    display: 'block',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.68rem',
+                    letterSpacing: '0.22em',
+                    textTransform: 'uppercase',
+                    color: 'var(--cream-faint)',
+                    marginBottom: 10,
+                  }}
+                >
+                  Adult label coverage · 2005 → 2025
+                </span>
+                <AgencyApprovalTimeline delay={2.5} />
+              </div>
             </>
           }
-          visual={<AgencyApprovalTimeline delay={2.5} />}
         />
       </div>
 
       {/* ─── LUNG OVERLAY ───
-          Free-floating absolute layer pinned to the cards-row (row 1)
-          of the parent grid. Z-indexed above the cards so the lung
-          visually bridges them. pointer-events:none so clicks pass
-          through to card content / right-rail export UI. */}
+          Free-floating absolute layer pinned to the slide center and
+          sized to the gap between the two cards. z-index:0 puts it
+          BEHIND the cards (cards are zIndex:2) so if the lung overflows
+          the gap at a narrow viewport, the cards visually clip it. */}
       <div
         style={{
           position: 'absolute',
@@ -151,7 +176,7 @@ function BackgroundLayout({ reduce, ease }) {
           alignItems: 'center',
           justifyContent: 'center',
           pointerEvents: 'none',
-          zIndex: 5,
+          zIndex: 0,
         }}
       >
         <LungsShared layoutId="lung-lynch" variant="context" />

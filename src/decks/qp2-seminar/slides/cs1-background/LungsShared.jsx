@@ -35,9 +35,9 @@ const LAYOUT_TRANSITION = { duration: 1.8, ease: [0.4, 0, 0.2, 1] };
 
 const DIMENSIONS = {
   hero:    { width: 'clamp(180px, 22vw, 300px)', aspectRatio: '482 / 581' },
-  // Bigger on slide 6 so the lung dominates the center column and the
-  // 5->6 morph reads as a strong pullback (small right -> big center).
-  context: { width: 'clamp(420px, 50vw, 720px)', aspectRatio: '482 / 581' },
+  // Sized to fit the ~32vw gap between Card 01 and Card 02. Bigger than
+  // hero (clear 5->6 pullback) but constrained so cards aren't clipped.
+  context: { width: 'clamp(260px, 26vw, 440px)', aspectRatio: '482 / 581' },
 };
 
 export default function LungsShared({
