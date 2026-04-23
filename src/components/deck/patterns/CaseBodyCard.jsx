@@ -99,42 +99,45 @@ export default function CaseBodyCard({
           justifyContent: 'flex-start',
         }}
       >
-        {/* NUMBER · EYEBROW line */}
+        {/* NUMBER · EYEBROW line — ports HTML .cbc-meta (11pt mono, 0.22em) */}
         <div
           className="deck-mono uppercase"
           style={{
-            fontSize: 'clamp(0.6rem, 0.72vw, 0.75rem)',
-            letterSpacing: 'var(--ls-mono-wide)',
+            fontFamily: 'var(--font-mono)',
+            fontSize: 'clamp(0.68rem, 0.78vw, 0.82rem)',
+            letterSpacing: '0.22em',
             fontWeight: 500,
             color: 'var(--cream-faint)',
+            marginBottom: 4,
           }}
         >
-          <span style={{ color: accentColor }}>{number}</span>
-          <span style={{ color: 'var(--cream-dim)', margin: '0 0.55em' }}>·</span>
-          <span style={{ color: accentColor }}>{eyebrow}</span>
+          <span style={{ color: 'var(--cream-faint)', letterSpacing: '0.20em', marginRight: 8 }}>{number}</span>
+          <span style={{ color: 'var(--cream-dim)', margin: '0 0.35em' }}>·</span>
+          <span style={{ color: accentColor, fontWeight: 500, letterSpacing: '0.22em' }}>{eyebrow}</span>
         </div>
 
-        {/* TITLE */}
+        {/* TITLE — ports HTML .cbc-title (26pt, 600, lh 1.15) */}
         <h2
           id={labelledBy}
           style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(1.15rem, 1.55vw, 1.75rem)',
+            fontFamily: 'var(--font-display, var(--font-body))',
+            fontSize: 'clamp(1.45rem, 2.0vw, 2.05rem)',
             fontWeight: 600,
             color: 'var(--cream)',
-            lineHeight: 1.2,
-            letterSpacing: '-0.01em',
+            lineHeight: 1.15,
+            letterSpacing: '-0.005em',
             margin: 0,
+            marginBottom: 4,
           }}
         >
           {title}
         </h2>
 
-        {/* BODY */}
+        {/* BODY — ports HTML .cbc-body (15pt, lh 1.55) */}
         <div
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(0.82rem, 1vw, 1.02rem)',
+            fontSize: 'clamp(0.92rem, 1.1vw, 1.12rem)',
             lineHeight: 1.55,
             color: 'var(--cream-muted)',
           }}
@@ -170,15 +173,16 @@ export default function CaseBodyCard({
  * Highlight — inline emphasis chip for use inside card body text.
  * Subtle case-color wash behind text, preserved across line breaks.
  */
-export function CardHighlight({ children, color = 'var(--case, var(--coral))' }) {
+export function CardHighlight({ children }) {
   return (
     <span
       style={{
-        background: `color-mix(in srgb, ${color} 22%, transparent)`,
-        color: 'var(--cream)',
+        background: 'var(--coral-wash, rgba(251,146,60,0.14))',
+        color: '#F4B382',
         padding: '2px 8px',
         borderRadius: 4,
         fontWeight: 500,
+        whiteSpace: 'nowrap',
         boxDecorationBreak: 'clone',
         WebkitBoxDecorationBreak: 'clone',
       }}

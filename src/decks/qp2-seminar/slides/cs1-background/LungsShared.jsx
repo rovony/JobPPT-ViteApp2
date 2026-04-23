@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import lungsSvgUrl from './lungs.svg';
+// Vite `?raw` loads the SVG as a static string at build time — trusted
+// local asset, no user input, no XSS surface (build-time inlining).
+import lungsBrandedRaw from './lungs-branded.svg?raw';
 
 /**
  * LungsShared — literal port of v0's shared lung pattern.
@@ -48,35 +50,74 @@ export default function LungsShared({
   return (
     <motion.div
       layoutId={layoutId}
-      // `layout` prop in addition to `layoutId` tells framer-motion to
-      // set up layout tracking eagerly on mount (before the next paint)
-      // rather than after the first render. Without it there's a
-      // ~1-frame window where the new element renders at its natural
-      // position BEFORE the FLIP transform applies — reads as the
-      // 'flicker / disappears for a sec' bug.
       layout
-      initial={isHero ? { opacity: 0, scale: 0.85 } : false}
+      initial={isHero ? { opacity: 0, scale: 0.92 } : false}
       animate={isHero ? { opacity: 1, scale: 1 } : undefined}
       transition={{
-        ...(isHero ? { duration: 0.8, delay: 0.4 } : {}),
+        ...(isHero ? { duration: 0.6, delay: 0.3 } : {}),
         layout: LAYOUT_TRANSITION,
       }}
+      className={`lung-shared ${isHero ? 'lung-hero' : 'lung-context'}`}
       style={{
         width: dims.width,
         aspectRatio: dims.aspectRatio,
+        color: 'var(--coral)',
+        pointerEvents: 'none',
+        userSelect: 'none',
       }}
+      aria-hidden
     >
-      <img
-        src={lungsSvgUrl}
-        alt="Anatomical lungs — Patrick J. Lynch / C. Carl Jaffe, CC BY 3.0"
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'block',
-          pointerEvents: 'none',
-          userSelect: 'none',
-        }}
+      <style>{SCOPED_CSS}</style>
+      <div
+        className="lung-inner"
+        style={{ width: '100%', height: '100%' }}
+        dangerouslySetInnerHTML={{ __html: lungsBrandedRaw }}
       />
     </motion.div>
   );
 }
+
+const SCOPED_CSS = `
+.lung-shared svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.lung-shared svg .lung-tissue-group .lung-tissue { fill: currentColor; }
+.lung-shared svg .lung-detail-group .lung-detail { fill: currentColor; }
+.lung-shared svg .lung-stroke-group > path,
+.lung-shared svg .lung-other-group  > path { stroke: currentColor; fill: currentColor; }
+
+.lung-context svg .lung-tissue-group .lung-tissue { opacity: 0.18; }
+.lung-context svg .lung-detail-group .lung-detail { opacity: 0.82; }
+.lung-context svg .lung-stroke-group > path,
+.lung-context svg .lung-other-group  > path       { opacity: 0.62; }
+
+@keyframes lungTissueIn  { to { opacity: 0.18; } }
+@keyframes lungDetailIn  { to { opacity: 0.82; } }
+@keyframes lungStrokeIn  { to { opacity: 0.62; } }
+@keyframes lungBreathe   { 0%,100% { opacity: 0.18; } 50% { opacity: 0.12; } }
+
+.lung-hero svg .lung-tissue-group .lung-tissue {
+  opacity: 0;
+  animation: lungTissueIn 1.2s cubic-bezier(0.2,0.7,0.3,1) 0.60s forwards,
+             lungBreathe  5s cubic-bezier(0.2,0.7,0.3,1) 3.0s infinite;
+}
+.lung-hero svg .lung-detail-group .lung-detail {
+  opacity: 0;
+  animation: lungDetailIn 0.45s cubic-bezier(0.2,0.7,0.3,1) forwards;
+}
+.lung-hero svg .lung-detail-group .lung-detail:nth-child(3n+1) { animation-delay: 1.00s; }
+.lung-hero svg .lung-detail-group .lung-detail:nth-child(3n+2) { animation-delay: 1.15s; }
+.lung-hero svg .lung-detail-group .lung-detail:nth-child(3n+3) { animation-delay: 1.30s; }
+
+.lung-hero svg .lung-stroke-group > path { opacity: 0; animation: lungStrokeIn 0.5s cubic-bezier(0.2,0.7,0.3,1) 1.65s forwards; }
+.lung-hero svg .lung-other-group  > path { opacity: 0; animation: lungStrokeIn 0.5s cubic-bezier(0.2,0.7,0.3,1) 1.75s forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lung-hero svg .lung-tissue-group .lung-tissue,
+  .lung-hero svg .lung-detail-group .lung-detail,
+  .lung-hero svg .lung-stroke-group > path,
+  .lung-hero svg .lung-other-group  > path { animation: none; }
+  .lung-hero svg .lung-tissue-group .lung-tissue { opacity: 0.18; }
+  .lung-hero svg .lung-detail-group .lung-detail { opacity: 0.82; }
+  .lung-hero svg .lung-stroke-group > path,
+  .lung-hero svg .lung-other-group  > path       { opacity: 0.62; }
+}
+`;

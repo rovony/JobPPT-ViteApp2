@@ -158,63 +158,54 @@ function BackgroundLayout({ reduce, ease }) {
    Endothelin is the highlighted pathway (coral chip); NO-cGMP and
    Prostacyclin are ghosted (no background, cream-muted).
    ============================================================== */
+/* Ports HTML .cbc-footer — label row on top, chips below.
+   Outlined chips + filled active chip (coral-wash). */
 function PathwayChips() {
+  const labelStyle = {
+    fontFamily: 'var(--font-mono)',
+    fontSize: '0.68rem',
+    letterSpacing: '0.22em',
+    textTransform: 'uppercase',
+    color: 'var(--cream-faint)',
+    display: 'block',
+    width: '100%',
+    marginBottom: 2,
+  };
+  const chipBase = {
+    fontFamily: 'var(--font-mono)',
+    fontSize: '0.68rem',
+    letterSpacing: '0.18em',
+    textTransform: 'uppercase',
+    padding: '4px 10px',
+    borderRadius: 12,
+    border: '1px solid var(--cream-hairline)',
+    color: 'var(--cream-muted)',
+    whiteSpace: 'nowrap',
+  };
+  const chipActive = {
+    ...chipBase,
+    background: 'var(--coral-wash, rgba(251,146,60,0.14))',
+    borderColor: 'transparent',
+    color: '#F4B382',
+  };
+  const sep = { color: 'var(--cream-dim)', margin: '0 4px' };
   return (
     <div
       style={{
+        marginTop: 'auto',
+        paddingTop: 18,
         display: 'flex',
-        alignItems: 'center',
-        gap: 'var(--space-3)',
-        marginTop: 'var(--space-3)',
         flexWrap: 'wrap',
+        alignItems: 'center',
+        gap: 10,
       }}
     >
-      <span
-        className="deck-mono uppercase"
-        style={{
-          fontSize: '0.58rem',
-          letterSpacing: 'var(--ls-mono)',
-          color: 'var(--cream-faint)',
-          textTransform: 'uppercase',
-          whiteSpace: 'nowrap',
-        }}
-      >
-        Targetable pathways ·
-      </span>
-      <span
-        className="deck-mono uppercase"
-        style={{
-          fontSize: '0.62rem',
-          letterSpacing: 'var(--ls-mono)',
-          padding: '3px 8px',
-          borderRadius: 'var(--radius-pill)',
-          background: 'color-mix(in srgb, var(--coral) 22%, transparent)',
-          color: 'var(--cream)',
-          fontWeight: 600,
-        }}
-      >
-        Endothelin
-      </span>
-      <span
-        className="deck-mono uppercase"
-        style={{
-          fontSize: '0.62rem',
-          letterSpacing: 'var(--ls-mono)',
-          color: 'var(--cream-muted)',
-        }}
-      >
-        NO-cGMP
-      </span>
-      <span
-        className="deck-mono uppercase"
-        style={{
-          fontSize: '0.62rem',
-          letterSpacing: 'var(--ls-mono)',
-          color: 'var(--cream-muted)',
-        }}
-      >
-        Prostacyclin
-      </span>
+      <span style={labelStyle}>Three targetable pathways</span>
+      <span style={chipActive}>Endothelin</span>
+      <span style={sep}>·</span>
+      <span style={chipBase}>NO &ndash; cGMP</span>
+      <span style={sep}>·</span>
+      <span style={chipBase}>Prostacyclin</span>
     </div>
   );
 }
@@ -225,24 +216,29 @@ function PathwayChips() {
 function CommercialSplit() {
   return (
     <div
-      className="deck-mono"
       style={{
-        marginTop: 'var(--space-3)',
+        marginTop: 16,
+        paddingTop: 4,
+        fontFamily: 'var(--font-mono)',
         fontSize: '0.68rem',
-        letterSpacing: 'var(--ls-mono)',
+        letterSpacing: '0.22em',
+        textTransform: 'uppercase',
         color: 'var(--cream-muted)',
         display: 'flex',
-        alignItems: 'center',
-        gap: 'var(--space-2)',
         flexWrap: 'wrap',
+        alignItems: 'center',
+        gap: 8,
       }}
     >
+      <span style={{ color: 'var(--cream-faint)', width: '100%', marginBottom: 4, letterSpacing: '0.22em' }}>
+        Commercial split
+      </span>
       <span style={{ color: 'var(--cream)', fontWeight: 600 }}>Letairis®</span>
-      <span style={{ color: 'var(--cream-faint)' }}>·</span>
+      <span style={{ color: 'var(--cream-dim)' }}>·</span>
       <span>Gilead · US</span>
-      <span style={{ color: 'var(--cream-faint)', margin: '0 var(--space-1)' }}>—</span>
+      <span style={{ color: 'var(--cream-dim)', margin: '0 4px' }}>—</span>
       <span style={{ color: 'var(--cream)', fontWeight: 600 }}>Volibris®</span>
-      <span style={{ color: 'var(--cream-faint)' }}>·</span>
+      <span style={{ color: 'var(--cream-dim)' }}>·</span>
       <span>GSK · ex-US</span>
     </div>
   );
