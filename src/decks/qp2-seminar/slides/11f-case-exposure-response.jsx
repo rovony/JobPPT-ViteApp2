@@ -6,6 +6,7 @@ import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 import { QP2_THEMES } from '../themes';
 import HighlightWord from '@/components/deck/patterns/HighlightWord';
+import AnalysisPlot from '@/components/deck/patterns/AnalysisPlot';
 
 /**
  * Slide 11f · CS1 Exposure–Response (Safety) — "Medians overlap. No signal."
@@ -74,36 +75,42 @@ export default function Slide11fCaseExposureResponse() {
 
       <Viz>
         <div style={{ width: '100%', height: '100%', display: 'grid', gridTemplateRows: '1fr auto auto', rowGap: 'var(--space-4)', minHeight: 0 }}>
-      {/* Two box-plot panels */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: 'var(--space-10)',
-          minHeight: 0,
-        }}
-      >
-        <BoxPanel
-          tk={tk}
-          letter="a"
-          title={<>AUC<sub>ss</sub></>}
-          unit={DATA.auc.unit}
-          data={DATA.auc}
-          axisDelay={D.axisA}
-          boxDelay={D.boxA}
-          deltaLabel="Δ median ≈ −12 %"
-        />
-        <BoxPanel
-          tk={tk}
-          letter="b"
-          title={<>C<sub>max,ss</sub></>}
-          unit={DATA.cmax.unit}
-          data={DATA.cmax}
-          axisDelay={D.axisB}
-          boxDelay={D.boxB}
-          deltaLabel="Δ median ≈ +1 %"
-        />
-      </div>
+      {/* Two box-plot panels — wrapped in AnalysisPlot so the chart
+          frame morphs from slide 11e (exposure-match) to here with
+          AnimatePresence crossfading the contents. */}
+      <AnalysisPlot variant="exposure-response">
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: 'var(--space-10)',
+            minHeight: 0,
+            width: '100%',
+            height: '100%',
+          }}
+        >
+          <BoxPanel
+            tk={tk}
+            letter="a"
+            title={<>AUC<sub>ss</sub></>}
+            unit={DATA.auc.unit}
+            data={DATA.auc}
+            axisDelay={D.axisA}
+            boxDelay={D.boxA}
+            deltaLabel="Δ median ≈ −12 %"
+          />
+          <BoxPanel
+            tk={tk}
+            letter="b"
+            title={<>C<sub>max,ss</sub></>}
+            unit={DATA.cmax.unit}
+            data={DATA.cmax}
+            axisDelay={D.axisB}
+            boxDelay={D.boxB}
+            deltaLabel="Δ median ≈ +1 %"
+          />
+        </div>
+      </AnalysisPlot>
 
       {/* Caption under chart */}
       <motion.p

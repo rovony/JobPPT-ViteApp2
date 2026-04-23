@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import * as d3 from 'd3';
 import { useTokens } from '@/lib/token';
 import HighlightWord from '@/components/deck/patterns/HighlightWord';
+import AnalysisPlot from '@/components/deck/patterns/AnalysisPlot';
 
 /**
  * Slide 11d · CS1 Model Fit — "No systematic bias".
@@ -135,7 +136,9 @@ export default function Slide11dCaseFit() {
         >
           pcVPC — prediction-corrected visual predictive check
         </motion.div>
-        <PcVpcChart tk={tk} D={D} />
+        <AnalysisPlot variant="pcvpc">
+          <PcVpcChart tk={tk} D={D} />
+        </AnalysisPlot>
       </div>
 
       {/* ═══════════ RIGHT — Parameter table ═══════════ */}

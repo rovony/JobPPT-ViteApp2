@@ -5,6 +5,7 @@ import { useTokens } from '@/lib/token';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 import HighlightWord from '@/components/deck/patterns/HighlightWord';
+import AnalysisPlot from '@/components/deck/patterns/AnalysisPlot';
 
 /**
  * Slide 11e · CS1 Exposure Match — AUC & Cmax vs adult envelope.
@@ -84,7 +85,8 @@ export default function Slide11eCaseExposureMatch() {
 
       <Viz>
         <div style={{ width: '100%', height: '100%', display: 'grid', gridTemplateRows: '1fr auto', rowGap: 'var(--space-4)', minHeight: 0 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', columnGap: 'var(--space-6)', minHeight: 0 }}>
+          <AnalysisPlot variant="exposure-match">
+          <div style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', columnGap: 'var(--space-6)', minHeight: 0, width: '100%', height: '100%' }}>
       {/* LEFT — AUC vs body weight */}
       <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column' }}>
         <PanelTitle
@@ -105,6 +107,7 @@ export default function Slide11eCaseExposureMatch() {
         <CmaxPanel tk={tk} D={D} />
       </div>
           </div>
+          </AnalysisPlot>
 
       {/* Closing: two hero deltas + payoff */}
       <motion.div
