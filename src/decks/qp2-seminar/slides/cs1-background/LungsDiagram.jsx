@@ -1,48 +1,33 @@
 import React from 'react';
+// Vite default SVG import returns a URL to the bundled asset. Rendered as
+// an <img> so the file ships as a separate network resource (browser-cacheable,
+// no inline payload). The Lynch / Jaffe anatomical colors (pinks/greys) are
+// intentional and do NOT theme — they carry the editorial/anatomical quality
+// we want. Attribution lives in the lungs.svg header.
+import lungsSvgUrl from './lungs.svg';
 
 /**
- * LungsDiagram — editorial anatomical lungs illustration.
+ * LungsDiagram — editorial anatomical lungs illustration
+ * (Patrick J. Lynch / C. Carl Jaffe, CC BY 3.0).
  *
- * HOW TO PASTE YOUR OWN SVG:
- *   1. Delete the two marker lines below (the ones that say DELETE THIS LINE).
- *   2. Delete everything between them (the placeholder <svg>…</svg>).
- *   3. Paste your full SVG markup — must start with <svg and end with </svg>.
- *   4. In your pasted <svg>, remove width="…" and height="…" attrs
- *      (keep viewBox). The wrapper controls size.
- *   5. Convert kebab-case attrs to camelCase for JSX:
- *        stroke-width    → strokeWidth
- *        stroke-linecap  → strokeLinecap
- *        stroke-linejoin → strokeLinejoin
- *        fill-rule       → fillRule
- *        clip-path       → clipPath
- *        xml:space       → remove
- *        xmlns:xx="…"    → remove (keep only xmlns="http://www.w3.org/2000/svg")
+ * Source of truth is the sibling lungs.svg. Swap that file to change the
+ * artwork; this component auto-reflects on next build.
  */
 export default function LungsDiagram({
-  alt = 'Anatomical illustration of lungs',
+  alt = 'Anatomical illustration of lungs (Patrick J. Lynch / C. Carl Jaffe, CC BY 3.0)',
 }) {
   return (
-    <div
-      role="img"
-      aria-label={alt}
+    <img
+      src={lungsSvgUrl}
+      alt={alt}
       style={{
         width: '100%',
         height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: 'var(--cream-muted)',
+        objectFit: 'contain',
+        display: 'block',
+        pointerEvents: 'none',
+        userSelect: 'none',
       }}
-    >
-      {/* ▼▼▼ DELETE THIS LINE — and everything down to the next DELETE LINE — then paste your <svg>…</svg> here ▼▼▼ */}
-      <svg
-        viewBox="0 0 482.519 581.189"
-        xmlns="http://www.w3.org/2000/svg"
-        style={{ width: '100%', height: '100%', maxHeight: '100%', display: 'block' }}
-      >
-        <rect width="100%" height="100%" fill="none" />
-      </svg>
-      {/* ▲▲▲ DELETE THIS LINE — paste ends above this marker ▲▲▲ */}
-    </div>
+    />
   );
 }

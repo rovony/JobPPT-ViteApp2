@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import SlideFrame from '@/components/deck/SlideFrame';
 import CaseBodyCard, { CardHighlight } from '@/components/deck/patterns/CaseBodyCard';
-import LungsDiagram from './cs1-background/LungsDiagram';
+import LungsShared from './cs1-background/LungsShared';
 import AgencyApprovalTimeline from './cs1-background/AgencyApprovalTimeline';
 
 /**
@@ -102,7 +102,7 @@ function BackgroundLayout({ reduce, ease }) {
               <PathwayChips />
             </>
           }
-          visual={<LungsDiagram delay={2.3} />}
+          visual={<LungsShared layoutId="lung-lynch" />}
         />
 
         {/* CARD 02 · THE DRUG */}

@@ -1,15 +1,17 @@
 import React from 'react';
 import CaseHeroDivider from '@/components/deck/patterns/CaseHeroDivider';
-import VesselFlowDiagram from '@/components/deck/illustrations/VesselFlowDiagram';
+import LungsShared from './cs1-background/LungsShared';
 
 /**
  * Case Study 01 · Ambrisentan · Pediatric PAH.
  *
- * Hero divider with a three-panel vessel-flow narrative
- * (Healthy → PAH constricted → Ambrisentan restored) replacing
- * the earlier lungs-in-a-circle medallion. The three-panel
- * framing lets the divider *tell* the therapeutic story in
- * 8-12 seconds rather than just decorate the title.
+ * Hero divider anchoring the case in a single anatomical image — Lynch /
+ * Jaffe lungs on the right, giant typographic left column. The lung is
+ * wrapped in LungsShared (layoutId="lung-lynch") so it MORPHS into
+ * slide 6's card-01 visual as the user navigates forward: same subject,
+ * closer lens, rather than a hard cut. The previous three-panel vessel
+ * narrative was moved to slide 6 where it fits the "disease biology"
+ * explainer better than a divider.
  */
 export default function Slide10() {
   return (
@@ -27,7 +29,7 @@ export default function Slide10() {
         ['Agencies', 'EMA + PMDA'],
       ]}
       verdict="APPROVED"
-      illustration={<VesselFlowDiagram />}
+      illustration={<LungsShared layoutId="lung-lynch" />}
       source="Okour et al. · J Clin Pharmacol · 2023 · Published"
     />
   );
