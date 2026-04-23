@@ -3,126 +3,92 @@ import { motion } from 'framer-motion';
 import { resolveTransition, THREE_D_PRESETS } from '@/lib/slide-transitions';
 
 /**
- * SlideTransition — wraps a slide in a motion container that runs the
- * configured enter/exit animation. The preset (or custom variants) is
- * resolved from the slide manifest's `transition` field.
+ * SlideTransition — literal port of v0's TransitionWrapper pattern
+ * (4-Apps/1_Inbox/V0/.../transitions/TransitionWrapper.tsx) which is the
+ * known-working implementation of cross-slide shared-element transitions
+ * via framer-motion layoutId.
  *
- * 3D presets ('canvas-pan', 'canvas-cube', 'canvas-flip', 'canvas-depth')
- * additionally get:
- *   • a perspective container (outer div) — so rotateX/rotateY/translateZ
- *     actually render as depth instead of collapsing flat.
- *   • `transform-style: preserve-3d` and `backface-visibility: hidden` on
- *     the moving layer — keeps compositing on the GPU and prevents the
- *     back of a rotated panel from flashing through.
+ * Key rules we adopted from v0 and must NOT drift away from:
+ *   1. Each slide is absolutely positioned (inset:0) so consecutive slides
+ *      stack at the same coordinates under AnimatePresence mode="sync".
+ *   2. The slide wrapper uses a PURE FADE by default — no x/y translate —
+ *      so the shared-element (layoutId) morph inside it isn't mis-measured
+ *      by an additional transform on the wrapper.
+ *   3. The wrapper has the `layout` prop so framer-motion tracks layout
+ *      changes in its subtree; otherwise nested layoutId morphs can render
+ *      but not animate.
+ *   4. Layout animations get their own duration (0.8s cubic-bezier),
+ *      separate from the slide fade (0.4s).
  *
- * Perspective scales with viewport so the effect feels right on phones
- * and on big projection screens. No hardcoded pixels.
- *
- * Respects prefers-reduced-motion: if the user prefers reduced motion,
- * we collapse to a zero-duration fade so nothing slides, zooms, or rotates.
+ * 3D presets (canvas-pan/cube/flip/depth) still opt into their perspective
+ * containers — they don't use layoutId so the extra transforms are fine.
  */
-// forwardRef is required because DeckRunner wraps this in
-// <AnimatePresence mode="popLayout">, which internally wraps each child in
-// a PopChild component that needs to forward a ref to the underlying DOM
-// node so it can measure and position the exiting slide out-of-flow.
-// Without forwardRef, React logs "Function components cannot be given refs"
-// and popLayout can't synthesize the shared-element (layoutId) morph.
+const DEFAULT_FADE = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
+  transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
+};
+
+const LAYOUT_TRANSITION = { duration: 0.8, ease: [0.4, 0, 0.2, 1] };
+
 const SlideTransition = React.forwardRef(function SlideTransition(
   { transition, children },
   forwardedRef,
 ) {
-  const variants = resolveTransition(transition);
   const is3D = typeof transition === 'string' && THREE_D_PRESETS.has(transition);
 
-  const prefersReduced =
-    typeof window !== 'undefined' &&
-    window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  // 3D presets keep their full perspective/transform machinery. They
+  // explicitly do NOT participate in layoutId morphs, so the extra
+  // wrapper layers are fine.
+  if (is3D) {
+    const variants = resolveTransition(transition);
+    return (
+      <div
+        ref={forwardedRef}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          perspective: 'clamp(1400px, 180vw, 2600px)',
+          perspectiveOrigin: '50% 50%',
+          transformStyle: 'preserve-3d',
+        }}
+      >
+        <motion.div
+          initial={variants.initial}
+          animate={variants.animate}
+          exit={variants.exit}
+          transition={variants.transition}
+          style={{
+            width: '100%',
+            height: '100%',
+            transformStyle: 'preserve-3d',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            transformPerspective: 2400,
+            willChange: 'transform, opacity',
+          }}
+        >
+          {children}
+        </motion.div>
+      </div>
+    );
+  }
 
-  const applied = prefersReduced
-    ? {
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-        exit: { opacity: 0 },
-        transition: { duration: 0.15 },
-      }
-    : variants;
-
-  // Perspective container — only created for 3D presets so the simple
-  // fade/slide presets don't pay the cost of a stacking-context change.
-  // 2400px is the sweet spot for a 1920×1080 canvas: enough depth that
-  // translateZ reads as real distance, not so aggressive that text
-  // distorts when a slide rotates 90° (cube). Below ~1800px text gets
-  // keystoned at large rotations; above ~3000px the depth flattens out.
-  // We clamp the lower bound for narrow viewports (phones) where 2400px
-  // would feel too "telescoped" relative to the ~360px stage width.
-  // position:absolute + inset:0 means consecutive slides (exiting and
-  // entering under AnimatePresence mode="sync") stack at the same
-  // coordinates instead of flowing vertically. That stacking is what
-  // makes cross-slide layoutId morphs actually work — both endpoints
-  // are on screen simultaneously while framer-motion animates the
-  // shared element between them.
-  const stackStyle = { position: 'absolute', inset: 0 };
-
-  const outerStyle = is3D && !prefersReduced
-    ? {
-        ...stackStyle,
-        perspective: 'clamp(1400px, 180vw, 2600px)',
-        perspectiveOrigin: '50% 50%',
-        transformStyle: 'preserve-3d',
-      }
-    : stackStyle;
-
-  const innerStyle = is3D && !prefersReduced
-    ? {
-        width: '100%',
-        height: '100%',
-        transformStyle: 'preserve-3d',
-        backfaceVisibility: 'hidden',
-        WebkitBackfaceVisibility: 'hidden',
-        // transformPerspective on the moving layer ensures the perspective
-        // applies even if a parent stacking context (e.g. the AnimatePresence
-        // wrapper, or a fixed-position deck stage) flattens the parent's
-        // perspective. Belt + suspenders so the 3D never collapses.
-        transformPerspective: 2400,
-        willChange: 'transform, opacity',
-      }
-    : { width: '100%', height: '100%' };
-
-  // Pass the forwarded ref to the OUTER element so framer-motion can
-  // measure it for AnimatePresence bookkeeping. For 3D presets the outer
-  // is a plain div (perspective container); for simple presets the outer
-  // IS the motion.div.
-  //
-  // `layout` prop: tells framer-motion to track layout changes on this
-  // wrapper AND its descendants. Required so that shared-element layoutId
-  // morphs (e.g. the Lynch lung between slides 5 and 6) have correct
-  // old/new bbox measurements even when nested inside multiple motion
-  // layers. Without it, the shared element renders but doesn't morph.
-  //
-  // `transition.layout` gives layout animations their own timing window
-  // separate from the slide's fade/slide-in exit — so the shared-element
-  // morph can run longer (0.8s smooth) than the slide fade.
-  const layoutTransition = prefersReduced
-    ? { duration: 0 }
-    : { duration: 0.8, ease: [0.4, 0, 0.2, 1] };
-
-  const motionLayer = (
+  // Non-3D path: pure fade + absolute stacking + layout prop.
+  return (
     <motion.div
-      ref={is3D ? undefined : forwardedRef}
+      ref={forwardedRef}
       layout
-      initial={applied.initial}
-      animate={applied.animate}
-      exit={applied.exit}
-      transition={{ ...applied.transition, layout: layoutTransition }}
-      style={innerStyle}
+      initial={DEFAULT_FADE.initial}
+      animate={DEFAULT_FADE.animate}
+      exit={DEFAULT_FADE.exit}
+      transition={{ ...DEFAULT_FADE.transition, layout: LAYOUT_TRANSITION }}
+      style={{ position: 'absolute', inset: 0 }}
     >
       {children}
     </motion.div>
   );
-
-  if (!is3D || prefersReduced) return motionLayer;
-
-  return <div ref={forwardedRef} style={outerStyle}>{motionLayer}</div>;
 });
 
 export default SlideTransition;

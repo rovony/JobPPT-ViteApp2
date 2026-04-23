@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useParams, useLocation, useNavigate, Navigate } from 'react-router-dom';
+import { useParams, useLocation, useNavigate, useSearchParams, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { DeckProvider, useDeck, useKeyboardNav } from '@/lib/deck-store';
 import { useFullscreen } from '@/lib/useFullscreen';
@@ -35,6 +35,7 @@ function DeckStage({ deck }) {
   const { index, step, setSteps, mode, presenter, setPresenter, goto } = useDeck();
   const location = useLocation();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const stageRef = useRef(null);
   const { isFullscreen, enter, exit, toggle } = useFullscreen();
   const [cursorHidden, setCursorHidden] = useState(false);
@@ -65,12 +66,38 @@ function DeckStage({ deck }) {
   const [isAudience, setIsAudience] = useState(false);
   useEffect(() => {
     const q = new URLSearchParams(location.search);
-    if (q.get('presenter') === '1') setPresenter(true);
     if (q.get('audience') === '1' || q.get('fullscreen') === '1') setIsAudience(true);
     const s = parseInt(q.get('slide') || '', 10);
     if (Number.isFinite(s)) goto(s);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // ───────────────── Presenter ⇄ URL sync ─────────────────
+  // The presenter flag is encoded as ?presenter=1 so it survives a full
+  // page reload (a hard requirement — live demos can't afford to lose
+  // the presenter view mid-talk). Two directions:
+  //   A) URL → store: on mount AND whenever the search string changes
+  //      (e.g. back/forward, paste of a deep link), mirror ?presenter=1
+  //      into the store's `presenter` boolean.
+  //   B) Store → URL: whenever `presenter` flips in the store (toggle
+  //      button, `P` key, Escape), write/remove the param with `replace`
+  //      so we don't balloon the history stack on every toggle.
+  // The two effects guard against feedback loops by comparing the
+  // current URL value before writing.
+  const presenterParam = searchParams.get('presenter') === '1';
+  useEffect(() => {
+    if (presenterParam !== presenter) setPresenter(presenterParam);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [presenterParam]);
+  useEffect(() => {
+    const current = searchParams.get('presenter') === '1';
+    if (current === presenter) return;
+    const next = new URLSearchParams(searchParams);
+    if (presenter) next.set('presenter', '1');
+    else next.delete('presenter');
+    setSearchParams(next, { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [presenter]);
 
   // Audience tab: subscribe to cross-tab navigation messages from the
   // presenter tab so Next/Prev stays in sync across the two windows.
@@ -88,20 +115,34 @@ function DeckStage({ deck }) {
   // The slide id (preferred) or numeric index is the 4th path segment:
   //   /decks/:deckId/s/:slideId
   // Effect A: when `index` changes (user advances, keyboard, overview),
-  //   rewrite the URL with history.replaceState so reloads/back-links
-  //   land on the same slide. We replace (not push) so back/forward don't
-  //   balloon into one entry per slide; the deck is a single document.
+  //   rewrite the URL with navigate(..., { replace: true }) so reloads/
+  //   back-links land on the same slide. We replace (not push) so
+  //   back/forward don't balloon into one entry per slide; the deck is
+  //   a single document.
   // Effect B: when the URL path changes externally (user edits URL, or
   //   pastes a deep link), sync the store to match.
-  // Only sync the URL ⇄ slide state when we're already on the
-  // /decks/:deckId/s/:slideId route. If the user arrived via the
-  // legacy /Deck?id=X route, DON'T rewrite the URL — doing so would
-  // swap the matched <Route> element and remount DeckRunner, which
-  // resets state and can swallow the very next keypress (the reason
-  // "the first arrow-key press seems to do nothing").
+  // Exception: the legacy /Deck?id=X entry is NOT a /decks/... path, so
+  //   we leave it alone — rewriting would swap <Route> elements, remount
+  //   this component, and swallow the next keypress. That route only
+  //   matters for back-compat with old bookmarks.
   const pathSegs = location.pathname.split('/').filter(Boolean);
-  const isDeepLinkRoute = pathSegs[0] === 'decks' && pathSegs[2] === 's';
+  const isDecksRoute = pathSegs[0] === 'decks';
+  const isDeepLinkRoute = isDecksRoute && pathSegs[2] === 's';
   const slideIdFromPath = isDeepLinkRoute ? pathSegs[3] : undefined;
+
+  // Bootstrap: if the user arrived at /decks/:deckId (no /s/ segment),
+  // promote once to /decks/:deckId/s/:id so the per-index URL sync
+  // below has a stable deep-link base to rewrite against. Same
+  // <DeckRunner> element handles both routes, so this is a param-only
+  // change (no component remount), safe for keyboard input.
+  useEffect(() => {
+    if (!isDecksRoute || isDeepLinkRoute) return;
+    const currentId = deck.slides[index]?.id ?? String(index);
+    const base = `/decks/${deck.id}/s/${encodeURIComponent(currentId)}`;
+    navigate({ pathname: base, search: location.search }, { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDecksRoute, isDeepLinkRoute]);
+
   useEffect(() => {
     if (!isDeepLinkRoute) return;
     const currentId = deck.slides[index]?.id ?? String(index);
