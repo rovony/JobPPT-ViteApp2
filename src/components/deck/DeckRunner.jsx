@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useLocation, useNavigate, useSearchParams, Navigate } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, LayoutGroup } from 'framer-motion';
 import { DeckProvider, useDeck, useKeyboardNav } from '@/lib/deck-store';
 import { useFullscreen } from '@/lib/useFullscreen';
 import { useSlideTracker } from '@/lib/useSlideTracker';
@@ -229,16 +229,26 @@ function DeckStage({ deck }) {
           instead of a fade+disappear. popLayout removed the exiting
           slide from flow, and its parent's opacity fade was consuming
           the shared element before the morph could complete. */}
-      <AnimatePresence mode="sync">
-        {Slide && (
-          <SlideTransition
-            key={slideMeta.id || index}
-            transition={slideMeta.transition ?? deck.defaultTransition}
-          >
-            <Slide step={step} deck={deck} />
-          </SlideTransition>
-        )}
-      </AnimatePresence>
+      {/* LayoutGroup is REQUIRED for cross-slide shared-element
+          (layoutId) transitions. Without it, framer-motion only matches
+          layoutIds inside the same component subtree — the lung on
+          slide 5 and the lung on slide 6 would be treated as unrelated.
+          LayoutGroup tells framer-motion to match layoutIds across ALL
+          descendants, which is what makes the Lynch lung flight from
+          slide 5 → 6 actually happen. Confirmed necessary by the v0
+          prototype and independent review. */}
+      <LayoutGroup id="qp2-deck-layout">
+        <AnimatePresence mode="sync">
+          {Slide && (
+            <SlideTransition
+              key={slideMeta.id || index}
+              transition={slideMeta.transition ?? deck.defaultTransition}
+            >
+              <Slide step={step} deck={deck} />
+            </SlideTransition>
+          )}
+        </AnimatePresence>
+      </LayoutGroup>
 
       {/* Hide chrome while in Slide Show (fullscreen, no presenter) */}
       {!(isFullscreen && !presenter) && (
