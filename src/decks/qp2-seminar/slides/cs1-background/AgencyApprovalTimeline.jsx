@@ -13,23 +13,28 @@ import { motion, useReducedMotion } from 'framer-motion';
  * logos, no flags, no gradient bars. Animation: axis draws first,
  * then adult markers stagger in, then pediatric dashed line + label.
  */
-export default function AgencyApprovalTimeline({ color = 'var(--case, var(--coral))', delay = 0.8 }) {
+export default function AgencyApprovalTimeline({
+  color = 'var(--case, var(--coral))',
+  delay = 0.8,
+  compact = false,
+}) {
   const reduce = useReducedMotion();
   const ease = [0.2, 0.7, 0.3, 1];
 
-  // Wider viewBox so when the SVG scales to fit a narrow card-visual
-  // slot the text is still legible relative to container width. Text
-  // fontSize is in SVG userspace units (scales with the SVG), but a
-  // wider viewBox means each userspace unit renders slightly smaller
-  // visually, which reads as "more content, better proportions."
+  // `compact` variant used when the timeline is INLINED inside a
+  // case-body-card (slide 06b Card 02). In that context the card
+  // already has a mono eyebrow + separator line above the chart,
+  // and the pediatric "unresolved" row is redundant/overflow. A
+  // shorter viewBox also prevents the SVG from scaling vertically
+  // taller than the card's remaining space.
   const W = 420;
-  const H = 220;
-  const m = { t: 32, r: 24, b: 30, l: 24 };
+  const H = compact ? 110 : 220;
+  const m = { t: compact ? 18 : 32, r: 24, b: compact ? 18 : 30, l: 24 };
   const iw = W - m.l - m.r;
 
-  const yAdult = m.t + 48;        // adult marker track
-  const yAxis = m.t + 82;         // axis baseline
-  const yPedi = m.t + 118;        // pediatric dashed line
+  const yAdult = m.t + (compact ? 28 : 48);        // adult marker track
+  const yAxis = m.t + (compact ? 58 : 82);         // axis baseline
+  const yPedi = m.t + 118;                          // pediatric — hidden when compact
 
   // Year → x-coordinate mapping (2005 → 2025)
   const YEAR_MIN = 2005;
@@ -99,20 +104,23 @@ export default function AgencyApprovalTimeline({ color = 'var(--case, var(--cora
         </g>
       ))}
 
-      {/* Track label · adult (left-aligned, above upper track) */}
-      <motion.text
-        x={m.l}
-        y={m.t + 10}
-        fontFamily="var(--font-mono)"
-        fontSize="11"
-        letterSpacing="0.18em"
-        fill="var(--cream-muted)"
-        initial={reduce ? { opacity: 1 } : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: reduce ? 0 : 0.3, delay: reduce ? 0 : delay + 0.1 }}
-      >
-        ADULT · APPROVED
-      </motion.text>
+      {/* Track label · adult (full variant only — compact relies on the
+          'ADULT LABEL COVERAGE' eyebrow rendered by the host card). */}
+      {!compact && (
+        <motion.text
+          x={m.l}
+          y={m.t + 10}
+          fontFamily="var(--font-mono)"
+          fontSize="11"
+          letterSpacing="0.18em"
+          fill="var(--cream-muted)"
+          initial={reduce ? { opacity: 1 } : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: reduce ? 0 : 0.3, delay: reduce ? 0 : delay + 0.1 }}
+        >
+          ADULT · APPROVED
+        </motion.text>
+      )}
 
       {/* Adult approval markers */}
       {APPROVALS.map((a, i) => (
@@ -182,49 +190,54 @@ export default function AgencyApprovalTimeline({ color = 'var(--case, var(--cora
         </g>
       ))}
 
-      {/* Pediatric — dashed line · unresolved */}
-      <motion.text
-        x={m.l}
-        y={yPedi - 6}
-        fontFamily="var(--font-mono)"
-        fontSize="11"
-        letterSpacing="0.18em"
-        fill="var(--cream-faint)"
-        initial={reduce ? { opacity: 1 } : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: reduce ? 0 : 0.3, delay: reduce ? 0 : delay + 1.25 }}
-      >
-        PEDIATRIC
-      </motion.text>
+      {/* Pediatric row — full variant only. Compact uses the card's
+          own ADULT LABEL COVERAGE eyebrow and a single-track chart. */}
+      {!compact && (
+        <>
+          <motion.text
+            x={m.l}
+            y={yPedi - 6}
+            fontFamily="var(--font-mono)"
+            fontSize="11"
+            letterSpacing="0.18em"
+            fill="var(--cream-faint)"
+            initial={reduce ? { opacity: 1 } : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: reduce ? 0 : 0.3, delay: reduce ? 0 : delay + 1.25 }}
+          >
+            PEDIATRIC
+          </motion.text>
 
-      <motion.line
-        x1={m.l}
-        y1={yPedi + 6}
-        x2={W - m.r}
-        y2={yPedi + 6}
-        stroke="var(--cream-dim)"
-        strokeWidth={1.2}
-        strokeDasharray="4 5"
-        initial={reduce ? { pathLength: 1 } : { pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ duration: reduce ? 0 : 0.7, ease, delay: reduce ? 0 : delay + 1.35 }}
-      />
+          <motion.line
+            x1={m.l}
+            y1={yPedi + 6}
+            x2={W - m.r}
+            y2={yPedi + 6}
+            stroke="var(--cream-dim)"
+            strokeWidth={1.2}
+            strokeDasharray="4 5"
+            initial={reduce ? { pathLength: 1 } : { pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: reduce ? 0 : 0.7, ease, delay: reduce ? 0 : delay + 1.35 }}
+          />
 
-      <motion.text
-        x={W - m.r}
-        y={yPedi + 20}
-        textAnchor="end"
-        fontFamily="var(--font-mono)"
-        fontSize="11"
-        letterSpacing="0.12em"
-        fill="var(--cream-faint)"
-        fontStyle="italic"
-        initial={reduce ? { opacity: 1 } : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: reduce ? 0 : 0.3, delay: reduce ? 0 : delay + 1.7 }}
-      >
-        unresolved
-      </motion.text>
+          <motion.text
+            x={W - m.r}
+            y={yPedi + 20}
+            textAnchor="end"
+            fontFamily="var(--font-mono)"
+            fontSize="11"
+            letterSpacing="0.12em"
+            fill="var(--cream-faint)"
+            fontStyle="italic"
+            initial={reduce ? { opacity: 1 } : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: reduce ? 0 : 0.3, delay: reduce ? 0 : delay + 1.7 }}
+          >
+            unresolved
+          </motion.text>
+        </>
+      )}
     </svg>
   );
 }

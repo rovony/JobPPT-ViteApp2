@@ -64,127 +64,144 @@ function BackgroundLayout({ reduce, ease }) {
         width: '100%',
         height: '100%',
         display: 'grid',
-        gridTemplateRows: '1fr auto',
+        // Grid rows (per user ask 2026-04-23):
+        //   row 1 — cards row with lung overlay between them (~2/3 height)
+        //   row 2 — full-width timeline chart                (~1/3 height)
+        //   row 3 — auto transition line
+        gridTemplateRows: '2fr 1fr auto',
         rowGap: 'var(--space-4)',
         minHeight: 0,
       }}
     >
-      {/* ─── Cards row ─── 2 cards side-by-side. The lung floats as an
-          ABSOLUTE OVERLAY between them (see below) — NOT inside a grid
-          column. v0's LungContextSlide uses this exact pattern, and
-          HTML slide 06 does the same (.lung-pullback is position:absolute).
-          Why it matters for the flicker: if the lung were in a grid cell,
-          framer-motion would measure it mid-grid-resolution on slide 6
-          mount, giving a transient wrong bbox for the layoutId morph.
-          An absolute overlay's bbox is resolved immediately from the
-          nearest positioned ancestor — no layout race. */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)',
-          columnGap: 'clamp(260px, 32vw, 560px)',
-          alignItems: 'stretch',
-          alignContent: 'center',
-          minHeight: 0,
-          position: 'relative',
-          zIndex: 2, // cards win visual overlap with the lung overlay behind
-        }}
-      >
-        {/* CARD 01 · THE DISEASE */}
-        <CaseBodyCard
-          number="01"
-          eyebrow="THE DISEASE"
-          title="Pulmonary arterial hypertension"
-          delay={1.7}
-          body={
-            <>
-              <p style={{ margin: 0 }}>
-                WHO Group 1 pulmonary hypertension.{' '}
-                <CardHighlight>endothelin-1-mediated vasoconstriction</CardHighlight>{' '}
-                plus progressive vascular remodeling in small pulmonary arteries.
-                Progressive · fatal if untreated · right-ventricular failure.
-              </p>
-              <p style={{ margin: 'var(--space-2) 0 0 0' }}>
-                Adult untreated survival{' '}
-                <strong style={{ color: 'var(--cream)', fontWeight: 600 }}>~2.8 years</strong>.
-                Pediatric prevalence{' '}
-                <CardHighlight>14–20 per million children</CardHighlight> in Europe.
-              </p>
-              <PathwayChips />
-            </>
-          }
-        />
+      {/* ─── ROW 1 · Cards row + lung overlay between them ───
+          Cards use the nested grid for predictable positioning. The lung
+          is an absolute overlay (position decoupled from grid resolution
+          — see tech-debt note about flicker). */}
+      <div style={{ position: 'relative', minHeight: 0 }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)',
+            columnGap: 'clamp(220px, 28vw, 480px)',
+            alignItems: 'stretch',
+            minHeight: 0,
+            height: '100%',
+            position: 'relative',
+            zIndex: 2,
+          }}
+        >
+          {/* CARD 01 · THE DISEASE — footer prop pins pathway chips to bottom */}
+          <CaseBodyCard
+            number="01"
+            eyebrow="THE DISEASE"
+            title="Pulmonary arterial hypertension"
+            delay={1.7}
+            body={
+              <>
+                <p style={{ margin: 0 }}>
+                  WHO Group 1 pulmonary hypertension —{' '}
+                  <CardHighlight>endothelin-1-mediated vasoconstriction</CardHighlight>{' '}
+                  plus progressive vascular remodeling in the small pulmonary arteries.
+                  Progressive, fatal if untreated, leading to right-ventricular failure.
+                  Adult untreated survival ~2.8 years. Pediatric prevalence{' '}
+                  <CardHighlight>14–20 per million children</CardHighlight> in Europe.
+                </p>
+                <p style={{ margin: 'var(--space-2) 0 0 0' }}>
+                  Three pharmacologic pathways are targetable; endothelin is one.
+                </p>
+              </>
+            }
+            footer={<PathwayChips />}
+          />
 
-        {/* CARD 02 · THE DRUG */}
-        <CaseBodyCard
-          number="02"
-          eyebrow="THE DRUG"
-          title="Ambrisentan"
-          delay={1.95}
-          body={
-            <>
-              <p style={{ margin: 0 }}>
-                Selective endothelin type-A (ETA) receptor antagonist —{' '}
-                <CardHighlight>~4,000× selectivity</CardHighlight> over ETB.
-                Clearance: hepatic glucuronidation via{' '}
-                <CardHighlight>UGT1A9 / UGT2B7</CardHighlight>, mature by age 2–3.
-              </p>
-              <p style={{ margin: 'var(--space-2) 0 0 0' }}>
-                Adult dosing:{' '}
-                <CardHighlight>5 mg / 10 mg once daily</CardHighlight>.
-              </p>
-              <CommercialSplit />
-              {/* Inline timeline — separator line + label + chart,
-                  matching HTML .cbc-inline-chart pattern. */}
-              <div
-                style={{
-                  marginTop: 22,
-                  paddingTop: 18,
-                  borderTop: '1px solid var(--cream-hairline)',
-                }}
-              >
-                <span
-                  style={{
-                    display: 'block',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.68rem',
-                    letterSpacing: '0.22em',
-                    textTransform: 'uppercase',
-                    color: 'var(--cream-faint)',
-                    marginBottom: 10,
-                  }}
-                >
-                  Adult label coverage · 2005 → 2025
-                </span>
-                <AgencyApprovalTimeline delay={2.5} />
-              </div>
-            </>
-          }
-        />
+          {/* CARD 02 · THE DRUG — footer prop pins commercial split to bottom */}
+          <CaseBodyCard
+            number="02"
+            eyebrow="THE DRUG"
+            title="Ambrisentan"
+            delay={1.95}
+            body={
+              <>
+                <p style={{ margin: 0 }}>
+                  Selective endothelin type-A (ET<sub>A</sub>) receptor antagonist —{' '}
+                  <CardHighlight>~4,000× selectivity</CardHighlight> over ET<sub>B</sub>.
+                </p>
+                <p style={{ margin: 'var(--space-2) 0 0 0' }}>
+                  Clearance: hepatic glucuronidation via{' '}
+                  <CardHighlight>UGT1A9 / UGT2B7</CardHighlight>, mature by age 2–3.
+                  Adult dosing: <CardHighlight>5 mg / 10 mg once daily</CardHighlight>.
+                </p>
+              </>
+            }
+            footer={<CommercialSplit />}
+          />
+        </div>
+
+        {/* Lung overlay pinned to the cards row only */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            pointerEvents: 'none',
+            zIndex: 0,
+          }}
+        >
+          <LungsShared layoutId="lung-lynch" variant="context" />
+        </div>
       </div>
 
-      {/* ─── LUNG OVERLAY ───
-          Free-floating absolute layer pinned to the slide center and
-          sized to the gap between the two cards. z-index:0 puts it
-          BEHIND the cards (cards are zIndex:2) so if the lung overflows
-          the gap at a narrow viewport, the cards visually clip it. */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          pointerEvents: 'none',
-          zIndex: 0,
-        }}
-      >
-        <LungsShared layoutId="lung-lynch" variant="context" />
-      </div>
+      {/* ─── ROW 2 · Full-width timeline ─── */}
+      <TimelineRow reduce={reduce} ease={ease} />
 
-      {/* ─── Transition line ─── */}
+      {/* ─── ROW 3 · Transition line ─── */}
       <TransitionLine reduce={reduce} ease={ease} />
     </div>
+  );
+}
+
+/* ==============================================================
+   TimelineRow — full-width adult-approval timeline for slide 06.
+   Lives in its own grid row below the two cards (user ask
+   2026-04-23: "2nd row maybe the timeline"). Keeps cards compact
+   and avoids Card 02 overflow.
+   ============================================================== */
+function TimelineRow({ reduce, ease }) {
+  return (
+    <motion.div
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        padding: 'var(--space-4) var(--space-6)',
+        background: 'color-mix(in srgb, var(--panel) 55%, transparent)',
+        borderRadius: 'var(--radius-md)',
+        display: 'grid',
+        gridTemplateRows: 'auto 1fr',
+        rowGap: 'var(--space-2)',
+        minHeight: 0,
+      }}
+      initial={reduce ? { opacity: 1 } : { opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: reduce ? 0 : 0.5, ease, delay: reduce ? 0 : 2.2 }}
+    >
+      <span
+        style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.72rem',
+          letterSpacing: '0.22em',
+          textTransform: 'uppercase',
+          color: 'var(--cream-faint)',
+        }}
+      >
+        Adult label coverage · 2005 → 2025
+      </span>
+      <div style={{ minHeight: 0, width: '100%' }}>
+        <AgencyApprovalTimeline delay={2.5} compact />
+      </div>
+    </motion.div>
   );
 }
 
@@ -227,8 +244,7 @@ function PathwayChips() {
   return (
     <div
       style={{
-        marginTop: 'auto',
-        paddingTop: 18,
+        paddingTop: 4,
         display: 'flex',
         flexWrap: 'wrap',
         alignItems: 'center',
@@ -252,7 +268,6 @@ function CommercialSplit() {
   return (
     <div
       style={{
-        marginTop: 16,
         paddingTop: 4,
         fontFamily: 'var(--font-mono)',
         fontSize: '0.68rem',

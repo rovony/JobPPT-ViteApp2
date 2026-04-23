@@ -37,6 +37,7 @@ export default function CaseBodyCard({
   eyebrow,
   title,
   body,
+  footer,          // NEW: pins to card bottom via grid row (pathway chips, commercial split, etc.)
   visual,
   accentColor = 'var(--case, var(--coral))',
   orientation = 'horizontal',
@@ -89,14 +90,18 @@ export default function CaseBodyCard({
         transition={{ duration: reduce ? 0 : 0.4, ease, delay: reduce ? 0 : delay }}
       />
 
-      {/* ─── LEFT · text column ─── */}
+      {/* ─── LEFT · text column ───
+          Grid rows (meta, title, body, footer). Body grows (1fr) so the
+          footer — if provided — pins to the card bottom. When no footer
+          is passed, the body's natural height is all that renders. */}
       <div
         style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 'var(--space-3)',
+          display: 'grid',
+          gridTemplateRows: 'auto auto 1fr auto',
+          rowGap: 'var(--space-3)',
           minWidth: 0,
-          justifyContent: 'flex-start',
+          minHeight: 0,
+          height: '100%',
         }}
       >
         {/* NUMBER · EYEBROW line — ports HTML .cbc-meta (11pt mono, 0.22em) */}
@@ -140,10 +145,19 @@ export default function CaseBodyCard({
             fontSize: 'clamp(0.92rem, 1.1vw, 1.12rem)',
             lineHeight: 1.55,
             color: 'var(--cream-muted)',
+            minHeight: 0,
+            overflow: 'hidden',
           }}
         >
           {body}
         </div>
+
+        {/* FOOTER — pinned to card bottom via grid (pathway chips, etc.) */}
+        {footer && (
+          <div style={{ minHeight: 0 }}>
+            {footer}
+          </div>
+        )}
       </div>
 
       {/* ─── RIGHT · visual column ─── */}
