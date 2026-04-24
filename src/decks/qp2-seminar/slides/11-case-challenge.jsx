@@ -80,6 +80,17 @@ export default function Slide11() {
    Content column is itself a vertical flex stack: 3 cards + focal.
    ================================================================ */
 function ChallengeStack() {
+  // Single unified 2-col × 5-row grid. Previously the spine and the
+  // card stack lived in two separate grids so their auto rows had
+  // different heights and the 1fr card rows couldn't share y-coords
+  // with the spine's rows. Now everything lives on ONE grid:
+  //   col 1 = spine (56px), col 2 = content (1fr)
+  //   rows 1-3 = cards (1fr each, matched across columns)
+  //   row 4   = timeline strip (spans BOTH columns — full width)
+  //   row 5   = focal question + diamond
+  // Dots placed via gridColumn:1; gridRow:N align exactly with card
+  // midpoints because both share the same row height. Timeline gets
+  // gridColumn:'1 / 3' so it extends left under the spine column too.
   return (
     <div
       style={{
@@ -87,95 +98,96 @@ function ChallengeStack() {
         height: '100%',
         display: 'grid',
         gridTemplateColumns: '56px 1fr',
+        gridTemplateRows: 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) auto auto',
         columnGap: 'var(--space-4)',
+        rowGap: 'var(--space-3)',
         minHeight: 0,
+        position: 'relative',
       }}
     >
-      {/* ─── COL 1 · spine ─── */}
-      <SpineRail />
+      {/* ─── Spine column 1 — line + dots + diamond ─── */}
+      <SpineLine />
+      <SpineDot number="01" row={1} delay={1.8} />
+      <SpineDot number="02" row={2} delay={2.05} />
+      <SpineDot number="03" row={3} delay={2.3} />
+      <SpineDiamond row={5} delay={3.0} />
 
-      {/* ─── COL 2 · stack of 3 cards + approval-timeline footer + focal ───
-          The ApprovalTimeline footer-strip shows the 19-year pediatric
-          silence. Shared layoutId with slide 13 (impact) — when the
-          user navigates 11 → ... → 13, the silence visually 'closes up'
-          as the dashed pediatric section fills in. User confirmed
-          hybrid C approach (2026-04-23). */}
-      <div
+      {/* ─── Content column 2 — three cards ─── */}
+      <ChallengeCard
+        row={1}
+        number="01"
+        eyebrow="The disease"
+        title="Pulmonary arterial hypertension"
+        body={
+          <>
+            Progressive · fatal if untreated · right-ventricular failure. Pediatric
+            prevalence 2–16 per million —{' '}
+            <Highlight>median untreated survival ~2.8 years</Highlight>.
+          </>
+        }
+        caption="Survival · untreated PAH"
+        chart={<SurvivalMiniChart tk={tk} delay={2.0} />}
+        cardDelay={1.8}
+      />
+
+      <ChallengeCard
+        row={2}
+        number="02"
+        eyebrow="The gap"
+        title="Ambrisentan — adults only"
+        body={
+          <>
+            Selective endothelin type-A antagonist · adult approval at 5 / 10 mg QD.
+            Label states{' '}
+            <em style={{ color: 'var(--cream-muted)', fontStyle: 'italic' }}>
+              safety and efficacy not established in pediatrics
+            </em>{' '}
+            — <Highlight>a pediatric dose was needed but never translated</Highlight>.
+          </>
+        }
+        caption="Label coverage · 2007 → 2026"
+        chart={<LabelCoverageChart tk={tk} delay={2.25} />}
+        cardDelay={2.05}
+      />
+
+      <ChallengeCard
+        row={3}
+        number="03"
+        eyebrow="The constraint"
+        title="Study AMB112529 — sparse pediatric PK"
+        body={
+          <>
+            The <Strong>only</Strong> pediatric PK dataset · N = 39 (of 41 randomized)
+            · ages 8 → &lt; 18 yr · <Strong>~5 samples per patient</Strong> across{' '}
+            <Strong>24 weeks</Strong>.{' '}
+            <Highlight>Sparse pediatric PK had to do regulatory work alone</Highlight>.
+          </>
+        }
+        caption="Sampling density · adult vs pediatric"
+        chart={<SparsePKChart tk={tk} delay={2.5} />}
+        cardDelay={2.3}
+      />
+
+      {/* Approval-timeline strip — spans BOTH columns (full width under
+          the spine), shared layoutId with slide 13. */}
+      <motion.div
         style={{
-          display: 'grid',
-          gridTemplateRows: 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) auto auto',
-          rowGap: 'var(--space-3)',
-          minHeight: 0,
+          gridColumn: '1 / 3',
+          gridRow: 4,
+          padding: 'var(--space-3) var(--space-4)',
+          borderTop: '1px solid var(--cream-hairline)',
+          borderBottom: '1px solid var(--cream-hairline)',
+          background: 'color-mix(in srgb, var(--panel) 40%, transparent)',
         }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 2.8 }}
       >
-        <ChallengeCard
-          number="01"
-          eyebrow="The disease"
-          title="Pulmonary arterial hypertension"
-          body={
-            <>
-              Progressive · fatal if untreated · right-ventricular failure. Pediatric
-              prevalence 2–16 per million —{' '}
-              <Highlight>median untreated survival ~2.8 years</Highlight>.
-            </>
-          }
-          caption="Survival · untreated PAH"
-          chart={<SurvivalMiniChart tk={tk} delay={2.0} />}
-          cardDelay={1.8}
-        />
+        <ApprovalTimeline variant="silence" delay={3.0} />
+      </motion.div>
 
-        <ChallengeCard
-          number="02"
-          eyebrow="The gap"
-          title="Ambrisentan — adults only"
-          body={
-            <>
-              Selective endothelin type-A antagonist · adult approval at 5 / 10 mg QD.
-              Label states{' '}
-              <em style={{ color: 'var(--cream-muted)', fontStyle: 'italic' }}>
-                safety and efficacy not established in pediatrics
-              </em>{' '}
-              — <Highlight>a pediatric dose was needed but never translated</Highlight>.
-            </>
-          }
-          caption="Label coverage · 2007 → 2026"
-          chart={<LabelCoverageChart tk={tk} delay={2.25} />}
-          cardDelay={2.05}
-        />
-
-        <ChallengeCard
-          number="03"
-          eyebrow="The constraint"
-          title="Study AMB112529 — sparse pediatric PK"
-          body={
-            <>
-              The <Strong>only</Strong> pediatric PK dataset · N = 39 (of 41 randomized)
-              · ages 8 → &lt; 18 yr · <Strong>~5 samples per patient</Strong> across{' '}
-              <Strong>24 weeks</Strong>.{' '}
-              <Highlight>Sparse pediatric PK had to do regulatory work alone</Highlight>.
-            </>
-          }
-          caption="Sampling density · adult vs pediatric"
-          chart={<SparsePKChart tk={tk} delay={2.5} />}
-          cardDelay={2.3}
-        />
-
-        {/* Approval-timeline footer-strip — pediatric silence (2007→2021).
-            Shared layoutId morphs into slide 13's closed-up state. */}
-        <motion.div
-          style={{
-            padding: 'var(--space-3) var(--space-4)',
-            borderTop: '1px solid var(--cream-hairline)',
-            borderBottom: '1px solid var(--cream-hairline)',
-            background: 'color-mix(in srgb, var(--panel) 40%, transparent)',
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 2.8 }}
-        >
-          <ApprovalTimeline variant="silence" delay={3.0} />
-        </motion.div>
-
+      {/* Focal question — col 2 of row 5 (diamond sits in col 1) */}
+      <div style={{ gridColumn: 2, gridRow: 5 }}>
         <FocalQuestion />
       </div>
     </div>
@@ -183,128 +195,113 @@ function ChallengeStack() {
 }
 
 /* ================================================================
-   SpineRail — mirrors the card-stack grid so dots track card centers
-   automatically. Previously used fixed percentages (13/41/69) that
-   drifted when the timeline-strip row was added to the parent grid.
-   Now the rail is itself a CSS grid with the SAME row template as
-   the card stack:
-     minmax(0, 1fr)   row 1 · card 01
-     minmax(0, 1fr)   row 2 · card 02
-     minmax(0, 1fr)   row 3 · card 03
-     auto             row 4 · ApprovalTimeline strip
-     auto             row 5 · FocalQuestion
-
-   Dots placed into rows 1-3 with alignSelf:center → they sit exactly
-   at each card's vertical midpoint. Diamond placed into row 5. Spine
-   line is an absolute-positioned overlay spanning the dot zone.
+   Spine pieces — each is a grid child of the unified ChallengeStack
+   grid, placed into col 1 with gridRow targeting. Because all pieces
+   share rows with the cards in col 2, the dots automatically sit at
+   the vertical center of their partner card regardless of row height
+   (which shifts as cards render or the timeline strip grows/shrinks).
    ================================================================ */
-function SpineRail() {
+function SpineLine() {
   const reduce = useReducedMotion();
   const ease = [0.2, 0.7, 0.3, 1];
-
+  // Spans rows 1 → 5 inside the parent grid's col 1, centered
+  // horizontally. Small top/bottom offsets so the line starts at the
+  // top of dot 01 (22px dot → 11px half-height) and ends at the top
+  // of the diamond in row 5.
   return (
-    <div
+    <motion.div
+      aria-hidden
       style={{
-        position: 'relative',
-        width: '100%',
-        height: '100%',
-        display: 'grid',
-        gridTemplateRows: 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) auto auto',
-        rowGap: 'var(--space-3)',
-        justifyItems: 'center',
+        gridColumn: 1,
+        gridRow: '1 / 6',
+        justifySelf: 'center',
+        alignSelf: 'stretch',
+        width: 1.5,
+        background: 'var(--case, var(--coral))',
+        opacity: 0.55,
+        transformOrigin: 'top center',
+        marginTop: 11,
+        marginBottom: 8,
+      }}
+      initial={reduce ? { scaleY: 1 } : { scaleY: 0 }}
+      animate={{ scaleY: 1 }}
+      transition={{ duration: reduce ? 0 : 0.9, ease, delay: reduce ? 0 : 1.6 }}
+    />
+  );
+}
+
+function SpineDot({ number, row, delay }) {
+  const reduce = useReducedMotion();
+  return (
+    <motion.div
+      aria-hidden
+      style={{
+        gridColumn: 1,
+        gridRow: row,
+        alignSelf: 'center',
+        justifySelf: 'center',
+        width: 22,
+        height: 22,
+        borderRadius: '50%',
+        background: 'var(--bg)',
+        border: '1.5px solid var(--case, var(--coral))',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamily: 'var(--font-mono)',
+        fontSize: '0.55rem',
+        letterSpacing: '0.08em',
+        color: 'var(--case, var(--coral))',
+        fontWeight: 600,
+        zIndex: 1,
+      }}
+      initial={reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: reduce ? 0 : 0.3,
+        ease: [0.34, 1.56, 0.64, 1],
+        delay: reduce ? 0 : delay,
       }}
     >
-      {/* Vertical spine line — spans grid rows 1 → 5 so it starts
-          inside the first card row and reaches the focal row. The
-          scaleY entrance grows it from the first dot downward. */}
+      {number}
+    </motion.div>
+  );
+}
+
+function SpineDiamond({ row, delay }) {
+  const reduce = useReducedMotion();
+  // Framer Motion animates `scale` via transform, which would clobber
+  // a rotate(45deg) on the same element. Rotated wrapper stays static;
+  // only the inner child animates.
+  return (
+    <div
+      aria-hidden
+      style={{
+        gridColumn: 1,
+        gridRow: row,
+        alignSelf: 'center',
+        justifySelf: 'center',
+        transform: 'rotate(45deg)',
+        width: 14,
+        height: 14,
+        zIndex: 1,
+      }}
+    >
       <motion.div
-        aria-hidden
         style={{
-          gridRow: '1 / 6',
-          gridColumn: 1,
-          width: 1.5,
-          background: 'var(--case, var(--coral))',
-          opacity: 0.55,
-          transformOrigin: 'top center',
-          marginTop: 11,   // stop at top of dot 01 (22px dot / 2)
-          marginBottom: 8, // stop at top of diamond
-          height: 'calc(100% - 19px)',
+          width: '100%',
+          height: '100%',
+          background: 'var(--amber)',
+          boxShadow: '0 0 12px color-mix(in srgb, var(--amber) 60%, transparent)',
         }}
-        initial={reduce ? { scaleY: 1 } : { scaleY: 0 }}
-        animate={{ scaleY: 1 }}
-        transition={{ duration: reduce ? 0 : 0.9, ease, delay: reduce ? 0 : 1.6 }}
+        initial={reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: reduce ? 0 : 0.4,
+          ease: [0.34, 1.56, 0.64, 1],
+          delay: reduce ? 0 : delay,
+        }}
       />
-
-      {/* Three numbered dots — one per card row, centered vertically
-          so they track the card number/title regardless of how tall
-          the auto rows become. */}
-      {['01', '02', '03'].map((n, i) => (
-        <motion.div
-          key={n}
-          aria-hidden
-          style={{
-            gridRow: i + 1,
-            gridColumn: 1,
-            alignSelf: 'center',
-            width: 22,
-            height: 22,
-            borderRadius: '50%',
-            background: 'var(--bg)',
-            border: '1.5px solid var(--case, var(--coral))',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.55rem',
-            letterSpacing: '0.08em',
-            color: 'var(--case, var(--coral))',
-            fontWeight: 600,
-            zIndex: 1,
-          }}
-          initial={reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{
-            duration: reduce ? 0 : 0.3,
-            ease: [0.34, 1.56, 0.64, 1],
-            delay: reduce ? 0 : 1.8 + i * 0.25,
-          }}
-        >
-          {n}
-        </motion.div>
-      ))}
-
-      {/* Focal diamond — row 5, centered. Framer Motion animates
-          `scale` via transform which would clobber a rotate(45deg),
-          so the rotated wrapper stays non-motion and only the inner
-          child animates. */}
-      <div
-        aria-hidden
-        style={{
-          gridRow: 5,
-          gridColumn: 1,
-          alignSelf: 'center',
-          transform: 'rotate(45deg)',
-          width: 14,
-          height: 14,
-          zIndex: 1,
-        }}
-      >
-        <motion.div
-          style={{
-            width: '100%',
-            height: '100%',
-            background: 'var(--amber)',
-            boxShadow: '0 0 12px color-mix(in srgb, var(--amber) 60%, transparent)',
-          }}
-          initial={reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{
-            duration: reduce ? 0 : 0.4,
-            ease: [0.34, 1.56, 0.64, 1],
-            delay: reduce ? 0 : 3.0,
-          }}
-        />
-      </div>
     </div>
   );
 }
@@ -314,13 +311,15 @@ function SpineRail() {
    Two-col grid inside: text (1.1fr) · chart (1fr). Fills its row
    height so the chart gets real vertical room.
    ================================================================ */
-function ChallengeCard({ number, eyebrow, title, body, caption, chart, cardDelay = 1.8 }) {
+function ChallengeCard({ row, number, eyebrow, title, body, caption, chart, cardDelay = 1.8 }) {
   const reduce = useReducedMotion();
   const ease = [0.2, 0.7, 0.3, 1];
 
   return (
     <motion.div
       style={{
+        gridColumn: 2,
+        gridRow: row,
         position: 'relative',
         display: 'grid',
         gridTemplateColumns: '1.15fr 1fr',
