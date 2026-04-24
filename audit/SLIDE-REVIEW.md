@@ -7,6 +7,22 @@
 
 ---
 
+## Execution status (Apr 24 sweep)
+
+| Phase | Commit | Status | Scope |
+|---|---|---|---|
+| Baseline | `cb1d3b2` | ✅ done | Pre-Phase-A snapshot of slides 16, 22-35 + audit reports |
+| **A — mechanical fixes** | `78d9e38` | ✅ done | `--space-7`, `--fs-card-*` tokens, `&amp;` bug, calibration triad (slide 02), `ThemesConstellation` chain (slide 35), `cs3-pct-36` layoutId pair (slides 26↔28), 3 dead files, cyan→sage on slide 31 |
+| **B — global motion + footer + budget** | `1b96621` | ✅ done | `MotionConfig reducedMotion="user"` global guard, `Footer` `source` prop, `D.source`/`D.footer` capped to 2.80s on 11 slides |
+| **B+ — citation migration & layoutIds** | `8744170` | ✅ done | 18 slides migrated tagline → `source` prop, `case-marker-{coral|cyan|violet}` layoutIds added (slides 01 dots ↔ slides 5/15/23 hero hairlines) |
+| **D — editorial defaults** | `cd1b0c8` | ✅ done | Slide 34 headline rewrite + 6/7 reconciliation, slide 32 "12 YEARS" lead numeral, slide 03/11/11b decorative shadow sweep, DEFERRED-WORK.md |
+| **C — `--fs-card-*` migration sweep** | _pending_ | 📋 deferred | Mechanical 35-slide sweep replacing inline `clamp()` literals with new tokens. See `DEFERRED-WORK.md` §5. |
+| **D-tail — slide 21 rebuild + 6 layoutIds + P5 contract** | _pending_ | 📋 deferred | Speaker-input-required items. See `DEFERRED-WORK.md` §1, §3, §4. |
+
+**5 commits landed today; build green throughout (vite build exits 0).** Each commit is independently revertable. See `DEFERRED-WORK.md` for the 5 remaining items with rationale, effort estimates, and unblock criteria.
+
+---
+
 ## 1. Executive summary
 
 - **49 HIGH-severity findings** across 35 slides — none of them blockers, none of them cosmetic. Distribution: B1 (slides 1-7) = 11, B2 (8-14) = 11, B3 (15-22) = 12, B4 (23-29) = 6, B5 (30-35) = 9. CS3 has the cleanest authoring; opening + CS1 + closing carry most of the debt.
