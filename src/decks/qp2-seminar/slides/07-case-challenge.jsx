@@ -43,8 +43,8 @@ const tk = (name) =>
  *   │   │   │ │ 03 · THE CONSTRAINT                │ │
  *   │   │   │ │ Title + body                chart  │ │
  *   │   │   │ └────────────────────────────────────┘ │
- *   │   ◆   │ ┌────────────────────────────────────┐ │
- *   │       │ │ Focal question (amber glow)        │ │
+ *   │       │ ┌────────────────────────────────────┐ │
+ *   │       │ │ ◆ Focal question (amber glow)      │ │
  *   │       │ └────────────────────────────────────┘ │
  *   └────────────────────────────────────────────────┘
  *
@@ -87,7 +87,8 @@ function ChallengeStack() {
   //   col 1 = spine (56px), col 2 = content (1fr)
   //   rows 1-3 = cards (1fr each, matched across columns)
   //   row 4   = timeline strip (spans BOTH columns — full width)
-  //   row 5   = focal question + diamond
+  //   row 5   = focal question (also spans both columns — diamond
+  //             marker now lives inline inside the ribbon)
   // Dots placed via gridColumn:1; gridRow:N align exactly with card
   // midpoints because both share the same row height. Timeline gets
   // gridColumn:'1 / 3' so it extends left under the spine column too.
@@ -169,19 +170,22 @@ function ChallengeStack() {
         @media (max-width: 640px) {
           .cs1-challenge-stack { grid-template-columns: 1fr !important; }
           .cs1-challenge-stack .cs1-spine,
-          .cs1-challenge-stack .cs1-dot,
-          .cs1-challenge-stack .cs1-diamond { display: none !important; }
+          .cs1-challenge-stack .cs1-dot { display: none !important; }
           .cs1-challenge-stack .cs1-card { grid-column: 1 !important; padding-left: var(--space-3) !important; }
           .cs1-challenge-stack .cs1-focal { grid-column: 1 !important; }
           .cs1-challenge-stack .cs1-timeline { grid-column: 1 !important; }
         }
       `}</style>
-      {/* ─── Spine column 1 — line + dots + diamond ─── */}
+      {/* ─── Spine column 1 — line + numbered dots (diamond is now
+              inline inside FocalQuestion ribbon, see below) ─── */}
       <SpineLine />
       <SpineDot number="01" row={1} delay={1.8} />
       <SpineDot number="02" row={2} delay={2.05} />
       <SpineDot number="03" row={3} delay={2.3} />
-      <SpineDiamond row={5} delay={3.0} />
+      {/* Diamond moved INSIDE FocalQuestion ribbon (matches slide 08
+          convention). The previous "outside" placement (gridColumn:1
+          gridRow:5) is preserved in
+          _archive/2026-04-24-slide07-spine-diamond-outside.md */}
 
       {/* ─── Content column 2 — three cards ─── */}
       <ChallengeCard
@@ -297,8 +301,11 @@ function ChallengeStack() {
         </div>
       </motion.div>
 
-      {/* Focal question — col 2 of row 5 (diamond sits in col 1) */}
-      <div className="cs1-focal" style={{ gridColumn: 2, gridRow: 5 }}>
+      {/* Focal question — spans BOTH columns of row 5. The amber
+          diamond marker now lives INSIDE the ribbon (slide-08
+          convention) so the conclusion sentence reads as a single
+          editorial unit instead of being split across the spine col. */}
+      <div className="cs1-focal" style={{ gridColumn: '1 / 3', gridRow: 5 }}>
         <FocalQuestion />
       </div>
     </div>
@@ -381,44 +388,10 @@ function SpineDot({ number, row, delay }) {
   );
 }
 
-function SpineDiamond({ row, delay }) {
-  const reduce = useReducedMotion();
-  // Framer Motion animates `scale` via transform, which would clobber
-  // a rotate(45deg) on the same element. Rotated wrapper stays static;
-  // only the inner child animates.
-  return (
-    <div
-      aria-hidden
-      className="cs1-diamond"
-      style={{
-        gridColumn: 1,
-        gridRow: row,
-        alignSelf: 'center',
-        justifySelf: 'center',
-        transform: 'rotate(45deg)',
-        width: 14,
-        height: 14,
-        zIndex: 1,
-      }}
-    >
-      <motion.div
-        style={{
-          width: '100%',
-          height: '100%',
-          background: 'var(--amber)',
-          /* boxShadow removed (Brief §10 — no decorative glows). */
-        }}
-        initial={reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{
-          duration: reduce ? 0 : 0.4,
-          ease: [0.34, 1.56, 0.64, 1],
-          delay: reduce ? 0 : delay,
-        }}
-      />
-    </div>
-  );
-}
+// SpineDiamond removed 2026-04-24 — diamond marker moved INSIDE the
+// FocalQuestion ribbon to match slide 08's convention. Snapshot at
+// _archive/2026-04-24-slide07-spine-diamond-outside.md if the prior
+// "outside in spine col 1" pattern needs to be revived.
 
 /* ================================================================
    ChallengeCard — one row in the stack.
@@ -618,9 +591,10 @@ function ChallengeCard({ row, number, eyebrow, title, body, caption, chart, card
 
 /* ================================================================
    FocalQuestion — bottom strip of the stack.
-   Same two-col grid feel as cards (for visual rhyme) but with amber
-   glow + diamond on the spine side. "Regulatory-grade evidence"
-   flips cream → amber.
+   Amber-tinted ribbon with an inline ◆ marker on the leading edge —
+   same convention as slide 08's closing ribbon, so the deck reads
+   one focal pattern across the full presentation. "Regulatory-grade
+   evidence" flips cream → amber.
    ================================================================ */
 function FocalQuestion() {
   const reduce = useReducedMotion();
@@ -631,7 +605,7 @@ function FocalQuestion() {
       style={{
         display: 'flex',
         alignItems: 'center',
-        gap: 'var(--space-4)',
+        gap: 'var(--space-3)',
         padding: 'var(--space-3) var(--space-5)',
         background: 'color-mix(in srgb, var(--amber) 8%, transparent)',
         border: '1px solid color-mix(in srgb, var(--amber) 28%, transparent)',
@@ -641,6 +615,35 @@ function FocalQuestion() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: reduce ? 0 : 0.5, ease, delay: reduce ? 0 : 3.1 }}
     >
+      {/* Inline amber diamond — same shape & color as slide 08's
+          ribbon anchor. The rotated wrapper stays static; only the
+          inner element animates so Framer Motion's transform doesn't
+          fight the rotate(45deg). */}
+      <div
+        aria-hidden
+        style={{
+          flexShrink: 0,
+          transform: 'rotate(45deg)',
+          width: 14,
+          height: 14,
+        }}
+      >
+        <motion.div
+          style={{
+            width: '100%',
+            height: '100%',
+            background: 'var(--amber)',
+          }}
+          initial={reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: reduce ? 0 : 0.4,
+            ease: [0.34, 1.56, 0.64, 1],
+            delay: reduce ? 0 : 3.0,
+          }}
+        />
+      </div>
+
       <motion.div
         className="deck-display italic"
         style={{
