@@ -21,7 +21,23 @@ the Merck Senior-Director interview. Deployed on Vercel from GitHub
   study color, defaults to `--coral`)
 - Fonts: IBM Plex Sans (`--font-display`, `--font-body`), IBM Plex Mono
   (`--font-mono`)
-- Spacing scale: `var(--space-1..6)` — don't invent pixel values
+- Spacing scale: `var(--space-1..8)` — don't invent pixel values
+- Card/tile font sizes: use the `--fs-card-{numeral|title|body|label|meta|hero-num|quote}`
+  family — do NOT inline raw `clamp()` literals in slide JSX
+
+### Case-color discipline (P5 contract)
+
+Coral, Cyan, Violet ALWAYS mean CS1, CS2, CS3 across this deck:
+- `--coral` ⇄ Case Study 1 (pediatric PAH / ambrisentan)
+- `--cyan`  ⇄ Case Study 2 (oncology / Lynparza-style asymmetry)
+- `--violet`⇄ Case Study 3 (rare disease / CMD pipeline)
+
+`--amber` and `--sage` are deck-default ink accents (approval markers,
+secondary highlights) and may NOT encode case meaning. Each slide carries
+≤3 accent colors with assigned meanings (Brief §6). When a closing /
+breadth slide assigns colors to non-case categories (e.g. therapeutic
+areas, leadership principles), avoid coral/cyan/violet unless the
+category genuinely refers back to the corresponding case.
 
 ## Deck Architecture
 

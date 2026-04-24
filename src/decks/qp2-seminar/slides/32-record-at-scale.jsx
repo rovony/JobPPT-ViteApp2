@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import { motion, useMotionValue, useTransform, animate, useReducedMotion } from 'framer-motion';
 import { useTokens } from '@/lib/token';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
@@ -326,17 +326,26 @@ function RecordTile({ tile, delay, tk }) {
    pattern users have already seen.
    ======================================================== */
 function CountUpDigit({ target, delay = 0, duration = 0.9, style }) {
-  const count = useMotionValue(0);
+  const reduce = useReducedMotion();
+  // When the user prefers reduced motion, the count-up animation is
+  // a vestibular-trigger tick that adds no information (the final
+  // number is what matters). Snap directly to `target` instead.
+  // (SLIDE-REVIEW.md §2 row 32 — "CountUpDigit ignores reduced-motion".)
+  const count = useMotionValue(reduce ? target : 0);
   const rounded = useTransform(count, (v) => Math.round(v));
 
   useEffect(() => {
+    if (reduce) {
+      count.set(target);
+      return undefined;
+    }
     const controls = animate(count, target, {
       duration,
       delay,
       ease: [0.2, 0.7, 0.3, 1],
     });
     return controls.stop;
-  }, [count, target, duration, delay]);
+  }, [count, target, duration, delay, reduce]);
 
   return (
     <motion.span className="deck-display tabular-nums" style={style}>
