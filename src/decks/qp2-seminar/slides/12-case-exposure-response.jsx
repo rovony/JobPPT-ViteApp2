@@ -152,7 +152,7 @@ export default function Slide11fCaseExposureResponse() {
       >
         <div
           className="deck-mono uppercase"
-          style={{ fontSize: 'var(--fs-card-meta)', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-muted)' }}
+          style={{ fontSize: '0.65rem', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-muted)' }}
         >
           Themes exercised
           <div style={{ color: 'var(--coral)', marginTop: 4, fontWeight: 700 }}>
@@ -430,7 +430,7 @@ function ThemePill({ theme, active }) {
         padding: '7px 14px 7px 10px',
         border: `1px solid ${active ? color : 'var(--cream-hairline)'}`,
         borderRadius: 999,
-        fontSize: 'var(--fs-card-meta)',
+        fontSize: '0.7rem',
         letterSpacing: '0.14em',
         color: active ? 'var(--cream)' : 'var(--cream-faint)',
         opacity: active ? 1 : 0.45,

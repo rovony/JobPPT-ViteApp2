@@ -200,7 +200,7 @@ function HeroDelta({ value, label, accent }) {
       <div
         className="deck-display"
         style={{
-          fontSize: 'var(--fs-card-numeral)',
+          fontSize: 'clamp(2rem, 3.6vw, 3.6rem)',
           lineHeight: 1,
           letterSpacing: '-0.03em',
           color: accent ? 'var(--coral)' : 'var(--cream)',
@@ -211,7 +211,7 @@ function HeroDelta({ value, label, accent }) {
       </div>
       <div
         className="deck-mono uppercase mt-1"
-        style={{ fontSize: 'var(--fs-card-meta)', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-muted)' }}
+        style={{ fontSize: '0.58rem', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-muted)' }}
       >
         {label}
       </div>
@@ -552,7 +552,7 @@ function SubgroupFlag({ ease, delay }) {
       <div
         className="deck-mono uppercase"
         style={{
-          fontSize: 'var(--fs-card-meta)',
+          fontSize: '0.58rem',
           letterSpacing: '0.22em',
           color: 'var(--coral)',
           marginBottom: 4,

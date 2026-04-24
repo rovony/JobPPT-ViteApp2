@@ -289,7 +289,7 @@ function SpineDot({ number, row, delay }) {
         alignItems: 'center',
         justifyContent: 'center',
         fontFamily: 'var(--font-mono)',
-        fontSize: '0.55rem',
+        fontSize: 'var(--fs-card-meta)',
         letterSpacing: '0.08em',
         color: 'var(--case, var(--coral))',
         fontWeight: 600,
@@ -424,7 +424,7 @@ function ChallengeCard({ row, number, eyebrow, title, body, caption, chart, card
         <div
           className="deck-mono uppercase"
           style={{
-            fontSize: '0.66rem',
+            fontSize: 'var(--fs-card-label)',
             letterSpacing: '0.18em',
             color: 'var(--cream-muted)',
             fontWeight: 500,
@@ -439,7 +439,7 @@ function ChallengeCard({ row, number, eyebrow, title, body, caption, chart, card
           className="cs1-card-title"
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(0.98rem, 1.15vw, 1.28rem)',
+            fontSize: 'var(--fs-card-title)',
             fontWeight: 600,
             color: 'var(--cream)',
             lineHeight: 1.15,
@@ -524,7 +524,7 @@ function ChallengeCard({ row, number, eyebrow, title, body, caption, chart, card
         <div
           className="deck-mono uppercase"
           style={{
-            fontSize: '0.54rem',
+            fontSize: 'var(--fs-card-meta)',
             letterSpacing: '0.12em',
             color: 'var(--cream-faint)',
             textAlign: 'center',
@@ -566,7 +566,7 @@ function FocalQuestion() {
       <motion.div
         className="deck-display italic"
         style={{
-          fontSize: 'clamp(1.1rem, 1.4vw, 1.65rem)',
+          fontSize: 'var(--fs-card-title)',
           fontWeight: 400,
           lineHeight: 1.35,
           color: 'var(--cream)',

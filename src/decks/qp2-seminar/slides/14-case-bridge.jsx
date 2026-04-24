@@ -88,7 +88,7 @@ export default function Slide13() {
           <motion.div
             className="deck-mono uppercase"
             style={{
-              fontSize: '0.72rem',
+              fontSize: 'var(--fs-card-label)',
               letterSpacing: 'var(--ls-mono-wide)',
               color: 'var(--cream-muted)',
               marginBottom: '18px',
@@ -156,7 +156,7 @@ export default function Slide13() {
         <div
           className="deck-display"
           style={{
-            fontSize: 'clamp(1.1rem, 1.5vw, 1.65rem)',
+            fontSize: 'var(--fs-card-title)',
             color: 'var(--amber)',
             fontWeight: 700,
             letterSpacing: 'var(--ls-headline)',

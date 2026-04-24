@@ -238,7 +238,7 @@ function TimelineRow({ reduce, ease }) {
       <span
         style={{
           fontFamily: 'var(--font-mono)',
-          fontSize: '0.72rem',
+          fontSize: 'var(--fs-card-label)',
           letterSpacing: '0.22em',
           textTransform: 'uppercase',
           color: 'var(--cream-faint)',
@@ -263,7 +263,7 @@ function TimelineRow({ reduce, ease }) {
 function PathwayChips() {
   const labelStyle = {
     fontFamily: 'var(--font-mono)',
-    fontSize: '0.68rem',
+    fontSize: 'var(--fs-card-label)',
     letterSpacing: '0.22em',
     textTransform: 'uppercase',
     color: 'var(--cream-faint)',
@@ -273,7 +273,7 @@ function PathwayChips() {
   };
   const chipBase = {
     fontFamily: 'var(--font-mono)',
-    fontSize: '0.68rem',
+    fontSize: 'var(--fs-card-meta)',
     letterSpacing: '0.18em',
     textTransform: 'uppercase',
     padding: '4px 10px',
@@ -318,7 +318,7 @@ function CommercialSplit() {
       style={{
         paddingTop: 4,
         fontFamily: 'var(--font-mono)',
-        fontSize: '0.68rem',
+        fontSize: 'var(--fs-card-label)',
         letterSpacing: '0.22em',
         textTransform: 'uppercase',
         color: 'var(--cream-muted)',
@@ -373,7 +373,7 @@ function TransitionLine({ reduce, ease }) {
       <div
         className="deck-display"
         style={{
-          fontSize: 'clamp(0.95rem, 1.2vw, 1.35rem)',
+          fontSize: 'var(--fs-card-title)',
           lineHeight: 1.4,
           color: 'var(--cream)',
           fontWeight: 400,

@@ -371,7 +371,7 @@ function CaseCard({ c, index, go }) {
         style={{
           margin: 0,
           fontFamily: 'var(--font-body)',
-          fontSize: 'clamp(1rem, 1.3vw, 1.35rem)',
+          fontSize: 'var(--fs-card-title)',
           fontWeight: 600,
           lineHeight: 1.2,
           color: 'var(--cream)',
