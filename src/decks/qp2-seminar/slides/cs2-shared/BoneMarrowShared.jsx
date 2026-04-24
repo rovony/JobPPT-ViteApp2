@@ -80,26 +80,33 @@ export default function BoneMarrowShared({
       >
         <defs>
           <filter id={`bm-duotone-${filterId}`} colorInterpolationFilters="sRGB">
-            {/* Step 1: collapse to luminance, then invert (light grays
-                become near-black, dark outlines become bright). */}
+            {/* Step 1: invert luminance into RGB while PRESERVING source alpha.
+                Old version wrote alpha = 1 - luma, which turned every
+                transparent background pixel into opaque "white" that step 2
+                then tinted cyan — producing a solid cyan rectangle around
+                the diagram. New matrix:
+                  R' = G' = B' = (1 - 0.299R - 0.587G - 0.114B)
+                  A' = source A
+                Light grays → near-black, dark outlines → bright; transparent
+                stays transparent. */}
             <feColorMatrix
               type="matrix"
               values="
-                0 0 0 0 1
-                0 0 0 0 1
-                0 0 0 0 1
                 -0.299 -0.587 -0.114 0 1
+                -0.299 -0.587 -0.114 0 1
+                -0.299 -0.587 -0.114 0 1
+                 0      0      0     1 0
               "
             />
-            {/* Step 2: tint by multiplying through a cyan-leaning matrix.
+            {/* Step 2: tint inverted gray to cyan; alpha unchanged.
                 R≈0.05, G≈0.85, B≈0.95 → matches the deck's --cyan. */}
             <feColorMatrix
               type="matrix"
               values="
-                0.05 0 0 0 0.02
-                0.85 0 0 0 0.05
-                0.95 0 0 0 0.10
-                0 0 0 1 0
+                0.05 0.05 0.05 0 0
+                0.85 0.85 0.85 0 0
+                0.95 0.95 0.95 0 0
+                0    0    0    1 0
               "
             />
           </filter>
