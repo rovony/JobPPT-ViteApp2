@@ -63,13 +63,22 @@ export default function Slide30ClosingDivider() {
         Act IV · IV of IV · From depth → scope
       </motion.div>
 
-      {/* ═══════════ LEFT · Type column ═══════════ */}
+      {/* ═══════════ LEFT · Type column ═══════════
+          Previously declared a fixed `width: clamp(620px, 58%, 1100px)`
+          which at <1280px viewports forced the column to keep its 620px
+          minimum and overlap the constellation on the right by up to
+          ~200px (SLIDE-REVIEW.md §2 row 30). Switching to `left + right`
+          anchors the column between the deck gutter and a reserved gutter
+          for the constellation (matches the constellation's right edge:
+          clamp(2rem,5vw,7rem) + width:clamp(320px,34%,620px) +
+          breathing room). The column now shrinks gracefully without
+          ever crossing into the illustration. */}
       <div
         className="absolute"
         style={{
           top: '18vh',
           left: 'var(--deck-gutter)',
-          width: 'clamp(620px, 58%, 1100px)',
+          right: 'clamp(380px, 42vw, 760px)',
           zIndex: 2,
         }}
       >
@@ -259,7 +268,10 @@ export default function Slide30ClosingDivider() {
             color: 'var(--cream-faint)',
           }}
         >
-          IV / IV
+          {/* page-number tag, kept distinct from the meta-footer's
+              "Act IV of IV" so the two strings don't read as duplicates
+              (SLIDE-REVIEW.md §2 row 30 dup-IV/IV finding). */}
+          30 / 35
         </span>
       </motion.div>
     </motion.section>

@@ -80,7 +80,14 @@ export default function Slide29Case3Bridge() {
             width: '100%',
             height: '100%',
             display: 'grid',
-            gridTemplateRows: 'auto auto 1fr',
+            // 4 children render here (top split · payoff · ICH coda ·
+            // themes ribbon) — previously declared only 3 rows
+            // ('auto auto 1fr') which pushed the themes ribbon into
+            // an implicit 4th auto row that overflowed the Viz cell
+            // on short viewports. Now all 4 rows are explicit and
+            // content-sized; the themes ribbon's bottom edge is the
+            // grid bottom, no overflow. (SLIDE-REVIEW.md §2 row 29)
+            gridTemplateRows: 'auto auto auto auto',
             rowGap: 'var(--space-4)',
             minHeight: 0,
           }}
