@@ -525,7 +525,7 @@ Brief pause · tagline · advance. Total ≤ 20 seconds.`,
 ### The numbers to land
 
 - ==42 countries approved==
-- ==15,867 patients of recorded global exposure== (Servier PSUR Nov 2024)
+- ==15,867 patients of recorded global exposure== (TIBSOVO USPI cumulative exposure)
 - ==India still required pre-approval local data==
 
 ### The pivot line (deliver to the panel)
@@ -869,10 +869,10 @@ The left visualization is a two-bar waterfall: **94 → 60 primary-endpoint eval
 - **> 85% · AE-detection probability** — the safety framework was prepared *in parallel* with the optimal design, not bolted on after. ==Agencies anchor on safety. Briefing both frameworks together is what got the reduction.==
 - **Repositioned · Simulated primary** — the FDA didn't reject the simulated primary; they required *more PopPK data to support it*. So it was repositioned to **dose confirmation in Cohorts 1 & 2** of the trial; **Part 2 confirmation pending additional adult PopPK**. Reposition without losing the overall reduction is a Theme 05 (Judgment) move.
 
-### The two FDA verbatim quotes (with line numbers)
+### The two regulatory positions (paraphrased — zaj-slides HARD RULE)
 
-- **L497** — *"Sixty patients provide >85% probability of observing an acceptable AE rate."* This is the regulator's own language. The **>85% AE detection** number on the slide is FDA's threshold, not the sponsor's; it's why the violet card is third on the list and not the headline.
-- **L571–572** — *"FDA did not reject the use of a simulated primary — they required generating more PopPK data to support it."* Critical nuance: ==a "no" with a path forward is a "yes, conditionally"==. The simulated primary survived — repositioned, not killed.
+- **AE-detection probability** — the **>85% AE detection** threshold is FDA's, not the sponsor's. That's why the violet card sits third in the list, not the headline: the agency anchored on safety; the design met the agency's anchor. (Speaker's own account of the Type A meeting; do NOT recite as a verbatim quote — see the file header note in slide 26.)
+- **Simulated primary repositioned** — FDA did not reject it; they required additional PopPK before it could carry registration weight. ==A "no" with a path forward is a "yes, conditionally."== The simulated primary survived — repositioned to dose confirmation in Cohorts 1 & 2, with Part 2 confirmation pending adult PopPK.
 
 ### The closing payoff line
 

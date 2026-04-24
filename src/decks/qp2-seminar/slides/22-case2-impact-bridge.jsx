@@ -35,7 +35,7 @@ export default function Slide22Case2ImpactBridge() {
       subhead="From a single SEC objection to first-launch — twelve months later — with no Indian PK study and no new safety signal."
       subheadMaxChars={120}
       footerKicker="Case 02 · The impact"
-      footerSource="Source · CDSCO MAA · 14 May 2025 · Servier India launch · 5 Jun 2025 · Servier PSUR Nov 2024"
+      footerSource="Source · CDSCO MAA · 14 May 2025 · TIBSOVO India launch · 5 Jun 2025 · TIBSOVO USPI cumulative exposure"
     >
       <ImpactBridgeLayout />
     </SlideFrame>

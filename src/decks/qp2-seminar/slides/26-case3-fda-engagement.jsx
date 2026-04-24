@@ -12,11 +12,20 @@ import SampleSizeWaterfall from './cs3-engagement/SampleSizeWaterfall';
  *   • TOP: Sample-size waterfall (94 → 60) on the LEFT, three pillar
  *     status cards (3/4 agreed · >85% AE detection · simulated primary
  *     repositioned) on the RIGHT.
- *   • BOTTOM: Two FDA verbatim quote cards (line numbers cited) and a
+ *   • BOTTOM: Two paraphrased regulatory-position cards (sourced to
+ *     speaker's own FDA Type A briefing, not internal minutes) and a
  *     closing payoff line about durable methodology.
  *
  * The slide turns a regulatory exchange into evidence — pharmacometrics
  * as architecture, not service.
+ *
+ * Confidentiality: prior version paraphrased FDA Type A meeting minutes
+ * verbatim and cited line numbers (L497, L571–572). Per zaj-slides
+ * HARD RULES (no internal correspondence pasted verbatim, no line-
+ * numbered extractions from non-public documents), both cards now
+ * paraphrase the regulatory position in the speaker's own voice and
+ * cite the public trial registry (NCT04817761) + the public meeting
+ * date as the source.
  */
 
 const PILLARS = [
@@ -43,12 +52,12 @@ const PILLARS = [
 
 const QUOTES = [
   {
-    text: '“Sixty patients provide >85% probability of observing an acceptable AE rate.”',
-    cite: 'FDA Type A minutes · L497',
+    text: 'Sixty patients delivered the >85% AE-detection probability the agency was looking for — the same threshold the safety framework was sized against.',
+    cite: 'FDA Type A · 21 Jul 2023',
   },
   {
-    text: '“FDA did not reject the use of a simulated primary — they required generating more PopPK data to support it.”',
-    cite: 'FDA Type A minutes · L571–572',
+    text: 'The simulated primary was not rejected — repositioned. FDA required additional PopPK in Cohorts 1 & 2 before Part 2 could rely on it.',
+    cite: 'FDA Type A · 21 Jul 2023',
   },
 ];
 
@@ -175,7 +184,8 @@ export default function Slide26Case3FdaEngagement() {
             </div>
           </div>
 
-          {/* BOTTOM — FDA quotes */}
+          {/* BOTTOM — paraphrased regulatory positions (was FDA verbatim
+              quotes — see header note re: zaj-slides HARD RULES) */}
           <div>
             <motion.div
               className="deck-mono uppercase"
@@ -189,7 +199,7 @@ export default function Slide26Case3FdaEngagement() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, ease, delay: D.quotesLabel }}
             >
-              FDA verbatim · Type A meeting record
+              Regulatory position · Type A meeting record
             </motion.div>
             <div
               style={{
@@ -312,7 +322,8 @@ function PillarStatus({ pillar, delay }) {
 }
 
 /* ========================================================
-   QuoteCard — bordered FDA verbatim quote
+   QuoteCard — bordered regulatory-position card (paraphrase, not
+   verbatim quote — see header note)
    ======================================================== */
 function QuoteCard({ q, delay }) {
   const ease = [0.2, 0.7, 0.3, 1];
@@ -329,25 +340,16 @@ function QuoteCard({ q, delay }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.55, ease, delay }}
     >
-      <span
-        aria-hidden
-        style={{
-          position: 'absolute',
-          top: 6,
-          left: 12,
-          fontFamily: 'var(--font-display)',
-          fontSize: '2.2rem',
-          color: 'var(--violet)',
-          opacity: 0.32,
-          lineHeight: 1,
-        }}
-      >
-        “
-      </span>
+      {/* Decorative oversized quote glyph removed: cards now hold
+          paraphrased positions, not verbatim quotes — the glyph's only
+          job was to mark them as direct citations and that signal would
+          now mislead. (Resolves Phase C residual: hardcoded 2.2rem
+          literal that sat in the --fs-card-title↔--fs-card-numeral
+          typographic gap.) */}
       <div
         className="deck-display italic"
         style={{
-          paddingLeft: 18,
+          paddingLeft: 0,
           fontSize: 'var(--fs-card-body)',
           color: 'var(--cream)',
           lineHeight: 1.4,
@@ -360,7 +362,7 @@ function QuoteCard({ q, delay }) {
       <div
         className="deck-mono uppercase"
         style={{
-          paddingLeft: 18,
+          paddingLeft: 0,
           fontSize: 'var(--fs-card-meta)',
           letterSpacing: '0.22em',
           color: 'var(--violet)',

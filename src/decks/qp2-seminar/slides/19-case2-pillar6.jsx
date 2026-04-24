@@ -37,7 +37,7 @@ export default function Slide17Case2Pillar6() {
       subhead="The 9 compound-property attributes that ICH E5(R1) Appendix D defines for ethnic insensitivity. Each one passed."
       subheadMaxChars={120}
       footerKicker="Case 02 · The classification"
-      footerSource="Source · ICH E5(R1) 1998 (Q&A 2006) Appendix D · Servier integrated PK/PD package"
+      footerSource="Source · ICH E5(R1) 1998 (Q&A 2006) Appendix D · TIBSOVO USPI integrated PK/PD section"
     >
       <Pillar6Layout />
     </SlideFrame>
