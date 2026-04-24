@@ -135,7 +135,7 @@ export default function Slide11eCaseExposureMatch() {
         <div
           className="deck-display italic"
           style={{
-            fontSize: 'clamp(0.9rem, 1.2vw, 1.3rem)',
+            fontSize: 'var(--fs-card-title)',
             lineHeight: 'var(--lh-snug)',
             color: 'var(--cream)',
             fontWeight: 500,
@@ -200,7 +200,7 @@ function HeroDelta({ value, label, accent }) {
       <div
         className="deck-display"
         style={{
-          fontSize: 'clamp(2rem, 3.6vw, 3.6rem)',
+          fontSize: 'var(--fs-card-numeral)',
           lineHeight: 1,
           letterSpacing: '-0.03em',
           color: accent ? 'var(--coral)' : 'var(--cream)',
@@ -211,7 +211,7 @@ function HeroDelta({ value, label, accent }) {
       </div>
       <div
         className="deck-mono uppercase mt-1"
-        style={{ fontSize: '0.58rem', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-muted)' }}
+        style={{ fontSize: 'var(--fs-card-meta)', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-muted)' }}
       >
         {label}
       </div>
@@ -552,7 +552,7 @@ function SubgroupFlag({ ease, delay }) {
       <div
         className="deck-mono uppercase"
         style={{
-          fontSize: '0.58rem',
+          fontSize: 'var(--fs-card-meta)',
           letterSpacing: '0.22em',
           color: 'var(--coral)',
           marginBottom: 4,
@@ -563,7 +563,7 @@ function SubgroupFlag({ ease, delay }) {
       <div
         style={{
           fontFamily: 'var(--font-body)',
-          fontSize: 'clamp(0.8rem, 0.9vw, 0.92rem)',
+          fontSize: 'var(--fs-card-body)',
           color: 'var(--cream-muted)',
           lineHeight: 1.45,
         }}

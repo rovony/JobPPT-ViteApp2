@@ -320,7 +320,7 @@ function Caption({ lead, meta, delay, align = 'left', marginLeft }) {
         marginTop: '20pt',
         marginLeft: align === 'right' ? 'auto' : marginLeft,
         textAlign: align,
-        fontSize: 'clamp(0.9rem, 1.1vw, 1.2rem)',
+        fontSize: 'var(--fs-card-title)',
         lineHeight: 'var(--lh-base)',
         color: 'var(--cream)',
         fontWeight: 500,
@@ -338,7 +338,7 @@ function Caption({ lead, meta, delay, align = 'left', marginLeft }) {
           marginTop: '6pt',
           fontStyle: 'normal',
           fontWeight: 400,
-          fontSize: 'clamp(0.7rem, 0.82vw, 0.88rem)',
+          fontSize: 'var(--fs-card-body)',
           color: 'var(--cream-muted)',
           lineHeight: 1.45,
         }}

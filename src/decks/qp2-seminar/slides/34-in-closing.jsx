@@ -171,7 +171,7 @@ export default function Slide34InClosing() {
               className="deck-mono uppercase"
               style={{
                 marginTop: 'var(--space-3)',
-                fontSize: '0.66rem',
+                fontSize: 'var(--fs-card-label)',
                 letterSpacing: 'var(--ls-mono-wide)',
                 color: 'var(--cream-faint)',
               }}
@@ -206,7 +206,7 @@ export default function Slide34InClosing() {
             <span
               className="deck-mono uppercase"
               style={{
-                fontSize: '0.72rem',
+                fontSize: 'var(--fs-card-label)',
                 letterSpacing: 'var(--ls-mono-wide)',
                 color: 'var(--cream-muted)',
               }}
@@ -263,7 +263,7 @@ function TakeawayCard({ t, delay, tk }) {
             borderRadius: 4,
             background: `color-mix(in srgb, ${color} 18%, transparent)`,
             color,
-            fontSize: '0.72rem',
+            fontSize: 'var(--fs-card-label)',
             fontWeight: 700,
             letterSpacing: '0.10em',
           }}
@@ -273,7 +273,7 @@ function TakeawayCard({ t, delay, tk }) {
         <span
           className="deck-mono uppercase"
           style={{
-            fontSize: '0.68rem',
+            fontSize: 'var(--fs-card-label)',
             letterSpacing: 'var(--ls-mono-wide)',
             color: 'var(--cream)',
             fontWeight: 700,
@@ -287,7 +287,7 @@ function TakeawayCard({ t, delay, tk }) {
       <div
         className="deck-display"
         style={{
-          fontSize: 'clamp(1.6rem, 2.2vw, 2.5rem)',
+          fontSize: 'var(--fs-card-numeral)',
           color,
           fontWeight: 700,
           lineHeight: 1,
@@ -301,7 +301,7 @@ function TakeawayCard({ t, delay, tk }) {
       <div
         className="deck-display italic"
         style={{
-          fontSize: 'clamp(0.84rem, 0.96vw, 1.0rem)',
+          fontSize: 'var(--fs-card-body)',
           color: 'var(--cream-muted)',
           lineHeight: 1.5,
         }}
@@ -313,7 +313,7 @@ function TakeawayCard({ t, delay, tk }) {
       <div
         className="deck-mono uppercase"
         style={{
-          fontSize: '0.62rem',
+          fontSize: 'var(--fs-card-meta)',
           letterSpacing: 'var(--ls-mono)',
           color: 'var(--cream-faint)',
           paddingTop: 8,

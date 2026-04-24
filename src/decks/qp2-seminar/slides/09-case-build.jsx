@@ -215,7 +215,7 @@ function DatasetCell({ label, value, meta, accent }) {
       <div
         className="deck-display"
         style={{
-          fontSize: 'clamp(2rem, min(3vw, 5vh), 2.6rem)',
+          fontSize: 'var(--fs-card-numeral)',
           lineHeight: 1,
           color: accent ? 'var(--coral)' : 'var(--cream)',
           fontWeight: 700,

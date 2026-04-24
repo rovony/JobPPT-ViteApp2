@@ -101,7 +101,7 @@ export default function Slide24Case3Challenge() {
             <motion.div
               className="deck-mono uppercase"
               style={{
-                fontSize: '0.7rem',
+                fontSize: 'var(--fs-card-label)',
                 letterSpacing: 'var(--ls-mono-wide)',
                 color: 'var(--cream-muted)',
                 marginBottom: 12,
@@ -143,7 +143,7 @@ export default function Slide24Case3Challenge() {
             <motion.div
               className="deck-mono uppercase"
               style={{
-                fontSize: '0.66rem',
+                fontSize: 'var(--fs-card-label)',
                 letterSpacing: 'var(--ls-mono-wide)',
                 color: 'var(--violet)',
                 fontWeight: 700,
@@ -172,7 +172,7 @@ export default function Slide24Case3Challenge() {
                   <div
                     className="deck-mono uppercase"
                     style={{
-                      fontSize: '0.6rem',
+                      fontSize: 'var(--fs-card-meta)',
                       letterSpacing: '0.18em',
                       color: 'var(--cream-muted)',
                       marginBottom: 4,
@@ -183,7 +183,7 @@ export default function Slide24Case3Challenge() {
                   <div
                     style={{
                       fontFamily: 'var(--font-body)',
-                      fontSize: 'clamp(0.84rem, 0.95vw, 0.98rem)',
+                      fontSize: 'var(--fs-card-body)',
                       color: 'var(--cream)',
                       lineHeight: 1.4,
                     }}
@@ -226,7 +226,7 @@ export default function Slide24Case3Challenge() {
             <motion.div
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: 'clamp(0.82rem, 0.95vw, 0.95rem)',
+                fontSize: 'var(--fs-card-body)',
                 color: 'var(--cream-muted)',
                 lineHeight: 1.5,
                 maxWidth: '88ch',
@@ -268,7 +268,7 @@ export default function Slide24Case3Challenge() {
                 <div
                   className="deck-mono uppercase"
                   style={{
-                    fontSize: '0.58rem',
+                    fontSize: 'var(--fs-card-meta)',
                     letterSpacing: '0.22em',
                     color: 'var(--violet)',
                     fontWeight: 700,
@@ -280,7 +280,7 @@ export default function Slide24Case3Challenge() {
                 <div
                   style={{
                     fontFamily: 'var(--font-body)',
-                    fontSize: 'clamp(0.74rem, 0.85vw, 0.86rem)',
+                    fontSize: 'var(--fs-card-body)',
                     color: 'var(--cream-muted)',
                     lineHeight: 1.35,
                   }}
@@ -337,7 +337,7 @@ function AnchorTile({ yr, label, sub, delay }) {
       <div
         className="deck-display"
         style={{
-          fontSize: 'clamp(2.4rem, 3.4vw, 3.8rem)',
+          fontSize: 'var(--fs-card-numeral)',
           fontWeight: 700,
           color: 'var(--cream)',
           letterSpacing: 'var(--ls-headline)',
@@ -351,7 +351,7 @@ function AnchorTile({ yr, label, sub, delay }) {
       <div
         className="deck-mono uppercase"
         style={{
-          fontSize: '0.64rem',
+          fontSize: 'var(--fs-card-meta)',
           letterSpacing: '0.22em',
           color: 'var(--violet)',
           fontWeight: 700,
@@ -364,7 +364,7 @@ function AnchorTile({ yr, label, sub, delay }) {
       <div
         style={{
           fontFamily: 'var(--font-body)',
-          fontSize: 'clamp(0.78rem, 0.9vw, 0.92rem)',
+          fontSize: 'var(--fs-card-body)',
           lineHeight: 1.4,
           color: 'var(--cream-muted)',
         }}

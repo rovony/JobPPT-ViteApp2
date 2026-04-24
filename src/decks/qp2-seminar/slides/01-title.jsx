@@ -269,11 +269,14 @@ export default function Slide01() {
             >
               Presenter
             </div>
+            {/* Presenter name = card title role; original 1.85rem cap is
+                slightly above token's 1.3rem ceiling — accept the small
+                shrink at large viewports for tokenization consistency. */}
             <p
               className="deck-display"
               style={{
                 margin: 0,
-                fontSize: 'clamp(1.3rem, 1.9vw, 1.85rem)',
+                fontSize: 'var(--fs-card-title)',
                 color: 'var(--cream)',
                 fontWeight: 600,
                 letterSpacing: 'var(--ls-headline)',
@@ -285,7 +288,7 @@ export default function Slide01() {
             <p
               style={{
                 margin: 'var(--space-2) 0 0 0',
-                fontSize: 'clamp(0.95rem, 1.2vw, 1.2rem)',
+                fontSize: 'var(--fs-card-body)',
                 color: 'var(--cream-muted)',
                 lineHeight: 1.4,
               }}

@@ -114,7 +114,11 @@ function ConcordanceHero() {
         <span
           className="deck-display"
           style={{
-            fontSize: 'clamp(2.4rem, 4.8vw, 4.5rem)',
+            /* hero-num (5.5rem cap) — this glyph is the typographic
+               connector between the slide's two payoff numerals; it
+               must read at the same scale as them, not at standard
+               card-numeral scale. */
+            fontSize: 'var(--fs-card-hero-num)',
             color: 'var(--cream-muted)',
             fontWeight: 300,
             lineHeight: 1,
@@ -153,7 +157,11 @@ function PercentBlock({ value, sub, tone }) {
       <div
         className="deck-display"
         style={{
-          fontSize: 'clamp(3rem, 6vw, 5.5rem)',
+          /* hero-num (5.5rem cap) — 84.6% / 84.4% are the
+             typographic centerpiece of the slide; standard
+             card-numeral (3.8rem cap) renders too small to
+             carry the convergence-to-pediatric-evidence payoff. */
+          fontSize: 'var(--fs-card-hero-num)',
           fontWeight: 700,
           color,
           letterSpacing: '-0.04em',

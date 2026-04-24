@@ -58,7 +58,7 @@ export default function PipelineBridgeCard({
         <div
           className="deck-mono uppercase"
           style={{
-            fontSize: '0.68rem',
+            fontSize: 'var(--fs-card-label)',
             letterSpacing: 'var(--ls-mono-wide)',
             color: accent,
             fontWeight: 700,
@@ -72,7 +72,7 @@ export default function PipelineBridgeCard({
       <div
         className="deck-display"
         style={{
-          fontSize: 'clamp(0.88rem, 1.05vw, 1.1rem)',
+          fontSize: 'var(--fs-card-title)',
           lineHeight: 1.45,
           color: 'var(--cream)',
           fontWeight: 400,
@@ -86,7 +86,7 @@ export default function PipelineBridgeCard({
           className="deck-display italic"
           style={{
             marginTop: '14px',
-            fontSize: '0.72rem',
+            fontSize: 'var(--fs-card-label)',
             letterSpacing: '0.18em',
             textTransform: 'uppercase',
             color: 'color-mix(in srgb, var(--amber) 70%, var(--cream))',

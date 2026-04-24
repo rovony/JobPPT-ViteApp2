@@ -152,7 +152,7 @@ export default function Slide11fCaseExposureResponse() {
       >
         <div
           className="deck-mono uppercase"
-          style={{ fontSize: '0.65rem', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-muted)' }}
+          style={{ fontSize: 'var(--fs-card-meta)', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-muted)' }}
         >
           Themes exercised
           <div style={{ color: 'var(--coral)', marginTop: 4, fontWeight: 700 }}>
@@ -430,7 +430,7 @@ function ThemePill({ theme, active }) {
         padding: '7px 14px 7px 10px',
         border: `1px solid ${active ? color : 'var(--cream-hairline)'}`,
         borderRadius: 999,
-        fontSize: '0.7rem',
+        fontSize: 'var(--fs-card-meta)',
         letterSpacing: '0.14em',
         color: active ? 'var(--cream)' : 'var(--cream-faint)',
         opacity: active ? 1 : 0.45,
@@ -440,7 +440,7 @@ function ThemePill({ theme, active }) {
       <span style={{ fontWeight: 700, color: active ? color : 'var(--cream-faint)', letterSpacing: '0.18em' }}>
         {theme.num}
       </span>
-      <span style={{ fontSize: '0.9rem', color: active ? 'var(--cream)' : 'var(--cream-faint)' }}>
+      <span style={{ fontSize: 'var(--fs-card-body)', color: active ? 'var(--cream)' : 'var(--cream-faint)' }}>
         {theme.glyph}
       </span>
       <span>{theme.title}</span>

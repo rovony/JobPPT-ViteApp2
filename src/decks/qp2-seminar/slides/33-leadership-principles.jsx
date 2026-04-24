@@ -140,7 +140,7 @@ export default function Slide33LeadershipPrinciples() {
           <motion.div
             className="deck-mono uppercase"
             style={{
-              fontSize: '0.70rem',
+              fontSize: 'var(--fs-card-label)',
               letterSpacing: 'var(--ls-mono-wide)',
               color: 'var(--cream-faint)',
               fontWeight: 700,
@@ -195,7 +195,7 @@ export default function Slide33LeadershipPrinciples() {
             <div
               className="deck-mono uppercase"
               style={{
-                fontSize: '0.70rem',
+                fontSize: 'var(--fs-card-label)',
                 letterSpacing: 'var(--ls-mono-wide)',
                 color: 'var(--amber)',
                 fontWeight: 700,
@@ -208,7 +208,7 @@ export default function Slide33LeadershipPrinciples() {
             </div>
             <div
               style={{
-                fontSize: 'clamp(0.84rem, 0.96vw, 0.98rem)',
+                fontSize: 'var(--fs-card-body)',
                 color: 'var(--cream-muted)',
                 lineHeight: 1.5,
               }}
@@ -276,7 +276,7 @@ function PrincipleCard({ principle, delay, tk }) {
             border: `2px solid ${color}`,
             background: `color-mix(in srgb, ${color} 12%, transparent)`,
             color,
-            fontSize: '0.85rem',
+            fontSize: 'var(--fs-card-body)',
             fontWeight: 700,
             letterSpacing: '0.04em',
           }}
@@ -290,7 +290,7 @@ function PrincipleCard({ principle, delay, tk }) {
       <div
         className="deck-display"
         style={{
-          fontSize: 'clamp(1.05rem, 1.35vw, 1.40rem)',
+          fontSize: 'var(--fs-card-title)',
           color: 'var(--cream)',
           fontWeight: 600,
           lineHeight: 1.25,
@@ -303,7 +303,7 @@ function PrincipleCard({ principle, delay, tk }) {
       <div
         className="deck-display italic"
         style={{
-          fontSize: 'clamp(0.78rem, 0.90vw, 0.94rem)',
+          fontSize: 'var(--fs-card-body)',
           color: 'var(--cream-muted)',
           lineHeight: 1.45,
         }}
@@ -360,7 +360,7 @@ function ResearchCard({ card, delay, tk }) {
         <div
           className="deck-mono uppercase"
           style={{
-            fontSize: '0.62rem',
+            fontSize: 'var(--fs-card-meta)',
             letterSpacing: 'var(--ls-mono)',
             color,
             fontWeight: 700,
@@ -379,7 +379,7 @@ function ResearchCard({ card, delay, tk }) {
           <span
             className="deck-display"
             style={{
-              fontSize: 'clamp(1.0rem, 1.2vw, 1.2rem)',
+              fontSize: 'var(--fs-card-title)',
               color: 'var(--cream)',
               fontWeight: 700,
             }}
@@ -389,7 +389,7 @@ function ResearchCard({ card, delay, tk }) {
           <span
             className="deck-mono"
             style={{
-              fontSize: '0.72rem',
+              fontSize: 'var(--fs-card-label)',
               color: 'var(--cream-faint)',
               fontWeight: 500,
             }}
@@ -400,7 +400,7 @@ function ResearchCard({ card, delay, tk }) {
         <div
           className="deck-display italic"
           style={{
-            fontSize: 'clamp(0.74rem, 0.85vw, 0.88rem)',
+            fontSize: 'var(--fs-card-body)',
             color: 'var(--cream-muted)',
             lineHeight: 1.4,
           }}

@@ -145,7 +145,7 @@ function HeroTile({ date, sub, body, tone, delay, muted }) {
       <div
         className="deck-display"
         style={{
-          fontSize: 'clamp(2.4rem, 4.4vw, 3.6rem)',
+          fontSize: 'var(--fs-card-numeral)',
           fontWeight: 700,
           color,
           letterSpacing: '-0.04em',

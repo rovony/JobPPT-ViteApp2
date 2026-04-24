@@ -117,7 +117,7 @@ function ResponseLayout() {
         <div
           className="deck-display"
           style={{
-            fontSize: 'clamp(2rem, 3.4vw, 3rem)',
+            fontSize: 'var(--fs-card-numeral)',
             fontWeight: 700,
             color: 'var(--coral)',
             letterSpacing: '-0.03em',

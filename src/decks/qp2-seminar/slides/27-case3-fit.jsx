@@ -130,7 +130,7 @@ export default function Slide27Case3Fit() {
               <motion.div
                 className="deck-mono uppercase"
                 style={{
-                  fontSize: '0.7rem',
+                  fontSize: 'var(--fs-card-label)',
                   letterSpacing: 'var(--ls-mono-wide)',
                   color: 'var(--cream-muted)',
                 }}
@@ -170,7 +170,7 @@ export default function Slide27Case3Fit() {
               <motion.div
                 className="deck-mono uppercase"
                 style={{
-                  fontSize: '0.7rem',
+                  fontSize: 'var(--fs-card-label)',
                   letterSpacing: 'var(--ls-mono-wide)',
                   color: 'var(--violet)',
                   fontWeight: 700,
@@ -211,7 +211,7 @@ export default function Slide27Case3Fit() {
             <div
               className="deck-display italic"
               style={{
-                fontSize: 'clamp(0.95rem, 1.15vw, 1.2rem)',
+                fontSize: 'var(--fs-card-title)',
                 color: 'var(--cream)',
                 fontWeight: 500,
                 letterSpacing: 'var(--ls-headline)',
@@ -270,7 +270,7 @@ function EvidenceBlock({ n, label, tag, bullets, delay, small }) {
             alignItems: 'center',
             justifyContent: 'center',
             fontFamily: 'var(--font-mono)',
-            fontSize: '0.74rem',
+            fontSize: 'var(--fs-card-label)',
             fontWeight: 700,
             color: 'var(--violet)',
           }}
@@ -280,7 +280,7 @@ function EvidenceBlock({ n, label, tag, bullets, delay, small }) {
         <span
           className="deck-mono uppercase"
           style={{
-            fontSize: '0.66rem',
+            fontSize: 'var(--fs-card-label)',
             letterSpacing: 'var(--ls-mono-wide)',
             color: 'var(--violet)',
             fontWeight: 700,
@@ -292,7 +292,7 @@ function EvidenceBlock({ n, label, tag, bullets, delay, small }) {
       <div
         className="deck-display italic"
         style={{
-          fontSize: small ? 'clamp(0.85rem, 0.98vw, 1rem)' : 'clamp(0.9rem, 1.05vw, 1.1rem)',
+          fontSize: small ? 'var(--fs-card-body)' : 'var(--fs-card-title)',
           color: 'var(--cream)',
           fontWeight: 500,
           lineHeight: 1.3,
@@ -320,7 +320,7 @@ function EvidenceBlock({ n, label, tag, bullets, delay, small }) {
               columnGap: 8,
               alignItems: 'baseline',
               fontFamily: 'var(--font-body)',
-              fontSize: small ? 'clamp(0.72rem, 0.82vw, 0.84rem)' : 'clamp(0.74rem, 0.85vw, 0.88rem)',
+              fontSize: 'var(--fs-card-body)',
               lineHeight: 1.4,
               color: 'var(--cream-muted)',
             }}

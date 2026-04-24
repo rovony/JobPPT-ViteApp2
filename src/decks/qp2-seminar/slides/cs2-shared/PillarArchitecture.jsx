@@ -42,10 +42,28 @@ export const PILLARS = [
   { id: 6, name: 'ICH E5(R1) Apx D',    short: 'ICH E5 Apx D',  tag: '9 of 9 criteria satisfied' },
 ];
 
-const SEED_DIMS = { w: 60, h: 36, gap: 4, fontTag: 0,  fontName: 0,  fontNum: 8  };
-const FULL_DIMS = { w: 168, h: 108, gap: 18, fontTag: 11, fontName: 14, fontNum: 18 };
-const MARGIN_DIMS = { w: 116, h: 60, gap: 10, fontTag: 0, fontName: 11, fontNum: 13 };
-const CHAIN_DIMS = { w: 152, h: 110, gap: 12, fontTag: 11, fontName: 13, fontNum: 16 };
+// font* fields are CSS font-size values (token strings) or 0 to mean "hide".
+// SEED keeps a raw 8px numeral — below the --fs-card-meta floor (~9.6px) so
+// it can't be expressed by a fluid card token without growing.
+const SEED_DIMS = { w: 60, h: 36, gap: 4, fontTag: 0, fontName: 0, fontNum: 8 };
+const FULL_DIMS = {
+  w: 168, h: 108, gap: 18,
+  fontTag:  'var(--fs-card-meta)',
+  fontName: 'var(--fs-card-body)',
+  fontNum:  'var(--fs-card-title)',
+};
+const MARGIN_DIMS = {
+  w: 116, h: 60, gap: 10,
+  fontTag: 0,
+  fontName: 'var(--fs-card-meta)',
+  fontNum:  'var(--fs-card-label)',
+};
+const CHAIN_DIMS = {
+  w: 152, h: 110, gap: 12,
+  fontTag:  'var(--fs-card-meta)',
+  fontName: 'var(--fs-card-label)',
+  fontNum:  'var(--fs-card-body)',
+};
 
 export default function PillarArchitecture({
   stage = 'full',
@@ -138,7 +156,7 @@ function Hero6Layout({ accent, children }) {
         pillar={pillar6}
         accent={accent}
         variant="hero"
-        dims={{ w: '100%', h: '100%', fontTag: 0, fontName: 22, fontNum: 38 }}
+        dims={{ w: '100%', h: '100%', fontTag: 0, fontName: 'var(--fs-card-title)', fontNum: 'var(--fs-card-numeral)' }}
       >
         {children}
       </PillarCard>
@@ -294,7 +312,7 @@ function PillarCard({ pillar, dims, accent, variant, children }) {
         >
           {String(pillar.id).padStart(2, '0')}
         </span>
-        {!isSeed && dims.fontName > 0 && (
+        {!isSeed && dims.fontName && (
           <span
             className="deck-display"
             style={{
@@ -313,7 +331,7 @@ function PillarCard({ pillar, dims, accent, variant, children }) {
       </div>
 
       {/* Tag line */}
-      {!isSeed && !isMargin && dims.fontTag > 0 && !isHero && (
+      {!isSeed && !isMargin && dims.fontTag && !isHero && (
         <div
           style={{
             fontFamily: 'var(--font-body)',

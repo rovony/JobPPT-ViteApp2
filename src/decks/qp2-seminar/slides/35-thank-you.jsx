@@ -74,7 +74,7 @@ export default function Slide35ThankYou() {
         style={{
           top: '6vh',
           left: 'var(--deck-gutter)',
-          fontSize: '0.72rem',
+          fontSize: 'var(--fs-card-label)',
           letterSpacing: 'var(--ls-mono-wide)',
           color: 'var(--amber)',
           fontWeight: 700,
@@ -93,7 +93,7 @@ export default function Slide35ThankYou() {
         style={{
           top: '6vh',
           right: 'var(--deck-gutter)',
-          fontSize: '0.66rem',
+          fontSize: 'var(--fs-card-label)',
           letterSpacing: 'var(--ls-mono)',
           color: 'var(--cream-faint)',
         }}
@@ -174,7 +174,7 @@ export default function Slide35ThankYou() {
         <div
           className="deck-display"
           style={{
-            fontSize: 'clamp(1.1rem, 1.4vw, 1.4rem)',
+            fontSize: 'var(--fs-card-title)',
             color: 'var(--cream)',
             fontWeight: 700,
           }}
@@ -185,7 +185,7 @@ export default function Slide35ThankYou() {
           className="deck-mono uppercase"
           style={{
             marginTop: 4,
-            fontSize: '0.72rem',
+            fontSize: 'var(--fs-card-label)',
             letterSpacing: 'var(--ls-mono-wide)',
             color: 'var(--cream-muted)',
             fontWeight: 600,
@@ -230,7 +230,7 @@ function ContactRow({ icon: Icon, label }) {
         gap: 10,
         color: 'var(--cream-muted)',
         fontFamily: 'var(--font-mono)',
-        fontSize: '0.78rem',
+        fontSize: 'var(--fs-card-label)',
         letterSpacing: '0.05em',
       }}
     >

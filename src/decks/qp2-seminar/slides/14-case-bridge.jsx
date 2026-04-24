@@ -188,7 +188,7 @@ export default function Slide13() {
         <div
           className="deck-mono uppercase"
           style={{
-            fontSize: '0.68rem',
+            fontSize: 'var(--fs-card-label)',
             letterSpacing: 'var(--ls-mono-wide)',
             color: 'var(--amber)',
             marginBottom: '4px',
@@ -198,7 +198,7 @@ export default function Slide13() {
         </div>
         <div
           style={{
-            fontSize: 'clamp(0.82rem, 0.95vw, 0.95rem)',
+            fontSize: 'var(--fs-card-body)',
             color: 'var(--cream-muted)',
             lineHeight: 1.45,
           }}
@@ -216,7 +216,7 @@ export default function Slide13() {
           className="deck-mono uppercase"
           style={{
             textAlign: 'center',
-            fontSize: '0.72rem',
+            fontSize: 'var(--fs-card-label)',
             letterSpacing: 'var(--ls-mono-wide)',
             color: 'var(--coral)',
             fontWeight: 700,
@@ -298,7 +298,7 @@ function TemplateBullet({ text, delay, full }) {
       <span
         style={{
           fontFamily: 'var(--font-body)',
-          fontSize: 'clamp(0.82rem, 0.92vw, 0.98rem)',
+          fontSize: 'var(--fs-card-body)',
           lineHeight: 1.4,
           color: 'var(--cream)',
         }}
@@ -343,7 +343,7 @@ function ThemeTile({ theme, detail, delay, tk }) {
       <div
         className="deck-mono uppercase"
         style={{
-          fontSize: '0.72rem',
+          fontSize: 'var(--fs-card-label)',
           letterSpacing: 'var(--ls-mono-wide)',
           color: 'var(--cream)',
           fontWeight: 700,
@@ -357,7 +357,7 @@ function ThemeTile({ theme, detail, delay, tk }) {
       <div
         className="deck-display italic"
         style={{
-          fontSize: 'clamp(0.74rem, 0.84vw, 0.9rem)',
+          fontSize: 'var(--fs-card-body)',
           lineHeight: 1.4,
           color: 'var(--cream-muted)',
           fontWeight: 400,

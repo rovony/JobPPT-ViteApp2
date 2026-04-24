@@ -176,7 +176,7 @@ export default function Slide32RecordAtScale() {
               className="deck-display italic"
               style={{
                 margin: 0,
-                fontSize: 'clamp(0.95rem, 1.15vw, 1.20rem)',
+                fontSize: 'var(--fs-card-title)',
                 lineHeight: 1.5,
                 color: 'var(--cream)',
                 textAlign: 'center',
@@ -259,7 +259,7 @@ function RecordTile({ tile, delay, tk }) {
           <span
             style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: 'clamp(1.05rem, 1.4vw, 1.4rem)',
+              fontSize: 'var(--fs-card-title)',
               letterSpacing: '0.05em',
             }}
           >
@@ -272,14 +272,14 @@ function RecordTile({ tile, delay, tk }) {
               delay={delay + 0.1}
               duration={0.9}
               style={{
-                fontSize: 'clamp(2.2rem, 3.6vw, 4rem)',
+                fontSize: 'var(--fs-card-numeral)',
                 fontWeight: 700,
               }}
             />
             {tile.suffix && (
               <span
                 style={{
-                  fontSize: 'clamp(1.4rem, 2.4vw, 2.6rem)',
+                  fontSize: 'var(--fs-card-numeral)',
                   fontWeight: 600,
                   marginLeft: 2,
                 }}
@@ -296,7 +296,7 @@ function RecordTile({ tile, delay, tk }) {
         <div
           className="deck-mono uppercase"
           style={{
-            fontSize: '0.68rem',
+            fontSize: 'var(--fs-card-label)',
             letterSpacing: 'var(--ls-mono-wide)',
             color: 'var(--cream)',
             fontWeight: 700,
@@ -307,7 +307,7 @@ function RecordTile({ tile, delay, tk }) {
         <div
           className="deck-display italic"
           style={{
-            fontSize: 'clamp(0.74rem, 0.84vw, 0.88rem)',
+            fontSize: 'var(--fs-card-body)',
             color: 'var(--cream-muted)',
             lineHeight: 1.4,
           }}

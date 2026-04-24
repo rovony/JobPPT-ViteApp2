@@ -56,7 +56,7 @@ export default function Slide11dCaseFit() {
       <motion.div
         className="absolute top-[6vh] left-[var(--deck-gutter)] flex items-center gap-4 deck-mono uppercase"
         style={{
-          fontSize: 'clamp(0.65rem, 0.78vw, 0.85rem)',
+          fontSize: 'var(--fs-card-label)',
           letterSpacing: 'var(--ls-mono-wide)',
           color: 'var(--coral)',
         }}
@@ -69,7 +69,7 @@ export default function Slide11dCaseFit() {
       </motion.div>
       <motion.div
         className="absolute top-[6vh] right-[var(--deck-gutter)] deck-mono uppercase"
-        style={{ fontSize: '0.7rem', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}
+        style={{ fontSize: 'var(--fs-card-label)', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, ease, delay: D.chrome }}
@@ -107,7 +107,7 @@ export default function Slide11dCaseFit() {
           top: '24vh',
           left: 'var(--deck-gutter)',
           right: 'var(--deck-gutter)',
-          fontSize: 'clamp(0.85rem, 1vw, 1.05rem)',
+          fontSize: 'var(--fs-card-body)',
           lineHeight: 'var(--lh-base)',
           color: 'var(--cream-muted)',
           maxWidth: '70ch',
@@ -129,7 +129,7 @@ export default function Slide11dCaseFit() {
       >
         <motion.div
           className="deck-mono uppercase mb-2"
-          style={{ fontSize: '0.68rem', letterSpacing: 'var(--ls-mono-wide)', color: 'var(--coral)' }}
+          style={{ fontSize: 'var(--fs-card-label)', letterSpacing: 'var(--ls-mono-wide)', color: 'var(--coral)' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, ease, delay: D.chartBg }}
@@ -157,7 +157,7 @@ export default function Slide11dCaseFit() {
       >
         <div
           className="deck-mono uppercase mb-3"
-          style={{ fontSize: '0.68rem', letterSpacing: 'var(--ls-mono-wide)', color: 'var(--coral)' }}
+          style={{ fontSize: 'var(--fs-card-label)', letterSpacing: 'var(--ls-mono-wide)', color: 'var(--coral)' }}
         >
           Pediatric PopPK — final estimates
         </div>
@@ -166,7 +166,7 @@ export default function Slide11dCaseFit() {
 
         <div
           className="deck-mono mt-4"
-          style={{ fontSize: '0.6rem', letterSpacing: '0.08em', lineHeight: 1.5, color: 'var(--cream-faint)' }}
+          style={{ fontSize: 'var(--fs-card-meta)', letterSpacing: '0.08em', lineHeight: 1.5, color: 'var(--cream-faint)' }}
         >
           Allometry FIXED · CL, Q ∝ WT<sup>0.75</sup> · V<sub>c</sub>, V<sub>p</sub> ∝ WT<sup>1.0</sup> · 70-kg ref.
           <br />
@@ -199,7 +199,7 @@ export default function Slide11dCaseFit() {
         <div
           className="deck-mono uppercase"
           style={{
-            fontSize: 'clamp(0.6rem, 0.72vw, 0.78rem)',
+            fontSize: 'var(--fs-card-meta)',
             letterSpacing: '0.22em',
             color: 'var(--coral)',
             fontWeight: 700,
@@ -213,7 +213,7 @@ export default function Slide11dCaseFit() {
         <div
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(0.72rem, 0.82vw, 0.88rem)',
+            fontSize: 'var(--fs-card-body)',
             lineHeight: 1.45,
             color: 'var(--cream-muted)',
             marginBottom: 4,
@@ -231,7 +231,7 @@ export default function Slide11dCaseFit() {
         <div
           className="deck-mono"
           style={{
-            fontSize: 'clamp(0.58rem, 0.66vw, 0.7rem)',
+            fontSize: 'var(--fs-card-meta)',
             letterSpacing: '0.06em',
             lineHeight: 1.5,
             color: 'var(--cream-faint)',
@@ -254,7 +254,7 @@ export default function Slide11dCaseFit() {
         <div
           className="deck-display italic"
           style={{
-            fontSize: 'clamp(0.95rem, 1.3vw, 1.4rem)',
+            fontSize: 'var(--fs-card-title)',
             lineHeight: 'var(--lh-snug)',
             color: 'var(--cream)',
             fontWeight: 500,
@@ -287,13 +287,13 @@ export default function Slide11dCaseFit() {
       >
         <span
           className="deck-display italic"
-          style={{ fontSize: 'clamp(0.7rem, 0.85vw, 0.9rem)', color: 'var(--cream-muted)' }}
+          style={{ fontSize: 'var(--fs-card-body)', color: 'var(--cream-muted)' }}
         >
           Source · Okour et al. JCP 2023 (Fig 2B, Table 2) · pcVPC 500 replicates
         </span>
         <span
           className="deck-mono uppercase"
-          style={{ fontSize: '0.65rem', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}
+          style={{ fontSize: 'var(--fs-card-meta)', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}
         >
           08 / 20
         </span>
@@ -623,7 +623,7 @@ function Th({ children, align }) {
       className="deck-mono uppercase"
       style={{
         textAlign: align,
-        fontSize: '0.58rem',
+        fontSize: 'var(--fs-card-meta)',
         letterSpacing: '0.16em',
         fontWeight: 500,
         color: 'var(--cream-faint)',
@@ -649,7 +649,7 @@ function Td({ children, align, mono, bold, muted, accent }) {
         textAlign: align,
         borderBottom: '1px dashed var(--cream-hairline)',
         fontFamily: mono ? 'var(--font-mono)' : 'var(--font-body)',
-        fontSize: 'clamp(0.78rem, 0.92vw, 0.98rem)',
+        fontSize: 'var(--fs-card-body)',
         color,
         fontWeight: bold ? 700 : 400,
       }}

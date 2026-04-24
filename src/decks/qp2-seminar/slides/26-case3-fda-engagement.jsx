@@ -122,7 +122,7 @@ export default function Slide26Case3FdaEngagement() {
               <motion.div
                 className="deck-mono uppercase"
                 style={{
-                  fontSize: '0.7rem',
+                  fontSize: 'var(--fs-card-label)',
                   letterSpacing: 'var(--ls-mono-wide)',
                   color: 'var(--cream-muted)',
                 }}
@@ -149,7 +149,7 @@ export default function Slide26Case3FdaEngagement() {
               <motion.div
                 className="deck-mono uppercase"
                 style={{
-                  fontSize: '0.7rem',
+                  fontSize: 'var(--fs-card-label)',
                   letterSpacing: 'var(--ls-mono-wide)',
                   color: 'var(--violet)',
                   fontWeight: 700,
@@ -180,7 +180,7 @@ export default function Slide26Case3FdaEngagement() {
             <motion.div
               className="deck-mono uppercase"
               style={{
-                fontSize: '0.66rem',
+                fontSize: 'var(--fs-card-label)',
                 letterSpacing: 'var(--ls-mono-wide)',
                 color: 'var(--cream-muted)',
                 marginBottom: 8,
@@ -219,7 +219,7 @@ export default function Slide26Case3FdaEngagement() {
             <div
               className="deck-display italic"
               style={{
-                fontSize: 'clamp(0.9rem, 1.05vw, 1.1rem)',
+                fontSize: 'var(--fs-card-title)',
                 color: 'var(--cream)',
                 lineHeight: 1.4,
               }}
@@ -271,7 +271,7 @@ function PillarStatus({ pillar, delay }) {
       <div
         className="deck-display"
         style={{
-          fontSize: pillar.pill ? 'clamp(0.95rem, 1.2vw, 1.3rem)' : 'clamp(1.6rem, 2.1vw, 2.4rem)',
+          fontSize: pillar.pill ? 'var(--fs-card-title)' : 'var(--fs-card-numeral)',
           fontWeight: 700,
           color: isViolet ? 'var(--violet)' : 'var(--cream)',
           letterSpacing: 'var(--ls-headline)',
@@ -287,7 +287,7 @@ function PillarStatus({ pillar, delay }) {
         <div
           className="deck-mono uppercase"
           style={{
-            fontSize: '0.62rem',
+            fontSize: 'var(--fs-card-meta)',
             letterSpacing: '0.22em',
             color: isViolet ? 'var(--violet)' : 'var(--cream)',
             fontWeight: 700,
@@ -299,7 +299,7 @@ function PillarStatus({ pillar, delay }) {
         <div
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(0.74rem, 0.85vw, 0.86rem)',
+            fontSize: 'var(--fs-card-body)',
             color: 'var(--cream-muted)',
             lineHeight: 1.4,
           }}
@@ -348,7 +348,7 @@ function QuoteCard({ q, delay }) {
         className="deck-display italic"
         style={{
           paddingLeft: 18,
-          fontSize: 'clamp(0.84rem, 0.98vw, 1rem)',
+          fontSize: 'var(--fs-card-body)',
           color: 'var(--cream)',
           lineHeight: 1.4,
           fontWeight: 400,
@@ -361,7 +361,7 @@ function QuoteCard({ q, delay }) {
         className="deck-mono uppercase"
         style={{
           paddingLeft: 18,
-          fontSize: '0.6rem',
+          fontSize: 'var(--fs-card-meta)',
           letterSpacing: '0.22em',
           color: 'var(--violet)',
           fontWeight: 700,

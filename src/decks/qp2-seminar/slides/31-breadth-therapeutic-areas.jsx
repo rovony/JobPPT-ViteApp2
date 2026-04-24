@@ -269,7 +269,7 @@ function DomainCard({ domain, delay, tk }) {
               : 'color-mix(in srgb, var(--amber) 18%, transparent)',
             color: isFlagship ? color : 'var(--amber)',
             fontFamily: 'var(--font-mono)',
-            fontSize: '0.62rem',
+            fontSize: 'var(--fs-card-meta)',
             letterSpacing: '0.18em',
             fontWeight: 700,
             textTransform: 'uppercase',
@@ -284,7 +284,7 @@ function DomainCard({ domain, delay, tk }) {
       <div
         className="deck-mono uppercase"
         style={{
-          fontSize: '0.68rem',
+          fontSize: 'var(--fs-card-label)',
           letterSpacing: 'var(--ls-mono-wide)',
           color: 'var(--cream-faint)',
           fontWeight: 700,
@@ -297,7 +297,7 @@ function DomainCard({ domain, delay, tk }) {
       {/* Program */}
       <div
         style={{
-          fontSize: 'clamp(0.92rem, 1.05vw, 1.10rem)',
+          fontSize: 'var(--fs-card-title)',
           color: 'var(--cream)',
           fontWeight: 600,
           lineHeight: 1.3,
@@ -310,7 +310,7 @@ function DomainCard({ domain, delay, tk }) {
       <div
         className="deck-display italic"
         style={{
-          fontSize: 'clamp(0.78rem, 0.88vw, 0.92rem)',
+          fontSize: 'var(--fs-card-body)',
           color: 'var(--cream-muted)',
           lineHeight: 1.4,
         }}
@@ -322,7 +322,7 @@ function DomainCard({ domain, delay, tk }) {
       <div
         className="deck-mono uppercase"
         style={{
-          fontSize: '0.64rem',
+          fontSize: 'var(--fs-card-meta)',
           letterSpacing: 'var(--ls-mono)',
           color,
           fontWeight: 700,
@@ -354,7 +354,7 @@ function StatTile({ value, label, delay }) {
       <div
         className="deck-display"
         style={{
-          fontSize: 'clamp(1.6rem, 2.2vw, 2.5rem)',
+          fontSize: 'var(--fs-card-numeral)',
           color: 'var(--cream)',
           fontWeight: 700,
           lineHeight: 1,
@@ -366,7 +366,7 @@ function StatTile({ value, label, delay }) {
       <div
         className="deck-mono uppercase"
         style={{
-          fontSize: '0.66rem',
+          fontSize: 'var(--fs-card-label)',
           letterSpacing: 'var(--ls-mono-wide)',
           color: 'var(--cream-muted)',
           fontWeight: 600,

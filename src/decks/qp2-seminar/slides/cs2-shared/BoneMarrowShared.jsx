@@ -203,7 +203,7 @@ export default function BoneMarrowShared({
               left: 'calc(46% + 28px)',
               top: '36%',
               transform: 'translateY(-50%)',
-              fontSize: 'clamp(10px, 0.85vw, 12px)',
+              fontSize: 'var(--fs-card-label)',
               letterSpacing: 'var(--ls-mono-wide)',
               color: hotspotColor,
               fontWeight: 700,

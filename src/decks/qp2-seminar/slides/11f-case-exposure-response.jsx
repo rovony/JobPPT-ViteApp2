@@ -440,7 +440,7 @@ function ThemePill({ theme, active }) {
       <span style={{ fontWeight: 700, color: active ? color : 'var(--cream-faint)', letterSpacing: '0.18em' }}>
         {theme.num}
       </span>
-      <span style={{ fontSize: '0.9rem', color: active ? 'var(--cream)' : 'var(--cream-faint)' }}>
+      <span style={{ fontSize: 'var(--fs-card-body)', color: active ? 'var(--cream)' : 'var(--cream-faint)' }}>
         {theme.glyph}
       </span>
       <span>{theme.title}</span>

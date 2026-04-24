@@ -94,7 +94,7 @@ export default function Slide25Case3Strategy() {
           <motion.div
             className="deck-mono uppercase"
             style={{
-              fontSize: '0.7rem',
+              fontSize: 'var(--fs-card-label)',
               letterSpacing: 'var(--ls-mono-wide)',
               color: 'var(--cream-muted)',
             }}
@@ -134,7 +134,7 @@ export default function Slide25Case3Strategy() {
             <span
               className="deck-mono uppercase"
               style={{
-                fontSize: '0.6rem',
+                fontSize: 'var(--fs-card-meta)',
                 letterSpacing: '0.22em',
                 color: 'var(--violet)',
                 fontWeight: 700,
@@ -146,7 +146,7 @@ export default function Slide25Case3Strategy() {
             <span
               className="deck-display"
               style={{
-                fontSize: 'clamp(0.95rem, 1.15vw, 1.2rem)',
+                fontSize: 'var(--fs-card-title)',
                 color: 'var(--cream)',
                 fontWeight: 500,
                 letterSpacing: 'var(--ls-headline)',
@@ -208,7 +208,7 @@ function MoveCard({ move, delay }) {
             alignItems: 'center',
             justifyContent: 'center',
             fontFamily: 'var(--font-mono)',
-            fontSize: '0.84rem',
+            fontSize: 'var(--fs-card-body)',
             fontWeight: 700,
             color: 'var(--violet)',
             letterSpacing: '0.04em',
@@ -219,7 +219,7 @@ function MoveCard({ move, delay }) {
         <span
           className="deck-mono uppercase"
           style={{
-            fontSize: '0.68rem',
+            fontSize: 'var(--fs-card-label)',
             letterSpacing: 'var(--ls-mono-wide)',
             color: 'var(--violet)',
             fontWeight: 700,
@@ -233,7 +233,7 @@ function MoveCard({ move, delay }) {
       <div
         className="deck-display italic"
         style={{
-          fontSize: 'clamp(0.98rem, 1.2vw, 1.25rem)',
+          fontSize: 'var(--fs-card-title)',
           fontWeight: 500,
           color: 'var(--cream)',
           lineHeight: 1.25,
@@ -247,7 +247,7 @@ function MoveCard({ move, delay }) {
       <div
         className="deck-mono"
         style={{
-          fontSize: '0.74rem',
+          fontSize: 'var(--fs-card-label)',
           letterSpacing: '0.06em',
           color: 'var(--cream-muted)',
           paddingBottom: 8,
@@ -282,7 +282,7 @@ function MoveCard({ move, delay }) {
             <span
               className="deck-mono uppercase"
               style={{
-                fontSize: '0.58rem',
+                fontSize: 'var(--fs-card-meta)',
                 letterSpacing: '0.22em',
                 color: 'var(--cream-faint)',
                 fontWeight: 700,
@@ -293,7 +293,7 @@ function MoveCard({ move, delay }) {
             <span
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: 'clamp(0.78rem, 0.88vw, 0.92rem)',
+                fontSize: 'var(--fs-card-body)',
                 color: 'var(--cream)',
                 lineHeight: 1.4,
               }}
@@ -319,7 +319,7 @@ function MoveCard({ move, delay }) {
         <span
           className="deck-mono uppercase"
           style={{
-            fontSize: '0.58rem',
+            fontSize: 'var(--fs-card-meta)',
             letterSpacing: '0.22em',
             color: 'var(--violet)',
             fontWeight: 700,
@@ -330,7 +330,7 @@ function MoveCard({ move, delay }) {
         <span
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(0.74rem, 0.85vw, 0.86rem)',
+            fontSize: 'var(--fs-card-body)',
             color: 'var(--cream-muted)',
             lineHeight: 1.4,
           }}

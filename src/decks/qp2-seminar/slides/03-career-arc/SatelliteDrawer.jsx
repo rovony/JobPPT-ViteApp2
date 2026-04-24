@@ -39,10 +39,13 @@ export default function SatelliteDrawer({ open, onOpenChange, selection, hub }) 
                 />
                 {hub.name} · {detail.period}
               </div>
+              {/* Sheet title acts as a card-title in this drawer context;
+                  original 1.85rem cap exceeds the token cap (1.3rem) but
+                  card-title is the closest semantic match. */}
               <SheetTitle
                 className="deck-display"
                 style={{
-                  fontSize: 'clamp(1.4rem, 2.2vw, 1.85rem)',
+                  fontSize: 'var(--fs-card-title)',
                   lineHeight: 'var(--lh-snug)',
                   letterSpacing: 'var(--ls-headline)',
                   color: 'var(--cream)',
@@ -84,10 +87,15 @@ export default function SatelliteDrawer({ open, onOpenChange, selection, hub }) 
                         padding: 'var(--space-4)',
                       }}
                     >
+                      {/* Metric value is a stat in a small drawer card —
+                          intent is "numeral" but original 1.8rem cap is
+                          well below the card-numeral floor (2.4rem), so
+                          card-title preserves visual weight without
+                          ballooning the metric on wide viewports. */}
                       <div
                         className="deck-display"
                         style={{
-                          fontSize: 'clamp(1.4rem, 2vw, 1.8rem)',
+                          fontSize: 'var(--fs-card-title)',
                           fontWeight: 700,
                           letterSpacing: '-0.02em',
                           color: hub.hero ? 'var(--coral)' : 'var(--amber)',
@@ -99,7 +107,7 @@ export default function SatelliteDrawer({ open, onOpenChange, selection, hub }) 
                       <div
                         className="deck-mono uppercase mt-2"
                         style={{
-                          fontSize: '0.62rem',
+                          fontSize: 'var(--fs-card-meta)',
                           letterSpacing: 'var(--ls-mono)',
                           color: 'var(--cream-muted)',
                         }}
@@ -164,7 +172,7 @@ function SectionLabel({ children }) {
     <div
       className="deck-mono uppercase"
       style={{
-        fontSize: '0.62rem',
+        fontSize: 'var(--fs-card-meta)',
         letterSpacing: 'var(--ls-mono-wide)',
         color: 'var(--cream-faint)',
         paddingBottom: 'var(--space-2)',

@@ -159,7 +159,7 @@ export default function Slide28Case3Impact() {
             <div
               className="deck-mono uppercase"
               style={{
-                fontSize: '0.62rem',
+                fontSize: 'var(--fs-card-meta)',
                 letterSpacing: '0.22em',
                 color: 'var(--violet)',
                 fontWeight: 700,
@@ -171,7 +171,7 @@ export default function Slide28Case3Impact() {
             <div
               style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: 'clamp(0.86rem, 1vw, 1rem)',
+                fontSize: 'var(--fs-card-body)',
                 color: 'var(--cream)',
                 lineHeight: 1.5,
               }}
@@ -233,7 +233,7 @@ function NumeralBlock({ n, delay, rowsDelay, ease, overshoot }) {
       <motion.div
         className="deck-mono uppercase"
         style={{
-          fontSize: '0.72rem',
+          fontSize: 'var(--fs-card-label)',
           letterSpacing: 'var(--ls-mono-wide)',
           color: numColor,
           fontWeight: 700,
@@ -249,7 +249,7 @@ function NumeralBlock({ n, delay, rowsDelay, ease, overshoot }) {
       <motion.div
         style={{
           fontFamily: 'var(--font-body)',
-          fontSize: 'clamp(0.78rem, 0.92vw, 0.92rem)',
+          fontSize: 'var(--fs-card-body)',
           color: 'var(--cream-muted)',
           fontStyle: 'italic',
           lineHeight: 1.35,
@@ -284,7 +284,7 @@ function NumeralBlock({ n, delay, rowsDelay, ease, overshoot }) {
               columnGap: 8,
               alignItems: 'baseline',
               fontFamily: 'var(--font-body)',
-              fontSize: 'clamp(0.74rem, 0.85vw, 0.86rem)',
+              fontSize: 'var(--fs-card-body)',
               color: 'var(--cream)',
               lineHeight: 1.4,
             }}

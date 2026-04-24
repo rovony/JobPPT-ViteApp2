@@ -68,7 +68,12 @@ export default function SecObjectionCard({
       <blockquote
         style={{
           fontFamily: 'var(--font-mono)',
-          fontSize: isHero ? 'clamp(1.1rem, 1.6vw, 1.8rem)' : 'var(--fs-slide-body)',
+          /* hero variant on slide 17: this is the verbatim SEC quote
+             that drives the dramatic turn — needs hero-quote scale
+             (1.8rem cap) to read as an editorial pull quote, not a
+             tile title. resolved variant on slide 22: callback to the
+             same quote at slide-body scale, struck through. */
+          fontSize: isHero ? 'var(--fs-card-quote)' : 'var(--fs-slide-body)',
           color: isResolved ? 'var(--cream-muted)' : 'var(--cream)',
           lineHeight: 1.45,
           margin: 0,
@@ -116,7 +121,7 @@ export default function SecObjectionCard({
             padding: '4px 10px',
             borderRadius: 4,
             fontFamily: 'var(--font-mono)',
-            fontSize: 11,
+            fontSize: 'var(--fs-card-label)',
             fontWeight: 800,
             letterSpacing: '0.18em',
             background: 'color-mix(in srgb, var(--coral) 8%, transparent)',

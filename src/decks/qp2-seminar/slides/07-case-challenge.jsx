@@ -453,7 +453,7 @@ function ChallengeCard({ row, number, eyebrow, title, body, caption, chart, card
           className="cs1-card-body"
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(0.74rem, 0.85vw, 0.92rem)',
+            fontSize: 'var(--fs-card-body)',
             lineHeight: 1.45,
             color: 'var(--cream-muted)',
           }}

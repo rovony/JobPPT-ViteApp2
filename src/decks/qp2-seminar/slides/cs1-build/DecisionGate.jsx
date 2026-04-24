@@ -335,14 +335,14 @@ function FlowNode({ top, left, num, line1, line2, fadeStyle, accent, dashed, cou
   return (
     <motion.div style={style} {...motionProps}>
       {/* Line 1 — NN · ACTION */}
-      <div style={{ fontSize: 12, letterSpacing: '0.1em', lineHeight: 1 }}>
+      <div style={{ fontSize: 'var(--fs-card-label)', letterSpacing: '0.1em', lineHeight: 1 }}>
         <span style={{ color, fontWeight: 600 }}>{num}</span>
         <span style={{ color: 'var(--cream-muted)', margin: '0 6px' }}>·</span>
         <span style={{ color: 'var(--cream)', fontWeight: 500 }}>{line1}</span>
       </div>
       {/* Line 2 — object / detail */}
       <div style={{
-        fontSize: 10,
+        fontSize: 'var(--fs-card-meta)',
         letterSpacing: '0.06em',
         color: 'var(--cream-muted)',
         lineHeight: 1,
@@ -364,7 +364,7 @@ function SideDesc({ top, left, children, fadeStyle }) {
         left,
         whiteSpace: 'nowrap',
         fontFamily: 'var(--font-mono)',
-        fontSize: 10,
+        fontSize: 'var(--fs-card-meta)',
         letterSpacing: '0.05em',
         color: 'var(--cream-muted)',
       }}
@@ -388,7 +388,7 @@ function BelowDesc({ top, centerX, children, fadeStyle, counterfade }) {
         transform: 'translateX(-50%)',
         whiteSpace: 'nowrap',
         fontFamily: 'var(--font-mono)',
-        fontSize: 10,
+        fontSize: 'var(--fs-card-meta)',
         letterSpacing: '0.05em',
         color: 'var(--cream-muted)',
       }}

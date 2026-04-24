@@ -320,7 +320,18 @@
        so card text shrinks proportionally on narrow OR short
        viewports, in lockstep with the slide chrome.
        ========================================================= */
+    --fs-card-hero-num:   clamp(2.8rem,  min(5.5vw, 7.5vh), 5.5rem);  /* HERO numeral on a card slide (84.6%, count-up
+                                                                          digits, leadership-beat dates). Use sparingly:
+                                                                          ONE per slide, on the typographic anchor of
+                                                                          the card grid. Caps higher than --fs-card-numeral
+                                                                          so the eye treats it as the slide's payoff
+                                                                          rather than a sibling stat. */
     --fs-card-numeral:    clamp(2.4rem,  min(3.4vw, 4.6vh), 3.8rem);  /* big stat */
+    --fs-card-quote:      clamp(1.1rem,  min(1.6vw, 2.2vh), 1.8rem);  /* HERO quote inside a card (verbatim SEC quote,
+                                                                          feature-question callout). Sits in the gap
+                                                                          between --fs-card-title (1.3rem upper) and
+                                                                          --fs-card-numeral (2.4rem floor) — typography
+                                                                          weight typical of an editorial pull quote. */
     --fs-card-title:      clamp(1.0rem,  min(1.2vw, 1.6vh), 1.3rem);  /* card head */
     --fs-card-body:       clamp(0.84rem, min(0.96vw, 1.3vh), 1.0rem); /* card body */
     --fs-card-label:      clamp(0.66rem, min(0.78vw, 1.05vh), 0.78rem); /* uppercase mono label */

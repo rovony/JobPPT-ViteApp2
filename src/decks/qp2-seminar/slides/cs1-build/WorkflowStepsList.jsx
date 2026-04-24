@@ -76,7 +76,7 @@ function StepRow({ step, delay, accentColor }) {
           background: hero ? accentColor : 'var(--bg)',
           border: `2px solid ${accentColor}`,
           color: hero ? 'var(--bg)' : accentColor,
-          fontWeight: 700, fontSize: '0.85rem',
+          fontWeight: 700, fontSize: 'var(--fs-card-body)',
         }}
       >
         {step.num}

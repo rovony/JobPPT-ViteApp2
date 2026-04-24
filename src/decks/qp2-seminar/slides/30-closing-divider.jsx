@@ -52,7 +52,7 @@ export default function Slide30ClosingDivider() {
       <motion.div
         className="absolute top-[6vh] right-[var(--deck-gutter)] deck-mono uppercase"
         style={{
-          fontSize: '0.7rem',
+          fontSize: 'var(--fs-card-label)',
           letterSpacing: 'var(--ls-mono)',
           color: 'var(--cream-faint)',
         }}
@@ -198,7 +198,7 @@ export default function Slide30ClosingDivider() {
           right: 'var(--deck-gutter)',
           paddingTop: '14px',
           borderTop: '1px solid var(--cream-hairline)',
-          fontSize: 'clamp(0.6rem, 0.78vw, 0.85rem)',
+          fontSize: 'var(--fs-card-label)',
           letterSpacing: '0.22em',
           color: 'var(--cream-muted)',
           display: 'flex',
@@ -254,7 +254,7 @@ export default function Slide30ClosingDivider() {
         <span
           className="deck-mono uppercase"
           style={{
-            fontSize: '0.65rem',
+            fontSize: 'var(--fs-card-meta)',
             letterSpacing: 'var(--ls-mono)',
             color: 'var(--cream-faint)',
           }}
