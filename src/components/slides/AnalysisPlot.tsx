@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import {
   ComposedChart,
   LineChart,
@@ -73,25 +73,37 @@ export default function AnalysisPlot({
 }: AnalysisPlotProps) {
   const reduce = useReducedMotion();
 
-  const content = renderChart(variant);
-
   if (reduce) {
     return (
       <div className={className} style={{ width: '100%', height: '100%' }}>
-        {content}
+        {renderChart(variant)}
       </div>
     );
   }
 
+  // Outer motion.div holds the layoutId frame (morphs position/size across slides).
+  // Inner AnimatePresence mode="wait" key={variant} crossfades the chart contents
+  // so switching variants feels like contents evolving inside a locked frame.
   return (
     <motion.div
       layoutId={layoutId}
       layout
       transition={{ layout: LAYOUT_TRANSITION }}
       className={className}
-      style={{ width: '100%', height: '100%' }}
+      style={{ width: '100%', height: '100%', position: 'relative' }}
     >
-      {content}
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={variant}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
+          style={{ width: '100%', height: '100%' }}
+        >
+          {renderChart(variant)}
+        </motion.div>
+      </AnimatePresence>
     </motion.div>
   );
 }

@@ -8,8 +8,11 @@ import Slide11 from './slides/11-case-challenge';
 import Slide11b from './slides/11b-case-strategy';
 import Slide11c from './slides/11c-case-build';
 import Slide11d from './slides/11d-case-fit';
+import Slide11dOld from './slides/_backup/11d-case-fit.pre-friend-prompt-4';
 import Slide11e from './slides/11e-case-exposure-match';
+import Slide11eOld from './slides/_backup/11e-case-exposure-match.pre-friend-prompt-5';
 import Slide11f from './slides/11f-case-exposure-response';
+// Compare slots — remove _Old imports + entries once the winning variant is picked.
 // Slide 13 (impact numerals) lives in 13-case-impact.jsx.
 // Slide 14 (bridge) lives in 14-case-bridge.jsx. Variable names kept
 // as Slide12/Slide13 for now to avoid churn in the rest of the file.
@@ -43,8 +46,10 @@ const manifest = {
     { id: 'case-challenge', title: 'The challenge', component: Slide11 },
     { id: 'case-strategy', title: 'Strategy · three decisions', component: Slide11b },
     { id: 'case-build', title: 'Build · sequential workflow', component: Slide11c },
-    { id: 'case-fit-pcvpc', title: 'Model fit · pcVPC', component: Slide11d },
-    { id: 'case-exposure-match', title: 'Exposure match · AUC + Cmax', component: Slide11e },
+    { id: 'case-fit-pcvpc', title: 'Model fit · pcVPC (NEW · friend spec)', component: Slide11d },
+    { id: 'case-fit-pcvpc-old', title: 'Model fit · pcVPC (OLD · real Okour data)', component: Slide11dOld },
+    { id: 'case-exposure-match', title: 'Exposure match · AUC + Cmax (NEW · friend spec)', component: Slide11e },
+    { id: 'case-exposure-match-old', title: 'Exposure match · AUC + Cmax (OLD · SVG panels)', component: Slide11eOld },
     { id: 'case-exposure-response', title: 'Exposure–Response · null signal', component: Slide11f },
     { id: 'case-impact-numerals', title: 'Impact · two regulators approved', component: Slide12 },
     { id: 'case-bridge', title: 'Bridge · themes exercised · CS1 → CS2', component: Slide13 },
