@@ -44,9 +44,11 @@ export default function SecObjectionCard({
         background: isResolved
           ? 'color-mix(in srgb, var(--cream) 4%, transparent)'
           : 'linear-gradient(135deg, color-mix(in srgb, var(--amber, #d8a634) 8%, transparent), color-mix(in srgb, var(--panel) 70%, transparent) 70%)',
-        padding: isHero ? 'var(--space-6) var(--space-7)' : 'var(--space-3) var(--space-4)',
+        padding: isHero
+          ? 'var(--space-6) var(--space-7)'
+          : 'var(--space-3) calc(var(--space-4) + 110px) var(--space-3) var(--space-4)',
         position: 'relative',
-        overflow: 'hidden',
+        overflow: isResolved ? 'visible' : 'hidden',
       }}
     >
       {/* Date stamp */}
@@ -100,7 +102,7 @@ export default function SecObjectionCard({
             letterSpacing: 'var(--ls-mono)',
           }}
         >
-          Source · CDSCO Oncology SEC minutes · December 2024
+          Source · CDSCO Oncology SEC recommendation · December 2024
         </div>
       )}
 
@@ -113,9 +115,10 @@ export default function SecObjectionCard({
           style={{
             position: 'absolute',
             top: '50%',
-            right: 18,
+            right: 14,
             transform: 'translateY(-50%) rotate(-8deg)',
             transformOrigin: 'center',
+            whiteSpace: 'nowrap',
             border: '2px solid var(--coral)',
             color: 'var(--coral)',
             padding: '4px 10px',

@@ -72,8 +72,22 @@ export default function Slide13() {
         </span>
       </Headline>
 
-      <Viz>
-        <div style={{ width: '100%', height: '100%', display: 'grid', gridTemplateRows: 'auto auto 1fr', rowGap: 'var(--space-4)', minHeight: 0 }}>
+      <Viz style={{ overflow: 'hidden' }}>
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            display: 'grid',
+            // Four explicit rows for the four content sections. Was
+            // 'auto auto 1fr' which only declared 3 rows for 4 children
+            // — the themes ribbon overflowed into an implicit 4th row
+            // that bled past the Viz cell into the Footer at 1366×768.
+            // (matches slide 29 fix · SLIDE-REVIEW.md §2 row 14)
+            gridTemplateRows: 'auto auto auto auto',
+            rowGap: 'var(--space-3)',
+            minHeight: 0,
+          }}
+        >
       {/* ═══════════ Top split: template · pipeline ═══════════ */}
       <div
         style={{
@@ -220,8 +234,8 @@ export default function Slide13() {
             letterSpacing: 'var(--ls-mono-wide)',
             color: 'var(--coral)',
             fontWeight: 700,
-            marginBottom: '14px',
-            paddingTop: '18px',
+            marginBottom: '10px',
+            paddingTop: '12px',
             borderTop: '1px solid var(--cream-hairline)',
           }}
           initial={{ opacity: 0 }}
@@ -318,7 +332,9 @@ function ThemeTile({ theme, detail, delay, tk }) {
   return (
     <motion.div
       style={{
-        padding: '18px 20px 20px 20px',
+        // Compressed from 18/20/20/20 — themes ribbon was overflowing
+        // the Viz cell at 1366×768 and being clipped by the Footer.
+        padding: '10px 14px 12px 14px',
         borderRadius: 4,
         border: '1px solid var(--cream-hairline)',
         background: 'color-mix(in srgb, var(--panel) 35%, transparent)',
@@ -327,30 +343,36 @@ function ThemeTile({ theme, detail, delay, tk }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.55, ease, delay }}
     >
-      {/* Glyph */}
+      {/* Glyph + title — co-row to save vertical space */}
       <div
         style={{
-          fontSize: '1.6rem',
-          color,
-          lineHeight: 1,
-          marginBottom: '14px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          marginBottom: '6px',
         }}
       >
-        {theme.glyph}
-      </div>
-
-      {/* Title */}
-      <div
-        className="deck-mono uppercase"
-        style={{
-          fontSize: 'var(--fs-card-label)',
-          letterSpacing: 'var(--ls-mono-wide)',
-          color: 'var(--cream)',
-          fontWeight: 700,
-          marginBottom: '8px',
-        }}
-      >
-        {theme.title}
+        <span
+          style={{
+            fontSize: '1.1rem',
+            color,
+            lineHeight: 1,
+            display: 'inline-flex',
+          }}
+        >
+          {theme.glyph}
+        </span>
+        <span
+          className="deck-mono uppercase"
+          style={{
+            fontSize: 'var(--fs-card-label)',
+            letterSpacing: 'var(--ls-mono-wide)',
+            color: 'var(--cream)',
+            fontWeight: 700,
+          }}
+        >
+          {theme.title}
+        </span>
       </div>
 
       {/* Detail */}
@@ -358,7 +380,7 @@ function ThemeTile({ theme, detail, delay, tk }) {
         className="deck-display italic"
         style={{
           fontSize: 'var(--fs-card-body)',
-          lineHeight: 1.4,
+          lineHeight: 1.35,
           color: 'var(--cream-muted)',
           fontWeight: 400,
         }}

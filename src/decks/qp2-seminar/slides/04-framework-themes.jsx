@@ -62,7 +62,12 @@ export default function Slide04FrameworkThemes() {
         is the product.
       </Headline>
 
-      <Subhead delay={T.subhead} maxChars={68}>
+      {/* size="lead" — the default --fs-slide-subhead token (~13-18px)
+          is calibrated for tight captions; under a 1.35em headline it
+          reads as microcopy. The 'lead' token (~16-24px, fluid) gives
+          this orienting line proper subtitle weight without competing
+          with the headline. */}
+      <Subhead delay={T.subhead} maxChars={68} size="lead">
         Five themes → one judgment → three outcomes.
       </Subhead>
 

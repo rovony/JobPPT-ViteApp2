@@ -226,7 +226,12 @@
     --deck-gutter:             clamp(2rem, 4.5vw, 4.5rem);
     --deck-slide-pad:          clamp(1rem, 3.5vw, 5rem);
     --deck-pad-top:            clamp(1rem, 3.5vh, 4rem);
-    --deck-pad-bottom:         clamp(3rem, 6vh, 6rem);
+    /* Bottom pad reserves a chrome-safe band so the page chrome
+       (Mode Switcher · 01/35 indicator · Prev/Next arrows · Fullscreen),
+       which floats fixed-position at bottom-right ~60px tall, never
+       overlaps the slide footer rail. Floor 5rem (80px) clears the
+       chrome by ~20px at 1366×768. */
+    --deck-pad-bottom:         clamp(5rem, 9vh, 7rem);
     --deck-grid-colgap:        clamp(0.75rem, 1.2vw, 1.25rem);
     --deck-grid-rowgap:        clamp(0.4rem, 0.8vh, 0.75rem);
 

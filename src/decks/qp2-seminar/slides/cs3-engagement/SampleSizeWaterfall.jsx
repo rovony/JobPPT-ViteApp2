@@ -36,6 +36,7 @@ export default function SampleSizeWaterfall({
       className={className}
       aria-label="Sample size reduction from 94 to 60 patients"
       role="img"
+      style={{ display: 'block', width: '100%', height: '100%', maxWidth: '100%', maxHeight: '100%' }}
     >
       {/* Baseline */}
       <motion.line

@@ -51,7 +51,7 @@ export default function Slide15Case2Challenge() {
       subhead="Defend with more subgroup data — or reframe the entire argument? The judgment call that defined the case."
       subheadMaxChars={120}
       footerKicker="Case 02 · The hinge"
-      footerSource="Source · CDSCO Oncology SEC minutes · 10 Dec 2024"
+      footerSource="Source · CDSCO Oncology SEC recommendation · 10 Dec 2024"
     >
       <TurnLayout />
     </SlideFrame>

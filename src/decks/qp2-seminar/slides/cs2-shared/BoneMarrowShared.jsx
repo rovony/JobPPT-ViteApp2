@@ -34,7 +34,7 @@ import BoneMarrowSvg from '../../assets/cs2/bone-marrow.svg?react';
 const LAYOUT_TRANSITION = { duration: 1.6, ease: [0.4, 0, 0.2, 1] };
 
 const DIMENSIONS = {
-  hero:    { width: 'clamp(110px, 14vw, 200px)' },
+  hero:    { width: 'clamp(90px, 11vw, 150px)' },
   context: { width: 'clamp(220px, 26vw, 360px)' },
 };
 

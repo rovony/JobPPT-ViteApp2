@@ -312,7 +312,7 @@ function PillarCard({ pillar, dims, accent, variant, children }) {
         >
           {String(pillar.id).padStart(2, '0')}
         </span>
-        {!isSeed && dims.fontName && (
+        {!isSeed && Boolean(dims.fontName) && (
           <span
             className="deck-display"
             style={{
@@ -330,8 +330,10 @@ function PillarCard({ pillar, dims, accent, variant, children }) {
         )}
       </div>
 
-      {/* Tag line */}
-      {!isSeed && !isMargin && dims.fontTag && !isHero && (
+      {/* Tag line — Boolean() guards prevent React from rendering the
+          numeric `0` value when fontTag is explicitly disabled (the
+          classic JS short-circuit-returns-falsy-value trap). */}
+      {!isSeed && !isMargin && !isHero && Boolean(dims.fontTag) && (
         <div
           style={{
             fontFamily: 'var(--font-body)',

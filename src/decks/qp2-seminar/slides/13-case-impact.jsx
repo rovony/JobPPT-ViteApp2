@@ -62,228 +62,224 @@ export default function Slide12() {
       </Headline>
 
       <Viz>
-        <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: 0 }}>
-      {/* ─── Arc SVG — ties the three numbers together ─── */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        viewBox="0 0 1920 720"
-        preserveAspectRatio="xMidYMid slice"
-        aria-hidden
-      >
-        <motion.path
-          d="M 180,820
-             C 520,720 780,420 1200,300
-             C 1420,240 1620,260 1780,360
-             C 1840,420 1780,560 1600,660
-             C 1460,720 1360,740 1220,760"
-          fill="none"
-          stroke={tk('--coral')}
-          strokeOpacity={0.1}
-          strokeWidth={6}
-          strokeLinecap="round"
-          strokeDasharray={3200}
-          initial={{ strokeDashoffset: 3200 }}
-          animate={{ strokeDashoffset: 0 }}
-          transition={{ duration: 1.5, ease, delay: D.arc }}
-        />
-      </svg>
+        {/* Vertical band layout — three numerals + captions sit in the
+            top band; the regulatory timeline + theme meta sit in the
+            bottom band. The two bands never overlap, regardless of
+            viewport height. */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateRows: 'minmax(0, 1fr) auto auto',
+            rowGap: 'var(--space-4)',
+            width: '100%',
+            height: '100%',
+            minHeight: 0,
+          }}
+        >
+          {/* ─── BAND 1 · three hero numerals + captions ─── */}
+          <div style={{ position: 'relative', minHeight: 0 }}>
+            {/* Faint coral arc threading through the numerals */}
+            <svg
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              viewBox="0 0 1920 540"
+              preserveAspectRatio="xMidYMid slice"
+              aria-hidden
+            >
+              <motion.path
+                d="M 100,500 C 460,420 760,260 1180,200 C 1420,160 1640,200 1820,300"
+                fill="none"
+                stroke={tk('--coral')}
+                strokeOpacity={0.1}
+                strokeWidth={5}
+                strokeLinecap="round"
+                strokeDasharray={3000}
+                initial={{ strokeDashoffset: 3000 }}
+                animate={{ strokeDashoffset: 0 }}
+                transition={{ duration: 1.5, ease, delay: D.arc }}
+              />
+            </svg>
 
-      {/* ─── ×2  (dominant, left) ───────────────── */}
-      <motion.div
-        className="absolute"
-        style={{ top: '28%', left: 0, maxWidth: '540px' }}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease, delay: D.n1 }}
-      >
-        <div className="deck-display flex items-baseline" style={{ lineHeight: 'var(--lh-tight)' }}>
-          <span
-            className="deck-display"
+            {/* Three-column inline grid for the numerals so each one owns
+                its column and captions never collide. */}
+            <div
+              style={{
+                position: 'relative',
+                display: 'grid',
+                gridTemplateColumns: 'minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr)',
+                columnGap: 'var(--space-6)',
+                alignItems: 'start',
+                height: '100%',
+                minHeight: 0,
+              }}
+            >
+              {/* ×2 — dominant, left column */}
+              <motion.div
+                style={{ minWidth: 0 }}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease, delay: D.n1 }}
+              >
+                <div className="deck-display" style={{ display: 'flex', alignItems: 'baseline', lineHeight: 'var(--lh-tight)' }}>
+                  <span
+                    className="deck-display"
+                    style={{
+                      fontSize: 'clamp(3.5rem, 6.5vw, 7rem)',
+                      fontWeight: 600,
+                      color: 'var(--cream-muted)',
+                      marginRight: '0.1em',
+                      transform: 'translateY(-0.08em)',
+                    }}
+                  >
+                    ×
+                  </span>
+                  <CountUpDigit
+                    target={2}
+                    delay={D.n1}
+                    duration={0.9}
+                    style={{
+                      fontSize: 'clamp(6rem, 11vw, 12rem)',
+                      fontWeight: 700,
+                      color: 'var(--coral)',
+                      letterSpacing: '-0.02em',
+                    }}
+                  />
+                </div>
+                <Caption
+                  delay={D.n1Caption}
+                  lead="EMA + PMDA — same PopPK-driven label."
+                  meta="European Medicines Agency (Sep 2021) and PMDA (Apr 2021) each accepted the modeling-based pediatric dose on the same underlying evidence."
+                />
+              </motion.div>
+
+              {/* ~3% — middle column */}
+              <motion.div
+                style={{ minWidth: 0 }}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease, delay: D.n2 }}
+              >
+                <div className="deck-display" style={{ display: 'flex', alignItems: 'baseline', lineHeight: 'var(--lh-tight)' }}>
+                  <span
+                    className="deck-display"
+                    style={{
+                      fontSize: 'clamp(2.5rem, 4.5vw, 5rem)',
+                      fontWeight: 500,
+                      color: 'var(--cream-muted)',
+                      marginRight: '0.05em',
+                    }}
+                  >
+                    ~
+                  </span>
+                  <CountUpDigit
+                    target={3}
+                    delay={D.n2}
+                    duration={0.9}
+                    style={{
+                      fontSize: 'clamp(4rem, 8vw, 8.5rem)',
+                      fontWeight: 700,
+                      color: 'var(--amber)',
+                      letterSpacing: '-0.02em',
+                    }}
+                  />
+                  <span
+                    className="deck-display"
+                    style={{
+                      fontSize: 'clamp(2rem, 4vw, 4.5rem)',
+                      fontWeight: 600,
+                      color: 'var(--coral)',
+                      marginLeft: '0.04em',
+                    }}
+                  >
+                    %
+                  </span>
+                </div>
+                <Caption
+                  delay={D.n2Caption}
+                  lead="Weight-band dosing within 3% of adult exposure."
+                  meta={
+                    <>
+                      Three weight bands (≥50 kg → 10 mg · ≥35 to &lt;50 kg → 7.5 mg · ≥20 to &lt;35 kg → 5 mg) deliver matched adult AUC
+                      <sub>ss</sub>.
+                    </>
+                  }
+                />
+              </motion.div>
+
+              {/* 39 — right column */}
+              <motion.div
+                style={{ minWidth: 0 }}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease, delay: D.n3 }}
+              >
+                <div className="deck-display" style={{ display: 'flex', alignItems: 'baseline', lineHeight: 'var(--lh-tight)' }}>
+                  <CountUpDigit
+                    target={39}
+                    delay={D.n3}
+                    duration={0.9}
+                    style={{
+                      fontSize: 'clamp(4rem, 8vw, 8.5rem)',
+                      fontWeight: 700,
+                      color: 'var(--cream)',
+                      letterSpacing: '-0.02em',
+                    }}
+                  />
+                </div>
+                <Caption
+                  delay={D.n3Caption}
+                  lead="Thirty-nine pediatric subjects carried the label."
+                  meta="No new pediatric efficacy trial required — the model was the evidence the agencies accepted."
+                />
+              </motion.div>
+            </div>
+          </div>
+
+          {/* ─── BAND 2 · regulatory approval timeline ─── */}
+          <motion.div
             style={{
-              fontSize: 'clamp(5rem, 10vw, 11rem)',
-              fontWeight: 600,
+              padding: 'var(--space-3) var(--space-4)',
+              borderTop: '1px solid var(--cream-hairline)',
+              borderBottom: '1px solid var(--cream-hairline)',
+              background: 'color-mix(in srgb, var(--panel) 40%, transparent)',
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: D.themes + 0.1 }}
+          >
+            <ApprovalTimeline variant="closed" delay={D.themes + 0.3} />
+          </motion.div>
+
+          {/* ─── BAND 3 · inline theme meta ─── */}
+          <motion.div
+            className="deck-mono uppercase"
+            style={{
+              fontSize: 'var(--fs-slide-pageno)',
+              letterSpacing: 'var(--ls-mono)',
               color: 'var(--cream-muted)',
-              marginRight: '0.1em',
-              transform: 'translateY(-0.08em)',
-              display: 'inline-block',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 'var(--space-3)',
+              flexWrap: 'wrap',
             }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, ease, delay: D.themes }}
           >
-            ×
-          </span>
-          <CountUpDigit
-            target={2}
-            delay={D.n1}
-            duration={0.9}
-            style={{
-              fontSize: 'clamp(9rem, 18vw, 20rem)',
-              fontWeight: 700,
-              color: 'var(--coral)',
-              letterSpacing: '-0.02em',
-            }}
-          />
-        </div>
-        <Caption
-          delay={D.n1Caption}
-          lead="EMA + PMDA — same PopPK-driven label."
-          meta="European Medicines Agency (Sep 2021) and PMDA (Apr 2021) each accepted the modeling-based pediatric dose on the same underlying evidence."
-          marginLeft="18px"
-        />
-      </motion.div>
-
-      {/* ─── ~3% (amber, upper-right, tilted -4°) ── */}
-      <motion.div
-        className="absolute"
-        style={{
-          top: 0,
-          right: '4%',
-          maxWidth: '440px',
-          textAlign: 'right',
-          transformOrigin: 'right center',
-        }}
-        initial={{ opacity: 0, y: 12, rotate: -4 }}
-        animate={{ opacity: 1, y: 0, rotate: -4 }}
-        transition={{ duration: 0.7, ease, delay: D.n2 }}
-      >
-        <div className="deck-display flex items-baseline justify-end" style={{ lineHeight: 'var(--lh-tight)' }}>
-          <span
-            className="deck-display"
-            style={{
-              fontSize: 'clamp(3.5rem, 7vw, 7.5rem)',
-              fontWeight: 500,
-              color: 'var(--cream-muted)',
-              marginRight: '0.05em',
-            }}
-          >
-            ~
-          </span>
-          <CountUpDigit
-            target={3}
-            delay={D.n2}
-            duration={0.9}
-            style={{
-              fontSize: 'clamp(5.5rem, 12vw, 13rem)',
-              fontWeight: 700,
-              color: 'var(--amber)',
-              letterSpacing: '-0.02em',
-            }}
-          />
-          <span
-            className="deck-display"
-            style={{
-              fontSize: 'clamp(2.8rem, 5.5vw, 6rem)',
-              fontWeight: 600,
-              color: 'var(--coral)',
-              marginLeft: '0.04em',
-            }}
-          >
-            %
-          </span>
-        </div>
-        <Caption
-          delay={D.n2Caption}
-          lead="Weight-band dosing within 3% of adult exposure."
-          meta={
-            <>
-              Three weight bands (≥50 kg → 10 mg · ≥35 to &lt;50 kg → 7.5 mg · ≥20 to &lt;35 kg → 5 mg) deliver matched adult AUC
-              <sub>ss</sub>.
-            </>
-          }
-          align="right"
-        />
-      </motion.div>
-
-      {/* ─── 39 (cream, lower-right) ─────────────── */}
-      <motion.div
-        className="absolute"
-        style={{
-          bottom: '8%',
-          right: '8%',
-          maxWidth: '420px',
-          textAlign: 'right',
-        }}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease, delay: D.n3 }}
-      >
-        <div className="deck-display flex items-baseline justify-end" style={{ lineHeight: 'var(--lh-tight)' }}>
-          <CountUpDigit
-            target={39}
-            delay={D.n3}
-            duration={0.9}
-            style={{
-              fontSize: 'clamp(5rem, 10vw, 11rem)',
-              fontWeight: 700,
-              color: 'var(--cream)',
-              letterSpacing: '-0.02em',
-            }}
-          />
-        </div>
-        <Caption
-          delay={D.n3Caption}
-          lead="Thirty-nine pediatric subjects carried the label."
-          meta="No new pediatric efficacy trial required — the model was the evidence the agencies accepted."
-          align="right"
-        />
-      </motion.div>
-
-      {/* ─── Approval timeline (closed-up) ───
-          Shared layoutId with slide 11. When user navigates 11→13,
-          framer-motion morphs the timeline: the dashed pediatric silence
-          (2007→2021) fills in with solid coral, the "19 YEARS" amber
-          silence label morphs into "PMDA APR 2021 · EMA SEP 2021".
-          Editorial payoff of the case. */}
-      <motion.div
-        className="absolute"
-        style={{
-          left: 0,
-          right: 0,
-          bottom: 60,
-          padding: 'var(--space-3) var(--space-4)',
-          borderTop: '1px solid var(--cream-hairline)',
-          borderBottom: '1px solid var(--cream-hairline)',
-          background: 'color-mix(in srgb, var(--panel) 40%, transparent)',
-        }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: D.themes + 0.1 }}
-      >
-        <ApprovalTimeline variant="closed" delay={D.themes + 0.3} />
-      </motion.div>
-
-      {/* ─── Inline theme meta (bottom-left) ─── */}
-      <motion.div
-        className="absolute deck-mono uppercase"
-        style={{
-          left: 0,
-          bottom: 0,
-          fontSize: 'var(--fs-slide-pageno)',
-          letterSpacing: 'var(--ls-mono)',
-          color: 'var(--cream-muted)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 'var(--space-3)',
-          flexWrap: 'wrap',
-        }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, ease, delay: D.themes }}
-      >
-        <span style={{ color: 'var(--cream-faint)' }}>Themes exercised</span>
-        {ACTIVE_THEME_NUMS.map((num, i) => {
-          const theme = QP2_THEMES.find((t) => t.num === num);
-          if (!theme) return null;
-          return (
-            <React.Fragment key={num}>
-              {i > 0 && <span style={{ color: 'var(--cream-dim)' }}>·</span>}
-              <span style={{ color: 'var(--cream)', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ color: 'var(--coral)', fontWeight: 700 }}>{theme.num}</span>
-                <span style={{ color: 'var(--cream)' }}>{theme.glyph}</span>
-              </span>
-            </React.Fragment>
-          );
-        })}
-      </motion.div>
-
+            <span style={{ color: 'var(--cream-faint)' }}>Themes exercised</span>
+            {ACTIVE_THEME_NUMS.map((num, i) => {
+              const theme = QP2_THEMES.find((t) => t.num === num);
+              if (!theme) return null;
+              return (
+                <React.Fragment key={num}>
+                  {i > 0 && <span style={{ color: 'var(--cream-dim)' }}>·</span>}
+                  <span style={{ color: 'var(--cream)', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                    <span style={{ color: 'var(--coral)', fontWeight: 700 }}>{theme.num}</span>
+                    <span style={{ color: 'var(--cream)' }}>{theme.glyph}</span>
+                  </span>
+                </React.Fragment>
+              );
+            })}
+          </motion.div>
         </div>
       </Viz>
 
@@ -322,19 +318,18 @@ function CountUpDigit({ target, delay = 0, duration = 0.9, style }) {
 /* ========================================================
    Caption — lead line + muted meta. Fades in on delay.
    ======================================================== */
-function Caption({ lead, meta, delay, align = 'left', marginLeft }) {
+function Caption({ lead, meta, delay }) {
   return (
     <motion.div
       className="deck-display italic"
       style={{
-        marginTop: '20pt',
-        marginLeft: align === 'right' ? 'auto' : marginLeft,
-        textAlign: align,
+        marginTop: '16pt',
+        textAlign: 'left',
         fontSize: 'var(--fs-card-title)',
         lineHeight: 'var(--lh-base)',
         color: 'var(--cream)',
         fontWeight: 500,
-        maxWidth: align === 'right' ? '420px' : '520px',
+        maxWidth: '100%',
       }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}

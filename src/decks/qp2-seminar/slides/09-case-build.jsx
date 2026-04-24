@@ -108,9 +108,10 @@ export default function Slide11cCaseBuild() {
               border: '1px solid var(--cream-hairline)',
               background: 'color-mix(in srgb, var(--panel) 55%, transparent)',
               borderRadius: 'var(--radius-lg)',
-              padding: 'var(--space-5)',
+              padding: 'var(--space-4) var(--space-5)',
               flex: 1,
               minHeight: 0,
+              overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
             }}
@@ -125,12 +126,13 @@ export default function Slide11cCaseBuild() {
                 letterSpacing: 'var(--ls-mono-wide)',
                 color: 'var(--coral)',
                 marginBottom: 'var(--space-2)',
+                flexShrink: 0,
               }}
             >
               Two-compartment · 1st-order absorption · t-lag
             </div>
 
-            <div style={{ flex: 1, minHeight: 0 }}>
+            <div style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
               <CompartmentSchematic tk={tk} />
             </div>
 
@@ -138,13 +140,14 @@ export default function Slide11cCaseBuild() {
               className="deck-mono"
               style={{
                 fontSize: 'var(--fs-slide-pageno)',
-                letterSpacing: '0.08em',
+                letterSpacing: '0.06em',
                 color: 'var(--cream-faint)',
-                lineHeight: 1.4,
+                lineHeight: 1.3,
                 marginTop: 'var(--space-2)',
+                flexShrink: 0,
               }}
             >
-              NONMEM 7.4.1 · IMPMAP · BLOCK(6) OMEGA · 1,000 IS samples · BLQ ≈ 3% via Beal M3
+              NONMEM 7.4.1 · IMPMAP · BLOCK(6) OMEGA · 1,000 IS · BLQ ≈ 3% (Beal M3)
             </div>
           </motion.div>
         </div>

@@ -76,7 +76,7 @@ function ImpactBridgeLayout() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1.4fr) minmax(0, 1fr)',
+          gridTemplateColumns: 'minmax(0, 1.9fr) minmax(0, 1fr)',
           columnGap: 'var(--space-6)',
           alignItems: 'center',
           minHeight: 0,
@@ -92,7 +92,7 @@ function ImpactBridgeLayout() {
           }}
         >
           <HeroTile date="14 / 05" sub="CDSCO marketing authorization" body="India approval — no new clinical study required" tone="cyan" delay={0.5} />
-          <HeroTile date="05 / 06" sub="Servier India launch" body="22 days from authorization to first patient access" tone="coral" delay={0.8} />
+          <HeroTile date="05 / 06" sub="India commercial launch" body="22 days from authorization to first patient access" tone="coral" delay={0.8} />
           <HeroTile date="0" sub="New safety signals · 8-yr exposure" body="1,281 trial subjects · 15,867 patients global · zero new signal" tone="cream" delay={1.1} muted />
         </div>
 

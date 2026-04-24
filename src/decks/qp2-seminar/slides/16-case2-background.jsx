@@ -69,12 +69,17 @@ function BackgroundLayout() {
       {/* World map backdrop — fills the viz area, faded so the cards
           and bone-marrow anchor sit on top. The 42 coral dots and the
           empty India outline do most of the visual work. */}
+      {/* Backdrop opacity dropped from 0.95 → 0.32: the world map's job
+          here is to communicate "global footprint" at backdrop volume,
+          not to compete with the bone-marrow + drug/disease cards for
+          eye-hit 1. Headline owns the "42 countries" claim; the map
+          confirms it visually without crowding the foreground. */}
       <div
         aria-hidden
         style={{
           position: 'absolute',
           inset: 0,
-          opacity: 0.95,
+          opacity: 0.18,
           zIndex: 0,
         }}
       >
@@ -93,7 +98,7 @@ function BackgroundLayout() {
           width: '100%',
           height: '100%',
           minHeight: 0,
-          padding: 'var(--space-4) 0',
+          padding: 'var(--space-4) 0 var(--space-7) 0',
         }}
       >
         {/* Bone marrow — context variant (T5 destination) */}

@@ -141,7 +141,17 @@ export default function Slide26Case3FdaEngagement() {
               >
                 Sample size · adult Ph-neg ALL · primary endpoint evaluable
               </motion.div>
-              <div style={{ width: '100%', maxHeight: '38vh' }}>
+              <div
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  minHeight: 0,
+                  maxHeight: '38vh',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
                 <SampleSizeWaterfall delay={D.waterfall} />
               </div>
             </div>

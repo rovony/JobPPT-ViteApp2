@@ -7,31 +7,33 @@ unblocks it.
 
 > **Apr 24 closing sweep (Phases E / F / G + repo-hygiene):** items 2, 3,
 > and 4 are now fully resolved on top of the original Phase A–D work.
-> See "Status by item" below. Only item 1 (slide-21 timeline rebuild)
-> remains genuinely deferred and requires speaker input.
+> See "Status by item" below. Item 1 (slide-21 proportional-time
+> rebuild) was also completed in this session — see §1 below for the
+> full resolution writeup.
 
 ---
 
-## 1. Slide 21 (CS2 regulatory timeline) — proportional-time rebuild
+## 1. Slide 21 (CS2 regulatory timeline) — proportional-time rebuild ✅ DONE
 
 **Source:** `SLIDE-REVIEW.md` §6 ("the one slide that needs a rebuild, not a tweak").
 
-**Issue:**
-1. **Tell #8 violation** — 9 timeline nodes are equal-spaced, but the dates compress 5 events into 5 months (Dec 10 → Jan → Jan 14 → Mar 27 → Apr 4 → May 14). The audience reads the spacing as proportional time and is wrong.
-2. **Slide-02 overlap pattern at scale** — at 1280px viewport each NodeCard becomes ~131px wide for a 3-line label. Adjacent cards collide.
-3. **Focal-point split** — the climax content (27 Mar 2025) appears both as a timeline node AND as a duplicate leadership-beat callout below.
+**Original issue:**
+1. **Tell #8 violation** — 9 timeline nodes were equal-spaced, but the dates compress 5 events into 5 months (Dec 10 → Jan → Jan 14 → Mar 27 → Apr 4 → May 14). The audience read the spacing as proportional time and was wrong.
+2. **Slide-02 overlap pattern at scale** — at 1280px viewport each NodeCard became ~131px wide for a 3-line label. Adjacent cards collided.
+3. **Focal-point split** — the climax content (27 Mar 2025) appeared both as a timeline node AND as a duplicate leadership-beat callout below.
 
-**Why deferred:** This is a half-day refactor that changes the slide's visual rhythm fundamentally. The proportional spacing turns "9 equal columns" into "5 dense + 4 spread" and the design intent should be confirmed by the speaker before the geometry changes. The slide currently *works* — the dates are correct, the climax is identified — it just isn't optimal.
+**Resolution (Apr 24, this session):**
+1. Each step's `xPct` now reflects calendar-day position along the arc (Mar 27 2024 = 0%, May 14 2025 = 100%) via a `parseStepDate` helper + `xOf(t)` projection. The dense Dec→May cluster now visibly compresses; the sparse Mar→Sep stretch reads as the long quiet.
+2. Above/below row assignment was rewritten as a greedy "pick the row with the furthest-back last card" pass (replacing naive `i % 2`), so temporally tight pairs like Mar 27 climax → adjacent denouement events sit on opposite rows when possible.
+3. Per-card `lanePct` (max width budget) is computed from the half-distance to each same-row neighbor; edge cards bias inward by `EDGE_INSET` so the card body never clips past the SlideFrame padding.
+4. Apr 4 (favorable rec) + May 14 (marketing authorization) — three cards in the final 12% of the rail — were collapsed into a single "Apr — May approval cleared" period bracket. Both dates and content are preserved in the bracket detail (`Favorable rec → CDSCO MA · 14 May`); editorially they are denouement to the Mar 27 climax, not peer events.
+5. Period brackets ("Strategy reframe", "Approval cleared") are lifted ~88px above the spine with their `⌐ ¬` legs reaching back down — keeps period labels out of the event-card vertical band so "Strategy reframe" no longer overlaps "91-KB submission".
+6. The duplicate "27 Mar 2025" leadership-beat callout below the timeline was removed; the headline + climax node + footer-source carry the editorial voicing without the focal-point split.
+7. Year tick (2025) added at the rail bottom for axis grounding.
 
-**Effort:** L (~half day).
+**Verified:** Browser screenshots at 1366×768 (deck design target) and 1024×640 (worst case) — no overlaps, no clipping, climax stands alone on the right with denouement bracketed above.
 
-**Unblocks:** Speaker confirmation that proportional time spacing is preferred over the current "all dates equally important visually" reading.
-
-**Concrete fix path:**
-1. Add `dayDelta(date, prevDate)` helper.
-2. Position each NodeCard at `xPct = cumulativeDays / totalDays` along the timeline rail.
-3. Truncate NodeCard labels to ≤30 chars except for the climax/turn nodes (currently every label is full).
-4. Remove the duplicate "27 Mar 2025" leadership-beat callout below the timeline (it already exists as a node).
+**Files touched:** `src/decks/qp2-seminar/slides/21-case2-response.jsx` only.
 
 ---
 
@@ -39,7 +41,7 @@ unblocks it.
 
 | # | Item | Status | Phase / commit |
 |---|------|--------|----------------|
-| 1 | Slide 21 proportional-time rebuild | DEFERRED (speaker input required) | — |
+| 1 | Slide 21 proportional-time rebuild | ✅ DONE (Apr 24) | this session |
 | 2 | Footer-tagline citation migration | ✅ DONE (audit confirmed already migrated in B/D) | Phase B + D |
 | 3 | P5 case-color contract sweep | ✅ DONE (slide 33 + themes.js + slide 31 cardiometabolic) | Phase F |
 | 4 | `cs3-n-94` layoutId pair | ✅ DONE (slide 24 AnchorTile ↔ SampleSizeWaterfall) | Phase G |

@@ -190,20 +190,14 @@ export default function Slide32RecordAtScale() {
             </p>
           </motion.div>
 
-          {/* Last-row centering helper: when the 7th tile sits alone,
-              scoot it up under the 5th column position. CSS fallback
-              for narrow viewports leaves it left-aligned. */}
+          {/* Narrow-viewport fallback only — at design width the 8 tiles
+              flow naturally as 4×2. (Earlier 7-tile centerer removed
+              when an 8th tile was added; it was leaving a hole at the
+              bottom-left corner.) */}
           <style>{`
-            .record-tile-grid > :nth-child(7) {
-              grid-column: 2 / span 2;
-              max-width: 100%;
-            }
             @media (max-width: 1100px) {
               .record-tile-grid {
                 grid-template-columns: repeat(2, 1fr) !important;
-              }
-              .record-tile-grid > :nth-child(7) {
-                grid-column: 1 / -1 !important;
               }
             }
           `}</style>

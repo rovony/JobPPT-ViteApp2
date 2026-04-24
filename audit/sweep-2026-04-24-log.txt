@@ -1,0 +1,39 @@
+[01/35] title ... ok
+[02/35] hook ... ok
+[03/35] career-arc ... ok
+[04/35] framework-themes ... ok
+[05/35] case-divider ... ok
+[06/35] case-background ... ok
+[07/35] case-challenge ... ok
+[08/35] case-strategy ... ok
+[09/35] case-build ... ok
+[10/35] case-fit-pcvpc ... ok
+[11/35] case-exposure-match ... ok
+[12/35] case-exposure-response ... ok
+[13/35] case-impact-numerals ... ok
+[14/35] case-bridge ... ok
+[15/35] case2-divider ... ok
+[16/35] case2-background ... ok
+[17/35] case2-challenge-turn ... ok
+[18/35] case2-strategy ... ok
+[19/35] case2-pillar6 ... ok
+[20/35] case2-pillars-1-5 ... ok
+[21/35] case2-response ... ok
+[22/35] case2-impact-bridge ... ok
+[23/35] case3-divider ... ok
+[24/35] case3-challenge ... ok
+[25/35] case3-strategy ... ok
+[26/35] case3-fda-engagement ... ok
+[27/35] case3-fit ... ok
+[28/35] case3-impact ... ok
+[29/35] case3-bridge ... ok
+[30/35] closing-divider ... ok
+[31/35] breadth-therapeutic-areas ... ok
+[32/35] record-at-scale ... ok
+[33/35] leadership-principles ... ok
+[34/35] in-closing ... ok
+[35/35] thank-you ... ok
+
+--- Console errors / warnings per URL ---
+
+Wrote 35 screenshots to /Users/malekokour/MyWork/3_Projects/2_MyJob/JobPresentation26/4-Apps/merck-deck/audit/sweep-2026-04-24

@@ -74,7 +74,7 @@ export default function Slide29Case3Bridge() {
         and the value isn’t one trial. It’s a template.
       </Headline>
 
-      <Viz>
+      <Viz style={{ overflow: 'hidden' }}>
         <div
           style={{
             width: '100%',
@@ -88,7 +88,11 @@ export default function Slide29Case3Bridge() {
             // content-sized; the themes ribbon's bottom edge is the
             // grid bottom, no overflow. (SLIDE-REVIEW.md §2 row 29)
             gridTemplateRows: 'auto auto auto auto',
-            rowGap: 'var(--space-4)',
+            // Tighter than slide 14 — slide 29 has heavier content
+            // above (template label + bullets + ICH coda body) so the
+            // themes ribbon row needs every px of vertical room to
+            // render the ThemeTile detail line below each title.
+            rowGap: 'var(--space-2)',
             minHeight: 0,
           }}
         >
@@ -109,7 +113,7 @@ export default function Slide29Case3Bridge() {
                   fontSize: 'var(--fs-card-label)',
                   letterSpacing: 'var(--ls-mono-wide)',
                   color: 'var(--cream-muted)',
-                  marginBottom: '18px',
+                  marginBottom: '12px',
                   lineHeight: 1.4,
                   maxWidth: '54ch',
                 }}
@@ -190,9 +194,11 @@ export default function Slide29Case3Bridge() {
           {/* ─── ICH M15 coda ─── */}
           <motion.div
             style={{
-              margin: 'var(--space-2) auto 0',
+              margin: '0 auto',
               maxWidth: '82ch',
-              padding: 'var(--space-3) var(--space-5)',
+              // Tightened from var(--space-3) var(--space-5) — themes
+              // ribbon row below needs the reclaimed pixels.
+              padding: 'var(--space-2) var(--space-4)',
               borderLeft: '3px solid var(--violet)',
               background: 'color-mix(in srgb, var(--panel) 55%, transparent)',
               borderRadius: '4px',
@@ -240,8 +246,8 @@ export default function Slide29Case3Bridge() {
                 letterSpacing: 'var(--ls-mono-wide)',
                 color: 'var(--violet)',
                 fontWeight: 700,
-                marginBottom: '14px',
-                paddingTop: '18px',
+                marginBottom: '10px',
+                paddingTop: '12px',
                 borderTop: '1px solid var(--cream-hairline)',
               }}
               initial={{ opacity: 0 }}
@@ -336,7 +342,9 @@ function ThemeTile({ theme, detail, delay, tk }) {
   return (
     <motion.div
       style={{
-        padding: '18px 20px 20px 20px',
+        // Compressed from 18/20/20/20 — themes ribbon was overflowing
+        // the Viz cell at 1366×768 and being clipped by the Footer.
+        padding: '10px 14px 12px 14px',
         borderRadius: 4,
         border: '1px solid var(--cream-hairline)',
         background: 'color-mix(in srgb, var(--panel) 35%, transparent)',
@@ -345,35 +353,43 @@ function ThemeTile({ theme, detail, delay, tk }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.55, ease, delay }}
     >
+      {/* Glyph + title — co-row to save vertical space */}
       <div
         style={{
-          fontSize: '1.6rem',
-          color,
-          lineHeight: 1,
-          marginBottom: '14px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          marginBottom: '6px',
         }}
       >
-        {theme.glyph}
-      </div>
-
-      <div
-        className="deck-mono uppercase"
-        style={{
-          fontSize: 'var(--fs-card-label)',
-          letterSpacing: 'var(--ls-mono-wide)',
-          color: 'var(--cream)',
-          fontWeight: 700,
-          marginBottom: '8px',
-        }}
-      >
-        {theme.title}
+        <span
+          style={{
+            fontSize: '1.1rem',
+            color,
+            lineHeight: 1,
+            display: 'inline-flex',
+          }}
+        >
+          {theme.glyph}
+        </span>
+        <span
+          className="deck-mono uppercase"
+          style={{
+            fontSize: 'var(--fs-card-label)',
+            letterSpacing: 'var(--ls-mono-wide)',
+            color: 'var(--cream)',
+            fontWeight: 700,
+          }}
+        >
+          {theme.title}
+        </span>
       </div>
 
       <div
         className="deck-display italic"
         style={{
           fontSize: 'var(--fs-card-body)',
-          lineHeight: 1.4,
+          lineHeight: 1.35,
           color: 'var(--cream-muted)',
           fontWeight: 400,
         }}

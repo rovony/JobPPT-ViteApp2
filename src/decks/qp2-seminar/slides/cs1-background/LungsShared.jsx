@@ -39,7 +39,10 @@ const DIMENSIONS = {
   // the row is ~515px tall; a 420px-wide lung is ~506px tall via aspect
   // ratio — fits with a small breather and doesn't trigger the
   // overflow:hidden clip on the wrapper).
-  context: { width: 'clamp(280px, 22vw, 420px)', aspectRatio: '482 / 581' },
+  // 2026-04-24 user ask: "make the lung bigger, maybe most of the slide".
+  // Bumped from 22vw/420px max → 32vw/600px max — lung now reads as the
+  // dominant figure with the two narrow cards as supporting marginalia.
+  context: { width: 'clamp(360px, 32vw, 600px)', aspectRatio: '482 / 581' },
 };
 
 export default function LungsShared({

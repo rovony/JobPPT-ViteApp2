@@ -99,9 +99,22 @@ function ChallengeStack() {
         height: '100%',
         display: 'grid',
         gridTemplateColumns: '56px 1fr',
+        // Each card row caps at 1fr so the timeline + focal stay inside
+        // the Viz cell. To keep the body text from VISUALLY overlapping
+        // the next card when 1fr happens to be shorter than the card's
+        // content (Highlight pill on a wrapped second line), each card
+        // panel below sets `overflow: hidden` and the rowGap is bumped
+        // from space-2 → space-3 to add a clean breathing band between
+        // adjacent card rows.
+        //
+        // Default rows are minmax(0,1fr) so the slide stays viable at
+        // shorter viewports (1366×768). At ≥1500px the .cs1-large-rows
+        // CSS rule below adds a row floor so cards can host bigger
+        // chart panels — the timeline strip is also capped to free the
+        // needed vertical space at that breakpoint.
         gridTemplateRows: 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) auto auto',
         columnGap: 'var(--space-4)',
-        rowGap: 'var(--space-2)',
+        rowGap: 'var(--space-3)',
         minHeight: 0,
         position: 'relative',
       }}
@@ -116,6 +129,30 @@ function ChallengeStack() {
           Discipline" — cards always have min-content floor so text is
           never clipped. */}
       <style>{`
+        /* Chart SVGs inside the panel must fit BOTH dimensions of the
+           container (the panel is height-limited by its grid row, but
+           the SVGs declare only width="100%" so the browser computes
+           intrinsic height from the 2:1 viewBox → SVG overflows
+           vertically and gets clipped by the panel's overflow:hidden).
+           Forcing width:100% + height:100% with the SVG's own
+           preserveAspectRatio="xMidYMid meet" makes them scale-to-fit
+           cleanly with no clipping. */
+        .cs1-challenge-stack .cs1-card-chart svg {
+          width: 100% !important;
+          height: 100% !important;
+          display: block;
+        }
+        /* Card-row floor at large viewports — pairs with the timeline
+           strip's 1300px maxWidth so cards land at ~136px each, chart
+           panels get a 320×~136 frame, SVG content renders ~272×136
+           (vs original 220×110, ≈+54% area). At <1500px we leave the
+           rows on plain 1fr so the slide stays viable at 1366×768
+           where vertical space is too tight for any floor. */
+        @media (min-width: 1500px) {
+          .cs1-challenge-stack {
+            grid-template-rows: minmax(135px, 1fr) minmax(135px, 1fr) minmax(135px, 1fr) auto auto !important;
+          }
+        }
         @media (max-width: 1024px) {
           .cs1-challenge-stack .cs1-card { padding: var(--space-2) var(--space-3); padding-left: calc(var(--space-3) + 6px); column-gap: var(--space-3); }
           .cs1-challenge-stack .cs1-card-title { font-size: clamp(0.9rem, 1.6vw, 1.15rem) !important; }
@@ -206,22 +243,58 @@ function ChallengeStack() {
       />
 
       {/* Approval-timeline strip — spans BOTH columns (full width under
-          the spine), shared layoutId with slide 13. */}
+          the spine).
+
+          layoutId="adult-approval-timeline" pairs with the small
+          embedded mini-timeline inside slide 06's Card 02 (THE DRUG).
+          On forward navigation 6 → 7, framer-motion FLIPs this
+          wrapper's bbox from the small card-corner box → the wide
+          stripe — same camera-pullback cinematic as the lung 5 → 6
+          (LungsShared layoutId="lung-lynch"). The internals fade-cross
+          (different chart components, but same conceptual subject:
+          adult-approval timeline). */}
       <motion.div
+        layoutId="adult-approval-timeline"
+        layout
         className="cs1-timeline"
         style={{
           gridColumn: '1 / 3',
           gridRow: 4,
-          padding: 'var(--space-2) var(--space-4)',
+          padding: 'var(--space-1) var(--space-4)',
           borderTop: '1px solid var(--cream-hairline)',
           borderBottom: '1px solid var(--cream-hairline)',
           background: 'color-mix(in srgb, var(--panel) 40%, transparent)',
+          // This timeline strip is THE cinematic payoff of the 06 → 07
+          // morph (mini-timeline in slide 06 Card 02 → expands to this
+          // hero strip on slide 07 — same FLIP pattern as the lung
+          // 5 → 6 morph). It earns its dominance: max-width 1300 keeps
+          // it as the visually largest element on the slide, ~73% of
+          // canvas width, with the amber "19 YEARS OF PEDIATRIC
+          // SILENCE" label as the editorial center of gravity.
+          //
+          // The cap (vs full 1776) trades ~60px of vertical strip
+          // height for taller card rows above, so the staircase chart
+          // panels can host a 320×~136 frame (chart art ~272×136 —
+          // ~+54% area vs the previous 220×110 squeezed render).
+          display: 'flex',
+          justifyContent: 'center',
         }}
-        initial={{ opacity: 0 }}
+        // initial={false} — same pattern as LungsShared.context. The
+        // layoutId match from slide 06's mini-timeline IS the entrance,
+        // so we must NOT hide this element behind opacity:0 / y:offset
+        // (that would race the morph and the destination would render
+        // empty during the FLIP). When landing on slide 07 fresh (no
+        // morph available — direct link / reload), the wrapper just
+        // appears at full opacity, which is fine.
+        initial={false}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 2.8 }}
+        transition={{
+          layout: { duration: 1.4, ease: [0.4, 0, 0.2, 1] },
+        }}
       >
-        <ApprovalTimeline variant="silence" delay={3.0} />
+        <div style={{ width: '100%', maxWidth: 1300 }}>
+          <ApprovalTimeline variant="silence" delay={3.0} />
+        </div>
       </motion.div>
 
       {/* Focal question — col 2 of row 5 (diamond sits in col 1) */}
@@ -389,6 +462,10 @@ function ChallengeCard({ row, number, eyebrow, title, body, caption, chart, card
           background: 'color-mix(in srgb, var(--panel) 55%, transparent)',
           borderRadius: 'var(--radius-md)',
           minHeight: 0,
+          // Clip body content to the card's bounds so wrapped text or
+          // future copy edits cannot bleed visually into the adjacent
+          // card row underneath.
+          overflow: 'hidden',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -473,20 +550,21 @@ function ChallengeCard({ row, number, eyebrow, title, body, caption, chart, card
           Caption sits inside the square at the bottom, out of the
           chart's SVG so it never gets clipped by the chart's own
           label margins. */}
-      {/* Chart panel: fixed 220×180 frame (instead of aspectRatio-linked
-          to card height). The SVG charts have a native 2:1 (360×180)
-          viewBox; a portrait aspect was starving them of horizontal
-          space and letterboxing axes to ~70px tall, rendering labels
-          unreadable. Fixed 220px wide + ~180px min-height lets each
-          chart render its full width with labels at legible size.
-          Chart extends above/below card via `top:-6px; bottom:-6px`
-          for ~12px of extra vertical room without breaking the card
-          row layout. */}
+      {/* Chart panel: fixed 320px wide (was 220). The SVG charts have a
+          native 2:1 (360×180) viewBox; rendered with `xMidYMid meet`
+          inside this container they're now height-limited at the natural
+          card row height (~140–150px) so the SVG renders at ~280–300×140
+          — vs the previous 220×110 letterboxed render, that's ~+75%
+          chart art area. The staircase silhouette is unchanged: widthPct
+          (62/78/94%) lives on the wrap, so each card's text panel still
+          steps wider down the stack while the chart panel rides the
+          right edge. marginLeft:-14px preserves the "overlap" notch
+          where the chart attaches to the text panel. */}
       <motion.div
         className="cs1-card-chart"
         style={{
           position: 'relative',
-          width: 220,
+          width: 320,
           alignSelf: 'stretch',
           marginLeft: '-14px',
           // Removed -6/-6 vertical margins — when combined with the
@@ -500,7 +578,7 @@ function ChallengeCard({ row, number, eyebrow, title, body, caption, chart, card
           background: 'color-mix(in srgb, var(--panel) 88%, transparent)',
           border: '1px solid var(--cream-hairline)',
           borderRadius: 'var(--radius-md)',
-          padding: 'var(--space-2)',
+          padding: '6px 8px 4px',
           overflow: 'hidden',
           /* chart-panel boxShadow removed (Brief §10 — chartjunk). The
              1px hairline border carries the panel boundary cleanly. */

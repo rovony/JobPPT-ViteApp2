@@ -49,8 +49,8 @@ const DOMAINS = [
     domain: 'Oncology',
     token: 'violet',
     program: 'BCL-2 inhibitor · S65487 · Adult ALL asparaginase',
-    detail: 'Combination PK/PD at Servier · CS3 (SPARK-ALL)',
-    cite: 'Internal · CS3',
+    detail: 'Combination PK/PD program · CS3 (SPARK-ALL)',
+    cite: 'NCT01195194 · CS3',
     badge: null,
   },
   {

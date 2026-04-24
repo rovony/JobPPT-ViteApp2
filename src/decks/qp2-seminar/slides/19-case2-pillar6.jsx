@@ -45,23 +45,15 @@ export default function Slide17Case2Pillar6() {
 }
 
 function Pillar6Layout() {
+  // PillarArchitecture stage="hero6" renders pillar 6 as the hero panel (1fr)
+  // with pillars 1-5 demoted to a 140px right-margin column. The 9-criterion
+  // checklist is passed as `children` — it becomes the contents of the hero
+  // pillar 6 panel, fulfilling the cinematic morph contract.
   return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'auto 1fr',
-        columnGap: 'var(--space-5)',
-        height: '100%',
-        minHeight: 0,
-      }}
-    >
-      {/* Left margin — pillars 1-5 demoted */}
-      <div style={{ width: 200, minHeight: 0 }}>
-        <PillarArchitecture stage="hero6" />
-      </div>
-
-      {/* Hero — the 9-criterion checklist */}
-      <ChecklistCard />
+    <div style={{ width: '100%', height: '100%', minHeight: 0 }}>
+      <PillarArchitecture stage="hero6">
+        <ChecklistContent />
+      </PillarArchitecture>
     </div>
   );
 }
@@ -78,50 +70,37 @@ const CRITERIA = [
   { label: 'Non-systemic mode of action',   evidence: 'Tumor-localized IDH1 R132 inhibition' },
 ];
 
-function ChecklistCard() {
+function ChecklistContent() {
+  // Renders inside the hero Pillar 6 panel (PillarArchitecture stage="hero6")
+  // so we deliberately omit the outer card border/background/padding —
+  // the hero pillar already provides them. We just lay out our own
+  // header + grid + verdict at full width.
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.96 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.7, ease: [0.2, 0.7, 0.3, 1], delay: 0.4 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, ease: [0.2, 0.7, 0.3, 1], delay: 0.4 }}
       style={{
-        padding: 'var(--space-5) var(--space-6)',
-        border: '1.5px solid var(--cyan)',
-        borderLeft: '5px solid var(--cyan)',
-        borderRadius: 'var(--radius-lg)',
-        background: 'linear-gradient(180deg, color-mix(in srgb, var(--cyan) 8%, transparent), color-mix(in srgb, var(--panel) 78%, transparent) 60%)',
         display: 'grid',
         gridTemplateRows: 'auto 1fr auto',
         rowGap: 'var(--space-4)',
         minHeight: 0,
+        height: '100%',
       }}
     >
-      {/* Header */}
-      <div>
-        <div
-          className="deck-mono uppercase"
-          style={{
-            fontSize: 'var(--fs-slide-pageno)',
-            letterSpacing: 'var(--ls-mono-wide)',
-            color: 'var(--cyan)',
-            fontWeight: 700,
-            marginBottom: 'var(--space-1)',
-          }}
-        >
-          ICH E5(R1) · Appendix D · Compound properties
-        </div>
-        <div
-          className="deck-display"
-          style={{
-            fontSize: 'var(--fs-slide-headline-sm, 1.55rem)',
-            fontWeight: 700,
-            color: 'var(--cream)',
-            letterSpacing: '-0.01em',
-            lineHeight: 1.15,
-          }}
-        >
-          A drug with a low likelihood of clinically significant ethnic differences.
-        </div>
+      {/* Punchline (the "06 ICH E5(R1) Apx D" header is rendered by the
+          hero pillar itself; we only contribute the explanatory line). */}
+      <div
+        className="deck-display"
+        style={{
+          fontSize: 'var(--fs-slide-headline-sm, 1.55rem)',
+          fontWeight: 700,
+          color: 'var(--cream)',
+          letterSpacing: '-0.01em',
+          lineHeight: 1.15,
+        }}
+      >
+        A drug with a low likelihood of clinically significant ethnic differences.
       </div>
 
       {/* 9-criterion list */}

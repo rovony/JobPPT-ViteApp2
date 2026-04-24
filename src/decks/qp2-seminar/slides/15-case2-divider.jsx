@@ -37,7 +37,7 @@ export default function Slide14Case2Divider() {
       ]}
       verdict="APPROVED"
       illustration={<DualSeed />}
-      source="CDSCO marketing authorization · 14 May 2025 · Servier India launch 5 June 2025"
+      source="CDSCO marketing authorization · 14 May 2025 · India commercial launch 5 June 2025"
     />
   );
 }

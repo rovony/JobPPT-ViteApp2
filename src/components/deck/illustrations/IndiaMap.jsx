@@ -47,14 +47,14 @@ const DIMENSIONS = {
   // Marginalia on the divider — bumped up from the previous stylized
   // version so the audience can read the silhouette as "India" before
   // the slide 16 world map ever appears.
-  hero:    { width: 'clamp(240px, 32vw, 440px)', aspectRatio: ASPECT },
+  hero:    { width: 'clamp(180px, 22vw, 300px)', aspectRatio: ASPECT },
   // Backdrop sizing for any non-morphing usage in CS2.
   context: { width: 'clamp(280px, 36vw, 480px)', aspectRatio: ASPECT },
   // T8 origin/destination sizes — kept large so when India "fills
   // coral" on slide 22 it lands as a hero element, echoing the
   // size it occupied on the world map a few slides earlier.
-  empty:   { width: 'clamp(220px, 26vw, 360px)', aspectRatio: ASPECT },
-  filled:  { width: 'clamp(300px, 40vw, 520px)', aspectRatio: ASPECT },
+  empty:   { width: 'clamp(200px, 22vw, 320px)', aspectRatio: ASPECT },
+  filled:  { width: 'clamp(180px, 18vw, 260px)', aspectRatio: ASPECT },
 };
 
 export default function IndiaMap({

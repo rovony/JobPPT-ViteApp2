@@ -731,7 +731,7 @@ Two written rounds had not closed the gap. The committee needed to engage with t
 | Tile | Numeral | Meaning |
 |---|---|---|
 | 1 | **14 / 05** (cyan) | CDSCO marketing authorization · India approval · no new clinical study required |
-| 2 | **05 / 06** (coral) | Servier India launch · ==22 days== from authorization to first patient access |
+| 2 | **05 / 06** (coral) | India commercial launch · ==22 days== from authorization to first patient access |
 | 3 | **0** (cream, muted) | New safety signals · 8-yr exposure · 1,281 trial subjects · 15,867 patients global |
 
 ### The closing thesis (deliver while T7 + T8 land)
@@ -1072,7 +1072,7 @@ Six domains, each anchored to a published artifact or a named program. Two **fla
 
 ### If probed *"why is oncology only one card when CS3 is the third case?"*
 
-CS3 is one program (Asparlas · adult Ph-neg ALL · SPARK-ALL). The oncology card represents the broader oncology footprint at Servier — **BCL-2 inhibitor S65487** combination PK/PD plus the asparaginase work. The card is the breadth context; CS3 is the deep case that lives inside it.
+CS3 is one program (Asparlas · adult Ph-neg ALL · SPARK-ALL). The oncology card represents the broader oncology footprint — **BCL-2 inhibitor S65487** combination PK/PD plus the asparaginase work. The card is the breadth context; CS3 is the deep case that lives inside it.
 
 ### Speaker beat
 
