@@ -31,7 +31,14 @@ const DOMAINS = [
   {
     key: 'cardiometabolic',
     domain: 'Cardiometabolic',
-    token: 'cyan',
+    /* Reassigned cyan -> sage. Cyan is reserved for CS2 (Tibsovo /
+       global regulatory) and is used by global-regulatory below;
+       letting cardiometabolic also carry cyan would create a same-
+       color two-meaning conflict on this single 6-card breadth
+       grid. Sage is the ink-accent and was previously unassigned
+       here, so the swap restores the deck-wide rule that each
+       case color carries exactly one semantic. */
+    token: 'sage',
     program: 'DGAT1 inhibitor · GSK3008356',
     detail: 'PK/PD turnover model for triglycerides',
     cite: 'CPT 2019',

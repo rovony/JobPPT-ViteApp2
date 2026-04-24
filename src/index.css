@@ -296,10 +296,35 @@
     --space-4:   16px;
     --space-5:   20px;
     --space-6:   24px;
+    /* --space-7 was missing — six call-sites resolved to 0 and
+       collapsed columns (notably slide 16 background, slide 26
+       FDA engagement, slide 28 impact, slide 27 fit, slide 25
+       strategy, and SecObjectionCard hero padding). 28px keeps
+       the 4px stride between --space-6 (24) and --space-8 (32). */
+    --space-7:   28px;
     --space-8:   32px;
     --space-10:  40px;
     --space-12:  48px;
     --space-16:  64px;
+
+    /* =========================================================
+       FLUID CARD TYPE SCALE — companion family to --fs-slide-*.
+       SlideParts (Eyebrow / Headline / Subhead / Footer) covers
+       slide chrome; this family covers everything below the
+       chrome (cards, tiles, chart text, big stats inside Viz).
+       Authors should never reach for raw clamp() in slide bodies
+       — pick a token here, or add a new one and document its
+       role.
+
+       Formula matches --fs-slide-* (clamp + min(vw, vh*ratio))
+       so card text shrinks proportionally on narrow OR short
+       viewports, in lockstep with the slide chrome.
+       ========================================================= */
+    --fs-card-numeral:    clamp(2.4rem,  min(3.4vw, 4.6vh), 3.8rem);  /* big stat */
+    --fs-card-title:      clamp(1.0rem,  min(1.2vw, 1.6vh), 1.3rem);  /* card head */
+    --fs-card-body:       clamp(0.84rem, min(0.96vw, 1.3vh), 1.0rem); /* card body */
+    --fs-card-label:      clamp(0.66rem, min(0.78vw, 1.05vh), 0.78rem); /* uppercase mono label */
+    --fs-card-meta:       clamp(0.6rem,  min(0.7vw, 0.9vh), 0.7rem);  /* tiny mono caption */
   }
 
   /* =========================================================

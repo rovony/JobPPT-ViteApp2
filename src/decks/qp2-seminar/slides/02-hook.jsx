@@ -177,8 +177,8 @@ export default function Slide02Hook() {
           </span>
         </Headline>
 
-        <Subhead delay={D.subhead} maxChars={64}>
-          <span style={{ fontSize: '1.55em', lineHeight: 1.35, display: 'inline-block', paddingTop: '0.5em' }}>
+        <Subhead delay={D.subhead} maxChars={88}>
+          <span style={{ lineHeight: 1.35, display: 'inline-block', paddingTop: 'var(--space-4)' }}>
             Nineteen years of children with pulmonary arterial hypertension{' '}
             <span style={{ color: 'var(--coral)', fontStyle: 'normal', fontWeight: 600 }}>
               treated off-label — or not treated at all

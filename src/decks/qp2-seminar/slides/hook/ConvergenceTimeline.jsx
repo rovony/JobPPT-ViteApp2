@@ -235,15 +235,21 @@ export default function ConvergenceTimeline() {
       {/* Inline caption — sits ON the line like the silence caption,
           with a bg rect knockout so the stroke reads cleanly underneath */}
       <g data-el="resolved-caption" opacity={0}>
+        {/* Knockout shrunk 340 -> 260 and shifted +30px right so the
+            rectangle no longer swallows the 2026 year tick (x≈1500).
+            Center moves from (X_COL_RIGHT+X_RIGHT)/2 to that midpoint
+            +30, giving the resolved-caption breathing room from the
+            adjacent year tick without losing legibility for the
+            "PEDIATRIC USE ESTABLISHED" knockout. */}
         <rect
-          x={(X_COL_RIGHT + X_RIGHT) / 2 - 170}
+          x={(X_COL_RIGHT + X_RIGHT) / 2 - 100}
           y={Y_AXIS - 13}
-          width={340}
+          width={260}
           height={26}
           fill={tk('--bg')}
         />
         <text
-          x={(X_COL_RIGHT + X_RIGHT) / 2}
+          x={(X_COL_RIGHT + X_RIGHT) / 2 + 30}
           y={Y_AXIS + 6}
           textAnchor="middle"
           fontFamily="var(--font-mono)"

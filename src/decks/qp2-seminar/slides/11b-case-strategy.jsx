@@ -82,7 +82,7 @@ export default function Slide11bCaseStrategy() {
       }
       subheadMaxChars={65}
       footerKicker="Case 01 · Strategy"
-      footerTagline="Source · Okour et al. JCP 2023 · Anderson &amp; Holford 2008"
+      footerTagline="Source · Okour et al. JCP 2023 · Anderson & Holford 2008"
     >
       {/* Three columns + closing ribbon inside the viz cell.
           Padding-bottom on the viz container pushes the ribbon up off

@@ -182,8 +182,15 @@ export default function SampleSizeWaterfall({
         transition={{ duration: 1.1, ease, delay: delay + 1.85 }}
       />
 
-      {/* −36% callout */}
+      {/* −36% callout — source side of the cs3-pct-36 layoutId pair.
+          The big −36% numeral on slide 28 carries the same layoutId
+          so the bounding box flies from the chart callout into the
+          impact numeral when advancing 26→28. (SVG <g> ↔ HTML <div>
+          is a partial morph — framer-motion animates the bbox but
+          not the content; the rest is covered by the slide
+          AnimatePresence cross-fade.) */}
       <motion.g
+        layoutId="cs3-pct-36"
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, ease: overshoot, delay: delay + 2.4 }}

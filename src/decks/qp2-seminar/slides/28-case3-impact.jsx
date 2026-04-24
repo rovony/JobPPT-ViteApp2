@@ -203,10 +203,16 @@ export default function Slide28Case3Impact() {
 function NumeralBlock({ n, delay, rowsDelay, ease, overshoot }) {
   const isViolet = n.accent === 'violet';
   const numColor = isViolet ? 'var(--violet)' : 'var(--cream)';
+  /* The −36% numeral is the target of the cs3-pct-36 layoutId pair —
+     it morphs in from the SampleSizeWaterfall callout on slide 26.
+     Only this specific numeral carries the layoutId; the 3× and 2
+     numerals stay on the standard scale-in entrance. */
+  const layoutId = n.big === '−36%' ? 'cs3-pct-36' : undefined;
   return (
     <div style={{ display: 'grid', gridTemplateRows: 'auto auto auto 1fr', rowGap: 10 }}>
       {/* Big numeral */}
       <motion.div
+        layoutId={layoutId}
         className="deck-display"
         style={{
           fontSize: 'clamp(3.6rem, 6vw, 7.5rem)',

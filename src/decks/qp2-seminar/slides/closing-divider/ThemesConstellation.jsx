@@ -10,15 +10,20 @@ import { motion } from 'framer-motion';
  * slide (slide 31).
  *
  * Variants:
- *   variant="hero"    (slide 30, divider) — full constellation, all
- *                      five nodes lit at full saturation, connecting
- *                      lines stroke in, theme glyphs labeled. The
- *                      "all five themes are now live" frame.
- *   variant="context" (slide 31, breadth) — same constellation but
- *                      faint and pulled larger as a watermark behind
- *                      the 6-domain grid; no labels, lower opacities,
- *                      no entrance animations (the layoutId match IS
- *                      the arrival animation).
+ *   variant="hero"      (slide 30, divider) — full constellation, all
+ *                        five nodes lit at full saturation, connecting
+ *                        lines stroke in, theme glyphs labeled. The
+ *                        "all five themes are now live" frame.
+ *   variant="context"   (slide 31, breadth) — same constellation but
+ *                        faint and pulled larger as a watermark behind
+ *                        the 6-domain grid; no labels, lower opacities,
+ *                        no entrance animations (the layoutId match IS
+ *                        the arrival animation).
+ *   variant="watermark" (slide 35, thank-you) — final dim watermark at
+ *                        ~18% opacity, pulled to fill the page. No
+ *                        labels, no entrance animations. Smallest disc
+ *                        radii of the three variants to recede behind
+ *                        the closing typography.
  *
  * Layout: a regular pentagon with the apex at top. Nodes correspond
  * to themes 01–05 in clockwise order starting from the top:
@@ -36,8 +41,12 @@ import { motion } from 'framer-motion';
 const LAYOUT_TRANSITION = { duration: 1.8, ease: [0.4, 0, 0.2, 1] };
 
 const DIMENSIONS = {
-  hero:    { width: 'clamp(300px, 32vw, 520px)' },
-  context: { width: 'clamp(420px, 46vw, 680px)' },
+  hero:      { width: 'clamp(300px, 32vw, 520px)' },
+  context:   { width: 'clamp(420px, 46vw, 680px)' },
+  /* Watermark uses min(vh, vw) sizing so the constellation fills
+     whichever dimension is smaller — keeps it square-ish on both
+     ultrawide stages and 16:10 laptops. */
+  watermark: { width: 'min(80vh, 70vw)' },
 };
 
 // Pentagon vertex positions in a 600×600 viewBox, centered.
@@ -78,6 +87,7 @@ export default function ThemesConstellation({
 }) {
   const dims = DIMENSIONS[variant] || DIMENSIONS.hero;
   const isHero = variant === 'hero';
+  const isWatermark = variant === 'watermark';
   const ease = [0.2, 0.7, 0.3, 1];
   const overshoot = [0.34, 1.56, 0.64, 1];
 
@@ -247,25 +257,32 @@ export default function ThemesConstellation({
               );
             }
 
-            // CONTEXT — flat dim discs, no glyph, no label
+            // CONTEXT / WATERMARK — flat dim discs, no glyph, no label.
+            // Watermark uses smaller, dimmer discs so it recedes behind
+            // the closing typography on slide 35 (the outer-disc stroke
+            // ring is also dropped — too crisp at 18% container opacity).
+            const outerR = isWatermark ? 26 : 36;
+            const innerR = isWatermark ? 9  : 14;
+            const outerFill = isWatermark ? 0.15 : 0.04;
+            const innerFill = isWatermark ? 0.45 : 0.32;
             return (
               <g key={node.num}>
                 <circle
                   cx={v.x}
                   cy={v.y}
-                  r={36}
+                  r={outerR}
                   fill={color}
-                  fillOpacity={0.04}
-                  stroke={color}
-                  strokeWidth={0.8}
-                  strokeOpacity={0.30}
+                  fillOpacity={outerFill}
+                  stroke={isWatermark ? undefined : color}
+                  strokeWidth={isWatermark ? undefined : 0.8}
+                  strokeOpacity={isWatermark ? undefined : 0.30}
                 />
                 <circle
                   cx={v.x}
                   cy={v.y}
-                  r={14}
+                  r={innerR}
                   fill={color}
-                  fillOpacity={0.32}
+                  fillOpacity={innerFill}
                 />
               </g>
             );

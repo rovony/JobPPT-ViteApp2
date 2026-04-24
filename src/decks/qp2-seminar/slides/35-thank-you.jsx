@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Globe, Linkedin } from 'lucide-react';
+import ThemesConstellation from './closing-divider/ThemesConstellation';
 
 /**
  * Slide 35 · Thank you — Questions welcome.
@@ -39,6 +40,14 @@ export default function Slide35ThankYou() {
       transition={{ duration: 0.6, ease }}
     >
       {/* ─── Faint watermark constellation ─── */}
+      {/* This used to be a 45-line inline SVG that re-implemented the
+          ThemesConstellation pentagon geometry. Replaced with the shared
+          component using variant="watermark" + the same layoutId as
+          slides 30 and 31, so the constellation now flies into the
+          closing watermark instead of cross-fading. The fade-in still
+          plays on the wrapper (the layoutId match only animates if the
+          source slide is also in the AnimatePresence tree, so the fade
+          is the safety net). */}
       <motion.div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
@@ -53,52 +62,10 @@ export default function Slide35ThankYou() {
         animate={{ opacity: 0.18 }}
         transition={{ duration: 1.2, ease, delay: D.watermark }}
       >
-        <svg
-          viewBox="0 0 600 600"
-          preserveAspectRatio="xMidYMid meet"
-          style={{
-            width: 'min(80vh, 70vw)',
-            aspectRatio: '1 / 1',
-          }}
-        >
-          {/* Inline minimal pentagon — same geometry as ThemesConstellation
-              but stripped down: no labels, no halos, no animation. */}
-          {Array.from({ length: 5 }).map((_, i) => {
-            const angle = -Math.PI / 2 + (i * 2 * Math.PI) / 5;
-            const x = 300 + 200 * Math.cos(angle);
-            const y = 300 + 200 * Math.sin(angle);
-            const tokens = ['amber', 'cyan', 'sage', 'violet', 'coral'];
-            const color = `var(--${tokens[i]})`;
-            return (
-              <g key={i}>
-                <circle cx={x} cy={y} r={26} fill={color} fillOpacity={0.15} />
-                <circle cx={x} cy={y} r={9} fill={color} fillOpacity={0.45} />
-              </g>
-            );
-          })}
-          {(() => {
-            const lines = [];
-            for (let i = 0; i < 5; i += 1) {
-              for (let j = i + 1; j < 5; j += 1) {
-                const ai = -Math.PI / 2 + (i * 2 * Math.PI) / 5;
-                const aj = -Math.PI / 2 + (j * 2 * Math.PI) / 5;
-                lines.push(
-                  <line
-                    key={`l-${i}-${j}`}
-                    x1={300 + 200 * Math.cos(ai)}
-                    y1={300 + 200 * Math.sin(ai)}
-                    x2={300 + 200 * Math.cos(aj)}
-                    y2={300 + 200 * Math.sin(aj)}
-                    stroke="var(--cream-muted)"
-                    strokeOpacity={0.35}
-                    strokeWidth={0.8}
-                  />,
-                );
-              }
-            }
-            return lines;
-          })()}
-        </svg>
+        <ThemesConstellation
+          layoutId="themes-constellation"
+          variant="watermark"
+        />
       </motion.div>
 
       {/* ─── Top-left eyebrow ─── */}
