@@ -65,7 +65,10 @@ unblocks it.
 **Status update (Apr 24):**
 - ✅ `cs3-pct-36` (slide 26 → 28) — landed in Phase A.
 - ✅ `themes-constellation` (restored chain to slide 35) — landed in Phase A.
-- ⏳ Remaining 6: `case-marker-coral|cyan|violet`, `cs1-focal-amber`, `cs3-n-94`, `cs2-sec-objection` corner-shrink.
+- ✅ `case-marker-{coral|cyan|violet}` (slide 01 PK landmark dots → slides 5/15/23 hero hairlines) — landed in Phase B+.
+- ✅ `cs1-focal-amber` (slide 11 question panel → slide 11b answer ribbon) — landed in Phase D-tail (commit `ae771fe`).
+- ✅ `cs2-sec-objection` corner-shrink (slide 22 SEC card now wrapped in right-aligned `max-width:min(56%, 640px)` flex strip so the layoutId animation reads as "card collapses into a top-right badge") — landed in Phase D-tail.
+- ⏳ Remaining 1: `cs3-n-94` (slide 23 divider meta `94` → slide 26 SampleSizeWaterfall left bar). Defer rationale unchanged: the slide-23 side has the number embedded in a meta string (`'N = 60 agreed (94 → 60 · −36%)'`), so a clean morph requires either extracting `94` into its own positioned element (visual change) or accepting that only the SampleSizeWaterfall side gets the layoutId (no morph). Either path needs editorial confirmation.
 
 **Why deferred:** Each requires identifying the source/target element with bounding-box compatibility, then verifying the morph reads cleanly during navigation. The 5 simple "marker dot → hub" pairs are mechanical (single-line additions on each end), but the `cs2-sec-objection` corner-shrink is a real layout change on slide 22 (currently the SEC card stays full-width).
 

@@ -53,8 +53,24 @@ function ImpactBridgeLayout() {
         minHeight: 0,
       }}
     >
-      {/* Top — T7 destination: resolved SEC quote */}
-      <SecObjectionCard layoutId="cs2-sec-objection" variant="resolved" />
+      {/* Top — T7 destination: resolved SEC quote.
+          Wrapped in a right-aligned flex strip so the resolved card
+          shrinks into a corner badge instead of staying full-width.
+          The layoutId animation on the inner motion.div will then
+          read as "the SEC card from slide 17 collapsed into the
+          top-right corner" — the cinematic close the audit asked
+          for (SLIDE-REVIEW.md §5 / DEFERRED-WORK.md §4). */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+        }}
+      >
+        <div style={{ maxWidth: 'min(56%, 640px)' }}>
+          <SecObjectionCard layoutId="cs2-sec-objection" variant="resolved" />
+        </div>
+      </div>
 
       {/* Middle — three hero tiles + India fills coral */}
       <div
