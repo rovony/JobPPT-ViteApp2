@@ -237,7 +237,7 @@ export default function Slide12() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: D.themes + 0.1 }}
       >
-        <ApprovalTimeline state="closed-up" compact delay={D.themes + 0.3} />
+        <ApprovalTimeline variant="closed" delay={D.themes + 0.3} />
       </motion.div>
 
       {/* ─── Inline theme meta (bottom-left) ─── */}

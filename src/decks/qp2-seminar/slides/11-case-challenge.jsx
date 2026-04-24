@@ -173,7 +173,7 @@ function ChallengeStack() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 2.8 }}
         >
-          <ApprovalTimeline state="silence-emphasized" compact delay={3.0} />
+          <ApprovalTimeline variant="silence" delay={3.0} />
         </motion.div>
 
         <FocalQuestion />
