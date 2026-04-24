@@ -669,11 +669,30 @@ export function ConstrainViz({ delay = 0 }) {
 }
 
 /* ============================================================
-   DECISION 03 — STAY PARSIMONIOUS
-   12 covariate chips in 3×4 grid with static strike-through.
-   Continuous particle sprites fly IN from the left edge toward
-   a chip center, then fade (the chip rejects them) — visualises
-   "covariates tested and rejected" as a steady rhythm.
+   DECISION 03 — STAY PARSIMONIOUS (X/✓ vertical split)
+
+   Re-architected 2026-04-24: previous design only showed the ✓ outcome
+   (12 chips × strikes, "0 RETAINED") without explaining WHY p<0.001
+   was the chosen threshold. User ask: visualise the type-I-error
+   inflation that forward inclusion at α=0.05 per covariate would
+   produce, mirroring the X/✓ idiom of IntegrateViz/ConstrainViz.
+   Pre-redesign snapshot lives in:
+     _archive/2026-04-24-ParsimonyViz-grid-only.md
+
+   TOP panel (y≈20–104) — ✗ FORWARD INCLUSION · α=0.05 PER COV
+     · Risk-inflation curve plotting family-wise α as a function of
+       covariate count: f(n) = 1 - (1-0.05)^n, n=1..12
+     · 12 dots tracing the curve (one per covariate added). Final
+       point at n=12 sits at ~46% — labelled "46%" prominently.
+     · Y-axis ticks at 0%, 25%, 50%. A faint "danger" shade above
+       25% reinforces "this is unacceptable for a 39-patient cohort".
+     · Caption: "type-I error inflates · winner's curse"
+   DIVIDER (y=108)         : hairline x=20→280, identical to the other Decision panels
+   BOTTOM panel (y≈120–252) — ✓ FULL MODEL · α=0.001
+     · Original 4×3 covariate chip grid with stamped × strikes,
+       compressed vertically (padTop 28→128, cellH ~30).
+     · "12 TESTED" / "0 RETAINED" header, "NONE RETAINED" footer
+       and "FULL MODEL · α=0.001 · WEIGHT ONLY" sub-caption.
    ============================================================ */
 export function ParsimonyViz({ delay = 0 }) {
   const reduce = useReducedMotion();
@@ -693,81 +712,224 @@ export function ParsimonyViz({ delay = 0 }) {
     { abbr: 'T-LAG', full: 'Dose on absorption lag' },
   ];
 
+  /* ─── TOP PANEL geometry (y 20–105) ─────────────────────────
+     The risk curve visualises FWER inflation under naïve forward
+     inclusion at α_per = 0.05. With 12 covariates the family-wise
+     type-I-error rate climbs to 1 - 0.95^12 ≈ 0.46 — i.e. ~46%
+     chance of at least one false positive even when no covariate
+     truly affects the parameter. This is the textbook reason why
+     a 39-patient cohort cannot survive a per-test α=0.05 forward
+     selection, and why p<0.001 was specified up-front.            */
+  const RISK_X0 = 48;     // plot left edge (after y-axis labels)
+  const RISK_X1 = 244;    // plot right edge (leaves x=246–296 for "46%" label)
+  const RISK_Y0 = 82;     // plot bottom (= 0%)
+  const RISK_Y1 = 42;     // plot top    (= 50%)
+  const RISK_W = RISK_X1 - RISK_X0;   // 220
+  const RISK_H = RISK_Y0 - RISK_Y1;   // 42
+  const fwer = (n) => 1 - Math.pow(1 - 0.05, n);
+  // Map n ∈ [1..12] → x; FWER ∈ [0..0.5] → y (clamp at 50% top).
+  const riskX = (n) => RISK_X0 + ((n - 1) / 11) * RISK_W;
+  const riskY = (p) => RISK_Y0 - Math.min(p, 0.5) / 0.5 * RISK_H;
+  const RISK_PTS = Array.from({ length: 12 }, (_, i) => {
+    const n = i + 1;
+    const p = fwer(n);
+    return { n, p, x: riskX(n), y: riskY(p) };
+  });
+  // Polyline path "M x1 y1 L x2 y2 L ..." for the curve.
+  const riskPath = RISK_PTS
+    .map((pt, i) => `${i === 0 ? 'M' : 'L'} ${pt.x.toFixed(2)} ${pt.y.toFixed(2)}`)
+    .join(' ');
+
+  /* ─── BOTTOM PANEL geometry (y 120–252) ────────────────────
+     Same 4×3 chip grid as the original (preserved verbatim in
+     /_archive/2026-04-24-ParsimonyViz-grid-only.md) but vertically
+     compressed: padTop 28→128, padBot 46→38, gridH 186→94, cellH
+     62→~31. ChipH 54→23 — text@8 still fits, cross strokes still
+     read as rejection stamps.                                       */
   const cols = 4;
   const rows = 3;
   const padX = 20;
-  const padTop = 28;
-  const padBot = 46;
+  const padTop = 128;
+  const padBot = 38;
   const gridW = VB_W - padX * 2;
   const gridH = VB_H - padTop - padBot;
   const cellW = gridW / cols;
   const cellH = gridH / rows;
 
-  // Pick 8 chip centers as sprite targets (covers every row, varied cols).
-  const chipCenters = [0, 2, 5, 6, 8, 10, 3, 11].map((idx) => {
-    const r = Math.floor(idx / cols);
-    const c = idx % cols;
-    return {
-      cx: padX + c * cellW + cellW / 2,
-      cy: padTop + r * cellH + cellH / 2,
-    };
-  });
-
-  // 8 sprites, one per target chip, staggered so ~2 are in flight at once.
-  const chipSprites = chipCenters.map((p, i) => ({
-    targetX: p.cx,
-    targetY: p.cy,
-    delay: i * 0.45,
-    duration: 3.2,
-  }));
-
   return (
-    <Frame delay={delay} label="Twelve covariates tested, none retained at p less than 0.001">
-      {/* Header kickers */}
-      <text x={padX} y={16}
+    <Frame delay={delay} label="Forward inclusion at α=0.05 inflates family-wise type-I error to 46% across 12 covariates; full-model approach at α=0.001 retained zero covariates">
+      {/* ═══════════════════════════════════════════════════════════
+          TOP PANEL — ✗ FORWARD INCLUSION · α=0.05 PER COV
+          y-range ≈ 20–105 · mirrors IntegrateViz top panel structure
+         ═══════════════════════════════════════════════════════════ */}
+
+      {/* ✗ glyph — same x position (7→21) and stroke style as the
+          IntegrateViz/ConstrainViz top panels so all three Decision
+          columns share an identical bad-case marker. */}
+      <line x1={7} y1={50} x2={21} y2={64}
+        stroke="var(--coral)" strokeWidth={2} strokeLinecap="round" opacity={0.9} />
+      <line x1={7} y1={64} x2={21} y2={50}
+        stroke="var(--coral)" strokeWidth={2} strokeLinecap="round" opacity={0.9} />
+
+      {/* Top label — "FORWARD · α=0.05 PER COV" introduces the bad
+          alternative the team rejected. Centred over the risk curve. */}
+      <text x={158} y={30} textAnchor="middle"
         fontFamily="var(--font-mono)" fontSize={8.5}
+        letterSpacing={0.8}
+        fill="var(--coral)" fontWeight={600}>FORWARD · α=0.05 PER COV</text>
+
+      {/* Plot frame: faint danger band above the 25% gridline shows
+          "this is the unacceptable zone for N=39". 25% threshold is
+          a heuristic — well above any conventional FWER target (5%). */}
+      <rect x={RISK_X0} y={RISK_Y1} width={RISK_W} height={(RISK_Y0 - RISK_Y1) / 2}
+        fill="var(--coral)" opacity={0.06} />
+
+      {/* Y-axis ticks (0%, 25%, 50%) + labels, cream-faint. */}
+      {[
+        { p: 0,    label: '0%' },
+        { p: 0.25, label: '25%' },
+        { p: 0.50, label: '50%' },
+      ].map((tk) => (
+        <g key={`ytk-${tk.label}`}>
+          <line x1={RISK_X0 - 2} x2={RISK_X1} y1={riskY(tk.p)} y2={riskY(tk.p)}
+            stroke="var(--cream-hairline)" strokeWidth={0.5} opacity={tk.p === 0 ? 0.6 : 0.35} />
+          <text x={RISK_X0 - 5} y={riskY(tk.p) + 2} textAnchor="end"
+            fontFamily="var(--font-mono)" fontSize={6.5}
+            fill="var(--cream-faint)">{tk.label}</text>
+        </g>
+      ))}
+
+      {/* X-axis micro-ticks — 1, 6, 12 covariates. Axis title is
+          intentionally OMITTED: the chip grid below the divider (12
+          chips × labels) already names what's being counted. */}
+      {[1, 6, 12].map((n) => (
+        <text key={`xtk-${n}`} x={riskX(n)} y={RISK_Y0 + 8} textAnchor="middle"
+          fontFamily="var(--font-mono)" fontSize={6.5}
+          fill="var(--cream-faint)">{n}</text>
+      ))}
+
+      {/* Risk curve — drawn left-to-right on a 1.2s draw-on. The
+          curve climbs steeply through the first 4 covariates then
+          asymptotes — the early steepness IS the message ("you don't
+          need 12 covariates to inflate FWER, even 4 does it"). */}
+      {reduce ? (
+        <path d={riskPath} stroke="var(--coral)" strokeWidth={1.5}
+          fill="none" strokeLinecap="round" opacity={0.95} />
+      ) : (
+        <motion.path d={riskPath} stroke="var(--coral)" strokeWidth={1.5}
+          fill="none" strokeLinecap="round"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 0.95 }}
+          transition={{ duration: 1.2, delay: 0.15, ease }} />
+      )}
+
+      {/* 12 dots tracing the curve — staggered fade-in following the
+          curve draw-on. Dots reinforce "one chip per covariate". The
+          n=12 endpoint is enlarged (anchor) and labelled "≈ 46%". */}
+      {RISK_PTS.map((pt, i) => {
+        const isEnd = pt.n === 12;
+        const r = isEnd ? 2.6 : 1.6;
+        const dotDelay = 0.15 + (i / 11) * 1.2;
+        return reduce ? (
+          <circle key={`dot-${pt.n}`}
+            cx={pt.x} cy={pt.y} r={r}
+            fill="var(--coral)" stroke="var(--bg)" strokeWidth={isEnd ? 0.8 : 0}
+            opacity={0.95} />
+        ) : (
+          <motion.circle key={`dot-${pt.n}`}
+            cx={pt.x} cy={pt.y} r={r}
+            fill="var(--coral)" stroke="var(--bg)" strokeWidth={isEnd ? 0.8 : 0}
+            initial={{ opacity: 0, scale: 0.4 }}
+            animate={{ opacity: 0.95, scale: 1 }}
+            transition={{ duration: 0.25, delay: dotDelay, ease }} />
+        );
+      })}
+
+      {/* End-point label "≈ 46%" — placed in the empty space to the
+          right of the n=12 dot (x=244..296 reserved for this in the
+          plot frame). Anchors the eye to the inflated FWER value. */}
+      {(() => {
+        const end = RISK_PTS[RISK_PTS.length - 1];
+        return (
+          <g>
+            <text x={end.x + 6} y={end.y - 1}
+              fontFamily="var(--font-mono)" fontSize={11}
+              letterSpacing={0.4}
+              fill="var(--coral)" fontWeight={600}>≈ 46%</text>
+            <text x={end.x + 6} y={end.y + 8}
+              fontFamily="var(--font-mono)" fontSize={6}
+              letterSpacing={0.6}
+              fill="var(--cream-faint)">FALSE +</text>
+          </g>
+        );
+      })()}
+
+      {/* Equation caption — placed inside the plot top-left so the
+          curve and the formula visually belong to the same object. */}
+      <text x={RISK_X0 + 4} y={RISK_Y1 - 3}
+        fontFamily="var(--font-mono)" fontSize={7}
+        letterSpacing={0.4}
+        fill="var(--cream-faint)" opacity={0.9}>1−(1−0.05)<tspan fontSize={5.5} dy={-2}>n</tspan></text>
+
+      {/* Bottom caption (top panel) — same typography slot as
+          IntegrateViz / ConstrainViz top panels for consistency. */}
+      <text x={158} y={102} textAnchor="middle"
+        fontFamily="var(--font-mono)" fontSize={7}
+        letterSpacing={0.6}
+        fill="var(--cream-faint)">type-I error inflates · winner's curse on N=39</text>
+
+      {/* ═══════════════════════════════════════════════════════════
+          DIVIDER — hairline at y=108 (identical to other Decision panels)
+         ═══════════════════════════════════════════════════════════ */}
+      <line x1={20} x2={280} y1={108} y2={108}
+        stroke="var(--cream-hairline)" strokeWidth={1} opacity={0.6} />
+
+      {/* ═══════════════════════════════════════════════════════════
+          BOTTOM PANEL — ✓ FULL MODEL · α=0.001
+          y-range ≈ 120–252 · 4×3 chip grid (compressed)
+         ═══════════════════════════════════════════════════════════ */}
+
+      {/* ✓ glyph — same x position and stroke style as IntegrateViz/
+          ConstrainViz bottom panels. */}
+      <line x1={6} y1={117} x2={12} y2={124}
+        stroke="var(--coral)" strokeWidth={2.2} strokeLinecap="round" opacity={0.95} />
+      <line x1={12} y1={124} x2={24} y2={110}
+        stroke="var(--coral)" strokeWidth={2.2} strokeLinecap="round" opacity={0.95} />
+
+      {/* Bottom-panel header — "12 TESTED" / "0 RETAINED" sit at y=120
+          (just below the divider, mirrors the original layout). */}
+      <text x={padX} y={120}
+        fontFamily="var(--font-mono)" fontSize={8}
         letterSpacing={1.2}
         fill="var(--cream-faint)">12 TESTED</text>
-      <text x={VB_W - padX} y={16} textAnchor="end"
-        fontFamily="var(--font-mono)" fontSize={8.5}
+      <text x={VB_W - padX} y={120} textAnchor="end"
+        fontFamily="var(--font-mono)" fontSize={8}
         letterSpacing={1.2}
         fill="var(--coral)" fontWeight={600}>0 RETAINED</text>
 
-      {/* Covariate chips — box + label static; REJECTION CROSS (×) is
-          the animated sprite. Each chip's cross consists of two
-          diagonal strokes that draw pathLength 0→1 on a stagger, hold
-          briefly, then reset. The cascade sweeps through all 12 chips
-          like a rejection ledger being stamped in real time.
-          User ask 2026-04-24: "sprite-like cross each of the boxes,
-          not dots moving." */}
+      {/* Covariate chips — preserved animation behaviour from the
+          original ParsimonyViz. Box + label render static; the × is
+          drawn pathLength 0→1 on a stagger that sweeps 1→12 like a
+          rejection ledger being stamped in real time. */}
       {covariates.map((cov, i) => {
         const r = Math.floor(i / cols);
         const c = i % cols;
         const cx = padX + c * cellW + cellW / 2;
         const cy = padTop + r * cellH + cellH / 2;
         const chipW = cellW - 6;
-        const chipH = cellH - 8;
-        const inset = 3;
-        // Cross stroke endpoints (two diagonals forming an ×).
+        const chipH = cellH - 6;
+        const inset = 2.5;
         const x0 = cx - chipW / 2 + inset;
         const y0 = cy - chipH / 2 + inset;
         const x1 = cx + chipW / 2 - inset;
         const y1 = cy + chipH / 2 - inset;
 
-        // One-shot staggered stamp — chips get "rejected" sequentially
-        // 1→12 in a fast cascade, then the strikes REMAIN drawn. No
-        // looping (user ask: limit ambient animations on slide 8 to
-        // avoid distraction). Each chip's stroke takes 0.35s to draw
-        // after its stagger delay.
-        const strokeDelay = i * 0.18;
-
+        const strokeDelay = i * 0.15;
         const strikeTransition = {
-          duration: 0.35,
+          duration: 0.3,
           delay: strokeDelay,
           ease: ease,
         };
-        // pathLength 0 → 1 (drawn once), opacity 0 → 0.85. No fade,
-        // no repeat — the cross is a permanent rejection mark.
         const strikeAnimate = {
           pathLength: 1,
           opacity: 0.85,
@@ -778,60 +940,58 @@ export function ParsimonyViz({ delay = 0 }) {
             <rect
               x={cx - chipW / 2} y={cy - chipH / 2}
               width={chipW} height={chipH}
-              rx={3}
+              rx={2.5}
               fill="none"
-              stroke="var(--cream-hairline)" strokeWidth={0.8}
+              stroke="var(--cream-hairline)" strokeWidth={0.7}
               opacity={0.7}
             />
-            <text x={cx} y={cy + 3} textAnchor="middle"
-              fontFamily="var(--font-mono)" fontSize={9}
-              letterSpacing={0.8}
+            <text x={cx} y={cy + 2.5} textAnchor="middle"
+              fontFamily="var(--font-mono)" fontSize={7.5}
+              letterSpacing={0.6}
               fill="var(--cream-faint)"
               opacity={0.85}>{cov.abbr}</text>
-            {/* First diagonal of the × (TL → BR) */}
             {reduce ? (
               <line x1={x0} y1={y0} x2={x1} y2={y1}
-                stroke="var(--coral)" strokeWidth={1.5}
+                stroke="var(--coral)" strokeWidth={1.2}
                 strokeLinecap="round" opacity={0.85} />
             ) : (
               <motion.line
                 x1={x0} y1={y0} x2={x1} y2={y1}
-                stroke="var(--coral)" strokeWidth={1.5}
+                stroke="var(--coral)" strokeWidth={1.2}
                 strokeLinecap="round"
                 initial={{ pathLength: 0, opacity: 0 }}
                 animate={strikeAnimate}
                 transition={strikeTransition}
               />
             )}
-            {/* Second diagonal of the × (BL → TR) */}
             {reduce ? (
               <line x1={x0} y1={y1} x2={x1} y2={y0}
-                stroke="var(--coral)" strokeWidth={1.5}
+                stroke="var(--coral)" strokeWidth={1.2}
                 strokeLinecap="round" opacity={0.85} />
             ) : (
               <motion.line
                 x1={x0} y1={y1} x2={x1} y2={y0}
-                stroke="var(--coral)" strokeWidth={1.5}
+                stroke="var(--coral)" strokeWidth={1.2}
                 strokeLinecap="round"
                 initial={{ pathLength: 0, opacity: 0 }}
                 animate={strikeAnimate}
-                transition={{ ...strikeTransition, delay: strokeDelay + 0.12 }}
+                transition={{ ...strikeTransition, delay: strokeDelay + 0.1 }}
               />
             )}
           </g>
         );
       })}
 
-      {/* Footer */}
-      <text x={VB_W / 2} y={VB_H - 22} textAnchor="middle"
-        fontFamily="var(--font-mono)" fontSize={8.5}
-        letterSpacing={1.2}
-        fill="var(--cream-faint)">NONE RETAINED</text>
-      <text x={VB_W / 2} y={VB_H - 8} textAnchor="middle"
-        fontFamily="var(--font-mono)" fontSize={7.5}
-        letterSpacing={1.2}
-        fill="var(--coral)"
-        fontWeight={600}>p &lt; 0.001 · BODY WEIGHT ONLY</text>
+      {/* Bottom captions — mirror IntegrateViz / ConstrainViz
+          bottom panels ("INTEGRATED · N=419" / "FIXED · BIOLOGY-DRIVEN"). */}
+      <text x={VB_W / 2} y={VB_H - 12} textAnchor="middle"
+        fontFamily="var(--font-mono)" fontSize={9}
+        letterSpacing={0.8}
+        fill="var(--coral)" fontWeight={600}>FULL MODEL · α=0.001</text>
+      <text x={VB_W / 2} y={VB_H - 3} textAnchor="middle"
+        fontFamily="var(--font-mono)" fontSize={6.5}
+        letterSpacing={0.6}
+        fill="var(--cream-faint)">backward deletion · ΔOFV &gt; 10.83 · weight only</text>
     </Frame>
   );
 }
