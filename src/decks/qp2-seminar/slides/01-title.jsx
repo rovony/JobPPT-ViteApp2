@@ -465,10 +465,22 @@ function PKCurve({ go }) {
           3. Axis label fades in at baseline */}
       {CASES.map((c, i) => {
         const base = 3.4 + i * 0.4;
+        // Each landmark dot carries a layoutId that pairs with the
+        // case-color hairline on its corresponding CaseHeroDivider
+        // (slides 5, 15, 23). When the user advances from this title
+        // slide directly into a divider, framer-motion morphs the
+        // colored dot's bounding box into the divider's hairline —
+        // SVG <circle> ↔ HTML <div> is partial (bbox only, not the
+        // shape itself) but the visual reads as "the case marker
+        // we showed at the start IS the case we're now opening."
+        // Token list mirrors CASES order: coral=CS1, cyan=CS2,
+        // violet=CS3 (also documented in the file header §10-12).
+        const markerToken = ['coral', 'cyan', 'violet'][i];
         return (
           <g key={c.id}>
             {/* Dot — gentle fade-in (no pop, no directional slide) */}
             <motion.circle
+              layoutId={`case-marker-${markerToken}`}
               cx={c.dotX} cy={c.dotY} r={7}
               fill={c.color}
               initial={{ opacity: 0 }}

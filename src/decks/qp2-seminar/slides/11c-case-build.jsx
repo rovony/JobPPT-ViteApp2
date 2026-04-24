@@ -51,7 +51,7 @@ export default function Slide11cCaseBuild() {
       }
       subheadMaxChars={60}
       footerKicker="Case 01 · The build"
-      footerTagline="Source · Okour et al. JCP 2023 · Data S1 · Study AMB112529 (NCT01332331)"
+      footerSource="Source · Okour et al. JCP 2023 · Data S1 · Study AMB112529 (NCT01332331)"
     >
       {/* Two-column viz: left (40%) dataset + schematic · right (60%) workflow */}
       <div

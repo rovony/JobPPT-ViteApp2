@@ -218,7 +218,7 @@ export default function Slide31BreadthTherapeuticAreas() {
 
       <Footer
         kicker="Closing · 31 of 35"
-        tagline="Source · Peer-reviewed publications · Internal Servier programs · CS1 · CS2 · CS3"
+        source="Source · Peer-reviewed publications · Internal Servier programs · CS1 · CS2 · CS3"
         delay={D.source}
       />
     </SlideGrid>

@@ -67,7 +67,7 @@ export default function Slide11() {
       }
       headlineMaxChars={28}
       footerKicker="Case 01 · The challenge"
-      footerTagline="Source · AMB112529 · NCT01332331 · ambrisentan pediatric PAH"
+      footerSource="Source · AMB112529 · NCT01332331 · ambrisentan pediatric PAH"
     >
       <ChallengeStack />
     </SlideFrame>

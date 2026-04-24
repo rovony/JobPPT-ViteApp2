@@ -49,7 +49,7 @@ export default function Slide16Case2Background() {
       subhead="Ivosidenib · 500 mg QD · IDH1-mutant AML & CCA · 15,867 patients of global recorded exposure."
       subheadMaxChars={100}
       footerKicker="Case 02 · The global picture"
-      footerTagline="Source · Servier PSUR 3 Nov 2024 · CDSCO MAA filing 27 Mar 2024 · Jiang CTS 2021"
+      footerSource="Source · Servier PSUR 3 Nov 2024 · CDSCO MAA filing 27 Mar 2024 · Jiang CTS 2021"
     >
       <BackgroundLayout />
     </SlideFrame>

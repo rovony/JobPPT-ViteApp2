@@ -295,7 +295,7 @@ export default function Slide24Case3Challenge() {
 
       <Footer
         kicker="Case 03 · Challenge"
-        tagline="Source · FDA label 761102 (Dec 2018) · NCT04817761"
+        source="Source · FDA label 761102 (Dec 2018) · NCT04817761"
         delay={D.source}
       />
     </SlideGrid>

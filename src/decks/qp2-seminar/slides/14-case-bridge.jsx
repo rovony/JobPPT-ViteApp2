@@ -255,7 +255,7 @@ export default function Slide13() {
 
       <Footer
         kicker="Case 01 · Bridge"
-        tagline="Source · CS1 Reading Pt. 3 · Framework themes recap"
+        source="Source · CS1 Reading Pt. 3 · Framework themes recap"
         delay={D.source}
       />
     </SlideGrid>

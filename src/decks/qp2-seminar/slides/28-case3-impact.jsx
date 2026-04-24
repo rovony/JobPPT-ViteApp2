@@ -190,7 +190,7 @@ export default function Slide28Case3Impact() {
 
       <Footer
         kicker="Case 03 · Impact"
-        tagline="Source · FDA Type A 21 Jul 2023 · NCT04817761 (status 9 Feb 2026)"
+        source="Source · FDA Type A 21 Jul 2023 · NCT04817761 (status 9 Feb 2026)"
         delay={D.source}
       />
     </SlideGrid>

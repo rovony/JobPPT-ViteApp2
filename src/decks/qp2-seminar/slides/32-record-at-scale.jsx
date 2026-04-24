@@ -199,7 +199,7 @@ export default function Slide32RecordAtScale() {
 
       <Footer
         kicker="Closing · 32 of 35"
-        tagline="Source · CPT 2019 · JCP 2020 · JCP 2023 · CTS 2020 · IP Australia 2023"
+        source="Source · CPT 2019 · JCP 2020 · JCP 2023 · CTS 2020 · IP Australia 2023"
         delay={D.source}
       />
     </SlideGrid>

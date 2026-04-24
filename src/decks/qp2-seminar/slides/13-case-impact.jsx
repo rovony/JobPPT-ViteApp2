@@ -279,7 +279,7 @@ export default function Slide12() {
 
       <Footer
         kicker="Case 01 · Impact"
-        tagline="Source · CS1 Reading Pt. 3 · Okour et al. JCP 2023 · EMA + PMDA labels (2021)"
+        source="Source · CS1 Reading Pt. 3 · Okour et al. JCP 2023 · EMA + PMDA labels (2021)"
         delay={D.themes + 0.3}
       />
     </SlideGrid>

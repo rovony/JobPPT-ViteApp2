@@ -229,7 +229,7 @@ export default function Slide27Case3Fit() {
 
       <Footer
         kicker="Case 03 · Fit"
-        tagline="Source · Pediatric PopPK (AALL07P4 + DFCI 11-001) · Asparlas label · sensitivity illustrative"
+        source="Source · Pediatric PopPK (AALL07P4 + DFCI 11-001) · Asparlas label · sensitivity illustrative"
         delay={D.source}
       />
     </SlideGrid>

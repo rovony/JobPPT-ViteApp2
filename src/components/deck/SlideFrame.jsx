@@ -22,7 +22,18 @@ import { Eyebrow, Headline, Subhead, Viz, Footer } from './SlideParts';
  *     subhead="One sentence context line."
  *     footerKicker="Four countries · three sponsors · one discipline"
  *     footerTagline="Model-informed decisions, end-to-end."
+ *     footerSource="Source · Okour 2023 · ICH-E11A 2024"
  *   >
+ *
+ * Footer convention (matches `<Footer>` in SlideParts.jsx):
+ *   • footerKicker  — short context cue (e.g. "Case 01 · Background")
+ *   • footerTagline — one-line editorial flavor (drop in this slot only
+ *     if you actually have a tagline). NEVER put a "Source · …" string
+ *     here — it crowds the row at small viewports and steals visual
+ *     weight from the kicker.
+ *   • footerSource  — the citation/provenance string. Renders as a
+ *     smaller mono caption on a second row, so long citations no
+ *     longer squeeze page numbers off-screen.
  *     {vizChildren}
  *   </SlideFrame>
  *
@@ -44,6 +55,7 @@ export default function SlideFrame({
   subheadMaxChars,
   footerKicker,
   footerTagline,
+  footerSource,
   delays = {},
   areas = STANDARD_AREAS,
   rowSizes,
@@ -86,8 +98,13 @@ export default function SlideFrame({
 
       <Viz>{children}</Viz>
 
-      {(footerKicker != null || footerTagline != null) && (
-        <Footer kicker={footerKicker} tagline={footerTagline} delay={D.footer} />
+      {(footerKicker != null || footerTagline != null || footerSource != null) && (
+        <Footer
+          kicker={footerKicker}
+          tagline={footerTagline}
+          source={footerSource}
+          delay={D.footer}
+        />
       )}
     </SlideGrid>
   );

@@ -46,7 +46,7 @@ export default function Slide06bCaseBackground() {
       }
       headlineMaxChars={32}
       footerKicker="Case 01 · Background"
-      footerTagline="Source · EMA SmPC · FDA Letairis label · Galiè 2013 · Ivy 2024"
+      footerSource="Source · EMA SmPC · FDA Letairis label · Galiè 2013 · Ivy 2024"
     >
       <BackgroundLayout reduce={reduce} ease={ease} />
     </SlideFrame>

@@ -37,7 +37,7 @@ export default function Slide18Case2Pillars15() {
       subhead="A 5-fold AML-vs-CCA AUC gap collapses once dose is normalized to body weight — independent of ethnicity."
       subheadMaxChars={120}
       footerKicker="Case 02 · The convergence"
-      footerTagline="Source · Servier popPK 2024 · Jiang CTS 2021 · TIBSOVO USPI · oncologic exposure-response (PMID 36302156)"
+      footerSource="Source · Servier popPK 2024 · Jiang CTS 2021 · TIBSOVO USPI · oncologic exposure-response (PMID 36302156)"
     >
       <Pillars15Layout />
     </SlideFrame>

@@ -231,7 +231,7 @@ export default function Slide33LeadershipPrinciples() {
 
       <Footer
         kicker="Closing · 33 of 35"
-        tagline="Source · ICH M15 Step 4 · Feb 2026 · DosePredict JCP 2020 · DeepPK + PharmAgent (active)"
+        source="Source · ICH M15 Step 4 · Feb 2026 · DosePredict JCP 2020 · DeepPK + PharmAgent (active)"
         delay={D.source}
       />
     </SlideGrid>

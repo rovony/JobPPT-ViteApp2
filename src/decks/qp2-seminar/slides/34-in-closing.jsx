@@ -209,7 +209,7 @@ export default function Slide34InClosing() {
 
       <Footer
         kicker="Closing · 34 of 35"
-        tagline="Source · Seminar synthesis · CS1–CS3 + breadth + leadership"
+        source="Source · Seminar synthesis · CS1–CS3 + breadth + leadership"
         delay={D.source}
       />
     </SlideGrid>

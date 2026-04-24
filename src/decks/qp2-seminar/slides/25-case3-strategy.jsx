@@ -165,7 +165,7 @@ export default function Slide25Case3Strategy() {
 
       <Footer
         kicker="Case 03 · Strategy"
-        tagline="Source · PopED workflow (Tessier / Riglet, Paris) · Mentré et al."
+        source="Source · PopED workflow (Tessier / Riglet, Paris) · Mentré et al."
         delay={D.source}
       />
     </SlideGrid>

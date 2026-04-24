@@ -267,7 +267,7 @@ export default function Slide29Case3Bridge() {
 
       <Footer
         kicker="Case 03 · Bridge"
-        tagline="Source · FDA Type A 21 Jul 2023 · ICH M15 Step 4 Feb 2026 · Merck CMD pipeline"
+        source="Source · FDA Type A 21 Jul 2023 · ICH M15 Step 4 Feb 2026 · Merck CMD pipeline"
         delay={D.source}
       />
     </SlideGrid>

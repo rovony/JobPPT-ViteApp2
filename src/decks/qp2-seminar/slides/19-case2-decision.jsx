@@ -33,7 +33,7 @@ export default function Slide19Case2Response() {
       subhead="Twelve months of regulatory choreography. Three subject expert committee passes. One favorable recommendation."
       subheadMaxChars={120}
       footerKicker="Case 02 · The execution"
-      footerTagline="Source · CDSCO 91-KB submission · 27 Mar 2025 SEC minutes · Servier India regulatory file"
+      footerSource="Source · CDSCO 91-KB submission · 27 Mar 2025 SEC minutes · Servier India regulatory file"
     >
       <ResponseLayout />
     </SlideFrame>

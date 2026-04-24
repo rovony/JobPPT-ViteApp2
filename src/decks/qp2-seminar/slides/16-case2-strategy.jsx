@@ -46,7 +46,7 @@ export default function Slide16Case2Strategy() {
       subhead="The drug target is inside the tumor. Inherited ethnic variation does not modulate drug-target engagement."
       subheadMaxChars={120}
       footerKicker="Case 02 · The architecture"
-      footerTagline="Source · Dang Nature 2009 · Figueroa Cancer Cell 2010 · Ward Cancer Cell 2010 · ICH E5(R1) 2006"
+      footerSource="Source · Dang Nature 2009 · Figueroa Cancer Cell 2010 · Ward Cancer Cell 2010 · ICH E5(R1) 2006"
     >
       <StrategyLayout />
     </SlideFrame>

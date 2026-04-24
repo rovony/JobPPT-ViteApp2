@@ -160,7 +160,7 @@ export default function Slide11eCaseExposureMatch() {
 
       <Footer
         kicker="Case 01 · Exposure match"
-        tagline="Source · Okour et al. JCP 2023 (Table S5) · ICH E11A"
+        source="Source · Okour et al. JCP 2023 (Table S5) · ICH E11A"
         delay={D.payoff + 0.3}
       />
     </SlideGrid>

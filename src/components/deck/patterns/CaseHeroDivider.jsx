@@ -115,8 +115,19 @@ export default function CaseHeroDivider({
           {title}
         </motion.h1>
 
-        {/* Case hairline */}
+        {/* Case hairline.
+            layoutId pairs with the slide-01 PK landmark dot of the
+            same color (case-marker-coral|cyan|violet). When the user
+            advances title → this divider, framer-motion morphs the
+            small colored dot into this wide hairline. The morph is
+            partial (HTML <div> ↔ SVG <circle> animates the bbox
+            only), but the perceptual story is "the case marker
+            we showed at the start IS now the case we're opening."
+            ScaleX entrance still plays as the safety-net animation
+            when the layoutId match doesn't fire (e.g. user jumps to
+            this slide directly via deep-link). */}
         <motion.div
+          layoutId={`case-marker-${caseToken}`}
           style={{
             height: 3,
             background: 'var(--case)',

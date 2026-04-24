@@ -236,7 +236,7 @@ export default function Slide26Case3FdaEngagement() {
 
       <Footer
         kicker="Case 03 · FDA engagement"
-        tagline="Source · FDA Type A meeting · 21 Jul 2023 · NCT04817761"
+        source="Source · FDA Type A meeting · 21 Jul 2023 · NCT04817761"
         delay={D.source}
       />
     </SlideGrid>

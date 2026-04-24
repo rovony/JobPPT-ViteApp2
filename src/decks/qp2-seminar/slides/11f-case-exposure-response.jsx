@@ -171,7 +171,7 @@ export default function Slide11fCaseExposureResponse() {
 
       <Footer
         kicker="Case 01 · Safety E–R"
-        tagline="Source · Okour et al. JCP 2023 · Figure 5"
+        source="Source · Okour et al. JCP 2023 · Figure 5"
         delay={D.source}
       />
     </SlideGrid>
