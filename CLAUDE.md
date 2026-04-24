@@ -97,6 +97,16 @@ src/
   `zajalyapps@gmail.com` is rejected by GitHub email privacy)
 - Vercel auto-deploys on push; `main` → production URL, `dev` → preview URL
 
+## Slide backups — `_backup/` convention
+
+When a friend's-prompt or major rewrite replaces an existing slide's content, **first** move the existing file to `src/decks/qp2-seminar/slides/_backup/{filename}.pre-{reason}.jsx` using `git mv` so history traces cleanly. Then write the new content at the original path.
+
+The `_backup/` folder is the escape hatch for "this new version is worse, rewind me":
+- `_backup/11d-case-fit.pre-friend-prompt-4.jsx` — the real-data custom-SVG pcVPC before the Recharts placeholder swap
+- Restore via `git mv _backup/11d-case-fit.pre-friend-prompt-4.jsx 11d-case-fit.jsx`
+
+Never delete a backup without explicit user approval. These are cheap to keep and invaluable the one time you need them.
+
 ## Request queueing — don't abandon in-progress work
 
 When the user sends a new ask while you're mid-task:
