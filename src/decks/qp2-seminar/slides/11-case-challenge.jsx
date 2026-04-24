@@ -204,24 +204,24 @@ function ChallengeStack() {
 function SpineLine() {
   const reduce = useReducedMotion();
   const ease = [0.2, 0.7, 0.3, 1];
-  // Spans rows 1 → 5 inside the parent grid's col 1, centered
-  // horizontally. Small top/bottom offsets so the line starts at the
-  // top of dot 01 (22px dot → 11px half-height) and ends at the top
-  // of the diamond in row 5.
+  // Spans rows 1 → 3 (just the three card rows). Stops at the bottom
+  // of row 3 — a bit past dot 03 — rather than continuing through the
+  // timeline row down to the diamond. Keeps the spine visually
+  // associated with the three numbered cards only; timeline and focal
+  // read as separate beats.
   return (
     <motion.div
       aria-hidden
       style={{
         gridColumn: 1,
-        gridRow: '1 / 6',
+        gridRow: '1 / 4',
         justifySelf: 'center',
         alignSelf: 'stretch',
         width: 1.5,
         background: 'var(--case, var(--coral))',
         opacity: 0.55,
         transformOrigin: 'top center',
-        marginTop: 11,
-        marginBottom: 8,
+        marginTop: 11, // start at top of dot 01 (22px dot / 2)
       }}
       initial={reduce ? { scaleY: 1 } : { scaleY: 0 }}
       animate={{ scaleY: 1 }}
