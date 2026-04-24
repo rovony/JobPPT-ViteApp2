@@ -184,15 +184,12 @@ export default function Slide03CareerArc() {
           style={{ width: '100%', height: '100%', display: 'block', overflow: 'visible' }}
           aria-label="Career network — five institution hubs linked by an ascending amber spine, each surrounded by satellite nodes representing specific work."
         >
-          <defs>
-            <filter id="s3-glow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="3" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
+          {/* defs/filter removed (Brief §10, audit P4) — the s3-glow
+              feGaussianBlur was purely decorative chartjunk. The spine
+              still reads cleanly as a 3.5px amber stroke at 0.85
+              opacity, and the hero-hub `filter="url(#s3-glow)"` has
+              also been dropped (those nodes still pop via the larger
+              radius + amber fill). */}
 
           {/* Career spine */}
           <motion.path
@@ -203,7 +200,6 @@ export default function Slide03CareerArc() {
             strokeLinecap="round"
             strokeDasharray={spineLen}
             opacity={0.85}
-            filter="url(#s3-glow)"
             initial={{ strokeDashoffset: spineLen }}
             animate={{ strokeDashoffset: 0 }}
             transition={{ duration: spineDur, ease, delay: D.spine }}
@@ -334,7 +330,7 @@ export default function Slide03CareerArc() {
                   stroke={hubColor}
                   strokeWidth={hub.hero ? 3 : hub.side ? 1.5 : 2.2}
                   strokeDasharray={hub.side ? '4 4' : undefined}
-                  filter={hub.hero ? 'url(#s3-glow)' : undefined}
+                  /* filter dropped — the s3-glow filter was removed */
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1], delay: hubDelay }}

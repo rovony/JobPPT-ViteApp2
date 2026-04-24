@@ -25,6 +25,19 @@ import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/Slide
  */
 
 const TILES = [
+  /* 12 YEARS tile added per audit §3 #7 — the headline claims "twelve
+     years" but the audience scans the grid for that number and previously
+     didn't find it. Promoting "12" to the lead tile makes the
+     credibility number land first; the 4-3 grid becomes a clean 4×2. */
+  {
+    id: 'years',
+    value: 12,
+    suffix: '',
+    label: 'Years at scale',
+    detail: '2014 → 2026 · across two pharmaceutical sponsors',
+    token: 'cream',
+    isLeadNumeral: true,
+  },
   {
     id: 'domains',
     value: 6,

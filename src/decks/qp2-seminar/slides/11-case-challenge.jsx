@@ -333,7 +333,7 @@ function SpineDiamond({ row, delay }) {
           width: '100%',
           height: '100%',
           background: 'var(--amber)',
-          boxShadow: '0 0 12px color-mix(in srgb, var(--amber) 60%, transparent)',
+          /* boxShadow removed (Brief §10 — no decorative glows). */
         }}
         initial={reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -502,7 +502,8 @@ function ChallengeCard({ row, number, eyebrow, title, body, caption, chart, card
           borderRadius: 'var(--radius-md)',
           padding: 'var(--space-2)',
           overflow: 'hidden',
-          boxShadow: '0 2px 8px color-mix(in srgb, var(--coral) 8%, transparent)',
+          /* chart-panel boxShadow removed (Brief §10 — chartjunk). The
+             1px hairline border carries the panel boundary cleanly. */
         }}
         initial={reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.92 }}
         animate={{ opacity: 1, scale: 1 }}

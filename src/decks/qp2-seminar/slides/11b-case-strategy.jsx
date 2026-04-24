@@ -166,7 +166,8 @@ export default function Slide11bCaseStrategy() {
               width: 14,
               height: 14,
               background: 'var(--amber)',
-              boxShadow: '0 0 12px color-mix(in srgb, var(--amber) 60%, transparent)',
+              /* boxShadow removed (Brief §10 — no decorative glows on
+                 cards). Amber color alone reads as the marker. */
             }}
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}

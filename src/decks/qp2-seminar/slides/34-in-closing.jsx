@@ -35,8 +35,13 @@ const TAKEAWAYS = [
   {
     num: '02',
     eyebrow: 'Strategic breadth',
-    body: 'Seven therapeutic areas, end-to-end from first-in-human to lifecycle management. No learning curve to absorb — a pipeline to accelerate.',
-    metric: '7',
+    /* Resolved 6/7-domain inconsistency in favor of "six" — slides 31
+       and 32 are the canonical viz of the breadth (the 6-card grid),
+       so the speaker's prose adapts here rather than rebuilding the
+       grid. The prose still emphasises "end-to-end" so breadth comes
+       from depth, not from inflating the count. */
+    body: 'Six therapeutic areas, end-to-end from first-in-human to lifecycle management. No learning curve to absorb — a pipeline to accelerate.',
+    metric: '6',
     metricLabel: 'Therapeutic areas · End-to-end',
     token: 'amber',
   },
@@ -71,14 +76,19 @@ export default function Slide34InClosing() {
   return (
     <SlideGrid dataCase="amber" areas={STANDARD_AREAS}>
       <Eyebrow color="var(--amber)" delay={D.eyebrow}>Closing · Three takeaways</Eyebrow>
-      <Headline delay={D.headline} maxChars={28}>
-        In{' '}
+      {/* Headline rewrite: was "In closing." (a topic label, not an
+          assertion — Brief §2 hard-rule violation on the deck's most-
+          remembered slide). New headline IS the slide's claim, with
+          "candidate" italicized in amber to anchor the editorial
+          frame the panel will carry into deliberation. */}
+      <Headline delay={D.headline} maxChars={42}>
+        Three things to take from this{' '}
         <span style={{ color: 'var(--amber)', fontStyle: 'italic', fontWeight: 700 }}>
-          closing.
+          candidate.
         </span>
       </Headline>
       <Subhead delay={D.subhead} maxChars={60}>
-        Three things to take away.
+        The record · the breadth · the posture.
       </Subhead>
 
       <Viz>
