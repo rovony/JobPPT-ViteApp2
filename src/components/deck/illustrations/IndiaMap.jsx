@@ -2,40 +2,59 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 /**
- * IndiaMap — neon-stroke silhouette of India, refactored as a SHARED
- * element so it morphs across CS2 slides (divider → challenge) the same
- * way LungsShared morphs across CS1 slides 5 → 6.
+ * IndiaMap — REAL India outline (Natural Earth, A3 = IND).
  *
- * Two variants driven by the `variant` prop:
+ * The path data is the exact `.IND` polygon from the deck's
+ * `assets/cs2/world-map.svg` — same Robinson projection, same
+ * coordinate space. This means when the audience sees India in
+ * isolation here, it is the SAME shape they see lit up on the
+ * world map (slide 16). The cinematic morph between the two
+ * therefore reads as "India" — not as "a stylized blob that
+ * stands in for India".
  *
- *   variant="hero" (slide 14, divider, right-column):
- *     - Explicit width (clamp 200–360px) so framer-motion has a clean
- *       bbox to morph FROM.
- *     - Plays the original path-draw / fill-fade animations on first
- *       mount so the map "draws in" on the divider.
+ * Cross-slide mechanics (layoutId="india-cdsco"):
  *
- *   variant="context" (slide 15, challenge, faint backdrop):
- *     - Larger explicit width (clamp 280–460px) — the TO-bbox.
- *     - Skips the path-draw entrance; relies on the layoutId match for
- *       its arrival animation when navigating from the divider.
- *     - Lower stroke + fill opacity (~0.20) so the map sits behind
- *       the slide content as a contextual backdrop, not a hero.
+ *   variant="hero" (slide 15 divider, right margin):
+ *     - Marginalia size. Plays the original path-draw / fill-fade
+ *       on first mount so the outline "draws in".
+ *     - This is the FROM-bbox for the slide 15 → 22 morph.
  *
- * Both variants share the SAME layoutId so framer's LayoutGroup in
- * DeckRunner matches them across slide transitions. The 1.8s cubic
- * "camera pullback" timing matches LungsShared exactly.
+ *   variant="filled" (slide 22 impact climax):
+ *     - Hero size. Land state for the cross-slide morph. India
+ *       fills coral here (T8 destination).
+ *     - This is the TO-bbox.
+ *
+ *   variant="context" / "empty" (legacy, kept for safety):
+ *     - Backdrop sizes for any future non-morphing usage.
+ *
+ * The viewBox follows the source bbox (≈ 56,-40 → 83,-9 in the
+ * world map's projection), with a small breathing margin so the
+ * stroke doesn't clip.
  */
 
 const LAYOUT_TRANSITION = { duration: 1.8, ease: [0.4, 0, 0.2, 1] };
 
+// Natural Earth IND polygon — copied verbatim from the deck's
+// world-map.svg so projection + topology stay in sync.
+const INDIA_PATH = 'M83.304,-31.995 L83.465,-31.566 L83.168,-31.357 L83.384,-30.661 L82.652,-30.866 L81.546,-30.084 L81.691,-29.435 L81.316,-28.485 L81.355,-27.934 L81.06,-27.001 L80.259,-27.259 L80.387,-26.087 L80.218,-25.701 L80.385,-25.22 L79.937,-24.952 L79.183,-26.747 L78.914,-26.744 L78.852,-26.021 L78.239,-26.608 L78.45,-27.252 L78.876,-27.317 L79.183,-28.276 L78.592,-28.468 L77.692,-28.452 L76.743,-28.607 L76.53,-29.394 L76.058,-29.45 L75.209,-29.94 L74.991,-29.171 L75.786,-28.572 L75.241,-28.15 L75.083,-27.738 L75.726,-27.435 L75.653,-26.752 L76.103,-25.901 L76.372,-24.969 L76.282,-24.556 L75.613,-24.569 L74.434,-24.335 L74.587,-23.483 L74.136,-22.813 L72.808,-22.052 L71.851,-20.719 L71.183,-20.005 L70.274,-19.264 L70.321,-18.744 L69.855,-18.464 L69.001,-18.059 L68.545,-17.999 L68.322,-17.135 L68.642,-15.663 L68.762,-14.724 L68.412,-13.648 L68.52,-11.725 L68.008,-11.671 L67.598,-10.807 L67.92,-10.434 L67.026,-10.113 L66.723,-9.343 L66.337,-9.018 L65.349,-10.074 L64.813,-11.66 L64.371,-12.801 L63.993,-13.337 L63.4,-14.425 L63.062,-15.841 L62.841,-16.547 L61.822,-18.103 L61.229,-20.297 L60.804,-21.745 L60.681,-23.117 L60.395,-24.176 L59.029,-23.498 L58.326,-23.634 L56.923,-25.006 L57.356,-25.416 L57.025,-25.86 L55.786,-26.821 L56.359,-27.576 L58.503,-27.574 L58.201,-28.545 L57.586,-29.119 L57.367,-29.991 L56.667,-30.499 L57.572,-31.686 L58.707,-31.599 L59.539,-32.787 L59.957,-33.935 L60.69,-35.072 L60.527,-35.88 L61.216,-36.534 L60.339,-37.093 L59.856,-37.859 L59.317,-38.851 L59.677,-39.339 L61.169,-39.063 L62.185,-39.231 L62.88,-40.181 L64.196,-38.856 L64.304,-37.932 L64.807,-37.353 L64.898,-36.775 L64.183,-36.927 L64.703,-35.679 L65.783,-34.962 L67.267,-34.169 L66.754,-33.656 L66.567,-32.597 L67.574,-32.169 L68.578,-31.613 L69.944,-30.979 L71.294,-30.832 L71.948,-30.256 L72.713,-30.148 L73.923,-29.884 L74.727,-29.904 L74.764,-30.351 L74.512,-31.071 L74.499,-31.559 L75.045,-31.796 L75.287,-30.904 L75.348,-30.678 L76.303,-30.248 L76.88,-30.426 L77.712,-30.35 L78.496,-30.383 L78.438,-31.079 L77.977,-31.44 L78.729,-31.581 L79.441,-32.424 L80.402,-33.144 L81.268,-32.866 L81.851,-33.343 L82.455,-32.639 L82.229,-32.163 Z';
+
+// Source polygon bbox: x ∈ [55.786, 83.465], y ∈ [-40.181, -9.018].
+// Padded to keep stroke inside the viewBox.
+const VIEW_BOX = '55 -41 30 33';
+const ASPECT   = '30 / 33';
+
 const DIMENSIONS = {
-  hero:    { width: 'clamp(200px, 26vw, 360px)', aspectRatio: '440 / 660' },
-  context: { width: 'clamp(280px, 32vw, 460px)', aspectRatio: '440 / 660' },
-  // T8 variants — used in the slide-22 "India fills coral" climax.
-  // These keep the same aspect ratio + similar size to context so the
-  // shared layoutId morph reads as a fill-in, not a re-position.
-  empty:   { width: 'clamp(180px, 22vw, 320px)', aspectRatio: '440 / 660' },
-  filled:  { width: 'clamp(220px, 28vw, 380px)', aspectRatio: '440 / 660' },
+  // Marginalia on the divider — bumped up from the previous stylized
+  // version so the audience can read the silhouette as "India" before
+  // the slide 16 world map ever appears.
+  hero:    { width: 'clamp(240px, 32vw, 440px)', aspectRatio: ASPECT },
+  // Backdrop sizing for any non-morphing usage in CS2.
+  context: { width: 'clamp(280px, 36vw, 480px)', aspectRatio: ASPECT },
+  // T8 origin/destination sizes — kept large so when India "fills
+  // coral" on slide 22 it lands as a hero element, echoing the
+  // size it occupied on the world map a few slides earlier.
+  empty:   { width: 'clamp(220px, 26vw, 360px)', aspectRatio: ASPECT },
+  filled:  { width: 'clamp(300px, 40vw, 520px)', aspectRatio: ASPECT },
 };
 
 export default function IndiaMap({
@@ -50,9 +69,7 @@ export default function IndiaMap({
   const isHero = variant === 'hero';
   const isEmpty = variant === 'empty';
   const isFilled = variant === 'filled';
-  // Per-variant fill opacity. `fillIntensity` (0..1) overrides default
-  // when supplied — used by the slide-22 T8 climax to drive a coral
-  // fill-up animation.
+
   const fillOp = typeof fillIntensity === 'number'
     ? fillIntensity
     : isHero
@@ -63,48 +80,6 @@ export default function IndiaMap({
           ? 0.02
           : 0.06;
   const strokeOp = isEmpty ? 0.42 : isFilled ? 0.85 : 0.32;
-
-  // Mainland India contour — stylized path, starts top (Kashmir) and
-  // moves clockwise down to Kanyakumari, up through Bengal, back to top.
-  const mainland = `
-    M 235 40
-    C 265 38 290 48 318 62
-    C 340 76 352 92 348 108
-    C 344 122 322 130 308 134
-    C 296 140 290 156 296 170
-    C 306 188 324 200 336 220
-    C 348 240 354 264 352 290
-    C 350 316 338 340 322 362
-    C 306 384 290 406 272 430
-    C 256 452 240 474 226 496
-    C 214 516 206 538 200 556
-    C 198 566 194 574 186 576
-    C 176 578 168 570 164 556
-    C 158 534 160 510 168 484
-    C 176 458 188 432 200 406
-    C 210 382 216 358 212 334
-    C 208 310 194 290 178 276
-    C 160 260 140 254 124 242
-    C 108 228 96 208 92 186
-    C 90 168 96 154 108 148
-    C 124 142 146 148 162 142
-    C 178 134 186 118 194 100
-    C 202 82 214 66 232 50
-    Z
-  `;
-
-  const neStates = `
-    M 362 116
-    C 378 114 392 120 402 132
-    C 410 144 410 158 402 168
-    C 394 178 380 182 366 180
-    C 354 178 344 168 344 156
-    C 344 142 352 128 362 116
-    Z
-  `;
-
-  const sriLanka =
-    'M 218 600 C 226 598 234 606 232 616 C 230 624 222 628 214 624 C 208 620 210 608 218 600 Z';
 
   return (
     <motion.div
@@ -122,15 +97,15 @@ export default function IndiaMap({
       aria-hidden
     >
       <svg
-        viewBox="0 0 440 660"
+        viewBox={VIEW_BOX}
         preserveAspectRatio="xMidYMid meet"
-        aria-label="Stylized map of India"
+        aria-label="India outline"
         role="img"
         style={{ width: '100%', height: '100%', display: 'block', overflow: 'visible' }}
       >
         <defs>
           <filter id={`india-glow-${variant}`} x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation={isHero ? 3.2 : 2.0} result="blur" />
+            <feGaussianBlur stdDeviation={isHero ? 0.18 : 0.12} result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -141,50 +116,42 @@ export default function IndiaMap({
         <g filter={`url(#india-glow-${variant})`}>
           {/* Fill wash */}
           {isHero ? (
-            <>
-              <motion.path
-                d={mainland}
-                fill={stroke}
-                fillOpacity={0.12}
-                stroke="none"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1.2, ease: [0.2, 0.7, 0.3, 1], delay: delay + 1.6 }}
-              />
-              <motion.path
-                d={neStates}
-                fill={stroke}
-                fillOpacity={0.12}
-                stroke="none"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1.0, ease: [0.2, 0.7, 0.3, 1], delay: delay + 1.8 }}
-              />
-            </>
+            <motion.path
+              d={INDIA_PATH}
+              fill={stroke}
+              fillOpacity={0.12}
+              stroke="none"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.2, ease: [0.2, 0.7, 0.3, 1], delay: delay + 1.6 }}
+            />
           ) : (
-            <>
-              <motion.path
-                d={mainland} fill={stroke} stroke="none"
-                initial={{ fillOpacity: isFilled ? 0 : fillOp }}
-                animate={{ fillOpacity: fillOp }}
-                transition={{ duration: 1.6, ease: [0.2, 0.7, 0.3, 1], delay: isFilled ? 1.0 : 0 }}
-              />
-              <motion.path
-                d={neStates} fill={stroke} stroke="none"
-                initial={{ fillOpacity: isFilled ? 0 : fillOp }}
-                animate={{ fillOpacity: fillOp }}
-                transition={{ duration: 1.4, ease: [0.2, 0.7, 0.3, 1], delay: isFilled ? 1.2 : 0 }}
-              />
-            </>
+            <motion.path
+              d={INDIA_PATH}
+              fill={stroke}
+              stroke="none"
+              initial={{ fillOpacity: isFilled ? 0 : fillOp }}
+              animate={{ fillOpacity: fillOp }}
+              transition={{
+                duration: 1.6,
+                ease: [0.2, 0.7, 0.3, 1],
+                delay: isFilled ? 1.0 : 0,
+              }}
+            />
           )}
 
-          {/* Mainland outline */}
+          {/* Outline. With vectorEffect="non-scaling-stroke" the stroke
+              width is interpreted in device pixels, not user units —
+              critical here because the viewBox is only ~30 units wide
+              (geographic projection coordinates), so a literal
+              strokeWidth would be enormous. */}
           {isHero ? (
             <motion.path
-              d={mainland}
+              d={INDIA_PATH}
               fill="none"
               stroke={stroke}
-              strokeWidth={2.4}
+              strokeWidth={1.6}
+              vectorEffect="non-scaling-stroke"
               strokeLinecap="round"
               strokeLinejoin="round"
               initial={{ pathLength: 0, opacity: 0 }}
@@ -196,65 +163,14 @@ export default function IndiaMap({
             />
           ) : (
             <path
-              d={mainland}
+              d={INDIA_PATH}
               fill="none"
               stroke={stroke}
-              strokeWidth={isFilled ? 2.0 : 1.6}
+              strokeWidth={isFilled ? 1.8 : 1.3}
+              vectorEffect="non-scaling-stroke"
               strokeOpacity={strokeOp}
               strokeLinecap="round"
               strokeLinejoin="round"
-            />
-          )}
-
-          {/* NE states outline */}
-          {isHero ? (
-            <motion.path
-              d={neStates}
-              fill="none"
-              stroke={stroke}
-              strokeWidth={2.0}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 1 }}
-              transition={{
-                pathLength: { duration: 0.9, ease: [0.2, 0.7, 0.3, 1], delay: delay + 1.4 },
-                opacity:    { duration: 0.3, delay: delay + 1.4 },
-              }}
-            />
-          ) : (
-            <path
-              d={neStates}
-              fill="none"
-              stroke={stroke}
-              strokeWidth={isFilled ? 1.6 : 1.4}
-              strokeOpacity={Math.min(strokeOp + 0.04, 0.95)}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          )}
-
-          {/* Sri Lanka */}
-          {isHero ? (
-            <motion.path
-              d={sriLanka}
-              fill={stroke}
-              fillOpacity={0.35}
-              stroke={stroke}
-              strokeWidth={1.4}
-              initial={{ opacity: 0, scale: 0.6 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: delay + 2.4 }}
-              style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
-            />
-          ) : (
-            <path
-              d={sriLanka}
-              fill={stroke}
-              fillOpacity={isFilled ? 0.5 : 0.18}
-              stroke={stroke}
-              strokeWidth={0.9}
-              strokeOpacity={strokeOp}
             />
           )}
         </g>
