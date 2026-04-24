@@ -5,6 +5,11 @@ explicitly deferred during the Apr 24 audit-fix sweep. Each entry
 explains *why* it was deferred, the expected effort, and what
 unblocks it.
 
+> **Apr 24 closing sweep (Phases E / F / G + repo-hygiene):** items 2, 3,
+> and 4 are now fully resolved on top of the original Phase A–D work.
+> See "Status by item" below. Only item 1 (slide-21 timeline rebuild)
+> remains genuinely deferred and requires speaker input.
+
 ---
 
 ## 1. Slide 21 (CS2 regulatory timeline) — proportional-time rebuild
@@ -30,7 +35,27 @@ unblocks it.
 
 ---
 
+## ✅ Status by item (Apr 24 closing sweep)
+
+| # | Item | Status | Phase / commit |
+|---|------|--------|----------------|
+| 1 | Slide 21 proportional-time rebuild | DEFERRED (speaker input required) | — |
+| 2 | Footer-tagline citation migration | ✅ DONE (audit confirmed already migrated in B/D) | Phase B + D |
+| 3 | P5 case-color contract sweep | ✅ DONE (slide 33 + themes.js + slide 31 cardiometabolic) | Phase F |
+| 4 | `cs3-n-94` layoutId pair | ✅ DONE (slide 24 AnchorTile ↔ SampleSizeWaterfall) | Phase G |
+| 5 | Phase C `--fs-card-*` migration | ✅ DONE | Phase C |
+| + | Confidentiality scrub (7 violations) | ✅ DONE (slides 16/19/20/22/26/31 + notes.js) | Phase E |
+| + | Display-scale numeral exemption (slide 13) | ✅ DOCUMENTED (inline comment, no token churn) | Phase D-tail |
+| + | `--fs-card-feature` evaluation | ✅ NOT NEEDED (existing tokens cover the cases) | Phase D-tail |
+| + | Repo hygiene (`clean:screenshots`, lib/utils docs, dead-code audit) | ✅ DONE | Phase H |
+
+---
+
 ## 2. Footer-tagline citation migration (5 slides)
+
+> **Apr 24 update:** ✅ DONE. Audit of slides 06, 06b, 07, 11, 14, 27
+> confirmed all already use `footerSource` / `source` from earlier
+> phases. No outstanding migration work.
 
 **Source:** `SLIDE-REVIEW.md` §4 P3.
 
@@ -45,6 +70,15 @@ unblocks it.
 ---
 
 ## 3. P5 case-color contract — slides 13, 14, 33, 34 audit
+
+> **Apr 24 update (Phase F):** ✅ DONE. Slide 33 PRINCIPLES + RESEARCH_CARDS
+> reassigned to amber/cream/sage (intentional coral/violet retained only
+> on bottom-ribbon case-callback links). `themes.js` QP2_THEMES tokens
+> remapped to alternate amber/sage so cross-case theme tiles never
+> inherit case identity. Slide 13 reviewed: amber-on-impact intentionally
+> retained because amber is the deck-default approval/payoff accent and
+> the slide is CS1 (coral) — no double-encoding. Slide 14 reviewed and
+> compliant. Slide 31 cardiometabolic cyan→sage was landed in Phase A.
 
 **Source:** `SLIDE-REVIEW.md` §4 P5.
 
@@ -68,7 +102,7 @@ unblocks it.
 - ✅ `case-marker-{coral|cyan|violet}` (slide 01 PK landmark dots → slides 5/15/23 hero hairlines) — landed in Phase B+.
 - ✅ `cs1-focal-amber` (slide 11 question panel → slide 11b answer ribbon) — landed in Phase D-tail (commit `ae771fe`).
 - ✅ `cs2-sec-objection` corner-shrink (slide 22 SEC card now wrapped in right-aligned `max-width:min(56%, 640px)` flex strip so the layoutId animation reads as "card collapses into a top-right badge") — landed in Phase D-tail.
-- ⏳ Remaining 1: `cs3-n-94` (slide 23 divider meta `94` → slide 26 SampleSizeWaterfall left bar). Defer rationale unchanged: the slide-23 side has the number embedded in a meta string (`'N = 60 agreed (94 → 60 · −36%)'`), so a clean morph requires either extracting `94` into its own positioned element (visual change) or accepting that only the SampleSizeWaterfall side gets the layoutId (no morph). Either path needs editorial confirmation.
+- ✅ `cs3-n-94` (slide 24 AnchorTile middle tile → slide 26 SampleSizeWaterfall left bar) — landed in Phase G (commit `f53924a`). Resolution: instead of extracting `94` from slide 23's meta string (the original blocker), the morph was wired against slide 24's existing standalone `94` AnchorTile, which is already a positioned numeral. SVG `<text>` ↔ HTML `<div>` is a partial morph (bbox animates, content cross-fades) — same trade-off the existing `cs3-pct-36` pair accepts.
 
 **Why deferred:** Each requires identifying the source/target element with bounding-box compatibility, then verifying the morph reads cleanly during navigation. The 5 simple "marker dot → hub" pairs are mechanical (single-line additions on each end), but the `cs2-sec-objection` corner-shrink is a real layout change on slide 22 (currently the SEC card stays full-width).
 

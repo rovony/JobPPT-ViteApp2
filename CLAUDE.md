@@ -66,6 +66,32 @@ src/
     └── slide-transitions.js    # 3D transition presets
 ```
 
+### `src/lib/` vs `src/utils/` (don't add to utils/)
+
+This repo carries two utility folders for historical reasons:
+
+- **`src/lib/`** — the active home for runtime utilities, hooks, contexts,
+  and stateful helpers (deck export, motion config, presenter sync, query
+  client, theme/auth contexts, the `cn()` classnames helper, etc.). New
+  utilities GO HERE.
+- **`src/utils/index.ts`** — base44-scaffold leftover; only exports a
+  single unused `createPageUrl(pageName)` helper. Kept to preserve the
+  scaffold's import surface during future updates; do not extend.
+
+When adding a new utility, default to `src/lib/`. The `src/utils/`
+folder is effectively read-only scaffold — touch only if you're
+reconciling a base44 update.
+
+### Dead-code audit (`src/components/slides/`, Apr 2026)
+
+`src/components/slides/AnalysisPlot.tsx` and `analysis-plot-data.ts`
+are referenced from CS1 fit/exposure-match/exposure-response slides
+(10, 11, 11e, 11f, 12). All other top-level `src/components/slides/`
+files were folded into deck-local `src/decks/qp2-seminar/slides/cs*-*/`
+during the structural sweep. If a slide-shared visual component
+emerges that doesn't belong to a single case, prefer `src/components/deck/patterns/`
+over reviving the legacy `src/components/slides/` shape.
+
 ## Critical Patterns
 
 ### Shared-element transitions (layoutId)
