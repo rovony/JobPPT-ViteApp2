@@ -461,6 +461,55 @@
     --amber:          #B5830A;
   }
 
+  /* =========================================================
+     DARK MODE — explicit reset.
+     CSS custom properties inherit. When <html> carries
+     data-theme-mode="light" (app-level theme) and a deck-root
+     overrides to data-theme-mode="dark" (per-deck override),
+     the light palette would otherwise cascade through and the
+     deck would stay light. This block re-establishes the dark
+     palette wherever data-theme-mode="dark" is explicitly set,
+     and mirrors the light block's structure so per-deck themes
+     also flip back when a user toggles dark on a light-default
+     deck. Mirrors :root defaults exactly.
+     ========================================================= */
+  [data-theme-mode="dark"] {
+    --bg:               #1B1B1E;
+    --panel:            #27272B;
+    --panel-elevated:   #32323A;
+    --cream:            #D7D4CC;
+    --cream-muted:      rgba(215, 212, 204, 0.62);
+    --cream-faint:      rgba(215, 212, 204, 0.38);
+    --cream-dim:        rgba(215, 212, 204, 0.24);
+    --cream-hairline:   rgba(215, 212, 204, 0.14);
+    --cream-ghost:      rgba(215, 212, 204, 0.06);
+    --amber:            #FFE14D;
+
+    --deck-bg:                 240 7% 11%;
+    --deck-surface:            240 6% 16%;
+    --deck-surface-elevated:   240 5% 20%;
+    --deck-ink:                 42 13% 82%;
+    --deck-ink-muted:           42 13% 82%;
+    --deck-ink-subtle:          42 13% 82%;
+    --deck-rule:                42 13% 82%;
+  }
+
+  /* Same reset under per-deck themes — handles
+     [data-deck-theme="light-editorial"] (light defaults) being
+     toggled to dark, and any future per-deck themes. */
+  [data-deck-theme][data-theme-mode="dark"] {
+    --bg:               #1B1B1E;
+    --panel:            #27272B;
+    --panel-elevated:   #32323A;
+    --cream:            #D7D4CC;
+    --cream-muted:      rgba(215, 212, 204, 0.62);
+    --cream-faint:      rgba(215, 212, 204, 0.38);
+    --cream-dim:        rgba(215, 212, 204, 0.24);
+    --cream-hairline:   rgba(215, 212, 204, 0.14);
+    --cream-ghost:      rgba(215, 212, 204, 0.06);
+    --amber:            #FFE14D;
+  }
+
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
