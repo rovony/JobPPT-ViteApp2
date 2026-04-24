@@ -206,17 +206,24 @@ export default function CaseDividerSlide({
         )}
       </motion.div>
 
-      {/* ─── Meta line ─────────────────────────────── */}
+      {/* ─── Footer rail ──────────────────────────────
+          Meta line + source/pageno row pinned to --deck-pad-bottom (the
+          shared safe zone every grid-driven SlideGrid reserves for footers).
+          Earlier this band sat at `bottom: 3vh`, which collided with the
+          deck control bar. Typography now uses the same tokens as
+          SlideParts.Footer (--fs-slide-pageno, --fs-slide-tagline,
+          --fs-slide-kicker) so divider rails and body-slide rails scale
+          identically across viewports. */}
       <motion.div
         className="absolute deck-mono uppercase"
         style={{
-          bottom: '8vh',
+          bottom: 'calc(var(--deck-pad-bottom) + 2.6rem)',
           left: 'calc(var(--deck-gutter) + 140px)',
           right: 'var(--deck-gutter)',
           paddingTop: '14px',
           borderTop: '1px solid var(--cream-hairline)',
-          fontSize: 'clamp(0.6rem, 0.78vw, 0.85rem)',
-          letterSpacing: '0.22em',
+          fontSize: 'var(--fs-slide-kicker)',
+          letterSpacing: 'var(--ls-mono-wide)',
           color: 'var(--cream-muted)',
           display: 'flex',
           flexWrap: 'wrap',
@@ -241,7 +248,7 @@ export default function CaseDividerSlide({
             <Sep />
             <span style={{ color: 'var(--cream-faint)' }}>Verdict</span>
             <Sep />
-            <span style={{ color: 'var(--case)', fontWeight: 700, letterSpacing: '0.22em' }}>
+            <span style={{ color: 'var(--case)', fontWeight: 700, letterSpacing: 'var(--ls-mono-wide)' }}>
               {verdict}
             </span>
           </>
@@ -252,7 +259,7 @@ export default function CaseDividerSlide({
       <motion.div
         className="absolute"
         style={{
-          bottom: '3vh',
+          bottom: 'var(--deck-pad-bottom)',
           left: 'calc(var(--deck-gutter) + 140px)',
           right: 'var(--deck-gutter)',
           display: 'flex',
@@ -267,14 +274,14 @@ export default function CaseDividerSlide({
         {source ? (
           <span
             className="deck-display italic"
-            style={{ fontSize: 'clamp(0.7rem, 0.85vw, 0.9rem)', color: 'var(--cream-muted)', fontWeight: 400 }}
+            style={{ fontSize: 'var(--fs-slide-tagline)', color: 'var(--cream-muted)', fontWeight: 400 }}
           >
             {source}
           </span>
         ) : <span />}
         <span
           className="deck-mono uppercase"
-          style={{ fontSize: '0.65rem', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}
+          style={{ fontSize: 'var(--fs-slide-pageno)', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}
         >
           {String(caseNumber)} / 15
         </span>

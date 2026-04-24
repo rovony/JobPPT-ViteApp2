@@ -197,18 +197,26 @@ export default function CaseHeroDivider({
         {illustration}
       </motion.div>
 
-      {/* ═══════════ Meta + verdict line ═══════════ */}
+      {/* ═══════════ Footer rail ═══════════
+          Two stacked rows pinned to --deck-pad-bottom (the same band every
+          grid-driven SlideGrid reserves for its footer area). Earlier this
+          pattern used `bottom: 3vh` which sat under the deck control bar
+          on standard viewports — it broke the deck-wide convention that
+          the bottom ~--deck-pad-bottom of the slide is footer-only safe
+          zone. Typography now reads from the same tokens SlideParts.Footer
+          uses (--fs-slide-pageno, --fs-slide-tagline, --fs-slide-kicker)
+          so divider rails scale identically to body-slide rails. */}
       {(meta.length > 0 || verdict) && (
         <motion.div
           className="absolute deck-mono uppercase"
           style={{
-            bottom: '8vh',
+            bottom: 'calc(var(--deck-pad-bottom) + 2.6rem)',
             left: 'var(--deck-gutter)',
             right: 'var(--deck-gutter)',
             paddingTop: '14px',
             borderTop: '1px solid var(--cream-hairline)',
-            fontSize: 'clamp(0.6rem, 0.78vw, 0.85rem)',
-            letterSpacing: '0.22em',
+            fontSize: 'var(--fs-slide-kicker)',
+            letterSpacing: 'var(--ls-mono-wide)',
             color: 'var(--cream-muted)',
             display: 'flex',
             flexWrap: 'wrap',
@@ -232,7 +240,7 @@ export default function CaseHeroDivider({
               {meta.length > 0 && <Sep />}
               <span style={{ color: 'var(--cream-faint)' }}>Verdict</span>
               <Sep />
-              <span style={{ color: 'var(--case)', fontWeight: 700, letterSpacing: '0.22em' }}>
+              <span style={{ color: 'var(--case)', fontWeight: 700, letterSpacing: 'var(--ls-mono-wide)' }}>
                 {verdict}
               </span>
             </>
@@ -244,7 +252,7 @@ export default function CaseHeroDivider({
       <motion.div
         className="absolute"
         style={{
-          bottom: '3vh',
+          bottom: 'var(--deck-pad-bottom)',
           left: 'var(--deck-gutter)',
           right: 'var(--deck-gutter)',
           display: 'flex',
@@ -259,14 +267,14 @@ export default function CaseHeroDivider({
         {source ? (
           <span
             className="deck-display italic"
-            style={{ fontSize: 'clamp(0.7rem, 0.85vw, 0.9rem)', color: 'var(--cream-muted)', fontWeight: 400 }}
+            style={{ fontSize: 'var(--fs-slide-tagline)', color: 'var(--cream-muted)', fontWeight: 400 }}
           >
             {source}
           </span>
         ) : <span />}
         <span
           className="deck-mono uppercase"
-          style={{ fontSize: '0.65rem', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}
+          style={{ fontSize: 'var(--fs-slide-pageno)', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}
         >
           {String(caseNumber)} / {String(totalCases).padStart(2, '0')}
         </span>
