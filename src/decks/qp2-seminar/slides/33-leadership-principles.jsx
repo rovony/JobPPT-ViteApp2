@@ -86,7 +86,7 @@ export default function Slide33LeadershipPrinciples() {
     researchLabel: 1.85,
     research: 2.05,
     ribbon: 3.10,
-    source: 3.55,
+    source: 2.80,
   };
 
   const T = useTokens([

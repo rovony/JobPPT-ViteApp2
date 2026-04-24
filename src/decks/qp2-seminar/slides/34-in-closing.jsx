@@ -59,7 +59,7 @@ export default function Slide34InClosing() {
     cards: 0.95,
     quote: 2.15,
     sig: 2.65,
-    source: 3.10,
+    source: 2.80,
   };
 
   const T = useTokens([

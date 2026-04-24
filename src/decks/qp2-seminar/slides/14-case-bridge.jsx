@@ -52,7 +52,7 @@ export default function Slide13() {
     bridge: 1.10,
     payoff: 1.80,
     themesLabel: 2.10, themes: 2.25,
-    source: 3.20,
+    source: 2.80,
   };
 
   const T = useTokens([

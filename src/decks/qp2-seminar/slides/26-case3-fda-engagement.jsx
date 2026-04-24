@@ -64,7 +64,7 @@ export default function Slide26Case3FdaEngagement() {
     quotesLabel: 3.20,
     quotes: 3.35,
     payoff: 4.00,
-    source: 4.40,
+    source: 2.80,
   };
 
   const T = useTokens(['--violet', '--cream', '--cream-muted', '--cream-faint', '--cream-hairline']);

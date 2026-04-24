@@ -45,7 +45,7 @@ export default function Slide27Case3Fit() {
     rightLabel: 1.10,
     curve: 1.30,
     ribbon: 3.20,
-    source: 3.65,
+    source: 2.80,
   };
 
   const T = useTokens(['--violet', '--cream', '--cream-muted', '--cream-faint', '--cream-hairline']);

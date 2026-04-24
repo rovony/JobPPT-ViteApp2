@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useLocation, useNavigate, useSearchParams, Navigate } from 'react-router-dom';
-import { AnimatePresence, LayoutGroup } from 'framer-motion';
+import { AnimatePresence, LayoutGroup, MotionConfig } from 'framer-motion';
 import { DeckProvider, useDeck, useKeyboardNav } from '@/lib/deck-store';
 import { useFullscreen } from '@/lib/useFullscreen';
 import { useSlideTracker } from '@/lib/useSlideTracker';
@@ -264,18 +264,28 @@ function DeckStage({ deck }) {
           descendants, which is what makes the Lynch lung flight from
           slide 5 → 6 actually happen. Confirmed necessary by the v0
           prototype and independent review. */}
-      <LayoutGroup id="qp2-deck-layout">
-        <AnimatePresence mode="sync">
-          {Slide && (
-            <SlideTransition
-              key={slideMeta.id || index}
-              transition={slideMeta.transition ?? deck.defaultTransition}
-            >
-              <Slide step={step} deck={deck} />
-            </SlideTransition>
-          )}
-        </AnimatePresence>
-      </LayoutGroup>
+      {/* MotionConfig reducedMotion="user" — single deck-root opt-in
+          to honor the OS-level prefers-reduced-motion flag. With this
+          set, framer-motion auto-reduces every <motion.*> animation
+          in the tree (drops transform/opacity transitions, keeps the
+          end state). Closes the deck-wide WCAG 2.3.3 gap that 25+
+          slides were leaking individually (slides 03, 10, 13, 15,
+          16-22, 23-29, 30-35). GSAP-driven slides (02) still need
+          per-slide gating because GSAP runs outside framer-motion. */}
+      <MotionConfig reducedMotion="user">
+        <LayoutGroup id="qp2-deck-layout">
+          <AnimatePresence mode="sync">
+            {Slide && (
+              <SlideTransition
+                key={slideMeta.id || index}
+                transition={slideMeta.transition ?? deck.defaultTransition}
+              >
+                <Slide step={step} deck={deck} />
+              </SlideTransition>
+            )}
+          </AnimatePresence>
+        </LayoutGroup>
+      </MotionConfig>
 
       {/* Hide chrome while in Slide Show (fullscreen, no presenter) */}
       {!(isFullscreen && !presenter) && (

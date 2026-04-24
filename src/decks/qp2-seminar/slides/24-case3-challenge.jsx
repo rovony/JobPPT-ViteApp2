@@ -63,7 +63,7 @@ export default function Slide24Case3Challenge() {
     question: 2.85,
     body: 3.10,
     meta: 3.45,
-    source: 3.80,
+    source: 2.80,
   };
 
   const T = useTokens(['--violet', '--cream', '--cream-muted', '--cream-faint', '--cream-hairline']);

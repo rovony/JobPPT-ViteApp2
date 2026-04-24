@@ -66,7 +66,7 @@ export default function Slide28Case3Impact() {
     n3: 2.00,
     rowsDelay: 2.40,
     durable: 3.40,
-    source: 3.85,
+    source: 2.80,
   };
 
   const T = useTokens(['--violet', '--cream', '--cream-muted', '--cream-faint', '--cream-hairline']);

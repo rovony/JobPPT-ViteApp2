@@ -143,7 +143,7 @@ export default function Slide02Hook() {
     return () => mm.revert();
   }, []);
 
-  const D = { eyebrow: 0.15, headline: 0.30, subhead: 0.60, footer: 4.4 };
+  const D = { eyebrow: 0.15, headline: 0.30, subhead: 0.60, footer: 2.80 };
 
   return (
     <div ref={rootRef} className="w-full h-full">

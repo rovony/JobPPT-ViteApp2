@@ -52,7 +52,7 @@ export default function Slide11fCaseExposureResponse() {
     chrome: 0.10, headline: 0.25, subhead: 0.55,
     axisA: 0.80, boxA: 1.00,
     axisB: 1.00, boxB: 1.20,
-    callout: 2.20, caption: 2.60, pills: 2.85, source: 3.10,
+    callout: 2.20, caption: 2.60, pills: 2.85, source: 2.80,
   };
 
   const T = useTokens(['--coral', '--cyan', '--cream', '--cream-muted', '--cream-faint', '--cream-hairline', '--bg']);

@@ -91,7 +91,7 @@ export default function Slide32RecordAtScale() {
     subhead: 0.65,
     grid: 1.00,
     ribbon: 3.10,
-    source: 3.55,
+    source: 2.80,
   };
 
   const T = useTokens([

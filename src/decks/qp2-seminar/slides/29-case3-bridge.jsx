@@ -52,7 +52,7 @@ export default function Slide29Case3Bridge() {
     coda: 2.05,
     themesLabel: 2.30,
     themes: 2.45,
-    source: 3.40,
+    source: 2.80,
   };
 
   const T = useTokens([

@@ -135,52 +135,78 @@ export function Viz({ area = 'viz', children, className, style }) {
 
 /**
  * Footer — bottom rail spanning the full slide width.
- * Layout: kicker (left) · tagline (center-right, flex-grow) · page N/total (right).
- * The page number is sourced from deck context so it's always correct — callers
- * no longer hardcode "03 / 20".
+ *
+ * Layout (top row):  kicker (left) · tagline (center-right, flex-grow) · page N/total (right).
+ * Layout (optional second row):  source (full-width mono caption, can wrap).
+ *
+ * Convention:
+ *   kicker  = "NN · short label"      (≤25 chars · mono · uppercase)
+ *   tagline = italic payoff sentence  (≤16 words · sets up the slide's claim)
+ *   source  = citation chain          (mono · 0.62rem · wraps if long)
+ *
+ * Why source is its own prop: callers were stuffing citation clusters into
+ * `tagline` (e.g. "Source · EMA SmPC · FDA Letairis · Galié 2013 · Ivy 2024"),
+ * which the rail's `truncate` swallowed below ~1366px. `source` renders on
+ * a second row that may wrap, so 4-cite chains stay legible. The page
+ * number is sourced from deck context so callers never hardcode "03 / 20".
  */
-export function Footer({ area = 'footer', kicker, tagline, delay = 2.6 }) {
+export function Footer({ area = 'footer', kicker, tagline, source, delay = 2.6 }) {
   const { index, total } = useDeck();
   return (
     <GridSlot
       area={area}
       motion={{ initial: { opacity: 0 }, animate: { opacity: 1 }, delay }}
-      className="flex flex-col sm:flex-row sm:items-baseline self-end gap-1 sm:gap-6"
+      className="flex flex-col self-end gap-1"
       style={{
         paddingTop: 'var(--space-3)',
         borderTop: '1px solid var(--cream-hairline)',
       }}
     >
-      <span
-        className="deck-mono uppercase shrink-0"
-        style={{
-          fontSize: 'var(--fs-slide-kicker)',
-          letterSpacing: 'var(--ls-mono-wide)',
-          color: 'var(--cream-faint)',
-        }}
-      >
-        {kicker}
-      </span>
-      <span
-        className="deck-display italic sm:flex-1 sm:text-right min-w-0 truncate"
-        style={{
-          fontSize: 'var(--fs-slide-tagline)',
-          color: 'var(--cream-muted)',
-          fontWeight: 500,
-        }}
-      >
-        {tagline}
-      </span>
-      <span
-        className="hidden sm:inline deck-mono uppercase shrink-0 whitespace-nowrap"
-        style={{
-          fontSize: 'var(--fs-slide-pageno)',
-          letterSpacing: 'var(--ls-mono)',
-          color: 'var(--cream-faint)',
-        }}
-      >
-        {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-      </span>
+      <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6">
+        <span
+          className="deck-mono uppercase shrink-0"
+          style={{
+            fontSize: 'var(--fs-slide-kicker)',
+            letterSpacing: 'var(--ls-mono-wide)',
+            color: 'var(--cream-faint)',
+          }}
+        >
+          {kicker}
+        </span>
+        <span
+          className="deck-display italic sm:flex-1 sm:text-right min-w-0 truncate"
+          style={{
+            fontSize: 'var(--fs-slide-tagline)',
+            color: 'var(--cream-muted)',
+            fontWeight: 500,
+          }}
+        >
+          {tagline}
+        </span>
+        <span
+          className="hidden sm:inline deck-mono uppercase shrink-0 whitespace-nowrap"
+          style={{
+            fontSize: 'var(--fs-slide-pageno)',
+            letterSpacing: 'var(--ls-mono)',
+            color: 'var(--cream-faint)',
+          }}
+        >
+          {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+        </span>
+      </div>
+      {source && (
+        <span
+          className="deck-mono"
+          style={{
+            fontSize: 'var(--fs-card-meta, 0.62rem)',
+            letterSpacing: 'var(--ls-mono)',
+            color: 'var(--cream-faint)',
+            lineHeight: 1.45,
+          }}
+        >
+          {source}
+        </span>
+      )}
     </GridSlot>
   );
 }
