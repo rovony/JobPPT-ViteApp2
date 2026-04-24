@@ -183,56 +183,69 @@ function ChallengeStack() {
 }
 
 /* ================================================================
-   SpineRail — absolute-positioned SVG inside col-1 of the grid.
-   Single vertical coral line with 3 numbered dots aligned to card
-   centers + a diamond at the focal question. Animates top-down.
+   SpineRail — mirrors the card-stack grid so dots track card centers
+   automatically. Previously used fixed percentages (13/41/69) that
+   drifted when the timeline-strip row was added to the parent grid.
+   Now the rail is itself a CSS grid with the SAME row template as
+   the card stack:
+     minmax(0, 1fr)   row 1 · card 01
+     minmax(0, 1fr)   row 2 · card 02
+     minmax(0, 1fr)   row 3 · card 03
+     auto             row 4 · ApprovalTimeline strip
+     auto             row 5 · FocalQuestion
+
+   Dots placed into rows 1-3 with alignSelf:center → they sit exactly
+   at each card's vertical midpoint. Diamond placed into row 5. Spine
+   line is an absolute-positioned overlay spanning the dot zone.
    ================================================================ */
 function SpineRail() {
   const reduce = useReducedMotion();
   const ease = [0.2, 0.7, 0.3, 1];
 
-  // Dot Y positions as % of col-1 height. Cards are 3 equal rows
-  // (0–33.33%, 33.33–66.66%, 66.66–100%) minus the focal row, so card
-  // centers land at roughly 14%, 42%, 70%; focal diamond at 92%.
-  // These are tuned empirically to sit beside the card numerals.
-  const DOTS = [
-    { y: '13%', n: '01' },
-    { y: '41%', n: '02' },
-    { y: '69%', n: '03' },
-  ];
-  const FOCAL_Y = '92%';
-
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-      {/* Vertical spine — drawn from top dot to focal diamond */}
+    <div
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        display: 'grid',
+        gridTemplateRows: 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) auto auto',
+        rowGap: 'var(--space-3)',
+        justifyItems: 'center',
+      }}
+    >
+      {/* Vertical spine line — spans grid rows 1 → 5 so it starts
+          inside the first card row and reaches the focal row. The
+          scaleY entrance grows it from the first dot downward. */}
       <motion.div
         aria-hidden
         style={{
-          position: 'absolute',
-          left: '50%',
-          top: '13%',
-          bottom: '8%',
+          gridRow: '1 / 6',
+          gridColumn: 1,
           width: 1.5,
-          transform: 'translateX(-50%)',
           background: 'var(--case, var(--coral))',
           opacity: 0.55,
           transformOrigin: 'top center',
+          marginTop: 11,   // stop at top of dot 01 (22px dot / 2)
+          marginBottom: 8, // stop at top of diamond
+          height: 'calc(100% - 19px)',
         }}
         initial={reduce ? { scaleY: 1 } : { scaleY: 0 }}
         animate={{ scaleY: 1 }}
         transition={{ duration: reduce ? 0 : 0.9, ease, delay: reduce ? 0 : 1.6 }}
       />
 
-      {/* Three numbered dots */}
-      {DOTS.map((d, i) => (
+      {/* Three numbered dots — one per card row, centered vertically
+          so they track the card number/title regardless of how tall
+          the auto rows become. */}
+      {['01', '02', '03'].map((n, i) => (
         <motion.div
-          key={d.n}
+          key={n}
           aria-hidden
           style={{
-            position: 'absolute',
-            left: '50%',
-            top: d.y,
-            transform: 'translate(-50%, -50%)',
+            gridRow: i + 1,
+            gridColumn: 1,
+            alignSelf: 'center',
             width: 22,
             height: 22,
             borderRadius: '50%',
@@ -246,6 +259,7 @@ function SpineRail() {
             letterSpacing: '0.08em',
             color: 'var(--case, var(--coral))',
             fontWeight: 600,
+            zIndex: 1,
           }}
           initial={reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -255,24 +269,24 @@ function SpineRail() {
             delay: reduce ? 0 : 1.8 + i * 0.25,
           }}
         >
-          {d.n}
+          {n}
         </motion.div>
       ))}
 
-      {/* Focal diamond — amber, marks convergence.
-          Framer Motion animates `scale` via its own transform, which
-          clobbered our static rotate(45deg) and made the diamond
-          render as an upright square. Fix: wrap in a non-motion
-          rotated parent and only animate the inner child. */}
+      {/* Focal diamond — row 5, centered. Framer Motion animates
+          `scale` via transform which would clobber a rotate(45deg),
+          so the rotated wrapper stays non-motion and only the inner
+          child animates. */}
       <div
         aria-hidden
         style={{
-          position: 'absolute',
-          left: '50%',
-          top: FOCAL_Y,
-          transform: 'translate(-50%, -50%) rotate(45deg)',
+          gridRow: 5,
+          gridColumn: 1,
+          alignSelf: 'center',
+          transform: 'rotate(45deg)',
           width: 14,
           height: 14,
+          zIndex: 1,
         }}
       >
         <motion.div
