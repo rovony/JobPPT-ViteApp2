@@ -174,7 +174,7 @@ export default function Slide12() {
           lead="Weight-band dosing within 3% of adult exposure."
           meta={
             <>
-              Three tiers (≥35 kg → 10 mg · 20–&lt;35 kg → 7.5 mg · 10–&lt;20 kg → 5 mg) deliver matched AUC
+              Three weight bands (≥50 kg → 10 mg · ≥35 to &lt;50 kg → 7.5 mg · ≥20 to &lt;35 kg → 5 mg) deliver matched adult AUC
               <sub>ss</sub>.
             </>
           }

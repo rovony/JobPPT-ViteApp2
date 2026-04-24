@@ -1,5 +1,6 @@
 import base44 from "@base44/vite-plugin"
 import react from '@vitejs/plugin-react'
+import svgr from 'vite-plugin-svgr'
 import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
@@ -16,5 +17,11 @@ export default defineConfig({
       visualEditAgent: true
     }),
     react(),
+    // Lets us import SVGs as React components: `import Foo from './foo.svg?react'`
+    // Used in CS2 to inline the real Wikipedia world-map and CRUK bone-marrow
+    // assets while keeping CSS-class-based country recoloring.
+    svgr({
+      include: '**/*.svg?react',
+    }),
   ]
 });

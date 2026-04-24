@@ -1,514 +1,256 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useTokens } from '@/lib/token';
+import { ArrowRight } from 'lucide-react';
 import SlideFrame from '@/components/deck/SlideFrame';
+import SecObjectionCard from './cs2-shared/SecObjectionCard';
+import PillarArchitecture from './cs2-shared/PillarArchitecture';
 
 /**
- * Slide 15 · CS2 Challenge — India required local data.
- * Migrated to SlideFrame. Two-row viz:
- *   row 1: two info cards (global approved · India ask)
- *   row 2: three icon-stat cards
- * Closing question renders in the footer tagline.
+ * Slide 17 (manifest position) · CS2 CHALLENGE — THE TURN.
+ *
+ * The hinge of the case. Per cs2-design.md beat 3: "December 10, 2024.
+ * The SEC issues a verbatim recommendation to conduct a PK/PD study in
+ * Indian patients. The slide doesn't just show the quote — it
+ * dramatizes the strategic inflection."
+ *
+ * Cinematic role:
+ *   • origin for T6 — the 6-pillar architecture appears for the FIRST
+ *     time at the bottom, tiny and unlabeled (PillarArchitecture
+ *     stage="seed"). It will grow on slide 18, then differentiate
+ *     across 19 and 20.
+ *   • origin for T7 — the SecObjectionCard is the hero element here
+ *     (variant="hero") and will return as variant="resolved" on slide
+ *     22 via shared layoutId="cs2-sec-objection".
+ *
+ * Layout:
+ *   ┌──────────────────────────────────────────────────┐
+ *   │  SEC OBJECTION QUOTE (large, amber, mono)        │
+ *   ├──────────────────────────────────────────────────┤
+ *   │  ┌──────────┐    ┌──────────────┐                │
+ *   │  │ Defend ✗ │    │ Reframe →    │                │
+ *   │  └──────────┘    └──────────────┘                │
+ *   ├──────────────────────────────────────────────────┤
+ *   │  ▢ ▢ ▢   ▢ ▢ ▢   ← pillar architecture seed     │
+ *   └──────────────────────────────────────────────────┘
  */
-
-const TIMELINE_MARKS = [
-  { x: 60,  tag: 'FDA',  yr: '2018' },
-  { x: 220, tag: 'EMA',  yr: '2023' },
-  { x: 380, tag: 'PMDA', yr: '2024' },
-  { x: 540, tag: '+39',  yr: '2018–25' },
-];
-
-export default function Slide15CS2Challenge() {
-  const D = {
-    colLeft: 0.70, colRight: 0.95,
-    tlSpine: 1.20, tlMarkers: 1.60, tlLabels: 1.90,
-    venn: 1.30, vennList: 1.90,
-    stats: 2.30,
-    question: 3.00,
-  };
-
-  const T = useTokens(['--cyan', '--cream', '--cream-muted', '--cream-faint', '--cream-hairline']);
-  const tk = (n, fb = 'transparent') => (T ? T[n] || fb : fb);
-
+export default function Slide15Case2Challenge() {
   return (
     <SlideFrame
       dataCase="cyan"
-      eyebrowColor="var(--cyan)"
-      eyebrow="CS2 Challenge — India CDSCO"
+      eyebrowColor="var(--amber, #d8a634)"
+      eyebrow="CS2 · The turn — 10 December 2024"
       headline={
         <>
-          Approved in 42+ countries —{' '}
-          <span style={{ color: 'var(--cyan)', fontStyle: 'italic', fontWeight: 700 }}>
-            India required local data before approval.
+          The SEC asked for a study —{' '}
+          <span style={{ color: 'var(--amber, #d8a634)', fontStyle: 'italic', fontWeight: 700 }}>
+            we changed what they were looking at.
           </span>
         </>
       }
-      headlineMaxChars={32}
-      subhead="Efficacy. Safety. Pharmacokinetics. In Indian patients. Before the approval decision."
-      subheadMaxChars={80}
-      footerKicker="Case 02 · The challenge"
-      footerTagline="Source · CS2 Reading Pt. 1 · CDSCO waiver framework · ICH E5(R1)"
+      headlineMaxChars={36}
+      subhead="Defend with more subgroup data — or reframe the entire argument? The judgment call that defined the case."
+      subheadMaxChars={120}
+      footerKicker="Case 02 · The hinge"
+      footerTagline="Source · CDSCO Oncology SEC minutes · 10 Dec 2024"
     >
-      {/* Three-row viz: two cards · stats · closing question */}
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          display: 'grid',
-          gridTemplateRows: '1.6fr 1fr auto',
-          rowGap: 'var(--space-6)',
-          minHeight: 0,
-        }}
-      >
-        {/* Row 1 — two cards */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            columnGap: 'var(--space-6)',
-            minHeight: 0,
-          }}
-        >
-          <GlobalApprovedCard tk={tk} delayCard={D.colLeft} delayMarkers={D.tlMarkers} delaySpine={D.tlSpine} delayLabels={D.tlLabels} />
-          <IndiaAskCard tk={tk} delayCard={D.colRight} delayVenn={D.venn} delayList={D.vennList} />
-        </div>
-
-        {/* Row 2 — three stat cards */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            columnGap: 'var(--space-5)',
-            minHeight: 0,
-          }}
-        >
-          <StatCard
-            delay={D.stats}
-            icon={<IconRings />}
-            label="Three data domains"
-            big="Required pre-approval"
-            detail="Efficacy · safety · pharmacokinetics — all in Indian patients."
-          />
-          <StatCard
-            delay={D.stats + 0.15}
-            icon={<IconHourglass />}
-            label="Multi-month delay"
-            big="To Indian patient access"
-            detail="Rare oncology · median survival under one year."
-          />
-          <StatCard
-            delay={D.stats + 0.30}
-            icon={<IconCoinStack />}
-            label="Material cost"
-            big="Dedicated local study"
-            detail="Clinical operations · CMC · regulatory · pharmacovigilance."
-          />
-        </div>
-
-        {/* Closing question ribbon */}
-        <motion.div
-          style={{
-            paddingTop: 'var(--space-3)',
-            paddingLeft: 'var(--space-6)',
-            borderTop: '2px solid var(--cyan)',
-            position: 'relative',
-          }}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.2, 0.7, 0.3, 1], delay: D.question }}
-        >
-          <motion.span
-            style={{
-              position: 'absolute',
-              left: 0,
-              top: 18,
-              width: 12,
-              height: 12,
-              borderRadius: '50%',
-              background: 'var(--cyan)',
-            }}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              boxShadow: [
-                `0 0 0 6px color-mix(in srgb, var(--cyan) 14%, transparent)`,
-                `0 0 0 12px color-mix(in srgb, var(--cyan) 6%, transparent)`,
-                `0 0 0 6px color-mix(in srgb, var(--cyan) 14%, transparent)`,
-              ],
-            }}
-            transition={{
-              opacity: { duration: 0.5, delay: D.question },
-              scale: { duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: D.question },
-              boxShadow: { duration: 2.4, ease: 'easeInOut', delay: D.question + 0.6, repeat: Infinity },
-            }}
-          />
-          <p
-            className="deck-display italic"
-            style={{
-              fontSize: 'var(--fs-slide-tagline)',
-              lineHeight: 1.3,
-              color: 'var(--cream)',
-              fontWeight: 400,
-              margin: 0,
-            }}
-          >
-            Could a clinical-pharmacology evidence package — built from existing global data — convert the entire pre-approval requirement into a{' '}
-            <span style={{ color: 'var(--cyan)', fontWeight: 700, fontStyle: 'normal' }}>
-              post-approval Phase 4 commitment?
-            </span>
-          </p>
-        </motion.div>
-      </div>
+      <TurnLayout />
     </SlideFrame>
   );
 }
 
-/* ======================================================== */
-function GlobalApprovedCard({ tk, delayCard, delaySpine, delayMarkers, delayLabels }) {
-  const ease = [0.2, 0.7, 0.3, 1];
-  const overshoot = [0.34, 1.56, 0.64, 1];
-  const spineLen = 660;
+function TurnLayout() {
   return (
-    <motion.div
+    <div
       style={{
-        padding: 'var(--space-5) var(--space-6)',
-        border: '1px solid var(--cream-hairline)',
-        borderLeft: '3px solid var(--cyan)',
-        borderRadius: 'var(--radius-lg)',
-        background: 'color-mix(in srgb, var(--panel) 60%, transparent)',
         display: 'grid',
         gridTemplateRows: 'auto auto 1fr',
-        rowGap: 'var(--space-3)',
+        rowGap: 'var(--space-5)',
+        height: '100%',
         minHeight: 0,
       }}
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease, delay: delayCard }}
     >
-      <div
-        className="deck-mono uppercase"
-        style={{
-          fontSize: 'var(--fs-slide-kicker)',
-          letterSpacing: 'var(--ls-mono-wide)',
-          color: 'var(--cyan)',
-          fontWeight: 700,
-        }}
+      {/* Top — SEC objection quote (T7 origin) */}
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: [0.2, 0.7, 0.3, 1], delay: 0.6 }}
       >
-        Approved globally
-      </div>
+        <SecObjectionCard layoutId="cs2-sec-objection" variant="hero" />
+      </motion.div>
 
-      <div
-        className="deck-display"
-        style={{
-          fontSize: 'var(--fs-slide-subhead)',
-          fontWeight: 700,
-          color: 'var(--cream)',
-          letterSpacing: 'var(--ls-headline)',
-          lineHeight: 1.1,
-          display: 'flex',
-          alignItems: 'baseline',
-          gap: 'var(--space-4)',
-          flexWrap: 'wrap',
-        }}
-      >
-        <span
-          style={{
-            fontSize: 'clamp(3rem, min(5vw, 8vh), 5.5rem)',
-            fontWeight: 800,
-            color: 'var(--cyan)',
-            letterSpacing: '-0.04em',
-            lineHeight: 0.95,
-          }}
-        >
-          42+
-        </span>
-        <span>countries · 500 mg QD</span>
-      </div>
-
-      <div style={{ position: 'relative', minHeight: 0 }}>
-        <svg viewBox="0 0 700 140" preserveAspectRatio="xMidYMid meet" style={{ width: '100%', height: '100%' }}>
-          <motion.line
-            x1={20} x2={680} y1={76} y2={76}
-            stroke={tk('--cyan')} strokeWidth={2} strokeLinecap="round"
-            strokeDasharray={spineLen}
-            initial={{ strokeDashoffset: spineLen }}
-            animate={{ strokeDashoffset: 0 }}
-            transition={{ duration: 1.0, ease, delay: delaySpine }}
-          />
-          {TIMELINE_MARKS.map((m, i) => (
-            <motion.circle
-              key={i}
-              cx={m.x} cy={76} r={8}
-              fill={tk('--cyan')}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
-              transition={{ duration: 0.5, ease: overshoot, delay: delayMarkers + i * 0.12 }}
-            />
-          ))}
-          {TIMELINE_MARKS.map((m, i) => (
-            <g key={`l${i}`}>
-              <motion.text
-                x={m.x} y={56} textAnchor="middle"
-                fontFamily="var(--font-display)" fontSize={11} fontWeight={600}
-                fill={tk('--cream')}
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                transition={{ duration: 0.4, ease, delay: delayLabels + i * 0.08 }}
-              >
-                {m.tag}
-              </motion.text>
-              <motion.text
-                x={m.x} y={100} textAnchor="middle"
-                fontFamily="var(--font-mono)" fontSize={9}
-                fill={tk('--cream-faint')}
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                transition={{ duration: 0.4, ease, delay: delayLabels + 0.08 + i * 0.08 }}
-              >
-                {m.yr}
-              </motion.text>
-            </g>
-          ))}
-          <motion.text
-            x={20} y={126}
-            fontFamily="var(--font-mono)" fontSize={9}
-            letterSpacing="0.14em" fill={tk('--cream-muted')}
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, ease, delay: delayLabels + 0.4 }}
-          >
-            GLOBAL APPROVAL TIMELINE
-          </motion.text>
-        </svg>
-      </div>
-    </motion.div>
-  );
-}
-
-function IndiaAskCard({ tk, delayCard, delayVenn, delayList }) {
-  const ease = [0.2, 0.7, 0.3, 1];
-  return (
-    <motion.div
-      style={{
-        padding: 'var(--space-5) var(--space-6)',
-        border: '1px solid var(--cream-hairline)',
-        borderLeft: '3px solid var(--cyan)',
-        borderRadius: 'var(--radius-lg)',
-        background: 'linear-gradient(135deg, color-mix(in srgb, var(--cyan) 10%, transparent), color-mix(in srgb, var(--panel) 60%, transparent) 60%)',
-        display: 'grid',
-        gridTemplateRows: 'auto auto 1fr',
-        rowGap: 'var(--space-3)',
-        minHeight: 0,
-      }}
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease, delay: delayCard }}
-    >
-      <div
-        className="deck-mono uppercase"
-        style={{
-          fontSize: 'var(--fs-slide-kicker)',
-          letterSpacing: 'var(--ls-mono-wide)',
-          color: 'var(--cyan)',
-          fontWeight: 700,
-        }}
-      >
-        India — the regulatory ask
-      </div>
-      <div
-        className="deck-display"
-        style={{
-          fontSize: 'var(--fs-slide-subhead)',
-          fontWeight: 700,
-          color: 'var(--cream)',
-          letterSpacing: 'var(--ls-headline)',
-          lineHeight: 1.1,
-        }}
-      >
-        Pre-approval local clinical data
-      </div>
-
+      {/* Middle — strategic split */}
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'minmax(140px, 200px) 1fr',
+          gridTemplateColumns: '1fr auto 1fr',
           columnGap: 'var(--space-5)',
-          alignItems: 'center',
+          alignItems: 'stretch',
+        }}
+      >
+        <DefendCard />
+        <Divider />
+        <ReframeCard />
+      </div>
+
+      {/* Bottom — pillar architecture seed (T6 origin) */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateRows: 'auto 1fr',
+          rowGap: 'var(--space-2)',
           minHeight: 0,
         }}
       >
-        <svg viewBox="0 0 220 168" preserveAspectRatio="xMidYMid meet" style={{ width: '100%', maxWidth: 200 }}>
-          {[
-            { cx: 78,  cy: 64,  r: 48, delay: delayVenn,         label: { x: 48,  y: 42,  text: 'Efficacy' } },
-            { cx: 142, cy: 64,  r: 48, delay: delayVenn + 0.15,  label: { x: 172, y: 42,  text: 'Safety' } },
-            { cx: 110, cy: 116, r: 48, delay: delayVenn + 0.30,  label: { x: 110, y: 162, text: 'PK' } },
-          ].map((c, i) => (
-            <g key={i}>
-              <motion.circle
-                cx={c.cx} cy={c.cy} r={c.r}
-                fill={tk('--cyan')} fillOpacity={0.12}
-                stroke={tk('--cyan')} strokeWidth={1.6}
-                initial={{ opacity: 0, scale: 0.7 }}
-                animate={{ opacity: 1, scale: 1 }}
-                style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
-                transition={{ duration: 0.55, ease: [0.34, 1.56, 0.64, 1], delay: c.delay }}
-              />
-              <motion.text
-                x={c.label.x} y={c.label.y} textAnchor="middle"
-                fontFamily="var(--font-mono)" fontSize={9}
-                letterSpacing="0.16em" fill={tk('--cream')}
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                transition={{ duration: 0.4, ease, delay: c.delay + 0.4 }}
-              >
-                {c.label.text.toUpperCase()}
-              </motion.text>
-            </g>
-          ))}
-        </svg>
-
-        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-          {[
-            <>3 required domains <em style={{ color: 'var(--cream-muted)', fontStyle: 'italic' }}>— in Indian patients</em></>,
-            <>Waiver pathway exists — but needs <b style={{ color: 'var(--cyan)', fontWeight: 700 }}>scientific justification</b>, not administrative exemption</>,
-            <>ICH E5(R1) Appendix D <em style={{ color: 'var(--cream-muted)', fontStyle: 'italic' }}>— ethnic-sensitivity bridge</em></>,
-          ].map((item, i) => (
-            <motion.li
-              key={i}
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 'var(--fs-slide-kicker)',
-                lineHeight: 1.45,
-                color: 'var(--cream)',
-                padding: 'var(--space-1) 0',
-                borderBottom: i === 2 ? 'none' : '1px dashed var(--cream-hairline)',
-                textTransform: 'none',
-                letterSpacing: 0,
-              }}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, ease, delay: delayList + i * 0.15 }}
-            >
-              {item}
-            </motion.li>
-          ))}
-        </ul>
+        <div
+          className="deck-mono uppercase"
+          style={{
+            fontSize: 'var(--fs-slide-pageno)',
+            letterSpacing: 'var(--ls-mono-wide)',
+            color: 'var(--cream-faint)',
+          }}
+        >
+          The reframe — six pillars converging
+        </div>
+        <div style={{ minHeight: 0, height: '100%' }}>
+          <PillarArchitecture stage="seed" />
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
-function StatCard({ delay, icon, label, big, detail }) {
-  const ease = [0.2, 0.7, 0.3, 1];
+/* ─── Strategic split cards ─────────────────────────────────────── */
+function DefendCard() {
   return (
     <motion.div
-      style={{
-        position: 'relative',
-        padding: 'var(--space-4) var(--space-5) var(--space-4) 86px',
-        border: '1px solid var(--cream-hairline)',
-        borderRadius: 'var(--radius-md)',
-        background: 'color-mix(in srgb, var(--panel) 60%, transparent)',
-        minHeight: 0,
-      }}
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, ease, delay }}
+      transition={{ duration: 0.55, ease: [0.2, 0.7, 0.3, 1], delay: 1.4 }}
+      style={{
+        padding: 'var(--space-4) var(--space-5)',
+        border: '1px dashed var(--cream-hairline)',
+        borderRadius: 'var(--radius-md)',
+        background: 'color-mix(in srgb, var(--panel) 30%, transparent)',
+        opacity: 0.55,
+      }}
     >
-      <div
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: 18,
-          width: 52,
-          height: 52,
-          transform: 'translateY(-50%)',
-        }}
-      >
-        {icon}
-      </div>
       <div
         className="deck-mono uppercase"
         style={{
           fontSize: 'var(--fs-slide-pageno)',
-          letterSpacing: 'var(--ls-mono)',
-          color: 'var(--cyan)',
+          letterSpacing: 'var(--ls-mono-wide)',
+          color: 'var(--cream-muted)',
           fontWeight: 700,
           marginBottom: 'var(--space-1)',
         }}
       >
-        {label}
+        Option A — defend
       </div>
       <div
         className="deck-display"
         style={{
           fontSize: 'var(--fs-slide-subhead)',
           fontWeight: 700,
-          color: 'var(--cream)',
-          letterSpacing: 'var(--ls-headline)',
+          color: 'var(--cream-muted)',
+          letterSpacing: '-0.01em',
           lineHeight: 1.15,
-          marginBottom: 'var(--space-1)',
+          textDecoration: 'line-through',
+          textDecorationColor: 'var(--coral)',
+          textDecorationThickness: 2,
+          marginBottom: 'var(--space-2)',
         }}
       >
-        {big}
+        More subgroup PK data
       </div>
       <div
         style={{
           fontFamily: 'var(--font-body)',
           fontSize: 'var(--fs-slide-kicker)',
-          lineHeight: 1.35,
-          color: 'var(--cream-muted)',
-          textTransform: 'none',
-          letterSpacing: 0,
+          color: 'var(--cream-faint)',
+          lineHeight: 1.4,
         }}
       >
-        {detail}
+        Asian PK N = 8 in AGILE. No more retrospective patients exist.
+        Even if more subgroup numbers materialized, the SEC had already
+        seen the underlying argument. Defending the same frame would
+        likely fail the same way.
       </div>
     </motion.div>
   );
 }
 
-const stroke = 'var(--cyan)';
-const fill = 'var(--cyan)';
-const iconProps = {
-  fill: 'none',
-  stroke,
-  strokeWidth: 1.8,
-  strokeLinecap: 'round',
-  strokeLinejoin: 'round',
-};
+function ReframeCard() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.55, ease: [0.2, 0.7, 0.3, 1], delay: 1.6 }}
+      style={{
+        padding: 'var(--space-4) var(--space-5)',
+        border: '1.5px solid var(--coral)',
+        borderLeft: '4px solid var(--coral)',
+        borderRadius: 'var(--radius-md)',
+        background: 'linear-gradient(135deg, color-mix(in srgb, var(--coral) 12%, transparent), color-mix(in srgb, var(--panel) 70%, transparent) 70%)',
+        position: 'relative',
+      }}
+    >
+      <div
+        className="deck-mono uppercase"
+        style={{
+          fontSize: 'var(--fs-slide-pageno)',
+          letterSpacing: 'var(--ls-mono-wide)',
+          color: 'var(--coral)',
+          fontWeight: 700,
+          marginBottom: 'var(--space-1)',
+        }}
+      >
+        Option B — reframe
+      </div>
+      <div
+        className="deck-display"
+        style={{
+          fontSize: 'var(--fs-slide-subhead)',
+          fontWeight: 700,
+          color: 'var(--cream)',
+          letterSpacing: '-0.01em',
+          lineHeight: 1.15,
+          marginBottom: 'var(--space-2)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 'var(--space-2)',
+        }}
+      >
+        Mechanism-first · ICH E5 Appendix D
+        <ArrowRight size={20} color="var(--coral)" strokeWidth={2.5} />
+      </div>
+      <div
+        style={{
+          fontFamily: 'var(--font-body)',
+          fontSize: 'var(--fs-slide-kicker)',
+          color: 'var(--cream)',
+          lineHeight: 1.4,
+        }}
+      >
+        Move the question upstream. The drug target is somatic — IDH1
+        R132 doesn't exist at birth. Inherited variation can't modulate
+        engagement with a tumor-acquired enzyme. Build a six-pillar
+        package anchored in ICH E5(R1) Appendix D's 9-criterion
+        compound-property checklist.
+      </div>
+    </motion.div>
+  );
+}
 
-function IconRings() {
+function Divider() {
   return (
-    <svg viewBox="0 0 56 56" width="100%" height="100%" aria-hidden>
-      <circle cx={28} cy={28} r={22} {...iconProps} />
-      <circle cx={28} cy={28} r={14} {...iconProps} />
-      <circle cx={28} cy={28} r={6} fill={fill} fillOpacity={0.22} stroke={stroke} strokeWidth={1.8} />
-    </svg>
-  );
-}
-function IconHourglass() {
-  return (
-    <svg viewBox="0 0 56 56" width="100%" height="100%" aria-hidden>
-      <path d="M 12 6 L 44 6 L 28 28 L 44 50 L 12 50 L 28 28 Z" {...iconProps} />
-      <line x1={12} x2={44} y1={6} y2={6} {...iconProps} />
-      <line x1={12} x2={44} y1={50} y2={50} {...iconProps} />
-      <circle cx={28} cy={38} r={2}   fill={fill} fillOpacity={0.9} stroke="none" />
-      <circle cx={24} cy={44} r={1.6} fill={fill} fillOpacity={0.9} stroke="none" />
-      <circle cx={32} cy={44} r={1.6} fill={fill} fillOpacity={0.9} stroke="none" />
-    </svg>
-  );
-}
-function IconCoinStack() {
-  return (
-    <svg viewBox="0 0 56 56" width="100%" height="100%" aria-hidden>
-      <ellipse cx={28} cy={14} rx={18} ry={5} fill={fill} fillOpacity={0.22} stroke={stroke} strokeWidth={1.8} />
-      <path d="M 10 14 L 10 24" {...iconProps} />
-      <path d="M 46 14 L 46 24" {...iconProps} />
-      <ellipse cx={28} cy={24} rx={18} ry={5} {...iconProps} />
-      <path d="M 10 24 L 10 34" {...iconProps} />
-      <path d="M 46 24 L 46 34" {...iconProps} />
-      <ellipse cx={28} cy={34} rx={18} ry={5} {...iconProps} />
-      <path d="M 10 34 L 10 44" {...iconProps} />
-      <path d="M 46 34 L 46 44" {...iconProps} />
-      <ellipse cx={28} cy={44} rx={18} ry={5} {...iconProps} />
-    </svg>
+    <div
+      aria-hidden
+      style={{
+        width: 1,
+        background: 'var(--cream-hairline)',
+        alignSelf: 'stretch',
+        opacity: 0.4,
+      }}
+    />
   );
 }

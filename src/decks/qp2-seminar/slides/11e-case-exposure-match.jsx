@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import * as d3 from 'd3';
 import { useTokens } from '@/lib/token';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
@@ -58,11 +58,15 @@ const CMAX_BOXES = [
 
 export default function Slide11eCaseExposureMatch() {
   const ease = [0.2, 0.7, 0.3, 1];
+  // V6.9.2 — compressed delay timeline so slide 11's entrance matches the
+  // pace of previous slides (was ending at 3.1s; now ends ~1.8s). Removed
+  // the long tail that made the slide feel "still arriving" during the
+  // first spoken sentence.
   const D = {
     chrome: 0.10, headline: 0.25, subhead: 0.55,
-    adultBand: 0.80, pedsBand: 1.10, pedsMed: 1.40, dots: 1.70,
-    boxAdult: 1.10, boxPeds: 1.50, boxDelta: 2.20,
-    closing: 2.60, payoff: 3.10,
+    adultBand: 0.70, pedsBand: 0.85, pedsMed: 1.00, dots: 1.15,
+    boxAdult: 0.85, boxPeds: 1.00, boxDelta: 1.35,
+    closing: 1.55, payoff: 1.80,
   };
 
   const T = useTokens(['--coral', '--cyan', '--cream', '--cream-muted', '--cream-faint', '--cream-hairline']);
@@ -146,7 +150,7 @@ export default function Slide11eCaseExposureMatch() {
             className="deck-mono uppercase mt-2"
             style={{ fontSize: '0.6rem', letterSpacing: '0.2em', color: 'var(--coral)', fontStyle: 'normal', fontWeight: 400 }}
           >
-            ICH E11(R1) · exposure match + conserved mechanism → clinical extrapolation
+            ICH E11A · exposure match + conserved mechanism → clinical extrapolation
           </div>
         </div>
       </motion.div>
@@ -156,7 +160,7 @@ export default function Slide11eCaseExposureMatch() {
 
       <Footer
         kicker="Case 01 · Exposure match"
-        tagline="Source · Okour et al. JCP 2023 (Table S5) · ICH E11(R1)"
+        tagline="Source · Okour et al. JCP 2023 (Table S5) · ICH E11A"
         delay={D.payoff + 0.3}
       />
     </SlideGrid>
@@ -219,10 +223,12 @@ function HeroDelta({ value, label, accent }) {
    AUC panel — pure SVG
    ======================================================== */
 function AUCPanel({ tk, D }) {
+  const reduce = useReducedMotion();
   const W = 1080, H = 440;
   const m = { top: 18, right: 48, bottom: 50, left: 80 };
   const iw = W - m.left - m.right;
   const ih = H - m.top - m.bottom;
+  const ease = [0.2, 0.7, 0.3, 1];
 
   // D3 scales
   const x = d3.scaleLinear().domain([18, 82]).range([0, iw]);
@@ -282,14 +288,11 @@ function AUCPanel({ tk, D }) {
                 stroke={tk('--cream-hairline')} strokeWidth={1} opacity={0.4} />
         ))}
 
-        {/* Adult 5–95% bands — one per regime, each as its own horizontal strip */}
+        {/* Adult 5–95% bands — static horizontal strips (chart frame).
+            Render immediately on mount with no entrance fade so the adult
+            envelope is present before the in-chart emphasis begins. */}
         {REGIMES.map((reg, i) => (
-          <motion.g
-            key={`ad-${i}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: D.adultBand + i * 0.08 }}
-          >
+          <g key={`ad-${i}`}>
             <rect
               x={0} width={iw}
               y={y(reg.adHi)} height={y(reg.adLo) - y(reg.adHi)}
@@ -303,54 +306,64 @@ function AUCPanel({ tk, D }) {
             >
               ADULT 5–95% · {reg.label}
             </text>
-          </motion.g>
+          </g>
         ))}
 
-        {/* Pediatric bands + medians */}
+        {/* Overlap-region glow removed 2026-04-24 — chart already shows the
+            overlap statically (pedi band inside adult band); the flash was
+            redundant noise against the sequential pace of the other slides. */}
+
+        {/* Pediatric bands + medians — band is static, median draws L→R
+            via pathLength as the in-chart emphasis. Δ label pops after. */}
         {bands.map(({ reg, band, median }, i) => (
           <React.Fragment key={`pb-${i}`}>
-            <motion.path
+            <path
               d={area(band)}
               fill={tk('--coral')}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.20 }}
-              transition={{ duration: 0.6, delay: D.pedsBand + i * 0.1 }}
+              fillOpacity={0.20}
             />
             <motion.path
               d={line(median)}
               fill="none" stroke={tk('--coral')} strokeWidth={2.4}
-              strokeLinecap="round" strokeDasharray={1200}
-              initial={{ strokeDashoffset: 1200 }}
-              animate={{ strokeDashoffset: 0 }}
-              transition={{ duration: 1.2, ease: [0.2, 0.7, 0.3, 1], delay: D.pedsMed + i * 0.1 }}
+              strokeLinecap="round"
+              initial={reduce ? { pathLength: 1 } : { pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: reduce ? 0 : 1.2, ease, delay: reduce ? 0 : D.pedsMed + i * 0.1 }}
             />
             {/* Δ label at right edge of the median line */}
             <motion.text
               x={x(78)} y={y(reg.pedAUC) - 10}
               textAnchor="end" fontFamily="var(--font-mono)" fontSize="10"
               letterSpacing="0.14em" fill={tk('--coral')} fontWeight={700}
-              initial={{ opacity: 0 }}
+              initial={reduce ? { opacity: 1 } : { opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: D.pedsMed + 1.2 + i * 0.1 }}
+              transition={{ duration: 0.5, delay: reduce ? 0 : D.pedsMed + 1.2 + i * 0.1 }}
             >
               Δ {reg.deltaLabel} vs adult
             </motion.text>
           </React.Fragment>
         ))}
 
-        {/* Pediatric patient dots — staggered */}
-        {pedDots.map((d) => (
-          <motion.circle
-            key={d.i}
-            cx={x(d.w)} cy={y(d.c)} r={4}
-            fill={tk('--cream')} fillOpacity={0.85}
-            stroke={tk('--coral')} strokeWidth={1}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3, ease: 'easeOut', delay: D.dots + d.i * 0.025 }}
-            style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
-          />
-        ))}
+        {/* Pediatric patient dots — staggered pop-in (scale 0→1, 0.3s each).
+            Per-dot halo pulse removed 2026-04-24: 39 overlapping halos were
+            the primary source of the "slide 11 feels different" read. Tighter
+            stagger (0.012 vs 0.025) compresses the cascade from ~1s to ~0.5s. */}
+        {pedDots.map((d) => {
+          const dotDelay = D.dots + d.i * 0.012;
+          return (
+            <React.Fragment key={d.i}>
+              <motion.circle
+                cx={x(d.w)} cy={y(d.c)} r={4}
+                fill={tk('--cream')} fillOpacity={0.85}
+                stroke={tk('--coral')} strokeWidth={1}
+                initial={reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: reduce ? 0 : 0.3, ease: 'easeOut', delay: reduce ? 0 : dotDelay }}
+                style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
+              />
+            </React.Fragment>
+          );
+        })}
 
         {/* Y axis labels */}
         {yTicks.map((v) => (
@@ -385,6 +398,8 @@ function AUCPanel({ tk, D }) {
    Cmax box-plot panel — pure SVG
    ======================================================== */
 function CmaxPanel({ tk, D }) {
+  const reduce = useReducedMotion();
+  const ease = [0.2, 0.7, 0.3, 1];
   const W = 680, H = 440;
   const m = { top: 40, right: 24, bottom: 56, left: 64 };
   const iw = W - m.left - m.right;
@@ -411,7 +426,10 @@ function CmaxPanel({ tk, D }) {
                 stroke={tk('--cream-hairline')} strokeWidth={1} opacity={0.4} />
         ))}
 
-        {/* Boxes */}
+        {/* Boxes — render static. Δ brackets drawing L→R below IS the
+            in-chart emphasis. Peds-median halo pulse removed 2026-04-24
+            per entrance-cleanup (was redundant noise against the boxes'
+            own coral stroke weight). */}
         {CMAX_BOXES.map((b, i) => {
           const cx = b.xPct * iw;
           const isPeds = b.who === 'PEDS';
@@ -420,12 +438,7 @@ function CmaxPanel({ tk, D }) {
           const stroke = isPeds ? tk('--coral') : tk('--cream-muted');
           const strokeOp = isPeds ? 1 : 0.7;
           return (
-            <motion.g
-              key={i}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: [0.2, 0.7, 0.3, 1], delay: isPeds ? D.boxPeds + (i * 0.05) : D.boxAdult + (i * 0.05) }}
-            >
+            <g key={i}>
               {/* Whisker */}
               <line x1={cx} x2={cx} y1={yAt(b.lo)} y2={yAt(b.hi)}
                     stroke={stroke} strokeOpacity={strokeOp} strokeWidth={1.4} />
@@ -448,7 +461,7 @@ function CmaxPanel({ tk, D }) {
                     fill={isPeds ? tk('--coral') : tk('--cream-muted')}>
                 {b.who}
               </text>
-            </motion.g>
+            </g>
           );
         })}
 
@@ -474,22 +487,27 @@ function CmaxPanel({ tk, D }) {
           const x2 = CMAX_BOXES[br.b].xPct * iw;
           const rise = 10;
           return (
-            <motion.g
-              key={`br-${i}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4, delay: D.boxDelta + i * 0.15 }}
-            >
-              <path
+            <g key={`br-${i}`}>
+              {/* Bracket — pathLength draws L→R so the Δ appears to be
+                  "measured" between the two boxes (in-chart emphasis). */}
+              <motion.path
                 d={`M ${x1},${br.topY + rise} L ${x1},${br.topY} L ${x2},${br.topY} L ${x2},${br.topY + rise}`}
                 fill="none" stroke={tk('--coral')} strokeWidth={1.2}
+                initial={reduce ? { pathLength: 1 } : { pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: reduce ? 0 : 0.8, ease, delay: reduce ? 0 : D.boxDelta + i * 0.15 }}
               />
-              <text x={(x1 + x2) / 2} y={br.topY - 6} textAnchor="middle"
-                    fontFamily="var(--font-mono)" fontSize="11" letterSpacing="0.14em"
-                    fill={tk('--coral')} fontWeight={700}>
+              <motion.text
+                x={(x1 + x2) / 2} y={br.topY - 6} textAnchor="middle"
+                fontFamily="var(--font-mono)" fontSize="11" letterSpacing="0.14em"
+                fill={tk('--coral')} fontWeight={700}
+                initial={reduce ? { opacity: 1 } : { opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.35, delay: reduce ? 0 : D.boxDelta + i * 0.15 + 0.7 }}
+              >
                 {br.label}
-              </text>
-            </motion.g>
+              </motion.text>
+            </g>
           );
         })}
 

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Bold, Italic, Highlighter, List, ListOrdered, Heading1, Heading2, Quote, Type, Minus, Plus } from 'lucide-react';
+import { Bold, Italic, Highlighter, List, ListOrdered, Heading1, Heading2, Quote, Type, Minus, Plus, RotateCcw } from 'lucide-react';
 
 /**
  * PresenterNotesPane — reading-optimized speaker notes for dual-screen use.
@@ -20,6 +20,7 @@ const DEFAULT_SIZE_IDX = 3; // 20px
 
 export default function PresenterNotesPane({
   value, onChange, editing, setEditing, placeholder, slideKey,
+  hasOverride = false, onResetToFile,
 }) {
   const taRef = useRef(null);
   const scrollerRef = useRef(null);
@@ -88,13 +89,26 @@ export default function PresenterNotesPane({
         {editing ? (
           <EditorToolbar wrap={wrap} onDone={() => setEditing(false)} />
         ) : (
-          <button
-            onClick={() => setEditing(true)}
-            className="deck-mono uppercase text-xs px-2 py-1 rounded transition-colors hover:bg-[var(--cream-ghost)]"
-            style={{ color: 'var(--cream-muted)', letterSpacing: 'var(--ls-mono)', fontSize: '0.65rem' }}
-          >
-            Edit
-          </button>
+          <div className="flex items-center gap-1.5">
+            <SourceBadge hasOverride={hasOverride} />
+            {hasOverride && onResetToFile && (
+              <button
+                onClick={onResetToFile}
+                title="Discard local edit and restore the canonical note from notes.js"
+                className="deck-mono uppercase text-xs px-2 py-1 rounded flex items-center gap-1.5 transition-colors hover:bg-[var(--cream-ghost)]"
+                style={{ color: 'var(--cream-muted)', letterSpacing: 'var(--ls-mono)', fontSize: '0.65rem' }}
+              >
+                <RotateCcw className="w-3 h-3" /> Reset to file
+              </button>
+            )}
+            <button
+              onClick={() => setEditing(true)}
+              className="deck-mono uppercase text-xs px-2 py-1 rounded transition-colors hover:bg-[var(--cream-ghost)]"
+              style={{ color: 'var(--cream-muted)', letterSpacing: 'var(--ls-mono)', fontSize: '0.65rem' }}
+            >
+              Edit
+            </button>
+          </div>
         )}
       </div>
 
@@ -221,6 +235,36 @@ function EditorToolbar({ wrap, onDone }) {
         Done
       </button>
     </div>
+  );
+}
+
+/**
+ * SourceBadge — tiny indicator showing whether the visible note is the
+ * canonical static markdown from notes.js or a per-device live override
+ * stored in localStorage. Helps the presenter know what they're reading
+ * before they edit.
+ */
+function SourceBadge({ hasOverride }) {
+  const label = hasOverride ? 'Live edit' : 'From file';
+  const color = hasOverride ? 'var(--case, var(--amber))' : 'var(--cream-faint)';
+  return (
+    <span
+      className="deck-mono uppercase tabular-nums px-1.5 py-0.5 rounded border"
+      style={{
+        fontSize: '0.55rem',
+        letterSpacing: 'var(--ls-mono-wide)',
+        color,
+        borderColor: hasOverride ? 'var(--case, var(--amber))' : 'var(--cream-hairline)',
+        opacity: hasOverride ? 1 : 0.7,
+      }}
+      title={
+        hasOverride
+          ? 'You have a local edit for this slide. It overrides the canonical note in notes.js and persists across reloads on this device.'
+          : 'Showing the canonical speaker note from src/decks/<deck>/notes.js.'
+      }
+    >
+      {label}
+    </span>
   );
 }
 

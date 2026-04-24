@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import * as d3 from 'd3';
 import { useTokens } from '@/lib/token';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
@@ -132,7 +132,7 @@ export default function Slide11fCaseExposureResponse() {
         </span>{' '}
         across the pediatric exposure range.{' '}
         <span style={{ color: 'var(--cream-muted)', fontStyle: 'normal' }}>
-          · N = 33 pediatric patients with evaluable PK (AMB112529) · Okour et al. JCP 2023, Fig 5.
+          · N = 33 in the exposure–AE analysis (AMB112529) · 39 total in PopPK · Okour et al. JCP 2023, Fig 5.
         </span>
       </motion.p>
 
@@ -225,31 +225,26 @@ function BoxPanel({ tk, letter, title, unit, data, axisDelay, boxDelay, deltaLab
         </text>
 
         <g transform={`translate(${m.left},${m.top})`}>
-          {/* Grid */}
-          <motion.g
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: axisDelay }}
-          >
+          {/* Grid — render static (chart frame, no entrance animation) */}
+          <g>
             {yTicks.map((v) => (
               <line
                 key={v} x1={0} x2={iw} y1={y(v)} y2={y(v)}
                 stroke={tk('--cream-hairline')} strokeWidth={1} opacity={0.5}
               />
             ))}
-          </motion.g>
+          </g>
 
-          {/* Y axis labels */}
+          {/* Y axis labels — static */}
           {yTicks.map((v) => (
-            <motion.text
+            <text
               key={`yl-${v}`}
               x={-10} y={y(v) + 4} textAnchor="end"
               fontFamily="var(--font-mono)" fontSize="11"
               fill={tk('--cream-muted')}
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-              transition={{ duration: 0.4, delay: axisDelay }}
             >
               {v}
-            </motion.text>
+            </text>
           ))}
 
           {/* Two boxes */}
@@ -277,28 +272,24 @@ function BoxPanel({ tk, letter, title, unit, data, axisDelay, boxDelay, deltaLab
             deltaLabel={deltaLabel}
           />
 
-          {/* X axis group labels */}
+          {/* X axis group labels — static */}
           {data.groups.map((g, i) => (
             <g key={`xl-${i}`}>
-              <motion.text
+              <text
                 x={xs[i]} y={ih + 26} textAnchor="middle"
                 fontFamily="var(--font-mono)" fontSize="11" letterSpacing="0.18em"
                 fontWeight={700}
                 fill={i === 1 ? tk('--coral') : tk('--cream')}
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                transition={{ duration: 0.4, delay: axisDelay + 0.15 }}
               >
                 {g.label}
-              </motion.text>
-              <motion.text
+              </text>
+              <text
                 x={xs[i]} y={ih + 44} textAnchor="middle"
                 fontFamily="var(--font-mono)" fontSize="10"
                 fill={tk('--cream-faint')}
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                transition={{ duration: 0.4, delay: axisDelay + 0.2 }}
               >
                 n = {g.n}
-              </motion.text>
+              </text>
             </g>
           ))}
         </g>
@@ -311,6 +302,7 @@ function BoxPanel({ tk, letter, title, unit, data, axisDelay, boxDelay, deltaLab
    BoxGlyph — single Tukey-style box (whiskers → caps → box → median)
    ======================================================== */
 function BoxGlyph({ cx, y, bw, group, tk, delay, isAE }) {
+  const reduce = useReducedMotion();
   const ease = [0.2, 0.7, 0.3, 1];
   const stroke = isAE ? tk('--coral') : tk('--cyan');
   const fill = isAE ? tk('--coral') : tk('--cyan');
@@ -322,17 +314,11 @@ function BoxGlyph({ cx, y, bw, group, tk, delay, isAE }) {
   const yMax = y(group.max);
 
   return (
-    <motion.g
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease, delay }}
-    >
-      {/* Whisker */}
-      <motion.line
+    <g>
+      {/* Whisker — render static (chart frame) */}
+      <line
         x1={cx} x2={cx} y1={yMin} y2={yMax}
         stroke={stroke} strokeWidth={1.6}
-        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-        transition={{ duration: 0.8, ease, delay }}
       />
       {/* Caps */}
       <line x1={cx - 22} x2={cx + 22} y1={yMin} y2={yMin}
@@ -340,43 +326,44 @@ function BoxGlyph({ cx, y, bw, group, tk, delay, isAE }) {
       <line x1={cx - 22} x2={cx + 22} y1={yMax} y2={yMax}
             stroke={stroke} strokeWidth={1.6} />
 
-      {/* Box (Q1 → Q3) */}
-      <motion.rect
+      {/* Box (Q1 → Q3) — static */}
+      <rect
         x={cx - bw / 2} y={yQ3}
         width={bw} height={yQ1 - yQ3}
         fill={fill} fillOpacity={0.22}
         stroke={stroke} strokeWidth={1.8}
-        initial={{ opacity: 0, scaleY: 0 }}
-        animate={{ opacity: 1, scaleY: 1 }}
-        style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
-        transition={{ duration: 0.5, ease, delay: delay + 0.2 }}
       />
-      {/* Median */}
+      {/* Median — this is the in-chart emphasis. Draws L→R via pathLength.
+          One-shot per box, sequenced by `delay` so the viewer's eye moves
+          from NO-AE median to RELATED-AE median — the "flat E-R" story. */}
       <motion.line
         x1={cx - bw / 2} x2={cx + bw / 2} y1={yMed} y2={yMed}
         stroke={stroke} strokeWidth={3}
-        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
-        transition={{ duration: 0.6, ease, delay: delay + 0.5 }}
+        initial={reduce ? { pathLength: 1 } : { pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: reduce ? 0 : 0.8, ease, delay: reduce ? 0 : delay }}
       />
+      {/* Median halo pulse — one-shot scale+opacity highlight that fires
+          after the median finishes drawing. NOT looping. */}
+      {!reduce && (
+        <motion.rect
+          x={cx - bw / 2 - 4} y={yMed - 3}
+          width={bw + 8} height={6}
+          fill={stroke}
+          initial={{ opacity: 0, scaleY: 1 }}
+          animate={{ opacity: [0, 0.5, 0], scaleY: [1, 1.8, 1.2] }}
+          transition={{ duration: 1.0, ease, delay: delay + 0.8, times: [0, 0.4, 1] }}
+          style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
+        />
+      )}
 
-      {/* Median value label — floats just inside the box */}
-      <motion.text
-        x={cx + bw / 2 + 8} y={yMed + 4}
-        fontFamily="var(--font-mono)" fontSize="10"
-        letterSpacing="0.08em" fontWeight={700}
-        fill={stroke}
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, delay: delay + 0.9 }}
-      >
-        {formatMedian(group.median)}
-      </motion.text>
-    </motion.g>
+      {/* Median value labels removed 2026-04-24 per four-slide audit.
+          The paper's Figure 5 does not state numerical medians in text;
+          7.8 / 6.9 / 710 / 720 were visual estimates. The Δ% callout
+          (MedianGuide below) carries the "medians overlap" message
+          without exposing auditable specific numbers. */}
+    </g>
   );
-}
-
-function formatMedian(v) {
-  if (v >= 100) return v.toFixed(0);
-  return v.toFixed(1);
 }
 
 /* ========================================================
@@ -384,19 +371,36 @@ function formatMedian(v) {
    with a center-floating Δ label.
    ======================================================== */
 function MedianGuide({ tk, xs, y, medA, medB, delay, deltaLabel }) {
+  const reduce = useReducedMotion();
+  const ease = [0.2, 0.7, 0.3, 1];
   const yA = y(medA), yB = y(medB);
 
   return (
-    <motion.g
-      initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-      transition={{ duration: 0.5, delay }}
-    >
-      <line
+    <g>
+      {/* Dashed connector between medians — draws L→R via pathLength.
+          Visual centerpiece: the connector is nearly horizontal = flat
+          signal across the two groups = no exposure-response gradient. */}
+      <motion.line
         x1={xs[0]} y1={yA} x2={xs[1]} y2={yB}
         stroke={tk('--cream-faint')} strokeWidth={1}
         strokeDasharray="4 5"
+        initial={reduce ? { pathLength: 1 } : { pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: reduce ? 0 : 1.0, ease, delay: reduce ? 0 : delay }}
       />
-      <g transform={`translate(${(xs[0] + xs[1]) / 2},${(yA + yB) / 2 - 14})`}>
+      {/* Δ pill — fades in after connector lands, then does a single
+          opacity pulse to cue "flat" / "no signal". NOT a repeat loop. */}
+      <motion.g
+        transform={`translate(${(xs[0] + xs[1]) / 2},${(yA + yB) / 2 - 14})`}
+        initial={reduce ? { opacity: 1 } : { opacity: 0 }}
+        animate={reduce ? { opacity: 1 } : { opacity: [0, 1, 0.72, 1] }}
+        transition={{
+          duration: reduce ? 0 : 1.2,
+          ease,
+          delay: reduce ? 0 : delay + 1.0,
+          times: [0, 0.35, 0.7, 1],
+        }}
+      >
         <rect
           x={-60} y={-11} width={120} height={22}
           fill={tk('--bg')} stroke={tk('--cream-hairline')}
@@ -409,8 +413,8 @@ function MedianGuide({ tk, xs, y, medA, medB, delay, deltaLabel }) {
         >
           {deltaLabel}
         </text>
-      </g>
-    </motion.g>
+      </motion.g>
+    </g>
   );
 }
 

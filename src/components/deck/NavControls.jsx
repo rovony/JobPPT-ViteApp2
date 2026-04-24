@@ -38,13 +38,17 @@ export default function NavControls({ isFullscreen, onToggleFullscreen, themeMod
   const goSlideShow  = () => { if (presenter) setPresenter(false); if (!isFullscreen) onToggleFullscreen?.(); };
   const goPresenter  = () => { if (isFullscreen) onToggleFullscreen?.(); if (!presenter) togglePresenter(); };
   const goDualScreen = () => {
-    // Opens audience in a second tab — stays in sync with this tab via
-    // BroadcastChannel (Next/Prev mirror across windows). This tab flips
-    // to presenter. Most dual-screen setups mirror the browser window,
-    // so we no longer force fullscreen — press F on the audience tab if
-    // you want that. `audience=1` enables the cross-tab navigation listener.
-    const deckId = new URLSearchParams(window.location.search).get('id') || window.location.pathname.split('/').pop();
-    const url = `${window.location.origin}/Deck?id=${deckId}&audience=1&slide=${index}`;
+    // Opens audience in a second tab — stays in sync via BroadcastChannel.
+    // Uses the canonical /decks/:id/s/:slide?audience=1 URL directly
+    // instead of the legacy /Deck?id=X form, because the legacy redirect
+    // (pages/Deck.jsx) preserves ONLY `?presenter=` and silently drops
+    // the `audience=1` query flag — which meant the new tab never
+    // subscribed to presenter broadcasts (the sync bug).
+    const deckId = deck?.id
+      || new URLSearchParams(window.location.search).get('id')
+      || window.location.pathname.split('/').filter(Boolean)[1];
+    const slideId = deck?.slides?.[index]?.id ?? String(index);
+    const url = `${window.location.origin}/decks/${encodeURIComponent(deckId)}/s/${encodeURIComponent(slideId)}?audience=1`;
     window.open(url, `deck-audience-${deckId}`, 'noopener,noreferrer');
     if (!presenter) togglePresenter();
   };

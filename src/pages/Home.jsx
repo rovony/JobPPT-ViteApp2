@@ -8,6 +8,35 @@ import ThemeToggle from '@/components/ThemeToggle';
 import { useTheme } from '@/lib/ThemeContext';
 import { useAuth } from '@/lib/AuthContext';
 
+/**
+ * MonoChip — small uppercase mono pill used across the deck chrome.
+ * size="md" = page-level navigation chips (PK Sim, Dev Kit)
+ * size="sm" = card-level action chips (Analytics, Sources)
+ *
+ * Renders as <Link>, <button>, or <span> via the `as` prop. Token-driven
+ * (cream-hairline border, cream-muted ink, ls-mono tracking) so theme
+ * + light/dark switching flows through with zero per-instance overrides.
+ */
+export function MonoChip({ as: As = 'span', size = 'md', className = '', children, ...props }) {
+  const sizeClass =
+    size === 'sm'
+      ? 'text-[0.58rem] px-2.5 py-1'
+      : 'text-[0.62rem] px-3 py-1.5';
+  return (
+    <As
+      className={`deck-mono uppercase inline-flex items-center gap-1.5 rounded-full border transition-colors hover:bg-[var(--cream-ghost)] ${sizeClass} ${className}`}
+      style={{
+        borderColor: 'var(--cream-hairline)',
+        color: 'var(--cream-muted)',
+        letterSpacing: 'var(--ls-mono)',
+      }}
+      {...props}
+    >
+      {children}
+    </As>
+  );
+}
+
 export default function Home() {
   const [sourcesDeck, setSourcesDeck] = useState(null); // { id, title } | null
   const { mode, toggle } = useTheme();
@@ -15,51 +44,33 @@ export default function Home() {
   const isAdmin = user?.role === 'admin';
   return (
     <div data-deck-theme="clinical" className="deck-root">
-      <div className="max-w-[var(--deck-max-w)] mx-auto px-[var(--deck-gutter)] py-20 md:py-28">
+      <div className="max-w-[var(--deck-max-w)] mx-auto px-[var(--deck-gutter)] py-12 sm:py-20 md:py-28">
         <motion.header
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
-          className="mb-16 md:mb-24"
+          className="mb-12 sm:mb-16 md:mb-24"
         >
-          <div className="flex items-center justify-between mb-6 gap-4">
+          {/* Stack the eyebrow above the chip cluster on narrow viewports
+              so PK Sim / Dev Kit / theme toggle never overflow the row. */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
             <div className="deck-mono text-xs tracking-[0.22em] uppercase text-deck-accent flex items-center gap-2">
               <Sparkles className="w-3 h-3" /> Deck Studio
             </div>
-            <div className="flex items-center gap-3">
-              <Link
-                to="/pk-sim"
-                className="deck-mono uppercase flex items-center gap-1.5 px-3 py-1.5 rounded-full border transition-colors hover:bg-[var(--cream-ghost)]"
-                style={{
-                  borderColor: 'var(--cream-hairline)',
-                  color: 'var(--cream-muted)',
-                  fontSize: '0.62rem',
-                  letterSpacing: 'var(--ls-mono)',
-                }}
-              >
+            <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+              <MonoChip as={Link} to="/pk-sim">
                 <FlaskConical className="w-3 h-3" /> PK Simulator
-              </Link>
+              </MonoChip>
               {isAdmin && (
-                <Link
-                  to="/dev"
-                  className="deck-mono uppercase flex items-center gap-1.5 px-3 py-1.5 rounded-full border transition-colors hover:bg-[var(--cream-ghost)]"
-                  style={{
-                    borderColor: 'var(--cream-hairline)',
-                    color: 'var(--cream-muted)',
-                    fontSize: '0.62rem',
-                    letterSpacing: 'var(--ls-mono)',
-                  }}
-                >
-                  Dev Kit
-                </Link>
+                <MonoChip as={Link} to="/dev">Dev Kit</MonoChip>
               )}
               <ThemeToggle mode={mode} onToggle={toggle} />
             </div>
           </div>
-          <h1 className="deck-display text-5xl md:text-7xl leading-[0.95] text-deck-ink max-w-4xl">
+          <h1 className="deck-display text-4xl sm:text-5xl md:text-7xl leading-[0.95] text-deck-ink max-w-4xl">
             Code-driven decks<br/>with a shared grammar.
           </h1>
-          <p className="mt-8 max-w-2xl text-lg deck-ink-muted leading-relaxed">
+          <p className="mt-6 sm:mt-8 max-w-2xl text-base sm:text-lg deck-ink-muted leading-relaxed">
             A unified design system, motion vocabulary, and composable patterns —
             so every presentation feels like it came from the same studio.
           </p>
@@ -112,62 +123,48 @@ function DeckCard({ deck, index, themeMode, onOpenSources }) {
       transition={{ duration: 0.5, delay: 0.08 * index, ease: [0.2, 0.8, 0.2, 1] }}
       data-deck-theme={deck.theme}
       data-theme-mode={themeMode}
-      className="relative group rounded-xl border border-deck-rule bg-deck-surface hover:bg-deck-surface-elevated transition-colors duration-deck-base ease-deck-out overflow-hidden"
+      className="relative group rounded-xl border border-deck-rule bg-deck-surface hover:bg-deck-surface-elevated transition-colors duration-deck-base ease-deck-out overflow-hidden flex flex-col"
     >
-      <Link
-        to={`/Deck?id=${deck.id}`}
-        className="block"
-      >
-        <div className="aspect-[16/10] p-6 flex flex-col justify-between relative">
+      <Link to={`/Deck?id=${deck.id}`} className="block">
+        <div className="aspect-[16/10] p-5 sm:p-6 flex flex-col justify-between relative">
           <div className="deck-mono text-[10px] tracking-[0.22em] uppercase deck-ink-subtle">
             {deck.slides.length} slides · {deck.theme}
           </div>
-          <div>
-            <div className="deck-display text-2xl md:text-3xl text-deck-ink leading-tight">
+          <div className="pr-8">
+            <div className="deck-display text-xl sm:text-2xl md:text-3xl text-deck-ink leading-tight">
               {deck.title}
             </div>
             {deck.subtitle && (
-              <div className="mt-2 text-sm deck-ink-muted">{deck.subtitle}</div>
+              <div className="mt-2 text-xs sm:text-sm deck-ink-muted">{deck.subtitle}</div>
             )}
           </div>
-          <div className="absolute top-5 right-5 text-deck-ink-subtle group-hover:text-deck-accent transition-colors">
+          <div className="absolute top-4 right-4 sm:top-5 sm:right-5 text-deck-ink-subtle group-hover:text-deck-accent transition-colors">
             <ArrowUpRight className="w-5 h-5" />
           </div>
         </div>
       </Link>
-      {/* Action buttons — outside the Link so they don't navigate to the deck */}
-      <div className="absolute bottom-4 right-4 flex items-center gap-1.5">
-        <Link
+      {/* Action footer — siblings of the Link so chip clicks never navigate
+          to the deck and the chips can never overlap subtitle text. */}
+      <div
+        className="flex items-center justify-end gap-1.5 px-3 sm:px-4 py-2.5 border-t"
+        style={{ borderColor: 'var(--cream-hairline)' }}
+      >
+        <MonoChip
+          as={Link}
           to={`/decks/${deck.id}/analytics`}
-          onClick={(e) => e.stopPropagation()}
-          className="deck-mono uppercase flex items-center gap-1.5 px-2.5 py-1 rounded-full border transition-colors hover:bg-[var(--cream-ghost)]"
-          style={{
-            borderColor: 'var(--cream-hairline)',
-            color: 'var(--cream-muted)',
-            fontSize: '0.58rem',
-            letterSpacing: 'var(--ls-mono)',
-            background: 'color-mix(in srgb, var(--bg) 60%, transparent)',
-            backdropFilter: 'blur(4px)',
-          }}
+          size="sm"
           aria-label={`View analytics for ${deck.title}`}
         >
           <BarChart3 className="w-3 h-3" /> Analytics
-        </Link>
-        <button
-          onClick={(e) => { e.stopPropagation(); onOpenSources?.(); }}
-          className="deck-mono uppercase flex items-center gap-1.5 px-2.5 py-1 rounded-full border transition-colors hover:bg-[var(--cream-ghost)]"
-          style={{
-            borderColor: 'var(--cream-hairline)',
-            color: 'var(--cream-muted)',
-            fontSize: '0.58rem',
-            letterSpacing: 'var(--ls-mono)',
-            background: 'color-mix(in srgb, var(--bg) 60%, transparent)',
-            backdropFilter: 'blur(4px)',
-          }}
+        </MonoChip>
+        <MonoChip
+          as="button"
+          size="sm"
+          onClick={() => onOpenSources?.()}
           aria-label={`Manage sources for ${deck.title}`}
         >
           <FolderOpen className="w-3 h-3" /> Sources
-        </button>
+        </MonoChip>
       </div>
     </motion.div>
   );

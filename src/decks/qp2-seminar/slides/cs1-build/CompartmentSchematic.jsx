@@ -94,9 +94,12 @@ export default function CompartmentSchematic({ tk }) {
       <text x="290" y="182" textAnchor="start"
             fontFamily="var(--font-mono)" fontSize="10" fill={coral}>CL/F</text>
 
-      {/* ── Allometric chip ── */}
-      <g transform="translate(560 65)">
-        <rect x="0" y="0" width="148" height="70" rx="6"
+      {/* ── Allometric chip ── adds 70-kg reference inside the box so
+          panelists see it alongside the exponents instead of buried in
+          the slide footer (V3.8.3 user ask). Box height grew 70 → 86 to
+          accommodate the new line. */}
+      <g transform="translate(560 57)">
+        <rect x="0" y="0" width="148" height="86" rx="6"
               fill={coral} fillOpacity={0.08} stroke={coral} strokeWidth="1" />
         <text x="74" y="18" textAnchor="middle"
               fontFamily="var(--font-mono)" fontSize="9.5" letterSpacing="1.5" fill={coral}>
@@ -106,6 +109,10 @@ export default function CompartmentSchematic({ tk }) {
               fontFamily="var(--font-display)" fontSize="12" fill={cream}>CL, Q  ∝  WT^0.75</text>
         <text x="74" y="56" textAnchor="middle"
               fontFamily="var(--font-display)" fontSize="12" fill={cream}>Vc, Vp  ∝  WT^1.0</text>
+        <text x="74" y="75" textAnchor="middle"
+              fontFamily="var(--font-mono)" fontSize="9" letterSpacing="1.2" fill={coral} opacity={0.9}>
+          70-KG REFERENCE
+        </text>
       </g>
 
       {/* ═══════════ Flowing particles ═══════════ */}

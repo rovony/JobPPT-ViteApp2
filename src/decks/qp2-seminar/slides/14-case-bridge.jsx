@@ -131,8 +131,8 @@ export default function Slide13() {
                 Sotatercept (WINREVAIR)
               </strong>{' '}
               faces a structurally similar question: pediatric PAH extrapolation, with a PIP agreed with EMA{' '}
-              <span style={{ color: 'var(--amber)' }}>(P/0414/2022)</span> and a pediatric PK study{' '}
-              <span style={{ color: 'var(--amber)' }}>NCT05587712</span> underway.
+              <span style={{ color: 'var(--amber)' }}>(P/0414/2022)</span> and the pediatric PK study{' '}
+              <span style={{ color: 'var(--amber)' }}>MOONBEAM (NCT05587712)</span> underway.
               <br />
               <br />
               Biologic versus small molecule changes the PK — but the regulatory logic (exposure-matching,
@@ -167,7 +167,11 @@ export default function Slide13() {
         </div>
       </motion.div>
 
-      {/* ─── Regulatory coda · CHMP 2026 ─── */}
+      {/* ─── Regulatory coda · ICH E11A (replaced fabricated CHMP ref
+           2026-04-24 per four-slide audit — CHMP/60723/2026 does not
+           exist in EMA public records. ICH E11A is the real, adopted
+           guideline formalizing pediatric extrapolation with exposure
+           matching + PK/PD similarity). ─── */}
       <motion.div
         style={{
           margin: 'var(--space-2) auto 0',
@@ -190,7 +194,7 @@ export default function Slide13() {
             marginBottom: '4px',
           }}
         >
-          March 2026 · EMA CHMP draft addendum · CHMP/60723/2026
+          ICH E11A · Effective January 2025 · EMA/CHMP/ICH/205218/2022
         </div>
         <div
           style={{
@@ -199,9 +203,9 @@ export default function Slide13() {
             lineHeight: 1.45,
           }}
         >
-          Formalizes model-informed pediatric extrapolation with exposure matching and PK/PD similarity.{' '}
+          Formalizes model-informed pediatric extrapolation built on exposure matching and PK/PD similarity.{' '}
           <span style={{ color: 'var(--cream)', fontStyle: 'italic' }}>
-            The 2023 ambrisentan approach maps onto this framework — five years before it was codified.
+            The 2021 ambrisentan approval prefigured this framework — four years before it was codified.
           </span>
         </div>
       </motion.div>

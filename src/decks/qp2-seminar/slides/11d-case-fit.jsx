@@ -36,7 +36,7 @@ export default function Slide11dCaseFit() {
   const D = {
     chrome: 0.10, headline: 0.25, subhead: 0.55,
     chartBg: 0.70, ribbon: 1.00, obsLine: 1.40, dots: 1.60,
-    table: 0.80, payoff: 3.20,
+    table: 0.80, covRibbon: 2.80, payoff: 3.20,
   };
 
   const T = useTokens(['--coral', '--cyan', '--cream', '--cream-muted', '--cream-faint', '--cream-hairline']);
@@ -104,7 +104,7 @@ export default function Slide11dCaseFit() {
       <motion.p
         className="absolute deck-display italic"
         style={{
-          top: '19vh',
+          top: '24vh',
           left: 'var(--deck-gutter)',
           right: 'var(--deck-gutter)',
           fontSize: 'clamp(0.85rem, 1vw, 1.05rem)',
@@ -118,14 +118,14 @@ export default function Slide11dCaseFit() {
         transition={{ duration: 0.6, ease, delay: D.subhead }}
       >
         pcVPC ·{' '}
-        <HighlightWord color="var(--coral)" delay={1.4}>500 replicates · 39 patients · 83 observations</HighlightWord>
+        <HighlightWord color="var(--coral)" delay={1.4}>500 replicates · 39 patients · 211 observations</HighlightWord>
         . Observed 5th / 50th / 95th percentiles sit inside the model-simulated CIs across all five time bins.
       </motion.p>
 
       {/* ═══════════ LEFT — pcVPC chart ═══════════ */}
       <div
         className="absolute"
-        style={{ top: '26vh', left: 'var(--deck-gutter)', width: '56%' }}
+        style={{ top: '32vh', left: 'var(--deck-gutter)', width: '56%' }}
       >
         <motion.div
           className="deck-mono uppercase mb-2"
@@ -145,7 +145,7 @@ export default function Slide11dCaseFit() {
       <motion.div
         className="absolute rounded-lg border p-5"
         style={{
-          top: '26vh',
+          top: '32vh',
           left: '60%',
           right: 'var(--deck-gutter)',
           borderColor: 'var(--cream-hairline)',
@@ -173,8 +173,73 @@ export default function Slide11dCaseFit() {
           <span style={{ color: 'var(--cream-muted)' }}>V<sub>p</sub>/F sensitivity:</span>{' '}
           tested at 8.51 · 81.3 · 180 L across 5 body weights — AUC &amp; C<sub>max</sub> unchanged.
         </div>
+      </motion.div>
 
-        <CovariateStrip delay={D.table + 0.4} ease={ease} />
+      {/* ─── Covariate screen ribbon ─────────────── */}
+      {/* Pre-empts the parsimony question: 12 pre-specified covariates were
+          tested via full-model approach + backward deletion at p<0.001
+          (ΔOFV>10.83, df=1). None retained → final covariate model = base +
+          allometric body-weight scaling. Sourced from Okour 2023 Data S1. */}
+      <motion.div
+        className="absolute"
+        style={{
+          bottom: '16vh',
+          left: 'var(--deck-gutter)',
+          right: 'var(--deck-gutter)',
+          paddingTop: 'var(--space-3)',
+          paddingBottom: 'var(--space-3)',
+          paddingLeft: 'var(--space-4)',
+          borderLeft: '2px solid var(--coral)',
+          background: 'color-mix(in srgb, var(--panel) 50%, transparent)',
+        }}
+        initial={{ opacity: 0, x: -8 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.55, ease, delay: D.covRibbon }}
+      >
+        <div
+          className="deck-mono uppercase"
+          style={{
+            fontSize: 'clamp(0.6rem, 0.72vw, 0.78rem)',
+            letterSpacing: '0.22em',
+            color: 'var(--coral)',
+            fontWeight: 700,
+            marginBottom: 6,
+          }}
+        >
+          Covariate screen ·{' '}
+          <span style={{ color: 'var(--cream)' }}>12 pre-specified</span> ·{' '}
+          <span style={{ color: 'var(--cream)' }}>0 retained</span>
+        </div>
+        <div
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: 'clamp(0.72rem, 0.82vw, 0.88rem)',
+            lineHeight: 1.45,
+            color: 'var(--cream-muted)',
+            marginBottom: 4,
+          }}
+        >
+          <span style={{ color: 'var(--cream)', fontWeight: 600 }}>Hepatic</span>{' '}
+          (bilirubin · ALT · AST · ALP · GGT) ·{' '}
+          <span style={{ color: 'var(--cream)', fontWeight: 600 }}>Renal</span>{' '}
+          (CrCl) ·{' '}
+          <span style={{ color: 'var(--cream)', fontWeight: 600 }}>Demographic</span>{' '}
+          (age · sex · race · ethnicity) ·{' '}
+          <span style={{ color: 'var(--cream)', fontWeight: 600 }}>Dosing</span>{' '}
+          (body weight · dose group)
+        </div>
+        <div
+          className="deck-mono"
+          style={{
+            fontSize: 'clamp(0.58rem, 0.66vw, 0.7rem)',
+            letterSpacing: '0.06em',
+            lineHeight: 1.5,
+            color: 'var(--cream-faint)',
+          }}
+        >
+          Full-model approach · backward deletion at p&lt;0.001 (ΔOFV &gt; 10.83, df = 1) ·
+          final covariate model = base + allometric body-weight scaling.
+        </div>
       </motion.div>
 
       {/* ─── Payoff line ─────────────────────────── */}
@@ -258,7 +323,9 @@ const PCVPC = [
   { t: 30, obsMed: 119.4, obs5: 39.0,  obs95: 297.0,  simMedLo: 86.4,  simMedHi: 128.7, sim95Lo: 214.0,  sim95Hi: 432.8,  sim5Lo: 19.6, sim5Hi: 49.6  },
 ];
 
-/* Individual observations (AMB112529 · 83 samples across 5 nominal times).
+/* Individual observations (AMB112529 · subset rendered at the 5 nominal
+   sampling times for visual clarity — full dataset is n = 211 across 39
+   evaluable patients, stated in the slide body and the panel headline).
    Deterministic horizontal jitter at each time so overlapping values stay
    visible without implying a real time-offset. */
 const OBS_RAW = [
@@ -331,7 +398,7 @@ function PcVpcChart({ tk, D }) {
       className="w-full"
       viewBox={`0 0 ${W} ${H}`}
       preserveAspectRatio="xMidYMid meet"
-      style={{ maxHeight: '52vh' }}
+      style={{ maxHeight: '42vh' }}
       aria-label="Prediction-corrected visual predictive check — observed percentiles sit inside simulated CIs"
     >
       <g transform={`translate(${m.left},${m.top})`}>
@@ -372,7 +439,7 @@ function PcVpcChart({ tk, D }) {
         <AnimatedLine d={line(obs5Pts)}   stroke={tk('--coral')} width={1.4} delay={D.obsLine + 0.15} strokeDasharray="6 6" />
         <AnimatedLine d={line(obs95Pts)}  stroke={tk('--coral')} width={1.4} delay={D.obsLine + 0.3}  strokeDasharray="6 6" />
 
-        {/* Individual observations — jittered cream dots (n = 83) */}
+        {/* Individual observations — jittered cream dots at the 5 nominal times */}
         {observations.map((d) => (
           <motion.circle
             key={`obs-${d.i}`}
@@ -439,7 +506,7 @@ function PcVpcChart({ tk, D }) {
           </text>
           <circle cx={237} cy={5} r={2.6} fill={tk('--cream')} fillOpacity={0.78} />
           <text x={247} y={9} fontFamily="var(--font-mono)" fontSize="9" fill={tk('--cream-muted')}>
-            OBS (n=83)
+            OBS · INDIVIDUAL
           </text>
           <circle cx={323} cy={5} r={3.6} fill={tk('--coral')} stroke={tk('--cream')} strokeWidth={1.2} />
           <text x={333} y={9} fontFamily="var(--font-mono)" fontSize="9" fill={tk('--cream-muted')}>
@@ -485,12 +552,12 @@ function AnimatedLine({ d, stroke, width = 2, delay = 0, dash = 2000, strokeDash
    Parameter table
    ======================================================== */
 const PARAMS = [
-  { name: 'CL / F',       unit: '(L/hr)', est: '1.17',  ci: '1.04 – 1.33',  rse: '6.3',  hero: true },
-  { name: <>V<sub>c</sub> / F</>, unit: '(L)',    est: '12.3',  ci: '8.94 – 16.8',  rse: '16.1', hero: true },
-  { name: 'Q / F',        unit: '(L/hr)', est: '0.457', ci: '0.302 – 0.691', rse: '21.1' },
-  { name: <>V<sub>p</sub> / F</>, unit: '(L)',    est: '81.3',  ci: '50.2 – 132',   rse: '24.5' },
-  { name: <>K<sub>a</sub></>,     unit: '(1/hr)', est: '2.46',  ci: '1.49 – 4.07',  rse: '25.7' },
-  { name: <>t<sub>lag</sub></>,   unit: '(hr)',   est: '0.525', ci: '0.393 – 0.700', rse: '14.7' },
+  { name: 'CL / F',       unit: '(L/hr)', est: '1.17',  ci: '1.04 – 1.33',  rse: '6.3',  shr: '19.0', hero: true },
+  { name: <>V<sub>c</sub> / F</>, unit: '(L)',    est: '12.3',  ci: '8.94 – 16.8',  rse: '16.1', shr: '16.5', hero: true },
+  { name: 'Q / F',        unit: '(L/hr)', est: '0.457', ci: '0.302 – 0.691', rse: '21.1', shr: '29.6' },
+  { name: <>V<sub>p</sub> / F</>, unit: '(L)',    est: '81.3',  ci: '50.2 – 132',   rse: '24.5', shr: '86.1', shrAccent: true },
+  { name: <>K<sub>a</sub></>,     unit: '(1/hr)', est: '2.46',  ci: '1.49 – 4.07',  rse: '25.7', shr: '25.9' },
+  { name: <>t<sub>lag</sub></>,   unit: '(hr)',   est: '0.525', ci: '0.393 – 0.700', rse: '14.7', shr: '26.4', fixed: true },
 ];
 
 function ParamTable({ tk }) {
@@ -502,6 +569,7 @@ function ParamTable({ tk }) {
           <Th align="right">Estimate</Th>
           <Th align="right">95 % CI</Th>
           <Th align="right">% RSE</Th>
+          <Th align="right">Shr %</Th>
         </tr>
       </thead>
       <tbody>
@@ -513,9 +581,35 @@ function ParamTable({ tk }) {
               </span>
               <span style={{ color: 'var(--cream-faint)', marginLeft: 6, fontSize: '0.85em' }}>{p.unit}</span>
             </Td>
-            <Td align="right" mono bold={p.hero}>{p.est}</Td>
+            <Td align="right" mono bold={p.hero}>
+              {p.est}
+              {p.fixed && (
+                <span
+                  className="deck-mono uppercase"
+                  style={{
+                    marginLeft: 6,
+                    fontSize: '0.62em',
+                    letterSpacing: '0.16em',
+                    color: 'var(--coral)',
+                    fontWeight: 700,
+                    verticalAlign: '0.08em',
+                  }}
+                >
+                  fixed
+                </span>
+              )}
+            </Td>
             <Td align="right" mono muted>{p.ci}</Td>
             <Td align="right" mono muted>{p.rse}</Td>
+            <Td
+              align="right"
+              mono
+              bold={p.shrAccent}
+              accent={p.shrAccent}
+              muted={!p.shrAccent}
+            >
+              {p.shr}
+            </Td>
           </tr>
         ))}
       </tbody>
@@ -542,7 +636,12 @@ function Th({ children, align }) {
   );
 }
 
-function Td({ children, align, mono, bold, muted }) {
+function Td({ children, align, mono, bold, muted, accent }) {
+  const color = accent
+    ? 'var(--coral)'
+    : muted
+      ? 'var(--cream-muted)'
+      : 'var(--cream)';
   return (
     <td
       style={{
@@ -551,7 +650,7 @@ function Td({ children, align, mono, bold, muted }) {
         borderBottom: '1px dashed var(--cream-hairline)',
         fontFamily: mono ? 'var(--font-mono)' : 'var(--font-body)',
         fontSize: 'clamp(0.78rem, 0.92vw, 0.98rem)',
-        color: muted ? 'var(--cream-muted)' : 'var(--cream)',
+        color,
         fontWeight: bold ? 700 : 400,
       }}
     >
@@ -560,75 +659,3 @@ function Td({ children, align, mono, bold, muted }) {
   );
 }
 
-/* ========================================================
-   CovariateStrip — 12 tested covariates, all struck through.
-   Ported from friend's Prompt 4 spec. Pre-empts the "did you
-   test covariates?" question by showing the test set AND the
-   verdict (None retained) as a single visual receipt inside
-   the right-hand estimates panel.
-   ======================================================== */
-const COVARIATES = [
-  { group: 'HEPATIC',     items: ['ALT', 'AST', 'ALP', 'GGT', 'BILI'] },
-  { group: 'RENAL',       items: ['CRCL'] },
-  { group: 'DEMOGRAPHIC', items: ['AGE', 'SEX', 'RACE', 'BMI'] },
-  { group: 'DOSING',      items: ['DOSE', 'CYCLE'] },
-];
-
-function CovariateStrip({ delay = 0, ease }) {
-  const chipStyle = {
-    fontFamily: 'var(--font-mono)',
-    fontSize: '0.58rem',
-    letterSpacing: '0.14em',
-    textTransform: 'uppercase',
-    padding: '2px 6px',
-    borderRadius: 3,
-    border: '1px solid var(--cream-hairline)',
-    color: 'var(--cream-faint)',
-    textDecoration: 'line-through',
-    textDecorationThickness: '1px',
-    whiteSpace: 'nowrap',
-  };
-  const labelStyle = {
-    fontFamily: 'var(--font-mono)',
-    fontSize: '0.55rem',
-    letterSpacing: '0.2em',
-    textTransform: 'uppercase',
-    color: 'var(--cream-muted)',
-    marginRight: 6,
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, ease, delay }}
-      style={{
-        marginTop: 14,
-        paddingTop: 12,
-        borderTop: '1px solid var(--cream-hairline)',
-      }}
-    >
-      <div
-        className="deck-mono uppercase"
-        style={{
-          fontSize: '0.58rem',
-          letterSpacing: '0.2em',
-          color: 'var(--coral)',
-          marginBottom: 8,
-        }}
-      >
-        Covariates tested · <span style={{ color: 'var(--amber)', fontWeight: 700 }}>None retained</span>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-        {COVARIATES.map((row) => (
-          <div key={row.group} style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 5 }}>
-            <span style={labelStyle}>{row.group}</span>
-            {row.items.map((item) => (
-              <span key={item} style={chipStyle}>{item}</span>
-            ))}
-          </div>
-        ))}
-      </div>
-    </motion.div>
-  );
-}

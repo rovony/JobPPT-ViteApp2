@@ -59,34 +59,64 @@ export default function Slide06bCaseBackground() {
 function BackgroundLayout({ reduce, ease }) {
   return (
     <div
+      className="cs1-bg-layout"
       style={{
         position: 'relative',
         width: '100%',
         height: '100%',
         display: 'grid',
-        // Grid rows (per user ask 2026-04-23):
+        // Grid rows:
         //   row 1 — cards row with lung overlay between them
         //   row 2 — full-width timeline chart
         //   row 3 — auto transition line
         //
-        // Updated 2026-04-23 pm: 1.6fr/1fr leaves visible breather
-        // between cards and timeline; the extra row-gap adds the
-        // explicit whitespace the user asked for.
-        gridTemplateRows: '1.75fr 1fr auto',
-        // Large row-gap gives explicit breathing between the cards
-        // row and the timeline row (user ask: 'space between lung
-        // and bottom card'). 1.75/1 ratio keeps cards shorter than
-        // default while still fitting both body paragraphs + footer.
-        rowGap: 'var(--space-7, 56px)',
+        // Updated 2026-04-23 pm-2: card row bumped 1.75fr → 2.2fr and
+        // rowGap trimmed 56px → 32px because Card 02's "5 mg / 10 mg
+        // once daily" line was being clipped by the COMMERCIAL SPLIT
+        // footer on standard-height viewports. Cards now get ~66-70%
+        // of viz height (was ~63%), absorbing the overflow.
+        gridTemplateRows: '2.2fr 1fr auto',
+        rowGap: 'var(--space-5, 40px)',
         minHeight: 0,
       }}
     >
+      {/* Responsive overrides for slide 5.
+          ≤1024px : narrow card gap → lungs shrink, cards get wider.
+          ≤900px  : hide lung overlay, cards fill full width side-by-side.
+          ≤640px  : stack cards vertically, hide lungs + timeline chart. */}
+      <style>{`
+        @media (max-width: 1024px) {
+          .cs1-bg-layout .cs1-bg-cards { column-gap: clamp(200px, 22vw, 340px) !important; }
+        }
+        @media (max-width: 900px) {
+          .cs1-bg-layout .cs1-bg-cards { column-gap: var(--space-4) !important; grid-template-columns: 1fr 1fr !important; }
+          .cs1-bg-layout .cs1-bg-lungs { display: none !important; }
+        }
+        @media (max-width: 640px) {
+          .cs1-bg-layout { grid-template-rows: auto auto auto !important; row-gap: var(--space-3) !important; }
+          .cs1-bg-layout .cs1-bg-cards {
+            grid-template-columns: 1fr !important;
+            row-gap: var(--space-3);
+            align-items: start !important;
+            height: auto !important;
+          }
+          /* Each card sizes to its own content — otherwise grid's default
+             stretch alignment equalizes row heights and clips Card 01's
+             PathwayChips footer when Card 02's content is taller. */
+          .cs1-bg-layout .cs1-bg-cards article {
+            height: auto !important;
+            align-self: start;
+          }
+          .cs1-bg-layout .cs1-bg-lungs { display: none !important; }
+        }
+      `}</style>
       {/* ─── ROW 1 · Cards row + lung overlay between them ───
           Cards use the nested grid for predictable positioning. The lung
           is an absolute overlay (position decoupled from grid resolution
           — see tech-debt note about flicker). */}
       <div style={{ position: 'relative', minHeight: 0 }}>
         <div
+          className="cs1-bg-cards"
           style={{
             display: 'grid',
             // Narrower cards (0.85fr each) + wider gap (32vw) — user
@@ -118,7 +148,7 @@ function BackgroundLayout({ reduce, ease }) {
                   <CardHighlight>endothelin-1-mediated vasoconstriction</CardHighlight>{' '}
                   plus progressive vascular remodeling. Fatal if untreated; right-ventricular failure.
                 </p>
-                <p style={{ margin: 'var(--space-2) 0 0 0' }}>
+                <p style={{ margin: 'var(--space-1) 0 0 0' }}>
                   Adult untreated survival ~2.8 years. Pediatric prevalence{' '}
                   <CardHighlight>14–20 per million children</CardHighlight> in Europe.
                 </p>
@@ -139,7 +169,7 @@ function BackgroundLayout({ reduce, ease }) {
                   Selective endothelin type-A (ET<sub>A</sub>) receptor antagonist —{' '}
                   <CardHighlight>~4,000× selectivity</CardHighlight> over ET<sub>B</sub>.
                 </p>
-                <p style={{ margin: 'var(--space-2) 0 0 0' }}>
+                <p style={{ margin: 'var(--space-1) 0 0 0' }}>
                   Clearance: hepatic glucuronidation via{' '}
                   <CardHighlight>UGT1A9 / UGT2B7</CardHighlight>, mature by age 2–3.
                   Adult dosing: <CardHighlight>5 mg / 10 mg once daily</CardHighlight>.
@@ -155,6 +185,7 @@ function BackgroundLayout({ reduce, ease }) {
             exceeds the (now shorter) cards row — keeps the breather
             gap to the timeline row clean. */}
         <div
+          className="cs1-bg-lungs"
           style={{
             position: 'absolute',
             inset: 0,

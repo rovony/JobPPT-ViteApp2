@@ -91,14 +91,16 @@ export default function CaseBodyCard({
       />
 
       {/* ─── LEFT · text column ───
-          Grid rows (meta, title, body, footer). Body grows (1fr) so the
-          footer — if provided — pins to the card bottom. When no footer
-          is passed, the body's natural height is all that renders. */}
+          Flex column with vertical gap. Previous grid `auto auto 1fr auto`
+          caused body to collapse (and overflow into footer) when card
+          height was tight, because `1fr` resolves to 0 when there's no
+          slack. Flex-column lets each child take its natural height
+          and stack — footer always sits below body, never on top. */}
       <div
         style={{
-          display: 'grid',
-          gridTemplateRows: 'auto auto 1fr auto',
-          rowGap: 'var(--space-3)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 'var(--space-2)',
           minWidth: 0,
           minHeight: 0,
           height: '100%',
@@ -138,24 +140,30 @@ export default function CaseBodyCard({
           {title}
         </h2>
 
-        {/* BODY — ports HTML .cbc-body, resized for shorter cards so
-            both paragraphs + highlights fit without clipping. */}
+        {/* BODY — ports HTML .cbc-body. flexShrink:0 prevents the flex
+            parent from shrinking this box smaller than its text content
+            (which would cause body text to render over the footer below
+            on cards constrained to content-height by the parent grid). */}
         <div
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(0.86rem, 0.98vw, 1.02rem)',
-            lineHeight: 1.5,
+            fontSize: 'clamp(0.8rem, 0.92vw, 0.98rem)',
+            lineHeight: 1.45,
             color: 'var(--cream-muted)',
             minHeight: 0,
-            overflow: 'hidden',
+            flexShrink: 0,
           }}
         >
           {body}
         </div>
 
-        {/* FOOTER — pinned to card bottom via grid (pathway chips, etc.) */}
+        {/* FOOTER — `marginTop: auto` pushes footer to the bottom of the
+            flex column when there's slack, while still letting it flow
+            naturally just below body when the card is content-height.
+            flexShrink:0 + flexBasis:auto = take natural size, never
+            collapse under sibling pressure. */}
         {footer && (
-          <div style={{ minHeight: 0 }}>
+          <div style={{ minHeight: 0, marginTop: 'auto', flexShrink: 0 }}>
             {footer}
           </div>
         )}

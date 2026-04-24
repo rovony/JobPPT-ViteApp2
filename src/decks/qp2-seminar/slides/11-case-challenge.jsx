@@ -93,6 +93,7 @@ function ChallengeStack() {
   // gridColumn:'1 / 3' so it extends left under the spine column too.
   return (
     <div
+      className="cs1-challenge-stack"
       style={{
         width: '100%',
         height: '100%',
@@ -100,11 +101,44 @@ function ChallengeStack() {
         gridTemplateColumns: '56px 1fr',
         gridTemplateRows: 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) auto auto',
         columnGap: 'var(--space-4)',
-        rowGap: 'var(--space-3)',
+        rowGap: 'var(--space-2)',
         minHeight: 0,
         position: 'relative',
       }}
     >
+      {/* Responsive overrides — scoped to this slide's stack.
+          • ≤1024px: tighten card padding + typography further
+          • ≤900px : stack text & chart vertically inside each card
+                     (chart drops to short strip below text); shrink spine
+          • ≤640px : drop chart entirely, text goes full-width; hide spine
+                     column so cards use the full viewport width
+          See ~/.claude/rules/frontend.md "Chart, SVG & Absolute-Layout
+          Discipline" — cards always have min-content floor so text is
+          never clipped. */}
+      <style>{`
+        @media (max-width: 1024px) {
+          .cs1-challenge-stack .cs1-card { padding: var(--space-2) var(--space-3); padding-left: calc(var(--space-3) + 6px); column-gap: var(--space-3); }
+          .cs1-challenge-stack .cs1-card-title { font-size: clamp(0.9rem, 1.6vw, 1.15rem) !important; }
+          .cs1-challenge-stack .cs1-card-body  { font-size: clamp(0.68rem, 1.15vw, 0.85rem) !important; line-height: 1.4 !important; }
+        }
+        @media (max-width: 900px) {
+          .cs1-challenge-stack { grid-template-columns: 40px 1fr !important; row-gap: var(--space-2) !important; }
+          .cs1-challenge-stack .cs1-card { grid-template-columns: 1fr !important; }
+          /* Charts lose their legibility below ~180px width — the SVG
+             viewBox label text overlaps chart geometry. Hide them on
+             tablet/mobile; text + timeline carries the message. */
+          .cs1-challenge-stack .cs1-card-chart { display: none !important; }
+        }
+        @media (max-width: 640px) {
+          .cs1-challenge-stack { grid-template-columns: 1fr !important; }
+          .cs1-challenge-stack .cs1-spine,
+          .cs1-challenge-stack .cs1-dot,
+          .cs1-challenge-stack .cs1-diamond { display: none !important; }
+          .cs1-challenge-stack .cs1-card { grid-column: 1 !important; padding-left: var(--space-3) !important; }
+          .cs1-challenge-stack .cs1-focal { grid-column: 1 !important; }
+          .cs1-challenge-stack .cs1-timeline { grid-column: 1 !important; }
+        }
+      `}</style>
       {/* ─── Spine column 1 — line + dots + diamond ─── */}
       <SpineLine />
       <SpineDot number="01" row={1} delay={1.8} />
@@ -128,6 +162,7 @@ function ChallengeStack() {
         caption="Survival · untreated PAH"
         chart={<SurvivalMiniChart tk={tk} delay={2.0} />}
         cardDelay={1.8}
+        widthPct={62}
       />
 
       <ChallengeCard
@@ -148,6 +183,7 @@ function ChallengeStack() {
         caption="Label coverage · 2007 → 2026"
         chart={<LabelCoverageChart tk={tk} delay={2.25} />}
         cardDelay={2.05}
+        widthPct={78}
       />
 
       <ChallengeCard
@@ -166,15 +202,17 @@ function ChallengeStack() {
         caption="Sampling density · adult vs pediatric"
         chart={<SparsePKChart tk={tk} delay={2.5} />}
         cardDelay={2.3}
+        widthPct={94}
       />
 
       {/* Approval-timeline strip — spans BOTH columns (full width under
           the spine), shared layoutId with slide 13. */}
       <motion.div
+        className="cs1-timeline"
         style={{
           gridColumn: '1 / 3',
           gridRow: 4,
-          padding: 'var(--space-3) var(--space-4)',
+          padding: 'var(--space-2) var(--space-4)',
           borderTop: '1px solid var(--cream-hairline)',
           borderBottom: '1px solid var(--cream-hairline)',
           background: 'color-mix(in srgb, var(--panel) 40%, transparent)',
@@ -187,7 +225,7 @@ function ChallengeStack() {
       </motion.div>
 
       {/* Focal question — col 2 of row 5 (diamond sits in col 1) */}
-      <div style={{ gridColumn: 2, gridRow: 5 }}>
+      <div className="cs1-focal" style={{ gridColumn: 2, gridRow: 5 }}>
         <FocalQuestion />
       </div>
     </div>
@@ -212,6 +250,7 @@ function SpineLine() {
   return (
     <motion.div
       aria-hidden
+      className="cs1-spine"
       style={{
         gridColumn: 1,
         gridRow: '1 / 4',
@@ -235,6 +274,7 @@ function SpineDot({ number, row, delay }) {
   return (
     <motion.div
       aria-hidden
+      className="cs1-dot"
       style={{
         gridColumn: 1,
         gridRow: row,
@@ -276,6 +316,7 @@ function SpineDiamond({ row, delay }) {
   return (
     <div
       aria-hidden
+      className="cs1-diamond"
       style={{
         gridColumn: 1,
         gridRow: row,
@@ -311,30 +352,48 @@ function SpineDiamond({ row, delay }) {
    Two-col grid inside: text (1.1fr) · chart (1fr). Fills its row
    height so the chart gets real vertical room.
    ================================================================ */
-function ChallengeCard({ row, number, eyebrow, title, body, caption, chart, cardDelay = 1.8 }) {
+function ChallengeCard({ row, number, eyebrow, title, body, caption, chart, cardDelay = 1.8, widthPct = 100 }) {
   const reduce = useReducedMotion();
   const ease = [0.2, 0.7, 0.3, 1];
 
+  // Card layout: rectangular text panel + square chart panel attached
+  // to its right edge, protruding by 14px (negative margin). This gives
+  // each card a "staircase" silhouette where the square reads as a
+  // distinct anchor. `widthPct` makes each of the 3 cards a different
+  // width (62% / 78% / 94%) — progressive reveal down the stack.
   return (
     <motion.div
+      className="cs1-card-wrap"
       style={{
         gridColumn: 2,
         gridRow: row,
+        width: `${widthPct}%`,
+        minHeight: 0,
         position: 'relative',
         display: 'grid',
-        gridTemplateColumns: '1.15fr 1fr',
-        columnGap: 'var(--space-5)',
-        padding: 'var(--space-4) var(--space-5)',
-        paddingLeft: 'calc(var(--space-5) + 6px)',
-        background: 'color-mix(in srgb, var(--panel) 55%, transparent)',
-        borderRadius: 'var(--radius-md)',
-        minHeight: 0,
-        overflow: 'hidden',
+        gridTemplateColumns: '1fr auto',
+        columnGap: 'var(--space-3)',
+        alignItems: 'stretch',
       }}
       initial={reduce ? { opacity: 1, x: 0 } : { opacity: 0, x: 16 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: reduce ? 0 : 0.4, ease, delay: reduce ? 0 : cardDelay }}
     >
+      {/* ─── RECTANGULAR TEXT PANEL ─── */}
+      <div
+        className="cs1-card"
+        style={{
+          position: 'relative',
+          padding: 'var(--space-3) var(--space-4)',
+          paddingLeft: 'calc(var(--space-4) + 6px)',
+          background: 'color-mix(in srgb, var(--panel) 55%, transparent)',
+          borderRadius: 'var(--radius-md)',
+          minHeight: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+      >
       {/* Coral left accent */}
       <motion.span
         aria-hidden
@@ -377,9 +436,10 @@ function ChallengeCard({ row, number, eyebrow, title, body, caption, chart, card
         </div>
 
         <div
+          className="cs1-card-title"
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(1.05rem, 1.25vw, 1.4rem)',
+            fontSize: 'clamp(0.98rem, 1.15vw, 1.28rem)',
             fontWeight: 600,
             color: 'var(--cream)',
             lineHeight: 1.15,
@@ -390,26 +450,63 @@ function ChallengeCard({ row, number, eyebrow, title, body, caption, chart, card
         </div>
 
         <div
+          className="cs1-card-body"
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(0.78rem, 0.92vw, 0.98rem)',
-            lineHeight: 1.5,
+            fontSize: 'clamp(0.74rem, 0.85vw, 0.92rem)',
+            lineHeight: 1.45,
             color: 'var(--cream-muted)',
           }}
         >
           {body}
         </div>
       </div>
+      </div>
+      {/* END rectangular text panel */}
 
-      {/* ─── RIGHT · chart ─── */}
-      <div
+      {/* ─── SQUARE CHART PANEL ───
+          aspect-ratio 1/1 + height 100% = card-height square.
+          marginLeft negative so square's left edge overlaps the text
+          rectangle's right edge by 14px (the "overlap" the user asked
+          for). Its own darker panel fill + rounded corners visually
+          anchors it as a distinct element attached to the rectangle.
+          Caption sits inside the square at the bottom, out of the
+          chart's SVG so it never gets clipped by the chart's own
+          label margins. */}
+      {/* Chart panel: fixed 220×180 frame (instead of aspectRatio-linked
+          to card height). The SVG charts have a native 2:1 (360×180)
+          viewBox; a portrait aspect was starving them of horizontal
+          space and letterboxing axes to ~70px tall, rendering labels
+          unreadable. Fixed 220px wide + ~180px min-height lets each
+          chart render its full width with labels at legible size.
+          Chart extends above/below card via `top:-6px; bottom:-6px`
+          for ~12px of extra vertical room without breaking the card
+          row layout. */}
+      <motion.div
+        className="cs1-card-chart"
         style={{
           position: 'relative',
+          width: 220,
+          alignSelf: 'stretch',
+          marginLeft: '-14px',
+          // Removed -6/-6 vertical margins — when combined with the
+          // uniform card widths they caused chart panels to clip into
+          // the row-gap above/below, overlapping neighbour cards'
+          // content visually. Chart now stays strictly within its
+          // card row's vertical bounds.
+          zIndex: 2,
           display: 'flex',
           flexDirection: 'column',
-          minWidth: 0,
-          minHeight: 0,
+          background: 'color-mix(in srgb, var(--panel) 88%, transparent)',
+          border: '1px solid var(--cream-hairline)',
+          borderRadius: 'var(--radius-md)',
+          padding: 'var(--space-2)',
+          overflow: 'hidden',
+          boxShadow: '0 2px 8px color-mix(in srgb, var(--coral) 8%, transparent)',
         }}
+        initial={reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.92 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: reduce ? 0 : 0.5, ease, delay: reduce ? 0 : cardDelay + 0.15 }}
       >
         <div
           style={{
@@ -418,6 +515,7 @@ function ChallengeCard({ row, number, eyebrow, title, body, caption, chart, card
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            width: '100%',
           }}
         >
           {chart}
@@ -425,16 +523,16 @@ function ChallengeCard({ row, number, eyebrow, title, body, caption, chart, card
         <div
           className="deck-mono uppercase"
           style={{
-            fontSize: '0.58rem',
-            letterSpacing: '0.14em',
+            fontSize: '0.54rem',
+            letterSpacing: '0.12em',
             color: 'var(--cream-faint)',
-            textAlign: 'right',
-            marginTop: 4,
+            textAlign: 'center',
+            marginTop: 2,
           }}
         >
           {caption}
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }

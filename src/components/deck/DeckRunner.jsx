@@ -5,7 +5,7 @@ import { DeckProvider, useDeck, useKeyboardNav } from '@/lib/deck-store';
 import { useFullscreen } from '@/lib/useFullscreen';
 import { useSlideTracker } from '@/lib/useSlideTracker';
 import { getDeck } from '@/decks/registry';
-import { makeChannel, subscribe } from '@/lib/presenter-sync';
+import { makeChannel, subscribe, broadcast } from '@/lib/presenter-sync';
 import ProgressBar from './ProgressBar';
 import NavControls from './NavControls';
 import DeckOverview from './DeckOverview';
@@ -99,17 +99,44 @@ function DeckStage({ deck }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [presenter]);
 
-  // Audience tab: subscribe to cross-tab navigation messages from the
-  // presenter tab so Next/Prev stays in sync across the two windows.
+  // Audience tab: bidirectional cross-tab navigation sync.
+  //   · Subscribe to presenter broadcasts → apply goto().
+  //   · When this tab's `index` changes locally (arrow keys on the
+  //     audience display), broadcast it back so the presenter tab also
+  //     advances. Prevents drift when someone clicks on the audience
+  //     monitor out of habit.
+  //   · `suppressRef` breaks the echo loop: when we APPLY an incoming
+  //     goto, we set suppress so the very next index-change effect
+  //     doesn't re-broadcast the same move.
+  // PresenterView has its own matching broadcast effect, so we're
+  // careful NOT to also broadcast here when the tab is presenter-side
+  // (presenter && !isAudience) — otherwise every navigation would
+  // fire twice.
+  const audienceChannelRef = useRef(null);
+  const audienceSuppressRef = useRef(false);
   useEffect(() => {
     if (!isAudience) return;
-    const channel = makeChannel();
-    const unsub = subscribe(channel, deck.id, (msg) => {
-      if (msg?.type === 'goto' && typeof msg.index === 'number') goto(msg.index);
+    audienceChannelRef.current = makeChannel();
+    const unsub = subscribe(audienceChannelRef.current, deck.id, (msg) => {
+      if (msg?.type === 'goto' && typeof msg.index === 'number') {
+        audienceSuppressRef.current = true;
+        goto(msg.index);
+      }
     });
-    return () => { unsub(); channel?.close?.(); };
+    return () => {
+      unsub();
+      audienceChannelRef.current?.close?.();
+      audienceChannelRef.current = null;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAudience, deck.id]);
+
+  useEffect(() => {
+    if (!isAudience) return;
+    if (audienceSuppressRef.current) { audienceSuppressRef.current = false; return; }
+    if (!audienceChannelRef.current) return;
+    broadcast(audienceChannelRef.current, deck.id, { type: 'goto', index });
+  }, [index, isAudience, deck.id]);
 
   // ───────────────── URL ⇄ slide state sync ─────────────────
   // The slide id (preferred) or numeric index is the 4th path segment:

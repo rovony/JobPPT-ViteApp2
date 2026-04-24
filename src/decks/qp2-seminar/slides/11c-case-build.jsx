@@ -4,20 +4,18 @@ import { useTokens } from '@/lib/token';
 import SlideFrame from '@/components/deck/SlideFrame';
 import HighlightWord from '@/components/deck/patterns/HighlightWord';
 import CompartmentSchematic from './cs1-build/CompartmentSchematic';
+import DecisionGate from './cs1-build/DecisionGate';
 
 /**
  * Slide 11c · CS1 Build — Integrated PopPK workflow.
  * Migrated to SlideFrame. Two-column viz: left = dataset + schematic,
- * right = 6-step sequential workflow.
+ * right = compact 6-node flowchart (see cs1-build/DecisionGate.jsx).
+ *
+ * The previous verbose step list (StepRow + coral spine) was extracted
+ * to cs1-build/WorkflowStepsList.jsx for potential reuse on other
+ * slides. The old DecisionGate mini-diagram was folded into the new
+ * flowchart (which now spans the full right column).
  */
-const STEPS = [
-  { num: '01', title: 'Build adult PopPK foundation',        detail: '258 adults · 7 studies · rich PK — structural anchor.' },
-  { num: '02', title: 'pcVPC: adult model → pediatric data', detail: 'BEFORE fitting anything pediatric — qualify the adult model against pediatric observations.', hero: true },
-  { num: '03', title: 'Fit pediatric · inherit structure',   detail: 'Let the sparse pediatric data speak only to parameters it can inform.' },
-  { num: '04', title: 'Compare steady-state exposure',       detail: <>Pediatric vs adult AUC<sub>ss</sub> &amp; C<sub>max,ss</sub> at weight-based doses.</> },
-  { num: '05', title: 'Evaluate exposure–response',          detail: <>Efficacy (Δ6MWD) and safety (AE incidence) against AUC<sub>ss</sub>.</> },
-  { num: '06', title: 'Package for submission',              detail: 'Integrated report to EMA + PMDA (FDA & HC not in scope — rights held elsewhere).' },
-];
 
 export default function Slide11cCaseBuild() {
   const ease = [0.2, 0.7, 0.3, 1];
@@ -53,7 +51,7 @@ export default function Slide11cCaseBuild() {
       }
       subheadMaxChars={60}
       footerKicker="Case 01 · The build"
-      footerTagline="Source · Okour et al. JCP 2023 · Study AMB112529 (PACES-1)"
+      footerTagline="Source · Okour et al. JCP 2023 · Data S1 · Study AMB112529 (NCT01332331)"
     >
       {/* Two-column viz: left (40%) dataset + schematic · right (60%) workflow */}
       <div
@@ -93,14 +91,14 @@ export default function Slide11cCaseBuild() {
             <div className="grid grid-cols-2 gap-5">
               <DatasetCell
                 label="Adult foundation"
-                value="258"
-                meta={<>patients · 7 studies · rich sampling<br />→ structural-parameter anchor</>}
+                value="380"
+                meta={<>patients · 7 studies · 3,126 obs<br />rich sampling → structural anchor</>}
                 accent
               />
               <DatasetCell
                 label="Pediatric · AMB112529"
                 value="39"
-                meta={<>211 observations · sparse sampling<br />enrolled 8–16 yr (protocol 8 to &lt;18)</>}
+                meta={<>patients · 211 obs · sparse sampling<br />enrolled 8–16 yr (protocol 8 to &lt;18)</>}
               />
             </div>
           </motion.div>
@@ -146,20 +144,27 @@ export default function Slide11cCaseBuild() {
                 marginTop: 'var(--space-2)',
               }}
             >
-              NONMEM 7.4.1 · IS-EM / IMPMAP · BLOCK(6) OMEGA · 1,000 IS samples · BLQ ≈ 3% via Beal M3 · 70-kg reference
+              NONMEM 7.4.1 · IMPMAP · BLOCK(6) OMEGA · 1,000 IS samples · BLQ ≈ 3% via Beal M3
             </div>
           </motion.div>
         </div>
 
-        {/* ─── RIGHT column ─── */}
-        <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+        {/* ─── RIGHT column — compact 6-node flowchart ─── */}
+        <div
+          style={{
+            minWidth: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+          }}
+        >
           <motion.div
             className="deck-mono uppercase"
             style={{
               fontSize: 'var(--fs-slide-kicker)',
               letterSpacing: 'var(--ls-mono-wide)',
               color: 'var(--coral)',
-              marginBottom: 'var(--space-4)',
+              marginBottom: 'var(--space-1)',
             }}
             initial={{ opacity: 0 }} animate={{ opacity: 1 }}
             transition={{ duration: 0.5, ease, delay: D.rcTitle }}
@@ -167,21 +172,27 @@ export default function Slide11cCaseBuild() {
             Workflow — 6 sequential steps
           </motion.div>
 
-          <div className="relative pl-14">
-            <motion.div
-              className="absolute"
-              style={{
-                left: 19, top: 12, bottom: 12, width: 2,
-                background: 'var(--coral)', opacity: 0.35,
-                transformOrigin: 'top center',
-              }}
-              initial={{ scaleY: 0 }} animate={{ scaleY: 1 }}
-              transition={{ duration: 1.6, ease, delay: D.spine }}
-            />
-            {STEPS.map((s, i) => (
-              <StepRow key={s.num} step={s} delay={D.stepBase + i * D.stepGap} />
-            ))}
-          </div>
+          {/* Subtitle kicker — prefaces the flowchart with the outcome
+              ("pcVPC passed"), so a glance tells the panelist which branch
+              was the one taken before they scan the full diagram. */}
+          <motion.div
+            className="deck-mono"
+            style={{
+              fontSize: 'var(--fs-slide-pageno)',
+              letterSpacing: '0.08em',
+              color: 'var(--cream-faint)',
+              fontStyle: 'italic',
+              marginBottom: 'var(--space-4)',
+            }}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, ease, delay: D.rcTitle + 0.15 }}
+          >
+            pcVPC passed · linear path from build to submission
+          </motion.div>
+
+          {/* Flowchart fills the column — each node + its description
+              fades in together, arrows draw between (see DecisionGate). */}
+          <DecisionGate />
         </div>
       </div>
     </SlideFrame>
@@ -227,70 +238,5 @@ function DatasetCell({ label, value, meta, accent }) {
         {meta}
       </div>
     </div>
-  );
-}
-
-function StepRow({ step, delay }) {
-  const ease = [0.2, 0.7, 0.3, 1];
-  const hero = step.hero;
-  return (
-    <motion.div
-      className="relative pb-4"
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease, delay }}
-    >
-      <div
-        className="absolute flex items-center justify-center deck-mono"
-        style={{
-          left: -56, top: -2, width: 40, height: 40, borderRadius: '50%',
-          background: hero ? 'var(--coral)' : 'var(--bg)',
-          border: '2px solid var(--coral)',
-          color: hero ? 'var(--bg)' : 'var(--coral)',
-          fontWeight: 700, fontSize: '0.85rem',
-        }}
-      >
-        {step.num}
-      </div>
-
-      {hero && (
-        <motion.div
-          className="absolute rounded-full"
-          style={{
-            left: -56, top: -2, width: 40, height: 40,
-            border: '2px solid var(--coral)', pointerEvents: 'none',
-          }}
-          initial={{ opacity: 0, scale: 1 }}
-          animate={{ opacity: [0, 0.6, 0], scale: [1, 1.8, 2] }}
-          transition={{ duration: 2.4, ease: 'easeOut', delay: delay + 0.6, repeat: Infinity, repeatDelay: 0.8 }}
-        />
-      )}
-
-      <div
-        className="deck-display"
-        style={{
-          fontSize: hero ? 'var(--fs-slide-subhead)' : 'var(--fs-slide-tagline)',
-          lineHeight: 1.15,
-          color: hero ? 'var(--coral)' : 'var(--cream)',
-          fontWeight: hero ? 700 : 600,
-          letterSpacing: 'var(--ls-headline)',
-        }}
-      >
-        {step.title}
-      </div>
-      <div
-        style={{
-          fontSize: 'var(--fs-slide-kicker)',
-          lineHeight: 1.4,
-          color: hero ? 'var(--cream)' : 'var(--cream-muted)',
-          marginTop: 'var(--space-1)',
-          textTransform: 'none',
-          letterSpacing: 0,
-          fontFamily: 'var(--font-body)',
-        }}
-      >
-        {step.detail}
-      </div>
-    </motion.div>
   );
 }

@@ -1,286 +1,293 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useTokens } from '@/lib/token';
-import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
-import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
-import RatioTrack from './cs2-fit/RatioTrack';
-import PdDotStrip from './cs2-fit/PdDotStrip';
+import { ArrowRight } from 'lucide-react';
+import SlideFrame from '@/components/deck/SlideFrame';
+import PillarArchitecture from './cs2-shared/PillarArchitecture';
 
 /**
- * Slide 18 · CS2 Results #1 — "Weight explains the gap. Ethnicity doesn't."
+ * Slide 20 (manifest position) · CS2 PILLARS 1-5 — global concordance.
  *
- * Layout:
- *   • Eyebrow + headline + subhead
- *   • Ratio panel (left ~68%): two stacked ratio tracks (AUC, Cmax) showing
- *     absolute → weight-normalized shift with animated markers.
- *   • Caveat panel (right ~32%): "Asian ≠ South Asian" honesty card.
- *   • PD strip (full width bottom): 2-HG inhibition big-numbers +
- *     dot plot + caption.
+ * Per cs2-design.md beat 6: "Pillars 1-5 promote to a horizontal chain
+ * — each one a small artifact, ending in the typographic hero
+ * 84.6% ≈ 84.4%. Pillar 6 demotes to a single icon-row marginalia.
+ * The point: convergence of independent lines of evidence."
+ *
+ * Cinematic role:
+ *   • T6 culmination beat 2 — PillarArchitecture stage="hero15" pulls
+ *     pillars 1-5 into a horizontal chain at the top, demoting Pillar
+ *     6 to a corner badge. The 84.6% / 84.4% typographic centerpiece
+ *     dominates the lower half.
  */
-export default function Slide18Case2Fit() {
-  const ease = [0.2, 0.7, 0.3, 1];
-  const D = {
-    chrome: 0.10,
-    eyebrow: 0.20,
-    headline: 0.35,
-    subhead: 0.60,
-    ratioCard: 0.80,
-    rowIn: 1.00,
-    rowAbs: 1.40,
-    rowNorm: 2.60,
-    caveat: 3.30,
-    pd: 3.60,
-    source: 4.20,
-  };
-
-  const T = useTokens(['--cyan', '--cream', '--cream-muted', '--cream-faint', '--cream-hairline']);
-  const tk = (n, fb = 'transparent') => (T ? T[n] || fb : fb);
-
+export default function Slide18Case2Pillars15() {
   return (
-    <SlideGrid dataCase="cyan" areas={STANDARD_AREAS}>
-      <Eyebrow color="var(--cyan)" delay={D.eyebrow}>CS2 · Fit</Eyebrow>
-      <Headline delay={D.headline} maxChars={34}>
-        Weight explains the gap.{' '}
-        <span style={{ color: 'var(--cyan)', fontStyle: 'italic', fontWeight: 700 }}>
-          Ethnicity doesn't.
-        </span>
-      </Headline>
-      <Subhead delay={D.subhead} maxChars={95}>
-        AGILE (AG120-C-009) Cycle 1 Day 1 PK — absolute vs weight-normalized. The apparent AUC ratio of
-        0.84 lands at 0.97 after per-kg normalization.
-      </Subhead>
+    <SlideFrame
+      dataCase="cyan"
+      eyebrowColor="var(--cyan)"
+      eyebrow="CS2 · Pillars 1-5 — global concordance"
+      headline={
+        <>
+          The clinical gap{' '}
+          <span style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 700 }}>
+            disappears
+          </span>{' '}
+          on weight.
+        </>
+      }
+      headlineMaxChars={36}
+      subhead="A 5-fold AML-vs-CCA AUC gap collapses once dose is normalized to body weight — independent of ethnicity."
+      subheadMaxChars={120}
+      footerKicker="Case 02 · The convergence"
+      footerTagline="Source · Servier popPK 2024 · Jiang CTS 2021 · TIBSOVO USPI · oncologic exposure-response (PMID 36302156)"
+    >
+      <Pillars15Layout />
+    </SlideFrame>
+  );
+}
 
-      <Viz>
-        <div style={{ width: '100%', height: '100%', display: 'grid', gridTemplateRows: '1fr auto', rowGap: 'var(--space-4)', minHeight: 0 }}>
-      {/* Main grid: ratio panel + caveat */}
+function Pillars15Layout() {
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateRows: 'auto 1fr',
+        rowGap: 'var(--space-5)',
+        height: '100%',
+        minHeight: 0,
+      }}
+    >
+      {/* Top — pillar architecture in horizontal-chain hero15 mode */}
+      <div style={{ height: 200, minHeight: 0 }}>
+        <PillarArchitecture stage="hero15" />
+      </div>
+
+      {/* Bottom — typographic 84.6% ≈ 84.4% centerpiece + bridging story */}
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1fr) 340px',
-          gap: 'var(--space-6)',
+          gridTemplateColumns: 'minmax(0, 1.3fr) minmax(0, 1fr)',
+          columnGap: 'var(--space-6)',
+          alignItems: 'center',
           minHeight: 0,
         }}
       >
-        {/* LEFT — ratio panel */}
-        <motion.div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            padding: '18px 22px',
-            border: '1px solid var(--cream-hairline)',
-            borderLeft: '3px solid var(--cyan)',
-            borderRadius: 8,
-            background: 'color-mix(in srgb, var(--panel) 55%, transparent)',
-            minWidth: 0,
-          }}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease, delay: D.ratioCard }}
-        >
-          <div
-            className="deck-mono uppercase"
-            style={{
-              fontSize: '0.62rem',
-              letterSpacing: 'var(--ls-mono-wide)',
-              color: 'var(--cyan)',
-              fontWeight: 700,
-              marginBottom: 6,
-            }}
-          >
-            Asian : Non-Asian exposure ratio · bioequivalence window 0.80–1.25
-          </div>
-
-          <div style={{ flex: 1, display: 'grid', gridTemplateRows: '1fr 1fr', minHeight: 0, gap: 4 }}>
-            <RatioTrack
-              name="AUC₀₋₄"
-              sub="AREA UNDER CURVE · h·ng/mL"
-              abs={0.84}
-              norm={0.97}
-              delayIn={D.rowIn}
-              delayAbs={D.rowAbs}
-              delayNorm={D.rowNorm}
-              tk={tk}
-            />
-            <RatioTrack
-              name="Cmax"
-              sub="PEAK CONCENTRATION · ng/mL"
-              abs={0.97}
-              norm={1.10}
-              delayIn={D.rowIn + 0.15}
-              delayAbs={D.rowAbs + 0.15}
-              delayNorm={D.rowNorm + 0.15}
-              tk={tk}
-            />
-          </div>
-
-          {/* Footer tag */}
-          <div
-            className="deck-display italic"
-            style={{
-              marginTop: 8,
-              fontSize: 'clamp(0.78rem, 0.9vw, 0.95rem)',
-              lineHeight: 1.35,
-              color: 'var(--cream-muted)',
-              fontWeight: 400,
-            }}
-          >
-            Absolute Cmax sits near unity; the{' '}
-            <strong style={{ color: 'var(--cyan)', fontStyle: 'normal', fontWeight: 700 }}>
-              per-kg direction reverses
-            </strong>{' '}
-            — the visual proof that body weight, not ethnicity, drove the gap.
-          </div>
-        </motion.div>
-
-        {/* RIGHT — caveat panel */}
-        <motion.aside
-          style={{
-            padding: '20px 22px',
-            background: 'color-mix(in srgb, var(--bg) 72%, transparent)',
-            borderLeft: '2px solid var(--cyan)',
-            borderRadius: 4,
-            backdropFilter: 'blur(6px)',
-          }}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease, delay: D.caveat }}
-        >
-          <div
-            className="deck-mono uppercase"
-            style={{
-              fontSize: '0.66rem',
-              letterSpacing: '0.22em',
-              color: 'var(--cyan)',
-              fontWeight: 700,
-              marginBottom: 12,
-            }}
-          >
-            One honest caveat
-          </div>
-          <h3
-            className="deck-display"
-            style={{
-              fontSize: 'clamp(1.1rem, 1.4vw, 1.55rem)',
-              lineHeight: 1.2,
-              color: 'var(--cream)',
-              fontWeight: 600,
-              marginBottom: 12,
-              letterSpacing: 'var(--ls-headline)',
-            }}
-          >
-            "Asian"{' '}
-            <em style={{ color: 'var(--cyan)', fontStyle: 'italic', fontWeight: 700 }}>≠</em>{' '}
-            "South Asian"
-          </h3>
-          <p
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: 'clamp(0.78rem, 0.88vw, 0.94rem)',
-              lineHeight: 1.45,
-              color: 'var(--cream-muted)',
-            }}
-          >
-            "Asian" in the AG120 program means{' '}
-            <strong style={{ color: 'var(--cream)', fontWeight: 600 }}>Japan, Taiwan, Korea</strong>.{' '}
-            <strong style={{ color: 'var(--cream)', fontWeight: 600 }}>No Indian subjects</strong> were
-            enrolled. The argument is that South Asian patients would not differ from the East Asian
-            subgroup — <strong style={{ color: 'var(--cream)', fontWeight: 600 }}>not</strong> that Indian
-            data already existed. This is why the case does not rest on one subgroup alone.
-          </p>
-        </motion.aside>
+        <ConcordanceHero />
+        <BridgingPanel />
       </div>
+    </div>
+  );
+}
 
-      {/* PD strip */}
-      <motion.div
+function ConcordanceHero() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.94 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.85, ease: [0.2, 0.7, 0.3, 1], delay: 1.2 }}
+      style={{
+        textAlign: 'center',
+        padding: 'var(--space-5) var(--space-4)',
+        position: 'relative',
+      }}
+    >
+      <div
+        className="deck-mono uppercase"
         style={{
-          paddingTop: 'var(--space-3)',
-          borderTop: '1px solid var(--cream-hairline)',
+          fontSize: 'var(--fs-slide-pageno)',
+          letterSpacing: 'var(--ls-mono-wide)',
+          color: 'var(--cyan)',
+          fontWeight: 700,
+          marginBottom: 'var(--space-2)',
         }}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease, delay: D.pd }}
       >
-        <div
-          className="deck-mono uppercase"
+        Pillar 4 · Bridging math · India ≈ Global
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'baseline',
+          justifyContent: 'center',
+          gap: 'var(--space-4)',
+          flexWrap: 'wrap',
+        }}
+      >
+        <PercentBlock value="84.6%" sub="Indian-population AUC₀–24h projection" tone="coral" />
+        <span
+          className="deck-display"
           style={{
-            fontSize: '0.68rem',
-            letterSpacing: '0.22em',
+            fontSize: 'clamp(2.4rem, 4.8vw, 4.5rem)',
             color: 'var(--cream-muted)',
-            marginBottom: 10,
+            fontWeight: 300,
+            lineHeight: 1,
           }}
         >
-          Pharmacodynamic readout ·{' '}
-          <strong style={{ color: 'var(--cyan)', fontWeight: 700 }}>2-HG inhibition</strong> · AGILE C1D15
-          · Asian N=6 · Non-Asian N=36
-        </div>
+          ≈
+        </span>
+        <PercentBlock value="84.4%" sub="Global pivotal-population AUC₀–24h" tone="cyan" />
+      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 4 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, ease: [0.2, 0.7, 0.3, 1], delay: 2.0 }}
+        style={{
+          marginTop: 'var(--space-3)',
+          fontFamily: 'var(--font-body)',
+          fontSize: 'var(--fs-slide-tagline)',
+          fontWeight: 600,
+          fontStyle: 'italic',
+          color: 'var(--cream)',
+          letterSpacing: '-0.005em',
+          lineHeight: 1.3,
+        }}
+      >
+        Δ ≈{' '}
+        <span style={{ color: 'var(--cyan)', fontWeight: 800, fontStyle: 'normal' }}>0.2 percentage points</span>.
+      </motion.div>
+    </motion.div>
+  );
+}
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '260px minmax(0, 1fr) 260px',
-            alignItems: 'center',
-            gap: 28,
-          }}
-        >
-          {/* Big num pair */}
-          <div
-            className="deck-display"
+function PercentBlock({ value, sub, tone }) {
+  const color = tone === 'coral' ? 'var(--coral)' : 'var(--cyan)';
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: 240 }}>
+      <div
+        className="deck-display"
+        style={{
+          fontSize: 'clamp(3rem, 6vw, 5.5rem)',
+          fontWeight: 700,
+          color,
+          letterSpacing: '-0.04em',
+          lineHeight: 0.95,
+          fontVariantNumeric: 'tabular-nums',
+        }}
+      >
+        {value}
+      </div>
+      <div
+        className="deck-mono"
+        style={{
+          marginTop: 4,
+          fontSize: 'var(--fs-slide-pageno)',
+          color: 'var(--cream-muted)',
+          textAlign: 'center',
+          lineHeight: 1.25,
+          letterSpacing: '0.02em',
+        }}
+      >
+        {sub}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Bridging panel — five mini-evidence rows ─────────────────── */
+const PILLAR_ROWS = [
+  ['P1', 'PK linear · 200–1200 mg', 'AGILE'],
+  ['P2', 'No genetic CYP3A4 ethnic gating', 'PharmGKB'],
+  ['P3', 'PD plateau ≥ 500 mg', '2-HG'],
+  ['P4', '5× AML/CCA gap → Δ 0.2pp', 'popPK'],
+  ['P5', 'Flat E-R · 8 yr · 1,281 subj', 'Pillar 5'],
+];
+
+function BridgingPanel() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 12 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.6, ease: [0.2, 0.7, 0.3, 1], delay: 1.6 }}
+      style={{
+        padding: 'var(--space-4) var(--space-5)',
+        border: '1px solid var(--cream-hairline)',
+        borderLeft: '3px solid var(--coral)',
+        borderRadius: 'var(--radius-md)',
+        background: 'color-mix(in srgb, var(--panel) 65%, transparent)',
+      }}
+    >
+      <div
+        className="deck-mono uppercase"
+        style={{
+          fontSize: 'var(--fs-slide-pageno)',
+          letterSpacing: 'var(--ls-mono-wide)',
+          color: 'var(--coral)',
+          fontWeight: 700,
+          marginBottom: 'var(--space-2)',
+        }}
+      >
+        Five lines of evidence — converging
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {PILLAR_ROWS.map(([id, label, src], i) => (
+          <motion.div
+            key={id}
+            initial={{ opacity: 0, x: -6 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.35, ease: [0.2, 0.7, 0.3, 1], delay: 1.8 + i * 0.08 }}
             style={{
-              fontSize: 'clamp(1.8rem, 2.8vw, 2.8rem)',
-              fontWeight: 700,
-              lineHeight: 0.95,
-              letterSpacing: '-0.025em',
-              color: 'var(--cream)',
-              display: 'flex',
+              display: 'grid',
+              gridTemplateColumns: 'auto 1fr auto',
+              columnGap: 'var(--space-3)',
               alignItems: 'baseline',
-              gap: 10,
+              padding: '4px 0',
+              borderBottom: i < 4 ? '1px dashed color-mix(in srgb, var(--cream-hairline) 70%, transparent)' : 'none',
             }}
           >
-            <span style={{ color: 'var(--cyan)' }}>84.6%</span>
-            <span
+            <div
+              className="deck-mono"
               style={{
-                color: 'var(--cream-faint)',
-                fontWeight: 400,
-                fontSize: 'clamp(1rem, 1.4vw, 1.3rem)',
+                fontSize: 'var(--fs-slide-pageno)',
+                color: 'var(--cyan)',
+                fontWeight: 700,
+                width: 24,
               }}
             >
-              vs
-            </span>
-            <span>84.4%</span>
-          </div>
-
-          {/* Dot plot */}
-          <div style={{ height: 56 }}>
-            <PdDotStrip tk={tk} delay={D.pd + 0.2} />
-          </div>
-
-          {/* Caption */}
-          <div
-            className="deck-display italic"
-            style={{
-              fontSize: 'clamp(0.78rem, 0.92vw, 0.98rem)',
-              lineHeight: 1.3,
-              color: 'var(--cream-muted)',
-              fontWeight: 500,
-            }}
-          >
-            Near-identical inhibition of the oncometabolite —{' '}
-            <strong style={{ fontStyle: 'normal', color: 'var(--cream)', fontWeight: 600 }}>
-              direct mechanistic readout
-            </strong>
-            , not a surrogate.
-          </div>
-        </div>
+              {id}
+            </div>
+            <div
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'var(--fs-slide-kicker)',
+                color: 'var(--cream)',
+                lineHeight: 1.3,
+              }}
+            >
+              {label}
+            </div>
+            <div
+              className="deck-mono"
+              style={{
+                fontSize: 'var(--fs-slide-pageno)',
+                color: 'var(--cream-faint)',
+                letterSpacing: '0.02em',
+              }}
+            >
+              {src}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, ease: [0.2, 0.7, 0.3, 1], delay: 2.6 }}
+        style={{
+          marginTop: 'var(--space-3)',
+          paddingTop: 'var(--space-2)',
+          borderTop: '1px solid var(--cream-hairline)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 'var(--space-2)',
+          fontFamily: 'var(--font-body)',
+          fontSize: 'var(--fs-slide-kicker)',
+          color: 'var(--cream)',
+          fontStyle: 'italic',
+        }}
+      >
+        Five independent lines{' '}
+        <ArrowRight size={14} color="var(--coral)" strokeWidth={2.5} />{' '}
+        <span style={{ fontWeight: 700, fontStyle: 'normal', color: 'var(--coral)' }}>
+          one converging classification.
+        </span>
       </motion.div>
-
-        </div>
-      </Viz>
-
-      <Footer
-        kicker="Case 02 · Fit"
-        tagline="Source · AG120-C-009 PKPD Table 14 · AGILE PK"
-        delay={D.source}
-      />
-    </SlideGrid>
+    </motion.div>
   );
 }

@@ -21,6 +21,8 @@ export default function RatioTrack({
   sub,
   abs,
   norm,
+  absLabel,
+  normLabel,
   delayIn = 0.6,
   delayAbs = 1.0,
   delayNorm = 2.2,
@@ -126,6 +128,18 @@ export default function RatioTrack({
       >
         ABS {abs.toFixed(2)}
       </motion.text>
+      {absLabel && (
+        <motion.text
+          x={refX(abs)} y={y - 30} textAnchor="middle"
+          fontFamily="var(--font-mono)" fontSize="8.5"
+          letterSpacing="0.10em" fill={tk('--cream-muted')}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4, delay: delayNorm - 0.2 }}
+        >
+          {absLabel}
+        </motion.text>
+      )}
 
       {/* Trail: absolute → normalized */}
       <motion.line
@@ -180,6 +194,18 @@ export default function RatioTrack({
       >
         /KG  {norm.toFixed(2)}
       </motion.text>
+      {normLabel && (
+        <motion.text
+          x={refX(norm)} y={y + 72} textAnchor="middle"
+          fontFamily="var(--font-mono)" fontSize="8.5"
+          letterSpacing="0.10em" fill={tk('--cream-muted')}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: delayNorm + 0.9 }}
+        >
+          {normLabel}
+        </motion.text>
+      )}
     </svg>
   );
 }

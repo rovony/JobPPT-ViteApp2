@@ -36,7 +36,10 @@ import QAModerationPane from './QAModerationPane';
  */
 export default function PresenterView({ deck, onClose, onToggleFullscreen, isFullscreen }) {
   const { index, total, prev, next, goto } = useDeck();
-  const { getNote, saveNote, saving, loaded } = useSpeakerNotes(deck.id);
+  const { getNote, saveNote, clearNote, hasOverride, saving, loaded } = useSpeakerNotes(
+    deck.id,
+    deck.notes,
+  );
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState('');
   const [helpOpen, setHelpOpen] = useState(false);
@@ -107,7 +110,11 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
   }, []);
 
   const presentOnAnotherScreen = () => {
-    const url = `${window.location.origin}/Deck?id=${deck.id}&audience=1&slide=${index}`;
+    // Canonical URL — legacy /Deck?id=X redirect (pages/Deck.jsx) drops
+    // non-presenter query params, so `audience=1` never survives the
+    // redirect. Go direct to /decks/:id/s/:slide?audience=1.
+    const slideId = deck.slides?.[index]?.id ?? String(index);
+    const url = `${window.location.origin}/decks/${encodeURIComponent(deck.id)}/s/${encodeURIComponent(slideId)}?audience=1`;
     window.open(url, `deck-audience-${deck.id}`, 'noopener,noreferrer');
   };
 
@@ -238,6 +245,8 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
                 setEditing={setEditing}
                 placeholder="No notes yet. Click Edit to add speaker notes — supports **bold**, *italic*, ==highlight==, bullets, and headings."
                 slideKey={current?.id || index}
+                hasOverride={current ? hasOverride(current.id) : false}
+                onResetToFile={current ? () => { clearNote(current.id); setEditing(false); } : undefined}
               />
               <div className="deck-mono mt-2 px-1"
                    style={{ fontSize: '0.6rem', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}>

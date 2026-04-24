@@ -1,478 +1,246 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
-import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
+import SlideFrame from '@/components/deck/SlideFrame';
 
 /**
- * Slide 19 · CS2 Decision — "Mechanism is ethnicity-independent."
+ * Slide 21 (manifest position) · CS2 RESPONSE — execution + leadership.
  *
- * Layout:
- *   LEFT column:
- *     • Centered question tile ("Where does the drug target live?")
- *     • Two branches side-by-side below:
- *         A · Host genome (dimmed · NOT THIS CASE · struck-through title)
- *         B · Tumor cells (active · THIS CASE · cyan accent)
- *   RIGHT column:
- *     • ICH E5(R1) Appendix D — 9-criterion checklist
- *     • 9/9 hero numeral at footer + one amber "partial" row for CYP3A4.
+ * Per cs2-design.md beat 7: "Indian regulatory timeline rendered as a
+ * horizontal sequence (MAA → SEC1 → EO → SEC2 objection → 91-KB →
+ * in-person presentation → favorable recommendation → approval).
+ * 26 March 2025 — the leadership beat: a single in-person presentation
+ * to the Subject Expert Committee."
  *
- * No SVG tree or leader lines — pure CSS grid + cards for legibility.
+ * No shared cinematic anchors enter or exit here — this is the
+ * stationary execution panel. The hero is the regulatory timeline
+ * itself, with the 26-Mar leadership beat as the climactic node.
  */
+export default function Slide19Case2Response() {
+  return (
+    <SlideFrame
+      dataCase="cyan"
+      eyebrowColor="var(--cyan)"
+      eyebrow="CS2 · The response — execution & leadership"
+      headline={
+        <>
+          A single in-person SEC presentation —{' '}
+          <span style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 700 }}>
+            27 March 2025.
+          </span>
+        </>
+      }
+      headlineMaxChars={36}
+      subhead="Twelve months of regulatory choreography. Three subject expert committee passes. One favorable recommendation."
+      subheadMaxChars={120}
+      footerKicker="Case 02 · The execution"
+      footerTagline="Source · CDSCO 91-KB submission · 27 Mar 2025 SEC minutes · Servier India regulatory file"
+    >
+      <ResponseLayout />
+    </SlideFrame>
+  );
+}
 
-const ICH_CRITERIA = [
-  { ok: true,  b: 'Wide therapeutic dose range', t: '· MTD not reached', domain: 'PK' },
-  { ok: true,  b: 'Nonlinear PK',                t: ' well-characterized · less than dose-proportional', domain: 'PK' },
-  { ok: true,  b: 'Low protein-binding variability', t: '', domain: 'PK' },
-  { ok: true,  b: 'Flat PD curve at 500 mg QD', t: ' · 2-HG inhibition plateau', domain: 'PD' },
-  { ok: true,  b: 'Direct PD marker = mechanism', t: ' · not a surrogate', domain: 'PD' },
-  { partial: true, b: 'CYP3A4 polymorphism', t: ' · DDI quantified · label dose adjustment', domain: 'DDI' },
-  { ok: true,  b: 'Oral systemic administration', t: '', domain: 'USE' },
-  { ok: true,  b: 'Specialist oncology drug', t: ' · low inappropriate-use potential', domain: 'USE' },
-  { ok: true,  b: 'Low individual-factor dose adjustment', t: '', domain: 'USE' },
+/* Compact 9-step timeline */
+const STEPS = [
+  { date: '27 Mar 2024', label: 'MAA filing',           detail: 'CDSCO Form 44 · 6 documents · NDCTR 2019' },
+  { date: '23 May 2024', label: 'SEC #1',               detail: 'Pre-clinical & efficacy review' },
+  { date: '23 Aug 2024', label: 'EO — additional data', detail: 'Examiner Office query batch 1' },
+  { date: '10 Dec 2024', label: 'SEC #2 — objection',   detail: '"Conduct PK/PD study in Indian patients"', flag: 'turn' },
+  { date: 'Dec — Jan',   label: 'Strategy reframe',     detail: 'Six-pillar mechanism-first response constructed' },
+  { date: '14 Jan 2025', label: '91-KB submission',     detail: '600-page integrated PK/PD package · ICH E5(R1) classification' },
+  { date: '27 Mar 2025', label: 'SEC #3 — in-person',   detail: 'Single live presentation · 6 pillars · 9/9 ICH E5 criteria', flag: 'climax' },
+  { date: '4 Apr 2025',  label: 'Favorable recommendation', detail: 'SEC recommends conditional approval — no Indian PK study required' },
+  { date: '14 May 2025', label: 'Marketing authorization', detail: 'CDSCO Tibsovo approval · India' },
 ];
 
-export default function Slide19Case2Decision() {
-  const ease = [0.2, 0.7, 0.3, 1];
-  const D = {
-    chrome: 0.10,
-    eyebrow: 0.20,
-    headline: 0.35,
-    subhead: 0.60,
-    question: 0.85,
-    branchA: 1.10,
-    branchB: 1.25,
-    ichPanel: 1.45,
-    ichRow: 1.70,
-    source: 3.20,
-  };
-
+function ResponseLayout() {
   return (
-    <SlideGrid dataCase="cyan" areas={STANDARD_AREAS}>
-      <Eyebrow color="var(--cyan)" delay={D.eyebrow}>CS2 · Decision</Eyebrow>
-      <Headline delay={D.headline} maxChars={40}>
-        Mechanism is{' '}
-        <span style={{ color: 'var(--cyan)', fontStyle: 'italic', fontWeight: 700 }}>
-          ethnicity-independent
-        </span>{' '}
-        — by biology, not by statistics.
-      </Headline>
-      <Subhead delay={D.subhead} maxChars={90}>
-        IDH1 R132 is a <strong style={{ color: 'var(--cream)', fontStyle: 'normal', fontWeight: 700 }}>somatic mutation</strong> in the tumor — not in the host genome. Inherited variation does
-        not modulate drug-target engagement.
-      </Subhead>
-
-      <Viz>
-      {/* Body grid */}
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateRows: '1fr auto',
+        rowGap: 'var(--space-5)',
+        height: '100%',
+        minHeight: 0,
+      }}
+    >
+      {/* Timeline */}
       <div
         style={{
-          width: '100%',
-          height: '100%',
+          position: 'relative',
+          padding: 'var(--space-3) 0',
           display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 0.85fr)',
-          gap: 'var(--space-8)',
+          gridTemplateColumns: `repeat(${STEPS.length}, 1fr)`,
+          alignItems: 'stretch',
           minHeight: 0,
         }}
       >
-        {/* LEFT cluster */}
-        <div
+        {/* Spine */}
+        <motion.div
+          aria-hidden
+          initial={{ scaleX: 0, transformOrigin: 'left' }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1.2, ease: [0.2, 0.7, 0.3, 1], delay: 0.4 }}
           style={{
-            display: 'grid',
-            gridTemplateRows: 'auto 1fr',
-            rowGap: '18px',
-            minWidth: 0,
-            minHeight: 0,
+            position: 'absolute',
+            left: '4%',
+            right: '4%',
+            top: '50%',
+            height: 2,
+            background: 'linear-gradient(90deg, var(--cyan), var(--coral))',
+            opacity: 0.55,
+            transform: 'translateY(-1px)',
           }}
-        >
-          <QuestionTile delay={D.question} />
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              columnGap: '18px',
-              minHeight: 0,
-            }}
-          >
-            <BranchCard
-              dim
-              tag="Branch A · Germline"
-              title="Host genome"
-              bullets={[
-                'Inherited at birth',
-                'Frequencies vary by population',
-                'Pharmacogenomics modulates engagement',
-                'Ethnic subgroup data becomes pivotal',
-              ]}
-              verdict="Would require ethnic subgroup evidence to establish comparability."
-              foot="Not this case"
-              delay={D.branchA}
-            />
-            <BranchCard
-              tag="Branch B · Somatic ✓"
-              title="Tumor cells"
-              bullets={[
-                'IDH1 R132 arises during cancer development',
-                '> 99% somatic in IDH1-mutant cancers',
-                'Drug binds mutant enzyme inside the tumor',
-                'Host genome does not modulate engagement',
-              ]}
-              verdict={
-                <>
-                  Mechanism determined by{' '}
-                  <b style={{ color: 'var(--cyan)', fontStyle: 'normal', fontWeight: 700 }}>
-                    tumor biology + drug chemistry
-                  </b>{' '}
-                  — not ethnicity.
-                </>
-              }
-              foot="2-HG inhibition · 84.6% vs 84.4%"
-              delay={D.branchB}
-            />
-          </div>
-        </div>
-
-        {/* RIGHT — ICH panel */}
-        <IchPanel delayPanel={D.ichPanel} delayRowBase={D.ichRow} />
-      </div>
-
-      </Viz>
-
-      <Footer
-        kicker="Case 02 · Decision"
-        tagline="Source · ICH E5(R1) Appendix D · Dang 2009 · Figueroa 2010"
-        delay={D.source}
-      />
-    </SlideGrid>
-  );
-}
-
-/* ========================================================
-   QuestionTile — centered cyan-bordered prompt
-   ======================================================== */
-function QuestionTile({ delay }) {
-  const ease = [0.2, 0.7, 0.3, 1];
-  return (
-    <motion.div
-      style={{
-        justifySelf: 'center',
-        width: 'min(520px, 100%)',
-        padding: '12px 24px',
-        border: '1.5px solid var(--cyan)',
-        borderRadius: 8,
-        background: 'color-mix(in srgb, var(--cyan) 10%, transparent)',
-        textAlign: 'center',
-      }}
-      initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease, delay }}
-    >
-      <div
-        className="deck-mono uppercase"
-        style={{
-          fontSize: '0.66rem',
-          letterSpacing: '0.22em',
-          color: 'var(--cyan)',
-          fontWeight: 700,
-          marginBottom: 4,
-        }}
-      >
-        The question
-      </div>
-      <div
-        className="deck-display"
-        style={{
-          fontSize: 'clamp(1rem, 1.3vw, 1.4rem)',
-          lineHeight: 1.15,
-          color: 'var(--cream)',
-          fontWeight: 700,
-          letterSpacing: 'var(--ls-headline)',
-        }}
-      >
-        Where does the drug target live?
-      </div>
-    </motion.div>
-  );
-}
-
-/* ========================================================
-   BranchCard — active or dimmed branch
-   ======================================================== */
-function BranchCard({ dim, tag, title, bullets, verdict, foot, delay }) {
-  const ease = [0.2, 0.7, 0.3, 1];
-  const borderLeft = dim ? '3px solid var(--cream-hairline)' : '3px solid var(--cyan)';
-  const tagColor = dim ? 'var(--cream-faint)' : 'var(--cyan)';
-  const titleColor = dim ? 'var(--cream-muted)' : 'var(--cream)';
-  const bulletColor = dim ? 'var(--cream-faint)' : 'var(--cream)';
-  const dotColor = dim ? 'var(--cream-faint)' : 'var(--cyan)';
-
-  return (
-    <motion.div
-      style={{
-        position: 'relative',
-        padding: '16px 18px 16px 18px',
-        border: '1px solid var(--cream-hairline)',
-        borderLeft,
-        borderRadius: 8,
-        background: 'color-mix(in srgb, var(--panel) 55%, transparent)',
-        minWidth: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 10,
-      }}
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: dim ? 0.75 : 1, y: 0 }}
-      transition={{ duration: 0.6, ease, delay }}
-    >
-      <div
-        className="deck-mono uppercase"
-        style={{
-          fontSize: '0.66rem',
-          letterSpacing: '0.22em',
-          color: tagColor,
-          fontWeight: 700,
-        }}
-      >
-        {tag}
-      </div>
-
-      <div
-        className="deck-display"
-        style={{
-          fontSize: 'clamp(1rem, 1.3vw, 1.4rem)',
-          lineHeight: 1.1,
-          color: titleColor,
-          fontWeight: 700,
-          letterSpacing: 'var(--ls-headline)',
-          textDecoration: dim ? 'line-through' : 'none',
-          textDecorationColor: dim ? 'var(--cream-faint)' : 'transparent',
-        }}
-      >
-        {title}
-      </div>
-
-      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-        {bullets.map((b, i) => (
-          <li
-            key={i}
-            style={{
-              position: 'relative',
-              padding: '4px 0 4px 14px',
-              fontFamily: 'var(--font-body)',
-              fontSize: 'clamp(0.72rem, 0.82vw, 0.86rem)',
-              lineHeight: 1.35,
-              color: bulletColor,
-              borderBottom: i === bullets.length - 1 ? 'none' : '1px dashed var(--cream-ghost)',
-            }}
-          >
-            <span
-              aria-hidden
-              style={{ position: 'absolute', left: 2, top: 4, color: dotColor, fontWeight: 700 }}
-            >
-              ·
-            </span>
-            {b}
-          </li>
+        />
+        {STEPS.map((s, i) => (
+          <TimelineNode key={s.date + s.label} step={s} index={i} above={i % 2 === 0} total={STEPS.length} />
         ))}
-      </ul>
-
-      <div
-        className="deck-display italic"
-        style={{
-          padding: '8px 12px',
-          borderLeft: dim ? '2px solid var(--cream-hairline)' : '2px solid var(--cyan)',
-          background: dim ? 'var(--cream-ghost)' : 'color-mix(in srgb, var(--cyan) 8%, transparent)',
-          borderRadius: '0 4px 4px 0',
-          fontSize: 'clamp(0.78rem, 0.88vw, 0.94rem)',
-          lineHeight: 1.35,
-          color: dim ? 'var(--cream-faint)' : 'var(--cream)',
-          fontWeight: 500,
-        }}
-      >
-        {verdict}
       </div>
 
-      <div
-        className="deck-mono uppercase"
+      {/* Bottom — leadership beat callout */}
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.2, 0.7, 0.3, 1], delay: 1.6 + STEPS.length * 0.08 }}
         style={{
-          textAlign: 'right',
-          fontSize: '0.6rem',
-          letterSpacing: '0.22em',
-          color: dim ? 'var(--cream-faint)' : 'var(--cyan)',
-          fontWeight: 700,
-        }}
-      >
-        {foot}
-      </div>
-    </motion.div>
-  );
-}
-
-/* ========================================================
-   IchPanel — 9-criterion checklist + 9/9 hero
-   ======================================================== */
-function IchPanel({ delayPanel, delayRowBase }) {
-  const ease = [0.2, 0.7, 0.3, 1];
-  return (
-    <motion.div
-      style={{
-        padding: '18px 20px',
-        border: '1px solid var(--cream-hairline)',
-        borderLeft: '3px solid var(--cyan)',
-        borderRadius: 8,
-        background: 'color-mix(in srgb, var(--panel) 55%, transparent)',
-        display: 'grid',
-        gridTemplateRows: 'auto auto 1fr auto',
-        rowGap: 10,
-        minWidth: 0,
-        minHeight: 0,
-      }}
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease, delay: delayPanel }}
-    >
-      <div
-        className="deck-mono uppercase"
-        style={{
-          fontSize: '0.66rem',
-          letterSpacing: '0.22em',
-          color: 'var(--cyan)',
-          fontWeight: 700,
-        }}
-      >
-        ICH E5(R1) · Appendix D
-      </div>
-      <div>
-        <div
-          className="deck-display"
-          style={{
-            fontSize: 'clamp(1rem, 1.3vw, 1.35rem)',
-            lineHeight: 1.1,
-            color: 'var(--cream)',
-            fontWeight: 700,
-            letterSpacing: 'var(--ls-headline)',
-          }}
-        >
-          Compound-property criteria{' '}
-          <span style={{ color: 'var(--cyan)', fontStyle: 'italic', fontWeight: 700 }}>
-            evaluated
-          </span>
-        </div>
-        <div
-          className="deck-display italic"
-          style={{
-            fontSize: 'clamp(0.72rem, 0.82vw, 0.88rem)',
-            color: 'var(--cream-muted)',
-            marginTop: 2,
-          }}
-        >
-          Each criterion favors ethnic insensitivity when satisfied.
-        </div>
-      </div>
-
-      <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', rowGap: 2 }}>
-        {ICH_CRITERIA.map((c, i) => (
-          <IchRow key={i} c={c} delay={delayRowBase + i * 0.08} />
-        ))}
-      </ul>
-
-      {/* Footer row — 9/9 hero + caption */}
-      <div
-        style={{
+          padding: 'var(--space-4) var(--space-5)',
+          border: '1.5px solid var(--coral)',
+          borderLeft: '4px solid var(--coral)',
+          borderRadius: 'var(--radius-md)',
+          background: 'linear-gradient(135deg, color-mix(in srgb, var(--coral) 14%, transparent), color-mix(in srgb, var(--panel) 70%, transparent) 70%)',
           display: 'grid',
-          gridTemplateColumns: '1fr auto',
-          alignItems: 'end',
-          columnGap: 18,
-          paddingTop: 10,
-          borderTop: '1px solid var(--cream-hairline)',
+          gridTemplateColumns: 'auto 1fr',
+          columnGap: 'var(--space-4)',
+          alignItems: 'center',
         }}
       >
         <div
-          className="deck-display italic"
-          style={{
-            fontSize: 'clamp(0.76rem, 0.88vw, 0.92rem)',
-            lineHeight: 1.35,
-            color: 'var(--cream-muted)',
-          }}
-        >
-          <b style={{ color: 'var(--cream)', fontStyle: 'normal', fontWeight: 700 }}>
-            8 directly satisfied
-          </b>{' '}
-          · 1 polymorphic (CYP3A4) handled via labeled management, which ICH E5 explicitly permits.
-        </div>
-        <div
           className="deck-display"
           style={{
-            fontSize: 'clamp(2.4rem, 3.6vw, 3.6rem)',
-            fontWeight: 800,
-            color: 'var(--cyan)',
-            letterSpacing: '-0.04em',
+            fontSize: 'clamp(2rem, 3.4vw, 3rem)',
+            fontWeight: 700,
+            color: 'var(--coral)',
+            letterSpacing: '-0.03em',
             lineHeight: 0.95,
           }}
         >
-          9<span style={{ color: 'var(--cream-faint)', fontWeight: 500, fontSize: '0.62em', margin: '0 4px' }}>/</span>9
+          27 / 03
         </div>
-      </div>
-    </motion.div>
+        <div>
+          <div
+            className="deck-mono uppercase"
+            style={{
+              fontSize: 'var(--fs-slide-pageno)',
+              letterSpacing: 'var(--ls-mono-wide)',
+              color: 'var(--coral)',
+              fontWeight: 700,
+              marginBottom: 4,
+            }}
+          >
+            The leadership beat — 27 March 2025
+          </div>
+          <div
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: 'var(--fs-slide-body)',
+              color: 'var(--cream)',
+              lineHeight: 1.4,
+            }}
+          >
+            A single in-person SEC presentation — six converging pillars, ICH E5(R1) Appendix D 9 / 9, integrated PK/PD package. The committee accepted the architecture and recommended conditional approval without requiring a duplicative Indian PK study.
+          </div>
+        </div>
+      </motion.div>
+    </div>
   );
 }
 
-function IchRow({ c, delay }) {
-  const ease = [0.2, 0.7, 0.3, 1];
-  const partial = c.partial;
-  const color = partial ? 'var(--amber)' : 'var(--cyan)';
-  const bg = partial
-    ? 'color-mix(in srgb, var(--amber) 12%, transparent)'
-    : 'color-mix(in srgb, var(--cyan) 16%, transparent)';
+/* Single timeline node */
+function TimelineNode({ step, index, above, total }) {
+  const delay = 0.6 + index * 0.12;
+  const tone = step.flag === 'climax' ? 'var(--coral)' : step.flag === 'turn' ? 'var(--amber, #d8a634)' : 'var(--cyan)';
   return (
-    <motion.li
+    <div
       style={{
-        display: 'grid',
-        gridTemplateColumns: '26px minmax(0, 1fr) auto',
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
-        columnGap: 10,
-        padding: '5px 2px',
-        borderBottom: '1px dashed var(--cream-ghost)',
-        fontFamily: 'var(--font-body)',
-        fontSize: 'clamp(0.72rem, 0.82vw, 0.86rem)',
-        lineHeight: 1.3,
-        color: 'var(--cream)',
+        justifyContent: 'center',
+        height: '100%',
       }}
-      initial={{ opacity: 0, y: 4 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease, delay }}
     >
-      <span
+      {above && <NodeCard step={step} index={index} delay={delay + 0.2} tone={tone} placement="above" total={total} />}
+
+      {/* Dot */}
+      <motion.div
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.45, ease: [0.2, 0.7, 0.3, 1], delay }}
         style={{
-          width: 20,
-          height: 20,
+          width: step.flag ? 18 : 12,
+          height: step.flag ? 18 : 12,
           borderRadius: '50%',
-          border: `1.5px solid ${color}`,
-          background: bg,
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontFamily: 'var(--font-mono)',
-          fontSize: '0.72rem',
-          fontWeight: 700,
-          color,
+          background: tone,
+          boxShadow: step.flag ? `0 0 0 4px color-mix(in srgb, ${tone} 28%, transparent)` : 'none',
+          border: step.flag === 'climax' ? '2px solid var(--cream)' : 'none',
+          zIndex: 2,
         }}
-      >
-        {partial ? '~' : '✓'}
-      </span>
-      <span style={{ minWidth: 0 }}>
-        <b style={{ color: 'var(--cream)', fontWeight: 700 }}>{c.b}</b>
-        <span style={{ color: 'var(--cream-muted)' }}>{c.t}</span>
-      </span>
-      <span
+      />
+
+      {!above && <NodeCard step={step} index={index} delay={delay + 0.2} tone={tone} placement="below" total={total} />}
+    </div>
+  );
+}
+
+function NodeCard({ step, delay, tone, placement }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: placement === 'above' ? 6 : -6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: [0.2, 0.7, 0.3, 1], delay }}
+      style={{
+        position: 'absolute',
+        [placement === 'above' ? 'bottom' : 'top']: 'calc(50% + 16px)',
+        width: '92%',
+        padding: '6px 8px',
+        textAlign: 'center',
+      }}
+    >
+      <div
         className="deck-mono uppercase"
         style={{
-          fontSize: '0.58rem',
-          letterSpacing: '0.18em',
-          color: 'var(--cream-faint)',
-          paddingLeft: 6,
+          fontSize: 'var(--fs-slide-pageno)',
+          letterSpacing: 'var(--ls-mono-wide)',
+          color: tone,
+          fontWeight: 700,
+          marginBottom: 2,
         }}
       >
-        {c.domain}
-      </span>
-    </motion.li>
+        {step.date}
+      </div>
+      <div
+        style={{
+          fontFamily: 'var(--font-body)',
+          fontSize: 'var(--fs-slide-kicker)',
+          fontWeight: 700,
+          color: 'var(--cream)',
+          lineHeight: 1.2,
+          marginBottom: 2,
+        }}
+      >
+        {step.label}
+      </div>
+      <div
+        className="deck-mono"
+        style={{
+          fontSize: 'calc(var(--fs-slide-pageno) * 0.92)',
+          color: 'var(--cream-muted)',
+          lineHeight: 1.3,
+        }}
+      >
+        {step.detail}
+      </div>
+    </motion.div>
   );
 }

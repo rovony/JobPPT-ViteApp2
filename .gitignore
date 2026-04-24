@@ -29,3 +29,7 @@ dist-ssr
 
 .env
 .vite
+
+# Audit / screenshot scratch (app-local; root .gitignore also covers _screenshots/)
+_screenshots/
+_audit/
