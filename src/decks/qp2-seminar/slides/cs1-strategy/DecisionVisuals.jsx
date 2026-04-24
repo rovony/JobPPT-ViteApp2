@@ -269,44 +269,89 @@ export function IntegrateViz({ delay = 0 }) {
 }
 
 /* ============================================================
-   DECISION 02 — CONSTRAIN (two side-by-side log-log charts)
+   DECISION 02 — CONSTRAIN (X/✓ vertical split, mirrors IntegrateViz)
 
-   LEFT chart  (x 4–146)  : CL · Q vs WT, slope 0.75 (solid coral).
-                            Arrow sprites travel up-slope, play twice
-                            then stop. "70 KG · ADULT" leader callout.
-   DIVIDER                 : vertical hairline at x=150.
-   RIGHT chart (x 154–296) : Vc · Vp vs WT, slope 1.0 (solid coral).
-                            One arrow sprite up-slope, plays twice
-                            then stops.
-   Shared top kicker       : "ALLOMETRY · FIXED"
-   Shared bottom citation  : Anderson & Holford, 2008
-   Each chart uses its own xLog/yLog closure scoped to its margins.
+   Re-architected 2026-04-24: previous design only showed the ✓ FIXED
+   state (side-by-side CL/V Anderson-Holford slopes). User asked for
+   the same X/✓ contrast IntegrateViz uses so the educational beat
+   ("biology-driven, not data-driven · estimating exponents on N=39
+   didn't improve fit") reads visually, not just from body text.
+   Pre-redesign snapshot lives in:
+     _archive/2026-04-24-ConstrainViz-fixed-only.md
+
+   TOP panel (y≈20–104) — ✗ ESTIMATED · WOBBLES
+     · Single full-width "slope fan" — 7 thin candidate slope lines
+       diverging from a 70-kg anchor on the right, fanning LEFT toward
+       small body weights (where pediatric data is sparsest, hence
+       most ambiguous). Slopes range 0.30–1.20 around the biology
+       value 0.75 — what an N=39 exponent estimate could plausibly
+       return. No axes — the fan IS the message.
+   DIVIDER (y=108)         : hairline x=20→280, identical to IntegrateViz
+   BOTTOM panel (y≈120–252) — ✓ FIXED · BIOLOGY-DRIVEN
+     · Preserved side-by-side log-log charts (CL · Q slope 0.75 ·
+       Vc · Vp slope 1.0) — compressed vertically from the original
+       (was y=28–212, now y=132–222) to fit the bottom half. All
+       scientific values, anchors, callouts, sprites preserved.
 
    Bounding-box audit (VB 300×260):
-     Element               x-range    y-range   Notes
-     Top kicker            60–240     10–20     centered across both
-     LEFT chart plot area  32–138     32–212    m.l=28, m.t=28
-     LEFT label "CL · Q"   32–138     26–34     above chart
-     LEFT equation         38–100     44–56     inside chart top-left
-     LEFT 70-KG callout    56–138     40–55     leader to (70kg, 7) pt
-     LEFT axis title       36–146     224–234
-     Divider               150–150    28–212    vertical hairline
-     RIGHT chart plot area 182–288    32–212    m.l=28, m.t=28
-     RIGHT label "Vc · Vp" 182–288    26–34
-     RIGHT equation        188–250    44–56
-     RIGHT axis title      186–296    224–234
-     Citation              160–296    252–256   bottom-right
+     Element                   x-range    y-range    Notes
+     ✗ glyph (top)             7–21       50–64      coral strokes
+     Slope fan anchor          228–232    58–62      ref dot at right
+     Slope fan lines           60–230     30–90      7 thin lines
+     "WT^?" hover label        96–116     46–55      cream-faint mono
+     TOP caption               90–210     94–104     coral mono
+     Divider hairline          20–280     108–108    cream-hairline
+     ✓ glyph (bottom)          6–24       175–189    coral strokes
+     LEFT chart plot area      32–138     132–218    m.l=28, m.t=132
+     LEFT label "CL · Q"       32–138     128–134    above plot
+     LEFT 70-KG callout        56–138     140–158    leader to anchor
+     LEFT axis title           36–146     230–238    BODY WEIGHT · KG
+     Mid divider               150–150    132–218    vertical hairline
+     RIGHT chart plot area     182–288    132–218    m.l=28, m.t=132
+     RIGHT label "Vc · Vp"     182–288    128–134
+     RIGHT 70-KG callout       192–272    158–176
+     RIGHT axis title          186–296    230–238
+     BOTTOM caption            70–230     244–252    coral mono
+     Citation                  160–296    258–262    bottom-right
    ============================================================ */
 export function ConstrainViz({ delay = 0 }) {
   const reduce = useReducedMotion();
 
-  // Shared top + bottom zones
-  const TOP_KICKER_Y = 16;
-  const CHART_TOP = 28;
-  const CHART_BOT = 212;
-  const AXIS_LABEL_Y = 230;
+  /* ─── TOP PANEL geometry (y 20–105) ─────────────────────────
+     The fan visualises "exponent estimated from N=39 sparse
+     pediatric data could land anywhere between ~0.3 and ~1.3";
+     biology (Anderson-Holford) says 0.75. Centered on 0.75 so
+     the central line reads as "what we ended up forcing".     */
+  const FAN_ANCHOR_X = 230;     // 70-kg reference pivot (right)
+  const FAN_ANCHOR_Y = 60;      // vertical midline of top panel
+  const FAN_LEFT_X = 60;        // small-weight end of fan (left)
+  const FAN_SPAN_X = FAN_ANCHOR_X - FAN_LEFT_X; // 170px
+  // 7 candidate slopes, centered on 0.75 (the biology value the
+  // BOTTOM panel locks down). y-deflection at the LEFT end = how
+  // far that candidate diverges from the central 0.75 line.
+  //
+  // Physics: y(w) = anchor · (w/70)^slope. At w<70 (left of anchor)
+  // a HIGHER slope drives y SMALLER (steeper drop going left). In
+  // SVG, smaller y-value-on-the-chart means LARGER y-pixel (downward),
+  // so higher slope → larger +pixel deflection → lower on screen.
+  // Hence (slope − 0.75) directly, no negation. Visual scale: each
+  // unit of slope difference produces ~80px of deflection at the
+  // left end → wide visible fan that reads as "this is unstable".
+  const FAN_SLOPES = [0.30, 0.45, 0.60, 0.75, 0.90, 1.05, 1.20];
+  const FAN_DEFLECT = (slope) => (slope - 0.75) * 80;
 
-  // Chart panel bounds
+  /* ─── BOTTOM PANEL geometry (y 120–252) ────────────────────
+     Same architecture as the original ConstrainViz (preserved
+     verbatim in /_archive/2026-04-24-ConstrainViz-fixed-only.md)
+     but vertically compressed: chart_top moved 28→132, chart_bot
+     moved 212→218 → plot area 184px → 86px tall. All scientific
+     values (CLREF=7 L/h, VREF=30 L, slopes 0.75/1.0, ref weights,
+     wxRange, yRanges) unchanged.                              */
+  const CHART_TOP = 132;
+  const CHART_BOT = 218;
+  const AXIS_LABEL_Y = 236;
+
+  // Chart panel bounds — same as original
   const LEFT_X0 = 4;
   const LEFT_X1 = 146;
   const RIGHT_X0 = 154;
@@ -448,35 +493,132 @@ export function ConstrainViz({ delay = 0 }) {
           letterSpacing={1}
           fill="var(--cream-faint)">BODY WEIGHT · KG</text>
 
-        {/* Per-chart label above plot */}
+        {/* Per-chart label above plot — includes the slope equation
+            (e.g. "CL · Q  ∝ WT^0.75"). The equation used to render
+            INSIDE the plot top-left, but the compressed BOTTOM panel
+            put the in-plot equation underneath the "70 KG · ADULT"
+            leader callout. Folding the equation into the title row
+            (above the plot) frees the plot interior for the slope +
+            anchor + leader without conflict. */}
         <text x={x0 + S.m.l + S.iw / 2} y={CHART_TOP - 4} textAnchor="middle"
           fontFamily="var(--font-mono)" fontSize={8}
           letterSpacing={0.8}
-          fill="var(--coral)" fontWeight={600}>{cfg.title}</text>
-
-        {/* Equation inside plot top-left */}
-        <text
-          x={x0 + S.m.l + 4} y={CHART_TOP + 12}
-          fontFamily="var(--font-mono)" fontSize={8.5}
-          letterSpacing={0.3}
-          fill="var(--cream)"
-        >
-          {cfg.eqnPrefix}
-          <tspan fontSize={6.5} dy={-2.5}>{cfg.eqnExp}</tspan>
+          fill="var(--coral)" fontWeight={600}>
+          {cfg.title}
+          <tspan fill="var(--cream-faint)">  ·  </tspan>
+          <tspan fill="var(--cream)">{cfg.eqnPrefix}</tspan>
+          <tspan fill="var(--cream)" fontSize={6.5} dy={-2.5}>{cfg.eqnExp}</tspan>
         </text>
       </g>
     );
   };
 
   return (
-    <Frame delay={delay} label="Allometric scaling fixed: clearance slope 0.75, volumes slope 1.0">
-      {/* Top kicker — spans both charts */}
-      <text x={VB_W / 2} y={TOP_KICKER_Y} textAnchor="middle"
-        fontFamily="var(--font-mono)" fontSize={8}
-        letterSpacing={1.4}
-        fill="var(--cream-faint)">ALLOMETRY · FIXED</text>
+    <Frame delay={delay} label="Allometric exponents: estimating from N=39 wobbles versus fixing at Anderson-Holford 0.75 and 1.0 yields stable scaling">
+      {/* ═══════════════════════════════════════════════════════════
+          TOP PANEL — ✗ ESTIMATED · WOBBLES (slope fan)
+          y-range ≈ 20–105 · mirrors IntegrateViz top panel structure
+         ═══════════════════════════════════════════════════════════ */}
 
-      {/* LEFT chart — CL · Q, slope 0.75 */}
+      {/* ✗ glyph — same x position (7→21) and stroke style as
+          IntegrateViz top panel so the two slides' bad-case markers
+          read as identical visual chips. */}
+      <line x1={7} y1={50} x2={21} y2={64}
+        stroke="var(--coral)" strokeWidth={2} strokeLinecap="round" opacity={0.9} />
+      <line x1={7} y1={64} x2={21} y2={50}
+        stroke="var(--coral)" strokeWidth={2} strokeLinecap="round" opacity={0.9} />
+
+      {/* "WT^?" hover label — reinforces "exponent unknown" before
+          the fan animation starts. Placed top-left of the fan so it
+          doesn't crash into the diverging line endpoints. */}
+      <text x={70} y={32}
+        fontFamily="var(--font-mono)" fontSize={8.5}
+        letterSpacing={0.3}
+        fill="var(--cream-faint)">∝ WT<tspan fontSize={6.5} dy={-2.5}>?</tspan></text>
+
+      {/* Slope fan — 7 thin coral candidate slopes diverging from
+          the 70-kg anchor on the right. Each slope draws (pathLength
+          0→1) on a stagger so the visual reads as "fits being tried
+          one after another, none agreeing". After all 7 finish, they
+          remain visible — the persistent fan IS the message.
+
+          Reduced-motion: render statically with the same stroke
+          opacity (no draw-on cascade), still legible as a fan. */}
+      {FAN_SLOPES.map((slope, i) => {
+        const dy = FAN_DEFLECT(slope);
+        const x1 = FAN_LEFT_X;
+        const y1 = FAN_ANCHOR_Y + dy;
+        const isCenter = slope === 0.75;
+        const strokeOp = isCenter ? 0.7 : 0.55;
+        // Center line (the actual biology value 0.75) gets slightly
+        // stronger emphasis so the fan "centers" visually on what
+        // the bottom panel will lock down.
+        const drawDelay = i * 0.18;
+        return reduce ? (
+          <line key={`fan-${i}`}
+            x1={x1} y1={y1} x2={FAN_ANCHOR_X} y2={FAN_ANCHOR_Y}
+            stroke="var(--coral)" strokeWidth={isCenter ? 1.4 : 1}
+            strokeLinecap="round" opacity={strokeOp}
+            strokeDasharray={isCenter ? null : '3 3'} />
+        ) : (
+          <motion.line key={`fan-${i}`}
+            x1={x1} y1={y1} x2={FAN_ANCHOR_X} y2={FAN_ANCHOR_Y}
+            stroke="var(--coral)" strokeWidth={isCenter ? 1.4 : 1}
+            strokeLinecap="round"
+            strokeDasharray={isCenter ? null : '3 3'}
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: strokeOp }}
+            transition={{ duration: 0.5, delay: drawDelay, ease }} />
+        );
+      })}
+
+      {/* 70-kg anchor dot — every candidate fit is forced through
+          this point (the adult reference). It's the ONE thing the
+          data agrees on; the slope around it is what wobbles. */}
+      <circle cx={FAN_ANCHOR_X} cy={FAN_ANCHOR_Y} r={3.2}
+        fill="var(--coral)" stroke="var(--bg)" strokeWidth={1} />
+      <text x={FAN_ANCHOR_X + 7} y={FAN_ANCHOR_Y + 3}
+        fontFamily="var(--font-mono)" fontSize={7}
+        letterSpacing={0.5}
+        fill="var(--cream-faint)">70 KG</text>
+
+      {/* Top label + sub-caption — same typography as IntegrateViz
+          top panel ("NO INTEGRATION · N=39" / "pediatric alone ·
+          unstable estimates") so the X chip on Slide 08 reads as a
+          consistent visual idiom across decisions. */}
+      <text x={150} y={94} textAnchor="middle"
+        fontFamily="var(--font-mono)" fontSize={8.5}
+        letterSpacing={0.8}
+        fill="var(--coral)" fontWeight={600}>ESTIMATED · N=39</text>
+      <text x={150} y={104} textAnchor="middle"
+        fontFamily="var(--font-mono)" fontSize={7}
+        letterSpacing={0.6}
+        fill="var(--cream-faint)">exponents wobble · data-driven · unstable</text>
+
+      {/* ═══════════════════════════════════════════════════════════
+          DIVIDER — hairline at y=108 (identical to IntegrateViz)
+         ═══════════════════════════════════════════════════════════ */}
+      <line x1={20} x2={280} y1={108} y2={108}
+        stroke="var(--cream-hairline)" strokeWidth={1} opacity={0.6} />
+
+      {/* ═══════════════════════════════════════════════════════════
+          BOTTOM PANEL — ✓ FIXED · BIOLOGY-DRIVEN
+          y-range ≈ 120–252 · preserved CL/V side-by-side, compressed
+         ═══════════════════════════════════════════════════════════ */}
+
+      {/* ✓ glyph — same x position and stroke style as IntegrateViz
+          bottom panel so the good-case marker reads as identical. */}
+      <line x1={6} y1={175} x2={12} y2={182}
+        stroke="var(--coral)" strokeWidth={2.2} strokeLinecap="round" opacity={0.95} />
+      <line x1={12} y1={182} x2={24} y2={168}
+        stroke="var(--coral)" strokeWidth={2.2} strokeLinecap="round" opacity={0.95} />
+
+      {/* LEFT chart — CL · Q, slope 0.75.
+          70-kg callout dropped from the compressed BOTTOM panel — the
+          anchor dot (larger, white stroke) is still visually distinct
+          inside the chart, and the TOP-panel fan already labels the
+          70-kg pivot explicitly. The original full-height chart used
+          a leader callout ("70 KG · ADULT"), preserved in archive. */}
       {renderChart(L, {
         key: 'left',
         fn: clFn,
@@ -486,40 +628,17 @@ export function ConstrainViz({ delay = 0 }) {
         arrows: [
           { delay: 0.0, duration: 4.0 },
           { delay: 1.3, duration: 4.0 },
-          { delay: 2.6, duration: 4.0 },
         ],
       })}
 
-      {/* 70-KG callout — leader line from the adult reference point
-          up-and-left to a cream-faint leader with coral label. Scoped
-          to the LEFT chart only (the CL reference is the hero of the
-          slide). */}
-      {(() => {
-        const ax = L.xLog(70);
-        const ay = L.yLog(clFn(70));
-        const lx = ax - 18;
-        const ly = ay - 26;
-        return (
-          <g>
-            <line x1={ax} y1={ay - 4} x2={lx + 2} y2={ly + 2}
-              stroke="var(--cream-faint)" strokeWidth={0.6} opacity={0.8} />
-            <text x={lx} y={ly} textAnchor="end"
-              fontFamily="var(--font-mono)" fontSize={7.5}
-              letterSpacing={0.6}
-              fill="var(--coral)" fontWeight={600}>70 KG · ADULT</text>
-          </g>
-        );
-      })()}
-
-      {/* Vertical divider hairline between the two charts */}
+      {/* Vertical divider hairline between the two BOTTOM charts.
+          Note: this is INSIDE the bottom panel only — it does NOT
+          cross the y=108 horizontal divider. */}
       <line x1={DIVIDER_X} x2={DIVIDER_X} y1={CHART_TOP} y2={CHART_BOT}
         stroke="var(--cream-hairline)" strokeWidth={0.8} opacity={0.6} />
 
-      {/* RIGHT chart — Vc · Vp, slope 1.0.
-          Arrow schedule matches the LEFT chart (3 staggered sprites on
-          a 4s cadence) so both charts animate symmetrically — user ask
-          was to keep the existing CL treatment verbatim and just edit
-          the slope/labels for V. */}
+      {/* RIGHT chart — Vc · Vp, slope 1.0. Same callout-removal
+          rationale as LEFT chart above. */}
       {renderChart(R, {
         key: 'right',
         fn: vFn,
@@ -529,38 +648,22 @@ export function ConstrainViz({ delay = 0 }) {
         arrows: [
           { delay: 0.0, duration: 4.0 },
           { delay: 1.3, duration: 4.0 },
-          { delay: 2.6, duration: 4.0 },
         ],
       })}
 
-      {/* 70-KG callout — placed BELOW the anchor on the RIGHT chart.
-          On V chart the anchor dot sits near the top-right of the
-          plot (V=30 L at 70kg lands in the upper band), so placing
-          the label above like on the CL chart crashes it into the
-          equation text. Routing the leader DOWN-LEFT puts the label
-          in clean empty space below the slope. */}
-      {(() => {
-        const ax = R.xLog(70);
-        const ay = R.yLog(vFn(70));
-        const lx = ax - 18;
-        const ly = ay + 22;
-        return (
-          <g>
-            <line x1={ax} y1={ay + 4} x2={lx + 2} y2={ly - 4}
-              stroke="var(--cream-faint)" strokeWidth={0.6} opacity={0.8} />
-            <text x={lx} y={ly} textAnchor="end"
-              fontFamily="var(--font-mono)" fontSize={7.5}
-              letterSpacing={0.6}
-              fill="var(--coral)" fontWeight={600}>70 KG · ADULT</text>
-          </g>
-        );
-      })()}
-
-      {/* Shared citation */}
-      <text x={VB_W - 4} y={VB_H - 4} textAnchor="end"
+      {/* Bottom label + sub-caption — mirrors IntegrateViz bottom
+          panel ("INTEGRATED · N=419" / "3,337 obs · structural +
+          covariate"). Citation lives in the sub-caption now (was a
+          standalone line in the original; folded in here to keep the
+          bottom-panel chrome lean). */}
+      <text x={150} y={246} textAnchor="middle"
+        fontFamily="var(--font-mono)" fontSize={9}
+        letterSpacing={0.8}
+        fill="var(--coral)" fontWeight={600}>FIXED · BIOLOGY-DRIVEN</text>
+      <text x={150} y={257} textAnchor="middle"
         fontFamily="var(--font-mono)" fontSize={7}
-        fill="var(--cream-faint)"
-        opacity={0.7}>Anderson & Holford, 2008</text>
+        letterSpacing={0.6}
+        fill="var(--cream-faint)">Anderson-Holford 2008 · ICH E11A 2025 default</text>
     </Frame>
   );
 }
