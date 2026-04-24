@@ -53,19 +53,42 @@ export default function Slide11cCaseBuild() {
       footerKicker="Case 01 · The build"
       footerSource="Source · Okour et al. JCP 2023 · Data S1 · Study AMB112529 (NCT01332331)"
     >
-      {/* Two-column viz: left (40%) dataset + schematic · right (60%) workflow */}
+      {/* Two-column viz: left (40%) dataset + schematic · right (60%) workflow.
+          Three sizing guards keep the (now square-ish) schematic locked inside
+          the viz cell — at 1920×1080 *and* the cramped 1366×768 fallback:
+            1. Outer wrapper is `position: absolute; inset: 0` so its size is
+               dictated by the Viz GridSlot (not by content).
+            2. Outer wrapper uses `gridTemplateRows: minmax(0, 1fr)` — plain
+               `1fr` lets CSS Grid fall back to max-content sizing when the
+               left column's intrinsic content (dataset card + tall SVG panel)
+               exceeds the available space, which silently grew the column to
+               ~548px inside a 465px viz cell at 1366×768.
+            3. The left column is `display: flex` with `min-height: 0` and
+               `overflow: hidden`, and the schematic panel uses `flex: 1 1 0`
+               so it absorbs only the leftover height after the dataset card. */}
       <div
         style={{
-          width: '100%',
-          height: '100%',
+          position: 'absolute',
+          inset: 0,
           display: 'grid',
           gridTemplateColumns: '2fr 3fr',
+          gridTemplateRows: 'minmax(0, 1fr)',
           columnGap: 'var(--space-8)',
           minHeight: 0,
         }}
       >
         {/* ─── LEFT column ─── */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', minWidth: 0 }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--space-4)',
+            minWidth: 0,
+            minHeight: 0,
+            height: '100%',
+            overflow: 'hidden',
+          }}
+        >
           <motion.div
             style={{
               border: '1px solid var(--cream-hairline)',
@@ -109,8 +132,9 @@ export default function Slide11cCaseBuild() {
               background: 'color-mix(in srgb, var(--panel) 55%, transparent)',
               borderRadius: 'var(--radius-lg)',
               padding: 'var(--space-4) var(--space-5)',
-              flex: 1,
+              flex: '1 1 0',
               minHeight: 0,
+              minWidth: 0,
               overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
@@ -132,8 +156,10 @@ export default function Slide11cCaseBuild() {
               Two-compartment · 1st-order absorption · t-lag
             </div>
 
-            <div style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
-              <CompartmentSchematic tk={tk} />
+            <div style={{ flex: 1, minHeight: 0, minWidth: 0, position: 'relative', overflow: 'hidden' }}>
+              <div style={{ position: 'absolute', inset: 0 }}>
+                <CompartmentSchematic tk={tk} />
+              </div>
             </div>
 
             <div
