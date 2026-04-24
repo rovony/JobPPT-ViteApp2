@@ -66,8 +66,16 @@ export default function SampleSizeWaterfall({
         transition={{ duration: 0.7, ease, delay: delay + 0.2 }}
         style={{ transformBox: 'fill-box', transformOrigin: 'bottom center' }}
       />
-      {/* Left numeral */}
+      {/* Left numeral — destination side of the cs3-n-94 layoutId pair.
+          Slide 24's "94" anchor tile (middle of three) carries the same
+          layoutId; framer-motion's FLIP morphs the bbox between the two
+          when the deck advances 24→26 so the protocol-original 94 reads
+          as the same number being cut down inside the waterfall, not a
+          new 94 appearing in a new chart. SVG <text> ↔ HTML <div> is a
+          partial morph (bbox animates, content does not) — same trade-off
+          as the cs3-pct-36 pair below. */}
       <motion.text
+        layoutId="cs3-n-94"
         x={leftX + barW / 2}
         y={baselineY - leftH - 18}
         textAnchor="middle"

@@ -126,6 +126,15 @@ export default function Slide24Case3Challenge() {
                   label={a.label}
                   sub={a.sub}
                   delay={D.anchors + i * 0.15}
+                  /* Cinematic-continuity hook: when the audience advances
+                     24→26 the protocol-original "94" should feel like the
+                     same number that gets cut down inside the waterfall —
+                     not a new 94 that appears in a new chart. The middle
+                     anchor tile carries layoutId="cs3-n-94"; the waterfall
+                     left-bar numeral on slide 26 carries the matching
+                     layoutId so framer-motion's FLIP morphs the bbox
+                     between them. (See SampleSizeWaterfall.jsx.) */
+                  numeralLayoutId={a.yr === '94' ? 'cs3-n-94' : undefined}
                 />
               ))}
             </div>
@@ -305,7 +314,7 @@ export default function Slide24Case3Challenge() {
 /* ========================================================
    AnchorTile — single big-numeral anchor card
    ======================================================== */
-function AnchorTile({ yr, label, sub, delay }) {
+function AnchorTile({ yr, label, sub, delay, numeralLayoutId }) {
   const ease = [0.2, 0.7, 0.3, 1];
   return (
     <motion.div
@@ -334,7 +343,8 @@ function AnchorTile({ yr, label, sub, delay }) {
         }}
       />
 
-      <div
+      <motion.div
+        layoutId={numeralLayoutId}
         className="deck-display"
         style={{
           fontSize: 'var(--fs-card-numeral)',
@@ -346,7 +356,7 @@ function AnchorTile({ yr, label, sub, delay }) {
         }}
       >
         {yr}
-      </div>
+      </motion.div>
 
       <div
         className="deck-mono uppercase"

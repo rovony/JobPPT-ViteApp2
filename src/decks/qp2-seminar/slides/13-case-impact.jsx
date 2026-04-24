@@ -22,6 +22,16 @@ import ApprovalTimeline from '@/components/deck/patterns/ApprovalTimeline';
  *   2. Numbers stagger-pop at 1.5s / 2.0s / 2.5s
  *   3. Count-ups run 900ms synced to each pop
  *   4. Captions fade 0.6s after their parent settles
+ *
+ * Type-scale exemption (Phase D-tail / Apr 2026 audit):
+ *   The three hero numerals (×2, ~3%, 39) use inline `clamp()` at
+ *   the display tier (5–20rem range), NOT the card type scale
+ *   (--fs-card-* tops out at --fs-card-hero-num ≈ 5.5rem). These
+ *   are full-canvas focal points on a CS impact slide — a tier
+ *   above any card-grid context. Introducing --fs-display-hero
+ *   tokens for an n=1 consumer would over-engineer; the inline
+ *   clamps are the correct level of abstraction here. If a future
+ *   slide adopts the same display scale, promote to tokens then.
  */
 const ACTIVE_THEME_NUMS = ['01', '02', '03'];
 
