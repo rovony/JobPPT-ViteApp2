@@ -17,8 +17,10 @@
 | **B+ — citation migration & layoutIds** | `8744170` | ✅ done | 18 slides migrated tagline → `source` prop, `case-marker-{coral|cyan|violet}` layoutIds added (slides 01 dots ↔ slides 5/15/23 hero hairlines) |
 | **D — editorial defaults** | `cd1b0c8` | ✅ done | Slide 34 headline rewrite + 6/7 reconciliation, slide 32 "12 YEARS" lead numeral, slide 03/11/11b decorative shadow sweep, DEFERRED-WORK.md |
 | **C — `--fs-card-*` migration sweep** | `f1f347f` | ✅ done | 31 slide files migrated inline `clamp()`/rem literals → `--fs-card-*` tokens; 2 new tokens (`--fs-card-hero-num`, `--fs-card-quote`) added to `src/index.css`. Per-batch ledgers in `audit/phase-c-batch-{1..5}.md`. |
-| **D-tail — final morphs** | `ae771fe` + `<this commit>` | ✅ done | `cs1-focal-amber` layoutId pair (slide 11 ↔ 11b) + slide 22 SEC card wrapped in right-aligned `max-width:min(56%,640px)` strip so the `cs2-sec-objection` morph reads as hero→corner-badge collapse. |
-| **D-defer — slide 21 rebuild + cs3-n-94 + P5 contract** | _pending_ | 📋 deferred | Speaker-input-required items. See `DEFERRED-WORK.md` §1, §3, §4. |
+| **D-tail — final morphs** | `ae771fe` + `397668e` | ✅ done | `cs1-focal-amber` layoutId pair (slide 11 ↔ 11b) + slide 22 SEC card wrapped in right-aligned `max-width:min(56%,640px)` strip so the `cs2-sec-objection` morph reads as hero→corner-badge collapse. |
+| **D-density — slide 29 grid + slide 30 overlap** | `5924342` | ✅ done | Slide 29 declared 3 rows for 4 children; expanded to 4 explicit rows. Slide 30 type column switched from fixed-min `width: clamp(620px,...)` to `left+right` anchoring (eliminates ~200px overlap with constellation at <1280px). Slide 30 page-number tag changed `IV / IV` → `30 / 35` to remove duplicate of meta-footer Act marker. |
+| **D-a11y — reduced-motion + P5 docs** | `6c51398` | ✅ done | Slide 32 `CountUpDigit` now snaps to target when `prefers-reduced-motion` is set (framer-motion `useReducedMotion()`). CLAUDE.md gains documented case-color contract (coral/cyan/violet → CS1/CS2/CS3; amber/sage non-case) + `--fs-card-*` token convention. |
+| **D-defer — slide 21 rebuild + cs3-n-94 + P5 per-slide audit** | _pending_ | 📋 deferred | Speaker-input-required items. See `DEFERRED-WORK.md` §1, §3, §4 (item 6). |
 
 **5 commits landed today; build green throughout (vite build exits 0).** Each commit is independently revertable. See `DEFERRED-WORK.md` for the 5 remaining items with rationale, effort estimates, and unblock criteria.
 
