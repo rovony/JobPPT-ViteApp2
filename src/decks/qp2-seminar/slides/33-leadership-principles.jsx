@@ -23,6 +23,14 @@ import { Eyebrow, Headline, Viz, Footer } from '@/components/deck/SlideParts';
  * abstract — it's a hand-off to specific programs.
  */
 
+// Per zaj-slides P5 case-color contract: coral / cyan / violet are
+// reserved for CS1 / CS2 / CS3 across this deck. The closing slide
+// cannot reuse those tokens for non-case ornament — the audience has
+// been trained for 30 slides to read them as case markers and would
+// misread "Scaffolds" as a CS2 callback or "Teams" as a CS1 callback.
+// Principles + research cards use only deck-neutral tokens (amber,
+// sage, cream-muted) so the leadership claim doesn't accidentally
+// inherit case identity.
 const PRINCIPLES = [
   {
     num: '01',
@@ -36,14 +44,14 @@ const PRINCIPLES = [
     icon: Layers,
     title: 'Scaffolds over templates',
     detail: 'Each case study is an instance; the scaffold is the durable output. Framework identity outlasts any single analysis.',
-    token: 'cyan',
+    token: 'cream',
   },
   {
     num: '03',
     icon: Users,
     title: 'Teams over deliverables',
     detail: 'Mentored PhD fellows and junior pharmacometricians into regulatory-thinking scientists — first-author publications and career progression. Capability compounds when you invest in the strategic layer, not only the technical one.',
-    token: 'coral',
+    token: 'sage',
   },
 ];
 
@@ -55,7 +63,7 @@ const RESEARCH_CARDS = [
     title: 'PharmAgent',
     spec: '13 agents · 151 tools',
     detail: 'End-to-end pharmacometric workflows — NONMEM automation, QC, regulatory drafting.',
-    token: 'violet',
+    token: 'amber',
   },
   {
     key: 'deeppk',
@@ -73,7 +81,7 @@ const RESEARCH_CARDS = [
     title: 'DosePredict',
     spec: 'R Shiny · JCP 2020',
     detail: 'Individual-patient dose adjustment — published JCP 2020, released on GitHub.',
-    token: 'amber',
+    token: 'cream-muted',
   },
 ];
 
