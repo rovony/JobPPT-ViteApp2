@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { X, ArrowUp, ArrowDown, Eye, EyeOff, RotateCcw } from 'lucide-react';
-import { SECTION_LABEL, SECTION_GROUP } from '@/lib/usePresenterLayout';
+import { X, ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Eye, EyeOff, RotateCcw } from 'lucide-react';
+import { SECTION_LABEL, COLUMN_LABEL, COLUMN_KEYS } from '@/lib/usePresenterLayout';
 
 /**
  * PresenterLayoutSettings — modal for toggling section visibility and
@@ -17,10 +17,10 @@ import { SECTION_LABEL, SECTION_GROUP } from '@/lib/usePresenterLayout';
 export default function PresenterLayoutSettings({ open, onClose, layout }) {
   const {
     visibility,
-    centerOrder,
-    rightOrder,
+    columns,
     toggleVisibility,
     moveSection,
+    moveSectionToColumn,
     resetLayout,
   } = layout;
 
@@ -41,11 +41,12 @@ export default function PresenterLayoutSettings({ open, onClose, layout }) {
 
   if (!open) return null;
 
-  const groups = [
-    { name: 'Left column',   keys: ['assistant'],   order: null },
-    { name: 'Center column', keys: centerOrder,     order: centerOrder },
-    { name: 'Right column',  keys: rightOrder,      order: rightOrder },
-  ];
+  const groups = COLUMN_KEYS.map((col, colIdx) => ({
+    col,
+    colIdx,
+    name: COLUMN_LABEL[col],
+    keys: columns[col],
+  }));
 
   return (
     <div
@@ -116,58 +117,92 @@ export default function PresenterLayoutSettings({ open, onClose, layout }) {
               >
                 {group.name}
               </div>
-              <ul className="flex flex-col gap-1">
-                {group.keys.map((key, idx) => {
-                  const isVisible = !!visibility[key];
-                  const canReorder = !!group.order;
-                  const canMoveUp = canReorder && idx > 0;
-                  const canMoveDown = canReorder && idx < group.keys.length - 1;
-                  return (
-                    <li
-                      key={key}
-                      className="flex items-center gap-1 px-2 py-1.5 rounded border"
-                      style={{
-                        borderColor: 'var(--cream-hairline)',
-                        background: isVisible ? 'transparent' : 'color-mix(in srgb, var(--cream-ghost) 50%, transparent)',
-                        opacity: isVisible ? 1 : 0.65,
-                      }}
-                    >
-                      <button
-                        onClick={() => toggleVisibility(key)}
-                        title={isVisible ? 'Hide this section' : 'Show this section'}
-                        aria-label={`${isVisible ? 'Hide' : 'Show'} ${SECTION_LABEL[key]}`}
-                        className="h-7 w-7 rounded flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)] shrink-0"
-                        style={{ color: isVisible ? 'var(--case, var(--amber))' : 'var(--cream-faint)' }}
+              {group.keys.length === 0 ? (
+                <div
+                  className="px-2 py-2 text-xs rounded border border-dashed"
+                  style={{
+                    borderColor: 'var(--cream-hairline)',
+                    color: 'var(--cream-faint)',
+                    fontStyle: 'italic',
+                  }}
+                >
+                  Empty — drop sections here with the ← / → buttons.
+                </div>
+              ) : (
+                <ul className="flex flex-col gap-1">
+                  {group.keys.map((key, idx) => {
+                    const isVisible = !!visibility[key];
+                    const canMoveUp = idx > 0;
+                    const canMoveDown = idx < group.keys.length - 1;
+                    const canMoveLeft = group.colIdx > 0;
+                    const canMoveRight = group.colIdx < COLUMN_KEYS.length - 1;
+                    return (
+                      <li
+                        key={key}
+                        className="flex items-center gap-1 px-2 py-1.5 rounded border"
+                        style={{
+                          borderColor: 'var(--cream-hairline)',
+                          background: isVisible ? 'transparent' : 'color-mix(in srgb, var(--cream-ghost) 50%, transparent)',
+                          opacity: isVisible ? 1 : 0.65,
+                        }}
                       >
-                        {isVisible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
-                      </button>
-                      <span className="flex-1 text-sm" style={{ color: 'var(--cream)' }}>
-                        {SECTION_LABEL[key]}
-                      </span>
-                      <button
-                        onClick={() => moveSection(key, 'up')}
-                        disabled={!canMoveUp}
-                        title={canReorder ? 'Move up' : 'Single-item column'}
-                        aria-label="Move up"
-                        className="h-7 w-7 rounded flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)] disabled:opacity-25 shrink-0"
-                        style={{ color: 'var(--cream-muted)' }}
-                      >
-                        <ArrowUp className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        onClick={() => moveSection(key, 'down')}
-                        disabled={!canMoveDown}
-                        title={canReorder ? 'Move down' : 'Single-item column'}
-                        aria-label="Move down"
-                        className="h-7 w-7 rounded flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)] disabled:opacity-25 shrink-0"
-                        style={{ color: 'var(--cream-muted)' }}
-                      >
-                        <ArrowDown className="w-3.5 h-3.5" />
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
+                        <button
+                          onClick={() => toggleVisibility(key)}
+                          title={isVisible ? 'Hide this section' : 'Show this section'}
+                          aria-label={`${isVisible ? 'Hide' : 'Show'} ${SECTION_LABEL[key]}`}
+                          className="h-7 w-7 rounded flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)] shrink-0"
+                          style={{ color: isVisible ? 'var(--case, var(--amber))' : 'var(--cream-faint)' }}
+                        >
+                          {isVisible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                        </button>
+                        <span className="flex-1 text-sm truncate" style={{ color: 'var(--cream)' }}>
+                          {SECTION_LABEL[key]}
+                        </span>
+                        <button
+                          onClick={() => moveSectionToColumn(key, 'left')}
+                          disabled={!canMoveLeft}
+                          title="Move to previous column"
+                          aria-label="Move to previous column"
+                          className="h-7 w-7 rounded flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)] disabled:opacity-25 shrink-0"
+                          style={{ color: 'var(--cream-muted)' }}
+                        >
+                          <ArrowLeft className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={() => moveSectionToColumn(key, 'right')}
+                          disabled={!canMoveRight}
+                          title="Move to next column"
+                          aria-label="Move to next column"
+                          className="h-7 w-7 rounded flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)] disabled:opacity-25 shrink-0"
+                          style={{ color: 'var(--cream-muted)' }}
+                        >
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={() => moveSection(key, 'up')}
+                          disabled={!canMoveUp}
+                          title="Move up within column"
+                          aria-label="Move up"
+                          className="h-7 w-7 rounded flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)] disabled:opacity-25 shrink-0"
+                          style={{ color: 'var(--cream-muted)' }}
+                        >
+                          <ArrowUp className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={() => moveSection(key, 'down')}
+                          disabled={!canMoveDown}
+                          title="Move down within column"
+                          aria-label="Move down"
+                          className="h-7 w-7 rounded flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)] disabled:opacity-25 shrink-0"
+                          style={{ color: 'var(--cream-muted)' }}
+                        >
+                          <ArrowDown className="w-3.5 h-3.5" />
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
             </section>
           ))}
 
@@ -175,9 +210,9 @@ export default function PresenterLayoutSettings({ open, onClose, layout }) {
             className="text-xs px-2 pt-2"
             style={{ color: 'var(--cream-faint)', lineHeight: 1.45 }}
           >
-            Visibility and order are saved per-device. Cross-column reorder
-            (e.g. moving Audience Q&A to the center column) isn't supported —
-            sections stay within their column.
+            Visibility, column assignment, and within-column order are saved
+            per-device. Use ← / → to move a section between columns and ↑ / ↓
+            to reorder within a column.
           </div>
         </div>
       </div>

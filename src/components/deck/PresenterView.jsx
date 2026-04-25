@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, X, MonitorPlay, Maximize, Minimize, HelpCircle, FolderOpen, PanelRightClose, PanelRightOpen, BookOpen, LayoutPanelLeft, ArrowUp, ArrowDown } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X, MonitorPlay, Maximize, Minimize, HelpCircle, FolderOpen, BookOpen, LayoutPanelLeft } from 'lucide-react';
 import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels';
 import { useDeck } from '@/lib/deck-store';
 import { useSpeakerNotes } from '@/lib/useSpeakerNotes';
 import { useAnticipatedQA } from '@/lib/useAnticipatedQA';
-import { usePresenterLayout, SECTION_LABEL } from '@/lib/usePresenterLayout';
+import { usePresenterLayout, SECTION_LABEL, COLUMN_KEYS } from '@/lib/usePresenterLayout';
 import { makeChannel, broadcast, subscribe } from '@/lib/presenter-sync';
 import PresenterTimer from './PresenterTimer';
 import SlidePreview from './SlidePreview';
@@ -18,12 +18,25 @@ import ReadingMaterialPane from './ReadingMaterialPane';
 import PresenterLayoutSettings from './PresenterLayoutSettings';
 import NotesQAHelp from './NotesQAHelp';
 
-/** Defaults for the three right-column sections — kept as a config map
- *  so dynamic ordering (Layout settings) doesn't lose per-section sizing. */
-const RIGHT_PANEL_CONFIG = {
-  nowTile:    { defaultSize: 40, minSize: 20 },
-  nextTile:   { defaultSize: 20, minSize: 12 },
-  audienceQA: { defaultSize: 40, minSize: 20 },
+/** Per-section vertical-panel sizing. Used inside ColumnRenderer when a
+ *  column has 2+ visible sections — each gets its slot size based on
+ *  this map (falls back to equal share if the section isn't listed). */
+const SECTION_PANEL_SIZE = {
+  assistant:     { defaultSize: 100, minSize: 30 },
+  notes:         { defaultSize: 60,  minSize: 30 },
+  anticipatedQA: { defaultSize: 40,  minSize: 18 },
+  nowTile:       { defaultSize: 40,  minSize: 20 },
+  nextTile:      { defaultSize: 20,  minSize: 12 },
+  audienceQA:    { defaultSize: 40,  minSize: 20 },
+};
+
+/** Default horizontal share per column — only applied when the column
+ *  has at least one visible section. Other columns' percentages auto-
+ *  redistribute via PanelGroup. */
+const COLUMN_DEFAULT_SIZE = {
+  left:   24,
+  center: 50,
+  right:  26,
 };
 
 /**
@@ -68,21 +81,129 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
   const [readingOpen, setReadingOpen] = useState(false);
   const [layoutOpen, setLayoutOpen] = useState(false);
   const [notesQAHelpOpen, setNotesQAHelpOpen] = useState(false);
-  // Per-device section visibility + order (left/center/right columns).
+  // Per-device section visibility + column assignment + within-column order.
   // Persisted under presenter:layout — survives reloads, scoped to device.
   const layout = usePresenterLayout();
-  // Notes pane collapse — persisted so the presenter's preference survives reloads.
-  const [notesCollapsed, setNotesCollapsed] = useState(() => {
-    try { return localStorage.getItem('presenter:notes-collapsed') === '1'; } catch { return false; }
-  });
-  const notesPanelRef = useRef(null);
-  useEffect(() => {
-    try { localStorage.setItem('presenter:notes-collapsed', notesCollapsed ? '1' : '0'); } catch {}
-    const panel = notesPanelRef.current;
-    if (!panel) return;
-    if (notesCollapsed && !panel.isCollapsed()) panel.collapse();
-    if (!notesCollapsed && panel.isCollapsed()) panel.expand();
-  }, [notesCollapsed]);
+
+  /** Render a single section. Closes over all the deck-level state so
+   *  any column can host any section without prop-drilling. */
+  const renderSection = (key) => {
+    if (key === 'assistant') {
+      return (
+        <PresenterAssistant
+          deck={deck}
+          currentSlide={current}
+          currentNote={currentNote}
+          onOpenSources={() => setSourcesOpen(true)}
+        />
+      );
+    }
+    if (key === 'notes') {
+      return (
+        <div className="h-full flex flex-col min-h-0">
+          <div className="flex items-center justify-between mb-2 px-1 gap-2">
+            <div className="flex items-center gap-2 min-w-0">
+              <div
+                className="deck-mono uppercase truncate"
+                style={{
+                  fontSize: '0.62rem',
+                  letterSpacing: 'var(--ls-mono-wide)',
+                  color: 'var(--case, var(--amber))',
+                }}
+              >
+                Speaker notes
+                {current?.title && (
+                  <span className="ml-2" style={{ color: 'var(--cream-faint)', letterSpacing: 'var(--ls-mono)' }}>
+                    · Slide {String(index + 1).padStart(2, '0')}
+                  </span>
+                )}
+              </div>
+              <button
+                type="button"
+                onClick={() => setNotesQAHelpOpen(true)}
+                title="Notes & Q&A authoring reference"
+                aria-label="Open Notes & Q&A reference"
+                className="h-5 w-5 rounded flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)] shrink-0"
+                style={{ color: 'var(--cream-faint)' }}
+              >
+                <HelpCircle className="w-3 h-3" />
+              </button>
+            </div>
+            <span
+              className="deck-mono shrink-0"
+              style={{
+                fontSize: '0.6rem',
+                letterSpacing: 'var(--ls-mono)',
+                color: saving ? 'var(--amber)' : 'var(--cream-faint)',
+              }}
+            >
+              {!loaded ? 'Loading…' : saving ? 'Saving…' : 'Autosaved'}
+            </span>
+          </div>
+          <PresenterNotesPane
+            value={editing ? draft : currentNote}
+            onChange={onDraftChange}
+            editing={editing}
+            setEditing={setEditing}
+            placeholder="No notes yet. Click Edit to add speaker notes — supports **bold**, *italic*, ==highlight==, bullets, and headings."
+            slideKey={current?.id || index}
+            hasOverride={current ? hasOverride(current.id) : false}
+            onResetToFile={current ? () => { clearNote(current.id); setEditing(false); } : undefined}
+          />
+        </div>
+      );
+    }
+    if (key === 'anticipatedQA') {
+      return (
+        <AnticipatedQAPane
+          value={currentQA}
+          onChange={onQAChange}
+          editing={qaEditing}
+          setEditing={setQaEditing}
+          slideKey={current?.id || index}
+          itemCount={currentQACount}
+          hasOverride={current ? hasQAOverride(current.id) : false}
+          onResetToFile={current ? () => { clearQA(current.id); setQaEditing(false); } : undefined}
+          onShowHelp={() => setNotesQAHelpOpen(true)}
+        />
+      );
+    }
+    if (key === 'nowTile') {
+      return (
+        <TilePanel
+          label="Now on screen"
+          labelColor="var(--case, var(--amber))"
+          sublabel={current?.title}
+          SlideComponent={current?.component}
+          deck={deck}
+          emphasis
+        />
+      );
+    }
+    if (key === 'nextTile') {
+      return (
+        <TilePanel
+          label="Next up"
+          labelColor="var(--cream-faint)"
+          sublabel={nextSlide?.title || '— end of deck —'}
+          SlideComponent={nextSlide?.component}
+          deck={deck}
+        />
+      );
+    }
+    if (key === 'audienceQA') {
+      return (
+        <div className="h-full pt-1">
+          <QAModerationPane deck={deck} currentSlide={current} />
+        </div>
+      );
+    }
+    return null;
+  };
+  // Notes-collapse logic was retired in Phase 12 — visibility is now
+  // owned by usePresenterLayout (`presenter:layout` key). The N keyboard
+  // shortcut still toggles notes, but it now flips notes visibility
+  // instead of collapsing a panel.
 
   const current = deck.slides[index];
   const nextSlide = deck.slides[index + 1];
@@ -133,14 +254,15 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
         e.preventDefault();
         setHelpOpen((v) => !v);
       } else if (e.key === 'n' || e.key === 'N') {
-        // Toggle notes sidebar
+        // Toggle notes section visibility (was: panel collapse)
         e.preventDefault();
-        setNotesCollapsed((v) => !v);
+        layout.toggleVisibility('notes');
       }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [layout]);
 
   const presentOnAnotherScreen = () => {
     // Path-segment URL — /decks/:id/s/:slide/audience. Bookmark-friendly,
@@ -220,206 +342,34 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
         </div>
       </div>
 
-      {/* ═══════════ BODY — 3 resizable columns ═══════════
-          LEFT   : AI assistant
-          CENTER : Speaker notes (hero)
-          RIGHT  : Slide tiles — Now (big) · Next (small), also resizable
-          All dividers drag; layout persists via autoSaveId.
-         ═══════════════════════════════════════════════════ */}
-      <div className="flex-1 min-h-0 px-2 py-3">
+      {/* ═══════════ BODY — fully dynamic 3-column layout ═══════════
+          Each section (assistant · notes · anticipatedQA · nowTile ·
+          nextTile · audienceQA) lives in a column (left/center/right)
+          per the user's saved layout. Sections can be:
+            – hidden via Layout settings (eye toggle)
+            – moved between columns (← / →)
+            – reordered within a column (↑ / ↓)
+          Empty columns disappear; surviving columns expand to fill.
+         ═══════════════════════════════════════════════════════════════ */}
+      <div className="flex-1 min-h-0 px-2 py-3 relative">
         <PanelGroup direction="horizontal" autoSaveId="presenter-cols">
-          {/* ── LEFT: AI assistant ─────────────────────── */}
-          {layout.visibility.assistant && (
-            <>
-              <Panel defaultSize={24} minSize={16} order={1} id="left-assistant">
-                <div className="h-full px-2">
-                  <PresenterAssistant
-                    deck={deck}
-                    currentSlide={current}
-                    currentNote={currentNote}
-                    onOpenSources={() => setSourcesOpen(true)}
-                  />
-                </div>
+          {COLUMN_KEYS.filter((col) => layout.visibleIn(col).length > 0).map((col, idx, visibleCols) => (
+            <React.Fragment key={col}>
+              {idx > 0 && <VResizeHandle />}
+              <Panel
+                id={`col-${col}`}
+                order={COLUMN_KEYS.indexOf(col) + 1}
+                defaultSize={COLUMN_DEFAULT_SIZE[col]}
+                minSize={16}
+              >
+                <ColumnRenderer
+                  column={col}
+                  sectionKeys={layout.visibleIn(col)}
+                  renderSection={renderSection}
+                />
               </Panel>
-
-              <VResizeHandle />
-            </>
-          )}
-
-          {/* ── CENTER: speaker notes (collapsible sidebar) ── */}
-          <Panel
-            ref={notesPanelRef}
-            defaultSize={50}
-            minSize={30}
-            order={2}
-            collapsible
-            collapsedSize={0}
-            onCollapse={() => setNotesCollapsed(true)}
-            onExpand={() => setNotesCollapsed(false)}
-          >
-            <div className="h-full px-2 flex flex-col min-h-0">
-              <div className="flex items-center justify-between mb-2 px-1 gap-2">
-                <div className="flex items-center gap-2 min-w-0">
-                  <button
-                    onClick={() => setNotesCollapsed(true)}
-                    title="Hide speaker notes · N"
-                    aria-label="Hide speaker notes"
-                    className="h-6 w-6 rounded flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)] shrink-0"
-                    style={{ color: 'var(--cream-muted)' }}
-                  >
-                    <PanelRightClose className="w-3.5 h-3.5" />
-                  </button>
-                  <div className="deck-mono uppercase truncate"
-                       style={{ fontSize: '0.62rem', letterSpacing: 'var(--ls-mono-wide)', color: 'var(--case, var(--amber))' }}>
-                    Speaker notes
-                    {current?.title && (
-                      <span className="ml-2" style={{ color: 'var(--cream-faint)', letterSpacing: 'var(--ls-mono)' }}>
-                        · Slide {String(index + 1).padStart(2, '0')}
-                      </span>
-                    )}
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setNotesQAHelpOpen(true)}
-                    title="Notes & Q&A authoring reference"
-                    aria-label="Open Notes & Q&A reference"
-                    className="h-5 w-5 rounded flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)] shrink-0"
-                    style={{ color: 'var(--cream-faint)' }}
-                  >
-                    <HelpCircle className="w-3 h-3" />
-                  </button>
-                </div>
-                <span className="deck-mono shrink-0"
-                      style={{ fontSize: '0.6rem', letterSpacing: 'var(--ls-mono)',
-                               color: saving ? 'var(--amber)' : 'var(--cream-faint)' }}>
-                  {!loaded ? 'Loading…' : saving ? 'Saving…' : 'Autosaved'}
-                </span>
-              </div>
-              {/* Render center sections in user-defined order, skipping
-                  hidden ones. centerOrder ⊂ {notes, anticipatedQA}. */}
-              {layout.centerOrder
-                .filter((k) => layout.visibility[k])
-                .map((key) => {
-                  if (key === 'notes') {
-                    return (
-                      <PresenterNotesPane
-                        key="notes"
-                        value={editing ? draft : currentNote}
-                        onChange={onDraftChange}
-                        editing={editing}
-                        setEditing={setEditing}
-                        placeholder="No notes yet. Click Edit to add speaker notes — supports **bold**, *italic*, ==highlight==, bullets, and headings."
-                        slideKey={current?.id || index}
-                        hasOverride={current ? hasOverride(current.id) : false}
-                        onResetToFile={current ? () => { clearNote(current.id); setEditing(false); } : undefined}
-                      />
-                    );
-                  }
-                  if (key === 'anticipatedQA') {
-                    return (
-                      <AnticipatedQAPane
-                        key="anticipatedQA"
-                        value={currentQA}
-                        onChange={onQAChange}
-                        editing={qaEditing}
-                        setEditing={setQaEditing}
-                        slideKey={current?.id || index}
-                        itemCount={currentQACount}
-                        hasOverride={current ? hasQAOverride(current.id) : false}
-                        onResetToFile={current ? () => { clearQA(current.id); setQaEditing(false); } : undefined}
-                        onShowHelp={() => setNotesQAHelpOpen(true)}
-                      />
-                    );
-                  }
-                  return null;
-                })}
-              <div className="deck-mono mt-2 px-1"
-                   style={{ fontSize: '0.6rem', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}>
-                ← → navigate · P close · N toggle notes · ? help
-              </div>
-            </div>
-          </Panel>
-
-          {/* Floating "Show notes" trigger — appears only when the pane is collapsed */}
-          {notesCollapsed && (
-            <button
-              onClick={() => setNotesCollapsed(false)}
-              title="Show speaker notes · N"
-              aria-label="Show speaker notes"
-              className="absolute top-1/2 -translate-y-1/2 z-10 flex items-center gap-1.5 px-2.5 py-2 rounded-r-md border-l-0 border transition-colors hover:bg-[var(--cream-ghost)]"
-              style={{
-                left: 'calc(24% + 8px)', // roughly after the assistant column's default
-                borderColor: 'var(--cream-hairline)',
-                background: 'var(--panel)',
-                color: 'var(--cream-muted)',
-              }}
-            >
-              <PanelRightOpen className="w-3.5 h-3.5" />
-              <span className="deck-mono uppercase"
-                    style={{ fontSize: '0.58rem', letterSpacing: 'var(--ls-mono)' }}>
-                Notes
-              </span>
-            </button>
-          )}
-
-          {/* ── RIGHT column ──────────────────────────────────────────
-               Three sub-sections (now tile, next tile, audience Q&A)
-               in a vertical PanelGroup. User can hide any/all of them
-               and reorder via the Layout settings dialog.
-               ───────────────────────────────────────────────────────── */}
-          {layout.rightOrder.some((k) => layout.visibility[k]) && (
-            <>
-              <VResizeHandle />
-              <Panel defaultSize={26} minSize={20} order={3} id="right-col">
-                <div className="h-full px-2">
-                  <PanelGroup direction="vertical" autoSaveId="presenter-tiles">
-                    {layout.rightOrder
-                      .filter((k) => layout.visibility[k])
-                      .map((key, idx, arr) => {
-                        const isLast = idx === arr.length - 1;
-                        const cfg = RIGHT_PANEL_CONFIG[key];
-                        return (
-                          <React.Fragment key={key}>
-                            <Panel
-                              defaultSize={cfg.defaultSize}
-                              minSize={cfg.minSize}
-                              id={`right-${key}`}
-                              order={idx + 1}
-                            >
-                              {key === 'nowTile' && (
-                                <TilePanel
-                                  label="Now on screen"
-                                  labelColor="var(--case, var(--amber))"
-                                  sublabel={current?.title}
-                                  SlideComponent={current?.component}
-                                  deck={deck}
-                                  emphasis
-                                />
-                              )}
-                              {key === 'nextTile' && (
-                                <TilePanel
-                                  label="Next up"
-                                  labelColor="var(--cream-faint)"
-                                  sublabel={nextSlide?.title || '— end of deck —'}
-                                  SlideComponent={nextSlide?.component}
-                                  deck={deck}
-                                />
-                              )}
-                              {key === 'audienceQA' && (
-                                <div className="h-full pt-1">
-                                  <QAModerationPane deck={deck} currentSlide={current} />
-                                </div>
-                              )}
-                            </Panel>
-                            {!isLast && <HResizeHandle />}
-                          </React.Fragment>
-                        );
-                      })}
-                  </PanelGroup>
-                </div>
-              </Panel>
-            </>
-          )}
+            </React.Fragment>
+          ))}
         </PanelGroup>
       </div>
 
@@ -492,6 +442,40 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
    Resize handles — vertical (column splitter) + horizontal (row splitter).
    A visible hairline on hover/drag makes the drag affordance discoverable.
    ================================================================ */
+/* ColumnRenderer — renders a column's visible sections with optional
+   vertical resize handles between adjacent sections. Single-section
+   columns render the section directly; 2+ section columns wrap each in
+   a vertical Panel so the user can resize between them. */
+function ColumnRenderer({ column, sectionKeys, renderSection }) {
+  if (sectionKeys.length === 0) return null;
+  if (sectionKeys.length === 1) {
+    return <div className="h-full px-2">{renderSection(sectionKeys[0])}</div>;
+  }
+  return (
+    <div className="h-full px-2">
+      <PanelGroup direction="vertical" autoSaveId={`col-${column}-stack`}>
+        {sectionKeys.map((key, idx, arr) => {
+          const isLast = idx === arr.length - 1;
+          const cfg = SECTION_PANEL_SIZE[key] || { defaultSize: 100 / arr.length, minSize: 12 };
+          return (
+            <React.Fragment key={key}>
+              <Panel
+                id={`section-${key}`}
+                order={idx + 1}
+                defaultSize={cfg.defaultSize}
+                minSize={cfg.minSize}
+              >
+                {renderSection(key)}
+              </Panel>
+              {!isLast && <HResizeHandle />}
+            </React.Fragment>
+          );
+        })}
+      </PanelGroup>
+    </div>
+  );
+}
+
 function VResizeHandle() {
   return (
     <PanelResizeHandle className="group relative w-2 shrink-0">
