@@ -343,7 +343,7 @@ function Divider() {
   return <div style={{ height: 1, background: 'var(--cream-hairline)', margin: 'var(--space-1) var(--space-2)' }} />;
 }
 
-function MenuItem({ icon: Icon, onClick, disabled, title, subtitle }) {
+function MenuItem({ icon: Icon, onClick, disabled = false, title, subtitle = '' }) {
   return (
     <button
       role="menuitem"
@@ -368,7 +368,7 @@ function MenuItem({ icon: Icon, onClick, disabled, title, subtitle }) {
   );
 }
 
-function MenuLink({ to, icon: Icon, title, subtitle }) {
+function MenuLink({ to, icon: Icon, title, subtitle = '' }) {
   return (
     <Link
       role="menuitem"
