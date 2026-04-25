@@ -1,7 +1,8 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Search, ChevronDown, ChevronRight, X } from 'lucide-react';
+import { Search, ChevronDown, ChevronRight, X, SlidersHorizontal, Eye, EyeOff } from 'lucide-react';
+import { useQADensity, QA_DENSITY_FIELDS, QA_DENSITY_PRESETS } from '@/lib/useQADensity';
 
 /**
  * StructuredQAView — accordion-style list of anticipated questions with
@@ -25,6 +26,8 @@ import { Search, ChevronDown, ChevronRight, X } from 'lucide-react';
 export default function StructuredQAView({ questions = [] }) {
   const [query, setQuery] = useState('');
   const [openId, setOpenId] = useState(questions[0]?.id ?? null);
+  const [densityOpen, setDensityOpen] = useState(false);
+  const { density, toggle, setPreset, matchedPreset } = useQADensity();
 
   const filtered = useMemo(() => {
     if (!query.trim()) return questions;
@@ -45,40 +48,50 @@ export default function StructuredQAView({ questions = [] }) {
 
   return (
     <div className="flex flex-col gap-2">
-      {/* Search */}
-      <div
-        className="flex items-center gap-2 px-2 py-1.5 rounded border"
-        style={{ borderColor: 'var(--cream-hairline)', background: 'var(--cream-ghost)' }}
-      >
-        <Search className="w-3.5 h-3.5 shrink-0" style={{ color: 'var(--cream-faint)' }} />
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search questions, askers, topics, answers…"
-          className="flex-1 bg-transparent outline-none"
-          style={{
-            fontSize: '0.85rem',
-            color: 'var(--cream)',
-            fontFamily: 'var(--font-body)',
-          }}
-          aria-label="Search anticipated Q&A"
-        />
-        {query && (
-          <button
-            onClick={() => setQuery('')}
-            aria-label="Clear search"
-            className="h-5 w-5 rounded flex items-center justify-center hover:bg-[var(--panel)]"
-            style={{ color: 'var(--cream-faint)' }}
-          >
-            <X className="w-3 h-3" />
-          </button>
-        )}
-        <span
-          className="deck-mono uppercase shrink-0 tabular-nums"
-          style={{ fontSize: '0.55rem', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}
+      {/* Search + density */}
+      <div className="flex items-center gap-1.5">
+        <div
+          className="flex flex-1 items-center gap-2 px-2 py-1.5 rounded border"
+          style={{ borderColor: 'var(--cream-hairline)', background: 'var(--cream-ghost)' }}
         >
-          {filtered.length}/{questions.length}
-        </span>
+          <Search className="w-3.5 h-3.5 shrink-0" style={{ color: 'var(--cream-faint)' }} />
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search questions, askers, topics, answers…"
+            className="flex-1 bg-transparent outline-none min-w-0"
+            style={{
+              fontSize: '0.85rem',
+              color: 'var(--cream)',
+              fontFamily: 'var(--font-body)',
+            }}
+            aria-label="Search anticipated Q&A"
+          />
+          {query && (
+            <button
+              onClick={() => setQuery('')}
+              aria-label="Clear search"
+              className="h-5 w-5 rounded flex items-center justify-center hover:bg-[var(--panel)]"
+              style={{ color: 'var(--cream-faint)' }}
+            >
+              <X className="w-3 h-3" />
+            </button>
+          )}
+          <span
+            className="deck-mono uppercase shrink-0 tabular-nums"
+            style={{ fontSize: '0.55rem', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}
+          >
+            {filtered.length}/{questions.length}
+          </span>
+        </div>
+        <DensityButton
+          open={densityOpen}
+          setOpen={setDensityOpen}
+          density={density}
+          toggle={toggle}
+          setPreset={setPreset}
+          matchedPreset={matchedPreset}
+        />
       </div>
 
       {/* Question list */}
@@ -97,6 +110,7 @@ export default function StructuredQAView({ questions = [] }) {
               q={q}
               open={openId === q.id}
               onToggle={() => setOpenId(openId === q.id ? null : q.id)}
+              density={density}
             />
           ))}
         </ul>
@@ -105,7 +119,36 @@ export default function StructuredQAView({ questions = [] }) {
   );
 }
 
-function QARow({ q, open, onToggle }) {
+function QARow({ q, open, onToggle, density }) {
+  // Sane defaults for legacy callers — fall back to "show everything"
+  // so an undefined density doesn't accidentally hide fields.
+  const d = density || {
+    showNumber: true, showStars: true, showTopic: true,
+    showAsker: true, showAnswerPreview: true,
+  };
+  // Always show the number when collapsed even if the user's chosen
+  // ALL fields off — without it, rows are unidentifiable and the
+  // search-result count (filtered/total) loses its anchor. Number is
+  // genuinely the load-bearing field.
+  const showNumberEffective = d.showNumber || (!d.showStars && !d.showTopic && !d.showAsker);
+
+  // Strip a one-line preview from the answer body when collapsed —
+  // first sentence (or first ~120 chars), no markdown formatting.
+  const answerPreview = (() => {
+    if (!d.showAnswerPreview || open) return '';
+    const raw = (q.answer || '').replace(/[*_`>#\-]/g, '').replace(/\s+/g, ' ').trim();
+    if (!raw) return '';
+    const firstSentence = raw.split(/(?<=[.!?])\s/)[0];
+    return firstSentence.length > 130 ? firstSentence.slice(0, 127) + '…' : firstSentence;
+  })();
+
+  // Hide the metadata strip entirely if NOTHING in it is enabled —
+  // saves a row of vertical whitespace.
+  const showMetaStrip =
+    showNumberEffective ||
+    (d.showStars && q.difficulty > 0) ||
+    (d.showTopic && q.topic);
+
   return (
     <li
       className="rounded border"
@@ -120,32 +163,50 @@ function QARow({ q, open, onToggle }) {
           ? <ChevronDown className="w-3.5 h-3.5 shrink-0 mt-1" style={{ color: 'var(--case, var(--amber))' }} />
           : <ChevronRight className="w-3.5 h-3.5 shrink-0 mt-1" style={{ color: 'var(--cream-muted)' }} />}
         <div className="flex-1 min-w-0">
-          <div className="flex items-baseline gap-2 flex-wrap">
-            <span
-              className="deck-mono shrink-0 tabular-nums"
-              style={{
-                fontSize: '0.6rem',
-                letterSpacing: 'var(--ls-mono)',
-                color: 'var(--cream-faint)',
-              }}
-            >
-              Q{String(q.num).padStart(2, '0')}
-            </span>
-            {q.difficulty > 0 && <DifficultyStars n={q.difficulty} />}
-            {q.topic && <TopicPill topic={q.topic} />}
-          </div>
+          {showMetaStrip && (
+            <div className="flex items-baseline gap-2 flex-wrap">
+              {showNumberEffective && (
+                <span
+                  className="deck-mono shrink-0 tabular-nums"
+                  style={{
+                    fontSize: '0.6rem',
+                    letterSpacing: 'var(--ls-mono)',
+                    color: 'var(--cream-faint)',
+                  }}
+                >
+                  Q{String(q.num).padStart(2, '0')}
+                </span>
+              )}
+              {d.showStars && q.difficulty > 0 && <DifficultyStars n={q.difficulty} />}
+              {d.showTopic && q.topic && <TopicPill topic={q.topic} />}
+            </div>
+          )}
           <div
             className="mt-0.5"
             style={{ fontSize: '0.92rem', color: 'var(--cream)', fontWeight: 500, lineHeight: 1.35 }}
           >
             {q.question}
           </div>
-          {q.from && (
+          {d.showAsker && q.from && (
             <div
               className="mt-0.5"
               style={{ fontSize: '0.72rem', color: 'var(--cream-faint)' }}
             >
               from {q.from}
+            </div>
+          )}
+          {answerPreview && (
+            <div
+              className="mt-1 truncate"
+              style={{
+                fontSize: '0.78rem',
+                color: 'var(--cream-muted)',
+                lineHeight: 1.4,
+                fontStyle: 'italic',
+              }}
+              title={q.answer}
+            >
+              {answerPreview}
             </div>
           )}
         </div>
@@ -272,4 +333,154 @@ function transform(children) {
         : <React.Fragment key={`${i}-${j}`}>{p}</React.Fragment>
     );
   });
+}
+
+/* ============================================================
+ * DensityButton — popover with row-density toggles + presets
+ * ============================================================ */
+function DensityButton({ open, setOpen, density, toggle, setPreset, matchedPreset }) {
+  const wrapRef = useRef(null);
+
+  // Click-outside / Esc to close.
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e) => {
+      if (wrapRef.current?.contains(e.target)) return;
+      setOpen(false);
+    };
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', onDown);
+    window.addEventListener('keydown', onKey, true);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      window.removeEventListener('keydown', onKey, true);
+    };
+  }, [open, setOpen]);
+
+  return (
+    <div ref={wrapRef} className="relative shrink-0">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        title="Customize what shows in collapsed rows"
+        aria-label="Q&A row density settings"
+        aria-expanded={open}
+        className="h-[34px] w-[34px] rounded border flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)]"
+        style={{
+          borderColor: open ? 'var(--case, var(--amber))' : 'var(--cream-hairline)',
+          color: open ? 'var(--case, var(--amber))' : 'var(--cream-muted)',
+        }}
+      >
+        <SlidersHorizontal className="w-3.5 h-3.5" />
+      </button>
+
+      {open && (
+        <div
+          role="menu"
+          className="absolute right-0 top-full mt-1 rounded-lg border shadow-xl"
+          style={{
+            background: 'var(--panel)',
+            borderColor: 'var(--cream-hairline)',
+            minWidth: 260,
+            padding: 'var(--space-2)',
+            zIndex: 50,
+          }}
+        >
+          {/* Preset row */}
+          <div
+            className="deck-mono uppercase px-2 pt-1 pb-1.5"
+            style={{ fontSize: '0.55rem', letterSpacing: 'var(--ls-mono-wide)', color: 'var(--cream-faint)' }}
+          >
+            Preset
+          </div>
+          <div className="flex items-center gap-1 px-1 mb-2">
+            {QA_DENSITY_PRESETS.map((name) => {
+              const active = matchedPreset === name;
+              return (
+                <button
+                  key={name}
+                  onClick={() => setPreset(name)}
+                  className="deck-mono uppercase flex-1 px-2 py-1 rounded transition-colors"
+                  style={{
+                    background: active ? 'var(--case, var(--amber))' : 'transparent',
+                    color: active ? 'var(--bg)' : 'var(--cream-muted)',
+                    border: `1px solid ${active ? 'var(--case, var(--amber))' : 'var(--cream-hairline)'}`,
+                    fontSize: '0.58rem',
+                    letterSpacing: 'var(--ls-mono)',
+                    fontWeight: active ? 600 : 400,
+                  }}
+                >
+                  {name}
+                </button>
+              );
+            })}
+          </div>
+
+          <div
+            className="deck-mono uppercase px-2 pt-1 pb-1.5"
+            style={{ fontSize: '0.55rem', letterSpacing: 'var(--ls-mono-wide)', color: 'var(--cream-faint)' }}
+          >
+            Show in collapsed rows
+          </div>
+          <ul className="flex flex-col gap-0.5">
+            {QA_DENSITY_FIELDS.map(({ key, label, hint }) => {
+              const on = density[key];
+              return (
+                <li key={key}>
+                  <button
+                    onClick={() => toggle(key)}
+                    role="menuitemcheckbox"
+                    aria-checked={on}
+                    className="w-full flex items-start gap-2 px-2 py-1.5 rounded text-left transition-colors hover:bg-[var(--cream-ghost)]"
+                  >
+                    {on
+                      ? <Eye className="w-3.5 h-3.5 mt-0.5 shrink-0" style={{ color: 'var(--case, var(--amber))' }} />
+                      : <EyeOff className="w-3.5 h-3.5 mt-0.5 shrink-0" style={{ color: 'var(--cream-faint)' }} />}
+                    <div className="flex-1 min-w-0">
+                      <div style={{
+                        color: on ? 'var(--cream)' : 'var(--cream-muted)',
+                        fontSize: '0.78rem',
+                        fontWeight: 500,
+                      }}>
+                        {label}
+                      </div>
+                      <div
+                        className="deck-mono"
+                        style={{
+                          fontSize: '0.55rem',
+                          letterSpacing: 'var(--ls-mono)',
+                          color: 'var(--cream-faint)',
+                          marginTop: 1,
+                        }}
+                      >
+                        {hint}
+                      </div>
+                    </div>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+
+          <div
+            className="px-2 pt-2 pb-1 deck-mono"
+            style={{
+              fontSize: '0.55rem',
+              letterSpacing: 'var(--ls-mono)',
+              color: 'var(--cream-faint)',
+              lineHeight: 1.5,
+            }}
+          >
+            The expanded answer always shows everything. These toggles
+            only change how compact each row is when collapsed.
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
