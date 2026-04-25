@@ -117,6 +117,7 @@ export async function localAskPresenter({
   currentNote,
   question,
   history,
+  presenterMode = 'live', // 'live' | 'rehearse'  — shapes response length/depth
 }) {
   const key = getOpenAIKey();
   if (!key) {
@@ -167,12 +168,30 @@ export async function localAskPresenter({
 • If the retrieved sources don't cover the question, say so briefly — never fabricate numbers, dates, or citations.`
     : `• Use the reading material above for facts when relevant. If it doesn't cover the question, say so briefly — never fabricate numbers or sources.`;
 
-  const systemPrompt = `You are an on-stage co-pilot for a live presenter. They are delivering a talk right now and need a short, stage-ready answer they can say out loud.
+  const isLive = presenterMode === 'live';
+  const lengthRule = isLive
+    ? `• "quick" must be ONE sentence ≤ 15 words. Stage-deliverable, ready to say out loud.
+• "details" must be 2–3 short bullets (one fact per bullet, ≤ 15 words each).`
+    : `• "quick" must be ONE sentence ≤ 25 words — tighter than rehearsal but not telegraphic.
+• "details" should be 3–5 bullets giving fuller reasoning, numbers, citations.`;
+
+  const systemPrompt = `You are an on-stage co-pilot for a live presenter. Mode: ${isLive ? 'LIVE (talk in progress — answer must be instantly usable on stage)' : 'REHEARSE (preparation — fuller reasoning is welcome)'}.
+
+The presenter may type only a few words ("dose?", "why amber?") — interpret short input as a question about the CURRENT SLIDE unless context makes another scope obvious.
+
+OUTPUT FORMAT (strict)
+Return ONLY a JSON object with this shape — no prose around it, no markdown fences:
+{
+  "quick":   "<one-line headline answer, the thing to SAY OUT LOUD>",
+  "details": ["<bullet 1>", "<bullet 2>", ...],
+  "tags":    ["<short tag>", ...]
+}
 
 STYLE RULES
-• Under 90 words, plain spoken language, no preamble ("Great question…").
-• Lead with the answer. One or two supporting points max.
-• If the presenter asks to rephrase or recap, respond in first person as them.
+${lengthRule}
+• Plain spoken language, no preamble ("Great question…").
+• If asked to rephrase or recap, write "quick" in first person AS the presenter.
+• Tags are short single-word labels for visual grouping (e.g. "number", "rebuttal", "framing", "citation", "method", "regulatory"). 1–3 tags max.
 ${groundingRules}
 
 DECK: ${deck?.title || '(untitled)'}
@@ -203,8 +222,11 @@ ${sourcesBlock}`;
     body: JSON.stringify({
       model: CHAT_MODEL,
       messages,
-      max_tokens: 400,
-      temperature: 0.4,
+      // response_format: json_object forces the model to return parseable
+      // JSON; combined with our schema in the prompt this is reliable.
+      response_format: { type: 'json_object' },
+      max_tokens: isLive ? 320 : 600,
+      temperature: 0.35,
     }),
   });
 
@@ -223,10 +245,16 @@ ${sourcesBlock}`;
   }
 
   const data = await res.json();
-  const answer = data?.choices?.[0]?.message?.content?.trim() || '(no response)';
+  const raw = data?.choices?.[0]?.message?.content?.trim() || '';
+  const parsed = parseStructuredAnswer(raw);
+
   return {
-    answer,
+    answer: parsed.quick || raw || '(no response)',
+    quick: parsed.quick,
+    details: parsed.details,
+    tags: parsed.tags,
     mode: ragMode ? 'rag' : 'local',
+    presenterMode,
     citations: retrieved.map((r) => ({
       n: r.n,
       source_title: r.readingTitle || `${r.kind}:${r.slideId || '—'}`,
@@ -234,6 +262,31 @@ ${sourcesBlock}`;
       score: r.score,
     })),
   };
+}
+
+/* Parse the model's JSON output. Tolerates unexpected wrapping (some
+ * models still emit ```json fences even with response_format set, and
+ * gpt-4o-mini occasionally produces near-JSON). Falls back to
+ * { quick: rawText } so the assistant never shows nothing. */
+function parseStructuredAnswer(raw) {
+  if (!raw) return { quick: '', details: [], tags: [] };
+  // Strip ``` fences if any.
+  let cleaned = raw.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/i, '').trim();
+  try {
+    const obj = JSON.parse(cleaned);
+    return {
+      quick: typeof obj.quick === 'string' ? obj.quick.trim() : '',
+      details: Array.isArray(obj.details)
+        ? obj.details.filter((x) => typeof x === 'string').map((s) => s.trim())
+        : [],
+      tags: Array.isArray(obj.tags)
+        ? obj.tags.filter((x) => typeof x === 'string').slice(0, 3).map((s) => s.trim())
+        : [],
+    };
+  } catch {
+    // Last-resort: treat the whole thing as the quick answer.
+    return { quick: raw.trim(), details: [], tags: [] };
+  }
 }
 
 async function embedOne(text) {

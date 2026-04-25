@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Sparkles, Send, Loader2, Lightbulb, Mic, Square, FolderOpen, BookOpen, Globe, StickyNote, Settings, Cpu, AlertTriangle, Database, RefreshCw } from 'lucide-react';
+import { Sparkles, Send, Loader2, Lightbulb, Mic, Square, FolderOpen, BookOpen, Globe, StickyNote, Settings, Cpu, AlertTriangle, Database, RefreshCw, ChevronDown, ChevronRight, Zap, GraduationCap } from 'lucide-react';
 import { useAmbientListen } from '@/lib/useAmbientListen';
 import {
   isStubResponse,
@@ -40,10 +40,24 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
   const [recStatus, setRecStatus] = useState(''); // '', 'listening', 'transcribing'
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [localKeyPresent, setLocalKeyPresent] = useState(hasOpenAIKey());
-  const [keySource, setKeySource] = useState(getKeySource()); // 'env' | 'localStorage' | null
+  const [keySource, setKeySource] = useState(getKeySource()); // 'env' | 'localStorage' | null  (no longer surfaced in header — kept for settings UI)
   const [ragStatus, setRagStatus] = useState(() =>
     deck?.id ? getIndexStatus(deck.id) : { state: 'unknown' }
   );
+  /* presenterMode persists across sessions so the user doesn't have to
+     re-toggle when they reopen the deck mid-rehearsal. Default is 'live'
+     because that's the more demanding context — better to be too terse
+     and re-ask than too verbose and lose the room. */
+  const [presenterMode, setPresenterMode] = useState(() => {
+    try {
+      return localStorage.getItem('presenter-assistant:mode') || 'live';
+    } catch {
+      return 'live';
+    }
+  });
+  useEffect(() => {
+    try { localStorage.setItem('presenter-assistant:mode', presenterMode); } catch {}
+  }, [presenterMode]);
   const listRef = useRef(null);
   const mediaRef = useRef(null); // { recorder, stream, chunks }
 
@@ -236,11 +250,17 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
         currentNote,
         question,
         history: nextMsgs.slice(-6),
+        presenterMode,
       });
       return {
         role: 'assistant',
         content: result.answer,
-        mode: 'local',
+        // Structured shape for the renderer:
+        quick: result.quick,
+        details: result.details,
+        tags: result.tags,
+        mode: result.mode,           // 'rag' | 'local'
+        presenterMode: result.presenterMode,
         citations: result.citations,
       };
     } catch (err) {
@@ -374,25 +394,7 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
             Ask about this slide
           </div>
         </div>
-        {localKeyPresent && (
-          <span
-            title={
-              keySource === 'env'
-                ? 'Using OpenAI key from .env.local (VITE_OPENAI_API_KEY)'
-                : 'Using OpenAI key from browser storage (settings)'
-            }
-            className="deck-mono uppercase flex items-center gap-1.5 px-2 py-1 rounded-full border"
-            style={{
-              borderColor: 'var(--sage)',
-              color: 'var(--sage)',
-              fontSize: '0.55rem',
-              letterSpacing: 'var(--ls-mono)',
-            }}
-          >
-            <Cpu className="w-3 h-3" />
-            {keySource === 'env' ? 'Local · env' : 'Local · key'}
-          </span>
-        )}
+        <ModeToggle value={presenterMode} onChange={setPresenterMode} />
         {isQdrantConfigured() && (
           <RagStatusBadge status={ragStatus} />
         )}
@@ -570,27 +572,233 @@ function RagStatusBadge({ status }) {
 }
 
 /* ========================================================
-   Message row — renders mode badge + inline citations.
+   Message row — structured-answer renderer.
+   User messages: amber pill, right-aligned.
+   Assistant messages:
+     · QUICK headline in big readable type (the line to SAY)
+     · DETAILS bullets — collapsed by default in 'live' mode,
+       open by default in 'rehearse' mode (matches the two
+       use cases: stage-quick vs prep-deep)
+     · TAGS as compact chips
+     · Citations as bracketed chips when RAG fired
    ======================================================== */
 function Message({ msg }) {
   const isUser = msg.role === 'user';
+
+  if (isUser) {
+    return (
+      <div className="flex justify-end">
+        <div
+          className="max-w-[88%] rounded-lg px-3 py-2"
+          style={{
+            background: 'var(--case, var(--amber))',
+            color: 'var(--bg)',
+            fontSize: '0.88rem',
+            lineHeight: 1.5,
+            whiteSpace: 'pre-wrap',
+            fontWeight: 500,
+          }}
+        >
+          {msg.content}
+        </div>
+      </div>
+    );
+  }
+
+  // Assistant — structured if available, else plain text fallback.
+  const hasStructured = !!(msg.quick || msg.details?.length);
+  if (!hasStructured) {
+    return (
+      <div className="flex flex-col items-start gap-1.5">
+        <div
+          className="max-w-[92%] rounded-lg px-3 py-2"
+          style={{
+            background: 'var(--cream-ghost)',
+            color: 'var(--cream)',
+            fontSize: '0.88rem',
+            lineHeight: 1.5,
+            whiteSpace: 'pre-wrap',
+          }}
+        >
+          {msg.content}
+        </div>
+        {(msg.mode || msg.citations?.length > 0) && (
+          <ModeAndCitations mode={msg.mode} citations={msg.citations} />
+        )}
+      </div>
+    );
+  }
+  return <StructuredMessage msg={msg} />;
+}
+
+function StructuredMessage({ msg }) {
+  // In rehearse mode, default to expanded; in live mode, default to
+  // collapsed. The user can click to toggle either way.
+  const [open, setOpen] = useState(msg.presenterMode !== 'live');
+  const hasDetails = !!msg.details?.length;
+  const isLive = msg.presenterMode === 'live';
+
   return (
-    <div className={isUser ? 'flex justify-end' : 'flex flex-col items-start gap-1.5'}>
+    <div className="flex flex-col items-start gap-2 w-full">
+      {/* QUICK — the headline answer, the line the presenter says */}
       <div
-        className="max-w-[88%] rounded-lg px-3 py-2"
+        className="rounded-lg px-3 py-2.5 w-full"
         style={{
-          background: isUser ? 'var(--case, var(--amber))' : 'var(--cream-ghost)',
-          color: isUser ? 'var(--bg)' : 'var(--cream)',
-          fontSize: '0.88rem',
-          lineHeight: 1.5,
-          whiteSpace: 'pre-wrap',
+          background: 'var(--cream-ghost)',
+          border: `1px solid ${isLive ? 'var(--case, var(--amber))' : 'var(--cream-hairline)'}`,
+          borderLeftWidth: 3,
         }}
       >
-        {msg.content}
+        <div
+          className="deck-mono uppercase mb-1 flex items-center gap-1.5"
+          style={{
+            fontSize: '0.55rem',
+            letterSpacing: 'var(--ls-mono-wide)',
+            color: isLive ? 'var(--case, var(--amber))' : 'var(--cream-faint)',
+          }}
+        >
+          {isLive ? <Zap className="w-3 h-3" /> : <GraduationCap className="w-3 h-3" />}
+          {isLive ? 'Say this' : 'Headline'}
+        </div>
+        <div
+          style={{
+            color: 'var(--cream)',
+            fontSize: isLive ? '1rem' : '0.95rem',
+            lineHeight: 1.45,
+            fontWeight: isLive ? 500 : 400,
+          }}
+        >
+          {msg.quick || msg.content}
+        </div>
       </div>
-      {!isUser && (msg.mode || msg.citations?.length > 0) && (
-        <ModeAndCitations mode={msg.mode} citations={msg.citations} />
+
+      {/* DETAILS — bullets, collapsed-by-default in live, open in rehearse */}
+      {hasDetails && (
+        <div className="w-full">
+          <button
+            onClick={() => setOpen((v) => !v)}
+            className="deck-mono uppercase flex items-center gap-1.5 px-1 py-1 transition-colors hover:text-[var(--cream)]"
+            style={{
+              fontSize: '0.58rem',
+              letterSpacing: 'var(--ls-mono-wide)',
+              color: 'var(--cream-muted)',
+            }}
+          >
+            {open ? <ChevronDown className="w-3 h-3" /> : <ChevronRight className="w-3 h-3" />}
+            {open ? 'Hide details' : `Details · ${msg.details.length}`}
+          </button>
+          {open && (
+            <ul
+              className="mt-1 ml-2 pl-3 border-l space-y-1.5"
+              style={{ borderLeftColor: 'var(--cream-hairline)' }}
+            >
+              {msg.details.map((d, i) => (
+                <li
+                  key={i}
+                  style={{
+                    color: 'var(--cream-muted)',
+                    fontSize: '0.83rem',
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {d}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       )}
+
+      {/* TAGS + CITATIONS row */}
+      {(msg.tags?.length || msg.citations?.length || msg.mode) && (
+        <div className="flex flex-wrap items-center gap-1.5">
+          {msg.tags?.map((t) => (
+            <span
+              key={t}
+              className="deck-mono uppercase px-1.5 py-0.5 rounded"
+              style={{
+                fontSize: '0.55rem',
+                letterSpacing: 'var(--ls-mono)',
+                color: 'var(--cream-muted)',
+                background: 'var(--cream-ghost)',
+                border: '1px solid var(--cream-hairline)',
+              }}
+            >
+              #{t}
+            </span>
+          ))}
+          {msg.mode && <ModeChip mode={msg.mode} />}
+          {msg.citations?.map((c) => (
+            <span
+              key={`${c.source_title}-${c.n}`}
+              title={`${c.source_title} · score ${c.score}`}
+              className="deck-mono px-1.5 py-0.5 rounded"
+              style={{
+                color: 'var(--cream-muted)',
+                fontSize: '0.55rem',
+                letterSpacing: 'var(--ls-mono)',
+                border: '1px solid var(--cream-hairline)',
+                background: 'var(--cream-ghost)',
+              }}
+            >
+              [R{c.n}] {truncate(c.source_title, 22)}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ModeChip({ mode }) {
+  const meta = ({
+    rag:    { label: 'RAG', color: 'var(--sage)', Icon: Database },
+    local:  { label: 'AI',  color: 'var(--cream-faint)', Icon: Cpu },
+    error:  { label: 'err', color: 'var(--coral)', Icon: AlertTriangle },
+    'no-key':{ label: 'set up key', color: 'var(--case, var(--amber))', Icon: AlertTriangle },
+  })[mode];
+  if (!meta) return null;
+  const Icon = meta.Icon;
+  return (
+    <span
+      className="deck-mono uppercase flex items-center gap-1 px-1.5 py-0.5 rounded"
+      style={{
+        fontSize: '0.55rem',
+        letterSpacing: 'var(--ls-mono)',
+        color: meta.color,
+        border: `1px solid ${meta.color}`,
+      }}
+    >
+      <Icon className="w-2.5 h-2.5" /> {meta.label}
+    </span>
+  );
+}
+
+function ModeToggle({ value, onChange }) {
+  const Btn = ({ which, label, Icon }) => {
+    const active = value === which;
+    return (
+      <button
+        onClick={() => onChange(which)}
+        title={which === 'live' ? 'Live mode — terse, stage-ready' : 'Rehearse mode — fuller reasoning'}
+        className="deck-mono uppercase flex items-center gap-1 px-2 py-1 rounded-full transition-colors"
+        style={{
+          background: active ? 'var(--case, var(--amber))' : 'transparent',
+          color: active ? 'var(--bg)' : 'var(--cream-muted)',
+          border: `1px solid ${active ? 'var(--case, var(--amber))' : 'var(--cream-hairline)'}`,
+          fontSize: '0.55rem',
+          letterSpacing: 'var(--ls-mono)',
+          fontWeight: active ? 600 : 400,
+        }}
+      >
+        <Icon className="w-3 h-3" /> {label}
+      </button>
+    );
+  };
+  return (
+    <div className="flex items-center gap-1">
+      <Btn which="live" label="Live" Icon={Zap} />
+      <Btn which="rehearse" label="Rehearse" Icon={GraduationCap} />
     </div>
   );
 }
