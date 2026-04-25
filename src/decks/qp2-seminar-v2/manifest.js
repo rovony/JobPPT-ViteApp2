@@ -31,10 +31,7 @@ import Slide06CaseBackground from './slides/06-case-background';
 import Slide07CaseChallenge from './slides/07-case-challenge';
 import Slide07bCasePrecedents from './slides/07b-case-precedents';
 import Slide08CaseStrategy from './slides/08-case-strategy';
-// Slide08cCaseStrategyVisuals · 2026-04-25 (Ivo-brief audit · Plan A merge):
-//   Merged into 08 — each decision card now carries its inline Viz so the
-//   strategy beat lands in one slide instead of two. Original file moved to
-//   _backup/08c-case-strategy-visuals.merged-into-08-ivo-brief.jsx.
+import Slide08cCaseStrategyVisuals from './slides/08c-case-strategy-visuals';
 // Slide08bCaseTrialDesign · 2026-04-25 D2 insert: AMB112529 protocol slide.
 //   Slots between strategy (S08) and build (S09). Absorbs the data-constraint
 //   beat that used to be S07 Card 03 — now reads as a standalone trial-design
@@ -76,21 +73,6 @@ import Slide27Case3Fit from './slides/27-case3-fit';
 import Slide28Case3Impact from './slides/28-case3-impact';
 import Slide29Case3Bridge from './slides/29-case3-bridge';
 
-// CS4 · 2026-04-25 (Ivo + AIML brief, Phase 2)
-//   Inserted as the fourth case study between CS3-bridge (29) and the
-//   closing divider (30). Sage = CS4 case color (only unused theme).
-//   File-numbering uses cs4-NN-name.jsx convention to preserve the
-//   brief's slide numbers (S30–S36 = CS4 segment per the brief).
-//   Architecture · privacy-audit · workflow diagrams imported as
-//   re-tinted SVG components from cs4-shared/.
-import Slide30Cs4Divider from './slides/cs4-30-divider';
-import Slide31Cs4Setup from './slides/cs4-31-setup';
-import Slide32Cs4Problem from './slides/cs4-32-problem';
-import Slide33Cs4Architecture from './slides/cs4-33-architecture';
-import Slide34Cs4PrivacyAudit from './slides/cs4-34-privacy-audit';
-import Slide35Cs4Workflow from './slides/cs4-35-workflow';
-import Slide36Cs4Bridge from './slides/cs4-36-bridge';
-
 import Slide30ClosingDivider from './slides/30-closing-divider';
 import Slide31BreadthTherapeuticAreas from './slides/31-breadth-therapeutic-areas';
 import Slide32RecordAtScale from './slides/32-record-at-scale';
@@ -99,8 +81,6 @@ import Slide34InClosing from './slides/34-in-closing';
 import Slide35ThankYou from './slides/35-thank-you';
 
 import notes from './notes';
-import qa from './qa';
-import reading from './reading';
 
 const manifest = {
   id: 'qp2-seminar-v2',
@@ -108,8 +88,6 @@ const manifest = {
   subtitle: 'Working draft · QP2 Seminar · Spring 2026',
   theme: 'clinical',
   notes,
-  qa,
-  reading,
   defaultTransition: 'card',
   /**
    * Export timing — only long-motion slides need a high `slideSettleMs`.
@@ -128,6 +106,7 @@ const manifest = {
       'closing-divider': 1600,
       'case-precedents': 3000,
       'case-trial-design': 3200,
+      'case-strategy-evidence': 3200,
       'case-fit-bridge': 4400,
       'case-bridge': 5200,
       'case-recap': 2800,
@@ -154,7 +133,8 @@ const manifest = {
     { id: 'case-background', title: 'CS1 · adult standard of care · pediatric question open', component: Slide06CaseBackground },
     { id: 'case-challenge', title: 'CS1 · the challenge — rarity · ethics', component: Slide07CaseChallenge },
     { id: 'case-precedents', title: 'CS1 · precedents — Sildenafil · Bosentan', component: Slide07bCasePrecedents },
-    { id: 'case-strategy', title: 'CS1 · strategy — three decisions with inline visual evidence', component: Slide08CaseStrategy },
+    { id: 'case-strategy', title: 'CS1 · strategy — ICH E11 extrapolation', component: Slide08CaseStrategy },
+    { id: 'case-strategy-evidence', title: 'CS1 · strategy evidence — decision diagnostics', component: Slide08cCaseStrategyVisuals },
     { id: 'case-trial-design', title: 'CS1 · trial design — AMB112529 protocol', component: Slide08bCaseTrialDesign },
     { id: 'case-build', title: 'CS1 · build — sequential PopPK with allometry', component: Slide09CaseBuild },
     // case-fit-bridge (2026-04-25) — collapses the old pcVPC slide + AUC-only
@@ -183,14 +163,6 @@ const manifest = {
     { id: 'case3-fit', title: 'CS3 fit · sixty adults are enough', component: Slide27Case3Fit },
     { id: 'case3-impact', title: 'CS3 impact · 36% · precedent · template', component: Slide28Case3Impact },
     { id: 'case3-bridge', title: 'CS3 bridge · themes recap · → closing', component: Slide29Case3Bridge },
-
-    { id: 'case4-divider', title: 'Case 04 · AI/ML in Clinical Pharmacology', component: Slide30Cs4Divider },
-    { id: 'case4-setup', title: 'CS4 setup · DeepPK + PharmAgent · ICH M15', component: Slide31Cs4Setup },
-    { id: 'case4-problem', title: 'CS4 problem · 80% scaffolding · 0 shared state', component: Slide32Cs4Problem },
-    { id: 'case4-architecture', title: 'CS4 architecture · 3-level hierarchy · centralized · Kim et al. 2025', component: Slide33Cs4Architecture },
-    { id: 'case4-privacy-audit', title: 'CS4 privacy + audit · architectural · cryptographic', component: Slide34Cs4PrivacyAudit },
-    { id: 'case4-workflow', title: 'CS4 workflow · end-to-end PopPK · 4 review gates', component: Slide35Cs4Workflow },
-    { id: 'case4-bridge', title: 'CS4 bridge · bracket statement → Merck synthesis', component: Slide36Cs4Bridge },
 
     { id: 'closing-divider', title: 'Act IV · Beyond the three cases', component: Slide30ClosingDivider },
     { id: 'breadth-therapeutic-areas', title: 'Breadth · six clinical domains', component: Slide31BreadthTherapeuticAreas },
