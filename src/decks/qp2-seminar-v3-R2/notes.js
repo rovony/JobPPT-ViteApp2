@@ -612,13 +612,13 @@ The Clin Pharm dossier replaced the trial. The model replaced the study. Rule 10
 → Next slide shifts to ownership — the Bracket Method leadership frame.`,
 
   'cs2-leadership': `## Spoken
-Ownership. ⏸
+Scope. ⏸
 
-I owned the clinical pharmacology dossier defense. That means I owned the scientific argumentation that the global data were applicable to the Indian population without pre-approval local data. ⏸
+The scientific defense was mine to build. That means the scientific argumentation — the case that global data were applicable to the Indian population without pre-approval local data — sat in my scope. ⏸
 
-==Regulatory affairs owned the SEC interaction== — the procedural dialogue with CDSCO, the timing of submissions, the Rule 101 waiver application mechanics.
+==Regulatory affairs led the SEC interaction== — the procedural dialogue with CDSCO, the timing of submissions, the Rule 101 waiver application mechanics.
 
-==Medical affairs owned the post-marketing surveillance commitments== — the Phase 4 PK/PD study design, the pharmacovigilance protocol, the real-world evidence plan.
+==Medical affairs led the post-marketing surveillance commitments== — the Phase 4 PK/PD study design, the pharmacovigilance protocol, the real-world evidence plan.
 
 ==The global Clin Pharm team built the six-pillar evidence package.== Pharmacometrics ran the Bayesian covariate re-estimation. The regulatory writing team authored the thirty-six-page justification document. The Servier India affiliate team presented the package to the SEC in person. ⏸
 
@@ -630,12 +630,12 @@ By April 2025, the SEC had converted a pre-approval hurdle into a ==Phase 4 post
 
 ## Cues
 - ⏱ 65 sec — this is the longest CS2 delivery. Rehearse the transitions.
-- 🎚 Start quiet on "I owned." Build through the team credits. Peak on "Phase 4 post-approval commitment."
+- 🎚 Start measured on "mine to build." Build through the team credits. Peak on "Phase 4 post-approval commitment."
 - 📍 Credit outward deliberately. Name each team by function, not by person.
-- 🎯 Eye contact on "I owned" — direct, not apologetic.
+- 🎯 Eye contact on "mine to build" — confident, not possessive.
 - ⚠ "Thirty-six-page justification" — this is verified from the research. If asked for details, it addressed unmet need, IDH1 prevalence, survival benefits, and the mechanism-first argument.
 - ⚠ The SEC timeline: Aug 2024 (queries) → Oct 2024 (36-page response) → Dec 2024 (PK/PD study recommendation) → Jan 2025 (mechanism-first reframe) → Apr 2025 (favorable SEC opinion) → May 2025 (authorization).
-- ⚠ The Bracket Method: one sentence on what I owned, credit outward on everything else. Do NOT claim credit for the regulatory or medical affairs work.
+- ⚠ The Bracket Method: define your scope clearly, credit outward on everything else. Do NOT claim credit for the regulatory or medical affairs work.
 - ✅ Landing line: "allowing immediate patient access."
 
 ## Bridge
@@ -770,23 +770,23 @@ Every one of those outputs passed the ==same QC checklists and regulatory review
 → Bracket Method next — credit outward to the field.`,
 
   'cs3-bracket': `## Spoken
-Ownership. ⏸
+Scope. ⏸
 
-The architecture is mine. I designed the centralized topology, the three-level hierarchy, the deterministic-tool discipline, the hash-chain audit, the privacy-by-construction data layer. ⏸
+I designed the platform — the centralized topology, the three-level hierarchy, the deterministic-tool discipline, the hash-chain audit, the privacy-by-construction data layer. ⏸
 
-The ==discipline== that makes it credible is ==the field's==.
+The ==discipline== that makes it credible came from ==the field==.
 
 ICH M15 defines how model-informed evidence is assessed. Kim et al. 2025 establishes the centralized-topology scaling laws. The MIDD literature defines context-of-use and consequence-of-wrong-decision. The agentic-systems research literature demonstrates that tool-use beats free-text generation for high-stakes outputs. The FDA and EMA PBPK guidances define qualification-not-validation. ⏸
 
-The platform inherits credibility from ==peer-reviewed work==, not from internal claims.
+Credibility comes from ==peer-reviewed frameworks==, not from internal claims. The platform stands on published science.
 
 ## Cues
 - ⏱ 50 sec — the credit-outward slide. Deliberately share credit with the field.
-- 🎚 Start with "the architecture is mine" — direct, not apologetic. Then pivot outward.
+- 🎚 Start with "I designed the platform" — factual, then pivot outward immediately.
 - 📍 Walk the right column on screen — name each source as you credit it.
 - ⚠ Do NOT spend more than one sentence on what you designed. The emphasis is outward.
 - ⚠ Do NOT claim any of the cited work endorses PharmAgent. The platform *uses* the field's frameworks; the field didn't *build* the platform.
-- ✅ Land on "peer-reviewed work, not internal claims"
+- ✅ Land on "peer-reviewed frameworks, not internal claims"
 
 ## Bridge
 → The portable principle closes the seminar.`,

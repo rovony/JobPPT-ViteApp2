@@ -19,6 +19,20 @@ const FACTS = [
   { label: 'MOA', stat: '2-HG ↓', desc: 'reduces oncometabolite, restores differentiation' },
 ];
 
+const CYAN_IMG = {
+  filter: 'grayscale(1) sepia(1) hue-rotate(155deg) saturate(0.45) brightness(0.72)',
+  opacity: 0.55,
+};
+const CYAN_CARD = {
+  position: 'relative',
+  borderRadius: 'var(--radius-md)',
+  border: '1px solid color-mix(in srgb, var(--cyan) 25%, transparent)',
+  background: 'color-mix(in srgb, var(--cyan) 6%, transparent)',
+  padding: 'var(--space-3)',
+  boxShadow: '0 0 12px color-mix(in srgb, var(--cyan) 10%, transparent)',
+  overflow: 'hidden',
+};
+
 export default function CS2BackgroundDisease() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.3 });
@@ -52,33 +66,45 @@ export default function CS2BackgroundDisease() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-              gap: 'clamp(var(--space-4), 3vw, var(--space-8))',
+              gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+              gap: 'clamp(var(--space-3), 2vw, var(--space-6))',
               alignItems: 'end',
             }}
             aria-hidden
           >
-            <img
-              src={cs2MarrowUrl}
-              alt=""
-              style={{
-                width: '100%', height: 'auto',
-                maxHeight: 'min(26vh, 280px)',
-                objectFit: 'contain',
-                objectPosition: 'center bottom',
-              }}
-            />
-            <img
-              src={cs2BiliaryUrl}
-              alt=""
-              style={{
-                width: '100%', height: 'auto',
-                maxHeight: 'min(26vh, 280px)',
-                objectFit: 'contain',
-                objectPosition: 'center bottom',
-              }}
-            />
-          </div>
+            {[
+              { src: cs2MarrowUrl, label: 'Bone marrow' },
+              { src: cs2IdhGateUrl, label: 'IDH1 gate' },
+              { src: cs2BiliaryUrl, label: 'Biliary tract' },
+            ].map((img, i) => (
+              <motion.div
+                key={img.label}
+                style={CYAN_CARD}
+                initial={{ opacity: 0, scale: 0.92 }}
+                animate={go ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.6 + i * 0.15, ease: [0.2, 0.7, 0.3, 1] }}
+              >
+                <img
+                  src={img.src}
+                  alt=""
+                  style={{
+                    width: '100%', height: 'auto',
+                    maxHeight: 'min(20vh, 220px)',
+                    objectFit: 'contain',
+                    objectPosition: 'center bottom',
+                    ...CYAN_IMG,
+                  }}
+                />
+                <div className="deck-mono uppercase" style={{
+                  fontSize: 'var(--fs-slide-eyebrow)',
+                  color: 'var(--cyan)',
+                  letterSpacing: '0.1em',
+                  textAlign: 'center',
+                  marginTop: 'var(--space-2)',
+                  opacity: 0.7,
+                }}>{img.label}</div>
+              </motion.div>
+            ))}</div>
           <div
             style={{
               width: '100%',

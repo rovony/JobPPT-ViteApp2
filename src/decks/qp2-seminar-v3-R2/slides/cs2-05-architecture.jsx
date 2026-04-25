@@ -2,8 +2,6 @@ import React, { useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
-import cs2IdhGateUrl from '../assets/cs2-idh-gate.svg?url';
-
 /**
  * CS2 Act 2 · Architecture — three pillars of the dossier.
  *
@@ -60,24 +58,10 @@ export default function CS2Architecture() {
           ref={ref}
           style={{
             width: '100%', height: '100%',
-            display: 'flex', flexDirection: 'column', alignItems: 'stretch',
+            display: 'flex', alignItems: 'center',
             paddingTop: 'clamp(var(--space-4), 3vh, var(--space-8))',
-            gap: 'clamp(var(--space-3), 2vh, var(--space-5))',
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'center' }} aria-hidden>
-            <img
-              src={cs2IdhGateUrl}
-              alt=""
-              style={{
-                width: 'min(100%, 480px)',
-                height: 'auto',
-                maxHeight: 'min(22vh, 240px)',
-                objectFit: 'contain',
-                opacity: 0.95,
-              }}
-            />
-          </div>
           <div style={{
             width: '100%',
             display: 'grid',

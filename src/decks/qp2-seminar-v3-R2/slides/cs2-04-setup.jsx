@@ -1,7 +1,7 @@
 import React from 'react';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
-import cs2DifferentiationUrl from '../assets/cs2-differentiation-arrow.svg?url';
+import cs2DossierUrl from '../assets/cs2-india-dossier.svg?url';
 
 /**
  * CS2 Act 1 · Setup — the regulatory question.
@@ -36,7 +36,7 @@ export default function CS2Setup() {
           aria-hidden
         >
           <img
-            src={cs2DifferentiationUrl}
+            src={cs2DossierUrl}
             alt=""
             style={{
               width: 'min(100%, 520px)',

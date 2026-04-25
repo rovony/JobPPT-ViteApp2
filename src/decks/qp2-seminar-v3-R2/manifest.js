@@ -56,6 +56,14 @@ import CS2Velocity from './slides/cs2-07-velocity';
 import CS2Outcome from './slides/cs2-08-outcome';
 import CS2Leadership from './slides/cs2-09-leadership';
 import CS2BridgeRecap from './slides/cs2-10-bridge-recap';
+import CS3Divider from './slides/cs3-01-divider';
+import CS3Question from './slides/cs3-02-question';
+import CS3Problem from './slides/cs3-03-problem';
+import CS3Architecture from './slides/cs3-04-architecture';
+import CS3DecisiveMove from './slides/cs3-05-decisive-move';
+import CS3Pilot from './slides/cs3-06-pilot';
+import CS3Bracket from './slides/cs3-07-bracket';
+import CS3Portable from './slides/cs3-08-portable';
 import StubSlide from './slides/_StubSlide';
 
 import notes from './notes';
@@ -184,14 +192,20 @@ const manifest = {
     { id: 'cs2-leadership', title: 'CS2 · Bracket Method ownership', component: CS2Leadership, isTitle: false },
     { id: 'cs2-bridge-recap', title: 'CS2 · What this case proves', component: CS2BridgeRecap, isTitle: false },
 
-    /*
-     * CS3 (AI/ML pharmacometric tools) + cross-case synthesis + closer
-     * to be added as content is locked.
-     *
-     * Note: CS3 was Calaspargase in v1/v2; revised to AI/ML for v3-R2.
-     * Per zaj-slides skill: AI tools framed as personal research
-     * projects demonstrating capability, NOT as products for transfer.
-     */
+    // ══════════════════════════════════════════════════════════════
+    // CS3 — PharmAgent · AI/ML workflow infrastructure · SAGE
+    // 7-act spine: divider → question → problem → architecture →
+    // decisive move → pilot → bracket → portable principle.
+    // ══════════════════════════════════════════════════════════════
+
+    { id: 'cs3-divider', title: 'Case 03 · PharmAgent', component: CS3Divider, isTitle: true, transition: 'fade' },
+    { id: 'cs3-question', title: 'CS3 · The question', component: CS3Question, isTitle: false },
+    { id: 'cs3-problem', title: 'CS3 · 80% scaffolding', component: CS3Problem, isTitle: false },
+    { id: 'cs3-architecture', title: 'CS3 · PharmAgent platform', component: CS3Architecture, isTitle: false },
+    { id: 'cs3-decisive-move', title: 'CS3 · Privacy & audit by construction', component: CS3DecisiveMove, isTitle: false },
+    { id: 'cs3-pilot', title: 'CS3 · Pilot evidence', component: CS3Pilot, isTitle: false },
+    { id: 'cs3-bracket', title: 'CS3 · Bracket Method', component: CS3Bracket, isTitle: false },
+    { id: 'cs3-portable', title: 'CS3 · Portable principle', component: CS3Portable, isTitle: false },
   ],
 };
 

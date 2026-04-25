@@ -636,7 +636,7 @@ and AGILE together, not AGILE alone. If the panel wants to discuss the
 EFS definition, I'm happy to engage, but it doesn't change the
 pharmacology bridge.`,
 
-  'cs2-leadership': `## Q1: "I owned the dossier defense" — but this was a team effort. What did you personally decide?
+  'cs2-leadership': `## Q1: You say the scientific defense was yours — but this was a team effort. What did you personally decide?
 **From:** leadership-probing panelist
 **Difficulty:** ★★★★ · **Topic:** career
 
@@ -649,7 +649,7 @@ target argument in the January resubmission rather than positioning
 it as supplementary. Third, the decision to commit to the Phase 4
 PK/PD study design parameters early — before the SEC asked — so
 the waiver request came with a concrete post-approval plan attached.
-Those were mine; the execution was the team's.
+Those decisions sat in my scope; the execution was the team's.
 
 > **If pressed:** The reframe from Option A (defend with subgroup data)
 > to Option B (mechanism-first argument) was the strategic pivot. The
@@ -780,14 +780,203 @@ board and come back to it.
 > spoken-word counts in the speaker notes — drift is under two minutes
 > either direction.`,
 
-  // ── CS1 Q&A stubs ──────────────────────────────────────────────
-  // Added 2026-04-25 as part of CS1 flow refactor. Empty-but-valid
-  // entries so the renderer doesn't crash on missing keys for the
-  // new slide ids. Full Q&A content (R2R-01 §C 8 probes) to be filled
-  // in a separate prompt.
-  'cs1-question': ``,
-  'cs1-context': ``,
-  'cs1-bracket': ``,
+  // ══════════════════════════════════════════════════════════════
+  // CS1 — Ambrisentan in pediatric PAH (coral cascade)
+  // ══════════════════════════════════════════════════════════════
+
+  'cs1-divider': `## Q1: Why ambrisentan and not bosentan or macitentan for the pediatric case?
+**From:** class-aware panelist
+**Difficulty:** ★★ · **Topic:** drug-class
+
+A: Bosentan already had a pediatric label via FUTURE-1/FUTURE-2 — it proved PK-bridging worked but carried a hepatotoxicity black box. Macitentan's pediatric program (TOMORROW) was still enrolling. Ambrisentan was the ERA with no hepatotox black box and an open EMA PIP commitment. The case is about what happens when exposure-matching carries a dose in a class where empirical escalation is closed.`,
+
+  'cs1-question': `## Q1: Isn't exposure-matching just dose-finding by another name?
+**From:** methodology-leaning panelist
+**Difficulty:** ★★★ · **Topic:** methodology
+
+A: Not quite. Dose-finding asks "what dose gives the best risk-benefit?" Exposure-matching asks "what pediatric dose achieves the same systemic exposure that was safe and effective in adults?" The distinction matters because we're not *optimizing* in the pediatric population — we're *bridging*. The adult exposure-response is the anchor. The pediatric PopPK provides the bridge. The regulatory claim is "same exposure, therefore same effect" — not "best dose for kids."
+
+## Q2: Why can't you run a placebo-controlled trial in pediatric PAH?
+**From:** clinical-design panelist
+**Difficulty:** ★★★ · **Topic:** ethics
+
+A: Two reasons. First, untreated pediatric PAH has median survival under one year — randomizing to placebo in a lethal disease with available therapies is ethically unacceptable to every IRB. Second, the population is ~14-20 per million — you'd need a multi-country, multi-year trial to enroll a meaningful number, and even then, most patients are already on background therapy that confounds a placebo arm. The trial that would give you a clean answer can't be run.`,
+
+  'cs1-context': `## Q1: STARTS-2 showed a mortality signal at high dose — but ambrisentan isn't sildenafil. Why is the STARTS-2 signal relevant here?
+**From:** safety-aware panelist
+**Difficulty:** ★★★ · **Topic:** safety
+
+A: It's relevant as a *regulatory context signal*, not as a direct pharmacological analogy. STARTS-2 taught regulators and IRBs that pediatric PAH dose-escalation trials carry real risk — and that empirical escalation without a mature exposure-response anchor is dangerous in this class. Ambrisentan doesn't share sildenafil's mechanism, but it inherits the regulatory and ethical precedent: you do not dose-escalate blindly in pediatric PAH.
+
+## Q2: Is the bosentan PK-bridging precedent really transferable to ambrisentan?
+**From:** regulatory-aware panelist
+**Difficulty:** ★★★ · **Topic:** methodology
+
+A: The methodological precedent transfers — both are ERAs, both have a PK profile that scales allometrically with body weight, both target the same receptor class. The *specific* precedent doesn't transfer directly because bosentan's hepatotoxicity profile is different. But the regulatory lesson — that PK-bridging from adult to pediatric is an acceptable strategy for an ERA — is what FUTURE-1 and FUTURE-2 established.`,
+
+  'cs1-trial': `## Q1: The trial was terminated after a juvenile-rat brain-weight signal. Does that cast doubt on the drug's safety?
+**From:** safety-focused panelist
+**Difficulty:** ★★★★ · **Topic:** safety
+
+A: The juvenile-rat signal (at 20 mg/kg/day — multiples above human pediatric exposure) triggered a precautionary termination per standard GLP practice. The LTE — which continued for 3.5 years of median exposure — showed no corresponding clinical signal in humans. Pubertal development data were normal. The termination was a regulatory and ethical decision, not a clinical finding. The data from the 41 randomized patients and the LTE safety database are the human evidence.
+
+## Q2: Why did the PIP take fourteen years?
+**From:** regulatory-process panelist
+**Difficulty:** ★★ · **Topic:** regulatory
+
+A: PIP commitments in rare pediatric diseases routinely take 10–15 years because enrollment is slow (~14-20 cases per million), ethical review is stringent, and the regulatory pathway requires both the parent trial and the LTE to read out. The PIP was signed in 2008; the LTE completed enrollment in 2022; publication was 2024. That timeline is unfortunately typical for rare pediatric PIPs.`,
+
+  'cs1-architecture': `## Q1: Why prespecified allometric exponents instead of estimating from data?
+**From:** pharmacometrics panelist
+**Difficulty:** ★★★★ · **Topic:** methodology
+
+A: The decision was deliberate. Prespecifying exponents at 0.75 for clearance and 1.0 for volume reflects the physiological expectation for body-weight scaling and avoids over-fitting to a 39-patient dataset. When n is small, estimating exponents risks capturing noise rather than biology. The prespecified approach is conservative and defensible — and it's what EMA expects in a PIP submission where the adult anchor provides the mature exposure-response.
+
+> **If pressed:** If the estimated exponents had departed significantly from the physiological values, that would have been a signal worth investigating. They didn't — the data were consistent with physiological scaling.
+
+## Q2: Is 211 pediatric PK observations enough for a PopPK model?
+**From:** data-sufficiency panelist
+**Difficulty:** ★★★ · **Topic:** methodology
+
+A: For a 2-compartment model with allometric scaling and one retained covariate (body weight), 211 observations from 39 subjects across 3 weight bands is adequate. The model wasn't being asked to discover new biology — it was being asked to confirm that pediatric exposure tracks the adult anchor. That confirmation doesn't require a dataset sized for a novel model build.`,
+
+  'cs1-results': `## Q1: "Within 3% of adult" — is that the AUC or the Cmax?
+**From:** detail-oriented panelist
+**Difficulty:** ★★ · **Topic:** PK
+
+A: That's the AUCss at the low dose (weight-adjusted). Cmax,ss ran 11–18% higher than adult, which is within the range supported by adult safety data. The 3% number is the slide's headline because AUC is the exposure metric that drives the efficacy bridge. Cmax matters for safety, and it was within acceptable bounds.
+
+## Q2: No independent age effect — isn't that suspicious with children as young as 8?
+**From:** skeptical methodologist
+**Difficulty:** ★★★★ · **Topic:** methodology
+
+A: It's a legitimate question. The covariate analysis screened age as a potential predictor of clearance and volume; it was not retained. Given that body weight is the dominant driver of PK in children 8–17, and that the allometric scaling captured the weight effect, an independent age effect would suggest a developmental biology pathway not captured by weight alone. For ambrisentan — an ERA metabolized primarily by glucuronidation — there's no strong prior for age-dependent enzyme maturation in the 8–17 range.`,
+
+  'cs1-outcome': `## Q1: Seven deaths in 38 LTE patients — that's an 18% mortality rate. How do you defend that?
+**From:** safety-concerned panelist
+**Difficulty:** ★★★★★ · **Topic:** safety
+
+A: I don't defend it — I contextualize it. Pediatric PAH has a 5-year mortality rate that was historically above 50% without treatment. On modern multi-modal therapy, 5-year survival is ~90%. Seven deaths over 3.5 years of median follow-up in a severe, progressive disease — all attributed to underlying PAH, right ventricular failure, or intercurrent illness — is within the expected mortality for this population. The Clin Pharm function's job is to surface this number first, not to defend it.
+
+## Q2: 17% improvement in 6MWD — is that clinically meaningful?
+**From:** efficacy-focused panelist
+**Difficulty:** ★★★ · **Topic:** efficacy
+
+A: In adult PAH, a 33-meter improvement in 6MWD was the basis for ambrisentan's adult approval. The 17% improvement in the LTE (on a lower baseline) is directionally consistent but not powered to prove efficacy. The case doesn't rest on this number — it rests on exposure-matching. The 17% is supportive, not definitive.`,
+
+  'cs1-verdict': `## Q1: What about FDA? You show EMA and PMDA but not FDA — why?
+**From:** panelist who noticed the gap
+**Difficulty:** ★★★★★ · **Topic:** regulatory
+
+A: Because the FDA application was never filed. Gilead held the US commercial rights; GSK held the EU rights and filed with EMA. The Clin Pharm package was identical — same PopPK, same exposure-matching analysis. The gap was commercial-rights structure, not science. I show EMA and PMDA because those are the regulatory verdicts; I don't show FDA because there was no FDA verdict to show. Naming that honestly is the point.
+
+> **If pressed:** The regulatory outcome validates the Clin Pharm methodology. The commercial-rights gap is a portfolio-management lesson, not a pharmacology one.
+
+## Q2: Can you generalize the exposure-matching approach to other pediatric diseases?
+**From:** methodology-interested panelist
+**Difficulty:** ★★★ · **Topic:** methodology
+
+A: Yes, within constraints. Exposure-matching works when three conditions hold: (1) a mature adult exposure-response, (2) a PK model that bridges to the pediatric population with interpretable covariates, and (3) a disease where the same drug-target biology operates in adults and children. ICH E11A formalizes exactly this framework. The approach transfers to oncology, rare metabolic diseases, and any indication where the adult trial exists and the pediatric trial can't be powered on efficacy.`,
+
+  // ══════════════════════════════════════════════════════════════
+  // CS3 — PharmAgent · AI/ML workflow infrastructure · SAGE
+  // ══════════════════════════════════════════════════════════════
+
+  'cs3-divider': `## Q1: Why is an AI platform a "case study" rather than a side project?
+**From:** structural panelist
+**Difficulty:** ★★★ · **Topic:** framing
+
+A: Because the same discipline that answered CS1 and CS2 — clinical pharmacology — is what the platform is designed to scale. The case study isn't "I built an AI tool." The case study is "the next decade of pharmacometric decisions will need infrastructure that doesn't exist yet, and building it is the same kind of Director-level judgment as the dossier and the exposure-matching." The contribution is the infrastructure, framed as a workflow capability.`,
+
+  'cs3-question': `## Q1: Aren't you overstating the volume? How many CS1/CS2-shaped decisions will there actually be?
+**From:** skeptical panelist
+**Difficulty:** ★★★ · **Topic:** scale
+
+A: Every new ICH E11A pediatric extrapolation, every Rule 101 waiver, every M15-governed MIDD submission, every Project Optimus dose-optimization program. The individual events are already accelerating — India's Rule 101 operationalization alone opens the pathway for dozens of orphan oncology drugs. Each one needs the same kind of dossier CS2 required. The volume is driven by the frameworks, not by my claim.`,
+
+  'cs3-problem': `## Q1: 80/20 sounds arbitrary — do you have data on how pharmacometrics teams spend their time?
+**From:** evidence-demanding panelist
+**Difficulty:** ★★★★ · **Topic:** methodology
+
+A: The 80/20 is a directional estimate from my own workflow audits and from published time-motion studies in pharmaceutical R&D. Kim et al. 2025 documents the scaffolding overhead in pharmacometric workflows. The specific ratio varies by organization, but the qualitative finding — that integration dominates analysis — is consistent across the literature and across my experience at GSK, Jazz, and Servier.
+
+## Q2: Isn't this just a pitch for automation? What's the clinical pharmacology insight?
+**From:** discipline-purist panelist
+**Difficulty:** ★★★★ · **Topic:** methodology
+
+A: The insight is that the bottleneck to regulatory pharmacology decisions has shifted. In the 2010s, the bottleneck was methodology — we didn't have mature PBPK, adequate PopPK, or accepted exposure-response frameworks. In the 2020s, the methodology is mature (M15 wouldn't exist otherwise). The new bottleneck is assembly — how fast the function can package mature methodology into a defensible deliverable. That's a Clin Pharm organizational insight, not just an IT one.`,
+
+  'cs3-architecture': `## Q1: Kim et al. 2025 — what specifically does that paper contribute to your platform design?
+**From:** literature-aware panelist
+**Difficulty:** ★★★★ · **Topic:** methodology
+
+A: Kim et al. established scaling laws for centralized vs. decentralized multi-agent topologies in pharmaceutical applications. The key finding is that centralized topologies with deterministic tool discipline outperform decentralized topologies when the outputs must be auditable and reproducible. PharmAgent's centralized orchestrator-specialist-worker hierarchy directly implements that finding. The typed state bus and deterministic tool calls are the implementation of the "tool discipline" the paper formalizes.
+
+## Q2: 151 deterministic tools and 76 templates — isn't this over-engineered?
+**From:** simplicity-advocating panelist
+**Difficulty:** ★★★ · **Topic:** architecture
+
+A: Each tool corresponds to a specific, named step in a pharmacometric workflow — a Nonmem run, a VPC generation, a covariate significance test, a table format, a plot specification. They're deterministic because the regulatory expectation is reproducibility. The number reflects the actual complexity of a complete pharmacometric workflow from data receipt through regulatory report. Over-engineering would be adding tools for workflows that don't exist; these 151 map to workflows we run manually today.`,
+
+  'cs3-decisive-move': `## Q1: "By construction, not by promise" — can you actually guarantee that patient data never reaches the LLM?
+**From:** privacy-focused panelist
+**Difficulty:** ★★★★★ · **Topic:** privacy
+
+A: The architecture enforces it at the data-flow level. Patient-level data is processed by local computation agents that never send raw PII to the inference layer. The LLM receives typed summaries, model parameters, and structural metadata — never individual patient records. The state bus is encrypted and the audit trail records every data movement. "By construction" means the data path physically doesn't include a PII → LLM channel. If someone wants to circumvent it, they'd have to redesign the architecture, not just change a policy setting.
+
+## Q2: How does the hash-chain audit compare to existing regulatory submission audit trails?
+**From:** regulatory-process panelist
+**Difficulty:** ★★★ · **Topic:** regulatory
+
+A: Current audit trails are typically document-level — version control on reports, sign-off workflows, electronic submissions. The hash-chain adds analysis-step-level provenance: every data transformation, model run, parameter estimate, and report generation step is individually hashed and chained. A regulator can replay the entire analysis from raw data to final report and verify that every intermediate step produced the same output. That's ICH M15-level auditability applied to the workflow itself, not just the documents.`,
+
+  'cs3-pilot': `## Q1: These are pilot metrics — are they reproducible at production scale?
+**From:** scalability-skeptic panelist
+**Difficulty:** ★★★★ · **Topic:** methodology
+
+A: That's the honest caveat. The pilot metrics are from controlled project runs on representative but not production-scale datasets. The speed improvements are driven by automation of the scaffolding steps — formatting, QC checklist execution, report assembly — which scale linearly. The science steps — model specification, covariate selection, regulatory judgment — still require human review and don't accelerate proportionally. Production validation would require running the platform alongside a manual workflow on a live regulatory submission and comparing outcomes.
+
+## Q2: "Same QC checklists" — how do you verify that the AI didn't introduce errors the checklist doesn't catch?
+**From:** quality-focused panelist
+**Difficulty:** ★★★★ · **Topic:** quality
+
+A: Two safeguards. First, every tool output is deterministic — given the same input, it produces the same output, and that output is the same as the manual tool would produce. The AI orchestrates; it doesn't compute. Second, the review gates are human-in-the-loop: a pharmacometrician reviews the model diagnostics, a regulatory writer reviews the report, a QC reviewer validates the tables. The platform shortens the path to the review gate but doesn't remove the gate itself.`,
+
+  'cs3-bracket': `## Q1: You designed the platform — what happens when you leave? Is it portable or personal?
+**From:** organizational-sustainability panelist
+**Difficulty:** ★★★★ · **Topic:** career
+
+A: The platform is documented, version-controlled, and built on published frameworks. The typed state bus, the deterministic tool specifications, and the template library are all transferable. What's personal is the judgment that assembled these specific choices into a coherent system — the same kind of judgment that assembled the CS1 exposure-matching strategy or the CS2 mechanism-first reframe. Director-level work produces systems that outlive the Director. If I do this right, the platform transfers.
+
+## Q2: How do you respond to the concern that AI in clinical pharmacology could reduce headcount rather than capability?
+**From:** organizational-impact panelist
+**Difficulty:** ★★★★★ · **Topic:** career
+
+A: The framing of the portable principle is deliberate: workflow infrastructure, not model substitution. The platform doesn't replace pharmacometricians — it removes the scaffolding that prevents pharmacometricians from doing pharmacometrics. The function grows in capability, not in headcount efficiency. If the next decade asks for a hundred more CS1- and CS2-shaped decisions, the answer isn't a hundred more FTEs — it's the same team, with better infrastructure, making better decisions faster.`,
+
+  'cs3-portable': `## Q1: "Workflow infrastructure, not model substitution" — but isn't the platform using LLMs to substitute for human work?
+**From:** precise-language panelist
+**Difficulty:** ★★★★ · **Topic:** methodology
+
+A: The LLMs in the platform do two things: orchestration (deciding which deterministic tool to run next) and templating (assembling outputs into regulatory format). They do NOT do pharmacometrics — they don't fit models, estimate parameters, interpret diagnostics, or make regulatory judgment calls. The human pharmacometrician does all of those. The substitution is in the scaffolding — the 80% — not in the science — the 20%. That distinction is what "workflow infrastructure" means.
+
+## Q2: How do you see this connecting to Merck's clinical pharmacology function?
+**From:** career-question panelist
+**Difficulty:** ★★★ · **Topic:** career
+
+A: The platform demonstrates a capability — the ability to design and build regulatory-grade AI infrastructure for clinical pharmacology. The specific platform is a research project. The capability it demonstrates is what I'd bring to any organization. Merck's scale — the volume of MIDD submissions, the global regulatory footprint, the therapeutic diversity — is exactly the environment where this kind of infrastructure creates leverage. I'm not offering to install PharmAgent at Merck. I'm offering the judgment and architectural vision that built it.`,
+
+  'cs1-lesson': `## Q1: "The principle outlives the molecule" — what principle specifically?
+**From:** summary-seeking panelist
+**Difficulty:** ★★ · **Topic:** career
+
+A: Three principles. First: exposure-matching is a legitimate regulatory strategy when the alternative is an underpowered efficacy trial. Second: allometric PopPK is the bridge, but it's one pillar — the adult E-R anchor and the long-term safety data are the other two. Third: the function should name the commercial-rights gap before the panel does, because director-level work is surfacing the hard number first.
+
+## Q2: What would you do differently if you ran this case again?
+**From:** reflective panelist
+**Difficulty:** ★★★ · **Topic:** career
+
+A: Two things. First, I'd advocate earlier for a parallel FDA filing structure — even though the commercial rights were split, the Clin Pharm package was identical, and the FDA path was worth exploring. Second, I'd build in a planned analysis of the LTE safety data at the 2-year mark rather than waiting for the full 3.5-year readout. Earlier safety data would have strengthened the regulatory package during the EMA review.`,
 };
 
 export default qa;
