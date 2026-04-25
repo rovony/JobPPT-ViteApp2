@@ -714,6 +714,19 @@
     color: var(--cream);
   }
 
+  /* Pause markers — used inside the structured Spoken section. ⏸ stands
+     out visually so the eye finds breath beats; works in both modes via
+     the case-color variable. */
+  .notes-pause-hard {
+    display: inline-block;
+    margin: 0 0.25em;
+    padding: 0 0.18em;
+    color: var(--case, var(--amber));
+    opacity: 0.85;
+    font-size: 0.85em;
+    vertical-align: 0.05em;
+  }
+
   /* ─────────────────────────────────────────────────────────────────
      Reading-material prose — used by ReadingMaterialPane modal.
      Inherits the deck's color tokens so it works in light + dark.

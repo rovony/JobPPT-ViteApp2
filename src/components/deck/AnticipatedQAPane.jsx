@@ -1,6 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { ChevronDown, ChevronRight, Edit3, RotateCcw } from 'lucide-react';
+import { parseAnticipatedQA } from '@/lib/parseStructuredContent';
+import StructuredQAView from './StructuredQAView';
 
 /**
  * AnticipatedQAPane — collapsible per-slide Q&A prep panel.
@@ -164,12 +166,7 @@ export default function AnticipatedQAPane({
               </div>
             </div>
           ) : value && value.trim().length ? (
-            <div
-              className="notes-prose"
-              style={{ fontFamily: 'var(--font-body)', fontSize: '0.92rem', lineHeight: 1.55 }}
-            >
-              <ReactMarkdown components={qaMarkdownComponents}>{value}</ReactMarkdown>
-            </div>
+            <QARenderer value={value} />
           ) : (
             <button
               type="button"
@@ -192,12 +189,34 @@ export default function AnticipatedQAPane({
 }
 
 const QA_PLACEHOLDER = `## Q: <verbatim audience question>
+**From:** <likely asker>
+**Difficulty:** ★★★ · **Topic:** <one-word>
 
 A: <prepared answer — keep tight; you'll read it under pressure>
 
-## Q: <next likely question>
+> **If pressed:** <one-line backup or citation>
 
+## Q: <next question>
 A: <next answer>`;
+
+/* QARenderer — choose between structured accordion+search view and raw-
+   markdown fallback. The accordion lights up automatically when content
+   uses the `## Q:` heading pattern; otherwise the raw markdown render
+   path keeps working for legacy / freeform Q&A drafts. */
+function QARenderer({ value }) {
+  const parsed = useMemo(() => parseAnticipatedQA(value), [value]);
+  if (parsed.structured) {
+    return <StructuredQAView questions={parsed.questions} />;
+  }
+  return (
+    <div
+      className="notes-prose"
+      style={{ fontFamily: 'var(--font-body)', fontSize: '0.92rem', lineHeight: 1.55 }}
+    >
+      <ReactMarkdown components={qaMarkdownComponents}>{value}</ReactMarkdown>
+    </div>
+  );
+}
 
 /* Markdown component map — same vocabulary as PresenterNotesPane.
    Reuses .notes-* classes from src/index.css so spacing, headings,

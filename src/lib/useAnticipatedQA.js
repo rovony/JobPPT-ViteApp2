@@ -71,8 +71,10 @@ export function useAnticipatedQA(deckId, staticQA = null) {
     (slideId) => {
       const text = getQA(slideId);
       if (!text) return 0;
-      // Count `## Q:` (case-insensitive, allow leading space) at line start.
-      const matches = text.match(/^\s*##\s+Q:/gim);
+      // Count `## Q:`, `## Q1:`, `## Q12:` (case-insensitive) at line start.
+      // Matches the spec's `## QN: <question>` heading anchor — see
+      // Notes-And-QA-Structure.md §2.
+      const matches = text.match(/^\s*##\s+Q\d*:/gim);
       return matches ? matches.length : 0;
     },
     [getQA],

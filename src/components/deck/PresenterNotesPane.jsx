@@ -1,6 +1,8 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Bold, Italic, Highlighter, List, ListOrdered, Heading1, Heading2, Quote, Type, Minus, Plus, RotateCcw } from 'lucide-react';
+import { parseStructuredNotes } from '@/lib/parseStructuredContent';
+import StructuredNotesView from './StructuredNotesView';
 
 /**
  * PresenterNotesPane — reading-optimized speaker notes for dual-screen use.
@@ -144,7 +146,7 @@ export default function PresenterNotesPane({
             }}
           >
             {value ? (
-              <ReactMarkdown components={markdownComponents}>{value}</ReactMarkdown>
+              <NotesRenderer value={value} fontSizePx={px} />
             ) : (
               <div
                 onClick={() => setEditing(true)}
@@ -159,6 +161,20 @@ export default function PresenterNotesPane({
       )}
     </div>
   );
+}
+
+/* ========================================================
+   NotesRenderer — chooses between structured (Spoken/Cues/
+   Bridge) and raw-markdown render paths based on whether
+   the content matches the spec from Notes-And-QA-Structure.md.
+   Legacy notes that pre-date the spec keep working untouched.
+   ======================================================== */
+function NotesRenderer({ value, fontSizePx }) {
+  const parsed = useMemo(() => parseStructuredNotes(value), [value]);
+  if (parsed.structured) {
+    return <StructuredNotesView spoken={parsed.spoken} cues={parsed.cues} bridge={parsed.bridge} fontSizePx={fontSizePx} />;
+  }
+  return <ReactMarkdown components={markdownComponents}>{value}</ReactMarkdown>;
 }
 
 /* ========================================================
