@@ -99,6 +99,7 @@ import Slide34InClosing from './slides/34-in-closing';
 import Slide35ThankYou from './slides/35-thank-you';
 
 import notes from './notes';
+import qa from './qa';
 
 const manifest = {
   id: 'qp2-seminar-v2',
@@ -106,6 +107,7 @@ const manifest = {
   subtitle: 'Working draft · QP2 Seminar · Spring 2026',
   theme: 'clinical',
   notes,
+  qa,
   defaultTransition: 'card',
   /**
    * Export timing — only long-motion slides need a high `slideSettleMs`.

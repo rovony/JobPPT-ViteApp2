@@ -3,10 +3,12 @@ import { ChevronLeft, ChevronRight, X, MonitorPlay, Maximize, Minimize, HelpCirc
 import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels';
 import { useDeck } from '@/lib/deck-store';
 import { useSpeakerNotes } from '@/lib/useSpeakerNotes';
+import { useAnticipatedQA } from '@/lib/useAnticipatedQA';
 import { makeChannel, broadcast, subscribe } from '@/lib/presenter-sync';
 import PresenterTimer from './PresenterTimer';
 import SlidePreview from './SlidePreview';
 import PresenterNotesPane from './PresenterNotesPane';
+import AnticipatedQAPane from './AnticipatedQAPane';
 import PresenterAssistant from './PresenterAssistant';
 import ShortcutsOverlay from './ShortcutsOverlay';
 import DeckSourcesDialog from './DeckSourcesDialog';
@@ -40,7 +42,14 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
     deck.id,
     deck.notes,
   );
+  // Anticipated Q&A — parallel pipe to speaker notes, separate localStorage
+  // namespace. Static fallback comes from `deck.qa` (loaded from <deck>/qa.js).
+  const {
+    getQA, saveQA, clearQA, hasOverride: hasQAOverride, countItems: qaCount,
+    saving: qaSaving, loaded: qaLoaded,
+  } = useAnticipatedQA(deck.id, deck.qa);
   const [editing, setEditing] = useState(false);
+  const [qaEditing, setQaEditing] = useState(false);
   const [draft, setDraft] = useState('');
   const [helpOpen, setHelpOpen] = useState(false);
   const [sourcesOpen, setSourcesOpen] = useState(false);
@@ -60,12 +69,18 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
   const current = deck.slides[index];
   const nextSlide = deck.slides[index + 1];
   const currentNote = getNote(current?.id);
+  const currentQA = getQA(current?.id);
+  const currentQACount = qaCount(current?.id);
 
-  useEffect(() => { setDraft(currentNote); setEditing(false); }, [index, currentNote]);
+  useEffect(() => { setDraft(currentNote); setEditing(false); setQaEditing(false); }, [index, currentNote]);
 
   const onDraftChange = (v) => {
     setDraft(v);
     if (current) saveNote(current.id, index, v);
+  };
+
+  const onQAChange = (v) => {
+    if (current) saveQA(current.id, index, v);
   };
 
   /* Cross-tab sync */
@@ -249,6 +264,20 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
                 slideKey={current?.id || index}
                 hasOverride={current ? hasOverride(current.id) : false}
                 onResetToFile={current ? () => { clearNote(current.id); setEditing(false); } : undefined}
+              />
+              {/* Anticipated Q&A — collapsible section below the notes
+                  textarea. Auto-expanded when the slide has prep content,
+                  auto-collapsed otherwise. Lives in the same Center column
+                  so notes + Q&A are scannable in one glance during delivery. */}
+              <AnticipatedQAPane
+                value={currentQA}
+                onChange={onQAChange}
+                editing={qaEditing}
+                setEditing={setQaEditing}
+                slideKey={current?.id || index}
+                itemCount={currentQACount}
+                hasOverride={current ? hasQAOverride(current.id) : false}
+                onResetToFile={current ? () => { clearQA(current.id); setQaEditing(false); } : undefined}
               />
               <div className="deck-mono mt-2 px-1"
                    style={{ fontSize: '0.6rem', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}>

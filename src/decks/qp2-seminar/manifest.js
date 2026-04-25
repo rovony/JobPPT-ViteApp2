@@ -53,6 +53,7 @@ import Slide34InClosing from './slides/34-in-closing';
 import Slide35ThankYou from './slides/35-thank-you';
 
 import notes from './notes';
+import qa from './qa';
 
 const manifest = {
   id: 'qp2-seminar',
@@ -62,6 +63,9 @@ const manifest = {
   // Static, version-controlled speaker notes keyed by slide id.
   // useSpeakerNotes treats these as fallbacks under live (DB) edits.
   notes,
+  // Anticipated/rehearsed Q&A keyed by slide id. Counterpart to notes;
+  // useAnticipatedQA treats these as fallbacks under live edits.
+  qa,
   // Deck-wide default. The `card` preset gives a flat, fast slide-to-side
   // card-flip experience — no 3D rotation, no depth travel. Slides feel
   // like physical cards moving through the canvas. Individual slides can
