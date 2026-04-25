@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { AnimatePresence, LayoutGroup, MotionConfig } from 'framer-motion';
 import { DeckProvider, useDeck, useKeyboardNav } from '@/lib/deck-store';
+import { useDeckOrder } from '@/lib/useDeckOrder';
 import { useFullscreen } from '@/lib/useFullscreen';
 import { useSlideTracker } from '@/lib/useSlideTracker';
 import { getDeck } from '@/decks/registry';
@@ -326,6 +327,15 @@ function DeckStage({ deck }) {
   );
 }
 
+/** Wrap deck with the runtime-ordered slides from useDeckOrder.
+ *  Returns the original deck (same identity) when no override is active
+ *  to avoid spurious renders for the common case. */
+function useOrderedDeck(deck) {
+  const { slides, hasOverride } = useDeckOrder(deck);
+  if (!hasOverride) return deck;
+  return { ...deck, slides };
+}
+
 export default function DeckRunner() {
   const { deckId: paramId, slideIndex: paramSlideIndex } = useParams();
   const location = useLocation();
@@ -357,17 +367,27 @@ export default function DeckRunner() {
     );
   }
 
+  // Apply runtime order override (Phase 10). Returns deck.slides as-is
+  // when no override is stored — invisible no-op for users who haven't
+  // reordered. When the user drags a slide (Phase 11), the override is
+  // saved to localStorage as an array of slide ids, and resolved here
+  // back into the ordered slide array. Numbering, navigation, and the
+  // dynamic NN/TT footer all respect this live order automatically.
+  const orderedDeck = useOrderedDeck(deck);
+
   // The path segment can be either a slide id (e.g. "title", "hook") or a
   // numeric index. Resolve in that order — ids are the stable, human-friendly
-  // identifier; numeric indices are supported for back-compat.
+  // identifier; numeric indices are supported for back-compat. Index lookup
+  // operates against the ORDERED slides so that paramSlideIndex like "5"
+  // refers to the slide currently at position 5 (post-reorder).
   let initialIndex = 0;
   if (paramSlideIndex != null) {
-    const byId = deck.slides.findIndex((s) => s.id === paramSlideIndex);
+    const byId = orderedDeck.slides.findIndex((s) => s.id === paramSlideIndex);
     if (byId >= 0) {
       initialIndex = byId;
     } else {
       const n = parseInt(paramSlideIndex, 10);
-      if (Number.isFinite(n)) initialIndex = Math.max(0, Math.min(n, deck.slides.length - 1));
+      if (Number.isFinite(n)) initialIndex = Math.max(0, Math.min(n, orderedDeck.slides.length - 1));
     }
   }
 
@@ -379,11 +399,11 @@ export default function DeckRunner() {
 
   return (
     <DeckProvider
-      total={deck.slides.length}
+      total={orderedDeck.slides.length}
       initialIndex={initialIndex}
       initialPresenter={initialRole === 'speaker'}
     >
-      <DeckStage deck={deck} />
+      <DeckStage deck={orderedDeck} />
     </DeckProvider>
   );
 }
