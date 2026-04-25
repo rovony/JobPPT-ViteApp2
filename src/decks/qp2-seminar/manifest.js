@@ -67,6 +67,32 @@ const manifest = {
   // like physical cards moving through the canvas. Individual slides can
   // still opt into heavier presets if a beat calls for it.
   defaultTransition: 'card',
+  /**
+   * Export timing — only long-motion slides need a high `slideSettleMs`.
+   * Everything else uses `defaultSettleMs` (fast path). Tuned against
+   * Playwright reference captures; bump if a slide is cut off mid-timeline.
+   */
+  export: {
+    defaultSettleMs: 2400,
+    slideSettleMs: {
+      title: 1800,
+      'case-divider': 1500,
+      'case2-divider': 1500,
+      'case3-divider': 1500,
+      'closing-divider': 1600,
+      'case-bridge': 5200,
+      'case2-impact-bridge': 5200,
+      'case3-bridge': 5200,
+      'thank-you': 5800,
+      'career-arc': 4000,
+      'framework-themes': 3000,
+      'case-challenge': 3500,
+      'case2-response': 3600,
+      'case3-strategy': 3200,
+      'record-at-scale': 4000,
+      'in-closing': 4000,
+    },
+  },
   slides: [
     { id: 'title', title: 'Title', component: Slide01Title },
     { id: 'hook', title: 'The asymmetry · Four agencies', component: Slide02Hook },

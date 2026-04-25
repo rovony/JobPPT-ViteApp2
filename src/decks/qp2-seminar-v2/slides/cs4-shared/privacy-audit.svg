@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid meet" font-family="'Comfortaa', 'Trebuchet MS', sans-serif">
+  <defs>
+    <style>
+      .bg { fill: var(--bg); }
+      .accent { fill: var(--sage); }
+      .muted-card { fill: var(--panel); }
+      .cream-text { fill: var(--cream); }
+      .dark-text { fill: var(--bg); }
+      .muted-text { fill: var(--cream-muted); }
+      .col-header { font-weight: 700; font-size: 14px; letter-spacing: 0.12em; }
+      .step-name { font-weight: 700; font-size: 13px; }
+      .step-sub { font-size: 10px; font-family: 'Raleway', sans-serif; }
+      .step-tert { font-size: 9px; font-family: 'Raleway', sans-serif; font-style: italic; }
+      .hash-label { font-size: 11px; font-weight: 700; }
+      .hash-field { font-size: 9px; font-family: 'Courier New', monospace; }
+      .callout-text { font-size: 11px; font-family: 'Raleway', sans-serif; }
+      .arrow-line { stroke: var(--cream-muted); stroke-width: 1.5; fill: none; }
+      .arrow-head { fill: var(--cream-muted); }
+      .chain-link { stroke: var(--sage); stroke-width: 1.5; fill: none; stroke-dasharray: 4 2; }
+      .chain-arrow { fill: var(--sage); }
+      .compliance-row { font-size: 10px; font-family: 'Raleway', sans-serif; }
+    </style>
+    <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <polygon points="0 0, 8 4, 0 8" class="arrow-head"/>
+    </marker>
+    <marker id="chainhead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <polygon points="0 0, 8 4, 0 8" class="chain-arrow"/>
+    </marker>
+  </defs>
+
+  <rect width="1280" height="720" class="bg"/>
+
+  <!-- Vertical divider between two columns -->
+  <line x1="640" y1="50" x2="640" y2="540" stroke="var(--sage)" stroke-opacity="0.3" stroke-width="1"/>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <!-- LEFT COLUMN: PRIVACY · The SchemaExtractor -->
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+
+  <text x="320" y="55" text-anchor="middle" class="accent col-header">PRIVACY · THE SCHEMAEXTRACTOR</text>
+
+  <!-- Step 1 — Raw Dataset -->
+  <g>
+    <rect x="20" y="100" width="100" height="120" rx="6" ry="6" class="muted-card" stroke="var(--cream-hairline)" stroke-width="1"/>
+    <text x="70" y="125" text-anchor="middle" class="muted-text" font-size="9" letter-spacing="0.1em">STEP 1</text>
+    <text x="70" y="148" text-anchor="middle" class="cream-text step-name">Raw</text>
+    <text x="70" y="163" text-anchor="middle" class="cream-text step-name">Dataset</text>
+    <text x="70" y="183" text-anchor="middle" class="muted-text step-sub">CSV / XPT</text>
+    <text x="70" y="205" text-anchor="middle" class="muted-text step-tert">Local · never</text>
+    <text x="70" y="216" text-anchor="middle" class="muted-text step-tert">leaves system</text>
+  </g>
+
+  <!-- Arrow 1→2 -->
+  <line x1="125" y1="160" x2="148" y2="160" class="arrow-line" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 2 — SchemaExtractor (EMPHASIZED) -->
+  <g>
+    <rect x="155" y="95" width="120" height="130" rx="8" ry="8" class="accent"/>
+    <text x="215" y="120" text-anchor="middle" class="dark-text" font-size="9" font-weight="700" letter-spacing="0.1em">STEP 2 · FIREWALL</text>
+    <text x="215" y="145" text-anchor="middle" class="dark-text step-name" font-size="14">Schema</text>
+    <text x="215" y="161" text-anchor="middle" class="dark-text step-name" font-size="14">Extractor</text>
+    <text x="215" y="183" text-anchor="middle" class="dark-text step-sub" font-weight="700">Privacy boundary</text>
+    <text x="215" y="203" text-anchor="middle" class="dark-text step-tert">Strips dataset</text>
+    <text x="215" y="216" text-anchor="middle" class="dark-text step-tert">to metadata only</text>
+  </g>
+
+  <!-- Arrow 2→3 -->
+  <line x1="280" y1="160" x2="303" y2="160" class="arrow-line" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 3 — AI Reasoning -->
+  <g>
+    <rect x="310" y="100" width="100" height="120" rx="6" ry="6" class="muted-card" stroke="var(--cream-hairline)" stroke-width="1"/>
+    <text x="360" y="125" text-anchor="middle" class="muted-text" font-size="9" letter-spacing="0.1em">STEP 3</text>
+    <text x="360" y="148" text-anchor="middle" class="cream-text step-name">AI</text>
+    <text x="360" y="163" text-anchor="middle" class="cream-text step-name">Reasoning</text>
+    <text x="360" y="183" text-anchor="middle" class="muted-text step-sub">Metadata only</text>
+    <text x="360" y="205" text-anchor="middle" class="muted-text step-tert">Never sees</text>
+    <text x="360" y="216" text-anchor="middle" class="muted-text step-tert">a patient row</text>
+  </g>
+
+  <!-- Arrow 3→4 -->
+  <line x1="415" y1="160" x2="438" y2="160" class="arrow-line" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 4 — Scientific Tools -->
+  <g>
+    <rect x="445" y="100" width="100" height="120" rx="6" ry="6" class="muted-card" stroke="var(--cream-hairline)" stroke-width="1"/>
+    <text x="495" y="125" text-anchor="middle" class="muted-text" font-size="9" letter-spacing="0.1em">STEP 4</text>
+    <text x="495" y="148" text-anchor="middle" class="cream-text step-name">Scientific</text>
+    <text x="495" y="163" text-anchor="middle" class="cream-text step-name">Tools</text>
+    <text x="495" y="183" text-anchor="middle" class="muted-text step-sub">Run locally</text>
+    <text x="495" y="205" text-anchor="middle" class="muted-text step-tert">Deterministic</text>
+    <text x="495" y="216" text-anchor="middle" class="muted-text step-tert">computation</text>
+  </g>
+
+  <!-- Arrow 4→5 -->
+  <line x1="550" y1="160" x2="573" y2="160" class="arrow-line" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 5 — Results -->
+  <g>
+    <rect x="580" y="100" width="55" height="120" rx="6" ry="6" class="muted-card" stroke="var(--cream-hairline)" stroke-width="1"/>
+    <text x="607" y="125" text-anchor="middle" class="muted-text" font-size="8" letter-spacing="0.1em">STEP 5</text>
+    <text x="607" y="148" text-anchor="middle" class="cream-text step-name" font-size="11">Results</text>
+    <text x="607" y="170" text-anchor="middle" class="muted-text step-tert">Streamed</text>
+    <text x="607" y="183" text-anchor="middle" class="muted-text step-tert">back to</text>
+    <text x="607" y="196" text-anchor="middle" class="muted-text step-tert">analyst</text>
+  </g>
+
+  <!-- "Patient data NEVER crosses this line" annotation -->
+  <g>
+    <line x1="155" y1="245" x2="275" y2="245" stroke="var(--sage)" stroke-width="2" stroke-dasharray="6 3"/>
+    <text x="215" y="263" text-anchor="middle" class="accent" font-size="10" font-weight="700">PATIENT DATA NEVER</text>
+    <text x="215" y="276" text-anchor="middle" class="accent" font-size="10" font-weight="700">CROSSES THIS LINE</text>
+  </g>
+
+  <!-- KEY GUARANTEE callout -->
+  <g>
+    <rect x="20" y="305" width="600" height="200" rx="6" ry="6" class="muted-card" stroke="var(--sage)" stroke-width="1" stroke-opacity="0.4"/>
+    <text x="40" y="332" class="accent" font-size="12" font-weight="700" letter-spacing="0.1em">THE KEY GUARANTEE</text>
+    <text x="40" y="358" class="cream-text callout-text">Individual patient records, subject identifiers, and raw concentration</text>
+    <text x="40" y="375" class="cream-text callout-text">values are never transmitted to the AI model. Only schema metadata</text>
+    <text x="40" y="392" class="cream-text callout-text">crosses that boundary.</text>
+
+    <text x="40" y="425" class="cream-text callout-text" font-style="italic">A contractual privacy guarantee depends on a vendor honoring an</text>
+    <text x="40" y="442" class="cream-text callout-text" font-style="italic">agreement. An architectural guarantee depends on data physically</text>
+    <text x="40" y="459" class="cream-text callout-text" font-style="italic">not being sent. The first can be violated by a logging change. The</text>
+    <text x="40" y="476" class="cream-text callout-text" font-style="italic">second cannot be violated without rewriting the platform.</text>
+
+    <text x="40" y="496" class="accent callout-text" font-weight="700">Structural, not contractual.</text>
+  </g>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <!-- RIGHT COLUMN: AUDIT · The Hash Chain -->
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+
+  <text x="960" y="55" text-anchor="middle" class="accent col-header">AUDIT · THE HASH CHAIN</text>
+
+  <!-- Hash Chain Entry 1 -->
+  <g>
+    <rect x="780" y="90" width="360" height="105" rx="6" ry="6" class="muted-card" stroke="var(--cream-hairline)" stroke-width="1"/>
+    <text x="800" y="113" class="accent hash-label">Tool call T₁</text>
+    <text x="800" y="135" class="muted-text hash-field">tool_id:        nca_compute_auc</text>
+    <text x="800" y="150" class="muted-text hash-field">tool_version:   3.2.1</text>
+    <text x="800" y="165" class="muted-text hash-field">input_hash:     0x7a9f3c...e3c8</text>
+    <text x="800" y="180" class="muted-text hash-field">output_hash:    0xb2e1d4...91af</text>
+  </g>
+
+  <!-- Chain link from T1 to T2 -->
+  <line x1="960" y1="200" x2="960" y2="225" class="chain-link" marker-end="url(#chainhead)"/>
+  <text x="985" y="217" class="accent" font-size="10" font-style="italic">chain link</text>
+
+  <!-- Hash Chain Entry 2 -->
+  <g>
+    <rect x="780" y="230" width="360" height="120" rx="6" ry="6" class="muted-card" stroke="var(--sage)" stroke-width="1.5"/>
+    <text x="800" y="253" class="accent hash-label">Tool call T₂</text>
+    <text x="800" y="275" class="muted-text hash-field">tool_id:        poppk_fit_2cmt</text>
+    <text x="800" y="290" class="muted-text hash-field">tool_version:   2.1.0</text>
+    <text x="800" y="305" class="muted-text hash-field">input_hash:     0x4c11a8...d2e3</text>
+    <text x="800" y="320" class="muted-text hash-field">output_hash:    0x9e85bd...74c2</text>
+    <text x="800" y="338" class="accent hash-field" font-weight="700">prev_hash:      0xb2e1d4...91af  ← T₁</text>
+  </g>
+
+  <!-- Chain link from T2 to T3 -->
+  <line x1="960" y1="355" x2="960" y2="380" class="chain-link" marker-end="url(#chainhead)"/>
+
+  <!-- Hash Chain Entry 3 -->
+  <g>
+    <rect x="780" y="385" width="360" height="120" rx="6" ry="6" class="muted-card" stroke="var(--sage)" stroke-width="1.5"/>
+    <text x="800" y="408" class="accent hash-label">Tool call T₃</text>
+    <text x="800" y="430" class="muted-text hash-field">tool_id:        gof_diagnostics</text>
+    <text x="800" y="445" class="muted-text hash-field">tool_version:   1.8.4</text>
+    <text x="800" y="460" class="muted-text hash-field">input_hash:     0x5d77f2...b1a9</text>
+    <text x="800" y="475" class="muted-text hash-field">output_hash:    0x3a6c8e...5f0d</text>
+    <text x="800" y="493" class="accent hash-field" font-weight="700">prev_hash:      0x9e85bd...74c2  ← T₂</text>
+  </g>
+
+  <!-- Modify-detection annotation -->
+  <g>
+    <text x="960" y="525" text-anchor="middle" class="accent" font-size="10" font-weight="700">MODIFY ANY ENTRY → ALL SUBSEQUENT HASHES BREAK</text>
+  </g>
+
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+  <!-- BOTTOM BAND: Compliance Mapping -->
+  <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+
+  <g>
+    <rect x="20" y="555" width="1240" height="145" rx="6" ry="6" class="muted-card" stroke="var(--sage)" stroke-width="1" stroke-opacity="0.4"/>
+    <text x="40" y="580" class="accent" font-size="12" font-weight="700" letter-spacing="0.1em">COMPLIANCE POSTURE</text>
+    <text x="40" y="600" class="cream-text" font-size="11" font-style="italic">This architecture aligns with — and goes beyond — typical pharma compliance asks:</text>
+
+    <!-- Header row -->
+    <text x="40" y="625" class="accent compliance-row" font-weight="700">STANDARD</text>
+    <text x="280" y="625" class="accent compliance-row" font-weight="700">REQUIREMENT</text>
+    <text x="700" y="625" class="accent compliance-row" font-weight="700">SATISFIED BY</text>
+
+    <!-- Data rows -->
+    <text x="40" y="645" class="cream-text compliance-row">21 CFR Part 11</text>
+    <text x="280" y="645" class="cream-text compliance-row">Audit trail for electronic records</text>
+    <text x="700" y="645" class="cream-text compliance-row">Hash-chain audit · immutable · replayable</text>
+
+    <text x="40" y="663" class="cream-text compliance-row">ICH E6(R2) GCP</text>
+    <text x="280" y="663" class="cream-text compliance-row">Data integrity (ALCOA+)</text>
+    <text x="700" y="663" class="cream-text compliance-row">Schema-only privacy + deterministic tools</text>
+
+    <text x="40" y="681" class="cream-text compliance-row">ICH M15</text>
+    <text x="280" y="681" class="cream-text compliance-row">MIDD documentation standards</text>
+    <text x="700" y="681" class="cream-text compliance-row">Native generation of M15-aligned packages</text>
+
+    <text x="40" y="699" class="cream-text compliance-row">HIPAA / GDPR</text>
+    <text x="280" y="699" class="cream-text compliance-row">No PHI to third parties</text>
+    <text x="700" y="699" class="cream-text compliance-row">Schema-only privacy boundary (architectural)</text>
+  </g>
+</svg>

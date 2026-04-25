@@ -84,12 +84,9 @@ const DataflowEngine = forwardRef(function DataflowEngine(props, ref) {
             data-el={`tracer-c-${i}`}
             cx={THEME_NODE.x + THEME_NODE.w}
             cy={themeCenterY(i)}
-            r={4}
+            r={3}
             fill="var(--amber)"
-            style={{
-              filter: 'drop-shadow(0 0 6px var(--amber))',
-              opacity: 0, // revealed after entrance timeline
-            }}
+            style={{ opacity: 0 }}
           />
         ))}
         {CASE_CARDS.map((_, i) => (
@@ -98,12 +95,9 @@ const DataflowEngine = forwardRef(function DataflowEngine(props, ref) {
             data-el={`tracer-d-${i}`}
             cx={HUB.rightEdgeX}
             cy={HUB.cy}
-            r={4}
+            r={3}
             fill="var(--amber)"
-            style={{
-              filter: 'drop-shadow(0 0 6px var(--amber))',
-              opacity: 0,
-            }}
+            style={{ opacity: 0 }}
           />
         ))}
       </g>
@@ -181,20 +175,6 @@ const DataflowEngine = forwardRef(function DataflowEngine(props, ref) {
 
       {/* ═══════════════ DECISION HUB (center) ═══════════════ */}
       <g data-el="hub">
-        {/* Amber signal ring — breathes via CSS keyframe */}
-        <circle
-          data-el="hub-ring"
-          className="s04-hub-ring"
-          cx={HUB.cx}
-          cy={HUB.cy}
-          r={HUB.width / 2 + 38}
-          fill="none"
-          stroke="var(--amber)"
-          strokeWidth={1}
-          strokeOpacity={0.18}
-          style={{ transformOrigin: `${HUB.cx}px ${HUB.cy}px` }}
-        />
-
         {/* Outer hex frame */}
         <polygon
           data-el="hub-outer"
@@ -323,7 +303,7 @@ function OutcomeText({ x, y, maxChars, text, dataEl }) {
       x={x}
       y={y}
       fontFamily="var(--font-body)"
-      fontSize={13}
+      fontSize={14}
       fontWeight={400}
       fill="var(--cream-muted)"
     >

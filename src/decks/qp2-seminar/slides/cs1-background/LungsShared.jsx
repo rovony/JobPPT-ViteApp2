@@ -34,7 +34,7 @@ import lungsBrandedRaw from './lungs-branded.svg?raw';
 const LAYOUT_TRANSITION = { duration: 1.8, ease: [0.4, 0, 0.2, 1] };
 
 const DIMENSIONS = {
-  hero:    { width: 'clamp(180px, 22vw, 300px)', aspectRatio: '482 / 581' },
+  hero:    { width: 'clamp(260px, 26vw, 440px)', aspectRatio: '482 / 581' },
   // 22vw / 420px max sits inside the cards row vertically (at 1920x1080
   // the row is ~515px tall; a 420px-wide lung is ~506px tall via aspect
   // ratio — fits with a small breather and doesn't trigger the
@@ -56,8 +56,20 @@ export default function LungsShared({
     <motion.div
       layoutId={layoutId}
       layout
-      initial={isHero ? { opacity: 0, scale: 0.92 } : false}
-      animate={isHero ? { opacity: 1, scale: 1 } : undefined}
+      // Framer Motion's projection layer writes inline style.opacity on
+      // layoutId-matched siblings during the morph (entering ramps 0→1,
+      // exiting ramps 1→0). `transition.opacity = { duration: 0 }` only
+      // controls user-defined opacity animation; it does NOT silence the
+      // projection-level crossfade. Empirically (probe-lung-opacity.mjs)
+      // the entering context lung sat at ~5% style.opacity at t=50ms
+      // and ramped to 1.0 over ~700ms — visible as the "ghosted lung"
+      // valley around t=150–300ms while SlideTransition simultaneously
+      // killed the source slide. The fix is the `!important` opacity
+      // rule on `.lung-shared` in the scoped stylesheet below; CSS
+      // `!important` defeats inline styles per the cascade and pins
+      // the wrapper at opacity 1 for the full morph.
+      initial={isHero ? { scale: 0.92 } : false}
+      animate={isHero ? { scale: 1 } : {}}
       transition={{
         ...(isHero ? { duration: 0.6, delay: 0.3 } : {}),
         layout: LAYOUT_TRANSITION,
@@ -83,6 +95,13 @@ export default function LungsShared({
 }
 
 const SCOPED_CSS = `
+/* Pin the layoutId wrapper opacity through the morph. Framer Motion
+   writes inline style.opacity during shared-element transitions; CSS
+   !important wins against inline (CSS cascade rule), so this rule
+   silences the projection-level crossfade without disabling the
+   bbox interpolation that we DO want. */
+.lung-shared { opacity: 1 !important; }
+
 .lung-shared svg { width: 100%; height: 100%; display: block; overflow: visible; }
 .lung-shared svg .lung-tissue-group .lung-tissue { fill: currentColor; }
 .lung-shared svg .lung-detail-group .lung-detail { fill: currentColor; }

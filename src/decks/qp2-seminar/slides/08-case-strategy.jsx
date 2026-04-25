@@ -88,7 +88,23 @@ export default function Slide11bCaseStrategy() {
           Padding-bottom on the viz container pushes the ribbon up off
           the SlideFrame footer — earlier layout had the ribbon bleeding
           visually into the "Case 01 · Strategy" source line below. */}
+      <style>{`
+        /* 1366×768 zone — tighten column padding and shrink the
+           ribbon so the column-stack + ribbon together stay inside
+           the viz cell. Without this the ribbon overflows under the
+           SlideFrame footer source line. */
+        @media (max-width: 1499px) {
+          .s08-strategy-viz {
+            row-gap: var(--space-2) !important;
+          }
+          .s08-strategy-viz > div:first-of-type > div { padding: var(--space-2) var(--space-3) !important; }
+          .s08-strategy-ribbon {
+            padding: 6px var(--space-3) !important;
+          }
+        }
+      `}</style>
       <div
+        className="s08-strategy-viz"
         style={{
           width: '100%',
           height: '100%',
@@ -142,6 +158,7 @@ export default function Slide11bCaseStrategy() {
             (diamond) anchor on the left. Visually rhymes the "question
             at challenge" with the "answer at strategy" beats. */}
         <motion.div
+          className="s08-strategy-ribbon"
           style={{
             display: 'flex',
             alignItems: 'center',

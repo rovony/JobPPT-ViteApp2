@@ -113,7 +113,12 @@ function ChallengeStack() {
         // CSS rule below adds a row floor so cards can host bigger
         // chart panels — the timeline strip is also capped to free the
         // needed vertical space at that breakpoint.
-        gridTemplateRows: 'minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) auto auto',
+        // Row floor 100px hosts eyebrow + title + body + Highlight at
+        // 1366×768 once the chart panel is shrunk to 200px (gives text
+        // ~80px more width so body wraps in fewer lines). At ≥1500px
+        // the media query below promotes the floor to 135px so chart
+        // panels can host their full ~280×140 art.
+        gridTemplateRows: 'minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) auto auto',
         columnGap: 'var(--space-4)',
         rowGap: 'var(--space-3)',
         minHeight: 0,
@@ -153,6 +158,20 @@ function ChallengeStack() {
           .cs1-challenge-stack {
             grid-template-rows: minmax(135px, 1fr) minmax(135px, 1fr) minmax(135px, 1fr) auto auto !important;
           }
+        }
+        /* 1366×768 zone — tighten padding + shrink chart panel so the
+           body + Highlight pill fit inside a tight row without
+           wrapping to a fourth line. Chart panels become small
+           thumbnails (200px) at this viewport so text gets ~80px
+           more width per card. Tighter row-gap and slim timeline /
+           focal padding to recover vertical space so the focal
+           ribbon sits above the footer source line without overlap. */
+        @media (min-width: 1025px) and (max-width: 1499px) {
+          .cs1-challenge-stack { row-gap: var(--space-2) !important; }
+          .cs1-challenge-stack .cs1-card { padding: var(--space-2) var(--space-3); padding-left: calc(var(--space-3) + 6px); }
+          .cs1-challenge-stack .cs1-card-chart { width: 200px !important; }
+          .cs1-challenge-stack .cs1-timeline { padding-top: 2px !important; padding-bottom: 2px !important; }
+          .cs1-challenge-stack .cs1-focal-ribbon { padding: var(--space-2) var(--space-4) !important; }
         }
         @media (max-width: 1024px) {
           .cs1-challenge-stack .cs1-card { padding: var(--space-2) var(--space-3); padding-left: calc(var(--space-3) + 6px); column-gap: var(--space-3); }
@@ -441,7 +460,11 @@ function ChallengeCard({ row, number, eyebrow, title, body, caption, chart, card
           overflow: 'hidden',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
+          // flex-start so the eyebrow always sits at the top of the
+          // panel; with `center`, when card content slightly exceeded
+          // panel height at 1366×768 the top of the column was clipped
+          // and the eyebrow disappeared on card 01.
+          justifyContent: 'flex-start',
         }}
       >
       {/* Coral left accent */}
@@ -468,7 +491,11 @@ function ChallengeCard({ row, number, eyebrow, title, body, caption, chart, card
           flexDirection: 'column',
           gap: 'var(--space-2)',
           minWidth: 0,
-          justifyContent: 'center',
+          // flex-start so eyebrow sticks to the top of the card and
+          // never clips when the row is at its 96px floor; previously
+          // `center` caused the eyebrow to slide off the top when the
+          // column content exceeded row height at 1366×768.
+          justifyContent: 'flex-start',
         }}
       >
         <div
@@ -602,6 +629,7 @@ function FocalQuestion() {
 
   return (
     <motion.div
+      className="cs1-focal-ribbon"
       style={{
         display: 'flex',
         alignItems: 'center',

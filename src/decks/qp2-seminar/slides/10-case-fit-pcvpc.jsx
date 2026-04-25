@@ -122,10 +122,27 @@ export default function Slide11dCaseFit() {
         . Observed 5th / 50th / 95th percentiles sit inside the model-simulated CIs across all five time bins.
       </motion.p>
 
-      {/* ═══════════ LEFT — pcVPC chart ═══════════ */}
+      {/* ═══════════ LEFT — pcVPC chart (hairline panel · zaj-slides v2.1) ═══════════
+          Wrapped in a square-corner hairline to match the parameter table on
+          the right. Without it the chart sits naked next to a bordered card,
+          and the asymmetry reads as "one is data, the other is decoration".
+          Square corners — rounded card chrome is banned (craft-bans skill).
+
+          NOTE on `bottom: 24vh`: AnalysisPlot wraps PcVpcChart in
+          `position: absolute, inset: 0`, so the chart can't push its
+          parent's height. Without an explicit `bottom`, the wrapper
+          would collapse to label height (~67px) and the hairline
+          would frame only the label, leaving the chart naked. */}
       <div
-        className="absolute"
-        style={{ top: '32vh', left: 'var(--deck-gutter)', width: '56%' }}
+        className="absolute border p-5 flex flex-col"
+        style={{
+          top: '32vh',
+          bottom: '24vh',
+          left: 'var(--deck-gutter)',
+          width: '56%',
+          borderColor: 'var(--cream-hairline)',
+          borderRadius: 0,
+        }}
       >
         <motion.div
           className="deck-mono uppercase mb-2"
@@ -136,19 +153,25 @@ export default function Slide11dCaseFit() {
         >
           pcVPC — prediction-corrected visual predictive check
         </motion.div>
-        <AnalysisPlot variant="pcvpc">
-          <PcVpcChart tk={tk} D={D} />
-        </AnalysisPlot>
+        <div style={{ flex: '1 1 0', minHeight: 0, position: 'relative' }}>
+          <AnalysisPlot variant="pcvpc">
+            <PcVpcChart tk={tk} D={D} />
+          </AnalysisPlot>
+        </div>
       </div>
 
-      {/* ═══════════ RIGHT — Parameter table ═══════════ */}
+      {/* ═══════════ RIGHT — Parameter table (hairline panel · square corners) ═══════════
+          Was `rounded-lg` (shadcn-style rounded card) — flattened to square
+          corners to comply with the no-rounded-card-chrome rule and to match
+          the pcVPC panel on the left. */}
       <motion.div
-        className="absolute rounded-lg border p-5"
+        className="absolute border p-5"
         style={{
           top: '32vh',
           left: '60%',
           right: 'var(--deck-gutter)',
           borderColor: 'var(--cream-hairline)',
+          borderRadius: 0,
           background: 'color-mix(in srgb, var(--panel) 60%, transparent)',
         }}
         initial={{ opacity: 0, y: 12 }}
@@ -295,7 +318,7 @@ export default function Slide11dCaseFit() {
           className="deck-mono uppercase"
           style={{ fontSize: 'var(--fs-card-meta)', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}
         >
-          08 / 20
+          10 / 35
         </span>
       </motion.div>
     </motion.section>

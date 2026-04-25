@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import * as d3 from 'd3';
 import { useTokens } from '@/lib/token';
@@ -6,6 +6,7 @@ import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 import HighlightWord from '@/components/deck/patterns/HighlightWord';
 import AnalysisPlot from '@/components/deck/patterns/AnalysisPlot';
+import BoxTooltip from '@/components/deck/patterns/BoxTooltip';
 
 /**
  * Slide 11e · CS1 Exposure Match — AUC & Cmax vs adult envelope.
@@ -15,19 +16,32 @@ import AnalysisPlot from '@/components/deck/patterns/AnalysisPlot';
  *     • Two adult 5–95% bands (low dose · high dose) drawn as horizontal strips
  *     • Pediatric 90% PI ribbon per dose band, coral wash
  *     • Pediatric median line drawn L→R (stroke-dashoffset)
- *     • 39 pediatric dots staggered via Framer delay
+ *     • 39 pediatric dots wave-staggered (matches slide 10 pcVPC scatter)
  *   RIGHT panel (~38%) — Cmax,ss box plots.
  *     • Four boxes: Adult-Low · Peds-Low · Adult-High · Peds-High
  *     • Δ brackets placed INSIDE plot area (not clipping the top)
  *   BOTTOM — two hero Δ numbers side-by-side + single italic payoff.
  *
- * Fixes from the HTML mockup:
- *   • No D3. Pure SVG + useMemo + Framer Motion (like slide 11d).
- *   • preserveAspectRatio="xMidYMid meet" everywhere.
+ * Entrance choreography (V6.9.3 · 2026-04-24):
+ *   The slide is part of the CS1 results trio (10 pcVPC → 11 exposure-match
+ *   → 12 E-R) wrapped in the AnalysisPlot shared-element morph. Inside the
+ *   morph, the slide MUST sequence like slide 10:
+ *     1. AUC panel settles fully (median line + Δ labels)
+ *     2. THEN Cmax panel boxes/brackets sequence in
+ *     3. THEN the closing strip lands
+ *   Previous V6.9.2 ran AUC + Cmax in parallel and let the closing fade
+ *   in BEFORE the chart finished, which read as rushed and "different".
+ *   See the D{} timeline below for exact delays.
+ *
+ * Implementation notes:
+ *   • No D3 (well, scales only — no recharts). Pure SVG + useMemo + FM.
+ *   • preserveAspectRatio="xMidYMid meet" on every viewBox.
  *   • All colors hex-resolved via useTokens (no CSS vars in SVG attrs).
  *   • Adult band labels get distinct y-positions per band (no stacking).
- *   • 39 dots staggered via Framer delay array (no CSS-var-on-SVG bug).
+ *   • Dots use wave-stagger (8 per wave · 0.025s within / 0.06s between).
  *   • Δ brackets sit inside plot area, anchored to the shared Cmax y-scale.
+ *   • SubgroupFlag entrance is opacity-only (was x: -8 in V6.9.2; the
+ *     single horizontal slide registered as "different" against slide 10).
  *   • Closing collapsed: two hero Δ numbers + one payoff line (no 3-col wall).
  */
 
@@ -58,15 +72,30 @@ const CMAX_BOXES = [
 
 export default function Slide11eCaseExposureMatch() {
   const ease = [0.2, 0.7, 0.3, 1];
-  // V6.9.2 — compressed delay timeline so slide 11's entrance matches the
-  // pace of previous slides (was ending at 3.1s; now ends ~1.8s). Removed
-  // the long tail that made the slide feel "still arriving" during the
-  // first spoken sentence.
+  // V6.9.3 (2026-04-24) — entrance choreography aligned with slide 10
+  // (pcVPC). The previous V6.9.2 timeline animated AUC and Cmax panels
+  // simultaneously and let the closing strip fade in at 1.55s — BEFORE
+  // the AUC Δ labels finished landing at 2.7s. Net effect: every other
+  // CS1 results slide reads serial (chart settles → payoff lands), but
+  // slide 11 read parallel and rushed, which is the "different" feel.
+  //
+  // New timeline: AUC settles fully → Cmax sequences in → closing
+  // strip lands AFTER all chart beats, matching slide 10's pace
+  // (chart at ~2.7s, payoff at ~3.2s).
   const D = {
     chrome: 0.10, headline: 0.25, subhead: 0.55,
-    adultBand: 0.70, pedsBand: 0.85, pedsMed: 1.00, dots: 1.15,
-    boxAdult: 0.85, boxPeds: 1.00, boxDelta: 1.35,
-    closing: 1.55, payoff: 1.80,
+    // AUC panel — left, primary chart, settles first
+    adultBand: 0.70,    // panel title fade
+    pedsBand: 0.85,     // peds bands appear (static path)
+    pedsMed: 1.00,      // median draws L→R (1.2s · ends 2.20)
+    dots: 1.20,         // wave-stagger dots (~0.7s span · ends 1.89)
+    // AUC Δ labels at right edge land at pedsMed + 1.2 + 0.5 = 2.70
+    // Cmax panel — right, secondary, sequenced AFTER AUC settles
+    boxAdult: 1.80,     // panel title fade
+    boxPeds: 1.95,      // boxes already static
+    boxDelta: 2.40,     // brackets draw L→R (0.8s · ends 3.20)
+    // Closing strip lands AFTER both panels' chart beats
+    closing: 3.10, payoff: 3.40,
   };
 
   const T = useTokens(['--coral', '--cyan', '--cream', '--cream-muted', '--cream-faint', '--cream-hairline']);
@@ -88,50 +117,68 @@ export default function Slide11eCaseExposureMatch() {
       </Subhead>
 
       <Viz>
-        <div style={{ width: '100%', height: '100%', display: 'grid', gridTemplateRows: '1fr auto auto', rowGap: 'var(--space-4)', minHeight: 0 }}>
+        <div style={{ width: '100%', height: '100%', display: 'grid', gridTemplateRows: '1fr auto', rowGap: 'var(--space-3)', minHeight: 0 }}>
           <AnalysisPlot variant="exposure-match">
           <div style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', columnGap: 'var(--space-6)', minHeight: 0, width: '100%', height: '100%' }}>
-      {/* LEFT — AUC vs body weight */}
-      <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+      {/* LEFT — AUC vs body weight (hairline panel · zaj-slides v2.1: peer chart container) */}
+      <div style={CHART_PANEL}>
         <PanelTitle
           label={<>AUC<sub>ss</sub> × body weight — pediatric vs adult envelope</>}
           right="μg·h/mL · geometric mean (95 % CI)"
           delay={D.adultBand - 0.1}
         />
-        <AUCPanel tk={tk} D={D} />
+        <div style={CHART_PANEL_BODY}>
+          <AUCPanel tk={tk} D={D} />
+        </div>
       </div>
 
-      {/* RIGHT — Cmax box plots */}
-      <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column' }}>
+      {/* RIGHT — Cmax box plots (hairline panel · peer to AUC) */}
+      <div style={CHART_PANEL}>
         <PanelTitle
           label={<>C<sub>max,ss</sub> — pediatric vs adult</>}
           right="ng/mL · box = IQR · whiskers = 5–95%"
           delay={D.boxAdult - 0.1}
         />
-        <CmaxPanel tk={tk} D={D} />
+        <div style={CHART_PANEL_BODY}>
+          <CmaxPanel tk={tk} D={D} />
+        </div>
       </div>
           </div>
           </AnalysisPlot>
 
-      {/* Subgroup defense strip — pre-empts the 35-<50 kg low-dose question */}
-      <SubgroupFlag ease={ease} delay={D.closing - 0.3} />
+      {/*
+        Closing band — single-row caveat → deltas → verdict (V6.9.5).
+        ----------------------------------------------------
+        Previous layout (V6.9.4 + earlier) gave the SubgroupFlag its
+        own row above a dashed divider. Even after collapsing the row
+        to share the same hairline-top band, the 62 %-capped flag still
+        floated in a no-man's-land with empty space to its right. The
+        eye read it as orphaned chrome.
 
-      {/* Closing: two hero deltas + payoff */}
+        V6.9.5 layout: one row, four grid cells, scanned L→R as the
+        review panel itself would think:
+          [ caveat (subgroup defense) | δ low-dose | δ Cmax low/high | verdict ]
+        The flag becomes the left counterweight to the right-aligned
+        payoff; the deltas anchor the centre. No more orphan.
+      */}
       <motion.div
         style={{
-          paddingTop: 'var(--space-4)',
+          paddingTop: 'var(--space-3)',
           borderTop: '1px solid var(--cream-hairline)',
           display: 'grid',
-          gridTemplateColumns: 'auto auto 1fr',
-          gap: 'var(--space-10)',
-          alignItems: 'center',
+          gridTemplateColumns: 'minmax(0, 1.1fr) auto auto minmax(0, 1.2fr)',
+          columnGap: 'var(--space-8)',
+          alignItems: 'start',
         }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, ease, delay: D.closing }}
       >
+        <SubgroupFlag ease={ease} delay={D.closing + 0.1} />
+
         <HeroDelta value="−3 %" label={<>AUC<sub>ss</sub> · low-dose Δ</>} accent />
         <HeroDelta value="+11 / +18%" label={<>C<sub>max,ss</sub> · low / high Δ</>} />
+
         <div
           className="deck-display italic"
           style={{
@@ -166,6 +213,31 @@ export default function Slide11eCaseExposureMatch() {
     </SlideGrid>
   );
 }
+
+/* ========================================================
+   Hairline panel chrome (zaj-slides v2.1)
+   ----------------------------------------------------------
+   Adjacent peer data containers (two charts side-by-side)
+   need a perimeter to declare cell boundaries. Per the
+   craft-bans-and-borders skill: square corners (NO rounded
+   shadcn cliché), 1px hairline, no fill, no shadow.
+   ======================================================== */
+const CHART_PANEL = {
+  minWidth: 0,
+  display: 'flex',
+  flexDirection: 'column',
+  border: '1px solid var(--cream-hairline)',
+  borderRadius: 0,
+  padding: 'var(--space-3)',
+  background: 'transparent',
+};
+const CHART_PANEL_BODY = {
+  flex: '1 1 0',
+  minHeight: 0,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
 
 /* ========================================================
    Primitives
@@ -344,12 +416,14 @@ function AUCPanel({ tk, D }) {
           </React.Fragment>
         ))}
 
-        {/* Pediatric patient dots — staggered pop-in (scale 0→1, 0.3s each).
-            Per-dot halo pulse removed 2026-04-24: 39 overlapping halos were
-            the primary source of the "slide 11 feels different" read. Tighter
-            stagger (0.012 vs 0.025) compresses the cascade from ~1s to ~0.5s. */}
+        {/* Pediatric patient dots — wave-staggered scatter (matches slide
+            10's pcVPC dot pattern). The flat i*0.012 cascade read as a
+            "spray" against slide 10's structured shots; the wave formula
+            below arrives in groups of 8 (0.025s within wave, 0.06s between
+            waves), giving the dots a deliberate fall-into-place rhythm
+            rather than a uniform drizzle. */}
         {pedDots.map((d) => {
-          const dotDelay = D.dots + d.i * 0.012;
+          const dotDelay = D.dots + (d.i % 8) * 0.025 + Math.floor(d.i / 8) * 0.06;
           return (
             <React.Fragment key={d.i}>
               <motion.circle
@@ -412,6 +486,18 @@ function CmaxPanel({ tk, D }) {
   const yTicks = y.ticks(5);
   const bw = 38;
 
+  // Hover-tooltip state — presenter-controlled detail-on-demand.
+  // zaj-slides override (2026-04-24): the skill defaults this chart to
+  // STATIC; tooltips are an explicit per-chart authorization. They expose
+  // the underlying five-number summary on hover without changing the
+  // entrance choreography or competing with the static "exposure bridged"
+  // assertion. See BoxTooltip for the rationale comment.
+  const [hover, setHover] = useState(null);
+
+  // Pair adults with peds for Δ% computation (low/high dose).
+  // Index 0+1 = LOW (adult, peds), 2+3 = HIGH (adult, peds).
+  const pairAdult = (i) => CMAX_BOXES[i % 2 === 0 ? i : i - 1];
+
   return (
     <svg
       className="w-full"
@@ -429,7 +515,13 @@ function CmaxPanel({ tk, D }) {
         {/* Boxes — render static. Δ brackets drawing L→R below IS the
             in-chart emphasis. Peds-median halo pulse removed 2026-04-24
             per entrance-cleanup (was redundant noise against the boxes'
-            own coral stroke weight). */}
+            own coral stroke weight).
+
+            Hit-rect overlay added 2026-04-24 — invisible per-box hit
+            target a bit larger than the visible glyph, so hover catches
+            even when the cursor lands near the whiskers. Pointer-events
+            on the visible glyph remain `none` so the wrapper handles all
+            mouse events from one place. */}
         {CMAX_BOXES.map((b, i) => {
           const cx = b.xPct * iw;
           const isPeds = b.who === 'PEDS';
@@ -438,7 +530,7 @@ function CmaxPanel({ tk, D }) {
           const stroke = isPeds ? tk('--coral') : tk('--cream-muted');
           const strokeOp = isPeds ? 1 : 0.7;
           return (
-            <g key={i}>
+            <g key={i} style={{ pointerEvents: 'none' }}>
               {/* Whisker */}
               <line x1={cx} x2={cx} y1={yAt(b.lo)} y2={yAt(b.hi)}
                     stroke={stroke} strokeOpacity={strokeOp} strokeWidth={1.4} />
@@ -461,9 +553,68 @@ function CmaxPanel({ tk, D }) {
                     fill={isPeds ? tk('--coral') : tk('--cream-muted')}>
                 {b.who}
               </text>
+              {/* Hover hit target — invisible, slightly larger than the
+                  whisker span. Sits above the visible glyph in z-order so
+                  it catches mouse over the entire box footprint. */}
+              <rect
+                x={cx - 18}
+                y={yAt(b.hi) - 6}
+                width={36}
+                height={yAt(b.lo) - yAt(b.hi) + 12}
+                fill="transparent"
+                pointerEvents="all"
+                style={{ cursor: 'crosshair' }}
+                onMouseEnter={() => setHover(i)}
+                onMouseLeave={() => setHover((h) => (h === i ? null : h))}
+              />
             </g>
           );
         })}
+
+        {/* Tooltip — rendered AFTER boxes so it draws on top. Uses
+            CMAX_BOXES + the hovered index. The HIGH-dose pair (boxes 2,3)
+            sits high in the chart and would clip the panel chrome if
+            anchored above; flip to `below` and anchor at the lower
+            whisker so the tooltip drops into the empty bottom of the
+            plot area without collision. */}
+        {hover !== null && (() => {
+          const b = CMAX_BOXES[hover];
+          const cx = b.xPct * iw;
+          const isPeds = b.who === 'PEDS';
+          const accent = isPeds ? '--coral' : '--cream';
+          const adult = pairAdult(hover);
+          const dPct = isPeds
+            ? ((b.mid / adult.mid - 1) * 100).toFixed(0)
+            : null;
+          const dStr = dPct !== null
+            ? `${dPct >= 0 ? '+' : ''}${dPct}% vs adult`
+            : null;
+          const isHigh = hover >= 2;
+          const tipH = dStr ? 110 : 86;
+          const tipW = 188;
+          // Clamp x so tooltip stays inside the inner plot area.
+          const tipX = Math.max(tipW / 2, Math.min(iw - tipW / 2, cx));
+          return (
+            <BoxTooltip
+              visible
+              x={tipX}
+              y={isHigh ? yAt(b.lo) : yAt(b.hi)}
+              width={tipW}
+              height={tipH}
+              anchor={isHigh ? 'below' : 'above'}
+              tk={tk}
+              accent={accent}
+              footerAccent={accent}
+              title={`${b.who} · ${b.group} DOSE`}
+              lines={[
+                { label: 'median', value: `${b.mid} ng/mL` },
+                { label: 'IQR', value: `${b.q1}–${b.q3}` },
+                { label: '5–95%', value: `${b.lo}–${b.hi}` },
+              ]}
+              footer={dStr}
+            />
+          );
+        })()}
 
         {/* Group labels (LOW DOSE · HIGH DOSE) */}
         <text x={(CMAX_BOXES[0].xPct + CMAX_BOXES[1].xPct) / 2 * iw} y={ih + 40}
@@ -537,16 +688,30 @@ function CmaxPanel({ tk, D }) {
    ============================================================== */
 function SubgroupFlag({ ease, delay }) {
   return (
+    // Layout (2026-04-24-flag-fix):
+    //   The flag now lives INSIDE the closing band as the top sub-row,
+    //   above an inner dashed divider that separates caveat from
+    //   conclusion. So it no longer needs its own width clamp or
+    //   breathing-room padding — the parent band handles that. The
+    //   coral left-bar stays as the callout-affordance visual.
+    //
+    // Animation (V6.9.3): Opacity-only entrance — the previous x: -8
+    // slide-in was the single horizontal-axis transform on the slide
+    // and registered as the "different feel" against slide 10/12.
+    //
+    // Display: inline-row, label · body separated by a thin gap so
+    // it reads as a single annotation line at smaller resolutions but
+    // wraps cleanly at 1920×1080 if the body runs long.
     <motion.div
-      initial={{ opacity: 0, x: -8 }}
-      animate={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.5, ease, delay }}
       style={{
         borderLeft: '2px solid var(--coral)',
         paddingLeft: 'var(--space-3)',
-        paddingTop: 'var(--space-1)',
-        paddingBottom: 'var(--space-1)',
-        maxWidth: '62%',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 4,
       }}
     >
       <div
@@ -555,7 +720,6 @@ function SubgroupFlag({ ease, delay }) {
           fontSize: 'var(--fs-card-meta)',
           letterSpacing: '0.22em',
           color: 'var(--coral)',
-          marginBottom: 4,
         }}
       >
         Subgroup · 35-&lt;50 kg low-dose · n = 8

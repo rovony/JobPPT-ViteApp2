@@ -13,7 +13,7 @@ import LungsShared from './cs1-background/LungsShared';
  * narrative was moved to slide 6 where it fits the "disease biology"
  * explainer better than a divider.
  */
-export default function Slide10() {
+export default function Slide05CaseDivider() {
   return (
     <CaseHeroDivider
       caseToken="coral"

@@ -178,50 +178,80 @@ export default function Slide11cCaseBuild() {
           </motion.div>
         </div>
 
-        {/* ─── RIGHT column — compact 6-node flowchart ─── */}
+        {/* ─── RIGHT column — workflow card (mirrors left schematic panel) ───
+            The flowchart sits inside a panel card so it reads as a peer
+            artefact to the dataset card + schematic panel on the left,
+            not as a free-floating diagram against the slide background.
+            Same border / radius / panel-mix bg / padding tokens as the
+            schematic panel above. */}
         <div
           style={{
-            minWidth: 0,
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
+            minWidth: 0,
+            minHeight: 0,
+            height: '100%',
+            overflow: 'hidden',
           }}
         >
           <motion.div
-            className="deck-mono uppercase"
             style={{
-              fontSize: 'var(--fs-slide-kicker)',
-              letterSpacing: 'var(--ls-mono-wide)',
-              color: 'var(--coral)',
-              marginBottom: 'var(--space-1)',
+              border: '1px solid var(--cream-hairline)',
+              background: 'color-mix(in srgb, var(--panel) 55%, transparent)',
+              borderRadius: 'var(--radius-lg)',
+              padding: 'var(--space-4) var(--space-5)',
+              flex: '1 1 0',
+              minHeight: 0,
+              minWidth: 0,
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
             }}
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, ease, delay: D.rcTitle }}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease, delay: D.rcTitle - 0.1 }}
           >
-            Workflow — 6 sequential steps
-          </motion.div>
+            <div
+              className="deck-mono uppercase"
+              style={{
+                fontSize: 'var(--fs-slide-kicker)',
+                letterSpacing: 'var(--ls-mono-wide)',
+                color: 'var(--coral)',
+                marginBottom: 'var(--space-1)',
+                flexShrink: 0,
+              }}
+            >
+              Workflow — 6 sequential steps
+            </div>
 
-          {/* Subtitle kicker — prefaces the flowchart with the outcome
-              ("pcVPC passed"), so a glance tells the panelist which branch
-              was the one taken before they scan the full diagram. */}
-          <motion.div
-            className="deck-mono"
-            style={{
-              fontSize: 'var(--fs-slide-pageno)',
-              letterSpacing: '0.08em',
-              color: 'var(--cream-faint)',
-              fontStyle: 'italic',
-              marginBottom: 'var(--space-4)',
-            }}
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, ease, delay: D.rcTitle + 0.15 }}
-          >
-            pcVPC passed · linear path from build to submission
-          </motion.div>
+            {/* Subtitle kicker — prefaces the flowchart with the outcome
+                ("pcVPC passed"), so a glance tells the panelist which branch
+                was the one taken before they scan the full diagram. */}
+            <div
+              className="deck-mono"
+              style={{
+                fontSize: 'var(--fs-slide-pageno)',
+                letterSpacing: '0.08em',
+                color: 'var(--cream-faint)',
+                fontStyle: 'italic',
+                marginBottom: 'var(--space-3)',
+                flexShrink: 0,
+              }}
+            >
+              pcVPC passed · linear path from build to submission
+            </div>
 
-          {/* Flowchart fills the column — each node + its description
-              fades in together, arrows draw between (see DecisionGate). */}
-          <DecisionGate />
+            {/* Flowchart fills the remaining card height — same containment
+                pattern as the CompartmentSchematic panel on the left:
+                flex:1 outer + position:absolute inner so the SVG/HTML
+                composite scales without dragging the card taller than
+                its grid cell. */}
+            <div style={{ flex: 1, minHeight: 0, minWidth: 0, position: 'relative', overflow: 'hidden' }}>
+              <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <DecisionGate />
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </SlideFrame>

@@ -87,19 +87,6 @@ export default function Slide04FrameworkThemes() {
         kicker="Five themes · one judgment · three outcomes"
         tagline="The model is the instrument."
       />
-
-      {/* Hub breath — pure CSS so it runs independently of the
-          GSAP entrance timeline and is killed by reduced-motion. */}
-      <style>{`
-        .s04-hub-ring { animation: s04-hub-breathe 4s ease-in-out infinite alternate; }
-        @keyframes s04-hub-breathe {
-          from { stroke-opacity: 0.18; transform: scale(1); }
-          to   { stroke-opacity: 0.32; transform: scale(1.04); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .s04-hub-ring { animation: none !important; }
-        }
-      `}</style>
     </SlideGrid>
   );
 }

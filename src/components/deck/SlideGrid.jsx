@@ -54,8 +54,6 @@ export default function SlideGrid({
   className,
   ...rest
 }) {
-  const ease = [0.2, 0.7, 0.3, 1];
-
   // Build grid-template-areas from the 2D string array.
   const template = areas.map((row) => `"${row}"`).join(' ');
   const cols = areas[0].trim().split(/\s+/).length;
@@ -84,6 +82,14 @@ export default function SlideGrid({
     });
   }
 
+  // Section mounts OPAQUE. The slide-level fade is owned by
+  // SlideTransition (incoming opacity:1 always, only exit fades). The
+  // previous initial:0 fade-in compounded with SlideTransition during
+  // cross-slide layoutId morphs: e.g. on 5 → 6 the morphing lung sat
+  // inside this section and inherited its 0 → 1 ramp, so for the first
+  // ~200ms the lung rendered translucent over the deck-root, reading
+  // as a flicker. Keeping exit removed too so SlideTransition's 0.4s
+  // exit isn't compounded by another 0.6s layered fade-out.
   return (
     <motion.section
       data-case={dataCase}
@@ -98,10 +104,6 @@ export default function SlideGrid({
         rowGap: 'var(--deck-grid-rowgap)',
         padding: `var(--deck-pad-top) ${padding} var(--deck-pad-bottom) ${padding}`,
       }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.6, ease }}
       {...rest}
     >
       {children}
