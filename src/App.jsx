@@ -22,6 +22,7 @@ import DevVizPage from '@/components/devkit/pages/VizPage';
 import DevPatternsPage from '@/components/devkit/pages/PatternsPage';
 import DevLibrariesPage from '@/components/devkit/pages/LibrariesPage';
 import PKSim from '@/pages/PKSim';
+import Reading from '@/pages/Reading';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -63,6 +64,10 @@ const AuthenticatedApp = () => {
       <Route path="/decks/:deckId/s/:slideIndex/speaker" element={<DeckRunner />} />
       <Route path="/decks/:deckId/s/:slideIndex/audience" element={<DeckRunner />} />
       <Route path="/qa/:deckId" element={<AudienceQA />} />
+      {/* Reading material — full-page route, deep-linkable per item.
+          Modal counterpart (ReadingMaterialPane) lives inside presenter view. */}
+      <Route path="/decks/:deckId/reading" element={<Reading />} />
+      <Route path="/decks/:deckId/reading/:slug" element={<Reading />} />
       <Route path="/decks/:deckId/analytics" element={<DeckAnalytics />} />
       <Route path="/pk-sim" element={<PKSim />} />
       <Route path="/PKSim" element={<PKSim />} />

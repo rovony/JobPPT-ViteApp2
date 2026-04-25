@@ -424,6 +424,7 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
         onClose={() => setReadingOpen(false)}
         readingItems={deck.reading || []}
         deckTitle={deck.title}
+        deckId={deck.id}
       />
       <PresenterLayoutSettings
         open={layoutOpen}

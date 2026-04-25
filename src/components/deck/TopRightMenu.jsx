@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MoreHorizontal, Home, Download, Sun, Moon, BarChart3, FolderOpen, FileText, Presentation, Loader2, Check, Wrench, X, Layers } from 'lucide-react';
+import { MoreHorizontal, Home, Download, Sun, Moon, BarChart3, FolderOpen, FileText, Presentation, Loader2, Check, Wrench, X, Layers, BookOpen } from 'lucide-react';
 import { exportDeckToPDF, exportDeckToPPTX, exportDeckToPDFAndPPTX, summaryLine } from '@/lib/deck-export';
 import { useAuth } from '@/lib/AuthContext';
 
@@ -217,11 +217,26 @@ export default function TopRightMenu({
             />
           )}
 
-          {onOpenSources && (
+          {(deck?.reading?.length || onOpenSources) && (
             <>
               <Divider />
               <SectionLabel>Deck</SectionLabel>
-              <MenuItem icon={FolderOpen} onClick={() => { onOpenSources(); setOpen(false); }} title="Sources" subtitle="AI-grounding library" />
+              {deck?.reading?.length ? (
+                <MenuLink
+                  to={`/decks/${deck.id}/reading`}
+                  icon={BookOpen}
+                  title="Reading material"
+                  subtitle={`${deck.reading.length} item${deck.reading.length === 1 ? '' : 's'} · pre-talk prep`}
+                />
+              ) : null}
+              {onOpenSources && (
+                <MenuItem
+                  icon={FolderOpen}
+                  onClick={() => { onOpenSources(); setOpen(false); }}
+                  title="Sources"
+                  subtitle="AI-grounding library"
+                />
+              )}
             </>
           )}
 
