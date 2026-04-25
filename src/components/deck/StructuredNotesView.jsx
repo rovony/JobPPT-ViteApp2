@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Clock, Target, AudioLines, MapPin, AlertTriangle, CheckCircle2, LifeBuoy } from 'lucide-react';
+import { Clock, Target, AudioLines, MapPin, AlertTriangle, CheckCircle2, LifeBuoy, ChevronDown, ChevronRight } from 'lucide-react';
 
 /**
  * StructuredNotesView — renders parsed notes (Spoken / Cues / Bridge)
  * with section-specific visual treatment per Notes-And-QA-Structure.md.
  *
- *   • Spoken: dominant reading column. Inherits the text-size control
- *     from PresenterNotesPane (caller controls font-size px).
- *   • Cues: compact glyph-coded list. Each cue gets a category color
- *     so the presenter can scan to ⚠ DO NOTs or ✅ MUSTs at a glance.
+ *   • Spoken: dominant reading column, broken into NUMBERED BEATS.
+ *     Each beat is its own visual block with a left-side number badge,
+ *     so a presenter who lost their place can scan back to their beat
+ *     in one glance ("I was on beat 3"). Beats are derived from
+ *     paragraph breaks (\n\n) and, within long paragraphs, from
+ *     sentence boundaries — the markdown source stays simple.
+ *   • Cues: collapsed by default — they're stage directions, not the
+ *     main read. A header chip shows the count and expand toggle so
+ *     the presenter can pull them up if needed without them
+ *     dominating the panel.
  *   • Bridge: italic, prominent at the bottom — the segue line.
  *
  * Pause markers in Spoken text:
@@ -21,34 +27,74 @@ import { Clock, Target, AudioLines, MapPin, AlertTriangle, CheckCircle2, LifeBuo
  * Inline ==highlight== works the same as in raw notes.
  */
 export default function StructuredNotesView({ spoken, cues, bridge, fontSizePx }) {
+  const beats = useMemo(() => splitIntoBeats(spoken || ''), [spoken]);
+  // Cues default collapsed — they're scaffolding, not the read.
+  const [cuesOpen, setCuesOpen] = useState(false);
+
   return (
     <div className="flex flex-col gap-4">
-      {/* SPOKEN — the script */}
-      {spoken && (
+      {/* SPOKEN — numbered beats */}
+      {beats.length > 0 && (
         <section
           className="notes-prose notes-prose--reading notes-spoken"
           style={{ fontFamily: 'var(--font-body)', fontSize: `${fontSizePx}px`, lineHeight: 1.55 }}
         >
-          <ReactMarkdown components={notesMarkdownComponents}>{spoken}</ReactMarkdown>
+          <ol className="notes-beats flex flex-col gap-3 list-none p-0 m-0">
+            {beats.map((beat, i) => (
+              <li
+                key={i}
+                className="notes-beat flex gap-3"
+                style={{
+                  padding: '0.5rem 0.75rem 0.5rem 0.5rem',
+                  borderLeft: '2px solid var(--cream-hairline)',
+                  borderRadius: '4px',
+                  background: 'color-mix(in srgb, var(--cream-ghost) 30%, transparent)',
+                }}
+              >
+                <span
+                  className="deck-mono shrink-0 leading-none"
+                  style={{
+                    minWidth: '1.5rem',
+                    paddingTop: '0.15em',
+                    fontSize: '0.7rem',
+                    letterSpacing: 'var(--ls-mono)',
+                    color: 'var(--cream-faint)',
+                  }}
+                >
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <ReactMarkdown components={notesMarkdownComponents}>{beat}</ReactMarkdown>
+                </div>
+              </li>
+            ))}
+          </ol>
         </section>
       )}
 
-      {/* CUES — stage directions */}
+      {/* CUES — collapsed by default */}
       {Array.isArray(cues) && cues.length > 0 && (
         <section className="notes-cues">
-          <div
-            className="deck-mono uppercase mb-1"
+          <button
+            onClick={() => setCuesOpen((v) => !v)}
+            className="deck-mono uppercase flex items-center gap-1.5 mb-1 transition-colors hover:text-[var(--cream)]"
             style={{
               fontSize: '0.58rem',
               letterSpacing: 'var(--ls-mono-wide)',
               color: 'var(--cream-faint)',
             }}
+            aria-expanded={cuesOpen}
+            aria-controls="notes-cues-list"
+            title={cuesOpen ? 'Hide stage directions' : 'Show stage directions'}
           >
-            Cues
-          </div>
-          <ul className="flex flex-col gap-1.5">
-            {cues.map((c, i) => <CueRow key={i} cue={c} />)}
-          </ul>
+            {cuesOpen ? <ChevronDown className="w-3 h-3" /> : <ChevronRight className="w-3 h-3" />}
+            Cues · {cues.length}
+          </button>
+          {cuesOpen && (
+            <ul id="notes-cues-list" className="flex flex-col gap-1.5">
+              {cues.map((c, i) => <CueRow key={i} cue={c} />)}
+            </ul>
+          )}
         </section>
       )}
 
@@ -84,6 +130,47 @@ export default function StructuredNotesView({ spoken, cues, bridge, fontSizePx }
       )}
     </div>
   );
+}
+
+/**
+ * splitIntoBeats — break the spoken text into numbered re-anchorable
+ * units. Strategy:
+ *   1. Split on blank lines (\n\n+) — the author's intentional beat
+ *      boundary in markdown.
+ *   2. For paragraphs longer than ~280 chars, sub-split on sentence
+ *      boundaries while keeping consecutive short sentences together
+ *      (so a beat is always a meaningful sized chunk, not one comma).
+ *
+ * The goal: 4–10 beats per slide. If the user lost their place, they
+ * can spot "I'm at beat 4" in one glance.
+ */
+function splitIntoBeats(spoken) {
+  const trimmed = (spoken || '').trim();
+  if (!trimmed) return [];
+  const paragraphs = trimmed.split(/\n{2,}/g).map((p) => p.trim()).filter(Boolean);
+  const out = [];
+  for (const para of paragraphs) {
+    if (para.length <= 280) {
+      out.push(para);
+      continue;
+    }
+    // Sentence-split on .!? followed by whitespace, but keep the
+    // punctuation. Then greedily merge consecutive sentences into
+    // beats of ~200–320 chars so beats stay readable.
+    const sentences = para.split(/(?<=[.!?])\s+/g).filter(Boolean);
+    let buf = '';
+    for (const s of sentences) {
+      const candidate = buf ? `${buf} ${s}` : s;
+      if (candidate.length > 280 && buf) {
+        out.push(buf);
+        buf = s;
+      } else {
+        buf = candidate;
+      }
+    }
+    if (buf) out.push(buf);
+  }
+  return out;
 }
 
 const CUE_META = {
