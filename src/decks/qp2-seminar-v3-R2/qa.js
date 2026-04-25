@@ -779,6 +779,15 @@ board and come back to it.
 > **If pressed:** I've timed the talk against a stopwatch with the
 > spoken-word counts in the speaker notes — drift is under two minutes
 > either direction.`,
+
+  // ── CS1 Q&A stubs ──────────────────────────────────────────────
+  // Added 2026-04-25 as part of CS1 flow refactor. Empty-but-valid
+  // entries so the renderer doesn't crash on missing keys for the
+  // new slide ids. Full Q&A content (R2R-01 §C 8 probes) to be filled
+  // in a separate prompt.
+  'cs1-question': ``,
+  'cs1-context': ``,
+  'cs1-bracket': ``,
 };
 
 export default qa;

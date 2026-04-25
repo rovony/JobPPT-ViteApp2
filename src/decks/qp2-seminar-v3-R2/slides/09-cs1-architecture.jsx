@@ -4,15 +4,13 @@ import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 
 /**
- * CS1 · Act 2 (Architecture) — Three pillars.
+ * CS1 · Slide 09 — Architecture (three pillars).
  *
- * MIN-DESIGN. The scaffold slide. Modeling sits as Pillar 2 — NOT the
- * whole case. The audience must leave knowing this case has a structure
- * that does not depend solely on the model.
- *
- * v2 design pass: candidate for v2's framework-themes DataflowEngine
- * pattern (3 inputs → 1 decision → 1 outcome) OR three connected
- * vertical columns with a horizontal "supports" bracket joining them.
+ * Renamed from cs1-method → cs1-architecture as part of the CS1 flow
+ * refactor. Content preserved verbatim from the pre-flow-refactor
+ * version. Added forward-pointer hairline annotation below the three-
+ * pillar grid so this slide reads as SETUP for slide 10's exposure-match
+ * climax, not as its own ending.
  */
 
 const PILLARS = [
@@ -37,7 +35,7 @@ const PILLARS = [
   },
 ];
 
-export default function Cs1Method() {
+export default function Cs1Architecture() {
   const reduced = useReducedMotion();
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
@@ -136,11 +134,32 @@ export default function Cs1Method() {
             );
           })}
         </div>
+
+        {/* Forward-pointer to slide 10 — sets up the exposure-match climax.
+            Per CS1 flow refactor: this slide is SETUP for the next slide,
+            not its own ending. Upright deck-body at tagline size. */}
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1.55, ease: [0.2, 0.7, 0.3, 1] }}
+          className="deck-body"
+          style={{
+            marginTop: 'var(--space-5)',
+            fontSize: 'var(--fs-slide-tagline)',
+            color: 'var(--cream)',
+            opacity: 0.82,
+            lineHeight: 1.5,
+            fontWeight: 400,
+            maxWidth: '72ch',
+          }}
+        >
+          The load-bearing piece — the exposure match — is what the next slide is about.
+        </motion.div>
       </Viz>
 
       <Footer
-        delay={reduced ? 0 : 1.8}
-        kicker="Case 01 · Architecture — three pillars"
+        delay={reduced ? 0 : 1.95}
+        kicker="09 · CS1 · ARCHITECTURE"
         tagline="Modeling is the bridge — not the whole case. The pillars stand together or not at all."
       />
     </SlideGrid>

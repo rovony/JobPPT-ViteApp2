@@ -159,7 +159,33 @@ The **methodological precedent** is bosentan — FUTURE-1 and FUTURE-2. PK-bridg
 ## Bridge
 → The Clin Pharm question next — stated precisely in one sentence.`,
 
-  // Slide 08 — CS1 the Clin Pharm question
+  // Slide 07 — CS1 context (merged disease + class) — STUB.
+  // Added 2026-04-25 as part of CS1 flow refactor. Full content to be
+  // filled in a separate prompt; until then, presenter notes can draw
+  // from the legacy 'cs1-disease' and 'cs1-class' entries above.
+  'cs1-context': `## Spoken
+Pediatric PAH. ⏸ **Fourteen to twenty cases per million children** in Europe. Untreated, median survival from diagnosis was historically under one year. With modern multi-modal therapy — ERAs, PDE-5 inhibitors, prostacyclin — five-year survival is now around ninety percent.
+
+⏸ The class arrived at the ambrisentan program with two landmarks.
+
+The **cautionary tale** is sildenafil — STARTS-2 showed a ==hazard ratio of 3.95== for high-versus-low dose mortality. FDA recommended against pediatric use in 2012; EMA approved low-dose only. That closed the door on empirical dose-escalation in this class. ⏸
+
+The **methodological precedent** is bosentan — FUTURE-1 and FUTURE-2 showed PK-bridging worked. Pediatric label achieved.
+
+⏸ One signal that shut down the escalation playbook. One precedent that opened ==exposure-matching as the live alternative==. Ambrisentan's job was to walk through the second door.
+
+## Cues
+- ⏱ 65 sec — two halves: disease scale, then class history
+- 🎚 Lower register on mortality and STARTS-2 numbers
+- 📍 Pause between the two halves — the audience needs to feel the constraint tightening
+- ⚠ Do NOT say "the trial failed" about STARTS-2 — it delivered a safety signal, not a failure
+- ⚠ Do NOT cite FUTURE-2 hepatotox details here — save for Q&A
+- ✅ Land on "exposure-matching as the live alternative"
+
+## Bridge
+→ Trial design next — AMB112529 + LTE.`,
+
+  // Slide 06 — CS1 the Clin Pharm question
   'cs1-question': `## Spoken
 Here is the question we had to answer. ⏸
 
@@ -206,8 +232,9 @@ The PIP commitment from 2008 — code **EMEA-000434-PIP01-08** — was the regul
 ## Bridge
 → Architecture next — three pillars; modeling sits as the middle one.`,
 
-  // Slide 10 — CS1 architecture / three pillars
-  'cs1-method': `## Spoken
+  // Slide 09 — CS1 architecture / three pillars (renamed from cs1-method
+  // as part of CS1 flow refactor 2026-04-25; content preserved verbatim).
+  'cs1-architecture': `## Spoken
 Here is how the case was built. ==Three pillars.==
 
 **Pillar one** — the adult exposure-response anchor. ARIES-1 and ARIES-2 establish the adult AUCss and Cmax,ss across the 2.5, 5, and 10 mg per day doses, with 6MWD improvement and an acceptable safety profile. *This is the curve we match to.*
@@ -253,10 +280,31 @@ The structural model — two-compartment with absorption lag — was the structu
 ## Bridge
 → Regulatory verdicts next — three regions, three outcomes, one of them honest.`,
 
-  // Slide 12 — CS1 regulatory decision (world map · EMA + PMDA highlighted)
-  // FDA intentionally NOT on the slide visual. The honest-framing about
-  // FDA-never-filed lives in Q&A defense, not on stage.
-  'cs1-decision': `## Spoken
+  // Slide 12 — CS1 Bracket Method (leadership ownership) — STUB.
+  // Added 2026-04-25 as part of CS1 flow refactor. Full content to be
+  // filled in a separate prompt; placement is intentional — leadership
+  // earns the verdict on slide 13, not trailing as gratitude.
+  'cs1-bracket': `## Spoken
+[TODO — speaker notes for cs1-bracket, ~50 sec runtime. Walk LEFT
+column (I OWNED — model, ER analysis, EMA PIP narrative) then RIGHT
+column (TEAM OWNED — Beghetti/Berger/Lukas/Ivy on trial conduct,
+sites on LTE retention, clinical operations on PK sampling, Beerahee
+on filing, the field on trust). Land the bottom thesis line cleanly:
+both sides of that bracket had to hold for the agencies to act.]
+
+## Cues
+- ⏱ 50 sec — own the modeling claim, credit the team genuinely
+- 🎚 Slow on collaborator names — pronunciation matters
+- ⚠ Do NOT linger; this is leadership signaling, not a CV recital
+- ✅ Land on "both sides had to hold" before advancing to verdict
+
+## Bridge
+→ Regulatory verdicts next — what those agencies actually said.`,
+
+  // Slide 13 — CS1 regulatory verdicts (world map · EMA + PMDA highlighted).
+  // Renamed from cs1-decision as part of CS1 flow refactor 2026-04-25;
+  // content preserved verbatim. FDA intentionally NOT on the slide visual.
+  'cs1-verdict': `## Spoken
 Two regulators accepted exposure-matching as the regulatory bridge. ⏸
 
 The **EMA approved** in 2021 — the pediatric label was supported on the AMB112529 plus LTE PopPK package. The PIP commitment, signed in 2008, was fulfilled. ==Twenty-seven member states, plus EEA.==

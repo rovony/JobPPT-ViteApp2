@@ -31,6 +31,8 @@ export default function Lungs({
   variant = 'hero',
   color = 'var(--coral)',
   className = '',
+  widthOverride,
+  opacity,
 }) {
   const dims = DIMENSIONS[variant] || DIMENSIONS.hero;
   const isHero = variant === 'hero';
@@ -47,12 +49,13 @@ export default function Lungs({
       }}
       className={`lung-shared ${isHero ? 'lung-hero' : 'lung-context'} ${className}`}
       style={{
-        width: dims.width,
+        width: widthOverride || dims.width,
         maxHeight: '100%',
         aspectRatio: dims.aspectRatio,
         color,
         pointerEvents: 'none',
         userSelect: 'none',
+        ...(opacity != null ? { opacity } : {}),
       }}
       aria-hidden
     >

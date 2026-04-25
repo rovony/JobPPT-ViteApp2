@@ -36,14 +36,14 @@ import HookATrialNotAnswer from './slides/02-hook-A-trial-not-answer';
 import CareerArc from './slides/03-career-arc';
 import Roadmap from './slides/04-roadmap';
 import Cs1Divider from './slides/05-cs1-divider';
-import Cs1Disease from './slides/06-cs1-disease';
-import Cs1Class from './slides/07-cs1-class';
-import Cs1Question from './slides/08-cs1-question';
-import Cs1Trial from './slides/09-cs1-trial';
-import Cs1Method from './slides/10-cs1-method';
-import Cs1Results from './slides/11-cs1-results';
-import Cs1Decision from './slides/12-cs1-decision';
-import Cs1Outcome from './slides/13-cs1-outcome';
+import Cs1Question from './slides/06-cs1-question';
+import Cs1Context from './slides/07-cs1-context';
+import Cs1Trial from './slides/08-cs1-trial';
+import Cs1Architecture from './slides/09-cs1-architecture';
+import Cs1Results from './slides/10-cs1-results';
+import Cs1Outcome from './slides/11-cs1-outcome';
+import Cs1Bracket from './slides/12-cs1-bracket';
+import Cs1Verdict from './slides/13-cs1-verdict';
 import Cs1Lesson from './slides/14-cs1-lesson';
 import Cs1Bridge from './slides/15-cs1-bridge';
 import CS2Divider from './slides/cs2-01-divider';
@@ -60,7 +60,7 @@ import StubSlide from './slides/_StubSlide';
 
 import notes from './notes';
 import qa from './qa';
-import reading from './reading';
+import reading from './reading/index';
 
 /** Helper: build a stub manifest entry whose `component` is a stable
  *  wrapper around the shared StubSlide with the given props baked in.
@@ -128,38 +128,46 @@ const manifest = {
     // 04 — roadmap (the agenda — names CS1 amb / CS2 ivo / CS3 AI/ML)
     { id: 'roadmap', title: 'Roadmap · three cases, one discipline', component: Roadmap, isTitle: false },
 
-    // 05 — CS1 case divider (coral cascade starts here)
-    { id: 'cs1-divider', title: 'Case 01 · Ambrisentan', component: Cs1Divider, isTitle: true },
+    // ══════════════════════════════════════════════════════════════
+    // CS1 — Ambrisentan · post flow refactor (2026-04-25)
+    // Order: divider → question → context → trial → architecture →
+    // results → outcome → bracket → verdict → lesson → bridge.
+    // Question front-loaded; Bracket Method earns the verdict; bridge
+    // tagline hook-aware via top-of-file constant.
+    // ══════════════════════════════════════════════════════════════
 
-    // 06 — CS1 disease backstory (BG-1)
-    { id: 'cs1-disease', title: 'CS1 · disease + unmet need', component: Cs1Disease, isTitle: false },
+    // 05 — CS1 case divider (coral cascade starts here; lung morph source)
+    { id: 'cs1-divider', title: 'Case 01 · Ambrisentan', component: Cs1Divider, isTitle: true, transition: 'fade' },
 
-    // 07 — CS1 class history (BG-2)
-    { id: 'cs1-class', title: 'CS1 · class history', component: Cs1Class, isTitle: false },
+    // 06 — CS1 the Clin Pharm question (lung morph destination)
+    { id: 'cs1-question', title: 'CS1 · the question', component: Cs1Question, isTitle: false, transition: 'fade' },
 
-    // 08 — CS1 the Clin Pharm question (Act 1 Setup)
-    { id: 'cs1-question', title: 'CS1 · the Clin Pharm question', component: Cs1Question, isTitle: false },
+    // 07 — CS1 context (merged disease + class)
+    { id: 'cs1-context', title: 'CS1 · why the question is hard', component: Cs1Context, isTitle: false, transition: 'fade' },
 
-    // 09 — CS1 trial design + LTE (Act 4 Velocity)
-    { id: 'cs1-trial', title: 'CS1 · AMB112529 + LTE', component: Cs1Trial, isTitle: false },
+    // 08 — CS1 trial design + LTE
+    { id: 'cs1-trial', title: 'CS1 · AMB112529 + LTE', component: Cs1Trial, isTitle: false, transition: 'fade' },
 
-    // 10 — CS1 architecture (Act 2 — three pillars)
-    { id: 'cs1-method', title: 'CS1 · three pillars', component: Cs1Method, isTitle: false },
+    // 09 — CS1 architecture (three pillars; ends pointing forward)
+    { id: 'cs1-architecture', title: 'CS1 · three pillars', component: Cs1Architecture, isTitle: false, transition: 'fade' },
 
-    // 11 — CS1 decisive move (Act 3 — exposure-match within 3%)
-    { id: 'cs1-results', title: 'CS1 · within 3% of adult', component: Cs1Results, isTitle: false },
+    // 10 — CS1 results (the 3% match — single hero numeral)
+    { id: 'cs1-results', title: 'CS1 · within 3% of adult', component: Cs1Results, isTitle: false, transition: 'fade' },
 
-    // 12 — CS1 regulatory verdicts (Act 5a — EMA/PMDA approved · FDA never filed)
-    { id: 'cs1-decision', title: 'CS1 · regulatory verdicts', component: Cs1Decision, isTitle: false },
+    // 11 — CS1 clinical outcome
+    { id: 'cs1-outcome', title: 'CS1 · the numbers', component: Cs1Outcome, isTitle: false, transition: 'fade' },
 
-    // 13 — CS1 clinical numbers + honest framing (Act 5b — 17%, 7/38 LTE)
-    { id: 'cs1-outcome', title: 'CS1 · the numbers', component: Cs1Outcome, isTitle: false },
+    // 12 — CS1 Bracket Method (leadership ownership before the verdict)
+    { id: 'cs1-bracket', title: 'CS1 · ownership', component: Cs1Bracket, isTitle: false, transition: 'fade' },
 
-    // 14 — CS1 what this case proves (Act 7 — three Director-level lessons)
-    { id: 'cs1-lesson', title: 'CS1 · what this case proves', component: Cs1Lesson, isTitle: false },
+    // 13 — CS1 regulatory verdicts
+    { id: 'cs1-verdict', title: 'CS1 · regulatory verdicts', component: Cs1Verdict, isTitle: false, transition: 'fade' },
 
-    // 15 — CS1 → CS2 bridge
-    { id: 'cs1-bridge', title: 'CS1 → CS2 bridge', component: Cs1Bridge, isTitle: false },
+    // 14 — CS1 what this case proves (portable Director-level lessons)
+    { id: 'cs1-lesson', title: 'CS1 · what this case proves', component: Cs1Lesson, isTitle: false, transition: 'fade' },
+
+    // 15 — CS1 → CS2 bridge (hook-aware tagline)
+    { id: 'cs1-bridge', title: 'CS1 → CS2 bridge', component: Cs1Bridge, isTitle: false, transition: 'fade' },
 
     // ══════════════════════════════════════════════════════════════
     // CS2 — Ivosidenib · India CDSCO regulatory waiver · CYAN

@@ -21,7 +21,7 @@ import RegulatoryMap, { EMA_TERRITORY, PMDA_TERRITORY } from '../components/Regu
  * copied to v3-R2/assets/world-map.svg.
  */
 
-export default function Cs1Decision() {
+export default function Cs1Verdict() {
   const reduced = useReducedMotion();
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
@@ -61,6 +61,7 @@ export default function Cs1Decision() {
             arrow={{ from: 'right', toX: '52%', toY: '40%' }}
             agency="EMA"
             region="European Union · 27 member states + 2 EEA"
+            summary="PIP completed · pediatric label supported · weight-band dosing"
             verdict="APPROVED · 2021"
             note="Pediatric label supported on AMB112529 + LTE PopPK package. PIP commitment EMEA-000434-PIP01-08 fulfilled."
             delay={1.0}
@@ -73,6 +74,7 @@ export default function Cs1Decision() {
             arrow={{ from: 'left', toX: '85%', toY: '46%' }}
             agency="PMDA"
             region="Japan"
+            summary="Pediatric extrapolation accepted · Japanese PK bridging"
             verdict="APPROVED · 2021"
             note="Pediatric extrapolation argument accepted in parallel with EMA — same Clin Pharm package, second favorable verdict."
             delay={1.3}
@@ -83,8 +85,8 @@ export default function Cs1Decision() {
 
       <Footer
         delay={reduced ? 0 : 1.8}
-        kicker="Case 01 · Outcome (regulatory) — two harmonized frameworks said yes"
-        tagline="Same dossier, two agencies, one methodological argument."
+        kicker="13 · CS1 · VERDICT"
+        tagline="Two yeses on the model. The third agency answer lives in Q&A."
         source="Source · EMA Volibris EPAR 2021 · PMDA pediatric label 2021 · Okour 2023 J Clin Pharmacol"
       />
     </SlideGrid>
@@ -92,7 +94,7 @@ export default function Cs1Decision() {
 }
 
 /* ─────────── Callout card with anchor arrow ─────────── */
-function Callout({ position, arrow, agency, region, verdict, note, delay, reduced }) {
+function Callout({ position, arrow, agency, region, summary, verdict, note, delay, reduced }) {
   return (
     <>
       <motion.div
@@ -133,6 +135,18 @@ function Callout({ position, arrow, agency, region, verdict, note, delay, reduce
         }}>
           {agency}
         </div>
+        {summary && (
+          <div className="deck-body" style={{
+            fontSize: 'var(--fs-slide-subhead)',
+            color: 'var(--cream)',
+            opacity: 0.84,
+            lineHeight: 1.4,
+            marginTop: 'var(--space-1)',
+            fontWeight: 400,
+          }}>
+            {summary}
+          </div>
+        )}
         <div className="deck-mono" style={{
           fontSize: 'var(--fs-slide-name)',
           color: 'var(--coral)',
