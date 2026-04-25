@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Sparkles, Send, Loader2, Lightbulb, Mic, Square, FolderOpen, BookOpen, Globe, StickyNote, Settings, Cpu, AlertTriangle, Database, RefreshCw, ChevronDown, ChevronRight, Zap, GraduationCap } from 'lucide-react';
+import { Sparkles, Send, Loader2, Lightbulb, Mic, Square, FolderOpen, BookOpen, Globe, StickyNote, Settings, Cpu, AlertTriangle, Database, RefreshCw, ChevronDown, ChevronRight, Zap, GraduationCap, Bug, Trash2 } from 'lucide-react';
 import { useAmbientListen } from '@/lib/useAmbientListen';
 import { useDictation } from '@/lib/useDictation';
 import {
@@ -66,19 +66,21 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
      send() and clear the input — no manual "click to send" step. */
   const dictation = useDictation({
     onInterim: (text) => {
-      // Mirror the live transcript into the input so the user can SEE
-      // what's being heard. This is the single most important piece of
-      // voice-UI feedback — without it dictation feels broken even when
-      // it's working.
+      console.info('[assistant] onInterim', { len: text.length, preview: text.slice(0, 60) });
       setInput(text);
     },
     onFinal: (text) => {
+      console.info('[assistant] onFinal', { text });
       const trimmed = (text || '').trim();
-      if (!trimmed) return;
+      if (!trimmed) {
+        console.warn('[assistant] onFinal: empty text — not sending');
+        return;
+      }
       setInput('');
       send(trimmed);
     },
   });
+  const [debugOpen, setDebugOpen] = useState(false);
 
   /* Re-check the localStorage key when the settings modal closes — if
      the user pasted a new one, the assistant header should pick up the
@@ -215,13 +217,22 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
      (Phase 14 scope expansion). */
   const send = async (text) => {
     const q = (text ?? input).trim();
-    if (!q || loading) return;
+    console.info('[assistant] send()', { q, loading, fromVoice: text != null });
+    if (!q) {
+      console.warn('[assistant] send(): empty question — abort');
+      return;
+    }
+    if (loading) {
+      console.warn('[assistant] send(): already loading — abort');
+      return;
+    }
     const nextMsgs = [...messages, { role: 'user', content: q }];
     setMessages(nextMsgs);
     setInput('');
     setLoading(true);
 
     const reply = await getReply(q, nextMsgs);
+    console.info('[assistant] reply received', { mode: reply.mode, len: reply.content?.length });
     setMessages([...nextMsgs, reply]);
     setLoading(false);
   };
@@ -343,6 +354,16 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
           </button>
         )}
         <button
+          onClick={() => setDebugOpen((v) => !v)}
+          title="Toggle voice/AI debug log (also see DevTools console)"
+          aria-label="Debug panel"
+          aria-pressed={debugOpen}
+          className="h-7 w-7 rounded flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)]"
+          style={{ color: debugOpen ? 'var(--case, var(--amber))' : 'var(--cream-faint)' }}
+        >
+          <Bug className="w-3.5 h-3.5" />
+        </button>
+        <button
           onClick={() => setSettingsOpen(true)}
           title={localKeyPresent ? 'AI assistant settings' : 'Set up local OpenAI key'}
           aria-label="AI assistant settings"
@@ -352,6 +373,18 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
           {localKeyPresent ? <Settings className="w-3.5 h-3.5" /> : <AlertTriangle className="w-3.5 h-3.5" />}
         </button>
       </div>
+
+      {debugOpen && (
+        <DebugPanel
+          dictation={dictation}
+          presenterMode={presenterMode}
+          ragConfigured={isQdrantConfigured()}
+          ragStatus={ragStatus}
+          loading={loading}
+          input={input}
+          onClose={() => setDebugOpen(false)}
+        />
+      )}
 
       {/* Ambient listen — sits above the chat so detected questions
           are the first thing the presenter sees. Collapses to a
@@ -794,6 +827,156 @@ function ModeToggle({ value, onChange }) {
       <Btn which="rehearse" label="Rehearse" Icon={GraduationCap} />
     </div>
   );
+}
+
+/**
+ * DebugPanel — surfaces the dictation event log + a snapshot of the
+ * assistant's runtime state, INSIDE the assistant pane so the user
+ * doesn't have to crack open DevTools to figure out why a tap on the
+ * mic produced no answer.
+ *
+ * The same events are also written to console.info under [dictation]
+ * and [assistant] tags. This panel is the at-a-glance UI mirror.
+ */
+function DebugPanel({ dictation, presenterMode, ragConfigured, ragStatus, loading, input, onClose }) {
+  const ev = dictation.events || [];
+  return (
+    <div
+      className="border-b px-3 py-2 flex flex-col gap-1.5"
+      style={{
+        borderBottomColor: 'var(--cream-hairline)',
+        background: 'color-mix(in srgb, var(--cream-ghost) 60%, var(--bg) 40%)',
+      }}
+    >
+      <div className="flex items-center justify-between">
+        <div
+          className="deck-mono uppercase flex items-center gap-1.5"
+          style={{
+            fontSize: '0.55rem',
+            letterSpacing: 'var(--ls-mono-wide)',
+            color: 'var(--case, var(--amber))',
+          }}
+        >
+          <Bug className="w-3 h-3" /> Debug · voice + AI
+        </div>
+        <div className="flex items-center gap-1">
+          <button
+            onClick={dictation.clearEvents}
+            title="Clear event log"
+            aria-label="Clear event log"
+            className="h-6 w-6 rounded flex items-center justify-center hover:bg-[var(--cream-ghost)]"
+            style={{ color: 'var(--cream-faint)' }}
+          >
+            <Trash2 className="w-3 h-3" />
+          </button>
+          <button
+            onClick={onClose}
+            aria-label="Close debug panel"
+            className="h-6 w-6 rounded flex items-center justify-center hover:bg-[var(--cream-ghost)]"
+            style={{ color: 'var(--cream-faint)' }}
+          >
+            <ChevronDown className="w-3 h-3" />
+          </button>
+        </div>
+      </div>
+
+      {/* Snapshot row — current state at a glance */}
+      <div
+        className="grid grid-cols-2 gap-x-3 gap-y-0.5 deck-mono"
+        style={{
+          fontSize: '0.58rem',
+          letterSpacing: 'var(--ls-mono)',
+          color: 'var(--cream-muted)',
+        }}
+      >
+        <KV k="mic supported" v={String(dictation.supported)} ok={dictation.supported} />
+        <KV k="mic listening" v={String(dictation.listening)} />
+        <KV k="mic error" v={dictation.error || '—'} bad={!!dictation.error} />
+        <KV k="presenter mode" v={presenterMode} />
+        <KV k="loading" v={String(loading)} />
+        <KV k="qdrant" v={ragConfigured ? `${ragStatus?.state || 'idle'}` : 'not configured'} />
+        <KV k="input chars" v={String(input?.length || 0)} />
+        <KV k="ua" v={navigator.userAgent.slice(0, 40) + '…'} />
+      </div>
+
+      {/* Event log */}
+      <div
+        className="rounded border overflow-y-auto deck-mono"
+        style={{
+          maxHeight: 180,
+          borderColor: 'var(--cream-hairline)',
+          background: 'var(--bg)',
+          fontSize: '0.55rem',
+          letterSpacing: 'var(--ls-mono)',
+        }}
+      >
+        {ev.length === 0 ? (
+          <div className="px-2 py-2" style={{ color: 'var(--cream-faint)' }}>
+            No events yet — tap the mic, press M, or open settings to generate
+            traces. Open DevTools console (View → Developer → JavaScript Console)
+            to see the same lines tagged <code>[dictation]</code> /{' '}
+            <code>[assistant]</code>.
+          </div>
+        ) : (
+          <ul className="divide-y" style={{ borderColor: 'var(--cream-hairline)' }}>
+            {ev.map((e, i) => (
+              <li key={i} className="px-2 py-1 flex gap-2 items-start">
+                <span style={{ color: 'var(--cream-faint)', minWidth: '4ch' }}>
+                  {fmtTime(e.ts)}
+                </span>
+                <span style={{ color: 'var(--case, var(--amber))', minWidth: '12ch' }}>
+                  {e.tag}
+                </span>
+                <span style={{ color: 'var(--cream)', flex: 1, wordBreak: 'break-word' }}>
+                  {e.msg}
+                  {e.extra ? (
+                    <span style={{ color: 'var(--cream-faint)', marginLeft: 6 }}>
+                      {typeof e.extra === 'string' ? e.extra : JSON.stringify(e.extra)}
+                    </span>
+                  ) : null}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      <div
+        className="deck-mono"
+        style={{
+          fontSize: '0.55rem',
+          letterSpacing: 'var(--ls-mono)',
+          color: 'var(--cream-faint)',
+          lineHeight: 1.45,
+        }}
+      >
+        <strong style={{ color: 'var(--cream-muted)' }}>Important:</strong>{' '}
+        the amber "LISTENING" pill above the chat is{' '}
+        <strong>AMBIENT LISTEN</strong> — for picking up audience questions.
+        Your dictation mic is the round button at the bottom-right of the
+        input row, or press <kbd>M</kbd>.
+      </div>
+    </div>
+  );
+}
+
+function KV({ k, v, ok, bad }) {
+  return (
+    <div className="flex gap-2 items-baseline">
+      <span style={{ color: 'var(--cream-faint)' }}>{k}</span>
+      <span style={{
+        color: bad ? 'var(--coral)' : ok ? 'var(--sage)' : 'var(--cream)',
+        wordBreak: 'break-all',
+      }}>
+        {v}
+      </span>
+    </div>
+  );
+}
+
+function fmtTime(ts) {
+  const d = new Date(ts);
+  return `${String(d.getMinutes()).padStart(2, '0')}:${String(d.getSeconds()).padStart(2, '0')}`;
 }
 
 function ModeAndCitations({ mode, citations }) {
