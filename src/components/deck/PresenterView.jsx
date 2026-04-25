@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, X, MonitorPlay, Maximize, Minimize, HelpCircle, FolderOpen, PanelRightClose, PanelRightOpen, BookOpen } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X, MonitorPlay, Maximize, Minimize, HelpCircle, FolderOpen, PanelRightClose, PanelRightOpen, BookOpen, LayoutPanelLeft, ArrowUp, ArrowDown } from 'lucide-react';
 import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels';
 import { useDeck } from '@/lib/deck-store';
 import { useSpeakerNotes } from '@/lib/useSpeakerNotes';
 import { useAnticipatedQA } from '@/lib/useAnticipatedQA';
+import { usePresenterLayout, SECTION_LABEL } from '@/lib/usePresenterLayout';
 import { makeChannel, broadcast, subscribe } from '@/lib/presenter-sync';
 import PresenterTimer from './PresenterTimer';
 import SlidePreview from './SlidePreview';
@@ -14,6 +15,15 @@ import ShortcutsOverlay from './ShortcutsOverlay';
 import DeckSourcesDialog from './DeckSourcesDialog';
 import QAModerationPane from './QAModerationPane';
 import ReadingMaterialPane from './ReadingMaterialPane';
+import PresenterLayoutSettings from './PresenterLayoutSettings';
+
+/** Defaults for the three right-column sections — kept as a config map
+ *  so dynamic ordering (Layout settings) doesn't lose per-section sizing. */
+const RIGHT_PANEL_CONFIG = {
+  nowTile:    { defaultSize: 40, minSize: 20 },
+  nextTile:   { defaultSize: 20, minSize: 12 },
+  audienceQA: { defaultSize: 40, minSize: 20 },
+};
 
 /**
  * PresenterView v2 — notes-centric layout for live delivery.
@@ -55,6 +65,10 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
   const [helpOpen, setHelpOpen] = useState(false);
   const [sourcesOpen, setSourcesOpen] = useState(false);
   const [readingOpen, setReadingOpen] = useState(false);
+  const [layoutOpen, setLayoutOpen] = useState(false);
+  // Per-device section visibility + order (left/center/right columns).
+  // Persisted under presenter:layout — survives reloads, scoped to device.
+  const layout = usePresenterLayout();
   // Notes pane collapse — persisted so the presenter's preference survives reloads.
   const [notesCollapsed, setNotesCollapsed] = useState(() => {
     try { return localStorage.getItem('presenter:notes-collapsed') === '1'; } catch { return false; }
@@ -176,6 +190,9 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
               <BookOpen className="w-3.5 h-3.5" /> Reading
             </IconPill>
           )}
+          <IconPill onClick={() => setLayoutOpen(true)} title="Show, hide, and reorder sections">
+            <LayoutPanelLeft className="w-3.5 h-3.5" /> Layout
+          </IconPill>
           <IconPill onClick={() => setSourcesOpen(true)} title="Deck sources (AI library)">
             <FolderOpen className="w-3.5 h-3.5" /> Sources
           </IconPill>
@@ -210,18 +227,22 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
       <div className="flex-1 min-h-0 px-2 py-3">
         <PanelGroup direction="horizontal" autoSaveId="presenter-cols">
           {/* ── LEFT: AI assistant ─────────────────────── */}
-          <Panel defaultSize={24} minSize={16} order={1}>
-            <div className="h-full px-2">
-              <PresenterAssistant
-                deck={deck}
-                currentSlide={current}
-                currentNote={currentNote}
-                onOpenSources={() => setSourcesOpen(true)}
-              />
-            </div>
-          </Panel>
+          {layout.visibility.assistant && (
+            <>
+              <Panel defaultSize={24} minSize={16} order={1} id="left-assistant">
+                <div className="h-full px-2">
+                  <PresenterAssistant
+                    deck={deck}
+                    currentSlide={current}
+                    currentNote={currentNote}
+                    onOpenSources={() => setSourcesOpen(true)}
+                  />
+                </div>
+              </Panel>
 
-          <VResizeHandle />
+              <VResizeHandle />
+            </>
+          )}
 
           {/* ── CENTER: speaker notes (collapsible sidebar) ── */}
           <Panel
@@ -262,30 +283,43 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
                   {!loaded ? 'Loading…' : saving ? 'Saving…' : 'Autosaved'}
                 </span>
               </div>
-              <PresenterNotesPane
-                value={editing ? draft : currentNote}
-                onChange={onDraftChange}
-                editing={editing}
-                setEditing={setEditing}
-                placeholder="No notes yet. Click Edit to add speaker notes — supports **bold**, *italic*, ==highlight==, bullets, and headings."
-                slideKey={current?.id || index}
-                hasOverride={current ? hasOverride(current.id) : false}
-                onResetToFile={current ? () => { clearNote(current.id); setEditing(false); } : undefined}
-              />
-              {/* Anticipated Q&A — collapsible section below the notes
-                  textarea. Auto-expanded when the slide has prep content,
-                  auto-collapsed otherwise. Lives in the same Center column
-                  so notes + Q&A are scannable in one glance during delivery. */}
-              <AnticipatedQAPane
-                value={currentQA}
-                onChange={onQAChange}
-                editing={qaEditing}
-                setEditing={setQaEditing}
-                slideKey={current?.id || index}
-                itemCount={currentQACount}
-                hasOverride={current ? hasQAOverride(current.id) : false}
-                onResetToFile={current ? () => { clearQA(current.id); setQaEditing(false); } : undefined}
-              />
+              {/* Render center sections in user-defined order, skipping
+                  hidden ones. centerOrder ⊂ {notes, anticipatedQA}. */}
+              {layout.centerOrder
+                .filter((k) => layout.visibility[k])
+                .map((key) => {
+                  if (key === 'notes') {
+                    return (
+                      <PresenterNotesPane
+                        key="notes"
+                        value={editing ? draft : currentNote}
+                        onChange={onDraftChange}
+                        editing={editing}
+                        setEditing={setEditing}
+                        placeholder="No notes yet. Click Edit to add speaker notes — supports **bold**, *italic*, ==highlight==, bullets, and headings."
+                        slideKey={current?.id || index}
+                        hasOverride={current ? hasOverride(current.id) : false}
+                        onResetToFile={current ? () => { clearNote(current.id); setEditing(false); } : undefined}
+                      />
+                    );
+                  }
+                  if (key === 'anticipatedQA') {
+                    return (
+                      <AnticipatedQAPane
+                        key="anticipatedQA"
+                        value={currentQA}
+                        onChange={onQAChange}
+                        editing={qaEditing}
+                        setEditing={setQaEditing}
+                        slideKey={current?.id || index}
+                        itemCount={currentQACount}
+                        hasOverride={current ? hasQAOverride(current.id) : false}
+                        onResetToFile={current ? () => { clearQA(current.id); setQaEditing(false); } : undefined}
+                      />
+                    );
+                  }
+                  return null;
+                })}
               <div className="deck-mono mt-2 px-1"
                    style={{ fontSize: '0.6rem', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}>
                 ← → navigate · P close · N toggle notes · ? help
@@ -315,41 +349,64 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
             </button>
           )}
 
-          <VResizeHandle />
-
-          {/* ── RIGHT: tiles (top) + Q&A (bottom), vertically resizable ─────── */}
-          <Panel defaultSize={26} minSize={20} order={3}>
-            <div className="h-full px-2">
-              <PanelGroup direction="vertical" autoSaveId="presenter-tiles">
-                <Panel defaultSize={40} minSize={20}>
-                  <TilePanel
-                    label="Now on screen"
-                    labelColor="var(--case, var(--amber))"
-                    sublabel={current?.title}
-                    SlideComponent={current?.component}
-                    deck={deck}
-                    emphasis
-                  />
-                </Panel>
-                <HResizeHandle />
-                <Panel defaultSize={20} minSize={12}>
-                  <TilePanel
-                    label="Next up"
-                    labelColor="var(--cream-faint)"
-                    sublabel={nextSlide?.title || '— end of deck —'}
-                    SlideComponent={nextSlide?.component}
-                    deck={deck}
-                  />
-                </Panel>
-                <HResizeHandle />
-                <Panel defaultSize={40} minSize={20}>
-                  <div className="h-full pt-1">
-                    <QAModerationPane deck={deck} currentSlide={current} />
-                  </div>
-                </Panel>
-              </PanelGroup>
-            </div>
-          </Panel>
+          {/* ── RIGHT column ──────────────────────────────────────────
+               Three sub-sections (now tile, next tile, audience Q&A)
+               in a vertical PanelGroup. User can hide any/all of them
+               and reorder via the Layout settings dialog.
+               ───────────────────────────────────────────────────────── */}
+          {layout.rightOrder.some((k) => layout.visibility[k]) && (
+            <>
+              <VResizeHandle />
+              <Panel defaultSize={26} minSize={20} order={3} id="right-col">
+                <div className="h-full px-2">
+                  <PanelGroup direction="vertical" autoSaveId="presenter-tiles">
+                    {layout.rightOrder
+                      .filter((k) => layout.visibility[k])
+                      .map((key, idx, arr) => {
+                        const isLast = idx === arr.length - 1;
+                        const cfg = RIGHT_PANEL_CONFIG[key];
+                        return (
+                          <React.Fragment key={key}>
+                            <Panel
+                              defaultSize={cfg.defaultSize}
+                              minSize={cfg.minSize}
+                              id={`right-${key}`}
+                              order={idx + 1}
+                            >
+                              {key === 'nowTile' && (
+                                <TilePanel
+                                  label="Now on screen"
+                                  labelColor="var(--case, var(--amber))"
+                                  sublabel={current?.title}
+                                  SlideComponent={current?.component}
+                                  deck={deck}
+                                  emphasis
+                                />
+                              )}
+                              {key === 'nextTile' && (
+                                <TilePanel
+                                  label="Next up"
+                                  labelColor="var(--cream-faint)"
+                                  sublabel={nextSlide?.title || '— end of deck —'}
+                                  SlideComponent={nextSlide?.component}
+                                  deck={deck}
+                                />
+                              )}
+                              {key === 'audienceQA' && (
+                                <div className="h-full pt-1">
+                                  <QAModerationPane deck={deck} currentSlide={current} />
+                                </div>
+                              )}
+                            </Panel>
+                            {!isLast && <HResizeHandle />}
+                          </React.Fragment>
+                        );
+                      })}
+                  </PanelGroup>
+                </div>
+              </Panel>
+            </>
+          )}
         </PanelGroup>
       </div>
 
@@ -404,6 +461,11 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
         onClose={() => setReadingOpen(false)}
         readingItems={deck.reading || []}
         deckTitle={deck.title}
+      />
+      <PresenterLayoutSettings
+        open={layoutOpen}
+        onClose={() => setLayoutOpen(false)}
+        layout={layout}
       />
     </div>
   );
