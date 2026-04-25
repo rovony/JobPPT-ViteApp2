@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { AnimatePresence, LayoutGroup, MotionConfig } from 'framer-motion';
 import { DeckProvider, useDeck, useKeyboardNav } from '@/lib/deck-store';
-import { useDeckOrder } from '@/lib/useDeckOrder';
+import { useDeckOverrides } from '@/lib/useDeckOverrides';
 import { useFullscreen } from '@/lib/useFullscreen';
 import { useSlideTracker } from '@/lib/useSlideTracker';
 import { getDeck } from '@/decks/registry';
@@ -327,13 +327,21 @@ function DeckStage({ deck }) {
   );
 }
 
-/** Wrap deck with the runtime-ordered slides from useDeckOrder.
- *  Returns the original deck (same identity) when no override is active
- *  to avoid spurious renders for the common case. */
+/** Wrap deck with the runtime-ordered slides from useDeckOverrides.
+ *  When the user has reordered slides via the Overview's drag-and-drop
+ *  (powered by @hello-pangea/dnd), the resulting `ordered` array drives
+ *  presentation order — slides advance in the user's order, and the
+ *  dynamic NN/TT footer numbering reflects it live. When no overrides
+ *  are active, returns deck unchanged (no re-renders). */
 function useOrderedDeck(deck) {
-  const { slides, hasOverride } = useDeckOrder(deck);
-  if (!hasOverride) return deck;
-  return { ...deck, slides };
+  const { ordered } = useDeckOverrides(deck.id, deck.slides);
+  // If `ordered` is identity-equal to the manifest (no reorder applied),
+  // return the original deck so consumers don't see a new object reference.
+  const sameOrder =
+    ordered.length === deck.slides.length &&
+    ordered.every((s, i) => s.id === deck.slides[i].id);
+  if (sameOrder) return deck;
+  return { ...deck, slides: ordered };
 }
 
 export default function DeckRunner() {
