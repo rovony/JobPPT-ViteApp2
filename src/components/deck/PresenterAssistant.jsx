@@ -82,6 +82,18 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
   });
   const [debugOpen, setDebugOpen] = useState(false);
 
+  /* Auto-open the debug panel as soon as dictation reports an error so
+     the user doesn't have to know to click the bug icon. Closing it
+     manually after that respects the user's choice. */
+  const sawErrorRef = useRef(false);
+  useEffect(() => {
+    if (dictation.error && !sawErrorRef.current) {
+      sawErrorRef.current = true;
+      setDebugOpen(true);
+    }
+    if (!dictation.error) sawErrorRef.current = false;
+  }, [dictation.error]);
+
   /* Re-check the localStorage key when the settings modal closes — if
      the user pasted a new one, the assistant header should pick up the
      "Local mode (key set)" indicator without a reload. */
@@ -456,6 +468,15 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
         )}
       </div>
 
+      {/* MIC STATUS banner — always visible above the input so the user
+          sees what dictation is doing without opening any panel. This
+          is the load-bearing UI for "did my mic tap actually do
+          something?". */}
+      <MicStatusBanner
+        dictation={dictation}
+        onOpenDebug={() => setDebugOpen(true)}
+      />
+
       {/* Input row — text field + tap-once dictation + send */}
       <form
         onSubmit={(e) => { e.preventDefault(); send(); }}
@@ -825,6 +846,128 @@ function ModeToggle({ value, onChange }) {
     <div className="flex items-center gap-1">
       <Btn which="live" label="Live" Icon={Zap} />
       <Btn which="rehearse" label="Rehearse" Icon={GraduationCap} />
+    </div>
+  );
+}
+
+/**
+ * MicStatusBanner — always-visible mic state strip above the input.
+ *
+ * Five states, each with distinct color + copy:
+ *   IDLE      — quiet hint, neutral
+ *   LISTENING — pulsing amber, "say something" loud and clear
+ *   ERROR     — coral, with the actual error code + a fix link
+ *               (clicking it opens the debug panel)
+ *   UNSUPPORTED — coral, browser doesn't support Web Speech
+ *
+ * Why this exists: the previous design made the mic state visible
+ * only inside the messages list (above suggestions) which scrolls
+ * away once chat starts, AND inside the debug panel which the user
+ * has to know to open. Neither is enough. The banner sits in fixed
+ * geometry right above the input — impossible to miss.
+ */
+function MicStatusBanner({ dictation, onOpenDebug }) {
+  if (!dictation.supported) {
+    return (
+      <div
+        className="px-3 py-2 border-t flex items-start gap-2"
+        style={{
+          borderTopColor: 'var(--cream-hairline)',
+          background: 'color-mix(in srgb, var(--coral) 8%, transparent)',
+        }}
+      >
+        <AlertTriangle className="w-3.5 h-3.5 mt-0.5 shrink-0" style={{ color: 'var(--coral)' }} />
+        <div className="flex-1 min-w-0">
+          <div className="deck-mono uppercase" style={{
+            fontSize: '0.58rem', letterSpacing: 'var(--ls-mono-wide)', color: 'var(--coral)',
+          }}>
+            Voice unavailable
+          </div>
+          <div style={{ fontSize: '0.78rem', color: 'var(--cream-muted)', lineHeight: 1.4 }}>
+            This browser doesn't support Web Speech. Use Chrome, Edge, Brave, or Arc.
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (dictation.error) {
+    return (
+      <button
+        onClick={onOpenDebug}
+        className="w-full text-left px-3 py-2 border-t flex items-start gap-2 transition-colors hover:bg-[var(--cream-ghost)]"
+        style={{
+          borderTopColor: 'var(--cream-hairline)',
+          background: 'color-mix(in srgb, var(--coral) 10%, transparent)',
+        }}
+      >
+        <AlertTriangle className="w-3.5 h-3.5 mt-0.5 shrink-0" style={{ color: 'var(--coral)' }} />
+        <div className="flex-1 min-w-0">
+          <div className="deck-mono uppercase" style={{
+            fontSize: '0.58rem', letterSpacing: 'var(--ls-mono-wide)', color: 'var(--coral)',
+          }}>
+            Mic error · click for details
+          </div>
+          <div style={{ fontSize: '0.78rem', color: 'var(--cream)', lineHeight: 1.4 }}>
+            {dictation.error}
+          </div>
+        </div>
+        <Bug className="w-3.5 h-3.5 mt-0.5 shrink-0" style={{ color: 'var(--coral)' }} />
+      </button>
+    );
+  }
+
+  if (dictation.listening) {
+    return (
+      <div
+        className="px-3 py-2 border-t flex items-center gap-2.5"
+        style={{
+          borderTopColor: 'var(--case, var(--amber))',
+          background: 'color-mix(in srgb, var(--case, var(--amber)) 14%, transparent)',
+        }}
+      >
+        <span className="relative inline-flex shrink-0" style={{ width: 14, height: 14 }}>
+          <span
+            className="absolute inset-0 rounded-full animate-ping"
+            style={{ background: 'var(--case, var(--amber))', opacity: 0.5 }}
+          />
+          <span
+            className="relative rounded-full m-auto"
+            style={{ width: 9, height: 9, background: 'var(--case, var(--amber))' }}
+          />
+        </span>
+        <div className="flex-1 min-w-0">
+          <div className="deck-mono uppercase" style={{
+            fontSize: '0.6rem', letterSpacing: 'var(--ls-mono-wide)', color: 'var(--case, var(--amber))',
+            fontWeight: 600,
+          }}>
+            Listening — speak now
+          </div>
+          <div style={{ fontSize: '0.72rem', color: 'var(--cream-muted)', lineHeight: 1.3 }}>
+            Pause for 1.5s to auto-send · Esc to cancel · tap mic again to send now
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Idle — quiet hint
+  return (
+    <div
+      className="px-3 py-1.5 border-t flex items-center gap-2"
+      style={{ borderTopColor: 'var(--cream-hairline)' }}
+    >
+      <Mic className="w-3 h-3 shrink-0" style={{ color: 'var(--cream-faint)' }} />
+      <span
+        className="deck-mono uppercase"
+        style={{
+          fontSize: '0.55rem',
+          letterSpacing: 'var(--ls-mono-wide)',
+          color: 'var(--cream-faint)',
+        }}
+      >
+        Mic ready · tap or press M
+      </span>
     </div>
   );
 }
