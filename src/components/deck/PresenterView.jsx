@@ -110,11 +110,13 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
   }, []);
 
   const presentOnAnotherScreen = () => {
-    // Canonical URL — legacy /Deck?id=X redirect (pages/Deck.jsx) drops
-    // non-presenter query params, so `audience=1` never survives the
-    // redirect. Go direct to /decks/:id/s/:slide?audience=1.
+    // Path-segment URL — /decks/:id/s/:slide/audience. Bookmark-friendly,
+    // self-documenting, and survives reload (the previous ?audience=1 query
+    // flag was vulnerable to the same URL↔store race that the speaker side
+    // hit). The named window handle (`deck-audience-${deckId}`) means
+    // re-clicking this button re-uses the existing audience tab.
     const slideId = deck.slides?.[index]?.id ?? String(index);
-    const url = `${window.location.origin}/decks/${encodeURIComponent(deck.id)}/s/${encodeURIComponent(slideId)}?audience=1`;
+    const url = `${window.location.origin}/decks/${encodeURIComponent(deck.id)}/s/${encodeURIComponent(slideId)}/audience`;
     window.open(url, `deck-audience-${deck.id}`, 'noopener,noreferrer');
   };
 

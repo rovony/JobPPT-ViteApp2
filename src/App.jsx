@@ -57,6 +57,11 @@ const AuthenticatedApp = () => {
       <Route path="/deck" element={<Deck />} />
       <Route path="/decks/:deckId" element={<DeckRunner />} />
       <Route path="/decks/:deckId/s/:slideIndex" element={<DeckRunner />} />
+      {/* Dedicated dual-screen routes — see DeckRunner for the path-segment
+          source-of-truth pattern. Legacy ?presenter=1 / ?audience=1 are
+          redirected to /speaker · /audience inside DeckRunner. */}
+      <Route path="/decks/:deckId/s/:slideIndex/speaker" element={<DeckRunner />} />
+      <Route path="/decks/:deckId/s/:slideIndex/audience" element={<DeckRunner />} />
       <Route path="/qa/:deckId" element={<AudienceQA />} />
       <Route path="/decks/:deckId/analytics" element={<DeckAnalytics />} />
       <Route path="/pk-sim" element={<PKSim />} />

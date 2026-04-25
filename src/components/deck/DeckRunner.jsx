@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useParams, useLocation, useNavigate, useSearchParams, Navigate } from 'react-router-dom';
+import { useParams, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { AnimatePresence, LayoutGroup, MotionConfig } from 'framer-motion';
 import { DeckProvider, useDeck, useKeyboardNav } from '@/lib/deck-store';
 import { useFullscreen } from '@/lib/useFullscreen';
@@ -35,7 +35,6 @@ function DeckStage({ deck }) {
   const { index, step, setSteps, mode, presenter, setPresenter, goto } = useDeck();
   const location = useLocation();
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
   const stageRef = useRef(null);
   const { isFullscreen, enter, exit, toggle } = useFullscreen();
   const [cursorHidden, setCursorHidden] = useState(false);
@@ -57,45 +56,50 @@ function DeckStage({ deck }) {
 
   useKeyboardNav({ onToggleFullscreen: () => toggle(stageRef.current) });
 
-  // URL params: ?presenter=1 opens presenter view · ?audience=1 marks a
-  // dual-screen audience tab (so it subscribes to presenter navigation).
-  // Also support ?slide=N as a legacy shortcut.
-  // ?fullscreen=1 is kept for back-compat but no longer forces an
-  // overlay — the user can press F any time, and most dual-screen
-  // setups mirror the browser window anyway.
-  const [isAudience, setIsAudience] = useState(false);
+  // ───────────────── Role ⇄ URL (single source of truth) ─────────────────
+  // Role lives in the path: /decks/:deckId/s/:slideId/(speaker|audience)?
+  // pathSegs[4] is the role token; absence = neutral (audience-default).
+  //
+  // Why path segments instead of the old ?presenter=1 / ?audience=1 query
+  // flags: the previous design tried to mirror a URL flag into the store
+  // via two effects (URL→store and store→URL) that raced on initial mount,
+  // stripping the flag on every full page load and silently dropping
+  // presenter mode mid-talk. With the role in the path, useParams reads
+  // it synchronously and the store is initialised from it (see DeckProvider
+  // initialPresenter prop), so there's no first-render mismatch to resolve.
+  //
+  // ?slide=N is preserved as a legacy shortcut. ?fullscreen=1 is gone —
+  // press F any time.
+  const pathSegsForRole = location.pathname.split('/').filter(Boolean);
+  const role = pathSegsForRole[4]; // 'speaker' | 'audience' | undefined
+  const isAudience = role === 'audience';
+  const isPresenterRoute = role === 'speaker';
+
   useEffect(() => {
     const q = new URLSearchParams(location.search);
-    if (q.get('audience') === '1' || q.get('fullscreen') === '1') setIsAudience(true);
     const s = parseInt(q.get('slide') || '', 10);
     if (Number.isFinite(s)) goto(s);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // ───────────────── Presenter ⇄ URL sync ─────────────────
-  // The presenter flag is encoded as ?presenter=1 so it survives a full
-  // page reload (a hard requirement — live demos can't afford to lose
-  // the presenter view mid-talk). Two directions:
-  //   A) URL → store: on mount AND whenever the search string changes
-  //      (e.g. back/forward, paste of a deep link), mirror ?presenter=1
-  //      into the store's `presenter` boolean.
-  //   B) Store → URL: whenever `presenter` flips in the store (toggle
-  //      button, `P` key, Escape), write/remove the param with `replace`
-  //      so we don't balloon the history stack on every toggle.
-  // The two effects guard against feedback loops by comparing the
-  // current URL value before writing.
-  const presenterParam = searchParams.get('presenter') === '1';
+  // URL → store: when role changes externally (back/forward, manual edit,
+  // pasted deep link), mirror into store.presenter. Guarded by equality
+  // check so it's a no-op on the very first mount (initialPresenter
+  // already matches isPresenterRoute).
   useEffect(() => {
-    if (presenterParam !== presenter) setPresenter(presenterParam);
+    if (isPresenterRoute !== presenter) setPresenter(isPresenterRoute);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [presenterParam]);
+  }, [isPresenterRoute]);
+
+  // Store → URL: when presenter flips locally (P key, Escape, button),
+  // navigate to add/remove the /speaker segment. Guarded by equality so
+  // the URL→store effect above doesn't echo back into a loop.
   useEffect(() => {
-    const current = searchParams.get('presenter') === '1';
-    if (current === presenter) return;
-    const next = new URLSearchParams(searchParams);
-    if (presenter) next.set('presenter', '1');
-    else next.delete('presenter');
-    setSearchParams(next, { replace: true });
+    if (presenter === isPresenterRoute) return;
+    const slideId = deck.slides[index]?.id ?? String(index);
+    const base = `/decks/${deck.id}/s/${encodeURIComponent(slideId)}`;
+    const target = presenter ? `${base}/speaker` : (isAudience ? `${base}/audience` : base);
+    navigate({ pathname: target, search: location.search }, { replace: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [presenter]);
 
@@ -162,11 +166,17 @@ function DeckStage({ deck }) {
   // below has a stable deep-link base to rewrite against. Same
   // <DeckRunner> element handles both routes, so this is a param-only
   // change (no component remount), safe for keyboard input.
+  // Helper: build deep-link URL preserving the optional /speaker · /audience
+  // role suffix. The role lives in pathSegs[4]; if absent, no suffix.
+  const buildDeepLink = (currentId) => {
+    const base = `/decks/${deck.id}/s/${encodeURIComponent(currentId)}`;
+    return role ? `${base}/${role}` : base;
+  };
+
   useEffect(() => {
     if (!isDecksRoute || isDeepLinkRoute) return;
     const currentId = deck.slides[index]?.id ?? String(index);
-    const base = `/decks/${deck.id}/s/${encodeURIComponent(currentId)}`;
-    navigate({ pathname: base, search: location.search }, { replace: true });
+    navigate({ pathname: buildDeepLink(currentId), search: location.search }, { replace: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDecksRoute, isDeepLinkRoute]);
 
@@ -174,8 +184,7 @@ function DeckStage({ deck }) {
     if (!isDeepLinkRoute) return;
     const currentId = deck.slides[index]?.id ?? String(index);
     if (slideIdFromPath === currentId) return;
-    const base = `/decks/${deck.id}/s/${encodeURIComponent(currentId)}`;
-    navigate({ pathname: base, search: location.search }, { replace: true });
+    navigate({ pathname: buildDeepLink(currentId), search: location.search }, { replace: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index, deck.id, isDeepLinkRoute]);
 
@@ -325,6 +334,29 @@ export default function DeckRunner() {
   const deck = deckId ? getDeck(deckId) : null;
   if (!deck) return <Navigate to="/" replace />;
 
+  // Legacy back-compat: ?presenter=1 / ?audience=1 → promote to path
+  // segment (/speaker · /audience). One redirect, then the SPA never
+  // sees the query flags again. Mirrors the canonical-URL principle:
+  // role is part of the route, not a search param.
+  const search = new URLSearchParams(location.search);
+  const legacyPresenter = search.get('presenter') === '1';
+  const legacyAudience = search.get('audience') === '1' || search.get('fullscreen') === '1';
+  if (legacyPresenter || legacyAudience) {
+    const targetRole = legacyPresenter ? 'speaker' : 'audience';
+    const slidePart = paramSlideIndex ? `/s/${encodeURIComponent(paramSlideIndex)}` : '';
+    const cleanQs = new URLSearchParams(location.search);
+    cleanQs.delete('presenter');
+    cleanQs.delete('audience');
+    cleanQs.delete('fullscreen');
+    const qs = cleanQs.toString();
+    return (
+      <Navigate
+        to={`/decks/${encodeURIComponent(deckId)}${slidePart}/${targetRole}${qs ? `?${qs}` : ''}`}
+        replace
+      />
+    );
+  }
+
   // The path segment can be either a slide id (e.g. "title", "hook") or a
   // numeric index. Resolve in that order — ids are the stable, human-friendly
   // identifier; numeric indices are supported for back-compat.
@@ -339,8 +371,18 @@ export default function DeckRunner() {
     }
   }
 
+  // Role from path: /decks/:deckId/s/:slideId/(speaker|audience)?
+  // Initialise the store presenter flag from the URL so the inner
+  // sync effects start in equilibrium (no first-render race).
+  const initialRoleSegs = location.pathname.split('/').filter(Boolean);
+  const initialRole = initialRoleSegs[4];
+
   return (
-    <DeckProvider total={deck.slides.length} initialIndex={initialIndex}>
+    <DeckProvider
+      total={deck.slides.length}
+      initialIndex={initialIndex}
+      initialPresenter={initialRole === 'speaker'}
+    >
       <DeckStage deck={deck} />
     </DeckProvider>
   );
