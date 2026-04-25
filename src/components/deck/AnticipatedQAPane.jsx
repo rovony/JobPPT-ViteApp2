@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { ChevronDown, ChevronRight, Edit3, RotateCcw } from 'lucide-react';
+import { ChevronDown, ChevronRight, Edit3, RotateCcw, HelpCircle } from 'lucide-react';
 import { parseAnticipatedQA } from '@/lib/parseStructuredContent';
 import StructuredQAView from './StructuredQAView';
 
@@ -40,6 +40,7 @@ export default function AnticipatedQAPane({
   itemCount = 0,
   hasOverride = false,
   onResetToFile,
+  onShowHelp,
 }) {
   const taRef = useRef(null);
 
@@ -96,6 +97,18 @@ export default function AnticipatedQAPane({
           </span>
         </button>
         <div className="flex items-center gap-1 shrink-0">
+          {onShowHelp && (
+            <button
+              type="button"
+              onClick={onShowHelp}
+              title="Notes & Q&A authoring reference"
+              aria-label="Open Notes & Q&A reference"
+              className="h-6 w-6 rounded flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)]"
+              style={{ color: 'var(--cream-faint)' }}
+            >
+              <HelpCircle className="w-3 h-3" />
+            </button>
+          )}
           {hasOverride && onResetToFile && (
             <button
               type="button"

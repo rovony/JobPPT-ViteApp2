@@ -16,6 +16,7 @@ import DeckSourcesDialog from './DeckSourcesDialog';
 import QAModerationPane from './QAModerationPane';
 import ReadingMaterialPane from './ReadingMaterialPane';
 import PresenterLayoutSettings from './PresenterLayoutSettings';
+import NotesQAHelp from './NotesQAHelp';
 
 /** Defaults for the three right-column sections — kept as a config map
  *  so dynamic ordering (Layout settings) doesn't lose per-section sizing. */
@@ -66,6 +67,7 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
   const [sourcesOpen, setSourcesOpen] = useState(false);
   const [readingOpen, setReadingOpen] = useState(false);
   const [layoutOpen, setLayoutOpen] = useState(false);
+  const [notesQAHelpOpen, setNotesQAHelpOpen] = useState(false);
   // Per-device section visibility + order (left/center/right columns).
   // Persisted under presenter:layout — survives reloads, scoped to device.
   const layout = usePresenterLayout();
@@ -276,6 +278,16 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
                       </span>
                     )}
                   </div>
+                  <button
+                    type="button"
+                    onClick={() => setNotesQAHelpOpen(true)}
+                    title="Notes & Q&A authoring reference"
+                    aria-label="Open Notes & Q&A reference"
+                    className="h-5 w-5 rounded flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)] shrink-0"
+                    style={{ color: 'var(--cream-faint)' }}
+                  >
+                    <HelpCircle className="w-3 h-3" />
+                  </button>
                 </div>
                 <span className="deck-mono shrink-0"
                       style={{ fontSize: '0.6rem', letterSpacing: 'var(--ls-mono)',
@@ -315,6 +327,7 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
                         itemCount={currentQACount}
                         hasOverride={current ? hasQAOverride(current.id) : false}
                         onResetToFile={current ? () => { clearQA(current.id); setQaEditing(false); } : undefined}
+                        onShowHelp={() => setNotesQAHelpOpen(true)}
                       />
                     );
                   }
@@ -466,6 +479,10 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
         open={layoutOpen}
         onClose={() => setLayoutOpen(false)}
         layout={layout}
+      />
+      <NotesQAHelp
+        open={notesQAHelpOpen}
+        onClose={() => setNotesQAHelpOpen(false)}
       />
     </div>
   );
