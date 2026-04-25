@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, X, MonitorPlay, Maximize, Minimize, HelpCircle, FolderOpen, BookOpen, LayoutPanelLeft } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X, MonitorPlay, Maximize, Minimize, HelpCircle, FolderOpen, BookOpen, LayoutPanelLeft, PanelLeftClose, PanelLeftOpen, PanelBottomClose, PanelBottomOpen } from 'lucide-react';
 import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels';
 import { useDeck } from '@/lib/deck-store';
 import { useSpeakerNotes } from '@/lib/useSpeakerNotes';
@@ -85,18 +85,62 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
   // Persisted under presenter:layout — survives reloads, scoped to device.
   const layout = usePresenterLayout();
 
+  /** Wrap a section in a flex-column with a thin "Hide" header strip
+   *  above the content. Putting the Hide button in its own row prevents
+   *  overlap with the section's internal header controls (Edit, Debug,
+   *  AI settings, etc.). When the section is hidden, a matching "Show"
+   *  pill renders in the body-area restore strip so the user can
+   *  re-expand without opening the Layout modal. */
+  const wrapWithCollapseButton = (key, content) => {
+    const cfg = QUICK_COLLAPSE[key];
+    if (!cfg) return content;
+    const Icon = cfg.icon;
+    return (
+      <div className="h-full flex flex-col min-h-0">
+        <div className="flex justify-end shrink-0 px-1 pb-1">
+          <button
+            type="button"
+            onClick={() => layout.toggleVisibility(key)}
+            title={`Hide ${cfg.label} — re-show via the bar at the top of the body area`}
+            aria-label={`Hide ${cfg.label}`}
+            className="deck-mono uppercase flex items-center gap-1.5 px-2 py-0.5 rounded-full border transition-colors hover:bg-[var(--cream-ghost)]"
+            style={{
+              borderColor: 'var(--cream-hairline)',
+              color: 'var(--cream-muted)',
+              fontSize: '0.55rem',
+              letterSpacing: 'var(--ls-mono)',
+            }}
+          >
+            <Icon className="w-3 h-3" /> Hide
+          </button>
+        </div>
+        <div className="flex-1 min-h-0">{content}</div>
+      </div>
+    );
+  };
+
+  /** Sections that get a quick-collapse overlay button. Clicking the button
+   *  hides the section via usePresenterLayout — same effect as the Eye/EyeOff
+   *  toggle in PresenterLayoutSettings, just one click instead of opening a
+   *  modal. A floating restore strip (top-right of the body area) brings any
+   *  hidden section back without re-opening the layout modal either. */
+  const QUICK_COLLAPSE = {
+    anticipatedQA: { label: 'Q&A panel',  icon: PanelLeftClose,   restoreIcon: PanelLeftOpen },
+    assistant:     { label: 'Assistant',  icon: PanelBottomClose, restoreIcon: PanelBottomOpen },
+  };
+
   /** Render a single section. Closes over all the deck-level state so
    *  any column can host any section without prop-drilling. */
   const renderSection = (key) => {
     if (key === 'assistant') {
-      return (
+      return wrapWithCollapseButton(key, (
         <PresenterAssistant
           deck={deck}
           currentSlide={current}
           currentNote={currentNote}
           onOpenSources={() => setSourcesOpen(true)}
         />
-      );
+      ));
     }
     if (key === 'notes') {
       return (
@@ -154,7 +198,7 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
       );
     }
     if (key === 'anticipatedQA') {
-      return (
+      return wrapWithCollapseButton(key, (
         <AnticipatedQAPane
           value={currentQA}
           onChange={onQAChange}
@@ -166,7 +210,7 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
           onResetToFile={current ? () => { clearQA(current.id); setQaEditing(false); } : undefined}
           onShowHelp={() => setNotesQAHelpOpen(true)}
         />
-      );
+      ));
     }
     if (key === 'nowTile') {
       return (
@@ -351,6 +395,54 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
             – reordered within a column (↑ / ↓)
           Empty columns disappear; surviving columns expand to fill.
          ═══════════════════════════════════════════════════════════════ */}
+      {/* Restore strip — sticky bar at top of body area. Renders the
+          full set of quick-collapse sections; each hidden one shows a
+          prominent amber-bordered "Show" pill, each visible one is
+          hidden. Always visible when any section is hidden, so the
+          user can never lose their way back to the section. */}
+      {Object.entries(QUICK_COLLAPSE).some(([k]) => !layout.visibility[k]) && (
+        <div
+          className="flex items-center gap-2 px-3 py-2 border-b shrink-0"
+          style={{
+            borderColor: 'var(--cream-hairline)',
+            background: 'var(--bg)',
+          }}
+        >
+          <span
+            className="deck-mono uppercase shrink-0"
+            style={{
+              fontSize: '0.58rem',
+              letterSpacing: 'var(--ls-mono-wide)',
+              color: 'var(--cream-faint)',
+            }}
+          >
+            Hidden:
+          </span>
+          {Object.entries(QUICK_COLLAPSE).map(([k, cfg]) => {
+            if (layout.visibility[k]) return null;
+            const Icon = cfg.restoreIcon;
+            return (
+              <button
+                key={k}
+                type="button"
+                onClick={() => layout.toggleVisibility(k)}
+                title={`Show ${cfg.label}`}
+                aria-label={`Show ${cfg.label}`}
+                className="deck-mono uppercase flex items-center gap-1.5 px-3 py-1 rounded-full border transition-colors hover:bg-[var(--cream-ghost)]"
+                style={{
+                  borderColor: 'var(--case, var(--amber))',
+                  color: 'var(--case, var(--amber))',
+                  fontSize: '0.62rem',
+                  letterSpacing: 'var(--ls-mono)',
+                }}
+              >
+                <Icon className="w-3.5 h-3.5" /> Show {cfg.label}
+              </button>
+            );
+          })}
+        </div>
+      )}
+
       <div className="flex-1 min-h-0 px-2 py-3 relative">
         <PanelGroup direction="horizontal" autoSaveId="presenter-cols">
           {COLUMN_KEYS.filter((col) => layout.visibleIn(col).length > 0).map((col, idx, visibleCols) => (

@@ -261,6 +261,18 @@
     --fs-slide-pageno:   clamp(0.55rem, min(0.68vw, 1.1vh), 0.7rem);
 
     /* =========================================================
+       FLUID HERO SCALE — for title / opener / closer slides where
+       editorial display type IS the slide. Larger maxima than
+       --fs-slide-headline so a cover slide reads as a cover, not
+       as a large body slide. Same min(vw, vh*ratio) formula —
+       narrow OR short viewports both clamp the text down so it
+       always fits. Mobile portrait still scales gracefully.
+       ========================================================= */
+    --fs-slide-display:  clamp(2rem,    min(5.2vw, 8.5vh), 5.5rem);  /* hero title */
+    --fs-slide-lead:     clamp(1rem,    min(1.7vw, 2.6vh), 1.75rem); /* subtitle / lead body on a cover */
+    --fs-slide-name:     clamp(0.95rem, min(1.4vw, 2.2vh), 1.4rem);  /* speaker name / pull-quote attribution */
+
+    /* =========================================================
        Shape + elevation tokens
        ========================================================= */
     --radius-xs:  2px;

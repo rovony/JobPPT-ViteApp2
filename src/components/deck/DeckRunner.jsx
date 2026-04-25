@@ -32,6 +32,64 @@ function saveOverride(deckId, value) {
   } catch {}
 }
 
+/**
+ * FitStage — scales a fixed 1920×1080 slide canvas to fit any viewport
+ * via `transform: scale()`. Gated to v3+ decks via `standardLayout.enabled`
+ * — legacy v3/v4 decks render unchanged (their slides use viewport-relative
+ * sizing already).
+ *
+ * Why: slides authored for the standard-layout system use fixed pt sizes
+ * (e.g. var(--fs-h1-lg) = 72pt) anchored to a 1920×1080 canvas. On smaller
+ * viewports the content overflows. FitStage centres a 1920×1080 box
+ * inside the deck root and applies a uniform scale that preserves
+ * aspect ratio (letterbox / pillarbox as needed).
+ *
+ * Implementation matches SlidePreview.jsx — fixed pixel inner box with
+ * `transformOrigin: center center` so the scaled canvas centres in the
+ * outer wrapper at any size. ResizeObserver keeps the scale fresh on
+ * window resizes, sidebar toggles, fullscreen enter/exit, etc.
+ */
+function FitStage({ enabled, children }) {
+  const ref = useRef(null);
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    if (!enabled || !ref.current) return;
+    const el = ref.current;
+    const update = () => {
+      const { width, height } = el.getBoundingClientRect();
+      if (width <= 0 || height <= 0) return;
+      setScale(Math.min(width / 1920, height / 1080));
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [enabled]);
+
+  if (!enabled) return children;
+
+  return (
+    <div
+      ref={ref}
+      className="absolute inset-0 flex items-center justify-center overflow-hidden"
+      data-fit-stage="true"
+    >
+      <div
+        className="relative shrink-0"
+        style={{
+          width: 1920,
+          height: 1080,
+          transform: `scale(${scale})`,
+          transformOrigin: 'center center',
+        }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+
 function DeckStage({ deck }) {
   const { index, step, setSteps, mode, presenter, setPresenter, goto } = useDeck();
   const location = useLocation();
@@ -290,6 +348,11 @@ function DeckStage({ deck }) {
                 key={slideMeta.id || index}
                 transition={slideMeta.transition ?? deck.defaultTransition}
               >
+                {/* Slides use fluid clamp() tokens (--fs-slide-*) — naturally
+                    responsive to viewport. Earlier FitStage wrapper was
+                    removed because scale-to-fit + fixed pt sizes produced
+                    heavy letterboxing on portrait phones; fluid tokens fill
+                    the viewport correctly at any aspect. */}
                 <Slide step={step} deck={deck} />
               </SlideTransition>
             )}
