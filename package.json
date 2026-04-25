@@ -98,6 +98,7 @@
     "react-wrap-balancer": "^1.1.1",
     "react-xarrows": "^2.0.2",
     "recharts": "^2.15.4",
+    "remark-gfm": "^4.0.1",
     "roughjs": "^4.6.6",
     "shiki": "^1.29.2",
     "smiles-drawer": "^2.2.1",

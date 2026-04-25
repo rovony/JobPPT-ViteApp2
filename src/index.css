@@ -713,4 +713,116 @@
     border-radius: 3px;
     color: var(--cream);
   }
+
+  /* ─────────────────────────────────────────────────────────────────
+     Reading-material prose — used by ReadingMaterialPane modal.
+     Inherits the deck's color tokens so it works in light + dark.
+     Slightly tighter than .notes-prose--reading because the modal
+     gives more horizontal room (max-w 68ch vs notes ~62ch).
+     ───────────────────────────────────────────────────────────────── */
+  .reading-prose .reading-h1 {
+    font-size: 1.55em;
+    margin: 0 0 0.6em;
+    color: var(--cream);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .reading-prose .reading-h2 {
+    font-size: 1.22em;
+    margin: 1.4em 0 0.4em;
+    color: var(--case, var(--amber));
+    font-weight: 600;
+  }
+  .reading-prose .reading-h3 {
+    font-size: 1.05em;
+    margin: 1.1em 0 0.3em;
+    color: var(--cream);
+    font-weight: 600;
+  }
+  .reading-prose .reading-p  { margin: 0.7em 0; }
+  .reading-prose .reading-ul,
+  .reading-prose .reading-ol { margin: 0.7em 0; padding-left: 1.5em; }
+  .reading-prose .reading-li { margin: 0.35em 0; }
+  .reading-prose .reading-strong { color: var(--cream); font-weight: 600; }
+  .reading-prose .reading-em { color: var(--cream-muted); font-style: italic; }
+  .reading-prose .reading-mark {
+    background: color-mix(in srgb, var(--case, #FFE14D) 45%, transparent);
+    font-weight: 600;
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+    color: var(--cream);
+  }
+  .reading-prose .reading-quote {
+    border-left: 3px solid var(--case, var(--amber));
+    padding: 0.4em 0 0.4em 1em;
+    margin: 0.9em 0;
+    color: var(--cream-muted);
+    font-style: italic;
+    background: color-mix(in srgb, var(--cream-ghost) 50%, transparent);
+  }
+  .reading-prose .reading-code-inline {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    padding: 0.1em 0.35em;
+    background: rgba(127,127,127,0.12);
+    border: 1px solid var(--cream-hairline);
+    border-radius: 3px;
+    color: var(--cream);
+  }
+  .reading-prose .reading-pre {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    padding: 0.7em 0.9em;
+    background: rgba(127,127,127,0.08);
+    border: 1px solid var(--cream-hairline);
+    border-radius: 4px;
+    margin: 0.9em 0;
+    overflow-x: auto;
+  }
+  .reading-prose .reading-table-wrap {
+    overflow-x: auto;
+    margin: 1em 0;
+    border: 1px solid var(--cream-hairline);
+    border-radius: 4px;
+  }
+  .reading-prose .reading-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+  }
+  .reading-prose .reading-th {
+    text-align: left;
+    padding: 0.5em 0.7em;
+    background: color-mix(in srgb, var(--cream-ghost) 70%, transparent);
+    border-bottom: 1px solid var(--cream-hairline);
+    color: var(--cream);
+    font-weight: 600;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .reading-prose .reading-td {
+    padding: 0.45em 0.7em;
+    border-bottom: 1px solid var(--cream-hairline);
+    vertical-align: top;
+  }
+  .reading-prose .reading-table tr:last-child .reading-td {
+    border-bottom: none;
+  }
+  .reading-prose .reading-hr {
+    border: none;
+    border-top: 1px solid var(--cream-hairline);
+    margin: 1.6em 0;
+  }
+  .reading-prose .reading-a {
+    color: var(--case, var(--amber));
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .reading-prose .reading-a:hover { opacity: 0.85; }
+  /* GFM task-list checkboxes — render as readable in both modes. */
+  .reading-prose input[type="checkbox"] {
+    margin-right: 0.4em;
+    accent-color: var(--case, var(--amber));
+  }
 }

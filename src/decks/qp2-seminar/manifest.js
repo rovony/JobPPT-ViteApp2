@@ -54,6 +54,7 @@ import Slide35ThankYou from './slides/35-thank-you';
 
 import notes from './notes';
 import qa from './qa';
+import reading from './reading';
 
 const manifest = {
   id: 'qp2-seminar',
@@ -66,6 +67,10 @@ const manifest = {
   // Anticipated/rehearsed Q&A keyed by slide id. Counterpart to notes;
   // useAnticipatedQA treats these as fallbacks under live edits.
   qa,
+  // Pre-talk reading material — array of { slug, title, attachedTo,
+  // minutes, content }. Loaded from <deck>/reading/index.js. Surfaced
+  // by ReadingMaterialPane (presenter-only modal).
+  reading,
   // Deck-wide default. The `card` preset gives a flat, fast slide-to-side
   // card-flip experience — no 3D rotation, no depth travel. Slides feel
   // like physical cards moving through the canvas. Individual slides can

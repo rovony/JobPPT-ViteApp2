@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, X, MonitorPlay, Maximize, Minimize, HelpCircle, FolderOpen, PanelRightClose, PanelRightOpen } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X, MonitorPlay, Maximize, Minimize, HelpCircle, FolderOpen, PanelRightClose, PanelRightOpen, BookOpen } from 'lucide-react';
 import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels';
 import { useDeck } from '@/lib/deck-store';
 import { useSpeakerNotes } from '@/lib/useSpeakerNotes';
@@ -13,6 +13,7 @@ import PresenterAssistant from './PresenterAssistant';
 import ShortcutsOverlay from './ShortcutsOverlay';
 import DeckSourcesDialog from './DeckSourcesDialog';
 import QAModerationPane from './QAModerationPane';
+import ReadingMaterialPane from './ReadingMaterialPane';
 
 /**
  * PresenterView v2 — notes-centric layout for live delivery.
@@ -53,6 +54,7 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
   const [draft, setDraft] = useState('');
   const [helpOpen, setHelpOpen] = useState(false);
   const [sourcesOpen, setSourcesOpen] = useState(false);
+  const [readingOpen, setReadingOpen] = useState(false);
   // Notes pane collapse — persisted so the presenter's preference survives reloads.
   const [notesCollapsed, setNotesCollapsed] = useState(() => {
     try { return localStorage.getItem('presenter:notes-collapsed') === '1'; } catch { return false; }
@@ -169,6 +171,11 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
         </div>
 
         <div className="flex items-center gap-2 shrink-0 flex-wrap justify-end">
+          {Array.isArray(deck.reading) && deck.reading.length > 0 && (
+            <IconPill onClick={() => setReadingOpen(true)} title="Pre-talk reading material">
+              <BookOpen className="w-3.5 h-3.5" /> Reading
+            </IconPill>
+          )}
           <IconPill onClick={() => setSourcesOpen(true)} title="Deck sources (AI library)">
             <FolderOpen className="w-3.5 h-3.5" /> Sources
           </IconPill>
@@ -390,6 +397,12 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
         open={sourcesOpen}
         onClose={() => setSourcesOpen(false)}
         deckId={deck.id}
+        deckTitle={deck.title}
+      />
+      <ReadingMaterialPane
+        open={readingOpen}
+        onClose={() => setReadingOpen(false)}
+        readingItems={deck.reading || []}
         deckTitle={deck.title}
       />
     </div>

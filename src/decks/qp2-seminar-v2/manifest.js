@@ -100,6 +100,7 @@ import Slide35ThankYou from './slides/35-thank-you';
 
 import notes from './notes';
 import qa from './qa';
+import reading from './reading';
 
 const manifest = {
   id: 'qp2-seminar-v2',
@@ -108,6 +109,7 @@ const manifest = {
   theme: 'clinical',
   notes,
   qa,
+  reading,
   defaultTransition: 'card',
   /**
    * Export timing — only long-motion slides need a high `slideSettleMs`.

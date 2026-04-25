@@ -82,6 +82,11 @@ export function useKeyboardNav({ onToggleFullscreen } = {}) {
       const tag = e.target?.tagName;
       const isEditable = tag === 'INPUT' || tag === 'TEXTAREA' || e.target?.isContentEditable;
       if (isEditable) return;
+      // If a modal/dialog is open, defer to its own Escape/close logic.
+      // Escape on a modal must NOT also close presenter view — otherwise
+      // closing the Reading panel ejects the presenter mid-talk.
+      const dialogOpen = document.querySelector('[role="dialog"][aria-modal="true"]');
+      if (dialogOpen && e.key === 'Escape') return;
       if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); next(); }
       else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
       else if (e.key === 'Escape') {
