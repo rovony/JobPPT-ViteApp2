@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Sparkles, Send, Loader2, Lightbulb, Mic, Square, FolderOpen, BookOpen, Globe, StickyNote, Settings, Cpu, AlertTriangle, Database, RefreshCw, ChevronDown, ChevronRight, Zap, GraduationCap } from 'lucide-react';
 import { useAmbientListen } from '@/lib/useAmbientListen';
+import { useDictation } from '@/lib/useDictation';
 import {
   isStubResponse,
   hasOpenAIKey,
@@ -36,8 +37,6 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
   const [messages, setMessages] = useState([]);   // { role, content, mode?, citations? }
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [recording, setRecording] = useState(false);
-  const [recStatus, setRecStatus] = useState(''); // '', 'listening', 'transcribing'
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [localKeyPresent, setLocalKeyPresent] = useState(hasOpenAIKey());
   const [keySource, setKeySource] = useState(getKeySource()); // 'env' | 'localStorage' | null  (no longer surfaced in header — kept for settings UI)
@@ -59,7 +58,27 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
     try { localStorage.setItem('presenter-assistant:mode', presenterMode); } catch {}
   }, [presenterMode]);
   const listRef = useRef(null);
-  const mediaRef = useRef(null); // { recorder, stream, chunks }
+  const inputRef = useRef(null);
+
+  /* Dictation — click-to-toggle, live interim transcript, auto-send
+     on silence pause. The recognizer is the browser's Web Speech API
+     (free, real-time). On final, we feed the transcript directly into
+     send() and clear the input — no manual "click to send" step. */
+  const dictation = useDictation({
+    onInterim: (text) => {
+      // Mirror the live transcript into the input so the user can SEE
+      // what's being heard. This is the single most important piece of
+      // voice-UI feedback — without it dictation feels broken even when
+      // it's working.
+      setInput(text);
+    },
+    onFinal: (text) => {
+      const trimmed = (text || '').trim();
+      if (!trimmed) return;
+      setInput('');
+      send(trimmed);
+    },
+  });
 
   /* Re-check the localStorage key when the settings modal closes — if
      the user pasted a new one, the assistant header should pick up the
@@ -150,34 +169,37 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
   /* Scroll to bottom on new messages */
   useEffect(() => {
     if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
-  }, [messages, loading, recStatus]);
+  }, [messages, loading, dictation.listening]);
 
-  /* Space-bar push-to-talk. Held = record; release = send. */
+  /* Keyboard model — single tap to toggle dictation, no holding.
+     'M' starts/stops dictation. 'Esc' cancels (drops the buffer
+     instead of sending). Both ignored while typing in a real input. */
   useEffect(() => {
     const isTyping = () => {
       const el = document.activeElement;
       if (!el) return false;
+      // Allow Esc to cancel even from the assistant's own input.
+      if (el === inputRef.current) return false;
       const tag = el.tagName;
       return tag === 'INPUT' || tag === 'TEXTAREA' || el.isContentEditable;
     };
-    const onDown = (e) => {
-      if (e.code !== 'Space' || e.repeat || isTyping()) return;
-      e.preventDefault();
-      startRecording();
+    const onKey = (e) => {
+      if (e.repeat) return;
+      if (e.key === 'Escape' && dictation.listening) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        dictation.stop({ finalize: false });
+        setInput('');
+        return;
+      }
+      if ((e.key === 'm' || e.key === 'M') && !isTyping()) {
+        e.preventDefault();
+        dictation.toggle();
+      }
     };
-    const onUp = (e) => {
-      if (e.code !== 'Space' || isTyping()) return;
-      e.preventDefault();
-      stopRecording();
-    };
-    window.addEventListener('keydown', onDown);
-    window.addEventListener('keyup', onUp);
-    return () => {
-      window.removeEventListener('keydown', onDown);
-      window.removeEventListener('keyup', onUp);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    window.addEventListener('keydown', onKey, true);
+    return () => window.removeEventListener('keydown', onKey, true);
+  }, [dictation]);
 
   const suggestions = [
     'Give me a 15-second recap of this slide.',
@@ -275,102 +297,10 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
     }
   };
 
-  /* ---------- Push-to-talk ---------- */
-  const startRecording = async () => {
-    if (recording || loading) return;
-    if (!navigator.mediaDevices?.getUserMedia) {
-      alert('Microphone not supported in this browser.');
-      return;
-    }
-    try {
-      // If ambient listen is on, pause it while the presenter talks
-      // so the recognition engine doesn't hear push-to-talk audio as
-      // audience questions. Resumes automatically ~1.5s after release.
-      ambient.pauseBriefly(30_000); // long ceiling; stopRecording clears it sooner
-
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const mime = pickAudioMime();
-      const recorder = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined);
-      const chunks = [];
-      recorder.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
-      recorder.onstop = () => finishRecording(chunks, recorder.mimeType, stream);
-      recorder.start();
-      mediaRef.current = { recorder, stream, chunks };
-      setRecording(true);
-      setRecStatus('listening');
-    } catch (err) {
-      console.warn('Mic permission denied:', err);
-      setRecStatus('');
-      alert('Microphone permission is needed for push-to-talk.');
-    }
-  };
-
-  const stopRecording = () => {
-    const m = mediaRef.current;
-    if (!m || !recording) return;
-    setRecording(false);
-    setRecStatus('transcribing');
-    try { m.recorder.stop(); } catch (_) { /* ignore */ }
-    // Give the tail of speech a moment to settle, then let ambient
-    // listen resume (its pauseBriefly internal timer fires naturally;
-    // we just shorten it here).
-    ambient.pauseBriefly(1500);
-  };
-
-  const finishRecording = async (chunks, mime, stream) => {
-    // Stop all tracks so the browser's mic indicator goes away
-    stream.getTracks().forEach((t) => t.stop());
-    try {
-      if (!chunks.length) { setRecStatus(''); return; }
-      const ext = (mime || 'audio/webm').includes('ogg') ? 'ogg'
-                : (mime || 'audio/webm').includes('mp4') ? 'm4a'
-                : 'webm';
-      const blob = new Blob(chunks, { type: mime || 'audio/webm' });
-
-      // Try base44 first (real backend); fall back to local Whisper if stubbed.
-      let text = '';
-      let baseFailed = false;
-      try {
-        const file = new File([blob], `ptt.${ext}`, { type: blob.type });
-        const upload = await base44.integrations.Core.UploadFile({ file });
-        // Stub mode returns { file_url: '' } — treat empty as a stub signal.
-        if (!upload?.file_url) {
-          baseFailed = true;
-        } else {
-          const res = await base44.functions.invoke('transcribeAudio', {
-            file_url: upload.file_url,
-          });
-          if (isStubResponse(res)) baseFailed = true;
-          else text = (res?.data?.text || '').trim();
-        }
-      } catch (_) {
-        baseFailed = true;
-      }
-
-      if (baseFailed) {
-        if (!hasOpenAIKey()) {
-          setRecStatus('');
-          alert(
-            'AI backend is offline-stubbed and no local OpenAI key is set.\n' +
-            'Open the assistant settings (gear icon) to add your API key.'
-          );
-          return;
-        }
-        text = await localTranscribeAudio(blob);
-      }
-
-      setRecStatus('');
-      if (text) send(text);
-    } catch (err) {
-      console.warn('Transcription failed:', err);
-      setRecStatus('');
-      // Surface the actual error so the presenter knows how to retry —
-      // includes both server-side base44 errors and LocalAIError messages.
-      const friendly = err instanceof LocalAIError ? err.message
-        : (err?.response?.data?.error || err?.message || 'Could not transcribe the recording.');
-      alert(friendly);
-    }
-  };
+  /* Push-to-talk + MediaRecorder + Whisper helpers were removed when
+     dictation switched to the click-to-toggle Web Speech API model
+     (see useDictation). The browser native recognizer is real-time,
+     free, and shows interim results — much better fit for live use. */
 
   /* ---------- Render ---------- */
   return (
@@ -459,7 +389,7 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
             ))}
             <div className="pt-2 deck-mono uppercase flex items-center gap-1.5"
                  style={{ fontSize: '0.58rem', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}>
-              <Mic className="w-3 h-3" /> Hold Space or the mic button to talk
+              <Mic className="w-3 h-3" /> Tap mic or press M — auto-sends when you pause
             </div>
           </div>
         )}
@@ -475,51 +405,89 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
           </div>
         )}
 
-        {recStatus && (
+        {dictation.listening && (
           <div className="flex items-center gap-2" style={{ color: 'var(--case, var(--amber))' }}>
-            {recStatus === 'listening'
-              ? <PulseDot />
-              : <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+            <PulseDot />
             <span style={{ fontSize: '0.8rem' }} className="deck-mono uppercase" >
-              {recStatus === 'listening' ? 'Listening — release to send' : 'Transcribing…'}
+              Listening · pause to send · Esc to cancel
+            </span>
+          </div>
+        )}
+        {dictation.error && !dictation.listening && (
+          <div className="flex items-center gap-2" style={{ color: 'var(--coral)' }}>
+            <AlertTriangle className="w-3.5 h-3.5" />
+            <span style={{ fontSize: '0.8rem' }} className="deck-mono uppercase">
+              Mic · {dictation.error}
             </span>
           </div>
         )}
       </div>
 
-      {/* Input row — text field + mic push-to-talk + send */}
+      {/* Input row — text field + tap-once dictation + send */}
       <form
         onSubmit={(e) => { e.preventDefault(); send(); }}
         className="flex items-center gap-2 px-3 py-3 border-t"
         style={{ borderColor: 'var(--cream-hairline)' }}
       >
         <input
+          ref={inputRef}
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask anything… or hold Space to talk"
+          placeholder={
+            dictation.listening
+              ? 'Listening… (will auto-send)'
+              : dictation.supported
+                ? 'Ask anything… or tap mic / press M'
+                : 'Ask anything…'
+          }
           className="flex-1 bg-transparent outline-none px-2 py-2"
-          style={{ color: 'var(--cream)', fontFamily: 'var(--font-body)', fontSize: '0.9rem' }}
+          style={{
+            color: dictation.listening ? 'var(--case, var(--amber))' : 'var(--cream)',
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.9rem',
+            fontStyle: dictation.listening ? 'italic' : 'normal',
+          }}
         />
 
-        {/* Push-to-talk button — press-and-hold mouse or touch */}
+        {/* Click-to-toggle dictation. No more press-and-hold — single tap
+            starts the recognizer; user speaks freely; auto-stops + sends
+            after ~1.5s of silence. Tap again to manually finalize. */}
         <button
           type="button"
-          onMouseDown={startRecording}
-          onMouseUp={stopRecording}
-          onMouseLeave={() => recording && stopRecording()}
-          onTouchStart={(e) => { e.preventDefault(); startRecording(); }}
-          onTouchEnd={(e) => { e.preventDefault(); stopRecording(); }}
-          aria-label={recording ? 'Release to send' : 'Hold to talk'}
-          title={recording ? 'Release to send' : 'Hold to talk (or hold Space)'}
-          className="h-9 w-9 rounded-full flex items-center justify-center transition-colors"
+          onClick={() => {
+            if (!dictation.supported) {
+              alert('Voice input needs a Chromium-based browser (Chrome, Edge, Brave). Firefox doesn\'t implement Web Speech yet.');
+              return;
+            }
+            dictation.toggle();
+          }}
+          aria-label={dictation.listening ? 'Stop listening (auto-sends)' : 'Start dictation'}
+          aria-pressed={dictation.listening}
+          title={
+            dictation.listening
+              ? 'Listening — pause to auto-send · click to send now · Esc to cancel'
+              : 'Tap to dictate (auto-sends when you pause) · M'
+          }
+          className="h-9 w-9 rounded-full flex items-center justify-center transition-colors relative"
           style={{
-            background: recording ? 'var(--coral)' : 'transparent',
-            color: recording ? 'var(--bg)' : 'var(--cream-muted)',
-            border: `1px solid ${recording ? 'var(--coral)' : 'var(--cream-hairline)'}`,
+            background: dictation.listening ? 'var(--case, var(--amber))' : 'transparent',
+            color: dictation.listening ? 'var(--bg)' : 'var(--cream-muted)',
+            border: `1px solid ${dictation.listening ? 'var(--case, var(--amber))' : 'var(--cream-hairline)'}`,
           }}
         >
-          {recording ? <Square className="w-4 h-4" fill="currentColor" /> : <Mic className="w-4 h-4" />}
+          {dictation.listening ? (
+            <>
+              <Square className="w-3.5 h-3.5" fill="currentColor" />
+              {/* pulsing ring indicator so the user sees "I'm hot" at a glance */}
+              <span
+                className="absolute inset-0 rounded-full animate-ping pointer-events-none"
+                style={{ background: 'var(--case, var(--amber))', opacity: 0.35 }}
+              />
+            </>
+          ) : (
+            <Mic className="w-4 h-4" />
+          )}
         </button>
 
         <button
@@ -640,7 +608,9 @@ function StructuredMessage({ msg }) {
 
   return (
     <div className="flex flex-col items-start gap-2 w-full">
-      {/* QUICK — the headline answer, the line the presenter says */}
+      {/* QUICK — the headline answer, the line the presenter says.
+          Tags now sit IN the eyebrow (right-aligned) so they describe
+          the answer rather than orphaning at the bottom of the card. */}
       <div
         className="rounded-lg px-3 py-2.5 w-full"
         style={{
@@ -649,16 +619,37 @@ function StructuredMessage({ msg }) {
           borderLeftWidth: 3,
         }}
       >
-        <div
-          className="deck-mono uppercase mb-1 flex items-center gap-1.5"
-          style={{
-            fontSize: '0.55rem',
-            letterSpacing: 'var(--ls-mono-wide)',
-            color: isLive ? 'var(--case, var(--amber))' : 'var(--cream-faint)',
-          }}
-        >
-          {isLive ? <Zap className="w-3 h-3" /> : <GraduationCap className="w-3 h-3" />}
-          {isLive ? 'Say this' : 'Headline'}
+        <div className="mb-1 flex items-center justify-between gap-2 flex-wrap">
+          <div
+            className="deck-mono uppercase flex items-center gap-1.5"
+            style={{
+              fontSize: '0.55rem',
+              letterSpacing: 'var(--ls-mono-wide)',
+              color: isLive ? 'var(--case, var(--amber))' : 'var(--cream-faint)',
+            }}
+          >
+            {isLive ? <Zap className="w-3 h-3" /> : <GraduationCap className="w-3 h-3" />}
+            {isLive ? 'Say this' : 'Headline'}
+          </div>
+          {msg.tags?.length > 0 && (
+            <div className="flex flex-wrap items-center gap-1">
+              {msg.tags.map((t) => (
+                <span
+                  key={t}
+                  className="deck-mono uppercase px-1.5 py-0.5 rounded"
+                  style={{
+                    fontSize: '0.5rem',
+                    letterSpacing: 'var(--ls-mono)',
+                    color: 'var(--cream-faint)',
+                    background: 'transparent',
+                    border: '1px solid var(--cream-hairline)',
+                  }}
+                >
+                  #{t}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
         <div
           style={{
@@ -672,7 +663,9 @@ function StructuredMessage({ msg }) {
         </div>
       </div>
 
-      {/* DETAILS — bullets, collapsed-by-default in live, open in rehearse */}
+      {/* DETAILS — own card with distinct background so it reads as a
+          separate surface, not blending into the panel. Indented and
+          slightly muted so the QUICK card stays primary. */}
       {hasDetails && (
         <div className="w-full">
           <button
@@ -688,45 +681,45 @@ function StructuredMessage({ msg }) {
             {open ? 'Hide details' : `Details · ${msg.details.length}`}
           </button>
           {open && (
-            <ul
-              className="mt-1 ml-2 pl-3 border-l space-y-1.5"
-              style={{ borderLeftColor: 'var(--cream-hairline)' }}
+            <div
+              className="rounded-lg px-3 py-2.5"
+              style={{
+                background: 'color-mix(in srgb, var(--cream-ghost) 60%, var(--bg) 40%)',
+                border: '1px solid var(--cream-hairline)',
+                borderLeft: '2px solid var(--cream-faint)',
+              }}
             >
-              {msg.details.map((d, i) => (
-                <li
-                  key={i}
-                  style={{
-                    color: 'var(--cream-muted)',
-                    fontSize: '0.83rem',
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {d}
-                </li>
-              ))}
-            </ul>
+              <ul className="flex flex-col gap-1.5 m-0 p-0 list-none">
+                {msg.details.map((d, i) => (
+                  <li
+                    key={i}
+                    className="flex gap-2"
+                    style={{ color: 'var(--cream)', fontSize: '0.83rem', lineHeight: 1.5 }}
+                  >
+                    <span
+                      aria-hidden
+                      className="deck-mono shrink-0 tabular-nums"
+                      style={{
+                        minWidth: '1rem',
+                        paddingTop: '0.15em',
+                        fontSize: '0.62rem',
+                        color: 'var(--cream-faint)',
+                      }}
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span style={{ color: 'var(--cream-muted)' }}>{d}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </div>
       )}
 
-      {/* TAGS + CITATIONS row */}
-      {(msg.tags?.length || msg.citations?.length || msg.mode) && (
+      {/* MODE + CITATIONS row (tags moved up into the eyebrow) */}
+      {(msg.citations?.length || msg.mode) && (
         <div className="flex flex-wrap items-center gap-1.5">
-          {msg.tags?.map((t) => (
-            <span
-              key={t}
-              className="deck-mono uppercase px-1.5 py-0.5 rounded"
-              style={{
-                fontSize: '0.55rem',
-                letterSpacing: 'var(--ls-mono)',
-                color: 'var(--cream-muted)',
-                background: 'var(--cream-ghost)',
-                border: '1px solid var(--cream-hairline)',
-              }}
-            >
-              #{t}
-            </span>
-          ))}
           {msg.mode && <ModeChip mode={msg.mode} />}
           {msg.citations?.map((c) => (
             <span
@@ -885,11 +878,3 @@ function splitHeadline(text) {
   return { short: shortWords + '…', long: text.trim() };
 }
 
-function pickAudioMime() {
-  if (typeof MediaRecorder === 'undefined') return '';
-  const candidates = ['audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus', 'audio/mp4'];
-  for (const c of candidates) {
-    if (MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(c)) return c;
-  }
-  return '';
-}
