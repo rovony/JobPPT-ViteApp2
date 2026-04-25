@@ -113,11 +113,11 @@ Case one. ⏸ ==Ambrisentan== — an endothelin receptor antagonist for pulmonar
 - ⏱ 15 sec — divider beat, no dwelling
 - 🎚 Steady, almost matter-of-fact tone — drama lives in the next 10 minutes
 - 🎯 Eyes on the panel chair on "exposure-matching had to carry the dose"
-- ⚠ Do NOT say "approved by FDA" — the FDA outcome is the honest-framing slide later
+- ⚠ Do NOT mention FDA — FDA framing is reserved for Q&A defense (rights-split answer)
 - ✅ Land cleanly on the divider — advance immediately
 
 ## Bridge
-→ Disease backstory next — small population, lethal trajectory, drug-poor.`,
+→ The Clin Pharm question next — lung morphs in as the editorial backdrop, the question becomes the foreground.`,
 
   // Slide 06 — CS1 disease backstory
   'cs1-disease': `## Spoken
@@ -278,28 +278,31 @@ The structural model — two-compartment with absorption lag — was the structu
 - ✅ The two phrases the panel will quote are "within three percent of the adult" and "exposure matching"
 
 ## Bridge
-→ Regulatory verdicts next — three regions, three outcomes, one of them honest.`,
+→ Outcome numbers next — clinical results, and the seven deaths I name first.`,
 
   // Slide 12 — CS1 Bracket Method (leadership ownership) — STUB.
   // Added 2026-04-25 as part of CS1 flow refactor. Full content to be
   // filled in a separate prompt; placement is intentional — leadership
   // earns the verdict on slide 13, not trailing as gratitude.
   'cs1-bracket': `## Spoken
-[TODO — speaker notes for cs1-bracket, ~50 sec runtime. Walk LEFT
-column (I OWNED — model, ER analysis, EMA PIP narrative) then RIGHT
-column (TEAM OWNED — Beghetti/Berger/Lukas/Ivy on trial conduct,
-sites on LTE retention, clinical operations on PK sampling, Beerahee
-on filing, the field on trust). Land the bottom thesis line cleanly:
-both sides of that bracket had to hold for the agencies to act.]
+A word about ownership before the verdict lands. ⏸
+
+==What I owned== — the pediatric population PK model, the exposure-response analysis, and the regulatory narrative for the EMA PIP. *That is the modeling claim I'm comfortable defending alone.*
+
+⏸ ==What the team owned== — pediatric trial conduct: Beghetti, Berger, Lukas, Ivy. Long-term extension retention: site investigators across four continents. Pharmacokinetic sample collection: clinical operations. Regulatory submissions: Beerahee and the filing teams. ⏸ And the trust of the field — clinicians and families.
+
+⏸ **Both sides of that bracket had to hold for the agencies to act.** That's the case. Modeling is one half of a two-half answer. The Director-level move is naming both halves out loud, before someone asks who did what.
 
 ## Cues
-- ⏱ 50 sec — own the modeling claim, credit the team genuinely
-- 🎚 Slow on collaborator names — pronunciation matters
-- ⚠ Do NOT linger; this is leadership signaling, not a CV recital
-- ✅ Land on "both sides had to hold" before advancing to verdict
+- ⏱ 45–55 sec — leadership signaling, not a CV recital
+- 🎚 Slow on collaborator names — Beghetti, Berger, Lukas, Ivy, Beerahee — pronunciation matters
+- 🎯 Walk the panel left (I OWNED) then right (TEAM OWNED); pause on the bottom thesis line
+- ⚠ Do NOT minimize the team contribution — the bracket only works if both halves are weighted equally
+- ⚠ Do NOT name internal organizational details (managers, departments) — names that appear here are public co-authors of Ivy 2020 and Okour 2023
+- ✅ Land on "both sides of that bracket had to hold for the agencies to act" — that is the slide
 
 ## Bridge
-→ Regulatory verdicts next — what those agencies actually said.`,
+→ Regulatory verdicts next — the agencies' answer, with both sides of the bracket having held.`,
 
   // Slide 13 — CS1 regulatory verdicts (world map · EMA + PMDA highlighted).
   // Renamed from cs1-decision as part of CS1 flow refactor 2026-04-25;
@@ -323,7 +326,7 @@ The **PMDA approved** in 2021 — in parallel. Same Clin Pharm package. Second f
 - 🛟 If asked live "what about FDA?" → answer briefly: "Different commercial-rights structure. Identical Clin Pharm package. I can walk through the rights split if useful." Then advance.
 
 ## Bridge
-→ Outcome numbers next — what shipped and what we say first.`,
+→ Lesson next — three Director-level principles, portable beyond ambrisentan.`,
 
   // Slide 13 — CS1 clinical numbers + honest framing
   'cs1-outcome': `## Spoken
@@ -348,7 +351,7 @@ The 2024 *European Journal of Pediatrics* long-term safety publication is the po
 - ✅ Land on "Director-level work is naming the hard number before the panel does" — that is the leadership signal of this case
 
 ## Bridge
-→ What this case proves next — three Director-level lessons that travel beyond ambrisentan.`,
+→ Ownership next — Bracket Method. The verdict slide is one beat away; this is the credit.`,
 
   // Slide 14 — CS1 what this case proves (3 lessons)
   'cs1-lesson': `## Spoken
@@ -371,21 +374,26 @@ What this case proves. **Three lessons** that travel beyond ambrisentan. ⏸
 - ✅ Land on "the principle outlives the molecule"
 
 ## Bridge
-→ Case 02 next — a different population, a different impossibility.`,
+→ Bridge slide next — one closing line into Case 02.`,
 
-  // Slide 15 — CS1 → CS2 bridge
+  // Slide 15 — CS1 → CS2 bridge.
+  // Hook-aware: speaker text aligns with the BRIDGE_TAGLINE constant in
+  // 15-cs1-bridge.jsx. Toggle the tagline (Hook A vs Hook G) by editing
+  // the slide file and updating this Spoken block accordingly.
   'cs1-bridge': `## Spoken
-Same Clin Pharm function — different impossibility. ⏸
+==From a population we couldn't ethically test== — to a population we couldn't geographically reach. ⏸
 
-==From a population we couldn't ethically test== — to a population we couldn't geographically reach.
+In CS1, the trial was *untrialable*. In CS2, the trial was *unavailable*. ==Same function, different shape.== ⏸
 
-⏸ Case two. *Ivosidenib in India* — when the trial cannot reach the patients.
+Three decisions ahead. **Case two — the regulatory bridge.**
 
 ## Cues
-- ⏱ 15 sec — bridge beat, do not dwell
-- 🎚 Steady — the rhetorical work was done on the previous slide
-- 🎯 Eyes forward on "different impossibility"
+- ⏱ 18 sec — bridge beat, do not dwell
+- 🎚 Steady — the rhetorical work was done on the lesson slide
+- 🎯 Eyes forward on "same function, different shape"
+- 📍 The amber pointer animates last; do not race it — pause on "Case two — the regulatory bridge"
 - ⚠ Do NOT preview ivosidenib's substance — the next divider does that
+- ⚠ If the deck swaps to Hook G, update Spoken to match: "In CS1, the model became the dose. In CS2, the dossier becomes the trial." Same Cues otherwise.
 - ✅ Advance immediately after the next-case line
 
 ## Bridge
@@ -632,6 +640,183 @@ By April 2025, the SEC had converted a pre-approval hurdle into a ==Phase 4 post
 
 ## Bridge
 → Next slide draws the portable lessons — what this case proves about regulatory bridging.`,
+
+  // ══════════════════════════════════════════════════════════════
+  // CS3 — PharmAgent · AI/ML workflow infrastructure · SAGE
+  // ~8 minutes total stage time across 8 slides.
+  // ══════════════════════════════════════════════════════════════
+
+  'cs3-divider': `## Spoken
+Case three. ⏸
+
+This one is different. The first two cases were retrospective — work that's been argued in front of regulators and accepted. This one is ==forward-looking==.
+
+"When the trial isn't the answer for the ==next decade== of decisions." ⏸
+
+The question isn't what clinical pharmacology did. The question is what clinical pharmacology will ==need== — and whether the infrastructure exists to deliver it at the pace the field now demands.
+
+## Cues
+- ⏱ 20 sec — divider beat, register shift from retrospective to forward-looking
+- 🎚 Slightly lower energy than CS2 close — reset before building the final case
+- 🎯 The word "need" carries the weight; land it with a pause
+- ⚠ Do NOT name PharmAgent yet — the architecture slide owns that reveal
+- ✅ Advance immediately after the transition
+
+## Bridge
+→ The question next — what the next decade demands.`,
+
+  'cs3-question': `## Spoken
+A senior listener has just heard two cases. ⏸
+
+In CS1, the PopPK took ==years== to defend. In CS2, the six-pillar dossier took ==eighteen months== of cross-functional work. The science was right both times. The scaffolding was the constraint.
+
+⏸ Now name what's coming: ==pediatric extrapolation, regional bridging, dose optimization== under ICH M15, Project Optimus, E11A, Rule 101. The next decade will ask for a hundred more CS1s and CS2s. ⏸
+
+And we cannot keep assembling them case-by-case.
+
+## Cues
+- ⏱ 40 sec — the framing slide. Connect CS1/CS2 experience to the problem statement.
+- 🎚 Conversational register — "let me tell you what comes next"
+- 📍 Gesture backward on "CS1" and "CS2" — physically acknowledge what came before
+- ⚠ Do NOT overclaim. Say "the next decade will ask" — not "the next decade demands that AI solve"
+- ✅ Land on "cannot keep assembling them case-by-case"
+
+## Bridge
+→ The constraint next — 80% scaffolding, 20% science.`,
+
+  'cs3-problem': `## Spoken
+Here is the naming of the problem. ⏸
+
+==Pharmacometric workflows are eighty percent scaffolding, twenty percent science.==
+
+The function spent more time on integration — data wrangling, format conversion, report templating, cross-team handoffs, version control, regulatory formatting — than on the analysis itself. ⏸
+
+CS1's PopPK analysis took weeks of modeling. The regulatory package around it took years. CS2's six-pillar dossier had clean science — the eighteen months went to assembly, not to discovery.
+
+⏸ The audience doesn't hear "tools are slow." The audience hears: ==the function spent more time on integration than on analysis — and the next decade can't afford that.==
+
+## Cues
+- ⏱ 45 sec — problem-naming slide. The 80/20 split is the headline.
+- 🎚 Matter-of-fact delivery on the 80/20. Not dramatic — diagnostic.
+- 📍 The two boxes on screen do the visual work. Let the audience read; then speak the consequence.
+- ⚠ Do NOT blame any specific tool or vendor. The constraint is structural, not tool-specific.
+- ✅ Land on "the next decade can't afford that"
+
+## Bridge
+→ The architecture next — PharmAgent.`,
+
+  'cs3-architecture': `## Spoken
+This is the architectural answer. ⏸
+
+==PharmAgent.== A multi-agent platform that lets the model carry the evidence at scale.
+
+Centralized topology. ==Three-level agent hierarchy== — an orchestrator that owns the workflow, specialist agents that own domains like PopPK, PBPK, and exposure-response, and worker agents that execute deterministic tools. ⏸
+
+==Thirteen specialized agents. One hundred fifty-one deterministic tools.== Typed, versioned, auditable. ==Seventy-six review-gated templates== that produce regulatory-format outputs.
+
+⏸ Clin pharm hears: "the platform that lets the function ship CS1- and CS2-shaped work at scale." Pharmacometrics hears: "centralized topology grounded in Kim et al. 2025; deterministic-tool discipline; typed state bus."
+
+## Cues
+- ⏱ 55 sec — the densest slide in CS3. Deliver numbers crisply.
+- 🎚 Confident, not breathless. The numbers are the argument; don't oversell.
+- 📍 Walk the four spec cards left-to-right on screen
+- ⚠ Cite "Kim et al. CPT 2025" — the centralized-topology scaling-law paper. If a panelist asks, the citation is ready.
+- ⚠ Do NOT say "AI replaces pharmacometricians." Say "the platform carries the scaffolding; the function keeps owning the science."
+- ✅ Land on "at scale"
+
+## Bridge
+→ The decisive move next — privacy and audit by construction.`,
+
+  'cs3-decisive-move': `## Spoken
+Two architectural commitments. ⏸
+
+If the model is the answer, the model has to be ==defendable to a regulator on its own terms==. That means two things.
+
+⏸ ==Privacy by architecture.== Patient data physically cannot reach the LLM. Local computation with typed, encrypted state transfer. No PII in the inference path — ==by construction, not by policy.== ⏸
+
+==Audit by construction.== Hash-chain audit trail. Every analysis step is regulator-replayable. ICH M15-aligned provenance from data ingestion through final report. Deterministic tool outputs — ==not stochastic text.== ⏸
+
+These aren't features. They're the ==conditions under which model-as-answer is acceptable evidence at scale.==
+
+## Cues
+- ⏱ 50 sec — the conviction slide. Deliver like you believe it, because you built it.
+- 🎚 Slow on "by construction, not by policy." That phrase is the slide.
+- 📍 The two commitment cards on screen do the structural work. Name them, then explain.
+- 🎯 Eye contact with the most senior panelist on "acceptable evidence at scale."
+- ⚠ Do NOT say "we solved privacy" — say "privacy is an architectural constraint, not a policy promise."
+- ✅ Landing line: "conditions under which model-as-answer is acceptable evidence"
+
+## Bridge
+→ Pilot evidence next — what the platform has shipped.`,
+
+  'cs3-pilot': `## Spoken
+What the platform has shipped so far. ⏸
+
+Same scientific output. Faster. ==With audit gates intact.==
+
+PopPK report — from six to eight weeks to ==three to four days==. First draft, review-ready. PBPK DDI package — from four to six weeks to ==one week==. Qualified model plus label draft. Regulatory exposure-response summary — from three to four weeks to ==two to three days==. ICH M15-aligned format. ⏸
+
+Every one of those outputs passed the ==same QC checklists and regulatory review gates== as the manual workflow. The model came faster. It was no less defensible.
+
+## Cues
+- ⏱ 40 sec — the evidence slide. Let the comparison table do the work.
+- 🎚 Tabular delivery — "from [X] to [Y]" rhythm. Each row is its own beat.
+- 📍 The strikethrough old numbers on screen are the visual signal. Gesture across each row.
+- ⚠ Say "pilot metrics from internal project runs" — do not overclaim production scale.
+- ⚠ The caveat box on the slide is deliberate. Do not skip past it.
+- ✅ Land on "the model came faster, and was no less defensible"
+
+## Bridge
+→ Bracket Method next — credit outward to the field.`,
+
+  'cs3-bracket': `## Spoken
+Ownership. ⏸
+
+The architecture is mine. I designed the centralized topology, the three-level hierarchy, the deterministic-tool discipline, the hash-chain audit, the privacy-by-construction data layer. ⏸
+
+The ==discipline== that makes it credible is ==the field's==.
+
+ICH M15 defines how model-informed evidence is assessed. Kim et al. 2025 establishes the centralized-topology scaling laws. The MIDD literature defines context-of-use and consequence-of-wrong-decision. The agentic-systems research literature demonstrates that tool-use beats free-text generation for high-stakes outputs. The FDA and EMA PBPK guidances define qualification-not-validation. ⏸
+
+The platform inherits credibility from ==peer-reviewed work==, not from internal claims.
+
+## Cues
+- ⏱ 50 sec — the credit-outward slide. Deliberately share credit with the field.
+- 🎚 Start with "the architecture is mine" — direct, not apologetic. Then pivot outward.
+- 📍 Walk the right column on screen — name each source as you credit it.
+- ⚠ Do NOT spend more than one sentence on what you designed. The emphasis is outward.
+- ⚠ Do NOT claim any of the cited work endorses PharmAgent. The platform *uses* the field's frameworks; the field didn't *build* the platform.
+- ✅ Land on "peer-reviewed work, not internal claims"
+
+## Bridge
+→ The portable principle closes the seminar.`,
+
+  'cs3-portable': `## Spoken
+The portable principle. ⏸
+
+==AI in clinical pharmacology is most useful as workflow infrastructure, not model substitution.==
+
+⏸ Three cases. Three decisions. One discipline.
+
+In case one, ==exposure-matching carried the dose.== In case two, ==the dossier replaced the trial.== In case three, ==the platform carries the scaffolding.== ⏸
+
+The function keeps owning the science. The platform carries the integration. The trial is still not the answer — and now the model can keep up.
+
+⏸ ==Three decisions. Three trials that weren't there. Three answers from the same discipline.==
+
+That's the function. That's clinical pharmacology. Thank you.
+
+## Cues
+- ⏱ 50 sec — the closer. Land the three-case recap cleanly.
+- 🎚 Build from quiet to confident. Each case recap gets one beat.
+- 📍 The three recap cards on screen carry the visual summary. Gesture across them.
+- 🎯 Eye contact with the panel chair on "thank you."
+- ⚠ Do NOT add new content. The closer recaps — it doesn't introduce.
+- ⚠ Do NOT rush. Every sentence has been rehearsed. Deliver at the pace you've earned over 45 minutes.
+- ✅ Landing line: "Three answers from the same discipline." Full stop. Then "thank you." Full stop.
+
+## Bridge
+→ Q&A. Stand still. Wait for the chair.`,
 
   'cs2-bridge-recap': `## Spoken
 Three things this case proves. ⏸
