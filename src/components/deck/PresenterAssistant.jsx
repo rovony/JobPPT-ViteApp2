@@ -1,8 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Sparkles, Send, Loader2, Lightbulb, Mic, Square, FolderOpen, BookOpen, Globe, StickyNote } from 'lucide-react';
+import { Sparkles, Send, Loader2, Lightbulb, Mic, Square, FolderOpen, BookOpen, Globe, StickyNote, Settings, Cpu, AlertTriangle } from 'lucide-react';
 import { useAmbientListen } from '@/lib/useAmbientListen';
+import {
+  isStubResponse,
+  hasOpenAIKey,
+  localAskPresenter,
+  localTranscribeAudio,
+  LocalAIError,
+} from '@/lib/aiLocalClient';
 import AmbientListenPanel from './AmbientListenPanel';
+import AIKeySettings from './AIKeySettings';
 
 /**
  * PresenterAssistant — live co-pilot for the person presenting.
@@ -27,8 +35,17 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
   const [loading, setLoading] = useState(false);
   const [recording, setRecording] = useState(false);
   const [recStatus, setRecStatus] = useState(''); // '', 'listening', 'transcribing'
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [localKeyPresent, setLocalKeyPresent] = useState(hasOpenAIKey());
   const listRef = useRef(null);
   const mediaRef = useRef(null); // { recorder, stream, chunks }
+
+  /* Re-check the localStorage key when the settings modal closes — if
+     the user pasted a new one, the assistant header should pick up the
+     "Local mode (key set)" indicator without a reload. */
+  useEffect(() => {
+    if (!settingsOpen) setLocalKeyPresent(hasOpenAIKey());
+  }, [settingsOpen]);
 
   // ─── Ambient listen (audience Q detection via Web Speech API) ───
   const ambient = useAmbientListen();
@@ -106,7 +123,11 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
     'Rephrase my opening sentence more tightly.',
   ];
 
-  /* ---------- Send (text or transcribed) ---------- */
+  /* ---------- Send (text or transcribed) ----------
+     Try base44 first; if it's stubbed (offline-mock client) or throws,
+     fall back to the local OpenAI path with the user's API key. The
+     local path injects deck.reading + the full slide map as context
+     (Phase 14 scope expansion). */
   const send = async (text) => {
     const q = (text ?? input).trim();
     if (!q || loading) return;
@@ -115,6 +136,13 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
     setInput('');
     setLoading(true);
 
+    const reply = await getReply(q, nextMsgs);
+    setMessages([...nextMsgs, reply]);
+    setLoading(false);
+  };
+
+  const getReply = async (question, nextMsgs) => {
+    // 1. Try base44 (real backend if connected; stub returns sentinel).
     try {
       const res = await base44.functions.invoke('askPresenter', {
         deck_id: deck.id,
@@ -122,24 +150,59 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
         slide_id: currentSlide?.id || '',
         slide_title: currentSlide?.title || '',
         slide_note: currentNote || '',
-        question: q,
+        question,
         history: nextMsgs.slice(-6),
       });
-      const { answer, mode, citations } = res.data || {};
-      setMessages([...nextMsgs, {
+      if (!isStubResponse(res)) {
+        const { answer, mode, citations } = res.data || {};
+        return {
+          role: 'assistant',
+          content: answer || '(no response)',
+          mode: mode || 'notes-only',
+          citations: citations || [],
+        };
+      }
+      // base44 is in offline-stub mode → fall through to local.
+    } catch (_) {
+      // base44 threw → fall through to local.
+    }
+
+    // 2. Local fallback — needs an OpenAI key.
+    if (!hasOpenAIKey()) {
+      return {
         role: 'assistant',
-        content: answer || '(no response)',
-        mode: mode || 'notes-only',
-        citations: citations || [],
-      }]);
+        content:
+          'AI backend is offline-stubbed and no local OpenAI key is set. ' +
+          'Click the gear icon in the assistant header to add your API key, ' +
+          'then ask again.',
+        mode: 'no-key',
+        citations: [],
+      };
+    }
+
+    try {
+      const result = await localAskPresenter({
+        deck,
+        currentSlide,
+        currentNote,
+        question,
+        history: nextMsgs.slice(-6),
+      });
+      return {
+        role: 'assistant',
+        content: result.answer,
+        mode: 'local',
+        citations: result.citations,
+      };
     } catch (err) {
-      setMessages([...nextMsgs, {
+      const friendly = err instanceof LocalAIError ? err.message
+        : (err?.message || 'Could not reach the model.');
+      return {
         role: 'assistant',
-        content: '⚠️ Couldn\'t reach the model. Try again.',
-        mode: 'error', citations: [],
-      }]);
-    } finally {
-      setLoading(false);
+        content: `⚠️ ${friendly}`,
+        mode: 'error',
+        citations: [],
+      };
     }
   };
 
@@ -194,19 +257,49 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
                 : (mime || 'audio/webm').includes('mp4') ? 'm4a'
                 : 'webm';
       const blob = new Blob(chunks, { type: mime || 'audio/webm' });
-      const file = new File([blob], `ptt.${ext}`, { type: blob.type });
-      const { file_url } = await base44.integrations.Core.UploadFile({ file });
-      const res = await base44.functions.invoke('transcribeAudio', { file_url });
-      const text = (res?.data?.text || '').trim();
+
+      // Try base44 first (real backend); fall back to local Whisper if stubbed.
+      let text = '';
+      let baseFailed = false;
+      try {
+        const file = new File([blob], `ptt.${ext}`, { type: blob.type });
+        const upload = await base44.integrations.Core.UploadFile({ file });
+        // Stub mode returns { file_url: '' } — treat empty as a stub signal.
+        if (!upload?.file_url) {
+          baseFailed = true;
+        } else {
+          const res = await base44.functions.invoke('transcribeAudio', {
+            file_url: upload.file_url,
+          });
+          if (isStubResponse(res)) baseFailed = true;
+          else text = (res?.data?.text || '').trim();
+        }
+      } catch (_) {
+        baseFailed = true;
+      }
+
+      if (baseFailed) {
+        if (!hasOpenAIKey()) {
+          setRecStatus('');
+          alert(
+            'AI backend is offline-stubbed and no local OpenAI key is set.\n' +
+            'Open the assistant settings (gear icon) to add your API key.'
+          );
+          return;
+        }
+        text = await localTranscribeAudio(blob);
+      }
+
       setRecStatus('');
       if (text) send(text);
     } catch (err) {
       console.warn('Transcription failed:', err);
       setRecStatus('');
-      // Surface the server's actual error message (e.g. "Recording too short")
-      // instead of the generic fallback, so the presenter knows how to retry.
-      const serverMsg = err?.response?.data?.error || err?.message || 'Could not transcribe the recording.';
-      alert(serverMsg);
+      // Surface the actual error so the presenter knows how to retry —
+      // includes both server-side base44 errors and LocalAIError messages.
+      const friendly = err instanceof LocalAIError ? err.message
+        : (err?.response?.data?.error || err?.message || 'Could not transcribe the recording.');
+      alert(friendly);
     }
   };
 
@@ -232,6 +325,20 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
             Ask about this slide
           </div>
         </div>
+        {localKeyPresent && (
+          <span
+            title="Using local OpenAI key (offline-stub backend)"
+            className="deck-mono uppercase flex items-center gap-1.5 px-2 py-1 rounded-full border"
+            style={{
+              borderColor: 'var(--sage)',
+              color: 'var(--sage)',
+              fontSize: '0.55rem',
+              letterSpacing: 'var(--ls-mono)',
+            }}
+          >
+            <Cpu className="w-3 h-3" /> Local
+          </span>
+        )}
         {onOpenSources && (
           <button
             onClick={onOpenSources}
@@ -246,6 +353,15 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
             <FolderOpen className="w-3 h-3" /> Sources
           </button>
         )}
+        <button
+          onClick={() => setSettingsOpen(true)}
+          title={localKeyPresent ? 'AI assistant settings' : 'Set up local OpenAI key'}
+          aria-label="AI assistant settings"
+          className="h-7 w-7 rounded flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)]"
+          style={{ color: localKeyPresent ? 'var(--cream-muted)' : 'var(--case, var(--amber))' }}
+        >
+          {localKeyPresent ? <Settings className="w-3.5 h-3.5" /> : <AlertTriangle className="w-3.5 h-3.5" />}
+        </button>
       </div>
 
       {/* Ambient listen — sits above the chat so detected questions
@@ -357,6 +473,8 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
           {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
         </button>
       </form>
+
+      <AIKeySettings open={settingsOpen} onClose={() => setSettingsOpen(false)} />
     </div>
   );
 }
@@ -392,7 +510,9 @@ function ModeAndCitations({ mode, citations }) {
     rag:          { icon: BookOpen,   label: 'From sources',   color: 'var(--sage)' },
     web:          { icon: Globe,      label: 'Web fallback',   color: 'var(--cyan)' },
     'notes-only': { icon: StickyNote, label: 'Notes only',     color: 'var(--cream-faint)' },
-    error:        { icon: StickyNote, label: 'Error',          color: 'var(--coral)' },
+    local:        { icon: Cpu,        label: 'Local · OpenAI', color: 'var(--sage)' },
+    'no-key':     { icon: AlertTriangle, label: 'Set up key',  color: 'var(--case, var(--amber))' },
+    error:        { icon: AlertTriangle, label: 'Error',       color: 'var(--coral)' },
   }[mode] || null;
 
   return (
