@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
+import { reindexLiveEdit } from './aiRagIndex';
 
 /**
  * useSpeakerNotes — load + upsert speaker notes for a deck, keyed by (deck_id, slide_id).
@@ -90,9 +91,12 @@ export function useSpeakerNotes(deckId, staticNotes = null) {
           return next;
         });
         setSaving(false);
+        // Re-embed + upsert into Qdrant so RAG retrieval reflects the
+        // edit on the next ask. No-op when Qdrant isn't configured.
+        reindexLiveEdit({ deckId, slideId, kind: 'note', text: content });
       }, 400);
     },
-    [persist],
+    [persist, deckId],
   );
 
   const clearNote = useCallback(

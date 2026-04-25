@@ -29,15 +29,42 @@
  * material is small enough that inline context is the right choice.
  */
 
+import { isQdrantConfigured, search as qdrantSearch } from './qdrantClient';
+
 const KEY_STORAGE = 'merck-deck:openai-key';
 const CHAT_URL = 'https://api.openai.com/v1/chat/completions';
+const EMBED_URL = 'https://api.openai.com/v1/embeddings';
 const WHISPER_URL = 'https://api.openai.com/v1/audio/transcriptions';
 const CHAT_MODEL = 'gpt-4o-mini'; // cheap, fast, accurate enough for stage co-pilot
+const EMBED_MODEL = 'text-embedding-3-small';
 const WHISPER_MODEL = 'whisper-1';
 
 const READING_BUDGET_CHARS = 12000;
+const RAG_TOP_K = 5;
+const RAG_THRESHOLD = 0.30;
+
+/* Key resolution priority:
+ *   1. VITE_OPENAI_API_KEY from .env.local (build-time inlined by Vite)
+ *   2. localStorage `merck-deck:openai-key` (user pasted into AIKeySettings)
+ * The env var wins so a developer can ship a "just works" build for
+ * personal use without exposing the settings UI workflow. localStorage
+ * remains the user-facing override for browsers without the env var
+ * baked in. */
+function readEnvKey() {
+  try {
+    // import.meta.env is statically replaced by Vite — the access has to
+    // be inline (not via a variable) for the substitution to fire, but
+    // we wrap in try/catch in case the runtime is bare Node.
+    const k = import.meta.env?.VITE_OPENAI_API_KEY;
+    return typeof k === 'string' ? k.trim() : '';
+  } catch {
+    return '';
+  }
+}
 
 export function getOpenAIKey() {
+  const env = readEnvKey();
+  if (env) return env;
   if (typeof window === 'undefined') return '';
   return (localStorage.getItem(KEY_STORAGE) || '').trim();
 }
@@ -53,6 +80,15 @@ export function hasOpenAIKey() {
   return !!getOpenAIKey();
 }
 
+/** Where the active key came from — useful for the assistant header
+ *  badge so the user can tell at a glance whether they're using the
+ *  env-baked key or a localStorage override. */
+export function getKeySource() {
+  if (readEnvKey()) return 'env';
+  if (typeof window !== 'undefined' && localStorage.getItem(KEY_STORAGE)) return 'localStorage';
+  return null;
+}
+
 /** Sentinel for callers — true when a base44 response is the offline stub. */
 export function isStubResponse(res) {
   return !!(res && (res.stub === true || res?.data?.stub === true));
@@ -60,6 +96,20 @@ export function isStubResponse(res) {
 
 /* ============================================================
  * askPresenter (local path)
+ *
+ * Two retrieval strategies, decided at runtime:
+ *
+ *   • If Qdrant is configured (VITE_QDRANT_URL + VITE_QDRANT_API_KEY)
+ *     and returns at least one chunk above the cosine threshold,
+ *     ground the model in those retrieved chunks and emit citations.
+ *     The reading-material inline block is dropped from the prompt
+ *     so the retrieved context isn't drowned out.
+ *
+ *   • Otherwise, fall back to inline-context mode (Phase 14): full
+ *     reading material + slide notes injected directly. No citations.
+ *
+ * Either way the user sees a coherent answer; the assistant just
+ * gets sharper grounding when Qdrant is healthy.
  * ============================================================ */
 export async function localAskPresenter({
   deck,
@@ -76,9 +126,46 @@ export async function localAskPresenter({
     );
   }
 
+  // Try RAG retrieval first if Qdrant is configured. Failure is non-fatal —
+  // we fall through to the inline-context path on any error.
+  let retrieved = [];
+  let ragMode = false;
+  if (isQdrantConfigured() && deck?.id) {
+    try {
+      const qVec = await embedOne(question);
+      const hits = await qdrantSearch({
+        vector: qVec,
+        limit: RAG_TOP_K,
+        filter: {
+          must: [{ key: 'deck_id', match: { value: deck.id } }],
+        },
+        scoreThreshold: RAG_THRESHOLD,
+      });
+      retrieved = hits.map((h, i) => ({
+        n: i + 1,
+        score: Number((h.score || 0).toFixed(3)),
+        text: h.payload?.text || '',
+        kind: h.payload?.kind || 'unknown',
+        slideId: h.payload?.slide_id || null,
+        readingTitle: h.payload?.reading_title || null,
+      }));
+      ragMode = retrieved.length > 0;
+    } catch (err) {
+      console.warn('[aiLocalClient] RAG retrieval failed, falling back:', err.message);
+    }
+  }
+
   const slideMap = buildSlideMap(deck);
-  const readingBlock = buildReadingBlock(deck);
   const recent = buildRecentExchange(history);
+
+  const sourcesBlock = ragMode
+    ? buildRetrievedBlock(retrieved)
+    : buildReadingBlock(deck);
+
+  const groundingRules = ragMode
+    ? `• Use ONLY the retrieved sources above for facts. Cite them as [R1], [R2], … inline whenever you use one.
+• If the retrieved sources don't cover the question, say so briefly — never fabricate numbers, dates, or citations.`
+    : `• Use the reading material above for facts when relevant. If it doesn't cover the question, say so briefly — never fabricate numbers or sources.`;
 
   const systemPrompt = `You are an on-stage co-pilot for a live presenter. They are delivering a talk right now and need a short, stage-ready answer they can say out loud.
 
@@ -86,7 +173,7 @@ STYLE RULES
 • Under 90 words, plain spoken language, no preamble ("Great question…").
 • Lead with the answer. One or two supporting points max.
 • If the presenter asks to rephrase or recap, respond in first person as them.
-• Ground every factual claim in the materials below. If they don't cover it, say so briefly — do not fabricate sources or numbers.
+${groundingRules}
 
 DECK: ${deck?.title || '(untitled)'}
 CURRENT SLIDE: ${currentSlide?.title || '(untitled)'} (id: ${currentSlide?.id || '—'})
@@ -99,7 +186,7 @@ ${currentNote || '(no notes for this slide)'}
 DECK SLIDE MAP (so you can reference other slides if useful):
 ${slideMap}
 
-${readingBlock}`;
+${sourcesBlock}`;
 
   const messages = [
     { role: 'system', content: systemPrompt },
@@ -139,9 +226,43 @@ ${readingBlock}`;
   const answer = data?.choices?.[0]?.message?.content?.trim() || '(no response)';
   return {
     answer,
-    mode: 'local',
-    citations: [], // no RAG locally; reading material is inline context
+    mode: ragMode ? 'rag' : 'local',
+    citations: retrieved.map((r) => ({
+      n: r.n,
+      source_title: r.readingTitle || `${r.kind}:${r.slideId || '—'}`,
+      chunk_index: 0,
+      score: r.score,
+    })),
   };
+}
+
+async function embedOne(text) {
+  const key = getOpenAIKey();
+  const res = await fetch(EMBED_URL, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${key}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ model: EMBED_MODEL, input: text }),
+  });
+  if (!res.ok) {
+    const body = await res.text().catch(() => '');
+    throw new Error(`Embedding failed (${res.status}): ${body.slice(0, 200)}`);
+  }
+  const data = await res.json();
+  return data.data[0].embedding;
+}
+
+function buildRetrievedBlock(retrieved) {
+  if (!retrieved.length) return 'RETRIEVED SOURCES: (none)';
+  const blocks = retrieved.map((r) => {
+    const head = r.kind === 'reading' && r.readingTitle
+      ? `[R${r.n}] reading · ${r.readingTitle} (score ${r.score})`
+      : `[R${r.n}] ${r.kind}${r.slideId ? ` · ${r.slideId}` : ''} (score ${r.score})`;
+    return `${head}\n${r.text}`;
+  });
+  return `RETRIEVED SOURCES (cite by [R…] when used):\n${blocks.join('\n\n---\n\n')}`;
 }
 
 /* ============================================================

@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
+import { reindexLiveEdit } from './aiRagIndex';
 
 /**
  * useAnticipatedQA — load + upsert anticipated/rehearsed Q&A per slide.
@@ -99,9 +100,12 @@ export function useAnticipatedQA(deckId, staticQA = null) {
           return next;
         });
         setSaving(false);
+        // Re-embed + upsert into Qdrant so RAG retrieval reflects the
+        // edit on the next ask. No-op when Qdrant isn't configured.
+        reindexLiveEdit({ deckId, slideId, kind: 'qa', text: content });
       }, 400);
     },
-    [persist],
+    [persist, deckId],
   );
 
   const clearQA = useCallback(

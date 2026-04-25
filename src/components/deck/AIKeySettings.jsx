@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Key, Check, X, ExternalLink, Trash2 } from 'lucide-react';
-import { getOpenAIKey, setOpenAIKey } from '@/lib/aiLocalClient';
+import { Key, Check, X, ExternalLink, Trash2, Cpu, Database, RefreshCw, Loader2, AlertTriangle } from 'lucide-react';
+import { getOpenAIKey, setOpenAIKey, getKeySource } from '@/lib/aiLocalClient';
+import { isQdrantConfigured, getQdrantConfig } from '@/lib/qdrantClient';
 
 /**
  * AIKeySettings — modal for configuring the local OpenAI API key.
@@ -16,7 +17,7 @@ import { getOpenAIKey, setOpenAIKey } from '@/lib/aiLocalClient';
  * (chat or whisper) returns a clean 'bad-key' error if the key is wrong,
  * which the assistant surfaces back to the user.
  */
-export default function AIKeySettings({ open, onClose }) {
+export default function AIKeySettings({ open, onClose, ragStatus, onReindex }) {
   const [value, setValue] = useState('');
   const [saved, setSaved] = useState(false);
 
@@ -113,6 +114,26 @@ export default function AIKeySettings({ open, onClose }) {
 
         {/* Body */}
         <div className="p-4 flex flex-col gap-4">
+          {getKeySource() === 'env' && (
+            <div
+              className="px-3 py-2 rounded text-xs flex items-start gap-2"
+              style={{
+                background: 'color-mix(in srgb, var(--sage) 12%, transparent)',
+                border: '1px solid var(--sage)',
+                color: 'var(--cream)',
+                lineHeight: 1.5,
+              }}
+            >
+              <Cpu className="w-3.5 h-3.5 mt-0.5 shrink-0" style={{ color: 'var(--sage)' }} />
+              <div>
+                <strong style={{ color: 'var(--sage)' }}>Env key active.</strong>{' '}
+                A <code>VITE_OPENAI_API_KEY</code> is set in{' '}
+                <code>.env.local</code> and takes priority over anything you paste
+                here. To override, clear the env var or unset it in your{' '}
+                <code>.env.local</code> file.
+              </div>
+            </div>
+          )}
           <p className="text-sm" style={{ color: 'var(--cream-muted)', lineHeight: 1.5 }}>
             Paste your OpenAI key to enable the presenter assistant locally.
             The key stays in this browser (localStorage) and is sent only to
@@ -189,6 +210,56 @@ export default function AIKeySettings({ open, onClose }) {
             </div>
           </div>
 
+          {/* RAG / Qdrant status — only shown when Qdrant is configured. */}
+          {isQdrantConfigured() && (
+            <div
+              className="px-3 py-2 rounded mt-1"
+              style={{
+                background: 'var(--cream-ghost)',
+                border: '1px solid var(--cream-hairline)',
+              }}
+            >
+              <div className="flex items-center justify-between gap-2 mb-1.5">
+                <div className="flex items-center gap-2">
+                  <RagBadge status={ragStatus} />
+                  <span className="deck-mono uppercase" style={{
+                    fontSize: '0.55rem',
+                    letterSpacing: 'var(--ls-mono-wide)',
+                    color: 'var(--cream-faint)',
+                  }}>
+                    Qdrant · {getQdrantConfig().collection}
+                  </span>
+                </div>
+                {onReindex && (
+                  <button
+                    onClick={onReindex}
+                    disabled={ragStatus?.state === 'indexing'}
+                    title="Force a full re-embed (drops content hashes)"
+                    className="deck-mono uppercase flex items-center gap-1.5 px-2 py-1 rounded transition-colors hover:bg-[var(--cream-hairline)] disabled:opacity-40"
+                    style={{
+                      fontSize: '0.55rem',
+                      letterSpacing: 'var(--ls-mono)',
+                      color: 'var(--cream-muted)',
+                      border: '1px solid var(--cream-hairline)',
+                    }}
+                  >
+                    <RefreshCw className={`w-3 h-3 ${ragStatus?.state === 'indexing' ? 'animate-spin' : ''}`} />
+                    Reindex
+                  </button>
+                )}
+              </div>
+              <div className="text-xs" style={{ color: 'var(--cream-muted)', lineHeight: 1.5 }}>
+                {ragStatus?.state === 'ready' && ragStatus?.upserted != null
+                  ? `Indexed ${ragStatus.upserted} new, skipped ${ragStatus.skipped}/${ragStatus.total}.`
+                  : ragStatus?.state === 'error'
+                  ? `Last index attempt failed: ${ragStatus.error}`
+                  : ragStatus?.state === 'indexing'
+                  ? 'Embedding deck content into the vector store…'
+                  : 'Index has not run yet for this deck.'}
+              </div>
+            </div>
+          )}
+
           <div
             className="px-3 py-2 rounded text-xs mt-1"
             style={{
@@ -206,6 +277,30 @@ export default function AIKeySettings({ open, onClose }) {
         </div>
       </div>
     </div>
+  );
+}
+
+function RagBadge({ status }) {
+  const meta = ({
+    indexing: { label: 'indexing', color: 'var(--case, var(--amber))', Icon: Loader2, spin: true },
+    ready:    { label: 'ready',    color: 'var(--sage)',                Icon: Database, spin: false },
+    error:    { label: 'error',    color: 'var(--coral)',               Icon: AlertTriangle, spin: false },
+  })[status?.state] || { label: 'idle', color: 'var(--cream-faint)', Icon: Database, spin: false };
+  const Icon = meta.Icon;
+  return (
+    <span
+      className="deck-mono uppercase flex items-center gap-1.5 px-1.5 py-0.5 rounded"
+      style={{
+        background: 'transparent',
+        border: `1px solid ${meta.color}`,
+        color: meta.color,
+        fontSize: '0.55rem',
+        letterSpacing: 'var(--ls-mono)',
+      }}
+    >
+      <Icon className={`w-3 h-3 ${meta.spin ? 'animate-spin' : ''}`} />
+      RAG · {meta.label}
+    </span>
   );
 }
 

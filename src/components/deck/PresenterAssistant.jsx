@@ -1,14 +1,17 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Sparkles, Send, Loader2, Lightbulb, Mic, Square, FolderOpen, BookOpen, Globe, StickyNote, Settings, Cpu, AlertTriangle } from 'lucide-react';
+import { Sparkles, Send, Loader2, Lightbulb, Mic, Square, FolderOpen, BookOpen, Globe, StickyNote, Settings, Cpu, AlertTriangle, Database, RefreshCw } from 'lucide-react';
 import { useAmbientListen } from '@/lib/useAmbientListen';
 import {
   isStubResponse,
   hasOpenAIKey,
+  getKeySource,
   localAskPresenter,
   localTranscribeAudio,
   LocalAIError,
 } from '@/lib/aiLocalClient';
+import { isQdrantConfigured } from '@/lib/qdrantClient';
+import { indexDeck, getIndexStatus } from '@/lib/aiRagIndex';
 import AmbientListenPanel from './AmbientListenPanel';
 import AIKeySettings from './AIKeySettings';
 
@@ -37,6 +40,10 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
   const [recStatus, setRecStatus] = useState(''); // '', 'listening', 'transcribing'
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [localKeyPresent, setLocalKeyPresent] = useState(hasOpenAIKey());
+  const [keySource, setKeySource] = useState(getKeySource()); // 'env' | 'localStorage' | null
+  const [ragStatus, setRagStatus] = useState(() =>
+    deck?.id ? getIndexStatus(deck.id) : { state: 'unknown' }
+  );
   const listRef = useRef(null);
   const mediaRef = useRef(null); // { recorder, stream, chunks }
 
@@ -44,8 +51,50 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
      the user pasted a new one, the assistant header should pick up the
      "Local mode (key set)" indicator without a reload. */
   useEffect(() => {
-    if (!settingsOpen) setLocalKeyPresent(hasOpenAIKey());
+    if (!settingsOpen) {
+      setLocalKeyPresent(hasOpenAIKey());
+      setKeySource(getKeySource());
+    }
   }, [settingsOpen]);
+
+  /* Auto-index the deck on mount when Qdrant + OpenAI are configured.
+     `indexDeck` is idempotent — unchanged chunks are skipped via content
+     hash, so this is cheap on warm starts. Failures are surfaced via
+     ragStatus but never block the UI. */
+  useEffect(() => {
+    if (!deck?.id) return;
+    if (!isQdrantConfigured() || !hasOpenAIKey()) return;
+    let cancelled = false;
+    setRagStatus({ state: 'indexing', at: Date.now() });
+    indexDeck(deck).then((result) => {
+      if (cancelled) return;
+      setRagStatus(getIndexStatus(deck.id));
+      if (result?.upserted) {
+        console.info(
+          `[RAG] indexed ${result.upserted} new chunks (skipped ${result.skipped}/${result.total}) for ${deck.id}`,
+        );
+      }
+    });
+    return () => { cancelled = true; };
+  }, [deck?.id]);
+
+  /** Manual reindex (called from settings modal) — bypasses content
+   *  hashing so the user can force a full re-embed if they suspect
+   *  drift. */
+  const reindexNow = useCallback(async () => {
+    if (!deck?.id) return;
+    setRagStatus({ state: 'indexing', at: Date.now() });
+    // Drop hashes so every chunk is re-embedded.
+    const prefix = `rag-index:${deck.id}:`;
+    for (let i = localStorage.length - 1; i >= 0; i--) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith(prefix) && !k.endsWith('_status')) {
+        localStorage.removeItem(k);
+      }
+    }
+    await indexDeck(deck);
+    setRagStatus(getIndexStatus(deck.id));
+  }, [deck]);
 
   // ─── Ambient listen (audience Q detection via Web Speech API) ───
   const ambient = useAmbientListen();
@@ -327,7 +376,11 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
         </div>
         {localKeyPresent && (
           <span
-            title="Using local OpenAI key (offline-stub backend)"
+            title={
+              keySource === 'env'
+                ? 'Using OpenAI key from .env.local (VITE_OPENAI_API_KEY)'
+                : 'Using OpenAI key from browser storage (settings)'
+            }
             className="deck-mono uppercase flex items-center gap-1.5 px-2 py-1 rounded-full border"
             style={{
               borderColor: 'var(--sage)',
@@ -336,8 +389,12 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
               letterSpacing: 'var(--ls-mono)',
             }}
           >
-            <Cpu className="w-3 h-3" /> Local
+            <Cpu className="w-3 h-3" />
+            {keySource === 'env' ? 'Local · env' : 'Local · key'}
           </span>
+        )}
+        {isQdrantConfigured() && (
+          <RagStatusBadge status={ragStatus} />
         )}
         {onOpenSources && (
           <button
@@ -474,8 +531,41 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
         </button>
       </form>
 
-      <AIKeySettings open={settingsOpen} onClose={() => setSettingsOpen(false)} />
+      <AIKeySettings
+        open={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+        ragStatus={ragStatus}
+        onReindex={reindexNow}
+      />
     </div>
+  );
+}
+
+function RagStatusBadge({ status }) {
+  const map = {
+    indexing: { label: 'RAG · indexing', color: 'var(--case, var(--amber))', icon: Loader2, spin: true },
+    ready:    { label: 'RAG · ready',    color: 'var(--sage)',                icon: Database, spin: false },
+    error:    { label: 'RAG · error',    color: 'var(--coral)',               icon: AlertTriangle, spin: false },
+    unknown:  { label: 'RAG · idle',     color: 'var(--cream-faint)',         icon: Database, spin: false },
+  };
+  const meta = map[status?.state] || map.unknown;
+  const Icon = meta.icon;
+  return (
+    <span
+      title={status?.error || (status?.upserted != null
+        ? `Indexed ${status.upserted}, skipped ${status.skipped}/${status.total}`
+        : meta.label)}
+      className="deck-mono uppercase flex items-center gap-1.5 px-2 py-1 rounded-full border"
+      style={{
+        borderColor: meta.color,
+        color: meta.color,
+        fontSize: '0.55rem',
+        letterSpacing: 'var(--ls-mono)',
+      }}
+    >
+      <Icon className={`w-3 h-3 ${meta.spin ? 'animate-spin' : ''}`} />
+      {meta.label}
+    </span>
   );
 }
 
