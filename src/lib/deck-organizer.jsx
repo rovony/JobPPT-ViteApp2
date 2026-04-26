@@ -1,0 +1,285 @@
+import { createContext, useContext, useReducer, useEffect, useCallback, useMemo } from 'react';
+
+const STORAGE_KEY = 'deck-studio-organizer';
+
+/* ================================================================
+   Default folders — always present, cannot be deleted
+   ================================================================ */
+const SYSTEM_FOLDERS = [
+  { id: 'all',      label: 'All Decks',   icon: 'layers',      system: true, order: 0 },
+  { id: 'favorites', label: 'Favorites',   icon: 'star',        system: true, order: 1 },
+  { id: 'archive',  label: 'Archive',      icon: 'archive',     system: true, order: 2 },
+];
+
+/* ================================================================
+   Initial state factory
+   ================================================================ */
+function createInitialState() {
+  return {
+    folders: [...SYSTEM_FOLDERS],
+    tags: [],
+    deckMeta: {},
+    activeFolder: 'all',
+    activeTags: [],
+    sortBy: 'title',
+    sortDir: 'asc',
+    searchQuery: '',
+    viewMode: 'grid',
+  };
+}
+
+/* ================================================================
+   Reducer
+   ================================================================ */
+function reducer(state, action) {
+  switch (action.type) {
+    /* ── Folders ── */
+    case 'ADD_FOLDER': {
+      const id = `folder-${Date.now()}`;
+      const order = state.folders.length;
+      return {
+        ...state,
+        folders: [...state.folders, { id, label: action.label, icon: action.icon || 'folder', system: false, order, parentId: action.parentId || null }],
+      };
+    }
+    case 'RENAME_FOLDER': {
+      return {
+        ...state,
+        folders: state.folders.map((f) =>
+          f.id === action.id && !f.system ? { ...f, label: action.label } : f
+        ),
+      };
+    }
+    case 'DELETE_FOLDER': {
+      if (state.folders.find((f) => f.id === action.id)?.system) return state;
+      const updated = { ...state.deckMeta };
+      for (const key of Object.keys(updated)) {
+        if (updated[key].folderId === action.id) {
+          updated[key] = { ...updated[key], folderId: null };
+        }
+      }
+      return {
+        ...state,
+        folders: state.folders.filter((f) => f.id !== action.id),
+        deckMeta: updated,
+        activeFolder: state.activeFolder === action.id ? 'all' : state.activeFolder,
+      };
+    }
+    case 'REORDER_FOLDERS': {
+      return { ...state, folders: action.folders };
+    }
+
+    /* ── Tags ── */
+    case 'CREATE_TAG': {
+      if (state.tags.some((t) => t.label.toLowerCase() === action.label.toLowerCase())) return state;
+      return {
+        ...state,
+        tags: [...state.tags, { id: `tag-${Date.now()}`, label: action.label, color: action.color || 'var(--cream-muted)' }],
+      };
+    }
+    case 'DELETE_TAG': {
+      const updated = { ...state.deckMeta };
+      for (const key of Object.keys(updated)) {
+        if (updated[key].tagIds?.includes(action.id)) {
+          updated[key] = { ...updated[key], tagIds: updated[key].tagIds.filter((t) => t !== action.id) };
+        }
+      }
+      return {
+        ...state,
+        tags: state.tags.filter((t) => t.id !== action.id),
+        activeTags: state.activeTags.filter((t) => t !== action.id),
+        deckMeta: updated,
+      };
+    }
+    case 'RENAME_TAG': {
+      return {
+        ...state,
+        tags: state.tags.map((t) => (t.id === action.id ? { ...t, label: action.label } : t)),
+      };
+    }
+
+    /* ── Deck metadata (folder assignment, tags, favorite, archive) ── */
+    case 'SET_DECK_FOLDER': {
+      return {
+        ...state,
+        deckMeta: {
+          ...state.deckMeta,
+          [action.deckId]: { ...state.deckMeta[action.deckId], folderId: action.folderId },
+        },
+      };
+    }
+    case 'TOGGLE_DECK_TAG': {
+      const existing = state.deckMeta[action.deckId]?.tagIds || [];
+      const tagIds = existing.includes(action.tagId)
+        ? existing.filter((t) => t !== action.tagId)
+        : [...existing, action.tagId];
+      return {
+        ...state,
+        deckMeta: {
+          ...state.deckMeta,
+          [action.deckId]: { ...state.deckMeta[action.deckId], tagIds },
+        },
+      };
+    }
+    case 'TOGGLE_FAVORITE': {
+      const current = state.deckMeta[action.deckId]?.favorite || false;
+      return {
+        ...state,
+        deckMeta: {
+          ...state.deckMeta,
+          [action.deckId]: { ...state.deckMeta[action.deckId], favorite: !current },
+        },
+      };
+    }
+    case 'TOGGLE_ARCHIVE': {
+      const current = state.deckMeta[action.deckId]?.archived || false;
+      return {
+        ...state,
+        deckMeta: {
+          ...state.deckMeta,
+          [action.deckId]: {
+            ...state.deckMeta[action.deckId],
+            archived: !current,
+            archivedAt: !current ? Date.now() : null,
+          },
+        },
+      };
+    }
+
+    /* ── View state ── */
+    case 'SET_ACTIVE_FOLDER':
+      return { ...state, activeFolder: action.id };
+    case 'TOGGLE_ACTIVE_TAG': {
+      const active = state.activeTags.includes(action.id)
+        ? state.activeTags.filter((t) => t !== action.id)
+        : [...state.activeTags, action.id];
+      return { ...state, activeTags: active };
+    }
+    case 'CLEAR_ACTIVE_TAGS':
+      return { ...state, activeTags: [] };
+    case 'SET_SORT':
+      return { ...state, sortBy: action.sortBy, sortDir: action.sortDir || state.sortDir };
+    case 'TOGGLE_SORT_DIR':
+      return { ...state, sortDir: state.sortDir === 'asc' ? 'desc' : 'asc' };
+    case 'SET_SEARCH':
+      return { ...state, searchQuery: action.query };
+    case 'SET_VIEW_MODE':
+      return { ...state, viewMode: action.mode };
+
+    /* ── Hydrate from storage ── */
+    case 'HYDRATE':
+      return { ...state, ...action.payload };
+
+    default:
+      return state;
+  }
+}
+
+/* ================================================================
+   Context + Provider
+   ================================================================ */
+const OrganizerContext = createContext(null);
+
+export function OrganizerProvider({ children }) {
+  const [state, dispatch] = useReducer(reducer, null, createInitialState);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const saved = JSON.parse(raw);
+        const merged = {
+          ...saved,
+          folders: [
+            ...SYSTEM_FOLDERS,
+            ...(saved.folders || []).filter((f) => !f.system),
+          ],
+        };
+        dispatch({ type: 'HYDRATE', payload: merged });
+      }
+    } catch { /* ignore corrupt storage */ }
+  }, []);
+
+  useEffect(() => {
+    try {
+      const { folders, tags, deckMeta, activeFolder, activeTags, sortBy, sortDir, searchQuery, viewMode } = state;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        folders: folders.filter((f) => !f.system),
+        tags, deckMeta, activeFolder, activeTags, sortBy, sortDir, searchQuery, viewMode,
+      }));
+    } catch { /* storage full */ }
+  }, [state]);
+
+  return (
+    <OrganizerContext.Provider value={{ state, dispatch }}>
+      {children}
+    </OrganizerContext.Provider>
+  );
+}
+
+export function useOrganizer() {
+  const ctx = useContext(OrganizerContext);
+  if (!ctx) throw new Error('useOrganizer must be used within OrganizerProvider');
+  return ctx;
+}
+
+/* ================================================================
+   Derived data hook — filtered + sorted deck list
+   ================================================================ */
+export function useFilteredDecks(allDecks) {
+  const { state } = useOrganizer();
+  const { activeFolder, activeTags, sortBy, sortDir, searchQuery, deckMeta } = state;
+
+  return useMemo(() => {
+    let filtered = [...allDecks];
+
+    if (activeFolder === 'favorites') {
+      filtered = filtered.filter((d) => deckMeta[d.id]?.favorite);
+    } else if (activeFolder === 'archive') {
+      filtered = filtered.filter((d) => deckMeta[d.id]?.archived);
+    } else if (activeFolder !== 'all') {
+      filtered = filtered.filter((d) => deckMeta[d.id]?.folderId === activeFolder);
+    }
+
+    if (activeFolder !== 'archive') {
+      filtered = filtered.filter((d) => !deckMeta[d.id]?.archived);
+    }
+
+    if (activeTags.length > 0) {
+      filtered = filtered.filter((d) => {
+        const dt = deckMeta[d.id]?.tagIds || [];
+        return activeTags.every((t) => dt.includes(t));
+      });
+    }
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      filtered = filtered.filter(
+        (d) =>
+          d.title.toLowerCase().includes(q) ||
+          d.subtitle?.toLowerCase().includes(q) ||
+          d.theme?.toLowerCase().includes(q) ||
+          d.id.toLowerCase().includes(q)
+      );
+    }
+
+    filtered.sort((a, b) => {
+      let cmp = 0;
+      switch (sortBy) {
+        case 'title': cmp = a.title.localeCompare(b.title); break;
+        case 'slides': cmp = a.slides.length - b.slides.length; break;
+        case 'theme': cmp = (a.theme || '').localeCompare(b.theme || ''); break;
+        case 'recent': {
+          const aTime = deckMeta[a.id]?.archivedAt || 0;
+          const bTime = deckMeta[b.id]?.archivedAt || 0;
+          cmp = bTime - aTime;
+          break;
+        }
+        default: cmp = 0;
+      }
+      return sortDir === 'desc' ? -cmp : cmp;
+    });
+
+    return filtered;
+  }, [allDecks, activeFolder, activeTags, sortBy, sortDir, searchQuery, deckMeta]);
+}
