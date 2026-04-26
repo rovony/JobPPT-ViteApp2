@@ -223,7 +223,7 @@ export default function CS3Architecture() {
           ].map((s) => (
             <div key={s.l} style={{ textAlign: 'center' }}>
               <div className="deck-display" style={{
-                fontSize: 'clamp(1.6rem, 3.2vw, 2.6rem)',
+                fontSize: 'var(--fs-card-numeral)',
                 fontWeight: 700,
                 color: 'var(--sage)',
                 lineHeight: 1,
