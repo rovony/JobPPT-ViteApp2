@@ -35,8 +35,17 @@ function reducer(state, action) {
   }
 }
 
-export function DeckProvider({ total, initialIndex = 0, children }) {
-  const [state, dispatch] = useReducer(reducer, { ...initial, total, index: initialIndex });
+export function DeckProvider({ total, initialIndex = 0, initialPresenter = false, children }) {
+  // initialPresenter is derived from the URL path segment (/speaker) at
+  // mount, so the store starts in lock-step with the URL. This is what
+  // kills the URL↔store race that previously stripped ?presenter=1 on
+  // every full page reload — there's no first-render mismatch to resolve.
+  const [state, dispatch] = useReducer(reducer, {
+    ...initial,
+    total,
+    index: initialIndex,
+    presenter: !!initialPresenter,
+  });
 
   useEffect(() => {
     dispatch({ type: 'init', total, index: initialIndex });
@@ -73,6 +82,11 @@ export function useKeyboardNav({ onToggleFullscreen } = {}) {
       const tag = e.target?.tagName;
       const isEditable = tag === 'INPUT' || tag === 'TEXTAREA' || e.target?.isContentEditable;
       if (isEditable) return;
+      // If a modal/dialog is open, defer to its own Escape/close logic.
+      // Escape on a modal must NOT also close presenter view — otherwise
+      // closing the Reading panel ejects the presenter mid-talk.
+      const dialogOpen = document.querySelector('[role="dialog"][aria-modal="true"]');
+      if (dialogOpen && e.key === 'Escape') return;
       if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); next(); }
       else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
       else if (e.key === 'Escape') {

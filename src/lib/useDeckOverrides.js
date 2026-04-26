@@ -7,13 +7,18 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
  *   · hidden  : Set<slideId>  — slides the user has "hidden" in overview
  *   · order   : string[]      — custom slide-id ordering (drag-reorder)
  *
- * IMPORTANT: these overrides are presentation-layer only. They reshape
- * the OVERVIEW listing — they do NOT mutate the deck's underlying
- * navigation order or filter slides out of arrow-key navigation. That
- * decision is intentional: the core deck flow is the manifest's
- * source of truth, and silently skipping slides during a live
- * presentation would be a footgun. Overrides are user-facing
- * housekeeping, not a content edit.
+ * `order` is the presentation order. As of Phase 11 (drag-and-drop
+ * reorder), DeckRunner wraps its deck through `useOrderedDeck`, which
+ * consumes this hook and feeds the reordered slide array into the
+ * navigation flow. That means: drag a slide in the Overview panel and
+ * the live deck's arrow-key navigation, transitions, and dynamic
+ * NN/TT footer numbering all follow the new order. The manifest is
+ * still the *content* source of truth (slide identity, layout opts,
+ * notes/qa keys), but presentation sequencing is now user-overridable.
+ *
+ * `hidden` remains presentation-layer-only and does NOT skip slides
+ * during arrow-key navigation — it only dims them in the Overview
+ * grid. Skipping slides mid-talk would be a footgun.
  *
  * Persistence keys are scoped per deck so multiple decks coexist:
  *   deck-overrides:<deckId>:hidden
@@ -23,7 +28,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
  *   ordered            — slides re-ordered per saved `order`, with any
  *                        manifest-only slides appended at the end
  *   isHidden(id)       — quick lookup
- *   toggleHidden(id)   — flip visibility
+ *   toggleHidden(id)   — flip visibility (Overview only)
  *   moveUp/moveDown    — bump a slide one step within `ordered`
  *   reorder(from,to)   — drop-style move (used by drag-and-drop)
  *   reset              — clear all overrides for this deck

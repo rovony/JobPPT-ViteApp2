@@ -86,6 +86,8 @@
     --sage:             #6B8E73;    /* theme 03 · global strategy */
     --violet:           #A78BFA;    /* theme 04 · novel methods     (CS3) */
     --coral:            #FB923C;    /* theme 05 · judgment          (CS1) */
+    --coral-highlight:  #F4B382;    /* warm coral ink for highlight chips / active pills */
+    --coral-wash:       rgba(251, 146, 60, 0.14);  /* translucent coral for highlight/pill backgrounds */
 
     /* Per-case override — a slide/deck sets this ONE variable.
        Default accent is amber so decks without an explicit case get
@@ -224,7 +226,12 @@
     --deck-gutter:             clamp(2rem, 4.5vw, 4.5rem);
     --deck-slide-pad:          clamp(1rem, 3.5vw, 5rem);
     --deck-pad-top:            clamp(1rem, 3.5vh, 4rem);
-    --deck-pad-bottom:         clamp(3rem, 6vh, 6rem);
+    /* Bottom pad reserves a chrome-safe band so the page chrome
+       (Mode Switcher · 01/35 indicator · Prev/Next arrows · Fullscreen),
+       which floats fixed-position at bottom-right ~60px tall, never
+       overlaps the slide footer rail. Floor 5rem (80px) clears the
+       chrome by ~20px at 1366×768. */
+    --deck-pad-bottom:         clamp(5rem, 9vh, 7rem);
     --deck-grid-colgap:        clamp(0.75rem, 1.2vw, 1.25rem);
     --deck-grid-rowgap:        clamp(0.4rem, 0.8vh, 0.75rem);
 
@@ -252,6 +259,18 @@
     --fs-slide-kicker:   clamp(0.58rem, min(0.78vw, 1.3vh), 0.78rem);
     --fs-slide-tagline:  clamp(0.8rem,  min(1.15vw, 1.9vh), 1.15rem);
     --fs-slide-pageno:   clamp(0.55rem, min(0.68vw, 1.1vh), 0.7rem);
+
+    /* =========================================================
+       FLUID HERO SCALE — for title / opener / closer slides where
+       editorial display type IS the slide. Larger maxima than
+       --fs-slide-headline so a cover slide reads as a cover, not
+       as a large body slide. Same min(vw, vh*ratio) formula —
+       narrow OR short viewports both clamp the text down so it
+       always fits. Mobile portrait still scales gracefully.
+       ========================================================= */
+    --fs-slide-display:  clamp(2rem,    min(5.2vw, 8.5vh), 5.5rem);  /* hero title */
+    --fs-slide-lead:     clamp(1rem,    min(1.7vw, 2.6vh), 1.75rem); /* subtitle / lead body on a cover */
+    --fs-slide-name:     clamp(0.95rem, min(1.4vw, 2.2vh), 1.4rem);  /* speaker name / pull-quote attribution */
 
     /* =========================================================
        Shape + elevation tokens
@@ -294,10 +313,46 @@
     --space-4:   16px;
     --space-5:   20px;
     --space-6:   24px;
+    /* --space-7 was missing — six call-sites resolved to 0 and
+       collapsed columns (notably slide 16 background, slide 26
+       FDA engagement, slide 28 impact, slide 27 fit, slide 25
+       strategy, and SecObjectionCard hero padding). 28px keeps
+       the 4px stride between --space-6 (24) and --space-8 (32). */
+    --space-7:   28px;
     --space-8:   32px;
     --space-10:  40px;
     --space-12:  48px;
     --space-16:  64px;
+
+    /* =========================================================
+       FLUID CARD TYPE SCALE — companion family to --fs-slide-*.
+       SlideParts (Eyebrow / Headline / Subhead / Footer) covers
+       slide chrome; this family covers everything below the
+       chrome (cards, tiles, chart text, big stats inside Viz).
+       Authors should never reach for raw clamp() in slide bodies
+       — pick a token here, or add a new one and document its
+       role.
+
+       Formula matches --fs-slide-* (clamp + min(vw, vh*ratio))
+       so card text shrinks proportionally on narrow OR short
+       viewports, in lockstep with the slide chrome.
+       ========================================================= */
+    --fs-card-hero-num:   clamp(2.8rem,  min(5.5vw, 7.5vh), 5.5rem);  /* HERO numeral on a card slide (84.6%, count-up
+                                                                          digits, leadership-beat dates). Use sparingly:
+                                                                          ONE per slide, on the typographic anchor of
+                                                                          the card grid. Caps higher than --fs-card-numeral
+                                                                          so the eye treats it as the slide's payoff
+                                                                          rather than a sibling stat. */
+    --fs-card-numeral:    clamp(2.4rem,  min(3.4vw, 4.6vh), 3.8rem);  /* big stat */
+    --fs-card-quote:      clamp(1.1rem,  min(1.6vw, 2.2vh), 1.8rem);  /* HERO quote inside a card (verbatim SEC quote,
+                                                                          feature-question callout). Sits in the gap
+                                                                          between --fs-card-title (1.3rem upper) and
+                                                                          --fs-card-numeral (2.4rem floor) — typography
+                                                                          weight typical of an editorial pull quote. */
+    --fs-card-title:      clamp(1.0rem,  min(1.2vw, 1.6vh), 1.3rem);  /* card head */
+    --fs-card-body:       clamp(0.84rem, min(0.96vw, 1.3vh), 1.0rem); /* card body */
+    --fs-card-label:      clamp(0.66rem, min(0.78vw, 1.05vh), 0.78rem); /* uppercase mono label */
+    --fs-card-meta:       clamp(0.6rem,  min(0.7vw, 0.9vh), 0.7rem);  /* tiny mono caption */
   }
 
   /* =========================================================
@@ -326,6 +381,25 @@
        biggest offender (#FFE14D ~ 1.3:1 on cream) — darken to a burnt
        gold that still reads as the same semantic color. */
     --amber:          #B5830A;
+
+    /* Legacy --deck-* HSL aliases must flip too, otherwise components
+       using bg-deck-surface / text-deck-ink / border-deck-rule render
+       as dark slate cards with near-black text on light paper (the
+       Home deck-cards bug). Mirrors the v3.3 paper palette above:
+         --bg              #F5F3ED  →  47 27% 94%
+         --panel           #FFFFFF  →   0  0% 100%
+         --panel-elevated  #FAF8F2  →  45 40% 96%
+         --cream (ink)     #1B1B1E  → 240  5% 11%
+       Ink-muted/subtle/rule share the same hue with the v3.3 cream-*
+       tints carrying the actual opacity hierarchy where consumers
+       reach for it. */
+    --deck-bg:                 47 27% 94%;
+    --deck-surface:             0  0% 100%;
+    --deck-surface-elevated:   45 40% 96%;
+    --deck-ink:               240  5% 11%;
+    --deck-ink-muted:         240  5% 11%;
+    --deck-ink-subtle:        240  5% 11%;
+    --deck-rule:              240  5% 11%;
   }
 
   /* =========================================================
@@ -402,6 +476,55 @@
     --cream-hairline: rgba(27, 27, 30, 0.18);
     --cream-ghost:    rgba(27, 27, 30, 0.08);
     --amber:          #B5830A;
+  }
+
+  /* =========================================================
+     DARK MODE — explicit reset.
+     CSS custom properties inherit. When <html> carries
+     data-theme-mode="light" (app-level theme) and a deck-root
+     overrides to data-theme-mode="dark" (per-deck override),
+     the light palette would otherwise cascade through and the
+     deck would stay light. This block re-establishes the dark
+     palette wherever data-theme-mode="dark" is explicitly set,
+     and mirrors the light block's structure so per-deck themes
+     also flip back when a user toggles dark on a light-default
+     deck. Mirrors :root defaults exactly.
+     ========================================================= */
+  [data-theme-mode="dark"] {
+    --bg:               #1B1B1E;
+    --panel:            #27272B;
+    --panel-elevated:   #32323A;
+    --cream:            #D7D4CC;
+    --cream-muted:      rgba(215, 212, 204, 0.62);
+    --cream-faint:      rgba(215, 212, 204, 0.38);
+    --cream-dim:        rgba(215, 212, 204, 0.24);
+    --cream-hairline:   rgba(215, 212, 204, 0.14);
+    --cream-ghost:      rgba(215, 212, 204, 0.06);
+    --amber:            #FFE14D;
+
+    --deck-bg:                 240 7% 11%;
+    --deck-surface:            240 6% 16%;
+    --deck-surface-elevated:   240 5% 20%;
+    --deck-ink:                 42 13% 82%;
+    --deck-ink-muted:           42 13% 82%;
+    --deck-ink-subtle:          42 13% 82%;
+    --deck-rule:                42 13% 82%;
+  }
+
+  /* Same reset under per-deck themes — handles
+     [data-deck-theme="light-editorial"] (light defaults) being
+     toggled to dark, and any future per-deck themes. */
+  [data-deck-theme][data-theme-mode="dark"] {
+    --bg:               #1B1B1E;
+    --panel:            #27272B;
+    --panel-elevated:   #32323A;
+    --cream:            #D7D4CC;
+    --cream-muted:      rgba(215, 212, 204, 0.62);
+    --cream-faint:      rgba(215, 212, 204, 0.38);
+    --cream-dim:        rgba(215, 212, 204, 0.24);
+    --cream-hairline:   rgba(215, 212, 204, 0.14);
+    --cream-ghost:      rgba(215, 212, 204, 0.06);
+    --amber:            #FFE14D;
   }
 
   .dark {
@@ -601,5 +724,130 @@
     background: rgba(255,255,255,0.06);
     border-radius: 3px;
     color: var(--cream);
+  }
+
+  /* Pause markers — used inside the structured Spoken section. ⏸ stands
+     out visually so the eye finds breath beats; works in both modes via
+     the case-color variable. */
+  .notes-pause-hard {
+    display: inline-block;
+    margin: 0 0.25em;
+    padding: 0 0.18em;
+    color: var(--case, var(--amber));
+    opacity: 0.85;
+    font-size: 0.85em;
+    vertical-align: 0.05em;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────
+     Reading-material prose — used by ReadingMaterialPane modal.
+     Inherits the deck's color tokens so it works in light + dark.
+     Slightly tighter than .notes-prose--reading because the modal
+     gives more horizontal room (max-w 68ch vs notes ~62ch).
+     ───────────────────────────────────────────────────────────────── */
+  .reading-prose .reading-h1 {
+    font-size: 1.55em;
+    margin: 0 0 0.6em;
+    color: var(--cream);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .reading-prose .reading-h2 {
+    font-size: 1.22em;
+    margin: 1.4em 0 0.4em;
+    color: var(--case, var(--amber));
+    font-weight: 600;
+  }
+  .reading-prose .reading-h3 {
+    font-size: 1.05em;
+    margin: 1.1em 0 0.3em;
+    color: var(--cream);
+    font-weight: 600;
+  }
+  .reading-prose .reading-p  { margin: 0.7em 0; }
+  .reading-prose .reading-ul,
+  .reading-prose .reading-ol { margin: 0.7em 0; padding-left: 1.5em; }
+  .reading-prose .reading-li { margin: 0.35em 0; }
+  .reading-prose .reading-strong { color: var(--cream); font-weight: 600; }
+  .reading-prose .reading-em { color: var(--cream-muted); font-style: italic; }
+  .reading-prose .reading-mark {
+    background: color-mix(in srgb, var(--case, #FFE14D) 45%, transparent);
+    font-weight: 600;
+    padding: 0.05em 0.3em;
+    border-radius: 2px;
+    color: var(--cream);
+  }
+  .reading-prose .reading-quote {
+    border-left: 3px solid var(--case, var(--amber));
+    padding: 0.4em 0 0.4em 1em;
+    margin: 0.9em 0;
+    color: var(--cream-muted);
+    font-style: italic;
+    background: color-mix(in srgb, var(--cream-ghost) 50%, transparent);
+  }
+  .reading-prose .reading-code-inline {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    padding: 0.1em 0.35em;
+    background: rgba(127,127,127,0.12);
+    border: 1px solid var(--cream-hairline);
+    border-radius: 3px;
+    color: var(--cream);
+  }
+  .reading-prose .reading-pre {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    padding: 0.7em 0.9em;
+    background: rgba(127,127,127,0.08);
+    border: 1px solid var(--cream-hairline);
+    border-radius: 4px;
+    margin: 0.9em 0;
+    overflow-x: auto;
+  }
+  .reading-prose .reading-table-wrap {
+    overflow-x: auto;
+    margin: 1em 0;
+    border: 1px solid var(--cream-hairline);
+    border-radius: 4px;
+  }
+  .reading-prose .reading-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+  }
+  .reading-prose .reading-th {
+    text-align: left;
+    padding: 0.5em 0.7em;
+    background: color-mix(in srgb, var(--cream-ghost) 70%, transparent);
+    border-bottom: 1px solid var(--cream-hairline);
+    color: var(--cream);
+    font-weight: 600;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .reading-prose .reading-td {
+    padding: 0.45em 0.7em;
+    border-bottom: 1px solid var(--cream-hairline);
+    vertical-align: top;
+  }
+  .reading-prose .reading-table tr:last-child .reading-td {
+    border-bottom: none;
+  }
+  .reading-prose .reading-hr {
+    border: none;
+    border-top: 1px solid var(--cream-hairline);
+    margin: 1.6em 0;
+  }
+  .reading-prose .reading-a {
+    color: var(--case, var(--amber));
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .reading-prose .reading-a:hover { opacity: 0.85; }
+  /* GFM task-list checkboxes — render as readable in both modes. */
+  .reading-prose input[type="checkbox"] {
+    margin-right: 0.4em;
+    accent-color: var(--case, var(--amber));
   }
 }

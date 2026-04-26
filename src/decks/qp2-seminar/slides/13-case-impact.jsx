@@ -1,327 +1,441 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Check } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useTokens } from '@/lib/token';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
-import { Eyebrow, Headline, Viz, Footer } from '@/components/deck/SlideParts';
-import { QP2_THEMES } from '../themes';
-import PipelineBridgeCard from './cs1-bridge/PipelineBridgeCard';
+import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 
 /**
- * Slide 13 · CS1 Bridge forward + Framework recap.
+ * Slide 13 · CS1 Impact — "One model. Two regulators. The model became the evidence."
  *
- * Layout (top → bottom):
- *   1. Centered amber headline      "The methodology travels."
- *   2. Two-column split:
- *        LEFT  — "THE TEMPLATE" checklist (5 bullets, checkmark icons)
- *        RIGHT — PipelineBridgeCard (amber) — "Where it applies — [company]"
- *   3. Full-width amber payoff line: "The value isn't one dose — it's a
- *      reusable template for pediatric extrapolation."
- *   4. Four framework-theme tiles (only active themes 01/02/03/05 shown;
- *      theme 04 "Novel methods" intentionally omitted from this case).
+ * V3 redesign (2026-04-24-conclusion-fix):
+ * Direction A — Two-regulator convergence diagram + methodology ledger.
  *
- * The right-side pipeline bridge is extracted so Merck (Sotatercept / WINREVAIR)
- * can be swapped for another compound/company with a one-prop change.
+ * Why this direction (vs the previous numerals layout ×2 / ~3% / 39):
+ *   The numerals layout duplicated content from slides 11e/12 (weight-band
+ *   match, n=39 cohort) and answered "what happened" instead of "why it
+ *   matters." The convergence diagram makes a unique editorial argument
+ *   that only this slide can make: TWO independent regulators looked at
+ *   the SAME model and reached the SAME conclusion, on different days,
+ *   in different jurisdictions. That convergence IS the impact.
+ *
+ *   The 4-beat methodology ledger below the convergence
+ *   (1 MODEL · 2 JURISDICTIONS · 0 NEW PEDIATRIC TRIALS · M-IPE PRECEDENT)
+ *   adds the practical leverage from direction D without inventing facts —
+ *   each beat is grounded in deck-resident or label-public information.
+ *
+ * Regulatory facts used (NOT invented):
+ *   • EMA pediatric Volibris label — Sep 2021  (already in deck via ApprovalTimeline)
+ *   • PMDA pediatric Volibris label — Apr 2021 (already in deck via ApprovalTimeline)
+ *   • "No new pediatric efficacy trial" — already in V2 slide 13 caption
+ *   • M-IPE / ICH E11A framework — already cited on slide 11e closing
+ *
+ * No [verify] flags required for this implementation.
+ *
+ * Visual primitives:
+ *   • Two end-cards (EMA · EU on left, PMDA · JP on right) — typography stacks
+ *   • Horizontal axis between them with date ticks
+ *   • Two diagonal converging arms inward to a coral hub at center
+ *   • Hub: small circle + below-the-axis label "1 PopPK MODEL · ONE LABEL"
+ *   • Below: hairline-bordered methodology ledger row (4 beats)
+ *   • Bottom: italic verdict + ICH E11A meta line (matches CS1 results closing meta)
  */
 
-// Which themes this case actually exercised (CS1: 01, 02, 03, 05 — NOT 04)
-const ACTIVE_NUMS = ['01', '02', '03', '05'];
-
-// Template checklist — 5 bullets per the mockup
-const TEMPLATE_BULLETS = [
-  'Build the adult PopPK model on the full adult evidence base',
-  'Predict pediatric concentrations (pcVPC) before fitting',
-  'Fit pediatric-specific model with allometric scaling fixed',
-  'Compare exposure distributions — not just means',
-  'Anchor the regulatory narrative in exposure-matching, not a separate efficacy study',
-];
-
-// Per-theme detail lines (the body under each theme title in the ribbon)
-const THEME_DETAIL = {
-  '01': 'The pediatric PopPK model substituted for a pediatric efficacy trial.',
-  '02': 'Exposure matching enabled defensible weight-based pediatric dosing.',
-  '03': 'The same evidence produced different outcomes at EMA, FDA, and Health Canada.',
-  '05': 'Parsimony decisions on allometric scaling and covariates required judgment with limited pediatric data.',
-};
-
-export default function Slide13() {
+export default function Slide13CaseImpact() {
   const ease = [0.2, 0.7, 0.3, 1];
+  const reduce = useReducedMotion();
   const D = {
-    chrome: 0.10, headline: 0.30,
-    leftLabel: 0.60, bullets: 0.75,
-    bridge: 1.10,
-    payoff: 1.80,
-    themesLabel: 2.10, themes: 2.25,
-    source: 3.20,
+    chrome: 0.10, headline: 0.25, subhead: 0.55,
+    cards: 0.80,        // EMA + PMDA cards fade in
+    axis: 1.20,         // horizontal axis line draws
+    arms: 1.60,         // converging arms draw inward
+    hub: 2.50,          // hub mark scale-in (after arms arrive)
+    hubLabel: 2.80,     // "1 PopPK MODEL" caption
+    ledger: 3.20,       // 4-beat methodology row
+    verdict: 3.70,      // italic closing verdict
+    payoff: 4.05,       // footer source line
   };
 
-  const T = useTokens([
-    '--coral', '--amber', '--cyan', '--sage', '--violet',
-    '--cream', '--cream-muted', '--cream-faint', '--cream-hairline',
-  ]);
+  const T = useTokens(['--coral', '--cream', '--cream-muted', '--cream-faint', '--cream-hairline', '--cream-dim', '--bg', '--panel']);
   const tk = (n, fb = 'transparent') => (T ? T[n] || fb : fb);
-
-  const activeThemes = QP2_THEMES.filter((t) => ACTIVE_NUMS.includes(t.num));
 
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
-      <Eyebrow color="var(--cream-muted)" delay={D.chrome}>CS1 · Bridge forward + Framework recap</Eyebrow>
-      <Headline delay={D.headline} maxChars={28}>
-        <span style={{ color: 'var(--amber)', fontStyle: 'italic', fontWeight: 700 }}>
-          The methodology travels.
+      <Eyebrow color="var(--coral)" delay={D.chrome}>
+        Case 01 · Impact · Two regulators converged
+      </Eyebrow>
+      <Headline delay={D.headline} maxChars={32}>
+        One model. Two regulators.{' '}
+        <span style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 700 }}>
+          The model became the evidence.
         </span>
       </Headline>
+      <Subhead delay={D.subhead} maxChars={72}>
+        EMA (Sep 2021) and PMDA (Apr 2021) accepted the{' '}
+        <span style={{ color: 'var(--cream)', fontWeight: 600 }}>same PopPK extrapolation</span>{' '}
+        as label-supporting evidence — independent agencies, identical conclusion.
+      </Subhead>
 
       <Viz>
-        <div style={{ width: '100%', height: '100%', display: 'grid', gridTemplateRows: 'auto auto 1fr', rowGap: 'var(--space-4)', minHeight: 0 }}>
-      {/* ═══════════ Top split: template · pipeline ═══════════ */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1.15fr 1fr',
-          gap: 'var(--space-10)',
-          alignItems: 'start',
-        }}
-      >
-        {/* LEFT — Template checklist */}
-        <div>
-          <motion.div
-            className="deck-mono uppercase"
-            style={{
-              fontSize: '0.72rem',
-              letterSpacing: 'var(--ls-mono-wide)',
-              color: 'var(--cream-muted)',
-              marginBottom: '18px',
-              lineHeight: 1.4,
-              maxWidth: '52ch',
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, ease, delay: D.leftLabel }}
-          >
-            The template — generalizes to any oral small-molecule entering a pediatric population
-          </motion.div>
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              rowGap: '14px',
-              columnGap: '24px',
-            }}
-          >
-            {TEMPLATE_BULLETS.map((b, i) => (
-              <TemplateBullet
-                key={i}
-                text={b}
-                delay={D.bullets + i * 0.10}
-                // last bullet (full-width emphasis) spans both cols
-                full={i === TEMPLATE_BULLETS.length - 1}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* RIGHT — Swappable pipeline bridge card */}
-        <PipelineBridgeCard
-          label="Where it applies — Merck pipeline"
-          body={
-            <>
-              <strong style={{ color: 'var(--cream)', fontWeight: 600 }}>
-                Sotatercept (WINREVAIR)
-              </strong>{' '}
-              faces a structurally similar question: pediatric PAH extrapolation, with a PIP agreed with EMA{' '}
-              <span style={{ color: 'var(--amber)' }}>(P/0414/2022)</span> and a pediatric PK study{' '}
-              <span style={{ color: 'var(--amber)' }}>NCT05587712</span> underway.
-              <br />
-              <br />
-              Biologic versus small molecule changes the PK — but the regulatory logic (exposure-matching,
-              cross-agency narrative, E-R defensibility) is the{' '}
-              <em style={{ color: 'var(--cream)', fontStyle: 'italic' }}>same framework</em> applied for ambrisentan.
-            </>
-          }
-          footer="WINREVAIR pipeline bridge"
-          delay={D.bridge}
-          accent="var(--amber)"
-        />
-      </div>
-
-      {/* ─── Amber payoff line ─── */}
-      <motion.div
-        style={{ textAlign: 'center' }}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease, delay: D.payoff }}
-      >
-        <div
-          className="deck-display"
-          style={{
-            fontSize: 'clamp(1.1rem, 1.5vw, 1.65rem)',
-            color: 'var(--amber)',
-            fontWeight: 700,
-            letterSpacing: 'var(--ls-headline)',
-            lineHeight: 1.2,
-          }}
-        >
-          The value isn't one dose — it's a reusable template for pediatric extrapolation.
-        </div>
-      </motion.div>
-
-      {/* ═══════════ Framework themes ribbon ═══════════ */}
-      <div style={{ minHeight: 0 }}>
-        <motion.div
-          className="deck-mono uppercase"
-          style={{
-            textAlign: 'center',
-            fontSize: '0.72rem',
-            letterSpacing: 'var(--ls-mono-wide)',
-            color: 'var(--coral)',
-            fontWeight: 700,
-            marginBottom: '14px',
-            paddingTop: '18px',
-            borderTop: '1px solid var(--cream-hairline)',
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, ease, delay: D.themesLabel }}
-        >
-          Framework themes in this case study
-        </motion.div>
-
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '16px',
+            gridTemplateRows: 'minmax(0, 1fr) auto auto',
+            rowGap: 'var(--space-5)',
+            width: '100%',
+            height: '100%',
+            minHeight: 0,
           }}
         >
-          {activeThemes.map((theme, i) => (
-            <ThemeTile
-              key={theme.num}
-              theme={theme}
-              detail={THEME_DETAIL[theme.num]}
-              delay={D.themes + i * 0.12}
-              tk={tk}
-            />
-          ))}
-        </div>
-      </div>
+          {/* ─── BAND 1 · convergence diagram (cards + axis + hub) ─── */}
+          <ConvergenceDiagram tk={tk} D={D} ease={ease} reduce={reduce} />
 
+          {/* ─── BAND 2 · methodology ledger (4 beats) ─── */}
+          <motion.div
+            style={{
+              paddingTop: 'var(--space-3)',
+              paddingBottom: 'var(--space-3)',
+              borderTop: '1px solid var(--cream-hairline)',
+              borderBottom: '1px solid var(--cream-hairline)',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+              columnGap: 'var(--space-6)',
+              alignItems: 'start',
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, ease, delay: D.ledger }}
+          >
+            <LedgerBeat n="1" label="PopPK model" meta="Okour et al. JCP 2023" accent />
+            <LedgerBeat n="2" label="jurisdictions" meta="EU · Japan" />
+            <LedgerBeat n="0" label="new pediatric efficacy trials" meta="Model = evidence" accent />
+            <LedgerBeat
+              n="M-IPE"
+              numeralStyle={{ fontSize: 'var(--fs-card-hero-num)', letterSpacing: '-0.01em' }}
+              label="precedent established"
+              meta="ICH E11A framework"
+            />
+          </motion.div>
+
+          {/* ─── BAND 3 · italic verdict + ICH E11A meta ─── */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, ease, delay: D.verdict }}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'minmax(0, 1fr) auto',
+              columnGap: 'var(--space-8)',
+              alignItems: 'end',
+            }}
+          >
+            <p
+              className="deck-display italic"
+              style={{
+                fontSize: 'var(--fs-card-title)',
+                lineHeight: 'var(--lh-snug)',
+                color: 'var(--cream)',
+                fontWeight: 500,
+                margin: 0,
+              }}
+            >
+              When two independent agencies accept the{' '}
+              <span style={{ color: 'var(--coral)', fontStyle: 'normal', fontWeight: 700 }}>
+                same model on the same evidence
+              </span>
+              , the model has crossed from analysis to evidence.
+            </p>
+            <div
+              className="deck-mono uppercase"
+              style={{
+                fontSize: 'var(--fs-card-meta)',
+                letterSpacing: '0.2em',
+                color: 'var(--coral)',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              ICH E11A · model-informed pediatric extrapolation
+            </div>
+          </motion.div>
         </div>
       </Viz>
 
       <Footer
-        kicker="Case 01 · Bridge"
-        tagline="Source · CS1 Reading Pt. 3 · Framework themes recap"
-        delay={D.source}
+        kicker="Case 01 · Impact"
+        source="Source · EMA + PMDA pediatric Volibris labels (2021) · Okour et al. JCP 2023"
+        delay={D.payoff}
       />
     </SlideGrid>
   );
 }
 
 /* ========================================================
-   TemplateBullet — checkmark + single-line text
-   Last one spans both cols for visual emphasis.
+   ConvergenceDiagram — pure SVG.
+
+   Layout (1920×620 viewBox):
+     • Left card group  · x = 100…560
+     • Right card group · x = 1360…1820
+     • Horizontal axis  · y = 280, x = 480 → 1440
+     • Date ticks       · vertical hairlines below the agency labels
+     • Arms             · two diagonal lines from axis ticks → hub
+     • Hub              · circle at (960, 460), r=22
    ======================================================== */
-function TemplateBullet({ text, delay, full }) {
-  const ease = [0.2, 0.7, 0.3, 1];
+function ConvergenceDiagram({ tk, D, ease, reduce }) {
+  const W = 1920;
+  const H = 620;
+  // Axis y, hub center y, card baseline y
+  const axisY = 280;
+  const hubX = W / 2;
+  const hubY = 460;
+  // Inner ends of horizontal axis (ticks rise from these points to the cards above)
+  const leftAxisX = 480;
+  const rightAxisX = 1440;
+  const leftCardX = 240;   // EMA card visual center on the typography side
+  const rightCardX = 1680; // PMDA card visual center
+
   return (
-    <motion.div
-      style={{
-        display: 'flex',
-        alignItems: 'flex-start',
-        gap: 12,
-        gridColumn: full ? '1 / -1' : 'auto',
-      }}
-      initial={{ opacity: 0, x: -8 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5, ease, delay }}
-    >
-      <span
-        style={{
-          flex: '0 0 auto',
-          width: 22,
-          height: 22,
-          borderRadius: '50%',
-          border: '1px solid var(--cream-hairline)',
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: 2,
-        }}
+    <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: 0 }}>
+      <svg
+        className="absolute inset-0 w-full h-full"
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
       >
-        <Check size={12} strokeWidth={2.5} color="var(--cream-muted)" />
-      </span>
-      <span
-        style={{
-          fontFamily: 'var(--font-body)',
-          fontSize: 'clamp(0.82rem, 0.92vw, 0.98rem)',
-          lineHeight: 1.4,
-          color: 'var(--cream)',
-        }}
-      >
-        {text}
-      </span>
-    </motion.div>
+        {/* ─── Agency cards (typography in SVG <text>) ─── */}
+        <AgencyCard
+          tk={tk}
+          align="left"
+          cx={leftCardX}
+          eyebrow="EUROPEAN MEDICINES AGENCY"
+          jurisdiction="EU"
+          date="SEP 2021"
+          body="Pediatric Volibris label · EU SmPC"
+          delay={D.cards}
+          ease={ease}
+          reduce={reduce}
+        />
+        <AgencyCard
+          tk={tk}
+          align="right"
+          cx={rightCardX}
+          eyebrow="PHARMACEUTICALS &amp; MEDICAL DEVICES AGENCY"
+          jurisdiction="JP"
+          date="APR 2021"
+          body="Pediatric Volibris label · J-NDA"
+          delay={D.cards + 0.10}
+          ease={ease}
+          reduce={reduce}
+        />
+
+        {/* ─── Horizontal axis (between the two cards) ─── */}
+        <motion.line
+          x1={leftAxisX} x2={rightAxisX} y1={axisY} y2={axisY}
+          stroke={tk('--cream-hairline')} strokeWidth={1}
+          initial={reduce ? { pathLength: 1 } : { pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: reduce ? 0 : 0.8, ease, delay: reduce ? 0 : D.axis }}
+          style={{ transformOrigin: `${leftAxisX}px ${axisY}px` }}
+        />
+        {/* Tick marks at the inner card edges (where the cards visually anchor) */}
+        <motion.g
+          initial={reduce ? { opacity: 1 } : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: reduce ? 0 : 0.4, ease, delay: reduce ? 0 : D.axis + 0.5 }}
+        >
+          <line x1={leftAxisX} x2={leftAxisX} y1={axisY - 6} y2={axisY + 6} stroke={tk('--cream-faint')} strokeWidth={1} />
+          <line x1={rightAxisX} x2={rightAxisX} y1={axisY - 6} y2={axisY + 6} stroke={tk('--cream-faint')} strokeWidth={1} />
+        </motion.g>
+
+        {/* ─── Converging arms (axis ends → hub) ─── */}
+        <motion.path
+          d={`M ${leftAxisX} ${axisY} L ${hubX} ${hubY}`}
+          fill="none" stroke={tk('--coral')} strokeWidth={1.6} strokeLinecap="round"
+          initial={reduce ? { pathLength: 1 } : { pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: reduce ? 0 : 0.9, ease, delay: reduce ? 0 : D.arms }}
+        />
+        <motion.path
+          d={`M ${rightAxisX} ${axisY} L ${hubX} ${hubY}`}
+          fill="none" stroke={tk('--coral')} strokeWidth={1.6} strokeLinecap="round"
+          initial={reduce ? { pathLength: 1 } : { pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: reduce ? 0 : 0.9, ease, delay: reduce ? 0 : D.arms + 0.05 }}
+        />
+
+        {/* ─── Hub (coral mark at convergence point) ─── */}
+        <motion.circle
+          cx={hubX} cy={hubY} r={22}
+          fill={tk('--coral')} fillOpacity={0.18}
+          stroke={tk('--coral')} strokeWidth={1.8}
+          initial={reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: reduce ? 0 : 0.5, ease, delay: reduce ? 0 : D.hub }}
+          style={{ transformOrigin: `${hubX}px ${hubY}px`, transformBox: 'fill-box' }}
+        />
+        <motion.circle
+          cx={hubX} cy={hubY} r={4}
+          fill={tk('--coral')}
+          initial={reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: reduce ? 0 : 0.4, ease, delay: reduce ? 0 : D.hub + 0.15 }}
+          style={{ transformOrigin: `${hubX}px ${hubY}px`, transformBox: 'fill-box' }}
+        />
+
+        {/* ─── Hub label (below hub) ─── */}
+        <motion.g
+          initial={reduce ? { opacity: 1 } : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: reduce ? 0 : 0.5, ease, delay: reduce ? 0 : D.hubLabel }}
+        >
+          <text
+            x={hubX} y={hubY + 60}
+            textAnchor="middle"
+            fontFamily="var(--font-display)"
+            fontSize="34"
+            fontWeight={700}
+            letterSpacing="-0.02em"
+            fill={tk('--cream')}
+          >
+            One PopPK model
+          </text>
+          <text
+            x={hubX} y={hubY + 96}
+            textAnchor="middle"
+            fontFamily="var(--font-mono)"
+            fontSize="14"
+            letterSpacing="0.22em"
+            fill={tk('--coral')}
+          >
+            ↳ ONE PEDIATRIC LABEL
+          </text>
+        </motion.g>
+      </svg>
+    </div>
   );
 }
 
 /* ========================================================
-   ThemeTile — bordered tile for the framework ribbon
+   AgencyCard — typography stack rendered as SVG <text>.
+
+   Drawn as SVG (not HTML) so it scales identically to the
+   convergence axis/arms across viewports without absolute
+   positioning math. The eyebrow is a small mono uppercase line,
+   the date is the hero (display tier), the body is muted prose.
    ======================================================== */
-function ThemeTile({ theme, detail, delay, tk }) {
-  const ease = [0.2, 0.7, 0.3, 1];
-  const color = tk(`--${theme.token}`);
+function AgencyCard({ tk, align, cx, eyebrow, jurisdiction, date, body, delay, ease, reduce }) {
+  const anchor = align === 'right' ? 'end' : 'start';
+  const x = align === 'right' ? cx + 200 : cx - 200;
+
   return (
-    <motion.div
-      style={{
-        padding: '18px 20px 20px 20px',
-        borderRadius: 4,
-        border: '1px solid var(--cream-hairline)',
-        background: 'color-mix(in srgb, var(--panel) 35%, transparent)',
-      }}
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, ease, delay }}
+    <motion.g
+      initial={reduce ? { opacity: 1, x: 0 } : { opacity: 0, x: align === 'left' ? -16 : 16 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: reduce ? 0 : 0.7, ease, delay: reduce ? 0 : delay }}
     >
-      {/* Glyph */}
+      {/* Hairline left/right rule — the visual "card edge" */}
+      <line
+        x1={x} x2={x}
+        y1={50} y2={230}
+        stroke={tk('--cream-hairline')} strokeWidth={1}
+      />
+
+      {/* Eyebrow — agency name (mono uppercase) */}
+      <text
+        x={align === 'right' ? x - 20 : x + 20}
+        y={70}
+        textAnchor={anchor}
+        fontFamily="var(--font-mono)"
+        fontSize="13"
+        letterSpacing="0.22em"
+        fill={tk('--cream-muted')}
+      >
+        {eyebrow}
+      </text>
+
+      {/* Jurisdiction tag — small coral chip */}
+      <text
+        x={align === 'right' ? x - 20 : x + 20}
+        y={94}
+        textAnchor={anchor}
+        fontFamily="var(--font-mono)"
+        fontSize="11"
+        fontWeight={700}
+        letterSpacing="0.22em"
+        fill={tk('--coral')}
+      >
+        · {jurisdiction} ·
+      </text>
+
+      {/* Date — hero (display tier) */}
+      <text
+        x={align === 'right' ? x - 20 : x + 20}
+        y={172}
+        textAnchor={anchor}
+        fontFamily="var(--font-display)"
+        fontSize="56"
+        fontWeight={700}
+        letterSpacing="-0.02em"
+        fill={tk('--cream')}
+      >
+        {date}
+      </text>
+
+      {/* Body — muted single-line prose */}
+      <text
+        x={align === 'right' ? x - 20 : x + 20}
+        y={210}
+        textAnchor={anchor}
+        fontFamily="var(--font-body)"
+        fontSize="16"
+        fill={tk('--cream-muted')}
+      >
+        {body}
+      </text>
+    </motion.g>
+  );
+}
+
+/* ========================================================
+   LedgerBeat — one cell of the methodology row.
+
+   Numeral on top (display tier), label below (body), meta in
+   muted mono uppercase. Coral when accent=true so the eye picks
+   "1 model" and "0 trials" as the editorial extremes of the row.
+   ======================================================== */
+function LedgerBeat({ n, label, meta, accent, numeralStyle }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
       <div
+        className="deck-display"
         style={{
-          fontSize: '1.6rem',
-          color,
+          fontSize: 'var(--fs-card-numeral)',
           lineHeight: 1,
-          marginBottom: '14px',
+          letterSpacing: '-0.03em',
+          color: accent ? 'var(--coral)' : 'var(--cream)',
+          fontWeight: 700,
+          ...(numeralStyle || {}),
         }}
       >
-        {theme.glyph}
+        {n}
       </div>
-
-      {/* Title */}
+      <div
+        style={{
+          fontFamily: 'var(--font-body)',
+          fontSize: 'var(--fs-card-body)',
+          color: 'var(--cream)',
+          lineHeight: 1.35,
+        }}
+      >
+        {label}
+      </div>
       <div
         className="deck-mono uppercase"
         style={{
-          fontSize: '0.72rem',
-          letterSpacing: 'var(--ls-mono-wide)',
-          color: 'var(--cream)',
-          fontWeight: 700,
-          marginBottom: '8px',
-        }}
-      >
-        {theme.title}
-      </div>
-
-      {/* Detail */}
-      <div
-        className="deck-display italic"
-        style={{
-          fontSize: 'clamp(0.74rem, 0.84vw, 0.9rem)',
-          lineHeight: 1.4,
+          fontSize: 'var(--fs-card-meta)',
+          letterSpacing: 'var(--ls-mono)',
           color: 'var(--cream-muted)',
-          fontWeight: 400,
         }}
       >
-        {detail}
+        {meta}
       </div>
-    </motion.div>
+    </div>
   );
 }

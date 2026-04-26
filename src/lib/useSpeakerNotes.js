@@ -1,60 +1,118 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
-import { base44 } from '@/api/base44Client';
+import { reindexLiveEdit } from './aiRagIndex';
 
 /**
  * useSpeakerNotes — load + upsert speaker notes for a deck, keyed by (deck_id, slide_id).
  *
- * Returns:
- *   notes          — map of slide_id → SpeakerNote record
- *   getNote(sid)   — content string for a given slide_id ('' if none)
- *   saveNote(sid, idx, content) — debounced upsert
- *   saving         — boolean, true while a save is in flight
- *   loaded         — initial fetch finished
+ * Storage model (3 layers, highest precedence wins):
+ *   1. Live override  — per-device localStorage, written on every edit
+ *   2. Static note    — canonical markdown from src/decks/<deck>/notes.js
+ *   3. Empty          — placeholder shown in the editor
+ *
+ * The base44 backend is currently a no-op stub (see api/base44Client.js),
+ * so this hook persists edits to localStorage instead. When/if base44 is
+ * reconnected, swap this implementation back to entity reads/writes.
+ *
+ * API:
+ *   getNote(slideId)             — string (override > static > '')
+ *   saveNote(slideId, idx, text) — debounced write to localStorage
+ *   clearNote(slideId)           — drop override, revert to static
+ *   hasOverride(slideId)         — true if a live edit exists for this slide
+ *   saving                       — true while a debounced write is pending
+ *   loaded                       — initial localStorage read finished
  */
-export function useSpeakerNotes(deckId) {
-  const [notes, setNotes] = useState({});
+export function useSpeakerNotes(deckId, staticNotes = null) {
+  const [overrides, setOverrides] = useState({});
   const [loaded, setLoaded] = useState(false);
   const [saving, setSaving] = useState(false);
   const debounceRef = useRef({});
 
-  // Initial fetch — all notes for this deck.
+  const storageKey = deckId ? `presenter:notes:${deckId}` : null;
+
+  // Initial read from localStorage.
   useEffect(() => {
-    if (!deckId) return;
-    let cancelled = false;
-    (async () => {
-      const rows = await base44.entities.SpeakerNote.filter({ deck_id: deckId });
-      if (cancelled) return;
-      const map = {};
-      for (const r of rows) map[r.slide_id] = r;
-      setNotes(map);
-      setLoaded(true);
-    })();
-    return () => { cancelled = true; };
-  }, [deckId]);
+    if (!storageKey) return;
+    try {
+      const raw = localStorage.getItem(storageKey);
+      setOverrides(raw ? JSON.parse(raw) : {});
+    } catch {
+      setOverrides({});
+    }
+    setLoaded(true);
+  }, [storageKey]);
 
-  const getNote = useCallback((slideId) => notes[slideId]?.content || '', [notes]);
-
-  const saveNote = useCallback((slideId, slideIndex, content) => {
-    // Debounce per slide so we don't thrash the API on every keystroke.
-    clearTimeout(debounceRef.current[slideId]);
-    debounceRef.current[slideId] = setTimeout(async () => {
-      setSaving(true);
-      const existing = notes[slideId];
-      if (existing?.id) {
-        const updated = await base44.entities.SpeakerNote.update(existing.id, { content });
-        setNotes((prev) => ({ ...prev, [slideId]: { ...existing, ...updated } }));
-      } else {
-        const created = await base44.entities.SpeakerNote.create({
-          deck_id: deckId,
-          slide_id: slideId,
-          slide_index: slideIndex,
-          content,
-        });
-        setNotes((prev) => ({ ...prev, [slideId]: created }));
+  // Atomic write of the current override map.
+  const persist = useCallback(
+    (next) => {
+      if (!storageKey) return;
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(next));
+      } catch {
+        // Quota exceeded or storage disabled — fail silently; in-memory state still wins for the session.
       }
-      setSaving(false);
-    }, 500);
-  }, [deckId, notes]);
+    },
+    [storageKey],
+  );
 
-  return { notes, getNote, saveNote, saving, loaded };
+  const getNote = useCallback(
+    (slideId) => {
+      const live = overrides[slideId]?.content;
+      if (typeof live === 'string' && live.trim().length) return live;
+      return staticNotes?.[slideId] || '';
+    },
+    [overrides, staticNotes],
+  );
+
+  const hasOverride = useCallback(
+    (slideId) => {
+      const live = overrides[slideId]?.content;
+      return typeof live === 'string' && live.trim().length > 0;
+    },
+    [overrides],
+  );
+
+  const saveNote = useCallback(
+    (slideId, slideIndex, content) => {
+      if (!slideId) return;
+      // Debounce per-slide so rapid keystrokes don't thrash localStorage.
+      clearTimeout(debounceRef.current[slideId]);
+      setSaving(true);
+      debounceRef.current[slideId] = setTimeout(() => {
+        setOverrides((prev) => {
+          const next = {
+            ...prev,
+            [slideId]: {
+              content,
+              slide_index: slideIndex,
+              updated_at: new Date().toISOString(),
+            },
+          };
+          persist(next);
+          return next;
+        });
+        setSaving(false);
+        // Re-embed + upsert into Qdrant so RAG retrieval reflects the
+        // edit on the next ask. No-op when Qdrant isn't configured.
+        reindexLiveEdit({ deckId, slideId, kind: 'note', text: content });
+      }, 400);
+    },
+    [persist, deckId],
+  );
+
+  const clearNote = useCallback(
+    (slideId) => {
+      if (!slideId) return;
+      clearTimeout(debounceRef.current[slideId]);
+      setOverrides((prev) => {
+        if (!(slideId in prev)) return prev;
+        const next = { ...prev };
+        delete next[slideId];
+        persist(next);
+        return next;
+      });
+    },
+    [persist],
+  );
+
+  return { getNote, saveNote, clearNote, hasOverride, saving, loaded };
 }

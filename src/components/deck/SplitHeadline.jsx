@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -56,17 +56,12 @@ export default function SplitHeadline({
     () => {
       if (reduced || !containerRef.current) return;
 
-      // Split by LINES only (not chars). Lines rise together as blocks —
-      // the "editorial wipe-up" effect, but instant instead of typewriter.
-      // We keep the masked-overflow line wrapper so the text still appears
-      // to emerge from below its own baseline.
       const split = new SplitText(containerRef.current, {
         type: 'lines',
         linesClass: 'split-line',
         reduceWhiteSpace: false,
       });
 
-      // Seed state — whole line translated down + invisible.
       gsap.set(split.lines, {
         yPercent: 110,
         opacity: 0,
@@ -83,8 +78,6 @@ export default function SplitHeadline({
         delay,
       });
 
-      // Cleanup runs automatically via useGSAP — but being explicit:
-      // when the hook reverts, SplitText.revert() restores original DOM.
       return () => {
         tween.kill();
         split.revert();
@@ -92,6 +85,25 @@ export default function SplitHeadline({
     },
     { scope: containerRef, dependencies: [reduced, delay, lineDuration, lineStagger] },
   );
+
+  // Safety net: if GSAP tween doesn't complete (stale context during
+  // slide transitions), force all split-line children visible after the
+  // animation window closes. Without this, headlines stay at opacity: 0.
+  useEffect(() => {
+    if (reduced) return;
+    const safetyMs = (delay + lineDuration + lineStagger * 6) * 1000 + 500;
+    const id = setTimeout(() => {
+      if (!containerRef.current) return;
+      const lines = containerRef.current.querySelectorAll('.split-line');
+      lines.forEach((el) => {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.5) {
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        }
+      });
+    }, safetyMs);
+    return () => clearTimeout(id);
+  }, [reduced, delay, lineDuration, lineStagger]);
 
   // Reduced-motion fallback — simple fade via framer-motion so we keep
   // a single timing source of truth with the rest of the deck chrome.

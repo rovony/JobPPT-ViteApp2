@@ -29,3 +29,46 @@ dist-ssr
 
 .env
 .vite
+
+# Audit / screenshot scratch (app-local; root .gitignore also covers _screenshots/)
+_screenshots/
+_audit/
+
+# === Audit capture artifacts (added 2026-04-24) ===========================
+# The audit/ tree is a working scratchpad: capture-*.mjs / sweep-*.mjs scripts
+# (and audit/build-deck-pdf.py + audit/capture-deck-pdf.mjs) write rasters,
+# PDFs, and JSON dumps into audit/out/, audit/screens-*/, audit/sweep-*/, etc.
+# Keep those binaries out of git, but ALWAYS keep the capture scripts and
+# markdown review reports trackable. Patterns are scoped to audit/ on purpose
+# so PNGs/PDFs elsewhere in the repo are NOT affected.
+
+# Block generated raster + PDF + video artifacts anywhere under audit/
+audit/**/*.png
+audit/**/*.jpg
+audit/**/*.jpeg
+audit/**/*.gif
+audit/**/*.webp
+audit/**/*.mp4
+audit/**/*.mov
+audit/**/*.pdf
+
+# Canonical capture-output destination going forward
+audit/out/
+
+# Scratch sweep + screenshot directories (e.g. screens-hairlines/, sweep-2026-04-24/)
+audit/screens-*/
+audit/sweep-*/
+
+# Re-include capture / probe scripts (they live at audit root and in audit/scripts/)
+!audit/**/*.mjs
+!audit/**/*.js
+!audit/**/*.ts
+!audit/**/*.py
+!audit/**/*.sh
+
+# Re-include markdown reports anywhere in audit/
+!audit/**/*.md
+
+# Always keep the canonical scripts/ folder fully trackable (defensive)
+!audit/scripts/
+!audit/scripts/**

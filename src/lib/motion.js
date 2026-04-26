@@ -1,6 +1,8 @@
 // Narrative-first motion grammar. Centralized variants + transitions for Framer Motion.
 // All motion respects prefers-reduced-motion via a utility wrapper.
 
+import { useReducedMotion } from 'framer-motion';
+
 export const durations = {
   fast: 0.18,
   base: 0.32,
@@ -48,4 +50,20 @@ export function stepState(step, at) {
 export function prefersReducedMotion() {
   if (typeof window === 'undefined') return false;
   return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+}
+
+// Reactive hook. Returns true when the user has `prefers-reduced-motion:
+// reduce` set at the OS level, and updates when the setting changes.
+//
+// Shared-element transitions (lungs across slides 5/6, analysis-plot frame
+// across slides 10/11/12, approval timeline across 7/13) gate their
+// layoutId wrapper on this hook — when it returns true, render the element
+// WITHOUT a layoutId so framer-motion falls back to a plain swap / fade
+// instead of running a flight animation.
+//
+// Delegates to framer-motion's useReducedMotion under the hood, but named
+// for the deck so callsites read intentionally. If we swap motion libraries
+// later, only this wrapper needs updating.
+export function useReducedMotionPref() {
+  return useReducedMotion();
 }

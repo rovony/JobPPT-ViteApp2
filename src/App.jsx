@@ -22,6 +22,7 @@ import DevVizPage from '@/components/devkit/pages/VizPage';
 import DevPatternsPage from '@/components/devkit/pages/PatternsPage';
 import DevLibrariesPage from '@/components/devkit/pages/LibrariesPage';
 import PKSim from '@/pages/PKSim';
+import Reading from '@/pages/Reading';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -57,7 +58,16 @@ const AuthenticatedApp = () => {
       <Route path="/deck" element={<Deck />} />
       <Route path="/decks/:deckId" element={<DeckRunner />} />
       <Route path="/decks/:deckId/s/:slideIndex" element={<DeckRunner />} />
+      {/* Dedicated dual-screen routes — see DeckRunner for the path-segment
+          source-of-truth pattern. Legacy ?presenter=1 / ?audience=1 are
+          redirected to /speaker · /audience inside DeckRunner. */}
+      <Route path="/decks/:deckId/s/:slideIndex/speaker" element={<DeckRunner />} />
+      <Route path="/decks/:deckId/s/:slideIndex/audience" element={<DeckRunner />} />
       <Route path="/qa/:deckId" element={<AudienceQA />} />
+      {/* Reading material — full-page route, deep-linkable per item.
+          Modal counterpart (ReadingMaterialPane) lives inside presenter view. */}
+      <Route path="/decks/:deckId/reading" element={<Reading />} />
+      <Route path="/decks/:deckId/reading/:slug" element={<Reading />} />
       <Route path="/decks/:deckId/analytics" element={<DeckAnalytics />} />
       <Route path="/pk-sim" element={<PKSim />} />
       <Route path="/PKSim" element={<PKSim />} />
@@ -83,7 +93,7 @@ function App() {
     <AuthProvider>
       <ThemeProvider>
         <QueryClientProvider client={queryClientInstance}>
-          <Router>
+          <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
             <AuthenticatedApp />
           </Router>
           <Toaster />

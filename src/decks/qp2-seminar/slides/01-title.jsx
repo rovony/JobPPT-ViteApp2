@@ -200,7 +200,7 @@ export default function Slide01() {
           }}
           initial={{ opacity: 0, y: 12 }}
           animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 1.7 }}
+          transition={{ duration: 0.4, delay: 1.0 }}
         >
           Strategies for Dose Selection and Regulatory Impact Across Therapeutic Areas
         </motion.p>
@@ -225,7 +225,7 @@ export default function Slide01() {
           style={{ flex: '0 1 auto', minHeight: 0 }}
           initial={{ opacity: 0 }}
           animate={go ? { opacity: 1 } : { opacity: 1 }}
-          transition={{ duration: 0.3, delay: 2.0 }}
+          transition={{ duration: 0.3, delay: 1.3 }}
         >
           <PKCurve go={go} />
         </motion.div>
@@ -256,7 +256,7 @@ export default function Slide01() {
             }}
             initial={{ opacity: 0, y: 14 }}
             animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 4.2, ease: [0.2, 0.7, 0.3, 1] }}
+            transition={{ duration: 0.5, delay: 2.4, ease: [0.2, 0.7, 0.3, 1] }}
           >
             <div
               className="deck-mono uppercase"
@@ -269,11 +269,14 @@ export default function Slide01() {
             >
               Presenter
             </div>
+            {/* Presenter name = card title role; original 1.85rem cap is
+                slightly above token's 1.3rem ceiling — accept the small
+                shrink at large viewports for tokenization consistency. */}
             <p
               className="deck-display"
               style={{
                 margin: 0,
-                fontSize: 'clamp(1.3rem, 1.9vw, 1.85rem)',
+                fontSize: 'var(--fs-card-title)',
                 color: 'var(--cream)',
                 fontWeight: 600,
                 letterSpacing: 'var(--ls-headline)',
@@ -285,7 +288,7 @@ export default function Slide01() {
             <p
               style={{
                 margin: 'var(--space-2) 0 0 0',
-                fontSize: 'clamp(0.95rem, 1.2vw, 1.2rem)',
+                fontSize: 'var(--fs-card-body)',
                 color: 'var(--cream-muted)',
                 lineHeight: 1.4,
               }}
@@ -308,7 +311,7 @@ export default function Slide01() {
             }}
             initial={{ opacity: 0 }}
             animate={go ? { opacity: 0.8 } : { opacity: 0.8 }}
-            transition={{ duration: 0.3, delay: 4.5 }}
+            transition={{ duration: 0.3, delay: 2.7 }}
           >
             <div>SEMINAR · APRIL 2026 / QP2-CMD</div>
             <div>3 CASES · 5 THEMES · 45 MIN</div>
@@ -327,7 +330,10 @@ export default function Slide01() {
    Staggered entrance after the curve has drawn past its landmark.
    ======================================================== */
 function CaseCard({ c, index, go }) {
-  const base = 3.8 + index * 0.55;
+  // Cards land while the PK curve is still finishing its draw, so the
+  // composition resolves in ~2.5s total instead of dragging past 5s.
+  // Title slides should not have a 5-second entrance choreography.
+  const base = 1.6 + index * 0.18;
   return (
     <motion.div
       className="relative"
@@ -371,7 +377,7 @@ function CaseCard({ c, index, go }) {
         style={{
           margin: 0,
           fontFamily: 'var(--font-body)',
-          fontSize: 'clamp(1rem, 1.3vw, 1.35rem)',
+          fontSize: 'var(--fs-card-title)',
           fontWeight: 600,
           lineHeight: 1.2,
           color: 'var(--cream)',
@@ -422,7 +428,7 @@ function PKCurve({ go }) {
         strokeLinecap="round"
         initial={{ pathLength: 0, opacity: 0 }}
         animate={go ? { pathLength: 1, opacity: 0.32 } : { pathLength: 1, opacity: 0.32 }}
-        transition={{ duration: 1.7, delay: 2.1, ease: 'easeInOut' }}
+        transition={{ duration: 1.0, delay: 1.4, ease: 'easeInOut' }}
       />
       <motion.path
         d={PK_LOWER}
@@ -432,7 +438,7 @@ function PKCurve({ go }) {
         strokeLinecap="round"
         initial={{ pathLength: 0, opacity: 0 }}
         animate={go ? { pathLength: 1, opacity: 0.32 } : { pathLength: 1, opacity: 0.32 }}
-        transition={{ duration: 1.7, delay: 2.1, ease: 'easeInOut' }}
+        transition={{ duration: 1.0, delay: 1.4, ease: 'easeInOut' }}
       />
 
       {/* Primary PK curve */}
@@ -445,7 +451,7 @@ function PKCurve({ go }) {
         strokeOpacity={0.62}
         initial={{ pathLength: 0 }}
         animate={go ? { pathLength: 1 } : { pathLength: 1 }}
-        transition={{ duration: 1.7, delay: 2.1, ease: 'easeInOut' }}
+        transition={{ duration: 1.0, delay: 1.4, ease: 'easeInOut' }}
       />
 
       {/* Baseline */}
@@ -455,7 +461,7 @@ function PKCurve({ go }) {
         strokeWidth={1}
         initial={{ pathLength: 0 }}
         animate={go ? { pathLength: 1 } : { pathLength: 1 }}
-        transition={{ duration: 1.2, delay: 2.8 }}
+        transition={{ duration: 0.8, delay: 1.6 }}
       />
 
       {/* Landmark choreography per case (matches HTML reference):
@@ -464,11 +470,23 @@ function PKCurve({ go }) {
              (scientific-precision cue anchoring each PK landmark to x-axis)
           3. Axis label fades in at baseline */}
       {CASES.map((c, i) => {
-        const base = 3.4 + i * 0.4;
+        const base = 2.0 + i * 0.18;
+        // Each landmark dot carries a layoutId that pairs with the
+        // case-color hairline on its corresponding CaseHeroDivider
+        // (slides 5, 15, 23). When the user advances from this title
+        // slide directly into a divider, framer-motion morphs the
+        // colored dot's bounding box into the divider's hairline —
+        // SVG <circle> ↔ HTML <div> is partial (bbox only, not the
+        // shape itself) but the visual reads as "the case marker
+        // we showed at the start IS the case we're now opening."
+        // Token list mirrors CASES order: coral=CS1, cyan=CS2,
+        // violet=CS3 (also documented in the file header §10-12).
+        const markerToken = ['coral', 'cyan', 'violet'][i];
         return (
           <g key={c.id}>
             {/* Dot — gentle fade-in (no pop, no directional slide) */}
             <motion.circle
+              layoutId={`case-marker-${markerToken}`}
               cx={c.dotX} cy={c.dotY} r={7}
               fill={c.color}
               initial={{ opacity: 0 }}

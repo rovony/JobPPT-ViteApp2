@@ -1,8 +1,21 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { base44 } from '@/api/base44Client';
-import { Sparkles, Send, Loader2, Lightbulb, Mic, Square, FolderOpen, BookOpen, Globe, StickyNote } from 'lucide-react';
+import { Sparkles, Send, Loader2, Lightbulb, Mic, Square, FolderOpen, BookOpen, Globe, StickyNote, Settings, Cpu, AlertTriangle, Database, RefreshCw, ChevronDown, ChevronRight, Zap, GraduationCap, Bug, Trash2 } from 'lucide-react';
 import { useAmbientListen } from '@/lib/useAmbientListen';
+import { useDictation } from '@/lib/useDictation';
+import {
+  isStubResponse,
+  hasOpenAIKey,
+  getKeySource,
+  localAskPresenter,
+  localTranscribeAudio,
+  LocalAIError,
+} from '@/lib/aiLocalClient';
+import { isQdrantConfigured } from '@/lib/qdrantClient';
+import { indexDeck, getIndexStatus } from '@/lib/aiRagIndex';
 import AmbientListenPanel from './AmbientListenPanel';
+import AIKeySettings from './AIKeySettings';
+import MicStatusBanner from './MicStatusBanner';
 
 /**
  * PresenterAssistant — live co-pilot for the person presenting.
@@ -25,10 +38,111 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
   const [messages, setMessages] = useState([]);   // { role, content, mode?, citations? }
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [recording, setRecording] = useState(false);
-  const [recStatus, setRecStatus] = useState(''); // '', 'listening', 'transcribing'
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [localKeyPresent, setLocalKeyPresent] = useState(hasOpenAIKey());
+  const [keySource, setKeySource] = useState(getKeySource()); // 'env' | 'localStorage' | null  (no longer surfaced in header — kept for settings UI)
+  const [ragStatus, setRagStatus] = useState(() =>
+    deck?.id ? getIndexStatus(deck.id) : { state: 'unknown' }
+  );
+  /* presenterMode persists across sessions so the user doesn't have to
+     re-toggle when they reopen the deck mid-rehearsal. Default is 'live'
+     because that's the more demanding context — better to be too terse
+     and re-ask than too verbose and lose the room. */
+  const [presenterMode, setPresenterMode] = useState(() => {
+    try {
+      return localStorage.getItem('presenter-assistant:mode') || 'live';
+    } catch {
+      return 'live';
+    }
+  });
+  useEffect(() => {
+    try { localStorage.setItem('presenter-assistant:mode', presenterMode); } catch {}
+  }, [presenterMode]);
   const listRef = useRef(null);
-  const mediaRef = useRef(null); // { recorder, stream, chunks }
+  const inputRef = useRef(null);
+
+  /* Dictation — click-to-toggle, live interim transcript, auto-send
+     on silence pause. The recognizer is the browser's Web Speech API
+     (free, real-time). On final, we feed the transcript directly into
+     send() and clear the input — no manual "click to send" step. */
+  const dictation = useDictation({
+    onInterim: (text) => {
+      console.info('[assistant] onInterim', { len: text.length, preview: text.slice(0, 60) });
+      setInput(text);
+    },
+    onFinal: (text) => {
+      console.info('[assistant] onFinal', { text });
+      const trimmed = (text || '').trim();
+      if (!trimmed) {
+        console.warn('[assistant] onFinal: empty text — not sending');
+        return;
+      }
+      setInput('');
+      send(trimmed);
+    },
+  });
+  const [debugOpen, setDebugOpen] = useState(false);
+
+  /* Auto-open the debug panel as soon as dictation reports an error so
+     the user doesn't have to know to click the bug icon. Closing it
+     manually after that respects the user's choice. */
+  const sawErrorRef = useRef(false);
+  useEffect(() => {
+    if (dictation.error && !sawErrorRef.current) {
+      sawErrorRef.current = true;
+      setDebugOpen(true);
+    }
+    if (!dictation.error) sawErrorRef.current = false;
+  }, [dictation.error]);
+
+  /* Re-check the localStorage key when the settings modal closes — if
+     the user pasted a new one, the assistant header should pick up the
+     "Local mode (key set)" indicator without a reload. */
+  useEffect(() => {
+    if (!settingsOpen) {
+      setLocalKeyPresent(hasOpenAIKey());
+      setKeySource(getKeySource());
+    }
+  }, [settingsOpen]);
+
+  /* Auto-index the deck on mount when Qdrant + OpenAI are configured.
+     `indexDeck` is idempotent — unchanged chunks are skipped via content
+     hash, so this is cheap on warm starts. Failures are surfaced via
+     ragStatus but never block the UI. */
+  useEffect(() => {
+    if (!deck?.id) return;
+    if (!isQdrantConfigured() || !hasOpenAIKey()) return;
+    let cancelled = false;
+    setRagStatus({ state: 'indexing', at: Date.now() });
+    indexDeck(deck).then((result) => {
+      if (cancelled) return;
+      setRagStatus(getIndexStatus(deck.id));
+      if (result?.upserted) {
+        console.info(
+          `[RAG] indexed ${result.upserted} new chunks (skipped ${result.skipped}/${result.total}) for ${deck.id}`,
+        );
+      }
+    });
+    return () => { cancelled = true; };
+  }, [deck?.id]);
+
+  /** Manual reindex (called from settings modal) — bypasses content
+   *  hashing so the user can force a full re-embed if they suspect
+   *  drift. */
+  const reindexNow = useCallback(async () => {
+    if (!deck?.id) return;
+    setRagStatus({ state: 'indexing', at: Date.now() });
+    // Drop hashes so every chunk is re-embedded.
+    const prefix = `rag-index:${deck.id}:`;
+    for (let i = localStorage.length - 1; i >= 0; i--) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith(prefix) && !k.endsWith('_status')) {
+        localStorage.removeItem(k);
+      }
+    }
+    await indexDeck(deck);
+    setRagStatus(getIndexStatus(deck.id));
+  }, [deck]);
 
   // ─── Ambient listen (audience Q detection via Web Speech API) ───
   const ambient = useAmbientListen();
@@ -70,34 +184,37 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
   /* Scroll to bottom on new messages */
   useEffect(() => {
     if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
-  }, [messages, loading, recStatus]);
+  }, [messages, loading, dictation.listening]);
 
-  /* Space-bar push-to-talk. Held = record; release = send. */
+  /* Keyboard model — single tap to toggle dictation, no holding.
+     'M' starts/stops dictation. 'Esc' cancels (drops the buffer
+     instead of sending). Both ignored while typing in a real input. */
   useEffect(() => {
     const isTyping = () => {
       const el = document.activeElement;
       if (!el) return false;
+      // Allow Esc to cancel even from the assistant's own input.
+      if (el === inputRef.current) return false;
       const tag = el.tagName;
       return tag === 'INPUT' || tag === 'TEXTAREA' || el.isContentEditable;
     };
-    const onDown = (e) => {
-      if (e.code !== 'Space' || e.repeat || isTyping()) return;
-      e.preventDefault();
-      startRecording();
+    const onKey = (e) => {
+      if (e.repeat) return;
+      if (e.key === 'Escape' && dictation.listening) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        dictation.stop({ finalize: false });
+        setInput('');
+        return;
+      }
+      if ((e.key === 'm' || e.key === 'M') && !isTyping()) {
+        e.preventDefault();
+        dictation.toggle();
+      }
     };
-    const onUp = (e) => {
-      if (e.code !== 'Space' || isTyping()) return;
-      e.preventDefault();
-      stopRecording();
-    };
-    window.addEventListener('keydown', onDown);
-    window.addEventListener('keyup', onUp);
-    return () => {
-      window.removeEventListener('keydown', onDown);
-      window.removeEventListener('keyup', onUp);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    window.addEventListener('keydown', onKey, true);
+    return () => window.removeEventListener('keydown', onKey, true);
+  }, [dictation]);
 
   const suggestions = [
     'Give me a 15-second recap of this slide.',
@@ -106,15 +223,35 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
     'Rephrase my opening sentence more tightly.',
   ];
 
-  /* ---------- Send (text or transcribed) ---------- */
+  /* ---------- Send (text or transcribed) ----------
+     Try base44 first; if it's stubbed (offline-mock client) or throws,
+     fall back to the local OpenAI path with the user's API key. The
+     local path injects deck.reading + the full slide map as context
+     (Phase 14 scope expansion). */
   const send = async (text) => {
     const q = (text ?? input).trim();
-    if (!q || loading) return;
+    console.info('[assistant] send()', { q, loading, fromVoice: text != null });
+    if (!q) {
+      console.warn('[assistant] send(): empty question — abort');
+      return;
+    }
+    if (loading) {
+      console.warn('[assistant] send(): already loading — abort');
+      return;
+    }
     const nextMsgs = [...messages, { role: 'user', content: q }];
     setMessages(nextMsgs);
     setInput('');
     setLoading(true);
 
+    const reply = await getReply(q, nextMsgs);
+    console.info('[assistant] reply received', { mode: reply.mode, len: reply.content?.length });
+    setMessages([...nextMsgs, reply]);
+    setLoading(false);
+  };
+
+  const getReply = async (question, nextMsgs) => {
+    // 1. Try base44 (real backend if connected; stub returns sentinel).
     try {
       const res = await base44.functions.invoke('askPresenter', {
         deck_id: deck.id,
@@ -122,93 +259,72 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
         slide_id: currentSlide?.id || '',
         slide_title: currentSlide?.title || '',
         slide_note: currentNote || '',
-        question: q,
+        question,
         history: nextMsgs.slice(-6),
       });
-      const { answer, mode, citations } = res.data || {};
-      setMessages([...nextMsgs, {
+      if (!isStubResponse(res)) {
+        const { answer, mode, citations } = res.data || {};
+        return {
+          role: 'assistant',
+          content: answer || '(no response)',
+          mode: mode || 'notes-only',
+          citations: citations || [],
+        };
+      }
+      // base44 is in offline-stub mode → fall through to local.
+    } catch (_) {
+      // base44 threw → fall through to local.
+    }
+
+    // 2. Local fallback — needs an OpenAI key.
+    if (!hasOpenAIKey()) {
+      return {
         role: 'assistant',
-        content: answer || '(no response)',
-        mode: mode || 'notes-only',
-        citations: citations || [],
-      }]);
-    } catch (err) {
-      setMessages([...nextMsgs, {
+        content:
+          'AI backend is offline-stubbed and no local OpenAI key is set. ' +
+          'Click the gear icon in the assistant header to add your API key, ' +
+          'then ask again.',
+        mode: 'no-key',
+        citations: [],
+      };
+    }
+
+    try {
+      const result = await localAskPresenter({
+        deck,
+        currentSlide,
+        currentNote,
+        question,
+        history: nextMsgs.slice(-6),
+        presenterMode,
+      });
+      return {
         role: 'assistant',
-        content: '⚠️ Couldn\'t reach the model. Try again.',
-        mode: 'error', citations: [],
-      }]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  /* ---------- Push-to-talk ---------- */
-  const startRecording = async () => {
-    if (recording || loading) return;
-    if (!navigator.mediaDevices?.getUserMedia) {
-      alert('Microphone not supported in this browser.');
-      return;
-    }
-    try {
-      // If ambient listen is on, pause it while the presenter talks
-      // so the recognition engine doesn't hear push-to-talk audio as
-      // audience questions. Resumes automatically ~1.5s after release.
-      ambient.pauseBriefly(30_000); // long ceiling; stopRecording clears it sooner
-
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const mime = pickAudioMime();
-      const recorder = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined);
-      const chunks = [];
-      recorder.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
-      recorder.onstop = () => finishRecording(chunks, recorder.mimeType, stream);
-      recorder.start();
-      mediaRef.current = { recorder, stream, chunks };
-      setRecording(true);
-      setRecStatus('listening');
+        content: result.answer,
+        // Structured shape for the renderer:
+        quick: result.quick,
+        details: result.details,
+        tags: result.tags,
+        mode: result.mode,           // 'rag' | 'local'
+        presenterMode: result.presenterMode,
+        citations: result.citations,
+      };
     } catch (err) {
-      console.warn('Mic permission denied:', err);
-      setRecStatus('');
-      alert('Microphone permission is needed for push-to-talk.');
+      const friendly = err instanceof LocalAIError ? err.message
+        : (err?.message || 'Could not reach the model.');
+      return {
+        role: 'assistant',
+        content: `⚠️ ${friendly}`,
+        mode: 'error',
+        citations: [],
+      };
     }
   };
 
-  const stopRecording = () => {
-    const m = mediaRef.current;
-    if (!m || !recording) return;
-    setRecording(false);
-    setRecStatus('transcribing');
-    try { m.recorder.stop(); } catch (_) { /* ignore */ }
-    // Give the tail of speech a moment to settle, then let ambient
-    // listen resume (its pauseBriefly internal timer fires naturally;
-    // we just shorten it here).
-    ambient.pauseBriefly(1500);
-  };
-
-  const finishRecording = async (chunks, mime, stream) => {
-    // Stop all tracks so the browser's mic indicator goes away
-    stream.getTracks().forEach((t) => t.stop());
-    try {
-      if (!chunks.length) { setRecStatus(''); return; }
-      const ext = (mime || 'audio/webm').includes('ogg') ? 'ogg'
-                : (mime || 'audio/webm').includes('mp4') ? 'm4a'
-                : 'webm';
-      const blob = new Blob(chunks, { type: mime || 'audio/webm' });
-      const file = new File([blob], `ptt.${ext}`, { type: blob.type });
-      const { file_url } = await base44.integrations.Core.UploadFile({ file });
-      const res = await base44.functions.invoke('transcribeAudio', { file_url });
-      const text = (res?.data?.text || '').trim();
-      setRecStatus('');
-      if (text) send(text);
-    } catch (err) {
-      console.warn('Transcription failed:', err);
-      setRecStatus('');
-      // Surface the server's actual error message (e.g. "Recording too short")
-      // instead of the generic fallback, so the presenter knows how to retry.
-      const serverMsg = err?.response?.data?.error || err?.message || 'Could not transcribe the recording.';
-      alert(serverMsg);
-    }
-  };
+  /* Push-to-talk + MediaRecorder + Whisper helpers were removed when
+     dictation switched to the click-to-toggle Web Speech API model
+     (see useDictation). The browser native recognizer is real-time,
+     free, and shows interim results — much better fit for live use. */
 
   /* ---------- Render ---------- */
   return (
@@ -232,6 +348,10 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
             Ask about this slide
           </div>
         </div>
+        <ModeToggle value={presenterMode} onChange={setPresenterMode} />
+        {isQdrantConfigured() && (
+          <RagStatusBadge status={ragStatus} />
+        )}
         {onOpenSources && (
           <button
             onClick={onOpenSources}
@@ -246,7 +366,38 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
             <FolderOpen className="w-3 h-3" /> Sources
           </button>
         )}
+        <button
+          onClick={() => setDebugOpen((v) => !v)}
+          title="Toggle voice/AI debug log (also see DevTools console)"
+          aria-label="Debug panel"
+          aria-pressed={debugOpen}
+          className="h-7 w-7 rounded flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)]"
+          style={{ color: debugOpen ? 'var(--case, var(--amber))' : 'var(--cream-faint)' }}
+        >
+          <Bug className="w-3.5 h-3.5" />
+        </button>
+        <button
+          onClick={() => setSettingsOpen(true)}
+          title={localKeyPresent ? 'AI assistant settings' : 'Set up local OpenAI key'}
+          aria-label="AI assistant settings"
+          className="h-7 w-7 rounded flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)]"
+          style={{ color: localKeyPresent ? 'var(--cream-muted)' : 'var(--case, var(--amber))' }}
+        >
+          {localKeyPresent ? <Settings className="w-3.5 h-3.5" /> : <AlertTriangle className="w-3.5 h-3.5" />}
+        </button>
       </div>
+
+      {debugOpen && (
+        <DebugPanel
+          dictation={dictation}
+          presenterMode={presenterMode}
+          ragConfigured={isQdrantConfigured()}
+          ragStatus={ragStatus}
+          loading={loading}
+          input={input}
+          onClose={() => setDebugOpen(false)}
+        />
+      )}
 
       {/* Ambient listen — sits above the chat so detected questions
           are the first thing the presenter sees. Collapses to a
@@ -284,7 +435,7 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
             ))}
             <div className="pt-2 deck-mono uppercase flex items-center gap-1.5"
                  style={{ fontSize: '0.58rem', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}>
-              <Mic className="w-3 h-3" /> Hold Space or the mic button to talk
+              <Mic className="w-3 h-3" /> Tap mic or press M — auto-sends when you pause
             </div>
           </div>
         )}
@@ -300,51 +451,98 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
           </div>
         )}
 
-        {recStatus && (
+        {dictation.listening && (
           <div className="flex items-center gap-2" style={{ color: 'var(--case, var(--amber))' }}>
-            {recStatus === 'listening'
-              ? <PulseDot />
-              : <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+            <PulseDot />
             <span style={{ fontSize: '0.8rem' }} className="deck-mono uppercase" >
-              {recStatus === 'listening' ? 'Listening — release to send' : 'Transcribing…'}
+              Listening · pause to send · Esc to cancel
+            </span>
+          </div>
+        )}
+        {dictation.error && !dictation.listening && (
+          <div className="flex items-center gap-2" style={{ color: 'var(--coral)' }}>
+            <AlertTriangle className="w-3.5 h-3.5" />
+            <span style={{ fontSize: '0.8rem' }} className="deck-mono uppercase">
+              Mic · {dictation.error}
             </span>
           </div>
         )}
       </div>
 
-      {/* Input row — text field + mic push-to-talk + send */}
+      {/* MIC STATUS banner — always visible above the input so the user
+          sees what dictation is doing without opening any panel. This
+          is the load-bearing UI for "did my mic tap actually do
+          something?". */}
+      <MicStatusBanner
+        dictation={dictation}
+        onOpenDebug={() => setDebugOpen(true)}
+      />
+
+      {/* Input row — text field + tap-once dictation + send */}
       <form
         onSubmit={(e) => { e.preventDefault(); send(); }}
         className="flex items-center gap-2 px-3 py-3 border-t"
         style={{ borderColor: 'var(--cream-hairline)' }}
       >
         <input
+          ref={inputRef}
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask anything… or hold Space to talk"
+          placeholder={
+            dictation.listening
+              ? 'Listening… (will auto-send)'
+              : dictation.supported
+                ? 'Ask anything… or tap mic / press M'
+                : 'Ask anything…'
+          }
           className="flex-1 bg-transparent outline-none px-2 py-2"
-          style={{ color: 'var(--cream)', fontFamily: 'var(--font-body)', fontSize: '0.9rem' }}
+          style={{
+            color: dictation.listening ? 'var(--case, var(--amber))' : 'var(--cream)',
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.9rem',
+            fontStyle: dictation.listening ? 'italic' : 'normal',
+          }}
         />
 
-        {/* Push-to-talk button — press-and-hold mouse or touch */}
+        {/* Click-to-toggle dictation. No more press-and-hold — single tap
+            starts the recognizer; user speaks freely; auto-stops + sends
+            after ~1.5s of silence. Tap again to manually finalize. */}
         <button
           type="button"
-          onMouseDown={startRecording}
-          onMouseUp={stopRecording}
-          onMouseLeave={() => recording && stopRecording()}
-          onTouchStart={(e) => { e.preventDefault(); startRecording(); }}
-          onTouchEnd={(e) => { e.preventDefault(); stopRecording(); }}
-          aria-label={recording ? 'Release to send' : 'Hold to talk'}
-          title={recording ? 'Release to send' : 'Hold to talk (or hold Space)'}
-          className="h-9 w-9 rounded-full flex items-center justify-center transition-colors"
+          onClick={() => {
+            if (!dictation.supported) {
+              alert('Voice input needs a Chromium-based browser (Chrome, Edge, Brave). Firefox doesn\'t implement Web Speech yet.');
+              return;
+            }
+            dictation.toggle();
+          }}
+          aria-label={dictation.listening ? 'Stop listening (auto-sends)' : 'Start dictation'}
+          aria-pressed={dictation.listening}
+          title={
+            dictation.listening
+              ? 'Listening — pause to auto-send · click to send now · Esc to cancel'
+              : 'Tap to dictate (auto-sends when you pause) · M'
+          }
+          className="h-9 w-9 rounded-full flex items-center justify-center transition-colors relative"
           style={{
-            background: recording ? 'var(--coral)' : 'transparent',
-            color: recording ? 'var(--bg)' : 'var(--cream-muted)',
-            border: `1px solid ${recording ? 'var(--coral)' : 'var(--cream-hairline)'}`,
+            background: dictation.listening ? 'var(--case, var(--amber))' : 'transparent',
+            color: dictation.listening ? 'var(--bg)' : 'var(--cream-muted)',
+            border: `1px solid ${dictation.listening ? 'var(--case, var(--amber))' : 'var(--cream-hairline)'}`,
           }}
         >
-          {recording ? <Square className="w-4 h-4" fill="currentColor" /> : <Mic className="w-4 h-4" />}
+          {dictation.listening ? (
+            <>
+              <Square className="w-3.5 h-3.5" fill="currentColor" />
+              {/* pulsing ring indicator so the user sees "I'm hot" at a glance */}
+              <span
+                className="absolute inset-0 rounded-full animate-ping pointer-events-none"
+                style={{ background: 'var(--case, var(--amber))', opacity: 0.35 }}
+              />
+            </>
+          ) : (
+            <Mic className="w-4 h-4" />
+          )}
         </button>
 
         <button
@@ -357,34 +555,451 @@ export default function PresenterAssistant({ deck, currentSlide, currentNote, on
           {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
         </button>
       </form>
+
+      <AIKeySettings
+        open={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+        ragStatus={ragStatus}
+        onReindex={reindexNow}
+      />
     </div>
   );
 }
 
+function RagStatusBadge({ status }) {
+  const map = {
+    indexing: { label: 'RAG · indexing', color: 'var(--case, var(--amber))', icon: Loader2, spin: true },
+    ready:    { label: 'RAG · ready',    color: 'var(--sage)',                icon: Database, spin: false },
+    error:    { label: 'RAG · error',    color: 'var(--coral)',               icon: AlertTriangle, spin: false },
+    unknown:  { label: 'RAG · idle',     color: 'var(--cream-faint)',         icon: Database, spin: false },
+  };
+  const meta = map[status?.state] || map.unknown;
+  const Icon = meta.icon;
+  return (
+    <span
+      title={status?.error || (status?.upserted != null
+        ? `Indexed ${status.upserted}, skipped ${status.skipped}/${status.total}`
+        : meta.label)}
+      className="deck-mono uppercase flex items-center gap-1.5 px-2 py-1 rounded-full border"
+      style={{
+        borderColor: meta.color,
+        color: meta.color,
+        fontSize: '0.55rem',
+        letterSpacing: 'var(--ls-mono)',
+      }}
+    >
+      <Icon className={`w-3 h-3 ${meta.spin ? 'animate-spin' : ''}`} />
+      {meta.label}
+    </span>
+  );
+}
+
 /* ========================================================
-   Message row — renders mode badge + inline citations.
+   Message row — structured-answer renderer.
+   User messages: amber pill, right-aligned.
+   Assistant messages:
+     · QUICK headline in big readable type (the line to SAY)
+     · DETAILS bullets — collapsed by default in 'live' mode,
+       open by default in 'rehearse' mode (matches the two
+       use cases: stage-quick vs prep-deep)
+     · TAGS as compact chips
+     · Citations as bracketed chips when RAG fired
    ======================================================== */
 function Message({ msg }) {
   const isUser = msg.role === 'user';
+
+  if (isUser) {
+    return (
+      <div className="flex justify-end">
+        <div
+          className="max-w-[88%] rounded-lg px-3 py-2"
+          style={{
+            background: 'var(--case, var(--amber))',
+            color: 'var(--bg)',
+            fontSize: '0.88rem',
+            lineHeight: 1.5,
+            whiteSpace: 'pre-wrap',
+            fontWeight: 500,
+          }}
+        >
+          {msg.content}
+        </div>
+      </div>
+    );
+  }
+
+  // Assistant — structured if available, else plain text fallback.
+  const hasStructured = !!(msg.quick || msg.details?.length);
+  if (!hasStructured) {
+    return (
+      <div className="flex flex-col items-start gap-1.5">
+        <div
+          className="max-w-[92%] rounded-lg px-3 py-2"
+          style={{
+            background: 'var(--cream-ghost)',
+            color: 'var(--cream)',
+            fontSize: '0.88rem',
+            lineHeight: 1.5,
+            whiteSpace: 'pre-wrap',
+          }}
+        >
+          {msg.content}
+        </div>
+        {(msg.mode || msg.citations?.length > 0) && (
+          <ModeAndCitations mode={msg.mode} citations={msg.citations} />
+        )}
+      </div>
+    );
+  }
+  return <StructuredMessage msg={msg} />;
+}
+
+function StructuredMessage({ msg }) {
+  // In rehearse mode, default to expanded; in live mode, default to
+  // collapsed. The user can click to toggle either way.
+  const [open, setOpen] = useState(msg.presenterMode !== 'live');
+  const hasDetails = !!msg.details?.length;
+  const isLive = msg.presenterMode === 'live';
+
   return (
-    <div className={isUser ? 'flex justify-end' : 'flex flex-col items-start gap-1.5'}>
+    <div className="flex flex-col items-start gap-2 w-full">
+      {/* QUICK — the headline answer, the line the presenter says.
+          Tags now sit IN the eyebrow (right-aligned) so they describe
+          the answer rather than orphaning at the bottom of the card. */}
       <div
-        className="max-w-[88%] rounded-lg px-3 py-2"
+        className="rounded-lg px-3 py-2.5 w-full"
         style={{
-          background: isUser ? 'var(--case, var(--amber))' : 'var(--cream-ghost)',
-          color: isUser ? 'var(--bg)' : 'var(--cream)',
-          fontSize: '0.88rem',
-          lineHeight: 1.5,
-          whiteSpace: 'pre-wrap',
+          background: 'var(--cream-ghost)',
+          border: `1px solid ${isLive ? 'var(--case, var(--amber))' : 'var(--cream-hairline)'}`,
+          borderLeftWidth: 3,
         }}
       >
-        {msg.content}
+        <div className="mb-1 flex items-center justify-between gap-2 flex-wrap">
+          <div
+            className="deck-mono uppercase flex items-center gap-1.5"
+            style={{
+              fontSize: '0.55rem',
+              letterSpacing: 'var(--ls-mono-wide)',
+              color: isLive ? 'var(--case, var(--amber))' : 'var(--cream-faint)',
+            }}
+          >
+            {isLive ? <Zap className="w-3 h-3" /> : <GraduationCap className="w-3 h-3" />}
+            {isLive ? 'Say this' : 'Headline'}
+          </div>
+          {msg.tags?.length > 0 && (
+            <div className="flex flex-wrap items-center gap-1">
+              {msg.tags.map((t) => (
+                <span
+                  key={t}
+                  className="deck-mono uppercase px-1.5 py-0.5 rounded"
+                  style={{
+                    fontSize: '0.5rem',
+                    letterSpacing: 'var(--ls-mono)',
+                    color: 'var(--cream-faint)',
+                    background: 'transparent',
+                    border: '1px solid var(--cream-hairline)',
+                  }}
+                >
+                  #{t}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+        <div
+          style={{
+            color: 'var(--cream)',
+            fontSize: isLive ? '1rem' : '0.95rem',
+            lineHeight: 1.45,
+            fontWeight: isLive ? 500 : 400,
+          }}
+        >
+          {msg.quick || msg.content}
+        </div>
       </div>
-      {!isUser && (msg.mode || msg.citations?.length > 0) && (
-        <ModeAndCitations mode={msg.mode} citations={msg.citations} />
+
+      {/* DETAILS — own card with distinct background so it reads as a
+          separate surface, not blending into the panel. Indented and
+          slightly muted so the QUICK card stays primary. */}
+      {hasDetails && (
+        <div className="w-full">
+          <button
+            onClick={() => setOpen((v) => !v)}
+            className="deck-mono uppercase flex items-center gap-1.5 px-1 py-1 transition-colors hover:text-[var(--cream)]"
+            style={{
+              fontSize: '0.58rem',
+              letterSpacing: 'var(--ls-mono-wide)',
+              color: 'var(--cream-muted)',
+            }}
+          >
+            {open ? <ChevronDown className="w-3 h-3" /> : <ChevronRight className="w-3 h-3" />}
+            {open ? 'Hide details' : `Details · ${msg.details.length}`}
+          </button>
+          {open && (
+            <div
+              className="rounded-lg px-3 py-2.5"
+              style={{
+                background: 'color-mix(in srgb, var(--cream-ghost) 60%, var(--bg) 40%)',
+                border: '1px solid var(--cream-hairline)',
+                borderLeft: '2px solid var(--cream-faint)',
+              }}
+            >
+              <ul className="flex flex-col gap-1.5 m-0 p-0 list-none">
+                {msg.details.map((d, i) => (
+                  <li
+                    key={i}
+                    className="flex gap-2"
+                    style={{ color: 'var(--cream)', fontSize: '0.83rem', lineHeight: 1.5 }}
+                  >
+                    <span
+                      aria-hidden
+                      className="deck-mono shrink-0 tabular-nums"
+                      style={{
+                        minWidth: '1rem',
+                        paddingTop: '0.15em',
+                        fontSize: '0.62rem',
+                        color: 'var(--cream-faint)',
+                      }}
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span style={{ color: 'var(--cream-muted)' }}>{d}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* MODE + CITATIONS row (tags moved up into the eyebrow) */}
+      {(msg.citations?.length || msg.mode) && (
+        <div className="flex flex-wrap items-center gap-1.5">
+          {msg.mode && <ModeChip mode={msg.mode} />}
+          {msg.citations?.map((c) => (
+            <span
+              key={`${c.source_title}-${c.n}`}
+              title={`${c.source_title} · score ${c.score}`}
+              className="deck-mono px-1.5 py-0.5 rounded"
+              style={{
+                color: 'var(--cream-muted)',
+                fontSize: '0.55rem',
+                letterSpacing: 'var(--ls-mono)',
+                border: '1px solid var(--cream-hairline)',
+                background: 'var(--cream-ghost)',
+              }}
+            >
+              [R{c.n}] {truncate(c.source_title, 22)}
+            </span>
+          ))}
+        </div>
       )}
     </div>
   );
+}
+
+function ModeChip({ mode }) {
+  const meta = ({
+    rag:    { label: 'RAG', color: 'var(--sage)', Icon: Database },
+    local:  { label: 'AI',  color: 'var(--cream-faint)', Icon: Cpu },
+    error:  { label: 'err', color: 'var(--coral)', Icon: AlertTriangle },
+    'no-key':{ label: 'set up key', color: 'var(--case, var(--amber))', Icon: AlertTriangle },
+  })[mode];
+  if (!meta) return null;
+  const Icon = meta.Icon;
+  return (
+    <span
+      className="deck-mono uppercase flex items-center gap-1 px-1.5 py-0.5 rounded"
+      style={{
+        fontSize: '0.55rem',
+        letterSpacing: 'var(--ls-mono)',
+        color: meta.color,
+        border: `1px solid ${meta.color}`,
+      }}
+    >
+      <Icon className="w-2.5 h-2.5" /> {meta.label}
+    </span>
+  );
+}
+
+function ModeToggle({ value, onChange }) {
+  const Btn = ({ which, label, Icon }) => {
+    const active = value === which;
+    return (
+      <button
+        onClick={() => onChange(which)}
+        title={which === 'live' ? 'Live mode — terse, stage-ready' : 'Rehearse mode — fuller reasoning'}
+        className="deck-mono uppercase flex items-center gap-1 px-2 py-1 rounded-full transition-colors"
+        style={{
+          background: active ? 'var(--case, var(--amber))' : 'transparent',
+          color: active ? 'var(--bg)' : 'var(--cream-muted)',
+          border: `1px solid ${active ? 'var(--case, var(--amber))' : 'var(--cream-hairline)'}`,
+          fontSize: '0.55rem',
+          letterSpacing: 'var(--ls-mono)',
+          fontWeight: active ? 600 : 400,
+        }}
+      >
+        <Icon className="w-3 h-3" /> {label}
+      </button>
+    );
+  };
+  return (
+    <div className="flex items-center gap-1">
+      <Btn which="live" label="Live" Icon={Zap} />
+      <Btn which="rehearse" label="Rehearse" Icon={GraduationCap} />
+    </div>
+  );
+}
+
+
+/**
+ * DebugPanel — surfaces the dictation event log + a snapshot of the
+ * assistant's runtime state, INSIDE the assistant pane so the user
+ * doesn't have to crack open DevTools to figure out why a tap on the
+ * mic produced no answer.
+ *
+ * The same events are also written to console.info under [dictation]
+ * and [assistant] tags. This panel is the at-a-glance UI mirror.
+ */
+function DebugPanel({ dictation, presenterMode, ragConfigured, ragStatus, loading, input, onClose }) {
+  const ev = dictation.events || [];
+  return (
+    <div
+      className="border-b px-3 py-2 flex flex-col gap-1.5"
+      style={{
+        borderBottomColor: 'var(--cream-hairline)',
+        background: 'color-mix(in srgb, var(--cream-ghost) 60%, var(--bg) 40%)',
+      }}
+    >
+      <div className="flex items-center justify-between">
+        <div
+          className="deck-mono uppercase flex items-center gap-1.5"
+          style={{
+            fontSize: '0.55rem',
+            letterSpacing: 'var(--ls-mono-wide)',
+            color: 'var(--case, var(--amber))',
+          }}
+        >
+          <Bug className="w-3 h-3" /> Debug · voice + AI
+        </div>
+        <div className="flex items-center gap-1">
+          <button
+            onClick={dictation.clearEvents}
+            title="Clear event log"
+            aria-label="Clear event log"
+            className="h-6 w-6 rounded flex items-center justify-center hover:bg-[var(--cream-ghost)]"
+            style={{ color: 'var(--cream-faint)' }}
+          >
+            <Trash2 className="w-3 h-3" />
+          </button>
+          <button
+            onClick={onClose}
+            aria-label="Close debug panel"
+            className="h-6 w-6 rounded flex items-center justify-center hover:bg-[var(--cream-ghost)]"
+            style={{ color: 'var(--cream-faint)' }}
+          >
+            <ChevronDown className="w-3 h-3" />
+          </button>
+        </div>
+      </div>
+
+      {/* Snapshot row — current state at a glance */}
+      <div
+        className="grid grid-cols-2 gap-x-3 gap-y-0.5 deck-mono"
+        style={{
+          fontSize: '0.58rem',
+          letterSpacing: 'var(--ls-mono)',
+          color: 'var(--cream-muted)',
+        }}
+      >
+        <KV k="mic supported" v={String(dictation.supported)} ok={dictation.supported} />
+        <KV k="mic listening" v={String(dictation.listening)} />
+        <KV k="mic error" v={dictation.error || '—'} bad={!!dictation.error} />
+        <KV k="presenter mode" v={presenterMode} />
+        <KV k="loading" v={String(loading)} />
+        <KV k="qdrant" v={ragConfigured ? `${ragStatus?.state || 'idle'}` : 'not configured'} />
+        <KV k="input chars" v={String(input?.length || 0)} />
+        <KV k="ua" v={navigator.userAgent.slice(0, 40) + '…'} />
+      </div>
+
+      {/* Event log */}
+      <div
+        className="rounded border overflow-y-auto deck-mono"
+        style={{
+          maxHeight: 180,
+          borderColor: 'var(--cream-hairline)',
+          background: 'var(--bg)',
+          fontSize: '0.55rem',
+          letterSpacing: 'var(--ls-mono)',
+        }}
+      >
+        {ev.length === 0 ? (
+          <div className="px-2 py-2" style={{ color: 'var(--cream-faint)' }}>
+            No events yet — tap the mic, press M, or open settings to generate
+            traces. Open DevTools console (View → Developer → JavaScript Console)
+            to see the same lines tagged <code>[dictation]</code> /{' '}
+            <code>[assistant]</code>.
+          </div>
+        ) : (
+          <ul className="divide-y" style={{ borderColor: 'var(--cream-hairline)' }}>
+            {ev.map((e, i) => (
+              <li key={i} className="px-2 py-1 flex gap-2 items-start">
+                <span style={{ color: 'var(--cream-faint)', minWidth: '4ch' }}>
+                  {fmtTime(e.ts)}
+                </span>
+                <span style={{ color: 'var(--case, var(--amber))', minWidth: '12ch' }}>
+                  {e.tag}
+                </span>
+                <span style={{ color: 'var(--cream)', flex: 1, wordBreak: 'break-word' }}>
+                  {e.msg}
+                  {e.extra ? (
+                    <span style={{ color: 'var(--cream-faint)', marginLeft: 6 }}>
+                      {typeof e.extra === 'string' ? e.extra : JSON.stringify(e.extra)}
+                    </span>
+                  ) : null}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      <div
+        className="deck-mono"
+        style={{
+          fontSize: '0.55rem',
+          letterSpacing: 'var(--ls-mono)',
+          color: 'var(--cream-faint)',
+          lineHeight: 1.45,
+        }}
+      >
+        <strong style={{ color: 'var(--cream-muted)' }}>Important:</strong>{' '}
+        the amber "LISTENING" pill above the chat is{' '}
+        <strong>AMBIENT LISTEN</strong> — for picking up audience questions.
+        Your dictation mic is the round button at the bottom-right of the
+        input row, or press <kbd>M</kbd>.
+      </div>
+    </div>
+  );
+}
+
+function KV({ k, v, ok, bad }) {
+  return (
+    <div className="flex gap-2 items-baseline">
+      <span style={{ color: 'var(--cream-faint)' }}>{k}</span>
+      <span style={{
+        color: bad ? 'var(--coral)' : ok ? 'var(--sage)' : 'var(--cream)',
+        wordBreak: 'break-all',
+      }}>
+        {v}
+      </span>
+    </div>
+  );
+}
+
+function fmtTime(ts) {
+  const d = new Date(ts);
+  return `${String(d.getMinutes()).padStart(2, '0')}:${String(d.getSeconds()).padStart(2, '0')}`;
 }
 
 function ModeAndCitations({ mode, citations }) {
@@ -392,7 +1007,9 @@ function ModeAndCitations({ mode, citations }) {
     rag:          { icon: BookOpen,   label: 'From sources',   color: 'var(--sage)' },
     web:          { icon: Globe,      label: 'Web fallback',   color: 'var(--cyan)' },
     'notes-only': { icon: StickyNote, label: 'Notes only',     color: 'var(--cream-faint)' },
-    error:        { icon: StickyNote, label: 'Error',          color: 'var(--coral)' },
+    local:        { icon: Cpu,        label: 'Local · OpenAI', color: 'var(--sage)' },
+    'no-key':     { icon: AlertTriangle, label: 'Set up key',  color: 'var(--case, var(--amber))' },
+    error:        { icon: AlertTriangle, label: 'Error',       color: 'var(--coral)' },
   }[mode] || null;
 
   return (
@@ -467,11 +1084,3 @@ function splitHeadline(text) {
   return { short: shortWords + '…', long: text.trim() };
 }
 
-function pickAudioMime() {
-  if (typeof MediaRecorder === 'undefined') return '';
-  const candidates = ['audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus', 'audio/mp4'];
-  for (const c of candidates) {
-    if (MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(c)) return c;
-  }
-  return '';
-}

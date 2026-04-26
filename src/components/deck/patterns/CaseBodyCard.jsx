@@ -37,6 +37,7 @@ export default function CaseBodyCard({
   eyebrow,
   title,
   body,
+  footer,          // NEW: pins to card bottom via grid row (pathway chips, commercial split, etc.)
   visual,
   accentColor = 'var(--case, var(--coral))',
   orientation = 'horizontal',
@@ -61,7 +62,7 @@ export default function CaseBodyCard({
         columnGap: 'var(--space-5)',
         padding: 'var(--space-5)',
         paddingLeft: 'calc(var(--space-5) + 8px)',
-        background: 'color-mix(in srgb, var(--panel) 55%, transparent)',
+        background: 'color-mix(in srgb, var(--panel) 92%, transparent)',
         borderRadius: 'var(--radius-md)',
         minWidth: 0,
         minHeight: 0,
@@ -89,58 +90,83 @@ export default function CaseBodyCard({
         transition={{ duration: reduce ? 0 : 0.4, ease, delay: reduce ? 0 : delay }}
       />
 
-      {/* ─── LEFT · text column ─── */}
+      {/* ─── LEFT · text column ───
+          Flex column with vertical gap. Previous grid `auto auto 1fr auto`
+          caused body to collapse (and overflow into footer) when card
+          height was tight, because `1fr` resolves to 0 when there's no
+          slack. Flex-column lets each child take its natural height
+          and stack — footer always sits below body, never on top. */}
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 'var(--space-3)',
+          gap: 'var(--space-2)',
           minWidth: 0,
-          justifyContent: 'flex-start',
+          minHeight: 0,
+          height: '100%',
         }}
       >
-        {/* NUMBER · EYEBROW line */}
+        {/* NUMBER · EYEBROW line — ports HTML .cbc-meta (11pt mono, 0.22em) */}
         <div
           className="deck-mono uppercase"
           style={{
-            fontSize: 'clamp(0.6rem, 0.72vw, 0.75rem)',
-            letterSpacing: 'var(--ls-mono-wide)',
+            fontFamily: 'var(--font-mono)',
+            fontSize: 'clamp(0.68rem, 0.78vw, 0.82rem)',
+            letterSpacing: '0.22em',
             fontWeight: 500,
             color: 'var(--cream-faint)',
+            marginBottom: 4,
           }}
         >
-          <span style={{ color: accentColor }}>{number}</span>
-          <span style={{ color: 'var(--cream-dim)', margin: '0 0.55em' }}>·</span>
-          <span style={{ color: accentColor }}>{eyebrow}</span>
+          <span style={{ color: 'var(--cream-faint)', letterSpacing: '0.20em', marginRight: 8 }}>{number}</span>
+          <span style={{ color: 'var(--cream-dim)', margin: '0 0.35em' }}>·</span>
+          <span style={{ color: accentColor, fontWeight: 500, letterSpacing: '0.22em' }}>{eyebrow}</span>
         </div>
 
-        {/* TITLE */}
+        {/* TITLE — ports HTML .cbc-title (26pt, 600, lh 1.15) */}
         <h2
           id={labelledBy}
           style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(1.15rem, 1.55vw, 1.75rem)',
+            fontFamily: 'var(--font-display, var(--font-body))',
+            fontSize: 'clamp(1.55rem, 2.4vw, 2.45rem)',
             fontWeight: 600,
             color: 'var(--cream)',
-            lineHeight: 1.2,
-            letterSpacing: '-0.01em',
+            lineHeight: 1.15,
+            letterSpacing: '-0.005em',
             margin: 0,
+            marginBottom: 4,
           }}
         >
           {title}
         </h2>
 
-        {/* BODY */}
+        {/* BODY — ports HTML .cbc-body. flexShrink:0 prevents the flex
+            parent from shrinking this box smaller than its text content
+            (which would cause body text to render over the footer below
+            on cards constrained to content-height by the parent grid). */}
         <div
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(0.82rem, 1vw, 1.02rem)',
-            lineHeight: 1.55,
+            fontSize: 'clamp(0.8rem, 0.92vw, 0.98rem)',
+            lineHeight: 1.45,
             color: 'var(--cream-muted)',
+            minHeight: 0,
+            flexShrink: 0,
           }}
         >
           {body}
         </div>
+
+        {/* FOOTER — `marginTop: auto` pushes footer to the bottom of the
+            flex column when there's slack, while still letting it flow
+            naturally just below body when the card is content-height.
+            flexShrink:0 + flexBasis:auto = take natural size, never
+            collapse under sibling pressure. */}
+        {footer && (
+          <div style={{ minHeight: 0, marginTop: 'auto', flexShrink: 0 }}>
+            {footer}
+          </div>
+        )}
       </div>
 
       {/* ─── RIGHT · visual column ─── */}
@@ -170,15 +196,16 @@ export default function CaseBodyCard({
  * Highlight — inline emphasis chip for use inside card body text.
  * Subtle case-color wash behind text, preserved across line breaks.
  */
-export function CardHighlight({ children, color = 'var(--case, var(--coral))' }) {
+export function CardHighlight({ children }) {
   return (
     <span
       style={{
-        background: `color-mix(in srgb, ${color} 22%, transparent)`,
-        color: 'var(--cream)',
+        background: 'var(--coral-wash, rgba(251,146,60,0.14))',
+        color: 'var(--coral-highlight)',
         padding: '2px 8px',
         borderRadius: 4,
         fontWeight: 500,
+        whiteSpace: 'nowrap',
         boxDecorationBreak: 'clone',
         WebkitBoxDecorationBreak: 'clone',
       }}

@@ -38,15 +38,58 @@ export default function NavControls({ isFullscreen, onToggleFullscreen, themeMod
   const goSlideShow  = () => { if (presenter) setPresenter(false); if (!isFullscreen) onToggleFullscreen?.(); };
   const goPresenter  = () => { if (isFullscreen) onToggleFullscreen?.(); if (!presenter) togglePresenter(); };
   const goDualScreen = () => {
-    // Opens audience in a second tab — stays in sync with this tab via
-    // BroadcastChannel (Next/Prev mirror across windows). This tab flips
-    // to presenter. Most dual-screen setups mirror the browser window,
-    // so we no longer force fullscreen — press F on the audience tab if
-    // you want that. `audience=1` enables the cross-tab navigation listener.
-    const deckId = new URLSearchParams(window.location.search).get('id') || window.location.pathname.split('/').pop();
-    const url = `${window.location.origin}/Deck?id=${deckId}&audience=1&slide=${index}`;
-    window.open(url, `deck-audience-${deckId}`, 'noopener,noreferrer');
+    // Opens audience in a second TAB (not a popup window) so the
+    // browser is much less likely to block it. Uses the canonical
+    // /audience path segment that DeckRunner reads on mount — the
+    // legacy ?audience=1 query is also accepted but the path form
+    // survives reload reliably.
+    //
+    // Anchor-click pattern (vs window.open): browsers consistently
+    // treat <a target="_blank" rel="noopener"> as a "new tab" with
+    // popup-blocker passes preserved through the user gesture, while
+    // window.open with a features string ("noopener,noreferrer") is
+    // often heuristically classified as a popup and silently blocked
+    // in the foreground tab — which manifested as "Dual Screen does
+    // nothing visible".
+    const deckId = deck?.id
+      || new URLSearchParams(window.location.search).get('id')
+      || window.location.pathname.split('/').filter(Boolean)[1];
+    const slideId = deck?.slides?.[index]?.id ?? String(index);
+    const url = `${window.location.origin}/decks/${encodeURIComponent(deckId)}/s/${encodeURIComponent(slideId)}/audience`;
+
+    // Switch the current tab to presenter view BEFORE opening the
+    // audience tab. Doing it after would race with the new-tab open
+    // and the user briefly sees the audience URL replace the current
+    // tab on some browsers.
     if (!presenter) togglePresenter();
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    // Best-effort popup-block fallback: if the new tab didn't actually
+    // open (rare for anchor-click but possible with strict browsers /
+    // extensions), copy the URL and tell the user.
+    setTimeout(() => {
+      // We can't reliably detect anchor-click failures; instead, give
+      // the user a clipboard escape hatch via a window.open probe.
+      // If THIS open returns null, the browser is definitely blocking.
+      const probe = window.open('', '_blank');
+      if (probe && !probe.closed) {
+        probe.close();
+        return;
+      }
+      navigator.clipboard?.writeText(url).catch(() => {});
+      alert(
+        'Audience tab couldn\'t open automatically (popup blocked).\n\n' +
+        'The URL has been copied to your clipboard — open a new browser ' +
+        'tab and paste:\n\n' + url
+      );
+    }, 250);
   };
 
   return (

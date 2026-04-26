@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid meet" font-family="'Comfortaa', 'Trebuchet MS', sans-serif">
+  <defs>
+    <style>
+      .bg { fill: var(--bg); }
+      .accent { fill: var(--sage); }
+      .accent-stroke { stroke: var(--sage); }
+      .muted-card { fill: var(--panel); }
+      .muted-stroke { stroke: var(--cream-hairline); }
+      .cream-text { fill: var(--cream); }
+      .dark-text { fill: var(--bg); }
+      .muted-text { fill: var(--cream-muted); }
+      .name { font-weight: 700; font-size: 13px; }
+      .sublabel { font-size: 9px; font-family: 'Raleway', sans-serif; }
+      .title-name { font-weight: 700; font-size: 18px; }
+      .title-sub { font-size: 11px; font-family: 'Raleway', sans-serif; font-style: italic; }
+      .level-label { font-size: 10px; font-family: 'Raleway', sans-serif; letter-spacing: 0.15em; }
+      .bus-label { font-size: 11px; font-family: 'Raleway', sans-serif; }
+      .bus-field { font-size: 9px; font-family: 'Courier New', monospace; }
+      .connector { stroke: var(--cream-hairline); stroke-width: 1; fill: none; }
+      .bus-connector { stroke: var(--sage); stroke-opacity: 0.4; stroke-width: 1; stroke-dasharray: 3 2; fill: none; }
+      .bus-rail { stroke: var(--sage); stroke-opacity: 0.6; stroke-width: 2; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="720" class="bg"/>
+
+  <!-- Level labels (left margin) -->
+  <text x="40" y="120" class="muted-text level-label">LEVEL 0</text>
+  <text x="40" y="290" class="muted-text level-label">LEVEL 1</text>
+  <text x="40" y="540" class="muted-text level-label">LEVEL 2</text>
+
+  <!-- LEVEL 0 — Supervisor (single, accent yellow, centered) -->
+  <g>
+    <rect x="510" y="80" width="200" height="80" rx="8" ry="8" class="accent"/>
+    <text x="610" y="115" text-anchor="middle" class="dark-text title-name">SUPERVISOR</text>
+    <text x="610" y="135" text-anchor="middle" class="dark-text title-sub">Orchestrator</text>
+    <text x="610" y="150" text-anchor="middle" class="dark-text" font-size="9" font-family="Raleway">Classifies · Routes · Templates · Errors</text>
+  </g>
+
+  <!-- Connectors from Level 0 to Level 1 (fan-out) -->
+  <g class="connector">
+    <line x1="610" y1="160" x2="115" y2="240"/>
+    <line x1="610" y1="160" x2="225" y2="240"/>
+    <line x1="610" y1="160" x2="335" y2="240"/>
+    <line x1="610" y1="160" x2="445" y2="240"/>
+    <line x1="610" y1="160" x2="555" y2="240"/>
+    <line x1="610" y1="160" x2="665" y2="240"/>
+    <line x1="610" y1="160" x2="775" y2="240"/>
+    <line x1="610" y1="160" x2="885" y2="240"/>
+    <line x1="610" y1="160" x2="995" y2="240"/>
+    <line x1="610" y1="160" x2="1105" y2="240"/>
+  </g>
+
+  <!-- LEVEL 1 — 10 Domain Agents -->
+  <!-- Card spec: 100w × 80h, evenly spaced, muted background -->
+  <g>
+    <!-- Data Manager -->
+    <rect x="65" y="240" width="100" height="80" rx="6" ry="6" class="muted-card" stroke="var(--cream-hairline)" stroke-width="1"/>
+    <text x="115" y="270" text-anchor="middle" class="cream-text name">Data</text>
+    <text x="115" y="285" text-anchor="middle" class="cream-text name">Manager</text>
+    <text x="115" y="305" text-anchor="middle" class="muted-text sublabel">Profile · CDISC</text>
+
+    <!-- NCA -->
+    <rect x="175" y="240" width="100" height="80" rx="6" ry="6" class="muted-card" stroke="var(--cream-hairline)" stroke-width="1"/>
+    <text x="225" y="278" text-anchor="middle" class="cream-text name">NCA</text>
+    <text x="225" y="298" text-anchor="middle" class="muted-text sublabel">AUC · Cmax · t½</text>
+
+    <!-- Modeler Manager (highlighted — connects to L2) -->
+    <rect x="285" y="240" width="100" height="80" rx="6" ry="6" class="muted-card" stroke="var(--sage)" stroke-width="1.5"/>
+    <text x="335" y="270" text-anchor="middle" class="cream-text name">Modeler</text>
+    <text x="335" y="285" text-anchor="middle" class="cream-text name">Manager</text>
+    <text x="335" y="305" text-anchor="middle" class="muted-text sublabel">Routes to L2</text>
+
+    <!-- PBPK -->
+    <rect x="395" y="240" width="100" height="80" rx="6" ry="6" class="muted-card" stroke="var(--cream-hairline)" stroke-width="1"/>
+    <text x="445" y="278" text-anchor="middle" class="cream-text name">PBPK</text>
+    <text x="445" y="298" text-anchor="middle" class="muted-text sublabel">Whole-body · DDI</text>
+
+    <!-- Statistical -->
+    <rect x="505" y="240" width="100" height="80" rx="6" ry="6" class="muted-card" stroke="var(--cream-hairline)" stroke-width="1"/>
+    <text x="555" y="278" text-anchor="middle" class="cream-text name">Statistical</text>
+    <text x="555" y="298" text-anchor="middle" class="muted-text sublabel">XGBoost · SHAP</text>
+
+    <!-- Simulator -->
+    <rect x="615" y="240" width="100" height="80" rx="6" ry="6" class="muted-card" stroke="var(--cream-hairline)" stroke-width="1"/>
+    <text x="665" y="278" text-anchor="middle" class="cream-text name">Simulator</text>
+    <text x="665" y="298" text-anchor="middle" class="muted-text sublabel">Monte Carlo · VPs</text>
+
+    <!-- QC -->
+    <rect x="725" y="240" width="100" height="80" rx="6" ry="6" class="muted-card" stroke="var(--cream-hairline)" stroke-width="1"/>
+    <text x="775" y="278" text-anchor="middle" class="cream-text name">QC</text>
+    <text x="775" y="298" text-anchor="middle" class="muted-text sublabel">15-check diag</text>
+
+    <!-- Report -->
+    <rect x="835" y="240" width="100" height="80" rx="6" ry="6" class="muted-card" stroke="var(--cream-hairline)" stroke-width="1"/>
+    <text x="885" y="278" text-anchor="middle" class="cream-text name">Report</text>
+    <text x="885" y="298" text-anchor="middle" class="muted-text sublabel">FDA · EMA docs</text>
+
+    <!-- Reg Intel -->
+    <rect x="945" y="240" width="100" height="80" rx="6" ry="6" class="muted-card" stroke="var(--cream-hairline)" stroke-width="1"/>
+    <text x="995" y="270" text-anchor="middle" class="cream-text name">Reg</text>
+    <text x="995" y="285" text-anchor="middle" class="cream-text name">Intel</text>
+    <text x="995" y="305" text-anchor="middle" class="muted-text sublabel">RAG · guidances</text>
+
+    <!-- General -->
+    <rect x="1055" y="240" width="100" height="80" rx="6" ry="6" class="muted-card" stroke="var(--cream-hairline)" stroke-width="1"/>
+    <text x="1105" y="278" text-anchor="middle" class="cream-text name">General</text>
+    <text x="1105" y="298" text-anchor="middle" class="muted-text sublabel">Education · Help</text>
+  </g>
+
+  <!-- Connectors from Modeler Manager to Level 2 -->
+  <g class="connector" stroke="var(--sage)" stroke-opacity="0.6" stroke-width="1.2">
+    <line x1="335" y1="320" x2="430" y2="490"/>
+    <line x1="335" y1="320" x2="640" y2="490"/>
+    <line x1="335" y1="320" x2="850" y2="490"/>
+  </g>
+
+  <!-- LEVEL 2 — 3 Senior Modeling Specialists (accent yellow, larger) -->
+  <g>
+    <!-- PopPK Expert -->
+    <rect x="350" y="490" width="160" height="90" rx="8" ry="8" class="accent"/>
+    <text x="430" y="520" text-anchor="middle" class="dark-text title-name">PopPK Expert</text>
+    <text x="430" y="540" text-anchor="middle" class="dark-text title-sub">Structural · Covariates</text>
+    <text x="430" y="558" text-anchor="middle" class="dark-text" font-size="9" font-family="Raleway">Allometric scaling</text>
+
+    <!-- PKPD Expert -->
+    <rect x="560" y="490" width="160" height="90" rx="8" ry="8" class="accent"/>
+    <text x="640" y="520" text-anchor="middle" class="dark-text title-name">PKPD Expert</text>
+    <text x="640" y="540" text-anchor="middle" class="dark-text title-sub">Emax · Indirect response</text>
+    <text x="640" y="558" text-anchor="middle" class="dark-text" font-size="9" font-family="Raleway">TGI · Friberg</text>
+
+    <!-- E-R Expert -->
+    <rect x="770" y="490" width="160" height="90" rx="8" ry="8" class="accent"/>
+    <text x="850" y="520" text-anchor="middle" class="dark-text title-name">E-R Expert</text>
+    <text x="850" y="540" text-anchor="middle" class="dark-text title-sub">Logistic · Survival</text>
+    <text x="850" y="558" text-anchor="middle" class="dark-text" font-size="9" font-family="Raleway">Dose justification</text>
+  </g>
+
+  <!-- PHARMSTATE BUS RAIL (right edge) - labels right-aligned LEFT of rail to avoid clipping -->
+  <g>
+    <!-- Rail line moved slightly left -->
+    <line x1="1255" y1="80" x2="1255" y2="600" class="bus-rail"/>
+
+    <!-- Bus label header -->
+    <text x="1255" y="65" text-anchor="end" class="accent bus-label" font-weight="700">PharmState</text>
+    <text x="1255" y="78" text-anchor="end" class="muted-text bus-label">typed shared bus</text>
+
+    <!-- Field labels — right-aligned, sit LEFT of the rail (no clipping) -->
+    <g class="muted-text bus-field" text-anchor="end">
+      <text x="1248" y="125">drug_name</text>
+      <text x="1248" y="160">dataset_metadata</text>
+      <text x="1248" y="195">nca_summary</text>
+      <text x="1248" y="230">parameter_estimates</text>
+      <text x="1248" y="265">final_model</text>
+      <text x="1248" y="300">qc_verdict</text>
+      <text x="1248" y="335">simulation_results</text>
+      <text x="1248" y="370">target_attainment</text>
+      <text x="1248" y="405">report_blocks</text>
+      <text x="1248" y="440">audit_trail</text>
+      <text x="1248" y="475">artifacts</text>
+    </g>
+    <text x="1248" y="525" text-anchor="end" class="muted-text bus-field" font-style="italic">+ 23 more</text>
+
+    <!-- Footer -->
+    <text x="1255" y="615" text-anchor="end" class="muted-text bus-label">34 fields · per-agent</text>
+    <text x="1255" y="630" text-anchor="end" class="muted-text bus-label">write access enforced</text>
+  </g>
+
+  <!-- Bus connectors (dashed) from each agent to the bus -->
+  <g class="bus-connector">
+    <!-- From Level 0 -->
+    <line x1="710" y1="120" x2="1255" y2="120"/>
+    <!-- From Level 1 (a sample — connect representative agents to keep visual clarity) -->
+    <line x1="165" y1="280" x2="1255" y2="200"/>
+    <line x1="495" y1="280" x2="1255" y2="280"/>
+    <line x1="715" y1="280" x2="1255" y2="320"/>
+    <line x1="1045" y1="280" x2="1255" y2="380"/>
+    <line x1="1155" y1="280" x2="1255" y2="420"/>
+    <!-- From Level 2 -->
+    <line x1="510" y1="535" x2="1255" y2="475"/>
+    <line x1="720" y1="535" x2="1255" y2="510"/>
+    <line x1="930" y1="535" x2="1255" y2="540"/>
+  </g>
+
+  <!-- Bottom assertion -->
+  <g>
+    <line x1="440" y1="660" x2="840" y2="660" stroke="var(--sage)" stroke-opacity="0.4" stroke-width="1"/>
+    <text x="640" y="685" text-anchor="middle" class="accent" font-size="14" font-weight="700">Topology choice is not aesthetic.</text>
+    <text x="640" y="703" text-anchor="middle" class="cream-text" font-size="12" font-style="italic">Wrong topology = 17× error amplification (Kim et al., 2025)</text>
+  </g>
+</svg>

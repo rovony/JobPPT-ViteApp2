@@ -143,7 +143,7 @@ export default function Slide02Hook() {
     return () => mm.revert();
   }, []);
 
-  const D = { eyebrow: 0.15, headline: 0.30, subhead: 0.60, footer: 4.4 };
+  const D = { eyebrow: 0.15, headline: 0.30, subhead: 0.60, footer: 2.80 };
 
   return (
     <div ref={rootRef} className="w-full h-full">
@@ -160,7 +160,12 @@ export default function Slide02Hook() {
         </Eyebrow>
 
         <Headline delay={D.headline} maxChars={24}>
-          <span style={{ fontSize: '1.35em', display: 'inline-block', lineHeight: 0.95 }}>
+          {/* lineHeight bumped 0.95 → 1.05 — at 1.35em scale, italic
+              descenders on "years," and "unchanged." were extending
+              below the line box and crashing into the Subhead. 1.05
+              gives ~10% baseline-to-descender room without visibly
+              loosening the headline rhythm. */}
+          <span style={{ fontSize: '1.35em', display: 'inline-block', lineHeight: 1.05 }}>
             <span
               style={{
                 color: 'var(--coral)',
@@ -177,8 +182,12 @@ export default function Slide02Hook() {
           </span>
         </Headline>
 
-        <Subhead delay={D.subhead} maxChars={64}>
-          <span style={{ fontSize: '1.55em', lineHeight: 1.35, display: 'inline-block', paddingTop: '0.5em' }}>
+        <Subhead delay={D.subhead} maxChars={88}>
+          {/* paddingTop bumped space-4 → space-6 so the subhead block
+              clears the headline's descender band even on viewports
+              where the row layout collapses tight. Belt-and-braces
+              with the headline's loosened lineHeight above. */}
+          <span style={{ lineHeight: 1.35, display: 'inline-block', paddingTop: 'var(--space-6)' }}>
             Nineteen years of children with pulmonary arterial hypertension{' '}
             <span style={{ color: 'var(--coral)', fontStyle: 'normal', fontWeight: 600 }}>
               treated off-label — or not treated at all
