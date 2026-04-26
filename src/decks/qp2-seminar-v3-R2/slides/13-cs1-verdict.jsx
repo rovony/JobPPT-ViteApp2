@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
@@ -7,57 +6,121 @@ import Lungs from '../components/Lungs';
 /**
  * CS1 · Slide 13 (slot) — V2-S9 · Exposure match · the result.
  *
- * 2026-04-25 v2-final pass — content replaced wholesale per
- * 2-Slides_Dev/2-Slides-Plan-V2/_Results/2-SlidesPlan/V2/2B-Slides-CS1-Slides07-11-v2.md.
- * Slide ID `cs1-verdict` retained for manifest stability; the V2 spec
- * places the headline exposure-match result here. The previous
- * regulatory-verdict world-map content has been folded into slide 14
- * (cs1-lesson) outcome+E11A pins.
+ * Redesigned per user spec: hero −3% / +0.3% numbers at large coral type,
+ * plus a single overlay density plot showing adult (gray) vs pediatric
+ * (coral) AUC distributions — the visual overlap IS the argument.
  *
- * v2-final amendments:
- *   - 35-<50 kg subgroup outliers proactively disclosed: low-dose +29%
- *     AUCss, high-dose +33% Cmax,ss vs adult — both within model-
- *     predicted adult AUCss envelope. Disclosed in submission.
- *   - A1.4 Hemodynamic substudy mentioned: N=5 paired low-dose patients,
- *     ΔPVR −3.46 WU (≈ −276 dyne·sec/cm⁵), cited by PMDA in Japanese
- *     label. Detail in Backup B12.
- *   - Plateau exposure-response framing — flat across AUC range tested.
+ * Detailed proactive disclosures (Cmax, 35-<50 kg subgroup, hemodynamic
+ * substudy) deferred to backup slides.
  *
  * Source: Okour M et al. J Clin Pharmacol 2023;63(5):593–603.
  */
 
 const EASE = [0.2, 0.7, 0.3, 1];
 
-const TABLE_ROWS = [
-  {
-    dose: 'LOW DOSE',
-    pedAUC: '4.82',
-    pedCI: '4.14 – 5.61',
-    adultAUC: '4.98',
-    adultCI: '4.68 – 5.29',
-    delta: '−3%',
-    isHero: true,
-  },
-  {
-    dose: 'HIGH DOSE',
-    pedAUC: '9.15',
-    pedCI: '8.41 – 9.96',
-    adultAUC: '9.12',
-    adultCI: '8.30 – 10.0',
-    delta: '+0.3%',
-    isHero: true,
-  },
-];
+function DensityCurve({ reduced }) {
+  const w = 500;
+  const h = 200;
+  const cx = w / 2;
+
+  const adultPath = buildDensityPath(cx - 4, 72, w, h);
+  const pedPath = buildDensityPath(cx + 2, 68, w, h);
+
+  return (
+    <motion.svg
+      viewBox={`0 0 ${w} ${h}`}
+      style={{ width: '100%', maxWidth: '42rem', height: 'auto' }}
+      initial={reduced ? false : { opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: reduced ? 0 : 0.8, delay: reduced ? 0 : 1.60, ease: EASE }}
+    >
+      <motion.path
+        d={adultPath}
+        fill="none"
+        stroke="var(--cream-faint, #6b6560)"
+        strokeWidth="2"
+        opacity="0.5"
+        initial={reduced ? false : { pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: reduced ? 0 : 1.2, delay: reduced ? 0 : 1.70, ease: EASE }}
+      />
+      <motion.path
+        d={adultPath}
+        fill="color-mix(in srgb, var(--cream-faint, #6b6560) 8%, transparent)"
+        stroke="none"
+        opacity="0.3"
+        initial={reduced ? false : { opacity: 0 }}
+        animate={{ opacity: 0.3 }}
+        transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : 2.20, ease: EASE }}
+      />
+
+      <motion.path
+        d={pedPath}
+        fill="none"
+        stroke="var(--case, #e07a5f)"
+        strokeWidth="2.5"
+        opacity="0.85"
+        initial={reduced ? false : { pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: reduced ? 0 : 1.2, delay: reduced ? 0 : 1.90, ease: EASE }}
+      />
+      <motion.path
+        d={pedPath}
+        fill="color-mix(in srgb, var(--case, #e07a5f) 12%, transparent)"
+        stroke="none"
+        opacity="0.4"
+        initial={reduced ? false : { opacity: 0 }}
+        animate={{ opacity: 0.4 }}
+        transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : 2.40, ease: EASE }}
+      />
+
+      {/* Legend */}
+      <motion.g
+        initial={reduced ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 2.60, ease: EASE }}
+      >
+        <line x1="20" y1={h - 18} x2="40" y2={h - 18}
+          stroke="var(--cream-faint, #6b6560)" strokeWidth="2" opacity="0.5" />
+        <text x="46" y={h - 14}
+          fill="var(--cream-faint, #6b6560)"
+          style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.06em' }}>
+          ADULT
+        </text>
+        <line x1="110" y1={h - 18} x2="130" y2={h - 18}
+          stroke="var(--case, #e07a5f)" strokeWidth="2.5" opacity="0.85" />
+        <text x="136" y={h - 14}
+          fill="var(--case, #e07a5f)"
+          style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.06em' }}>
+          PEDIATRIC
+        </text>
+      </motion.g>
+    </motion.svg>
+  );
+}
+
+function buildDensityPath(center, spread, w, h) {
+  const pts = [];
+  const steps = 80;
+  const baseline = h - 30;
+  const peakH = h * 0.72;
+
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps;
+    const x = 30 + t * (w - 60);
+    const dx = (x - center) / spread;
+    const y = baseline - peakH * Math.exp(-0.5 * dx * dx);
+    pts.push(`${i === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`);
+  }
+
+  return pts.join(' ');
+}
 
 export default function Cs1Verdict() {
   const reduced = useReducedMotion();
 
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
-      {/* V2-S9 lung-anchor treatment · signature corner — small,
-          subtle, top-right corner motif. The exposure-match payoff
-          owns the slide; the lung is just a quiet identity tag tying
-          the case visual back to its origin. */}
       <div
         aria-hidden
         style={{
@@ -73,258 +136,140 @@ export default function Cs1Verdict() {
           justifyContent: 'center',
         }}
       >
-        <Lungs
-          layoutId="cs1-lung"
-          variant="signature"
-        />
+        <Lungs layoutId="cs1-lung" variant="signature" />
       </div>
 
-      <Eyebrow color="var(--coral)" delay={0.10}>
+      <Eyebrow delay={0.10}>
         Case 01 · The exposure match
       </Eyebrow>
 
       <Headline delay={0.25} maxChars={64}>
-        Pediatric AUC matched adult exposure within{' '}
-        <span style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 700 }}>
-          3%
+        Pediatric AUC matched adult exposure —{' '}
+        <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 700 }}>
+          the curves overlap.
         </span>
-        . Exposure-response was flat — the dose range sits on the plateau.
       </Headline>
 
       <Subhead delay={0.55} maxChars={94} size="lead">
-        Headline result. Subgroup outliers and hemodynamic substudy disclosed
-        proactively — not buried.
+        The visual says it: same drug, same exposure, different population.
+        Dose range sits on the E-R plateau.
       </Subhead>
 
       <Viz>
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(22rem, 100%), 1fr))',
-          gap: 'clamp(var(--space-3), 2vw, var(--space-5))',
-          paddingTop: 'clamp(var(--space-2), 2vh, var(--space-4))',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
           height: '100%',
-          alignItems: 'stretch',
+          gap: 'clamp(var(--space-5), 4vh, var(--space-8))',
+          paddingTop: 'clamp(var(--space-2), 2vh, var(--space-4))',
         }}>
-          {/* LEFT — comparison table (the headline result) */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.85, ease: EASE }}
-            style={{
-              minWidth: 0,
-              border: '1px solid color-mix(in srgb, var(--coral) 32%, transparent)',
-              borderLeft: '4px solid var(--coral)',
-              borderRadius: 'var(--radius-lg)',
-              background: 'color-mix(in srgb, var(--coral) 6%, transparent)',
-              padding: 'clamp(var(--space-3), 1.6vw, var(--space-5))',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 'var(--space-3)',
-            }}
-          >
-            <div className="deck-mono uppercase" style={{
-              fontSize: 'var(--fs-slide-kicker)',
-              letterSpacing: 'var(--ls-mono-wide)',
-              color: 'var(--coral)',
-              fontWeight: 700,
-            }}>
-              Pediatric vs adult AUCss · μg·h/mL · geometric mean
-            </div>
-
-            {TABLE_ROWS.map((r, i) => (
-              <motion.div
-                key={r.dose}
-                initial={{ opacity: 0, x: -8 }}
-                animate={reduced ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 1.05 + i * 0.18, ease: EASE }}
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'minmax(6rem, 1fr) minmax(6rem, 1fr) minmax(6rem, 1fr) minmax(4rem, auto)',
-                  gap: 'var(--space-2) clamp(var(--space-2), 1.5vw, var(--space-4))',
-                  alignItems: 'baseline',
-                  paddingBottom: 'var(--space-2)',
-                  borderBottom: '1px solid var(--cream-hairline)',
-                }}
-              >
-                <div className="deck-mono uppercase" style={{
-                  fontSize: 'var(--fs-slide-pageno)',
-                  color: 'var(--cream-faint)',
-                  letterSpacing: 'var(--ls-mono-wide)',
-                  fontWeight: 700,
-                }}>
-                  {r.dose}
-                </div>
-                <Stat label="Pediatric" value={r.pedAUC} ci={r.pedCI} />
-                <Stat label="Adult" value={r.adultAUC} ci={r.adultCI} />
-                <div className="deck-display" style={{
-                  fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
-                  color: 'var(--coral)',
-                  fontWeight: 700,
-                  lineHeight: 1,
-                  fontVariantNumeric: 'tabular-nums',
-                  textAlign: 'right',
-                }}>
-                  {r.delta}
-                </div>
-              </motion.div>
-            ))}
-
-            <div className="deck-body" style={{
-              fontSize: 'var(--fs-slide-tagline)',
-              color: 'var(--cream)',
-              opacity: 0.92,
-              lineHeight: 1.5,
-              fontStyle: 'italic',
-              marginTop: 'var(--space-1)',
-            }}>
-              <strong>Plateau exposure-response</strong> — flat for both 6MWD and AE incidence across the AUC range, in both pediatric and adult populations. Dose range sits on the plateau of the curve.
-            </div>
-          </motion.div>
-
-          {/* RIGHT — proactive disclosures column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(var(--space-3), 1.6vw, var(--space-4))', minWidth: 0 }}>
-            {/* Cmax disclosure */}
+          {/* Hero numbers */}
+          <div style={{
+            display: 'flex',
+            gap: 'clamp(var(--space-8), 8vw, var(--space-12, 6rem))',
+            alignItems: 'baseline',
+          }}>
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 1.30, ease: EASE }}
-              style={{
-                border: '1px solid var(--cream-hairline)',
-                borderRadius: 'var(--radius-md)',
-                background: 'color-mix(in srgb, var(--panel) 60%, transparent)',
-                padding: 'clamp(var(--space-3), 1.4vw, var(--space-4))',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 'var(--space-1)',
-              }}
+              initial={reduced ? false : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduced ? 0 : 0.7, delay: reduced ? 0 : 0.85, ease: EASE }}
+              style={{ textAlign: 'center' }}
             >
+              <div className="deck-display" style={{
+                fontSize: 'clamp(4rem, 8vw, 7rem)',
+                color: 'var(--case)',
+                fontWeight: 700,
+                lineHeight: 1,
+                fontVariantNumeric: 'tabular-nums',
+                letterSpacing: '-0.02em',
+              }}>
+                −3%
+              </div>
               <div className="deck-mono uppercase" style={{
-                fontSize: 'var(--fs-slide-pageno)',
-                letterSpacing: 'var(--ls-mono-wide)',
+                fontSize: 'var(--fs-slide-kicker)',
                 color: 'var(--cream-faint)',
+                letterSpacing: 'var(--ls-mono-wide)',
+                marginTop: 'var(--space-2)',
                 fontWeight: 700,
               }}>
-                Cmax · proactive disclosure
+                Low dose
               </div>
-              <div className="deck-body" style={{
-                fontSize: 'var(--fs-slide-subhead)',
-                color: 'var(--cream)',
-                opacity: 0.86,
-                lineHeight: 1.5,
+              <div className="deck-mono" style={{
+                fontSize: 'var(--fs-slide-eyebrow)',
+                color: 'var(--cream-muted)',
+                letterSpacing: 'var(--ls-mono)',
+                marginTop: 'var(--space-1)',
               }}>
-                <strong>+11% (low) / +18% (high)</strong> in pediatric vs adult. AUC is the regulatorily-relevant exposure metric for ambrisentan; adult Cmax variability across 5–10 mg covers pediatric values observed.
+                AUCss 4.82 vs 4.98 μg·h/mL
               </div>
             </motion.div>
 
-            {/* 35-<50 kg subgroup disclosure (v2-final addition) */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 1.45, ease: EASE }}
-              style={{
-                border: '1px dashed color-mix(in srgb, var(--coral) 50%, transparent)',
-                borderRadius: 'var(--radius-md)',
-                background: 'color-mix(in srgb, var(--coral) 4%, transparent)',
-                padding: 'clamp(var(--space-3), 1.4vw, var(--space-4))',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 'var(--space-1)',
-              }}
+              initial={reduced ? false : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduced ? 0 : 0.7, delay: reduced ? 0 : 1.10, ease: EASE }}
+              style={{ textAlign: 'center' }}
             >
+              <div className="deck-display" style={{
+                fontSize: 'clamp(4rem, 8vw, 7rem)',
+                color: 'var(--case)',
+                fontWeight: 700,
+                lineHeight: 1,
+                fontVariantNumeric: 'tabular-nums',
+                letterSpacing: '-0.02em',
+              }}>
+                +0.3%
+              </div>
               <div className="deck-mono uppercase" style={{
-                fontSize: 'var(--fs-slide-pageno)',
+                fontSize: 'var(--fs-slide-kicker)',
+                color: 'var(--cream-faint)',
                 letterSpacing: 'var(--ls-mono-wide)',
-                color: 'var(--coral)',
+                marginTop: 'var(--space-2)',
                 fontWeight: 700,
               }}>
-                Subgroup transparency · 35–&lt;50 kg
+                High dose
               </div>
-              <div className="deck-body" style={{
-                fontSize: 'var(--fs-slide-subhead)',
-                color: 'var(--cream)',
-                opacity: 0.86,
-                lineHeight: 1.5,
+              <div className="deck-mono" style={{
+                fontSize: 'var(--fs-slide-eyebrow)',
+                color: 'var(--cream-muted)',
+                letterSpacing: 'var(--ls-mono)',
+                marginTop: 'var(--space-1)',
               }}>
-                Low-dose subgroup (<strong>N=8</strong>) ran <strong>+29%</strong> AUCss vs adult 5 mg. High-dose subgroup ran <strong>+33%</strong> Cmax,ss vs adult 10 mg. Both ranges fell within the model-predicted adult AUCss envelope. Disclosed in submission.
-              </div>
-            </motion.div>
-
-            {/* Hemodynamic substudy callout (A1.4 v2-final addition) */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 1.60, ease: EASE }}
-              style={{
-                border: '1px solid color-mix(in srgb, var(--coral) 30%, transparent)',
-                borderLeft: '3px solid var(--coral)',
-                borderRadius: 'var(--radius-md)',
-                background: 'color-mix(in srgb, var(--coral) 6%, transparent)',
-                padding: 'clamp(var(--space-3), 1.4vw, var(--space-4))',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 'var(--space-1)',
-              }}
-            >
-              <div className="deck-mono uppercase" style={{
-                fontSize: 'var(--fs-slide-pageno)',
-                letterSpacing: 'var(--ls-mono-wide)',
-                color: 'var(--coral)',
-                fontWeight: 700,
-              }}>
-                + Supportive hemodynamic substudy
-              </div>
-              <div className="deck-body" style={{
-                fontSize: 'var(--fs-slide-subhead)',
-                color: 'var(--cream)',
-                opacity: 0.88,
-                lineHeight: 1.5,
-              }}>
-                <strong>N=5 paired low-dose</strong> · ΔPVR <strong>−3.46 WU</strong> (≈ −276 dyne·sec/cm⁵) · ΔmPAP −2.20 mmHg · ΔCI +0.94 L/min/m². Magnitude comparable to adult ERA effect. <em>Cited by PMDA in Japanese label.</em>
+                AUCss 9.15 vs 9.12 μg·h/mL
               </div>
             </motion.div>
           </div>
+
+          {/* Density overlay plot */}
+          <DensityCurve reduced={reduced} />
+
+          {/* Micro source line */}
+          <motion.div
+            initial={reduced ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 2.80, ease: EASE }}
+            className="deck-mono"
+            style={{
+              fontSize: 'var(--fs-slide-eyebrow)',
+              color: 'var(--cream-faint)',
+              letterSpacing: 'var(--ls-mono)',
+              textAlign: 'center',
+              opacity: 0.6,
+            }}
+          >
+            Pediatric vs adult AUCss · geometric mean · Okour 2023
+          </motion.div>
         </div>
       </Viz>
 
       <Footer
-        delay={reduced ? 0 : 2.05}
+        delay={reduced ? 0 : 3.00}
         kicker="13 · CS1 · EXPOSURE MATCH"
-        tagline="3% on the low dose. 0.3% on the high dose. The plateau is the architecture."
-        source="Source · Okour M et al. J Clin Pharmacol 2023;63(5):593–603 · Ivy DD et al. J Pediatr X 2020 (hemodynamic substudy)"
+        tagline="3% on the low dose. 0.3% on the high dose. The curves overlap."
+        source="Source · Okour M et al. J Clin Pharmacol 2023;63(5):593–603 · PMID 36579617"
       />
     </SlideGrid>
-  );
-}
-
-function Stat({ label, value, ci }) {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 0, minWidth: 0 }}>
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-pageno)',
-        color: 'var(--cream-faint)',
-        letterSpacing: 'var(--ls-mono)',
-      }}>
-        {label}
-      </div>
-      <div className="deck-display" style={{
-        fontSize: 'clamp(1.1rem, 1.9vw, 1.5rem)',
-        color: 'var(--cream)',
-        fontWeight: 600,
-        fontVariantNumeric: 'tabular-nums',
-        lineHeight: 1.05,
-        letterSpacing: '-0.01em',
-      }}>
-        {value}
-      </div>
-      <div className="deck-mono" style={{
-        fontSize: 'var(--fs-slide-pageno)',
-        color: 'var(--cream)',
-        opacity: 0.6,
-        fontVariantNumeric: 'tabular-nums',
-        letterSpacing: 'var(--ls-mono)',
-      }}>
-        95% CI {ci}
-      </div>
-    </div>
   );
 }

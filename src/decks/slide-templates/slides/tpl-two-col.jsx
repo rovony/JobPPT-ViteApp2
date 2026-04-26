@@ -46,11 +46,9 @@ const panelStyle = {
   background: 'color-mix(in srgb, var(--panel) 65%, transparent)',
   padding: 'var(--space-4)',
   minWidth: 0,
-  minHeight: 0,
   display: 'flex',
   flexDirection: 'column',
   gap: 'var(--space-3)',
-  height: '100%',
 };
 
 export default function TplTwoCol() {
@@ -94,7 +92,7 @@ export default function TplTwoCol() {
         </div>
       )}
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', flex: 1 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
         {col.items.map((item) => (
           <div key={item.label}>
             <div
@@ -142,10 +140,8 @@ export default function TplTwoCol() {
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(min(20rem, 100%), 1fr))',
             gap: 'var(--space-3)',
-            height: '100%',
-            minHeight: 0,
             minWidth: 0,
-            alignContent: 'stretch',
+            alignContent: 'start',
             paddingTop: 'var(--space-2)',
           }}
         >

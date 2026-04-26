@@ -33,14 +33,14 @@ const PINS = [
     agency: 'EMA',
     date: '2021',
     body: 'Pediatric Volibris · 8–17 years · 3 weight bands × 2 dose levels (2.5–10 mg QD)',
-    accent: 'var(--coral)',
+    accent: 'var(--case)',
   },
   {
     n: '02',
     agency: 'PMDA',
     date: 'March 23, 2021',
     body: 'Same exposure-matching framework · Japanese label cites AMB112529 hemodynamic substudy',
-    accent: 'var(--coral)',
+    accent: 'var(--case)',
   },
   {
     n: '03',
@@ -54,9 +54,9 @@ const PINS = [
 function PinCard({ pin, delay, reduced }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay, ease: EASE }}
+      initial={reduced ? false : { opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : delay, ease: EASE }}
       style={{
         position: 'relative',
         minWidth: 0,
@@ -71,7 +71,7 @@ function PinCard({ pin, delay, reduced }) {
       }}
     >
       <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-pageno)',
+        fontSize: 'var(--fs-slide-eyebrow)',
         letterSpacing: 'var(--ls-mono-wide)',
         color: pin.accent,
         fontWeight: 700,
@@ -81,7 +81,7 @@ function PinCard({ pin, delay, reduced }) {
       </div>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
         <div className="deck-display" style={{
-          fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
+          fontSize: 'var(--fs-card-numeral)',
           color: 'var(--cream)',
           fontWeight: 700,
           lineHeight: 1.0,
@@ -143,13 +143,13 @@ export default function Cs1Lesson() {
         />
       </div>
 
-      <Eyebrow color="var(--coral)" delay={0.10}>
+      <Eyebrow delay={0.10}>
         Case 01 · Outcome + codification
       </Eyebrow>
 
       <Headline delay={0.25} maxChars={62}>
         EMA and PMDA approved pediatric ambrisentan in 2021.{' '}
-        <span style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 600 }}>
+        <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 600 }}>
           ICH E11A codified the framework in 2024.
         </span>
       </Headline>
@@ -180,9 +180,9 @@ export default function Cs1Lesson() {
 
           {/* Closing annotation — the methodological insight */}
           <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 1.50, ease: EASE }}
+            initial={reduced ? false : { opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : 1.50, ease: EASE }}
             className="deck-body"
             style={{
               fontSize: 'var(--fs-slide-tagline)',
@@ -194,16 +194,16 @@ export default function Cs1Lesson() {
             }}
           >
             Same architecture is the working template for current pediatric PAH programs &mdash;{' '}
-            <span style={{ fontWeight: 600, color: 'var(--coral)' }}>adult efficacy as anchor</span>,{' '}
-            <span style={{ fontWeight: 600, color: 'var(--coral)' }}>pediatric PK as bridge</span>,{' '}
-            <span style={{ fontWeight: 600, color: 'var(--coral)' }}>totality of evidence</span> for submission. The methodological insight travels.
+            <span style={{ fontWeight: 600, color: 'var(--case)' }}>adult efficacy as anchor</span>,{' '}
+            <span style={{ fontWeight: 600, color: 'var(--case)' }}>pediatric PK as bridge</span>,{' '}
+            <span style={{ fontWeight: 600, color: 'var(--case)' }}>totality of evidence</span> for submission. The methodological insight travels.
           </motion.div>
 
           {/* FDA honesty caveat — A2.5 v2-final amendment, on-slide proactive disclosure */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={reduced ? { opacity: 1 } : { opacity: 1 }}
-            transition={{ duration: 0.5, delay: 1.80, ease: EASE }}
+            initial={reduced ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 1.80, ease: EASE }}
             style={{
               border: '1px dashed color-mix(in srgb, var(--cream-faint) 60%, transparent)',
               borderRadius: 'var(--radius-md)',

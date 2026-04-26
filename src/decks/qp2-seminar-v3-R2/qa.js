@@ -303,7 +303,35 @@ MFDS, Health Canada, Swissmedic, and 30+ national regulators. The number
 is cumulative regulatory approvals, not unique geographies. I use the
 Servier figure because it's the most recent public statement.`,
 
-  'cs2-bg-disease': `## Q1: You say "no precision option before 2018" — what about enasidenib?
+  'cs2-bg-disease': `## Q1: "Why exactly 42? Show me the list."
+**From:** fact-checking panelist
+**Difficulty:** ★★ · **Topic:** data-integrity
+
+A: The 42 figure comes from the public approval list at the time of the
+Indian MAA submission (Aug 2024). It includes all jurisdictions where
+Tibsovo held marketing authorization — FDA, EMA centralized, PMDA, NMPA,
+MFDS, Health Canada, Swissmedic, and 30+ national regulators via the EU
+centralised procedure. Happy to share the full country-by-country list
+after the talk.
+
+> {{VERIFY: lock the exact count against the submission dossier before
+> finalizing the NumberTicker target.}}
+
+## Q2: "India isn't unique here — China, Brazil, Russia all have local-trial frameworks. Why this case?"
+**From:** cross-regional panelist
+**Difficulty:** ★★★ · **Topic:** case-selection
+
+A: Fair challenge. China, Brazil, and Russia all have local-data
+requirements of various stringency. I chose India because ivosidenib
+India is the case I personally led — I built the Clin Pharm dossier,
+presented to the SEC, and shepherded the waiver. The framework is
+portable: the same six-pillar argument (ethnically insensitive target,
+flat PK/PD, no CYP polymorphism signal, adequate global safety database,
+PBPK DDI, E-R characterization) could defend a filing in any of those
+markets. But I can speak to the India case with primary evidence, not
+secondhand.`,
+
+  'cs2-disease': `## Q1: You say "no precision option before 2018" — what about enasidenib?
 **From:** oncology-aware panelist
 **Difficulty:** ★★ · **Topic:** drug-class
 
@@ -337,7 +365,16 @@ pulmonary infiltrates. It's managed with corticosteroids and dose
 modification. For ethnic sensitivity: no ethnicity-specific signal has
 emerged in eight years of post-marketing surveillance across 42+
 countries. The mechanism is driven by the pharmacodynamic effect on the
-mutant enzyme, not by patient genetics.`,
+mutant enzyme, not by patient genetics.
+
+## Q4: "6–10% AML — which one is right?" (cohort and subtype)
+**From:** biostat or precision panelist
+**Difficulty:** ★★ · **Topic:** epidemiology
+
+A: The range reflects subtype and how studies define "AML" and IDH1
+testing. I use a conservative end (6%) where the label or primary source
+warrants it; the slide calls out the range explicitly. I would not
+over-index a single point estimate.`,
 
   'cs2-bg-regulatory': `## Q1: Rule 101 isn't new — it's from 2019. Aren't you overstating the August 2024 change?
 **From:** India-regulatory-aware panelist

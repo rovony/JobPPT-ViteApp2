@@ -30,18 +30,18 @@ const EASE = [0.2, 0.7, 0.3, 1];
 function PathColumn({ headerKicker, headerColor, title, body, bars, footer, delay, reduced, dimmed }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay, ease: EASE }}
+      initial={reduced ? false : { opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : delay, ease: EASE }}
       style={{
         position: 'relative',
         minWidth: 0,
-        border: `1px solid ${dimmed ? 'var(--cream-hairline)' : 'color-mix(in srgb, var(--coral) 32%, transparent)'}`,
+        border: `1px solid ${dimmed ? 'var(--cream-hairline)' : 'color-mix(in srgb, var(--case) 32%, transparent)'}`,
         borderLeft: `4px solid ${headerColor}`,
         borderRadius: 'var(--radius-lg)',
         background: dimmed
           ? 'color-mix(in srgb, var(--panel) 55%, transparent)'
-          : 'color-mix(in srgb, var(--coral) 6%, transparent)',
+          : 'color-mix(in srgb, var(--case) 6%, transparent)',
         padding: 'clamp(var(--space-3), 1.6vw, var(--space-5))',
         display: 'flex',
         flexDirection: 'column',
@@ -58,7 +58,7 @@ function PathColumn({ headerKicker, headerColor, title, body, bars, footer, dela
         {headerKicker}
       </div>
       <div className="deck-display" style={{
-        fontSize: 'clamp(1.1rem, 1.95vw, 1.55rem)',
+        fontSize: 'var(--fs-card-quote)',
         color: 'var(--cream)',
         fontWeight: 600,
         lineHeight: 1.2,
@@ -128,13 +128,13 @@ export default function Cs1Results() {
 
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
-      <Eyebrow color="var(--coral)" delay={0.10}>
+      <Eyebrow delay={0.10}>
         Case 01 · Two architectural precedents
       </Eyebrow>
 
       <Headline delay={0.25} maxChars={66}>
         Pediatric PAH ERA bridging has{' '}
-        <span style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 600 }}>
+        <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 600 }}>
           two recognized architectures
         </span>{' '}
         — both established for bosentan; this case is the EMA branch.
@@ -163,13 +163,13 @@ export default function Cs1Results() {
               delay={0.85}
               reduced={reduced}
               headerKicker="EMA + PMDA path · PK-matching"
-              headerColor="var(--coral)"
-              title={<>FUTURE-1 (Beghetti, <em>BJCP</em> 2009) — <span style={{ color: 'var(--coral)' }}>N=36</span> children, ages 3–17.</>}
+              headerColor="var(--case)"
+              title={<>FUTURE-1 (Beghetti, <em>BJCP</em> 2009) — <span style={{ color: 'var(--case)' }}>N=36</span> children, ages 3–17.</>}
               body={<>Pediatric AUC came in at <strong>54%</strong> of adult target — PK match <em>missed</em>. EMA approved the pediatric formulation anyway. <strong>Methodology endorsed; specific execution not penalized.</strong></>}
               bars={[
                 { label: 'Adult target',    pct: 100, color: 'var(--cream-faint)' },
                 { label: 'FUTURE-1 ped',    pct: 54,  color: 'var(--cream-muted)' },
-                { label: 'AMB112529 low',   pct: 97,  color: 'var(--coral)' },
+                { label: 'AMB112529 low',   pct: 97,  color: 'var(--case)' },
               ]}
               footer="What this case used. AMB112529 → ambrisentan EMA + PMDA pediatric labels (2021). PIP-aligned. PK matching within 3% of adult AUC — much tighter than FUTURE-1."
             />
@@ -188,19 +188,19 @@ export default function Cs1Results() {
 
           {/* Pull-quote — the integrating sentence */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.97 }}
-            animate={reduced ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 1.50, ease: EASE }}
+            initial={reduced ? false : { opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : 1.50, ease: EASE }}
             className="deck-display italic"
             style={{
               fontSize: 'var(--fs-slide-tagline)',
-              color: 'var(--coral)',
+              color: 'var(--case)',
               opacity: 0.95,
               lineHeight: 1.5,
               fontWeight: 500,
               maxWidth: '78ch',
               alignSelf: 'flex-start',
-              borderLeft: '3px solid var(--coral)',
+              borderLeft: '3px solid var(--case)',
               paddingLeft: 'var(--space-3)',
             }}
           >

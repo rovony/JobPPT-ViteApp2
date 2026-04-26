@@ -18,7 +18,7 @@ export default function CS3Bracket() {
       <Eyebrow delay={0.10}>Case 03 · Bracket</Eyebrow>
 
       <Headline delay={0.25} maxChars={52}>
-        I designed the platform.{' '}
+        Clinical pharmacology designed this.{' '}
         <span style={{ color: 'var(--sage)' }}>
           The field supplied the discipline.
         </span>
@@ -62,15 +62,15 @@ export default function CS3Bracket() {
               <div className="deck-mono uppercase" style={{
                 fontSize: 'var(--fs-slide-eyebrow)', color: 'var(--sage)',
                 letterSpacing: '0.1em', fontWeight: 700,
-              }}>I Designed</div>
+              }}>Clin Pharm Designed</div>
 
               {[
-                'Centralized agent topology',
-                'Three-level hierarchy (orchestrator → specialist → worker)',
-                'Deterministic tool discipline',
-                'Typed state bus architecture',
-                'Hash-chain audit system',
-                'Privacy-by-construction data layer',
+                'Centralized agent topology (Kim et al. 2026)',
+                'Three-level hierarchy (supervisor → specialist → worker)',
+                'Deterministic tool discipline — no hallucinated math',
+                'Typed state bus (34 fields, strict write access)',
+                'SHA-256 hash-chain audit trail',
+                'Privacy-by-architecture data layer (SchemaExtractor)',
               ].map((item) => (
                 <div key={item} className="deck-body" style={{
                   fontSize: 'var(--fs-slide-subhead)', color: 'var(--cream)',
@@ -102,7 +102,7 @@ export default function CS3Bracket() {
 
               {[
                 { who: 'ICH M15', what: 'Model-informed drug development framework' },
-                { who: 'Kim et al. 2025', what: 'Centralized-topology scaling laws' },
+                { who: 'Kim et al. 2026', what: '260-experiment scaling laws for agent systems' },
                 { who: 'MIDD literature', what: 'Context-of-use, consequence-of-wrong-decision' },
                 { who: 'Agentic-systems research', what: 'Tool-use > free-text generation' },
                 { who: 'FDA/EMA PBPK guidance', what: 'Qualification-not-validation paradigm' },

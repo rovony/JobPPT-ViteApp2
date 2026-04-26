@@ -87,7 +87,6 @@ export default function TplBackup() {
             flexDirection: 'column',
             gap: 'var(--space-3)',
             height: '100%',
-            minHeight: 0,
             minWidth: 0,
             paddingTop: 'var(--space-2)',
           }}
@@ -97,8 +96,7 @@ export default function TplBackup() {
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(min(20rem, 100%), 1fr))',
               gap: 'var(--space-3)',
-              flex: '1 1 auto',
-              minHeight: 0,
+              alignContent: 'start',
             }}
           >
             {SECTIONS.map((section, si) => (
@@ -152,6 +150,7 @@ export default function TplBackup() {
               style={{
                 ...panelStyle,
                 borderLeft: '4px solid var(--case)',
+                marginTop: 'auto',
                 flex: '0 0 auto',
               }}
               initial={reduced ? false : { opacity: 0, y: 8 }}

@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Check } from 'lucide-react';
 import { useTokens } from '@/lib/token';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Viz, Footer } from '@/components/deck/SlideParts';
@@ -118,7 +117,7 @@ export default function Slide29Case3Bridge() {
               alignItems: 'start',
             }}
           >
-            {/* LEFT — Template checklist */}
+            {/* LEFT — Template flow diagram */}
             <div>
               <motion.div
                 style={{
@@ -157,22 +156,34 @@ export default function Slide29Case3Bridge() {
                 </span>
               </motion.div>
 
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  rowGap: '14px',
-                  columnGap: '24px',
-                }}
-              >
-                {TEMPLATE_BULLETS.map((b, i) => (
-                  <TemplateBullet
-                    key={i}
-                    text={b}
-                    delay={D.bullets + i * 0.10}
-                    full={i === TEMPLATE_BULLETS.length - 1}
-                  />
-                ))}
+              <div style={{ position: 'relative' }}>
+                {/* Vertical spine */}
+                <motion.div
+                  style={{
+                    position: 'absolute',
+                    left: 11,
+                    top: 14,
+                    bottom: 14,
+                    width: 2,
+                    background: 'linear-gradient(to bottom, var(--violet), color-mix(in srgb, var(--violet) 20%, transparent))',
+                    transformOrigin: 'top',
+                  }}
+                  initial={{ scaleY: 0 }}
+                  animate={{ scaleY: 1 }}
+                  transition={{ duration: 0.8, ease, delay: D.bullets }}
+                />
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                  {TEMPLATE_BULLETS.map((b, i) => (
+                    <TemplateNode
+                      key={i}
+                      index={i + 1}
+                      text={b}
+                      delay={D.bullets + i * 0.12}
+                      highlight={i === TEMPLATE_BULLETS.length - 1}
+                      isLast={i === TEMPLATE_BULLETS.length - 1}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -325,9 +336,9 @@ export default function Slide29Case3Bridge() {
 }
 
 /* ========================================================
-   TemplateBullet — checkmark + single-line text
+   TemplateNode — numbered circle + step text (flow diagram)
    ======================================================== */
-function TemplateBullet({ text, delay, full }) {
+function TemplateNode({ index, text, delay, highlight, isLast }) {
   const ease = [0.2, 0.7, 0.3, 1];
   return (
     <motion.div
@@ -335,7 +346,7 @@ function TemplateBullet({ text, delay, full }) {
         display: 'flex',
         alignItems: 'flex-start',
         gap: 12,
-        gridColumn: full ? '1 / -1' : 'auto',
+        padding: '6px 0',
       }}
       initial={{ opacity: 0, x: -8 }}
       animate={{ opacity: 1, x: 0 }}
@@ -344,24 +355,37 @@ function TemplateBullet({ text, delay, full }) {
       <span
         style={{
           flex: '0 0 auto',
-          width: 22,
-          height: 22,
+          width: 24,
+          height: 24,
           borderRadius: '50%',
-          border: '1px solid var(--cream-hairline)',
+          background: highlight
+            ? 'var(--violet)'
+            : 'color-mix(in srgb, var(--violet) 15%, transparent)',
+          border: highlight ? 'none' : '1.5px solid var(--violet)',
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
-          marginTop: 2,
         }}
       >
-        <Check size={12} strokeWidth={2.5} color="var(--cream-muted)" />
+        <span
+          className="deck-mono"
+          style={{
+            fontSize: 'var(--fs-card-meta)',
+            fontWeight: 700,
+            color: highlight ? 'var(--bg)' : 'var(--violet)',
+            lineHeight: 1,
+          }}
+        >
+          {index}
+        </span>
       </span>
       <span
         style={{
           fontFamily: 'var(--font-body)',
           fontSize: 'var(--fs-card-body)',
           lineHeight: 1.4,
-          color: 'var(--cream)',
+          color: highlight ? 'var(--cream)' : 'var(--cream-muted)',
+          fontWeight: highlight ? 600 : 400,
         }}
       >
         {text}

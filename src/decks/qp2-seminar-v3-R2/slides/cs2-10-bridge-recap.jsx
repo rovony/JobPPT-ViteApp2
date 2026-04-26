@@ -1,29 +1,60 @@
 import React, { useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
-import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
-import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
+import SlideFrame from '@/components/deck/SlideFrame';
 
 /**
- * CS2 Act 7 · Bridge forward + recap — portable Clin Pharm lessons.
+ * CS2 Slide 10 v2 · Closing — "The science was the bridge."
  *
- * MIN-DESIGN PASS. Three "what this case proves" bullets in
- * RecapCard pattern, plus closing ribbon pointing to CS3.
+ * Sparse typographic stack — three portable principles, no cards, no
+ * panels, no first-person, no Rule 101 / PBPK / PopPK jargon.
+ * Slowest reveal in the deck (~6.6s). Last-slide energy.
+ *
+ * Principles synthesize the narrative arc:
+ *   01 Mechanism  ← slide 6 IDH1 R132 beat
+ *   02 Convergence ← slide 7 six-pillar beat
+ *   03 Transparency ← slide 9 "0 Indian patients" beat
  */
 
-const LESSONS = [
-  {
-    n: '01',
-    text: 'Rule-based regulatory waivers shift the burden to the Clin Pharm package — design that package to stand alone.',
-  },
-  {
-    n: '02',
-    text: 'PBPK-supported DDI labels are now a regulatory expectation, not a nice-to-have, in CYP3A4-perpetrator drugs.',
-  },
-  {
-    n: '03',
-    text: 'Race/ethnicity covariate invariance from PopPK is the modern substitute for a dedicated bridging study — but only if the analysis is transparent.',
-  },
+const EASE = [0.2, 0.7, 0.3, 1];
+
+const PRINCIPLES = [
+  { n: '01', em: 'Mechanism', rest: 'is the foundation.' },
+  { n: '02', em: 'Convergence', rest: 'is the case.' },
+  { n: '03', em: 'Transparency', rest: 'earns trust.' },
 ];
+
+const D = {
+  divider: 0.6,
+  p: [
+    { num: 1.1, rule: 1.3, words: 1.6 },
+    { num: 2.4, rule: 2.6, words: 2.9 },
+    { num: 3.7, rule: 3.9, words: 4.2 },
+  ],
+  endMark: 5.1,
+  amber: 5.5,
+  footer: 6.0,
+};
+
+function WordReveal({ em, rest, baseDelay, go }) {
+  const allWords = [em, ...rest.split(' ').filter(Boolean)];
+  return (
+    <>
+      {allWords.map((word, i) => (
+        <motion.span
+          key={i}
+          style={i === 0 ? {
+            color: 'var(--cyan)', fontWeight: 500,
+          } : undefined}
+          initial={{ opacity: 0 }}
+          animate={go ? { opacity: 1 } : { opacity: 1 }}
+          transition={{ duration: 0.06, delay: baseDelay + i * 0.08 }}
+        >
+          {word}{i < allWords.length - 1 ? ' ' : ''}
+        </motion.span>
+      ))}
+    </>
+  );
+}
 
 export default function CS2BridgeRecap() {
   const ref = useRef(null);
@@ -32,107 +63,221 @@ export default function CS2BridgeRecap() {
   const go = inView && !reduced;
 
   return (
-    <SlideGrid dataCase="cyan" areas={STANDARD_AREAS}>
-      <Eyebrow delay={0.10}>Case 02 · Bridge forward</Eyebrow>
-
-      <Headline delay={0.25} maxChars={48}>
-        What this case proves about{' '}
-        <span style={{ color: 'var(--cyan)' }}>regulatory bridging.</span>
-      </Headline>
-
-      <Subhead delay={0.55} maxChars={100} size="lead">
-        When local efficacy trials are waived, the Clin Pharm dossier IS the bridge —
-        and PBPK is no longer optional.
-      </Subhead>
-
-      <Viz>
-        <div
-          ref={ref}
+    <SlideFrame
+      dataCase="cyan"
+      eyebrow="Case 02 · Close"
+      headline={
+        <>
+          The science{' '}
+          <span style={{ color: 'var(--cyan)', fontStyle: 'italic', fontWeight: 500 }}>
+            was the bridge
+          </span>
+          .
+        </>
+      }
+      subhead="What this case teaches — beyond ivosidenib, beyond India."
+    >
+      <div
+        ref={ref}
+        style={{
+          width: '100%', height: '100%',
+          display: 'flex', flexDirection: 'column',
+          minHeight: 0,
+        }}
+      >
+        {/* Header divider — draws left-to-right */}
+        <motion.div
           style={{
-            width: '100%', height: '100%',
-            display: 'flex', flexDirection: 'column',
-            justifyContent: 'center',
-            gap: 'clamp(var(--space-3), 2vh, var(--space-6))',
-            paddingTop: 'clamp(var(--space-4), 3vh, var(--space-8))',
+            height: 1, background: 'var(--cream-hairline)',
+            transformOrigin: 'left',
+            marginBottom: 'var(--space-4)',
+            flexShrink: 0,
           }}
-        >
-          {/* Lesson cards */}
+          initial={{ scaleX: 0 }}
+          animate={go ? { scaleX: 1 } : { scaleX: 1 }}
+          transition={{ duration: 0.4, delay: D.divider, ease: EASE }}
+        />
+
+        {/* ── PRINCIPLES — centered, sparse vertical stack ── */}
+        <div style={{
+          flex: 1, minHeight: 0,
+          display: 'flex', alignItems: 'center',
+          justifyContent: 'center',
+        }}>
           <div style={{
             display: 'flex', flexDirection: 'column',
-            gap: 'clamp(var(--space-3), 1.5vh, var(--space-5))',
+            gap: 'clamp(var(--space-6), 6vh, 3.75rem)',
+            maxWidth: '55rem',
+            width: '100%',
           }}>
-            {LESSONS.map((l, i) => (
-              <motion.div
-                key={l.n}
+            {PRINCIPLES.map((p, i) => (
+              <div
+                key={p.n}
                 style={{
-                  position: 'relative', minWidth: 0, overflow: 'hidden',
-                  border: '1px solid var(--cream-hairline)',
-                  borderRadius: 'var(--radius-lg)',
-                  background: 'color-mix(in srgb, var(--panel) 65%, transparent)',
-                  padding: 'clamp(var(--space-3), 1.5vw, var(--space-5))',
-                  display: 'flex', alignItems: 'baseline', gap: 'var(--space-4)',
+                  display: 'flex', alignItems: 'baseline',
+                  gap: 'clamp(var(--space-3), 2vw, var(--space-5))',
                 }}
-                initial={{ opacity: 0, y: 12 }}
-                animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.85 + i * 0.15, ease: [0.2, 0.7, 0.3, 1] }}
               >
-                {/* Left accent rail */}
-                <div style={{
-                  position: 'absolute', left: 0, top: 0, bottom: 0,
-                  width: 4, background: 'var(--cyan)',
-                }} />
+                {/* Number */}
+                <motion.span
+                  className="deck-mono"
+                  style={{
+                    fontSize: 'var(--fs-slide-eyebrow)',
+                    letterSpacing: '0.18em',
+                    color: 'var(--cyan)',
+                    fontWeight: 500,
+                    width: '1.75rem',
+                    flexShrink: 0,
+                  }}
+                  initial={{ opacity: 0 }}
+                  animate={go ? { opacity: 1 } : { opacity: 1 }}
+                  transition={{ duration: 0.2, delay: D.p[i].num }}
+                >
+                  {p.n}
+                </motion.span>
 
-                <span className="deck-mono" style={{
-                  fontSize: 'var(--fs-slide-eyebrow)', color: 'var(--cyan)',
-                  fontWeight: 700, letterSpacing: '0.1em', flexShrink: 0,
-                }}>{l.n}</span>
+                {/* Hairline rule */}
+                <motion.div
+                  style={{
+                    width: 'clamp(48px, 8vw, 80px)',
+                    height: 1,
+                    flexShrink: 0,
+                    alignSelf: 'center',
+                    marginTop: -2,
+                    transformOrigin: 'left',
+                  }}
+                  initial={{ scaleX: 0, background: 'color-mix(in srgb, var(--cyan) 28%, transparent)' }}
+                  animate={go
+                    ? {
+                        scaleX: 1,
+                        background: 'color-mix(in srgb, var(--cyan) 28%, transparent)',
+                      }
+                    : {
+                        scaleX: 1,
+                        background: 'color-mix(in srgb, var(--cyan) 28%, transparent)',
+                      }}
+                  transition={{ duration: 0.3, delay: D.p[i].rule, ease: EASE }}
+                />
 
-                <span className="deck-body" style={{
-                  fontSize: 'var(--fs-slide-subhead)', color: 'var(--cream)',
-                  lineHeight: 1.45,
-                }}>{l.text}</span>
-              </motion.div>
+                {/* Principle text — word-by-word */}
+                <span
+                  className="deck-display"
+                  style={{
+                    fontSize: 'var(--fs-slide-headline)',
+                    fontStyle: 'italic',
+                    fontWeight: 400,
+                    lineHeight: 1.15,
+                    letterSpacing: '-0.012em',
+                    color: 'var(--cream)',
+                    flex: 1, minWidth: 0,
+                  }}
+                >
+                  <WordReveal
+                    em={p.em}
+                    rest={p.rest}
+                    baseDelay={D.p[i].words}
+                    go={go}
+                  />
+                </span>
+              </div>
             ))}
-          </div>
 
-          {/* Closing ribbon → CS3 */}
-          <motion.div
+            {/* End-mark hairline */}
+            <motion.div
+              style={{
+                height: 1,
+                width: 'clamp(48px, 6vw, 60px)',
+                marginLeft: 'calc(1.75rem + clamp(var(--space-3), 2vw, var(--space-5)) + clamp(48px, 8vw, 80px) + clamp(var(--space-3), 2vw, var(--space-5)))',
+                transformOrigin: 'left',
+              }}
+              initial={{
+                scaleX: 0,
+                background: 'color-mix(in srgb, var(--cyan) 28%, transparent)',
+              }}
+              animate={go
+                ? {
+                    scaleX: 1,
+                    background: 'color-mix(in srgb, var(--cyan) 28%, transparent)',
+                  }
+                : {
+                    scaleX: 1,
+                    background: 'color-mix(in srgb, var(--cyan) 28%, transparent)',
+                  }}
+              transition={{ duration: 0.3, delay: D.endMark, ease: EASE }}
+            />
+          </div>
+        </div>
+
+        {/* ── AMBER MESSAGE BAND ── */}
+        <motion.div
+          style={{
+            flexShrink: 0,
+            background: 'color-mix(in srgb, var(--amber) 12%, transparent)',
+            borderTop: '1px solid color-mix(in srgb, var(--amber) 42%, transparent)',
+            borderBottom: '1px solid color-mix(in srgb, var(--amber) 42%, transparent)',
+            padding: 'var(--space-3) var(--space-5)',
+            borderRadius: 'var(--radius-sm)',
+          }}
+          initial={{ opacity: 0, y: 8 }}
+          animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: D.amber, ease: EASE }}
+        >
+          <span className="deck-display" style={{
+            fontSize: 'var(--fs-slide-tagline)',
+            lineHeight: 1.4,
+          }}>
+            <span style={{ color: 'var(--amber)', fontWeight: 600, marginRight: 'var(--space-2)' }}>
+              ▌
+            </span>
+            Wherever local trials aren't feasible — the{' '}
+            <span style={{ color: 'var(--amber)', fontWeight: 500, fontStyle: 'italic' }}>
+              Clin Pharm dossier
+            </span>
+            {' '}becomes the bridge.
+          </span>
+        </motion.div>
+
+        {/* ── CUSTOM FOOTER — "CASE 02 · END" + dots ── */}
+        <div style={{
+          flexShrink: 0,
+          display: 'flex', alignItems: 'baseline',
+          justifyContent: 'space-between',
+          paddingTop: 'var(--space-3)',
+          marginTop: 'var(--space-2)',
+        }}>
+          <motion.span
+            className="deck-mono uppercase"
             style={{
-              display: 'flex', alignItems: 'center', gap: 'var(--space-3)',
-              padding: 'var(--space-2) var(--space-4)',
-              background: 'color-mix(in srgb, var(--amber) 8%, transparent)',
-              border: '1px solid color-mix(in srgb, var(--amber) 28%, transparent)',
-              borderRadius: 'var(--radius-md)',
+              fontSize: 'var(--fs-slide-pageno)',
+              letterSpacing: '0.14em',
+              color: 'var(--cream-faint)',
             }}
             initial={{ opacity: 0 }}
             animate={go ? { opacity: 1 } : { opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.85, ease: [0.2, 0.7, 0.3, 1] }}
+            transition={{ duration: 0.3, delay: D.footer }}
           >
-            <motion.div
-              aria-hidden
-              style={{ transform: 'rotate(45deg)', width: 14, height: 14, background: 'var(--amber)', flexShrink: 0 }}
-            />
-            <span className="deck-display italic" style={{
-              fontSize: 'var(--fs-slide-tagline)', color: 'var(--cream-muted)',
-            }}>
-              Two cases where modeling carried the regulatory argument.{' '}
-              <motion.span
-                animate={go ? { color: 'var(--amber)' } : {}}
-                transition={{ delay: 2.65, duration: 0.6 }}
-                style={{ color: 'var(--cream-muted)' }}
-              >
-                Next: where the tools themselves become the contribution.
-              </motion.span>
-            </span>
-          </motion.div>
-        </div>
-      </Viz>
+            Case 02 · End
+          </motion.span>
 
-      <Footer
-        delay={reduced ? 0 : 2.0}
-        kicker="Act 7 · Bridge"
-        tagline="Portable lessons — the waiver pathway will expand globally."
-      />
-    </SlideGrid>
+          <span style={{ display: 'flex', gap: 'var(--space-3)' }}>
+            {['·', '·', '·'].map((dot, i) => (
+              <motion.span
+                key={i}
+                className="deck-mono"
+                style={{
+                  fontSize: 'var(--fs-slide-pageno)',
+                  color: 'var(--cream-faint)',
+                }}
+                initial={{ opacity: 0 }}
+                animate={go ? { opacity: 1 } : { opacity: 1 }}
+                transition={{ duration: 0.2, delay: D.footer + 0.2 + i * 0.2 }}
+              >
+                {dot}
+              </motion.span>
+            ))}
+          </span>
+        </div>
+      </div>
+    </SlideFrame>
   );
 }

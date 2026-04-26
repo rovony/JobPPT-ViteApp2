@@ -80,14 +80,22 @@ function FlowArrow({ reduced, delay }) {
         alignItems: 'center',
         justifyContent: 'center',
         flexShrink: 0,
-        color: 'var(--cream-faint)',
-        fontSize: 'var(--fs-slide-subhead)',
+        alignSelf: 'center',
+        width: 'var(--space-5)',
       }}
       initial={reduced ? false : { opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: reduced ? 0 : 0.3, delay: reduced ? 0 : delay, ease: EASE }}
     >
-      →
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style={{ display: 'block' }}>
+        <path
+          d="M5 12h14M13 6l6 6-6 6"
+          stroke="var(--cream-faint)"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
     </motion.div>
   );
 }
@@ -112,10 +120,8 @@ export default function TplFlow() {
             display: 'flex',
             flexWrap: 'wrap',
             gap: 'var(--space-2)',
-            alignItems: 'stretch',
+            alignItems: 'flex-start',
             justifyContent: 'center',
-            height: '100%',
-            minHeight: 0,
             minWidth: 0,
             paddingTop: 'var(--space-2)',
           }}

@@ -39,7 +39,7 @@ const FACTS = [
   {
     n: '03',
     label: 'The pathways',
-    body: <>Endothelin <strong style={{ color: 'var(--coral)' }}>↑</strong> · Nitric oxide <strong>↓</strong> · Prostacyclin <strong>↓</strong> · Activin / TGF-β dysregulated.</>,
+    body: <>Endothelin <strong style={{ color: 'var(--case)' }}>↑</strong> · Nitric oxide <strong>↓</strong> · Prostacyclin <strong>↓</strong> · Activin / TGF-β dysregulated.</>,
   },
   {
     n: '04',
@@ -51,14 +51,14 @@ const FACTS = [
 function FactPanel({ fact, delay, reduced }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, delay, ease: EASE }}
+      initial={reduced ? false : { opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : delay, ease: EASE }}
       style={{
         position: 'relative',
         minWidth: 0,
         border: '1px solid var(--cream-hairline)',
-        borderLeft: '3px solid var(--coral)',
+        borderLeft: '3px solid var(--case)',
         borderRadius: 'var(--radius-md)',
         background: 'color-mix(in srgb, var(--panel) 60%, transparent)',
         padding: 'clamp(var(--space-3), 1.4vw, var(--space-4))',
@@ -68,9 +68,9 @@ function FactPanel({ fact, delay, reduced }) {
       }}
     >
       <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-pageno)',
+        fontSize: 'var(--fs-slide-eyebrow)',
         letterSpacing: 'var(--ls-mono-wide)',
-        color: 'var(--coral)',
+        color: 'var(--case)',
         fontWeight: 700,
         fontVariantNumeric: 'tabular-nums',
       }}>
@@ -93,13 +93,13 @@ export default function Cs1Context() {
 
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
-      <Eyebrow color="var(--coral)" delay={0.10}>
+      <Eyebrow delay={0.10}>
         Case 01 · Disease foundation
       </Eyebrow>
 
       <Headline delay={0.25} maxChars={66}>
         Pulmonary arterial hypertension is{' '}
-        <span style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 600 }}>
+        <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 600 }}>
           small-vessel lung disease
         </span>{' '}
         that kills through right-heart failure.
@@ -195,14 +195,14 @@ export default function Cs1Context() {
 
         {/* Closing pathway-mechanism line */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={reduced ? { opacity: 1 } : { opacity: 1 }}
-          transition={{ duration: 0.55, delay: 1.45, ease: EASE }}
+          initial={reduced ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : 1.45, ease: EASE }}
           className="deck-display italic"
           style={{
             marginTop: 'clamp(var(--space-2), 2vh, var(--space-4))',
             fontSize: 'var(--fs-slide-tagline)',
-            color: 'var(--coral)',
+            color: 'var(--case)',
             lineHeight: 1.5,
             fontWeight: 500,
             maxWidth: '78ch',

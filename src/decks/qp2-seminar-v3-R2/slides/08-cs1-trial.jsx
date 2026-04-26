@@ -40,17 +40,17 @@ const ADULT = [
 
 // Pediatric drug development below the axis
 const PEDIATRIC = [
-  { year: 2009, label: 'Bosentan EMA peds (FUTURE-1)', highlighted: 'precedent' },
-  { year: 2011, label: 'Sildenafil EMA peds (STARTS-1)' },
+  { year: 2009, label: 'Bosentan EMA peds · FUTURE-1', highlighted: 'precedent' },
+  { year: 2011, label: 'Sildenafil EMA peds' },
   { year: 2014, label: 'STARTS-2 publication' },
-  { year: 2017, label: 'Bosentan FDA peds (Garnett-Florian)', highlighted: 'precedent' },
+  { year: 2017, label: 'Bosentan FDA peds', highlighted: 'precedent' },
   { year: 2021, label: 'Ambrisentan EMA + PMDA peds', highlighted: 'thiscase' },
   { year: 2023, label: 'Sildenafil FDA peds' },
   { year: 2024, label: 'ICH E11A finalized', highlighted: 'codification' },
 ];
 
 const YEAR_MIN = 2000;
-const YEAR_MAX = 2025;
+const YEAR_MAX = 2026;
 const yearToPct = (y) => ((y - YEAR_MIN) / (YEAR_MAX - YEAR_MIN)) * 100;
 
 function Marker({ entry, side, delay, reduced }) {
@@ -59,21 +59,21 @@ function Marker({ entry, side, delay, reduced }) {
   const isPrecedent = entry.highlighted === 'precedent';
   const isCodification = entry.highlighted === 'codification';
   const accent = isThisCase
-    ? 'var(--coral)'
+    ? 'var(--case)'
     : isPrecedent
-      ? 'var(--coral)'
+      ? 'var(--case)'
       : isCodification
         ? 'var(--amber)'
         : 'var(--cream-faint)';
-  const dotSize = isThisCase ? 14 : isPrecedent || isCodification ? 11 : 8;
+  const dotSize = isThisCase ? 16 : isPrecedent || isCodification ? 13 : 10;
   // Right-edge guard: anchor labels right when past 80% so they don't overflow
   const anchorRight = pct > 80;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: side === 'above' ? -6 : 6 }}
-      animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay, ease: EASE }}
+      initial={reduced ? false : { opacity: 0, y: side === 'above' ? -6 : 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : delay, ease: EASE }}
       style={{
         position: 'absolute',
         left: `${pct}%`,
@@ -92,6 +92,7 @@ function Marker({ entry, side, delay, reduced }) {
           borderRadius: '50%',
           background: isThisCase || isPrecedent || isCodification ? accent : 'transparent',
           border: `2px solid ${accent}`,
+          boxShadow: isThisCase ? '0 0 12px 4px color-mix(in srgb, var(--case) 50%, transparent)' : 'none',
           marginBottom: 4,
           alignSelf: anchorRight ? 'flex-end' : 'flex-start',
           marginRight: anchorRight ? `-${dotSize / 2}px` : 0,
@@ -99,10 +100,12 @@ function Marker({ entry, side, delay, reduced }) {
         }} />
       )}
       <span className="deck-mono" style={{
-        fontSize: isThisCase ? 'var(--fs-slide-subhead)' : 'var(--fs-slide-pageno)',
-        color: isThisCase ? 'var(--coral)' : isPrecedent ? 'var(--coral)' : isCodification ? 'var(--amber)' : 'var(--cream)',
-        fontWeight: isThisCase ? 700 : isPrecedent || isCodification ? 600 : 500,
-        opacity: isThisCase || isPrecedent || isCodification ? 1 : 0.78,
+        fontSize: isThisCase
+          ? 'clamp(1.1rem, min(1.6vw, 2.2vh), 1.5rem)'
+          : 'clamp(0.78rem, min(1vw, 1.4vh), 1rem)',
+        color: isThisCase ? 'var(--case)' : isPrecedent ? 'var(--case)' : isCodification ? 'var(--amber)' : 'var(--cream)',
+        fontWeight: isThisCase ? 700 : isPrecedent || isCodification ? 600 : 600,
+        opacity: isThisCase || isPrecedent || isCodification ? 1 : 0.88,
         letterSpacing: 'var(--ls-mono)',
         whiteSpace: 'nowrap',
         textAlign: anchorRight ? 'right' : 'left',
@@ -111,12 +114,12 @@ function Marker({ entry, side, delay, reduced }) {
         {entry.year}
       </span>
       <span className="deck-body" style={{
-        fontSize: 'var(--fs-slide-pageno)',
+        fontSize: 'clamp(0.68rem, min(0.85vw, 1.2vh), 0.85rem)',
         color: isThisCase ? 'var(--cream)' : 'var(--cream)',
         fontWeight: isThisCase ? 600 : 400,
-        opacity: isThisCase ? 1 : 0.74,
-        lineHeight: 1.25,
-        maxWidth: '11rem',
+        opacity: isThisCase ? 1 : 0.82,
+        lineHeight: 1.3,
+        maxWidth: '12rem',
         textAlign: anchorRight ? 'right' : 'left',
       }}>
         {entry.label}
@@ -158,7 +161,7 @@ export default function Cs1Trial() {
           top: '54%',
           transform: 'translate(-50%, -50%)',
           width: 'clamp(28rem, 62vw, 50rem)',
-          opacity: 0.32,
+          opacity: 0.25,
           pointerEvents: 'none',
           zIndex: 0,
           display: 'flex',
@@ -173,13 +176,13 @@ export default function Cs1Trial() {
         />
       </div>
 
-      <Eyebrow color="var(--coral)" delay={0.10}>
+      <Eyebrow delay={0.10}>
         Case 01 · The field-level context
       </Eyebrow>
 
       <Headline delay={0.25} maxChars={66}>
         Pediatric PAH drug development moves slowly —{' '}
-        <span style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 600 }}>
+        <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 600 }}>
           and through a single methodological precedent.
         </span>
       </Headline>
@@ -202,69 +205,94 @@ export default function Cs1Trial() {
           {/* Column labels */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
             <span className="deck-mono uppercase" style={{
-              fontSize: 'var(--fs-slide-pageno)',
+              fontSize: 'clamp(0.65rem, min(0.9vw, 1.3vh), 0.85rem)',
               letterSpacing: 'var(--ls-mono-wide)',
-              color: 'var(--cream-faint)',
+              color: 'var(--cream-muted)',
               fontWeight: 700,
             }}>
               Adult PAH approvals · 6 drugs · 2001–2024
             </span>
             <span className="deck-mono uppercase" style={{
-              fontSize: 'var(--fs-slide-pageno)',
+              fontSize: 'clamp(0.65rem, min(0.9vw, 1.3vh), 0.85rem)',
               letterSpacing: 'var(--ls-mono-wide)',
-              color: 'var(--coral)',
+              color: 'var(--case)',
               fontWeight: 700,
             }}>
               The 2009 inflection · the 2024 codification
             </span>
           </div>
 
-          {/* Timeline scaffold */}
+          {/* Timeline scaffold — frosted glass backdrop */}
           <div style={{
             position: 'relative',
             flex: 1,
-            minHeight: '12rem',
+            minHeight: '14rem',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
+            background: 'color-mix(in srgb, var(--panel) 60%, transparent)',
+            backdropFilter: 'blur(12px) saturate(1.2)',
+            WebkitBackdropFilter: 'blur(12px) saturate(1.2)',
+            border: '1px solid var(--cream-hairline)',
+            borderRadius: 'var(--radius-lg)',
+            padding: 'clamp(var(--space-3), 2vw, var(--space-5))',
+            zIndex: 1,
           }}>
             {/* Above-axis container */}
-            <div style={{ position: 'relative', height: '5rem', marginBottom: 'var(--space-2)' }}>
+            <div style={{ position: 'relative', height: '6rem', marginBottom: 'var(--space-2)' }}>
               {ADULT.map((e, i) => (
                 <Marker key={`a-${e.year}`} entry={e} side="above" delay={0.85 + i * 0.06} reduced={reduced} />
               ))}
             </div>
 
-            {/* Hairline axis */}
+            {/* Axis line */}
             <motion.div
               aria-hidden
-              initial={{ scaleX: 0 }}
-              animate={reduced ? { scaleX: 1 } : { scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 0.85, ease: EASE }}
+              initial={reduced ? false : { scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: reduced ? 0 : 0.8, delay: reduced ? 0 : 0.85, ease: EASE }}
               style={{
-                height: 2,
-                background: 'var(--cream-hairline)',
+                height: 3,
+                background: 'linear-gradient(90deg, var(--cream-faint) 0%, var(--cream-muted) 30%, var(--cream-muted) 70%, var(--cream-faint) 100%)',
                 width: '100%',
                 transformOrigin: 'left center',
                 position: 'relative',
+                borderRadius: 2,
               }}
             >
-              {/* Year tick marks at endpoints */}
-              {[YEAR_MIN, 2010, 2015, 2020, YEAR_MAX].map((y) => (
+              {/* Year tick marks + labels */}
+              {[2000, 2005, 2010, 2015, 2020, 2025].map((y) => (
                 <span key={y} aria-hidden style={{
                   position: 'absolute',
                   left: `${yearToPct(y)}%`,
-                  top: -3,
-                  width: 1,
-                  height: 8,
-                  background: 'var(--cream-faint)',
-                  transform: 'translateX(-0.5px)',
-                }} />
+                  top: -5,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  transform: 'translateX(-50%)',
+                }}>
+                  <span style={{
+                    width: 2,
+                    height: 13,
+                    background: 'var(--cream-muted)',
+                    borderRadius: 1,
+                  }} />
+                  <span className="deck-mono" style={{
+                    fontSize: 'clamp(0.58rem, min(0.75vw, 1vh), 0.72rem)',
+                    color: 'var(--cream-faint)',
+                    fontWeight: 600,
+                    marginTop: 3,
+                    fontVariantNumeric: 'tabular-nums',
+                    letterSpacing: '0.04em',
+                  }}>
+                    {y}
+                  </span>
+                </span>
               ))}
             </motion.div>
 
             {/* Below-axis container */}
-            <div style={{ position: 'relative', height: '7rem', marginTop: 'var(--space-2)' }}>
+            <div style={{ position: 'relative', height: '8rem', marginTop: 'var(--space-3)' }}>
               {PEDIATRIC.map((e, i) => (
                 <Marker key={`p-${e.year}`} entry={e} side="below" delay={1.20 + i * 0.06} reduced={reduced} />
               ))}
@@ -273,9 +301,9 @@ export default function Cs1Trial() {
 
           {/* Annotation strip — the inflection */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={reduced ? { opacity: 1 } : { opacity: 1 }}
-            transition={{ duration: 0.55, delay: 1.85, ease: EASE }}
+            initial={reduced ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : 1.85, ease: EASE }}
             className="deck-body"
             style={{
               fontSize: 'var(--fs-slide-tagline)',
@@ -283,12 +311,12 @@ export default function Cs1Trial() {
               opacity: 0.88,
               lineHeight: 1.5,
               fontStyle: 'italic',
-              borderLeft: '3px solid var(--coral)',
+              borderLeft: '3px solid var(--case)',
               paddingLeft: 'var(--space-3)',
               maxWidth: '92ch',
             }}
           >
-            <strong style={{ color: 'var(--coral)', fontStyle: 'normal' }}>Bosentan FUTURE-1 in 2009</strong> set the framework: PK matching as the regulatory bridge. Every pediatric ERA program since uses this template. <strong style={{ color: 'var(--cream)', fontStyle: 'normal' }}>The ambrisentan case applies it under three simultaneous program disruptions.</strong>
+            <strong style={{ color: 'var(--case)', fontStyle: 'normal' }}>Bosentan FUTURE-1 in 2009</strong> set the framework: PK matching as the regulatory bridge. Every pediatric ERA program since uses this template. <strong style={{ color: 'var(--cream)', fontStyle: 'normal' }}>The ambrisentan case applies it under three simultaneous program disruptions.</strong>
           </motion.div>
         </div>
       </Viz>
@@ -296,7 +324,6 @@ export default function Cs1Trial() {
       <Footer
         delay={reduced ? 0 : 2.05}
         kicker="08 · CS1 · TIMELINE"
-        tagline="The pediatric arm runs years to a decade behind the adult arm — sometimes longer."
         source="Source · FDA / EMA approval records · Beghetti BJCP 2009 · ICH E11A Step 4 (Dec 2024)"
       />
     </SlideGrid>

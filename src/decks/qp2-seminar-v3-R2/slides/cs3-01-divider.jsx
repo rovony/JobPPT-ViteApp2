@@ -1,11 +1,13 @@
 import React from 'react';
 import CaseHeroDivider from '@/components/deck/patterns/CaseHeroDivider';
+import AiBrain from '../components/AiBrain';
 
 /**
  * CS3 Divider — PharmAgent · AI/ML workflow infrastructure.
  *
  * Sage case-color cascade. The register shifts from retrospective
  * regulatory wins (CS1/CS2) to forward-looking infrastructure.
+ * AiBrain illustration mirrors CS1 Lungs / CS2 IndiaMap pattern.
  */
 export default function CS3Divider() {
   return (
@@ -23,7 +25,12 @@ export default function CS3Divider() {
         ['Status', 'Active development'],
       ]}
       verdict="BUILDING"
-      source="Personal research project · Kim et al. CPT 2025 · ICH M15 draft 2024"
+      illustration={
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+          <AiBrain layoutId="cs3-ai-brain" variant="hero" />
+        </div>
+      }
+      source="Personal research project · Kim et al. arXiv:2512.08296 (Google Research & DeepMind, 2026) · ICH M15"
     />
   );
 }

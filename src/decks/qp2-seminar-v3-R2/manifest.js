@@ -53,8 +53,10 @@ import CS2DiseaseBackground from './slides/cs2-disease-background';
 import CS2BackgroundRegulatory from './slides/cs2-03-background-regulatory';
 import CS2Setup from './slides/cs2-04-setup';
 import CS2Architecture from './slides/cs2-05-architecture';
-import CS2DecisiveMove from './slides/cs2-06-decisive-move';
+import CS2Pillars from './slides/cs2-05b-pillars';
+import CS2Reversal from './slides/cs2-06-reversal';
 import CS2Velocity from './slides/cs2-07-velocity';
+import CS2Reckoning from './slides/cs2-07b-reckoning';
 import CS2Outcome from './slides/cs2-08-outcome';
 import CS2Leadership from './slides/cs2-09-leadership';
 import CS2BridgeRecap from './slides/cs2-10-bridge-recap';
@@ -69,6 +71,20 @@ import CS3Portable from './slides/cs3-08-portable';
 import Cs1BackupTimelineContext from './slides/cs1-backup-01-timeline-context';
 import Cs1BackupTimelineAmbOnly from './slides/cs1-backup-02-timeline-amb-only';
 import Cs1BackupTimelineProgramDetail from './slides/cs1-backup-03-timeline-program-detail';
+import Cs1BackupStartsDetail from './slides/cs1-B1-starts-detail';
+import Cs1BackupRatFinding from './slides/cs1-B2-rat-finding';
+import Cs1BackupDosingScheme from './slides/cs1-B3-dosing-scheme';
+import Cs1BackupFdaGap from './slides/cs1-B4-fda-gap';
+import Cs1BackupAllometry from './slides/cs1-B5-allometry';
+import Cs1BackupB6_6mwd from './slides/cs1-B6-6mwd';
+import Cs1BackupB7Lte from './slides/cs1-B7-lte';
+import Cs1BackupB8Ddi from './slides/cs1-B8-ddi';
+import Cs1BackupB9E11a from './slides/cs1-B9-e11a';
+import Cs1BackupB10EndpointHistory from './slides/cs1-B10-endpoint-history';
+import Cs1BackupB11GarnettFlorian from './slides/cs1-B11-garnett-florian';
+import Cs1BackupB12Hemodynamic from './slides/cs1-B12-hemodynamic';
+import Cs1BackupB13PipArchitecture from './slides/cs1-B13-pip-architecture';
+import Cs1BackupB14Bayesian from './slides/cs1-B14-bayesian';
 import StubSlide from './slides/_StubSlide';
 
 import notes from './notes';
@@ -194,12 +210,14 @@ const manifest = {
     { id: 'cs2-disease', title: 'CS2 · Disease — IDH1 mechanism & epidemiology', component: CS2DiseaseBackground, isTitle: false },
     { id: 'cs2-bg-regulatory', title: 'CS2 · Rule 101 reform', component: CS2BackgroundRegulatory, isTitle: false },
     { id: 'cs2-setup', title: 'CS2 · Can the dossier replace a local trial?', component: CS2Setup, isTitle: false },
-    { id: 'cs2-architecture', title: 'CS2 · Three pillars', component: CS2Architecture, isTitle: false },
-    { id: 'cs2-decisive-move', title: 'CS2 · PBPK went into the label', component: CS2DecisiveMove, isTitle: false },
+    { id: 'cs2-architecture', title: 'CS2 · MOA is the foundation', component: CS2Architecture, isTitle: false },
+    { id: 'cs2-pillars', title: 'CS2 · Six convergent pillars', component: CS2Pillars, isTitle: false },
+    { id: 'cs2-reversal', title: 'CS2 · CDSCO approved 14 May 2025', component: CS2Reversal, isTitle: false },
     { id: 'cs2-velocity', title: 'CS2 · Seven years → one pivot', component: CS2Velocity, isTitle: false },
+    { id: 'cs2-reckoning', title: 'CS2 · What we shipped, what we did not', component: CS2Reckoning, isTitle: false },
     { id: 'cs2-outcome', title: 'CS2 · India approval May 2025', component: CS2Outcome, isTitle: false },
     { id: 'cs2-leadership', title: 'CS2 · Bracket Method ownership', component: CS2Leadership, isTitle: false },
-    { id: 'cs2-bridge-recap', title: 'CS2 · What this case proves', component: CS2BridgeRecap, isTitle: false },
+    { id: 'cs2-bridge-recap', title: 'CS2 · The science was the bridge', component: CS2BridgeRecap, isTitle: false },
 
     // ══════════════════════════════════════════════════════════════
     // CS3 — PharmAgent · AI/ML workflow infrastructure · SAGE
@@ -237,6 +255,26 @@ const manifest = {
     { id: 'cs1-backup-timeline-context',        title: 'Backup · CS1 timeline · 1995–2026',                       component: Cs1BackupTimelineContext,       isTitle: false, transition: 'fade' },
     { id: 'cs1-backup-timeline-amb-only',       title: 'Backup · CS1 timeline · ambrisentan-only 2004–2024',     component: Cs1BackupTimelineAmbOnly,       isTitle: false, transition: 'fade' },
     { id: 'cs1-backup-timeline-program-detail', title: 'Backup · CS1 timeline · program detail (adult + AMB112529)', component: Cs1BackupTimelineProgramDetail, isTitle: false, transition: 'fade' },
+
+    // ══════════════════════════════════════════════════════════════
+    // BACKUP · CS1 — B1–B14: deep-dive defense slides sourced from
+    // 4-Backup-And-QA-CS1-v2.md + additionstoBackups.md + amd1.md
+    // + part2.md. Pull up during hostile Q&A.
+    // ══════════════════════════════════════════════════════════════
+    { id: 'cs1-B1-starts',          title: 'Backup B1 · STARTS-1/STARTS-2 detail',        component: Cs1BackupStartsDetail,      isTitle: false, transition: 'fade' },
+    { id: 'cs1-B2-rat-finding',     title: 'Backup B2 · Juvenile rat finding',             component: Cs1BackupRatFinding,        isTitle: false, transition: 'fade' },
+    { id: 'cs1-B3-dosing',          title: 'Backup B3 · Dosing scheme (3×2 matrix)',       component: Cs1BackupDosingScheme,      isTitle: false, transition: 'fade' },
+    { id: 'cs1-B4-fda-gap',         title: 'Backup B4 · FDA submission gap',               component: Cs1BackupFdaGap,            isTitle: false, transition: 'fade' },
+    { id: 'cs1-B5-allometry',       title: 'Backup B5 · Allometric scaling defense',       component: Cs1BackupAllometry,         isTitle: false, transition: 'fade' },
+    { id: 'cs1-B6-6mwd',            title: 'Backup B6 · 6MWD endpoint validity',           component: Cs1BackupB6_6mwd,           isTitle: false, transition: 'fade' },
+    { id: 'cs1-B7-lte',             title: 'Backup B7 · Long-term extension',              component: Cs1BackupB7Lte,             isTitle: false, transition: 'fade' },
+    { id: 'cs1-B8-ddi',             title: 'Backup B8 · DDI + PDE-5i',                     component: Cs1BackupB8Ddi,             isTitle: false, transition: 'fade' },
+    { id: 'cs1-B9-e11a',            title: 'Backup B9 · ICH E11A extrapolation',           component: Cs1BackupB9E11a,            isTitle: false, transition: 'fade' },
+    { id: 'cs1-B10-endpoints',      title: 'Backup B10 · Endpoint evolution timeline',     component: Cs1BackupB10EndpointHistory, isTitle: false, transition: 'fade' },
+    { id: 'cs1-B11-garnett-florian', title: 'Backup B11 · Garnett-Florian framework',      component: Cs1BackupB11GarnettFlorian, isTitle: false, transition: 'fade' },
+    { id: 'cs1-B12-hemodynamic',    title: 'Backup B12 · Hemodynamic substudy',            component: Cs1BackupB12Hemodynamic,    isTitle: false, transition: 'fade' },
+    { id: 'cs1-B13-pip',            title: 'Backup B13 · PIP architecture & age coverage', component: Cs1BackupB13PipArchitecture, isTitle: false, transition: 'fade' },
+    { id: 'cs1-B14-bayesian',       title: 'Backup B14 · Bayesian borrowing framework',    component: Cs1BackupB14Bayesian,       isTitle: false, transition: 'fade' },
   ],
 };
 

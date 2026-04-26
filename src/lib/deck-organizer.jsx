@@ -98,6 +98,30 @@ function reducer(state, action) {
       };
     }
 
+    /* ── Deck display overrides (title, subtitle, description) ── */
+    case 'UPDATE_DECK_INFO': {
+      const prev = state.deckMeta[action.deckId] || {};
+      const overrides = { ...prev.overrides };
+      if (action.title !== undefined) overrides.title = action.title || null;
+      if (action.subtitle !== undefined) overrides.subtitle = action.subtitle || null;
+      if (action.description !== undefined) overrides.description = action.description || null;
+      return {
+        ...state,
+        deckMeta: {
+          ...state.deckMeta,
+          [action.deckId]: { ...prev, overrides },
+        },
+      };
+    }
+    case 'RESET_DECK_INFO': {
+      const prev = state.deckMeta[action.deckId] || {};
+      const { overrides, ...rest } = prev;
+      return {
+        ...state,
+        deckMeta: { ...state.deckMeta, [action.deckId]: rest },
+      };
+    }
+
     /* ── Deck metadata (folder assignment, tags, favorite, archive) ── */
     case 'SET_DECK_FOLDER': {
       return {
@@ -254,19 +278,30 @@ export function useFilteredDecks(allDecks) {
 
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
-      filtered = filtered.filter(
-        (d) =>
-          d.title.toLowerCase().includes(q) ||
-          d.subtitle?.toLowerCase().includes(q) ||
+      filtered = filtered.filter((d) => {
+        const ov = deckMeta[d.id]?.overrides || {};
+        const title = (ov.title || d.title).toLowerCase();
+        const subtitle = (ov.subtitle || d.subtitle || '').toLowerCase();
+        const desc = (ov.description || '').toLowerCase();
+        return (
+          title.includes(q) ||
+          subtitle.includes(q) ||
+          desc.includes(q) ||
           d.theme?.toLowerCase().includes(q) ||
           d.id.toLowerCase().includes(q)
-      );
+        );
+      });
     }
 
     filtered.sort((a, b) => {
       let cmp = 0;
       switch (sortBy) {
-        case 'title': cmp = a.title.localeCompare(b.title); break;
+        case 'title': {
+          const aTitle = deckMeta[a.id]?.overrides?.title || a.title;
+          const bTitle = deckMeta[b.id]?.overrides?.title || b.title;
+          cmp = aTitle.localeCompare(bTitle);
+          break;
+        }
         case 'slides': cmp = a.slides.length - b.slides.length; break;
         case 'theme': cmp = (a.theme || '').localeCompare(b.theme || ''); break;
         case 'recent': {
@@ -282,4 +317,18 @@ export function useFilteredDecks(allDecks) {
 
     return filtered;
   }, [allDecks, activeFolder, activeTags, sortBy, sortDir, searchQuery, deckMeta]);
+}
+
+/* ================================================================
+   Merge manifest data with user overrides for display
+   ================================================================ */
+export function useDeckDisplay(deck) {
+  const { state } = useOrganizer();
+  const overrides = state.deckMeta[deck.id]?.overrides || {};
+  return useMemo(() => ({
+    title: overrides.title || deck.title,
+    subtitle: overrides.subtitle !== undefined ? (overrides.subtitle || '') : (deck.subtitle || ''),
+    description: overrides.description || '',
+    hasOverrides: !!(overrides.title || overrides.subtitle || overrides.description),
+  }), [deck.id, deck.title, deck.subtitle, overrides.title, overrides.subtitle, overrides.description]);
 }

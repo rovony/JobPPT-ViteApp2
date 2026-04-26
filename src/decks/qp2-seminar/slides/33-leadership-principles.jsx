@@ -72,6 +72,7 @@ const RESEARCH_CARDS = [
     detail: 'End-to-end pharmacometric workflows — NONMEM automation, QC, regulatory drafting.',
     themeKey: 'novel-methods',
     token: 'amber',
+    MiniViz: AgentHierarchyViz,
   },
   {
     key: 'deeppk',
@@ -82,6 +83,7 @@ const RESEARCH_CARDS = [
     detail: 'Neural ODE approach to PopPK structure learning for hybrid mechanistic + neural inference.',
     themeKey: 'qp-replaces-study',
     token: 'sage',
+    MiniViz: NeuralODEViz,
   },
   {
     key: 'dosepredict',
@@ -92,6 +94,7 @@ const RESEARCH_CARDS = [
     detail: 'Individual-patient dose adjustment — published JCP 2020, released on GitHub.',
     themeKey: 'dose-precision',
     token: 'cream-muted',
+    MiniViz: DoseResponseViz,
   },
 ];
 
@@ -384,13 +387,12 @@ function PrincipleRow({ principle, theme, delay, isFirst, tk }) {
 }
 
 /* ============================================================
-   ResearchCard — bottom-row AI/ML card. Same content as the
-   prior design with the addition of a small theme-glyph stamp
-   so the AI/ML strip rhymes with the manifesto's vocabulary.
+   ResearchCard — bottom-row AI/ML card with mini SVG diagram.
    ============================================================ */
 function ResearchCard({ card, theme, delay, tk }) {
   const ease = [0.2, 0.7, 0.3, 1];
   const Icon = card.icon;
+  const MiniViz = card.MiniViz;
   const color = tk(`--${card.token}`);
   const themeColor = theme ? tk(`--${theme.token}`) : color;
   return (
@@ -401,121 +403,157 @@ function ResearchCard({ card, theme, delay, tk }) {
         borderLeft: `3px solid ${color}`,
         background: 'color-mix(in srgb, var(--panel) 45%, transparent)',
         display: 'grid',
-        gridTemplateColumns: 'auto 1fr auto',
-        columnGap: 'var(--space-3)',
-        alignItems: 'start',
+        gridTemplateRows: 'auto 1fr',
+        rowGap: 'var(--space-2)',
         minHeight: 0,
       }}
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease, delay }}
     >
-      {/* Icon column */}
-      <div
-        style={{
-          width: 32,
-          height: 32,
-          background: `color-mix(in srgb, ${color} 14%, transparent)`,
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: 2,
-        }}
-      >
-        <Icon size={16} strokeWidth={1.8} color={color} aria-hidden />
+      {/* Top: Icon + text */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', columnGap: 'var(--space-3)', alignItems: 'start' }}>
+        <div
+          style={{
+            width: 32, height: 32,
+            background: `color-mix(in srgb, ${color} 14%, transparent)`,
+            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+            marginTop: 2,
+          }}
+        >
+          <Icon size={16} strokeWidth={1.8} color={color} aria-hidden />
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4, minWidth: 0 }}>
+          <div className="deck-mono uppercase" style={{ fontSize: 'var(--fs-card-meta)', letterSpacing: 'var(--ls-mono)', color, fontWeight: 700 }}>
+            {card.badge}
+          </div>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
+            <span className="deck-display" style={{ fontSize: 'var(--fs-card-title)', color: 'var(--cream)', fontWeight: 700 }}>{card.title}</span>
+            <span className="deck-mono" style={{ fontSize: 'var(--fs-card-label)', color: 'var(--cream-faint)', fontWeight: 500 }}>· {card.spec}</span>
+          </div>
+          <div className="deck-display italic" style={{ fontSize: 'var(--fs-card-body)', color: 'var(--cream-muted)', lineHeight: 1.4 }}>
+            {card.detail}
+          </div>
+        </div>
+
+        {theme && (
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, paddingLeft: 'var(--space-2)', borderLeft: '1px dashed var(--cream-hairline)', color: themeColor }}>
+            <span aria-hidden className="deck-display" style={{ fontSize: 'clamp(1rem, 1.3vw, 1.3rem)', lineHeight: 1, fontWeight: 700 }}>{theme.glyph}</span>
+            <span className="deck-mono" style={{ fontSize: 'var(--fs-card-meta)', letterSpacing: 'var(--ls-mono)', fontWeight: 700 }}>{theme.num}</span>
+          </div>
+        )}
       </div>
 
-      {/* Text column */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 4, minWidth: 0 }}>
-        <div
-          className="deck-mono uppercase"
-          style={{
-            fontSize: 'var(--fs-card-meta)',
-            letterSpacing: 'var(--ls-mono)',
-            color,
-            fontWeight: 700,
-          }}
+      {/* Bottom: Mini SVG architecture diagram */}
+      {MiniViz && (
+        <motion.div
+          style={{ borderTop: '1px solid var(--cream-hairline)', paddingTop: 'var(--space-2)' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: delay + 0.3 }}
         >
-          {card.badge}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'baseline',
-            gap: 8,
-            flexWrap: 'wrap',
-          }}
-        >
-          <span
-            className="deck-display"
-            style={{
-              fontSize: 'var(--fs-card-title)',
-              color: 'var(--cream)',
-              fontWeight: 700,
-            }}
-          >
-            {card.title}
-          </span>
-          <span
-            className="deck-mono"
-            style={{
-              fontSize: 'var(--fs-card-label)',
-              color: 'var(--cream-faint)',
-              fontWeight: 500,
-            }}
-          >
-            · {card.spec}
-          </span>
-        </div>
-        <div
-          className="deck-display italic"
-          style={{
-            fontSize: 'var(--fs-card-body)',
-            color: 'var(--cream-muted)',
-            lineHeight: 1.4,
-          }}
-        >
-          {card.detail}
-        </div>
-      </div>
-
-      {/* Theme stamp — small glyph + theme number, top-right.
-          Names which Act IV theme this tool exercises. */}
-      {theme && (
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 2,
-            paddingLeft: 'var(--space-2)',
-            borderLeft: '1px dashed var(--cream-hairline)',
-            color: themeColor,
-          }}
-        >
-          <span
-            aria-hidden
-            className="deck-display"
-            style={{
-              fontSize: 'clamp(1rem, 1.3vw, 1.3rem)',
-              lineHeight: 1,
-              fontWeight: 700,
-            }}
-          >
-            {theme.glyph}
-          </span>
-          <span
-            className="deck-mono"
-            style={{
-              fontSize: 'var(--fs-card-meta)',
-              letterSpacing: 'var(--ls-mono)',
-              fontWeight: 700,
-            }}
-          >
-            {theme.num}
-          </span>
-        </div>
+          <MiniViz color={color} />
+        </motion.div>
       )}
     </motion.div>
+  );
+}
+
+/* ============================================================
+   Mini architecture SVGs for research cards
+   ============================================================ */
+function AgentHierarchyViz({ color }) {
+  return (
+    <svg viewBox="0 0 200 50" style={{ width: '100%', height: 'auto', maxHeight: 48 }} aria-label="Agent hierarchy">
+      {/* Supervisor */}
+      <circle cx={100} cy={10} r={6} fill={color} opacity={0.8} />
+      <text x={100} y={10} textAnchor="middle" dominantBaseline="middle" fill="var(--bg)" style={{ fontSize: 6, fontFamily: 'var(--font-mono)', fontWeight: 700 }}>S</text>
+      {/* Lines to coordinators */}
+      <line x1={100} y1={16} x2={50} y2={28} stroke={color} strokeWidth={1} opacity={0.4} />
+      <line x1={100} y1={16} x2={100} y2={28} stroke={color} strokeWidth={1} opacity={0.4} />
+      <line x1={100} y1={16} x2={150} y2={28} stroke={color} strokeWidth={1} opacity={0.4} />
+      {/* Coordinators */}
+      {[50, 100, 150].map((cx) => (
+        <circle key={cx} cx={cx} cy={32} r={4} fill="none" stroke={color} strokeWidth={1.2} opacity={0.6} />
+      ))}
+      {/* Worker dots */}
+      {[25, 40, 60, 75, 90, 110, 125, 140, 160, 175].map((cx) => (
+        <circle key={cx} cx={cx} cy={46} r={2} fill={color} opacity={0.25} />
+      ))}
+      {/* Labels */}
+      <text x={4} y={10} fill="var(--cream-muted)" style={{ fontSize: 6, fontFamily: 'var(--font-mono)' }}>SUPERVISOR</text>
+      <text x={4} y={32} fill="var(--cream-muted)" style={{ fontSize: 5, fontFamily: 'var(--font-mono)' }}>COORDINATORS</text>
+      <text x={4} y={46} fill="var(--cream-muted)" style={{ fontSize: 5, fontFamily: 'var(--font-mono)' }}>WORKERS</text>
+    </svg>
+  );
+}
+
+function NeuralODEViz({ color }) {
+  const layers = [
+    [30, 10, 30, 50],
+    [70, 20, 40],
+    [110, 15, 35, 50],
+    [150, 25],
+  ];
+  return (
+    <svg viewBox="0 0 200 55" style={{ width: '100%', height: 'auto', maxHeight: 48 }} aria-label="Neural ODE architecture">
+      {/* Connection lines */}
+      {layers.slice(0, -1).map((layer, li) =>
+        layer.map((y1) =>
+          layers[li + 1].map((y2) => (
+            <line
+              key={`${li}-${y1}-${y2}`}
+              x1={layers[li] === layer ? [30, 70, 110][li] : 0}
+              y1={y1}
+              x2={[70, 110, 150][li]}
+              y2={y2}
+              stroke={color}
+              strokeWidth={0.5}
+              opacity={0.15}
+            />
+          ))
+        )
+      )}
+      {/* Nodes */}
+      {layers.map((layer, li) => {
+        const x = [30, 70, 110, 150][li];
+        return layer.map((y) => (
+          <circle key={`${li}-${y}`} cx={x} cy={y} r={li === 3 ? 5 : 3.5} fill={color} opacity={li === 3 ? 0.9 : 0.5} />
+        ));
+      })}
+      {/* ODE symbol */}
+      <text x={170} y={28} fill={color} style={{ fontSize: 10, fontFamily: 'var(--font-display)', fontWeight: 700, fontStyle: 'italic' }}>dx/dt</text>
+      {/* Arrow to ODE */}
+      <line x1={155} y1={25} x2={165} y2={25} stroke={color} strokeWidth={1} opacity={0.5} markerEnd="none" />
+      {/* Labels */}
+      <text x={30} y={55} textAnchor="middle" fill="var(--cream-muted)" style={{ fontSize: 5, fontFamily: 'var(--font-mono)' }}>INPUT</text>
+      <text x={150} y={10} textAnchor="middle" fill="var(--cream-muted)" style={{ fontSize: 5, fontFamily: 'var(--font-mono)' }}>PK</text>
+    </svg>
+  );
+}
+
+function DoseResponseViz({ color }) {
+  const pts = [
+    [10, 42], [25, 40], [40, 37], [55, 33], [70, 27],
+    [85, 20], [100, 14], [115, 10], [130, 8], [145, 7], [160, 7],
+  ];
+  const path = pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p[0]},${p[1]}`).join(' ');
+  return (
+    <svg viewBox="0 0 200 50" style={{ width: '100%', height: 'auto', maxHeight: 48 }} aria-label="Dose-response curve">
+      {/* Grid lines */}
+      <line x1={10} y1={45} x2={170} y2={45} stroke="var(--cream-hairline)" strokeWidth={0.5} />
+      <line x1={10} y1={5} x2={10} y2={45} stroke="var(--cream-hairline)" strokeWidth={0.5} />
+      {/* Curve */}
+      <path d={path} fill="none" stroke={color} strokeWidth={1.5} opacity={0.7} strokeLinecap="round" strokeLinejoin="round" />
+      {/* Therapeutic window */}
+      <rect x={65} y={5} width={55} height={40} fill={color} opacity={0.06} />
+      <line x1={65} y1={5} x2={65} y2={45} stroke={color} strokeWidth={0.5} strokeDasharray="2 2" opacity={0.3} />
+      <line x1={120} y1={5} x2={120} y2={45} stroke={color} strokeWidth={0.5} strokeDasharray="2 2" opacity={0.3} />
+      {/* Labels */}
+      <text x={92} y={50} textAnchor="middle" fill={color} style={{ fontSize: 5, fontFamily: 'var(--font-mono)', fontWeight: 700 }}>THERAPEUTIC WINDOW</text>
+      <text x={170} y={48} fill="var(--cream-muted)" style={{ fontSize: 5, fontFamily: 'var(--font-mono)' }}>DOSE</text>
+      <text x={5} y={5} fill="var(--cream-muted)" style={{ fontSize: 5, fontFamily: 'var(--font-mono)' }}>E</text>
+    </svg>
   );
 }

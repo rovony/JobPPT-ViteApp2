@@ -87,8 +87,6 @@ export default function TplCardGrid() {
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(min(18rem, 100%), 1fr))',
             gap: 'var(--space-3)',
-            height: '100%',
-            minHeight: 0,
             minWidth: 0,
             alignContent: 'start',
             paddingTop: 'var(--space-2)',

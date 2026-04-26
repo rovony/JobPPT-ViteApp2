@@ -56,11 +56,9 @@ export default function TplStackedList() {
             display: 'flex',
             flexDirection: 'column',
             gap: 'var(--space-3)',
-            height: '100%',
-            minHeight: 0,
             minWidth: 0,
+            height: '100%',
             paddingTop: 'var(--space-2)',
-            overflow: 'auto',
           }}
         >
           {ITEMS.map((item, i) => (
@@ -142,6 +140,8 @@ export default function TplStackedList() {
                 border: '1px solid color-mix(in srgb, var(--case) 35%, transparent)',
                 borderRadius: 'var(--radius-lg)',
                 textAlign: 'center',
+                marginTop: 'auto',
+                flex: '0 0 auto',
               }}
               initial={reduced ? false : { opacity: 0, y: 8 }}
               animate={inView ? { opacity: 1, y: 0 } : undefined}

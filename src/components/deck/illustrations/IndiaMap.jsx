@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 import { motion } from 'framer-motion';
 
 /**
@@ -14,10 +14,11 @@ import { motion } from 'framer-motion';
  *
  * Cross-slide mechanics (layoutId="india-cdsco"):
  *
- *   variant="hero" (slide 15 divider, right margin):
- *     - Marginalia size. Plays the original path-draw / fill-fade
- *       on first mount so the outline "draws in".
- *     - This is the FROM-bbox for the slide 15 → 22 morph.
+ *   variant="hero" (slide 16 divider, right margin):
+ *     - Marginalia size. Outline fades in as a solid complete border
+ *       (no pathLength draw-in) with HANDOFF_* ink, so the end state
+ *       is pixel-identical to deplete's initial state on cs2-02.
+ *     - This is the FROM-bbox for the cross-slide morph.
  *
  *   variant="filled" (slide 22 impact climax):
  *     - Hero size. Land state for the cross-slide morph. India
@@ -27,12 +28,32 @@ import { motion } from 'framer-motion';
  *   variant="context" / "empty" (legacy, kept for safety):
  *     - Backdrop sizes for any future non-morphing usage.
  *
+ *   variant="empty" + depleteFillFromDivider (cs2-02 only):
+ *     - First paint uses the SAME constants as variant="hero" at
+ *       handoff (HANDOFF_FILL_OPACITY, HANDOFF_STROKE_WIDTH,
+ *       HANDOFF_STROKE_OPACITY, hero glow blur) — lung parity: only bbox
+ *       moves, not the ink recipe. Fill eases down; stroke width eases
+ *       from HANDOFF_STROKE_WIDTH → EMPTY_STROKE_WIDTH with stroke
+ *       opacity held at HANDOFF_STROKE_OPACITY so the border does not
+ *       wash out (no false “color change” mid-morph).
+ *
  * The viewBox follows the source bbox (≈ 56,-40 → 83,-9 in the
  * world map's projection), with a small breathing margin so the
  * stroke doesn't clip.
  */
 
 const LAYOUT_TRANSITION = { duration: 1.8, ease: [0.4, 0, 0.2, 1] };
+
+/**
+ * Lung parity — divider (hero) and cs2-02 destination (deplete start)
+ * must use the SAME fill + stroke recipe so the layoutId morph reads as
+ * one continuous object (only bbox + position change), not a style swap.
+ */
+const HANDOFF_FILL_OPACITY = 0.12;
+const HANDOFF_STROKE_WIDTH = 1.6;
+const HANDOFF_STROKE_OPACITY = 1;
+/** Map “empty” land state — thinner stroke + softer opacity at small size. */
+const EMPTY_STROKE_WIDTH = 1.3;
 
 // Natural Earth IND polygon — copied verbatim from the deck's
 // world-map.svg so projection + topology stay in sync.
@@ -64,16 +85,53 @@ export default function IndiaMap({
   delay = 0.3,
   className = '',
   fillIntensity,
+  // Style override merged onto the motion.div. Used by cs2-02 to
+  // place the destination India at its geographic position on the
+  // world map (position: absolute + percentage left/top/width).
+  // Override-keys (left/top/right/bottom/position/width/height/etc.)
+  // win over the variant defaults — exactly like a plain DOM style
+  // prop. Pass {} or omit for the standard centered-block layout.
+  style: styleOverride,
+  /**
+   * When true (only meaningful with variant="empty"): fill starts at
+   * `depleteFillStart` and stroke at `depleteStrokeStart`, then both
+   * ease to the normal empty appearance over `depleteFillDuration`.
+   * Used on cs2-02 so India reads solid at morph entry (matching the
+   * divider hero) then resolves to outline-only on the map.
+   */
+  depleteFillFromDivider = false,
+  /** Initial fill opacity for deplete — defaults = hero steady state. */
+  depleteFillStart = HANDOFF_FILL_OPACITY,
+  /** Stroke opacity during deplete (constant — not animated). */
+  depleteStrokeStart = HANDOFF_STROKE_OPACITY,
+  /** Easing for deplete animation (default = LAYOUT_TRANSITION ease). */
+  depleteEase = [0.4, 0, 0.2, 1],
+  /** Duration in seconds; default matches cross-slide layout morph. */
+  depleteFillDuration = 1.8,
+  /**
+   * When true: outline renders as dashed cyan with stroke-dashoffset
+   * draw-in + looping 8s ambient pulse. Used on hook slide.
+   */
+  dashedStroke = false,
+  /** Delay (seconds) before dashed draw-in starts. */
+  dashedDelay = 0,
+  /** Custom fill color for India (e.g. --ink-tint-3 equivalent). */
+  customFill,
 }) {
+  const dashId = useId().replace(/:/g, '');
   const dims = DIMENSIONS[variant] || DIMENSIONS.hero;
   const isHero = variant === 'hero';
   const isEmpty = variant === 'empty';
   const isFilled = variant === 'filled';
+  const deplete =
+    depleteFillFromDivider && isEmpty;
+  /** Same glow blur as hero during divider → map handoff (was 0.12 for empty only). */
+  const glowBlur = isHero || deplete ? 0.18 : 0.12;
 
   const fillOp = typeof fillIntensity === 'number'
     ? fillIntensity
     : isHero
-      ? 0.12
+      ? HANDOFF_FILL_OPACITY
       : isFilled
         ? 0.55
         : isEmpty
@@ -86,16 +144,29 @@ export default function IndiaMap({
       layoutId={layoutId}
       layout
       transition={{ layout: LAYOUT_TRANSITION }}
-      className={className}
+      className={`india-map-shared ${className}`.trim()}
       style={{
         width: dims.width,
         aspectRatio: dims.aspectRatio,
         color: stroke,
         pointerEvents: 'none',
         userSelect: 'none',
+        ...styleOverride,
       }}
       aria-hidden
     >
+      {/* Pin the layoutId wrapper at opacity 1 through the morph.
+          Framer Motion's projection layer writes inline style.opacity
+          on layoutId-matched siblings during the morph (entering ramps
+          0 → 1, exiting ramps 1 → 0). Empirically that produced a
+          ~5% "ghosted India" valley around t=150–300 ms while the
+          source slide was simultaneously fading out — visible as a
+          jarring blink mid-morph. CSS `!important` defeats inline
+          styles per the cascade, pinning the wrapper at opacity 1
+          for the full morph without disabling the bbox interpolation
+          we DO want. Same fix LungsShared uses (slide 5 → 6 lung
+          camera-pullback). */}
+      <style>{`.india-map-shared { opacity: 1 !important; }`}</style>
       <svg
         viewBox={VIEW_BOX}
         preserveAspectRatio="xMidYMid meet"
@@ -105,7 +176,7 @@ export default function IndiaMap({
       >
         <defs>
           <filter id={`india-glow-${variant}`} x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation={isHero ? 0.18 : 0.12} result="blur" />
+            <feGaussianBlur stdDeviation={glowBlur} result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -119,11 +190,28 @@ export default function IndiaMap({
             <motion.path
               d={INDIA_PATH}
               fill={stroke}
-              fillOpacity={0.12}
               stroke="none"
+              fillOpacity={HANDOFF_FILL_OPACITY}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1.2, ease: [0.2, 0.7, 0.3, 1], delay: delay + 1.6 }}
+              transition={{
+                duration: 0.6,
+                ease: [0.2, 0.7, 0.3, 1],
+                delay: delay + 0.6,
+              }}
+            />
+          ) : deplete ? (
+            <motion.path
+              d={INDIA_PATH}
+              fill={stroke}
+              stroke="none"
+              initial={{ fillOpacity: depleteFillStart }}
+              animate={{ fillOpacity: fillOp }}
+              transition={{
+                duration: depleteFillDuration,
+                ease: depleteEase,
+                delay: 0,
+              }}
             />
           ) : (
             <motion.path
@@ -145,20 +233,45 @@ export default function IndiaMap({
               critical here because the viewBox is only ~30 units wide
               (geographic projection coordinates), so a literal
               strokeWidth would be enormous. */}
+          {/* Outline — hero and deplete both use the SAME solid stroke
+              recipe (HANDOFF_STROKE_WIDTH + full strokeOpacity). No
+              pathLength draw-in on hero: the outline fades in as a
+              complete border so the end-of-animation state on the
+              divider is pixel-identical to the deplete start on cs2-02.
+              framer-motion only morphs the bbox; ink stays constant. */}
           {isHero ? (
             <motion.path
               d={INDIA_PATH}
               fill="none"
               stroke={stroke}
-              strokeWidth={1.6}
+              strokeWidth={HANDOFF_STROKE_WIDTH}
+              strokeOpacity={HANDOFF_STROKE_OPACITY}
               vectorEffect="non-scaling-stroke"
               strokeLinecap="round"
               strokeLinejoin="round"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 1 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{
-                pathLength: { duration: 2.4, ease: [0.2, 0.7, 0.3, 1], delay },
-                opacity:    { duration: 0.3, delay },
+                duration: 0.8,
+                ease: [0.2, 0.7, 0.3, 1],
+                delay,
+              }}
+            />
+          ) : deplete ? (
+            <motion.path
+              d={INDIA_PATH}
+              fill="none"
+              stroke={stroke}
+              strokeOpacity={depleteStrokeStart}
+              vectorEffect="non-scaling-stroke"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              initial={{ strokeWidth: HANDOFF_STROKE_WIDTH }}
+              animate={{ strokeWidth: EMPTY_STROKE_WIDTH }}
+              transition={{
+                duration: depleteFillDuration,
+                ease: depleteEase,
+                delay: 0,
               }}
             />
           ) : (
@@ -166,11 +279,59 @@ export default function IndiaMap({
               d={INDIA_PATH}
               fill="none"
               stroke={stroke}
-              strokeWidth={isFilled ? 1.8 : 1.3}
+              strokeWidth={isFilled ? 1.8 : EMPTY_STROKE_WIDTH}
               vectorEffect="non-scaling-stroke"
               strokeOpacity={strokeOp}
               strokeLinecap="round"
               strokeLinejoin="round"
+            />
+          )}
+
+          {/* Dashed cyan outline — draws in via stroke-dashoffset, then
+              loops a slow ambient pulse. Used on hook slide after the
+              morph + deplete have completed. */}
+          {dashedStroke && (
+            <>
+              <style>{`
+                @keyframes ${dashId}-draw {
+                  from { stroke-dashoffset: 600; }
+                  to   { stroke-dashoffset: 0; }
+                }
+                @keyframes ${dashId}-pulse {
+                  0%   { stroke-dashoffset: 0; }
+                  100% { stroke-dashoffset: -80; }
+                }
+              `}</style>
+              <path
+                d={INDIA_PATH}
+                fill="none"
+                stroke={stroke}
+                strokeWidth={1.4}
+                vectorEffect="non-scaling-stroke"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeDasharray="6 4"
+                style={{
+                  strokeDashoffset: 600,
+                  animation: `${dashId}-draw 800ms ease ${dashedDelay}s forwards, ${dashId}-pulse 8s linear ${dashedDelay + 0.8}s infinite`,
+                }}
+              />
+            </>
+          )}
+
+          {/* Custom fill — darker tint for India (--ink-tint-3 equivalent) */}
+          {customFill && (
+            <motion.path
+              d={INDIA_PATH}
+              fill={customFill}
+              stroke="none"
+              initial={{ fillOpacity: 0 }}
+              animate={{ fillOpacity: 1 }}
+              transition={{
+                duration: 0.6,
+                ease: [0.2, 0.7, 0.3, 1],
+                delay: dashedDelay || 1.0,
+              }}
             />
           )}
         </g>

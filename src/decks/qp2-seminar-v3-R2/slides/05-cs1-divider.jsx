@@ -23,6 +23,12 @@ export default function Cs1Divider({ deck }) {
       title="Ambrisentan"
       subtitle="When the pediatric trial cannot carry the dose, the model has to."
       tagline="Pediatric PAH · 8 to <18 years · exposure-matching as the regulatory bridge"
+      meta={[
+        ['Compound', 'Ambrisentan (ERA)'],
+        ['Indication', 'Pediatric PAH'],
+        ['Agency', 'EMA + PMDA'],
+      ]}
+      verdict="APPROVED"
       illustration={<Lungs layoutId="cs1-lung" variant="hero" />}
       source="Source · Okour et al. J Clin Pharmacol 2023 · Ivy et al. J Pediatr X 2020 · EMEA-000434-PIP01-08"
     />

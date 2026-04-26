@@ -1,92 +1,168 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
-import cs2PbpkUrl from '../assets/cs2-pbpk-schematic.svg?url';
+import CS2MoaCard from './cs2-shared/CS2MoaCard';
+import {
+  Pillar, PillarHeroNumber, PillarHeroItalic, PillarSub,
+  PillarVizWrap, PillarBody, PillarCite,
+  PkSimilarityViz, ErSimilarityViz, IntrinsicViz, ExtrinsicViz, GlobalRegViz,
+} from './cs2-shared/CS2Pillars';
 
 /**
- * CS2 Act 3 · Decisive move — PBPK went into the label.
+ * CS2 Slide 7 · Six convergent pillars — the ICH E5(R1) framework, fully populated.
  *
- * MIN-DESIGN PASS. Text-dominant slide with the single cleanest
- * "modeling earned its keep" line in the seminar.
+ * The MOA card (col 1) morphs in from slide 6 via shared layoutId.
+ * Pillars 02–06 cascade in to its right with staggered entrance.
+ * Each pillar carries a dashboard mini-viz widget in its middle band.
  */
-export default function CS2DecisiveMove() {
+
+const C = {
+  cyan: 'var(--cyan)',
+  amber: 'var(--amber)',
+  cream: 'var(--cream)',
+  creamMuted: 'var(--cream-muted)',
+  creamFaint: 'var(--cream-faint)',
+  hairline: 'var(--cream-hairline)',
+};
+
+const EASE = [0.2, 0.7, 0.3, 1];
+
+/* Cascade delay schedule per spec — MOA already on screen via layoutId,
+ * supporting pillars enter at 150ms increments after the morph settles. */
+const D = { p2: 0.70, p3: 0.85, p4: 1.00, p5: 1.15, p6: 1.30, band: 1.55 };
+
+export default function CS2Pillars() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
+  const reduced = useReducedMotion();
+  const go = inView && !reduced;
+
   return (
     <SlideGrid dataCase="cyan" areas={STANDARD_AREAS}>
-      <Eyebrow delay={0.10}>Case 02 · Decisive move</Eyebrow>
+      <Eyebrow delay={0.10}>Case 02 · Architecture — Six convergent pillars</Eyebrow>
 
-      <Headline delay={0.25} maxChars={48}>
-        PBPK predicted the CYP3A4-induction DDI —{' '}
-        <span style={{ color: 'var(--cyan)' }}>and went into the label.</span>
+      <Headline delay={0.25} maxChars={68}>
+        Six lines converge — across{' '}
+        <span style={{ color: C.cyan, fontStyle: 'italic', fontWeight: 500 }}>
+          PK, PD, intrinsic, extrinsic, regulatory, and mechanism.
+        </span>
       </Headline>
 
-      <Subhead delay={0.55} maxChars={100} size="lead">
-        Simulated midazolam AUC ratio 0.18 — a strong CYP3A4-inducer call.
-        Qualified against clinical data. No dedicated clinical DDI study needed
-        for every CYP3A4 substrate. The model IS the evidence.
+      <Subhead delay={0.55} maxChars={54} size="lead">
+        The ICH E5(R1) framework, fully populated.
       </Subhead>
 
       <Viz>
-        <div style={{
+        <div ref={ref} style={{
           width: '100%', height: '100%',
-          display: 'flex', flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center',
-          justifyContent: 'center', gap: 'clamp(var(--space-6), 4vw, var(--space-10))',
+          display: 'flex', flexDirection: 'column',
+          gap: 'clamp(var(--space-3), 2vh, var(--space-5))',
+          minHeight: 0, minWidth: 0,
         }}>
-          <div style={{ flex: '0 1 220px', maxWidth: 'min(40vw, 280px)', alignSelf: 'center' }} aria-hidden>
-            <img
-              src={cs2PbpkUrl}
-              alt=""
-              style={{
-                width: '100%', height: 'auto',
-                maxHeight: 'min(38vh, 380px)',
-                objectFit: 'contain',
-              }}
-            />
-          </div>
+          {/* Six-pillar grid — auto-fit reflow on narrow viewports */}
           <div style={{
-            flex: '1 1 18rem',
-            maxWidth: '52ch',
-            display: 'flex', flexDirection: 'column', gap: 'var(--space-6)',
-            alignItems: 'flex-start',
+            flex: 1, minHeight: 0, minWidth: 0,
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(8rem, 100%), 1fr))',
+            gap: 'clamp(8px, 1.1vw, 14px)',
+            alignItems: 'stretch',
           }}>
-            <div style={{
-              display: 'flex', alignItems: 'baseline', gap: 'var(--space-4)',
-            }}>
-              <span className="deck-display" style={{
-                fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
-                fontWeight: 700, color: 'var(--cyan)',
-                fontVariantNumeric: 'tabular-nums', lineHeight: 1,
-              }}>0.18</span>
-              <span className="deck-body" style={{
-                fontSize: 'var(--fs-slide-subhead)', color: 'var(--cream-muted)',
-              }}>midazolam AUC ratio (simulated)</span>
+            {/* Pillar 01 · MOA — the morphing card from slide 6 */}
+            <div style={{ display: 'flex', minWidth: 0 }}>
+              <CS2MoaCard variant="lead" style={{ flex: 1 }} />
             </div>
 
-            <div style={{
-              width: 'clamp(48px, 8vw, 80px)', height: 'var(--stroke-hair)',
-              background: 'var(--cream-faint)',
-            }} />
+            {/* Pillar 02 · PK Similarity */}
+            <Pillar delay={go ? D.p2 : 0} eyebrow="Pillar 02" name="PK Similarity">
+              <PillarHeroNumber>n = 253</PillarHeroNumber>
+              <PillarSub>race not significant</PillarSub>
+              <PillarVizWrap><PkSimilarityViz /></PillarVizWrap>
+              <PillarBody>
+                Pooled phase 1 + AGILE PK data, n=253. Linear PK confirmed across ethnic groups.
+              </PillarBody>
+              <PillarCite>Jiang et al.<br />CTS 2021</PillarCite>
+            </Pillar>
 
-            <div className="deck-body" style={{
-              fontSize: 'var(--fs-slide-tagline)',
-              color: 'var(--cream)', opacity: 0.82,
-              lineHeight: 1.5, maxWidth: '66ch',
-            }}>
-              Strong CYP3A4 induction confirmed via PBPK simulation, qualified against
-              the fluconazole DDI study and autoinduction biomarkers. Concomitant CYP3A4
-              substrates carry{' '}
-              <span style={{ fontWeight: 600, color: 'var(--amber)' }}>
-                dose adjustments per label
-              </span>
-              {' '}— this is now standard regulatory practice under CDER's MIDD framework.
-            </div>
+            {/* Pillar 03 · ER Similarity */}
+            <Pillar delay={go ? D.p3 : 0} eyebrow="Pillar 03" name="ER Similarity">
+              <PillarHeroItalic>
+                Flat<br />
+                <span style={{
+                  fontSize: 'var(--fs-slide-subhead)', fontStyle: 'italic',
+                  color: C.creamMuted, fontWeight: 400,
+                }}>across range</span>
+              </PillarHeroItalic>
+              <PillarVizWrap><ErSimilarityViz /></PillarVizWrap>
+              <PillarBody>
+                No exposure-AE or exposure-efficacy relationship. Wide TI · 500 mg QD covers range.
+              </PillarBody>
+              <PillarCite>Phase 1 + AGILE pivotal</PillarCite>
+            </Pillar>
+
+            {/* Pillar 04 · Intrinsic */}
+            <Pillar delay={go ? D.p4 : 0} eyebrow="Pillar 04" name="Intrinsic">
+              <PillarHeroItalic size="tag">No impact</PillarHeroItalic>
+              <PillarSub>organ fn · age · sex</PillarSub>
+              <PillarVizWrap><IntrinsicViz /></PillarVizWrap>
+              <PillarBody>
+                No demographic dose adjustment. CYP polymorphism characterized in DDI program.
+              </PillarBody>
+              <PillarCite>Tibsovo USPI · EMA EPAR</PillarCite>
+            </Pillar>
+
+            {/* Pillar 05 · Extrinsic */}
+            <Pillar delay={go ? D.p5 : 0} eyebrow="Pillar 05" name="Extrinsic">
+              <PillarHeroNumber>0.18</PillarHeroNumber>
+              <PillarSub>midazolam AUC ratio</PillarSub>
+              <PillarVizWrap><ExtrinsicViz /></PillarVizWrap>
+              <PillarBody>
+                PBPK-supported DDI label. CYP3A4 perpetrator + victim · all scenarios labeled.
+              </PillarBody>
+              <PillarCite>Xu et al.<br />CPT:PSP 2021</PillarCite>
+            </Pillar>
+
+            {/* Pillar 06 · Global Reg */}
+            <Pillar delay={go ? D.p6 : 0} eyebrow="Pillar 06" name="Global Reg">
+              <PillarHeroNumber>30+</PillarHeroNumber>
+              <PillarSub>jurisdictions · 8 yrs</PillarSub>
+              <PillarVizWrap><GlobalRegViz /></PillarVizWrap>
+              <PillarBody>
+                Multi-agency PV · 8 yrs surveillance · no ethnicity-specific signals.
+              </PillarBody>
+              <PillarCite>FDA Orange Book<br />EMA EPAR · multi-agency</PillarCite>
+            </Pillar>
           </div>
+
+          {/* Amber message band */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduced ? 0 : 0.5, ease: EASE, delay: reduced ? 0 : D.band }}
+            style={{
+              padding: 'clamp(10px, 1.6vh, 14px) clamp(16px, 2.2vw, 28px)',
+              background: 'color-mix(in srgb, var(--amber) 14%, transparent)',
+              borderTop: `1px solid color-mix(in srgb, var(--amber) 42%, transparent)`,
+              borderBottom: `1px solid color-mix(in srgb, var(--amber) 42%, transparent)`,
+              display: 'flex', alignItems: 'center', gap: 12,
+            }}
+          >
+            <span style={{ color: C.amber, fontWeight: 600 }}>▌</span>
+            <div className="deck-display" style={{
+              fontStyle: 'italic', fontSize: 'var(--fs-slide-tagline)', color: C.cream, lineHeight: 1.4,
+            }}>
+              <span style={{ color: C.amber, fontWeight: 500 }}>No single pillar is sufficient.</span>{' '}
+              Convergence across all six is the case.
+            </div>
+          </motion.div>
         </div>
       </Viz>
 
       <Footer
-        kicker="Act 3 · PBPK → Label"
-        tagline="The cleanest 'modeling earned its keep' line in the seminar."
-        source="Xu et al., CPT:PSP 2021, PMC8213421 · Tibsovo USPI Sec. 12.3"
+        delay={reduced ? 0 : 2.0}
+        kicker="Case 02 · Six convergent pillars · ICH E5(R1)"
+        tagline=""
+        source="Jiang CTS 2021 · Xu CPT:PSP 2021 · Dang Cancer Cell 2009 · Tibsovo USPI · ICH E5(R1)"
       />
     </SlideGrid>
   );

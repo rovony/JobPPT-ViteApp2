@@ -4,52 +4,27 @@ import SlideFrame from '@/components/deck/SlideFrame';
 import Lungs from '../components/Lungs';
 
 /**
- * CS1 · Slide 07b — Mechanism + ambrisentan MOA + 4-pathway context.
+ * CS1 · Slide 07b — Mechanism + ambrisentan MOA + 3-pathway context.
  *
- * Inserted between cs1-context (V2-S3 disease foundation) and cs1-trial
- * (V2-S4 field timeline). Answers the implicit "why ambrisentan?" before
- * the field-level context.
+ * Three established PAH pathways with first-FDA-approval dates on the
+ * right; compressed endothelin mechanism schematic on the left showing
+ * selective ETA blockade. The fourth pathway (Activin/TGF-β) is noted
+ * in the disease-biology footer as an emerging adult-only class — it
+ * doesn't carry into the case and therefore doesn't earn a full card.
  *
- * Pattern: copied from cs2-disease-background (CS2 IDH1 mechanism panel)
- * — vertical SVG flowchart on the LEFT showing the endothelin pathway
- * with ambrisentan blocker bars, contextual 4-pathway cards on the RIGHT.
- *
- * **Merck angle (deliberate):** the 4th pathway (Activin / TGF-β) is
- * codified by Merck's WINREVAIR (sotatercept) — first-in-class, FDA
- * Mar 26, 2024, from the $11.5B Acceleron acquisition (closed Nov 2021).
- * Same disease as ambrisentan, ~two decades apart, same intellectual
- * move (target a specific receptor in the dysregulated cascade).
- *
- * Verified facts (web research 2026-04-26):
- *   - 2022 ESC/ERS PAH guideline codifies 3 pathways (ET, NO/cGMP,
- *     PGI2). The activin/TGF-β pathway became clinically actionable
- *     post-guideline with sotatercept's 2024 approval.
+ * Verified facts:
+ *   - 2022 ESC/ERS PAH guideline codifies 3 pathways (ET, NO/cGMP, PGI2).
  *   - Ambrisentan: selective ETA antagonist, Ki = 0.011 nM,
  *     >4,000-fold ETA selectivity vs ETB; FDA Jun 15, 2007 (Letairis).
- *   - Bosentan (Tracleer, Actelion 2001): first ERA, dual ETA/ETB.
+ *   - Bosentan (Tracleer, 2001): first ERA, dual ETA/ETB.
  *   - Macitentan (Opsumit, 2013): dual ERA, 50-fold ETA-preferring.
  *   - Sildenafil (Revatio, 2005), Tadalafil (Adcirca, 2009): PDE5i.
  *   - Riociguat (Adempas, 2013): sGC stimulator (also CTEPH).
- *   - Epoprostenol (Flolan, 1995): IV prostacyclin, t½ ~6 min.
+ *   - Epoprostenol (Flolan, 1995): IV prostacyclin.
  *   - Treprostinil (Remodulin, 2002): SC/IV/inh/oral.
- *   - Iloprost (Ventavis, FDA 2004): inhaled prostacyclin.
- *   - Beraprost (Dorner/Procylin, 1992): oral prostacyclin, PMDA-only
- *     (Japan/Korea) — relevant precedent for CS1's PMDA pediatric story.
  *   - Selexipag (Uptravi, 2015): non-prostanoid IP agonist.
- *   - Sotatercept (WINREVAIR, Merck, FDA Mar 26, 2024): activin-trap;
- *     STELLAR trial +41 m 6MWD, 84% RRR death/clinical worsening.
  *
- * Disease-biology context (added 2026-04-26 web research):
- *   - Vascular remodeling: PASMC proliferation, plexiform lesions,
- *     IL-6 / mast-cell-driven inflammation.
- *   - In-situ thrombosis in pulmonary arterioles (PAH histology).
- *   - RV maladaptation cascade: hypertrophy → dilation → uncoupling
- *     → failure (the actual cause of death in PAH).
- *   - 12-gene heritable panel beyond BMPR2: ALK1, ENG, CAV1, KCNK3,
- *     SMAD9, EIF2AK4, TBX4, GDF2, ATP13A3, KDR, AQP1, SOX17.
- *
- * Sources: ESC/ERS 2022 PAH guideline · Humbert NEJM 2023 review ·
- * Tuder Compr Physiol 2011 · Letairis PI · Hoeper STELLAR NEJM 2023.
+ * Sources: ESC/ERS 2022 · Letairis PI · Humbert NEJM 2023.
  */
 
 const EASE = [0.2, 0.7, 0.3, 1];
@@ -58,27 +33,26 @@ const D = {
   card1: 0.55,
   card2: 0.70,
   card3: 0.85,
-  card4: 1.00,
-  anchor: 1.50,
+  anchor: 1.30,
 };
 
 export default function Cs1Mechanism() {
   return (
     <SlideFrame
       dataCase="coral"
-      eyebrowColor="var(--coral)"
-      eyebrow="Case 01 · Mechanism — pathway + drug"
+      eyebrowColor="var(--case)"
+      eyebrow="Case 01 · Mechanism — endothelin pathway"
       headline={
         <>
           Four pathways drive PAH.{' '}
-          <span style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 700 }}>
-            Ambrisentan blocks one — selectively.
+          <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 700 }}>
+            Ambrisentan blocks one.
           </span>
         </>
       }
       headlineMaxChars={48}
       footerKicker="Case 01 · Mechanism"
-      footerSource="ESC/ERS 2022 PAH guideline · Letairis (ambrisentan, Gilead) PI · Hoeper STELLAR NEJM 2023 · Merck WINREVAIR FDA approval Mar 26 2024"
+      footerSource="Sources · ESC/ERS 2022 · Letairis PI · Humbert NEJM 2023"
     >
       <div
         style={{
@@ -91,11 +65,6 @@ export default function Cs1Mechanism() {
           minHeight: 0,
         }}
       >
-        {/* Lung backdrop — continues the layoutId chain from slide 07
-            (cs1-context foundation) into 08 (cs1-trial trachea-axis).
-            Sized + opacity matched to slide 07 so the FLIP morph
-            reads as "same lung pivoting" not a disappear/reappear.
-            Sits in the RIGHT pane behind the 4 pathway cards. */}
         <div
           aria-hidden
           style={{
@@ -104,7 +73,7 @@ export default function Cs1Mechanism() {
             top: '50%',
             transform: 'translateY(-50%)',
             width: 'clamp(20rem, 36vw, 32rem)',
-            opacity: 0.16,
+            opacity: 0.12,
             pointerEvents: 'none',
             zIndex: 0,
             display: 'flex',
@@ -112,23 +81,18 @@ export default function Cs1Mechanism() {
             justifyContent: 'center',
           }}
         >
-          <Lungs
-            layoutId="cs1-lung"
-            variant="foundation"
-          />
+          <Lungs layoutId="cs1-lung" variant="foundation" />
         </div>
 
-        {/* ═══ LEFT — endothelin pathway flowchart + ambrisentan blocker ═══ */}
+        {/* LEFT — compressed 3-node mechanism schematic */}
         <MOAPanel />
 
-        {/* ═══ RIGHT — 4 pathway cards (one per pillar) ═══
-            position:relative + zIndex:1 so cards render above the lung
-            backdrop (which is at zIndex:0) */}
+        {/* RIGHT — 3 pathway cards, vertical stack, equal height */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gridTemplateRows: '1fr 1fr',
+            gridTemplateColumns: '1fr',
+            gridTemplateRows: '1fr 1fr 1fr',
             gap: 'var(--space-3)',
             minHeight: 0,
             position: 'relative',
@@ -140,10 +104,10 @@ export default function Cs1Mechanism() {
             name="Endothelin"
             year="2007"
             status="↑ ET-1 OVERACTIVE"
-            statusColor="var(--coral)"
+            statusColor="var(--case)"
             mech="ET-1 → ETA → vasoconstriction + SMC proliferation. ETB preserved (NO release · ET-1 clearance)."
             drugClass="ERAs"
-            drugDetail={<><strong style={{ color: 'var(--coral)' }}>Ambrisentan</strong> (selective ETA) · Bosentan · Macitentan (dual ETA/ETB)</>}
+            drugDetail={<><strong style={{ color: 'var(--case)' }}>Ambrisentan</strong> (selective ETA) · Bosentan · Macitentan (dual ETA/ETB)</>}
             isThisCase
             delay={D.card1}
           />
@@ -164,20 +128,8 @@ export default function Cs1Mechanism() {
             status="↓ PGI2 UNDERACTIVE"
             mech="PGI2 → IP → cAMP → vasodilation + anti-proliferation. IV/SC/inhaled/oral routes."
             drugClass="Prostanoids · IP agonist"
-            drugDetail={<>Epoprostenol · Treprostinil · Iloprost · <em>Beraprost</em> (PMDA only) · Selexipag</>}
+            drugDetail={<>Epoprostenol · Treprostinil · Iloprost · Selexipag</>}
             delay={D.card3}
-          />
-          <PathwayCard
-            n="04"
-            name="Activin / TGF-β"
-            year="2024"
-            status="BMPR2 ↓ · ActRIIA ↑"
-            statusColor="var(--amber)"
-            mech="Ligand-trap rebalances pro- vs anti-proliferative SMAD signaling — first disease-modifying class."
-            drugClass="Activin signaling inhibitor"
-            drugDetail={<><strong style={{ color: 'var(--amber)' }}>Sotatercept</strong> · WINREVAIR · STELLAR +41 m 6MWD · 84% RRR death/worsening</>}
-            isMerck
-            delay={D.card4}
           />
         </div>
       </div>
@@ -186,10 +138,11 @@ export default function Cs1Mechanism() {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   MOA PANEL — left column · vertical endothelin flowchart with
-   ambrisentan blocker. The story: ET-1 binds ETA → vasoconstriction
-   + proliferation. Ambrisentan selectively blocks ETA, sparing ETB
-   (which provides beneficial NO release + ET-1 clearance).
+   MOA PANEL — compressed 3-node endothelin schematic.
+   Nodes: ET-1 → ETA receptor → vasoconstriction/proliferation.
+   Ambrisentan blocking arrow + Ki selectivity callout at the
+   ET-1 → ETA step. ETB preserved as a faint dashed side-note.
+   Disease-biology footer below with 4 bullet points.
    ══════════════════════════════════════════════════════════════════ */
 
 function MOAPanel() {
@@ -212,22 +165,9 @@ function MOAPanel() {
         overflow: 'hidden',
       }}
     >
-      <PanelKicker color="var(--coral)">Mechanism — endothelin pathway</PanelKicker>
+      <PanelKicker color="var(--case)">Mechanism — endothelin pathway</PanelKicker>
 
       <PathwayFlowchart reduced={reduced} />
-
-      <div
-        className="deck-body"
-        style={{
-          fontSize: 'var(--fs-card-body)',
-          color: 'var(--cream-muted)',
-          lineHeight: 1.5,
-        }}
-      >
-        Ambrisentan blocks ETA selectively (Ki = 0.011 nM, &gt;4000:1 vs ETB).
-        ETB-mediated NO release + ET-1 clearance preserved — the selectivity
-        argument vs dual antagonists bosentan and macitentan.
-      </div>
 
       <motion.div
         initial={reduced ? false : { opacity: 0 }}
@@ -244,13 +184,13 @@ function MOAPanel() {
         <div
           className="deck-mono uppercase"
           style={{
-            fontSize: 'var(--fs-slide-eyebrow)',
+            fontSize: 'clamp(0.65rem, min(1vw, 1.5vh), 0.9rem)',
             letterSpacing: 'var(--ls-mono-wide)',
             color: 'var(--cream-faint)',
             fontWeight: 700,
           }}
         >
-          Disease biology · beyond the 4 pathways
+          Disease biology · beyond the 3 pathways
         </div>
         <ul
           className="deck-body"
@@ -267,33 +207,21 @@ function MOAPanel() {
         >
           <li>
             <strong style={{ color: 'var(--cream)' }}>Vascular remodeling</strong>{' '}
-            — PASMC proliferation · plexiform lesions · IL-6 / mast cell inflammation
+            — PASMC proliferation · plexiform lesions
           </li>
           <li>
             <strong style={{ color: 'var(--cream)' }}>In-situ thrombosis</strong>{' '}
-            in pulmonary arterioles (PAH histology hallmark)
+            in pulmonary arterioles
           </li>
           <li>
             <strong style={{ color: 'var(--cream)' }}>RV maladaptation</strong>{' '}
-            — hypertrophy → dilation → uncoupling → failure
+            — hypertrophy → dilation → failure
           </li>
           <li>
-            <strong style={{ color: 'var(--cream)' }}>Genetic drivers</strong>{' '}
-            — BMPR2, ALK1, ENG, CAV1, KCNK3 · 12-gene heritable panel
+            <strong style={{ color: 'var(--cream)' }}>Activin/TGF-β rebalancing</strong>{' '}
+            — emerging class, adult-only data
           </li>
         </ul>
-        <span
-          className="deck-mono"
-          style={{
-            display: 'block',
-            marginTop: 'var(--space-1)',
-            fontSize: 'var(--fs-slide-pageno)',
-            letterSpacing: '0.04em',
-            color: 'var(--cream-faint)',
-          }}
-        >
-          ESC/ERS 2022 · Humbert NEJM 2023 review · Tuder Compr Physiol 2011 · Hoeper STELLAR NEJM 2023
-        </span>
       </motion.div>
     </motion.div>
   );
@@ -304,7 +232,7 @@ function PanelKicker({ color, children }) {
     <div
       className="deck-mono uppercase"
       style={{
-        fontSize: 'var(--fs-slide-eyebrow)',
+        fontSize: 'clamp(0.65rem, min(1vw, 1.5vh), 0.9rem)',
         letterSpacing: 'var(--ls-mono-wide)',
         color,
         fontWeight: 700,
@@ -315,13 +243,10 @@ function PanelKicker({ color, children }) {
   );
 }
 
-/* ── Endothelin pathway SVG flowchart ──────────────────────────────
-   Vertical flow: dysfunction → ET-1 → ETA / ETB split → vasoconst+prolif
-   with ambrisentan blocker bars at ETA. Animated coral particles flow
-   from ET-1 down the LEFT arrow; blocked particles hit the blocker
-   and fade. ETB branch (preserved by selective ETA antagonism) gets
-   muted dashed treatment so the audience reads the selectivity
-   argument visually.
+/* ── Compressed 3-node SVG flowchart ─────────────────────────────
+   ET-1 → (ambrisentan blocks) → ETA receptor → vasoconstriction.
+   ETB preserved shown as a faint dashed side-branch.
+   Animated coral particles flow down and get blocked.
 ─────────────────────────────────────────────────────────────────── */
 
 const PARTICLE_R = 2.8;
@@ -341,170 +266,110 @@ function PathwayFlowchart({ reduced }) {
       }}
     >
       <div style={{ position: 'absolute', inset: 0 }}>
-        <PathwaySVG reduced={reduced} />
+        <CompressedSVG reduced={reduced} />
       </div>
     </motion.div>
   );
 }
 
-function PathwaySVG({ reduced }) {
+function CompressedSVG({ reduced }) {
   return (
     <svg
-      viewBox="0 0 380 620"
+      viewBox="0 0 300 460"
       preserveAspectRatio="xMidYMid meet"
       style={{ width: '100%', height: '100%', display: 'block' }}
       aria-hidden
     >
-      {/* ── STEP 1: Endothelial dysfunction (PAH driver, dimmed) ── */}
-      <rect x="60" y="10" width="260" height="50" rx="8"
-            fill="none" stroke="var(--cream-muted)" strokeWidth="1.2" opacity="0.55" />
-      <text x="190" y="32" textAnchor="middle"
-            fontFamily="var(--font-display)" fontSize="15" fontWeight="600" fill="var(--cream-muted)" opacity="0.7">
-        Endothelial dysfunction
-      </text>
-      <text x="190" y="48" textAnchor="middle"
-            fontFamily="var(--font-mono)" fontSize="8" letterSpacing="1.5" fill="var(--cream-faint)" opacity="0.5">
-        PAH DRIVER
-      </text>
-
-      {/* Arrow 1: Dysfunction → ET-1 (overproduction) */}
-      <line x1="190" y1="62" x2="190" y2="92" stroke="var(--cream-muted)" strokeWidth="1.2" opacity="0.5" />
-      <polygon points="186,90 190,100 194,90" fill="var(--cream-muted)" opacity="0.5" />
-      <text x="210" y="82" textAnchor="start"
-            fontFamily="var(--font-mono)" fontSize="8" letterSpacing="1" fill="var(--cream-faint)" opacity="0.6">
-        ET-1 ↑↑
-      </text>
-
-      {/* ── STEP 2: ET-1 (Endothelin-1) central node ── */}
-      <circle cx="190" cy="130" r="40" fill="none" stroke="var(--coral)" strokeWidth="2" />
-      <text x="190" y="126" textAnchor="middle"
+      {/* NODE 1: ET-1 */}
+      <circle cx="150" cy="55" r="38" fill="none" stroke="var(--case)" strokeWidth="2" />
+      <text x="150" y="50" textAnchor="middle"
             fontFamily="var(--font-display)" fontSize="20" fontWeight="700" fill="var(--cream)">
         ET-1
       </text>
-      <text x="190" y="146" textAnchor="middle"
+      <text x="150" y="68" textAnchor="middle"
             fontFamily="var(--font-mono)" fontSize="8" letterSpacing="1.2" fill="var(--cream-muted)">
         ENDOTHELIN-1
       </text>
 
-      {/* LEFT BRANCH: ET-1 → ETA receptor (the bad pathway, ambrisentan blocks) */}
-      <line x1="170" y1="170" x2="105" y2="225" stroke="var(--coral)" strokeWidth="2" />
-      <polygon points="100,221 102,233 110,228" fill="var(--coral)" />
+      {/* Arrow: ET-1 → ETA */}
+      <line x1="150" y1="95" x2="150" y2="200" stroke="var(--case)" strokeWidth="2" />
+      <polygon points="145,198 150,210 155,198" fill="var(--case)" />
 
-      <text x="135" y="195" textAnchor="middle"
-            fontFamily="var(--font-mono)" fontSize="9" fontWeight="700"
-            letterSpacing="0.06em" fill="var(--coral)">
-        ETA
-      </text>
+      {/* Ambrisentan blocker bars */}
+      <line x1="128" y1="148" x2="172" y2="148" stroke="var(--case)" strokeWidth="4" strokeLinecap="round" />
+      <line x1="128" y1="159" x2="172" y2="159" stroke="var(--case)" strokeWidth="4" strokeLinecap="round" />
 
-      {/* Blocker bars — ambrisentan at the ETA arrow */}
-      <line x1="118" y1="200" x2="148" y2="222" stroke="var(--amber)" strokeWidth="4" strokeLinecap="round" />
-      <line x1="125" y1="195" x2="155" y2="217" stroke="var(--amber)" strokeWidth="4" strokeLinecap="round" />
-      <text x="84" y="184" textAnchor="end"
+      {/* Blocker label — left of bars */}
+      <text x="122" y="140" textAnchor="end"
             fontFamily="var(--font-mono)" fontSize="11" fontWeight="800"
-            letterSpacing="0.08em" fill="var(--amber)">
+            letterSpacing="0.08em" fill="var(--case)">
         AMBRISENTAN
       </text>
-      <text x="84" y="200" textAnchor="end"
+      <text x="122" y="156" textAnchor="end"
             fontFamily="var(--font-mono)" fontSize="9" fontWeight="700"
-            letterSpacing="0.08em" fill="var(--amber)" opacity="0.85">
+            letterSpacing="0.06em" fill="var(--case)" opacity="0.85">
         BLOCKS ETA
       </text>
-      <text x="84" y="214" textAnchor="end"
-            fontFamily="var(--font-mono)" fontSize="8" fontWeight="600"
-            letterSpacing="0.04em" fill="var(--amber)" opacity="0.7">
+      <text x="122" y="172" textAnchor="end"
+            fontFamily="var(--font-mono)" fontSize="8.5" fontWeight="600"
+            letterSpacing="0.04em" fill="var(--cream-muted)">
         Ki 0.011 nM · &gt;4000:1
       </text>
 
-      {/* ETA box — vasoconstriction + proliferation */}
-      <rect x="20" y="240" width="170" height="70" rx="8"
-            fill="var(--bg)" />
-      <rect x="20" y="240" width="170" height="70" rx="8"
-            fill="var(--coral)" fillOpacity="0.10"
-            stroke="var(--coral)" strokeWidth="1.4" />
-      <text x="105" y="260" textAnchor="middle"
-            fontFamily="var(--font-mono)" fontSize="9" letterSpacing="1.5" fill="var(--coral)">
+      {/* NODE 2: ETA receptor box */}
+      <rect x="30" y="215" width="240" height="65" rx="8" fill="var(--bg)" />
+      <rect x="30" y="215" width="240" height="65" rx="8"
+            fill="var(--case)" fillOpacity="0.10"
+            stroke="var(--case)" strokeWidth="1.4" />
+      <text x="150" y="238" textAnchor="middle"
+            fontFamily="var(--font-mono)" fontSize="9" letterSpacing="1.5" fill="var(--case)">
         ETA RECEPTOR
       </text>
-      <text x="105" y="278" textAnchor="middle"
-            fontFamily="var(--font-body)" fontSize="10" fill="var(--cream)">
+      <text x="150" y="256" textAnchor="middle"
+            fontFamily="var(--font-body)" fontSize="11" fill="var(--cream)">
         Vascular smooth muscle
       </text>
-      <text x="105" y="294" textAnchor="middle"
-            fontFamily="var(--font-body)" fontSize="10" fontWeight="600" fill="var(--cream)">
+      <text x="150" y="272" textAnchor="middle"
+            fontFamily="var(--font-body)" fontSize="11" fontWeight="600" fill="var(--cream)">
         Vasoconstriction + proliferation
       </text>
 
-      {/* RIGHT BRANCH: ET-1 → ETB receptor (preserved — selectivity argument) */}
-      <line x1="210" y1="170" x2="275" y2="225" stroke="var(--cream-muted)" strokeWidth="1.4" strokeDasharray="4 4" opacity="0.7" />
-      <polygon points="270,221 268,233 280,228" fill="var(--cream-muted)" opacity="0.7" />
-
-      <text x="245" y="195" textAnchor="middle"
-            fontFamily="var(--font-mono)" fontSize="9" fontWeight="700"
-            letterSpacing="0.06em" fill="var(--cream-muted)">
-        ETB
-      </text>
-
-      {/* ETB box — preserved by selectivity */}
-      <rect x="195" y="240" width="170" height="70" rx="8"
-            fill="var(--bg)" />
-      <rect x="195" y="240" width="170" height="70" rx="8"
-            fill="var(--cream-muted)" fillOpacity="0.06"
-            stroke="var(--cream-muted)" strokeWidth="1" strokeDasharray="3 3" />
-      <text x="280" y="260" textAnchor="middle"
-            fontFamily="var(--font-mono)" fontSize="9" letterSpacing="1.5" fill="var(--cream-muted)">
+      {/* ETB preserved — dashed side-branch (selectivity visual) */}
+      <line x1="186" y1="55" x2="262" y2="110" stroke="var(--cream-muted)" strokeWidth="1.2" strokeDasharray="4 4" opacity="0.55" />
+      <rect x="210" y="115" width="85" height="42" rx="6"
+            fill="none" stroke="var(--cream-muted)" strokeWidth="0.8" strokeDasharray="3 3" opacity="0.45" />
+      <text x="252" y="132" textAnchor="middle"
+            fontFamily="var(--font-mono)" fontSize="7.5" letterSpacing="1" fill="var(--cream-muted)" opacity="0.65">
         ETB · PRESERVED
       </text>
-      <text x="280" y="278" textAnchor="middle"
-            fontFamily="var(--font-body)" fontSize="10" fill="var(--cream)" opacity="0.85">
-        Endothelium · NO release
-      </text>
-      <text x="280" y="294" textAnchor="middle"
-            fontFamily="var(--font-body)" fontSize="10" fill="var(--cream)" opacity="0.85">
-        + ET-1 clearance
+      <text x="252" y="148" textAnchor="middle"
+            fontFamily="var(--font-body)" fontSize="8" fill="var(--cream-muted)" opacity="0.55">
+        NO release · clearance
       </text>
 
-      {/* ── STEP 4: convergence — pulmonary arteriole narrowing ── */}
-      <line x1="105" y1="312" x2="160" y2="370" stroke="var(--coral)" strokeWidth="1.4" />
-      <line x1="280" y1="312" x2="225" y2="370" stroke="var(--cream-muted)" strokeWidth="1" strokeDasharray="3 3" opacity="0.5" />
-
-      <rect x="55" y="375" width="270" height="55" rx="10"
-            fill="var(--bg)" />
-      <rect x="55" y="375" width="270" height="55" rx="10"
-            fill="var(--coral)" fillOpacity="0.10"
-            stroke="var(--coral)" strokeWidth="1.4" />
-      <text x="190" y="395" textAnchor="middle"
-            fontFamily="var(--font-mono)" fontSize="9" letterSpacing="1.5" fill="var(--coral)">
-        PULMONARY ARTERIOLES NARROW
-      </text>
-      <text x="190" y="416" textAnchor="middle"
-            fontFamily="var(--font-body)" fontSize="11" fill="var(--cream)">
-        ↑ PVR · RV hypertrophy → dilation → failure
-      </text>
-
-      {/* ── FOOTER: Ambrisentan effect chip ── */}
-      <line x1="60" y1="455" x2="320" y2="455"
+      {/* Separator */}
+      <line x1="40" y1="305" x2="260" y2="305"
             stroke="var(--cream-faint)" strokeWidth="0.5" opacity="0.4" />
-      <rect x="55" y="470" width="270" height="58" rx="6"
-            fill="var(--bg)" />
-      <rect x="55" y="470" width="270" height="58" rx="6"
-            fill="var(--amber)" fillOpacity="0.10"
-            stroke="var(--amber)" strokeWidth="1.2" />
-      <text x="190" y="488" textAnchor="middle"
-            fontFamily="var(--font-mono)" fontSize="8" letterSpacing="1.5" fill="var(--amber)">
+
+      {/* NODE 3: Result chip */}
+      <rect x="30" y="320" width="240" height="62" rx="6" fill="var(--bg)" />
+      <rect x="30" y="320" width="240" height="62" rx="6"
+            fill="var(--case)" fillOpacity="0.08"
+            stroke="var(--case)" strokeWidth="1.2" />
+      <text x="150" y="340" textAnchor="middle"
+            fontFamily="var(--font-mono)" fontSize="8" letterSpacing="1.5" fill="var(--case)">
         AMBRISENTAN EFFECT
       </text>
-      <text x="190" y="504" textAnchor="middle"
-            fontFamily="var(--font-body)" fontSize="9.5" fill="var(--cream)">
+      <text x="150" y="358" textAnchor="middle"
+            fontFamily="var(--font-body)" fontSize="10" fill="var(--cream)">
         ↓ vasoconstriction · ↓ proliferation
       </text>
-      <text x="190" y="519" textAnchor="middle"
-            fontFamily="var(--font-body)" fontSize="9.5" fill="var(--cream)">
+      <text x="150" y="374" textAnchor="middle"
+            fontFamily="var(--font-body)" fontSize="10" fill="var(--cream)">
         ETB-mediated benefits preserved
       </text>
 
-      {/* ═══════════ Flowing particles ═══════════ */}
-
-      {/* ET-1 → ETA flow (coral, down the LEFT arrow) */}
+      {/* Flowing particles: ET-1 → ETA */}
       {!reduced && [
         { delay: 1.4, duration: 2.2 },
         { delay: 2.2, duration: 2.2 },
@@ -512,11 +377,11 @@ function PathwaySVG({ reduced }) {
       ].map((p, i) => (
         <motion.circle
           key={`pa-${i}`}
-          r={PARTICLE_R} fill="var(--coral)"
-          initial={{ cx: 170, cy: 170, opacity: 0 }}
+          r={PARTICLE_R} fill="var(--case)"
+          cx={150}
+          initial={{ cy: 95, opacity: 0 }}
           animate={{
-            cx: [170, 170, 105, 105],
-            cy: [170, 170, 225, 225],
+            cy: [95, 95, 200, 200],
             opacity: [0, 1, 1, 0],
           }}
           transition={{
@@ -527,18 +392,18 @@ function PathwaySVG({ reduced }) {
         />
       ))}
 
-      {/* Blocked particles — hit blocker bars and fade (amber) */}
+      {/* Blocked particles — hit blocker bars and fade */}
       {!reduced && [
         { delay: 1.7, duration: 1.6 },
         { delay: 2.5, duration: 1.6 },
       ].map((p, i) => (
         <motion.circle
           key={`pb-${i}`}
-          r={PARTICLE_R} fill="var(--amber)"
-          initial={{ cx: 170, cy: 170, opacity: 0 }}
+          r={PARTICLE_R} fill="var(--case)"
+          cx={150}
+          initial={{ cy: 95, opacity: 0 }}
           animate={{
-            cx: [170, 170, 140, 140],
-            cy: [170, 170, 195, 195],
+            cy: [95, 95, 148, 148],
             opacity: [0, 0.9, 0.9, 0],
           }}
           transition={{
@@ -548,45 +413,22 @@ function PathwaySVG({ reduced }) {
           }}
         />
       ))}
-
-      {/* ET-1 → ETB flow (cream-muted, down the RIGHT arrow — slower, fewer) */}
-      {!reduced && [
-        { delay: 2.0, duration: 2.4 },
-        { delay: 3.4, duration: 2.4 },
-      ].map((p, i) => (
-        <motion.circle
-          key={`pe-${i}`}
-          r={PARTICLE_R} fill="var(--cream-muted)"
-          initial={{ cx: 210, cy: 170, opacity: 0 }}
-          animate={{
-            cx: [210, 210, 275, 275],
-            cy: [170, 170, 225, 225],
-            opacity: [0, 0.75, 0.75, 0],
-          }}
-          transition={{
-            duration: p.duration, delay: p.delay, ease: PARTICLE_EASE,
-            times: [0, 0.1, 0.85, 1],
-            repeat: Infinity,
-          }}
-        />
-      ))}
     </svg>
   );
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   PATHWAY CARD — one per pillar (4 total, 2x2 grid).
-   Card 01 (endothelin) gets the ★ THIS CASE coral treatment.
-   Card 04 (Activin/TGF-β) gets the amber Merck/WINREVAIR treatment.
+   PATHWAY CARD — 3 cards in vertical stack, equal height.
+   Card 01 (endothelin) gets the coral THIS CASE treatment.
    ══════════════════════════════════════════════════════════════════ */
 
 function PathwayCard({
   n, name, year, status, statusColor, mech,
-  drugClass, drugDetail, isThisCase, isMerck, delay,
+  drugClass, drugDetail, isThisCase, delay,
 }) {
   const reduced = useReducedMotion();
-  const accent = isThisCase ? 'var(--coral)' : isMerck ? 'var(--amber)' : 'var(--cream-muted)';
-  const tintColor = isThisCase ? 'var(--coral)' : isMerck ? 'var(--amber)' : null;
+  const accent = isThisCase ? 'var(--case)' : 'var(--cream-muted)';
+  const tintColor = isThisCase ? 'var(--case)' : null;
   return (
     <motion.div
       initial={reduced ? false : { opacity: 0, y: 12 }}
@@ -599,20 +441,20 @@ function PathwayCard({
         borderLeft: `4px solid ${accent}`,
         borderRadius: 'var(--radius-lg)',
         background: tintColor
-          ? `color-mix(in srgb, ${tintColor} 10%, var(--bg))`
-          : 'color-mix(in srgb, var(--panel) 75%, var(--bg))',
-        padding: 'var(--space-3)',
+          ? 'color-mix(in srgb, var(--case) 8%, transparent)'
+          : 'color-mix(in srgb, var(--panel) 70%, transparent)',
+        padding: 'clamp(var(--space-3), 1.6vw, var(--space-5))',
         display: 'flex',
         flexDirection: 'column',
-        gap: 'var(--space-2)',
+        gap: 'var(--space-3)',
         overflow: 'hidden',
       }}
     >
-      {/* Header row: pathway label + name on left, year-hero on right */}
+      {/* Header: pathway kicker + name left, year right */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 'var(--space-2)' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 0, flex: 1 }}>
           <span className="deck-mono uppercase" style={{
-            fontSize: 'var(--fs-slide-eyebrow)',
+            fontSize: 'clamp(0.65rem, min(1vw, 1.5vh), 0.9rem)',
             color: accent,
             letterSpacing: 'var(--ls-mono-wide)',
             fontWeight: 700,
@@ -621,7 +463,7 @@ function PathwayCard({
             Pathway {n}
           </span>
           <span className="deck-display" style={{
-            fontSize: 'var(--fs-card-title)',
+            fontSize: 'clamp(1.1rem, min(1.5vw, 2vh), 1.6rem)',
             color: 'var(--cream)',
             fontWeight: 700,
             lineHeight: 1.1,
@@ -629,7 +471,7 @@ function PathwayCard({
             {name}
           </span>
           <span className="deck-mono" style={{
-            fontSize: 'var(--fs-slide-pageno)',
+            fontSize: 'clamp(0.6rem, min(0.85vw, 1.2vh), 0.8rem)',
             color: statusColor || 'var(--cream-faint)',
             letterSpacing: 'var(--ls-mono)',
             fontWeight: 600,
@@ -640,16 +482,17 @@ function PathwayCard({
         </div>
         <div style={{ flexShrink: 0, textAlign: 'right' }}>
           <div className="deck-display" style={{
-            fontSize: 'var(--fs-card-numeral)',
+            fontSize: 'clamp(2.5rem, min(5vw, 7.5vh), 4.5rem)',
             color: accent,
             fontWeight: 700,
             lineHeight: 1,
             fontVariantNumeric: 'tabular-nums',
+            letterSpacing: '-0.02em',
           }}>
             {year}
           </div>
           <div className="deck-mono uppercase" style={{
-            fontSize: 'var(--fs-slide-pageno)',
+            fontSize: 'clamp(0.6rem, min(0.85vw, 1.2vh), 0.8rem)',
             color: 'var(--cream-faint)',
             letterSpacing: 'var(--ls-mono-wide)',
             marginTop: 2,
@@ -659,36 +502,36 @@ function PathwayCard({
         </div>
       </div>
 
-      {/* Mechanism line */}
+      {/* Mechanism */}
       <div className="deck-body" style={{
-        fontSize: 'var(--fs-card-body)',
+        fontSize: 'clamp(0.84rem, min(1vw, 1.4vh), 1.05rem)',
         color: 'var(--cream)',
         opacity: 0.92,
-        lineHeight: 1.4,
+        lineHeight: 1.45,
       }}>
         {mech}
       </div>
 
-      {/* Drug class + drug list (pinned to bottom) */}
+      {/* Drug class + list */}
       <div style={{
         marginTop: 'auto',
         paddingTop: 'var(--space-2)',
         borderTop: '1px dashed var(--cream-hairline)',
       }}>
         <div className="deck-mono uppercase" style={{
-          fontSize: 'var(--fs-slide-eyebrow)',
+          fontSize: 'clamp(0.65rem, min(1vw, 1.5vh), 0.9rem)',
           color: accent,
           letterSpacing: 'var(--ls-mono-wide)',
           fontWeight: 700,
           marginBottom: 4,
         }}>
-          {isThisCase ? '★ THIS CASE · ' : isMerck ? '★ MERCK · ' : ''}{drugClass}
+          {isThisCase ? '★ THIS CASE · ' : ''}{drugClass}
         </div>
         <div className="deck-body" style={{
-          fontSize: 'var(--fs-card-body)',
+          fontSize: 'clamp(0.84rem, min(1vw, 1.4vh), 1.05rem)',
           color: 'var(--cream-muted)',
           opacity: 0.92,
-          lineHeight: 1.4,
+          lineHeight: 1.45,
         }}>
           {drugDetail}
         </div>

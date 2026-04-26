@@ -165,7 +165,7 @@ export default function HazardRatioTimeline() {
               fontWeight="500"
               letterSpacing="0.16em"
               fill={hr === 1 ? tk('--cream-muted') : tk('--cream-faint')}
-              fontFeatureSettings='"tnum"'
+              style={{ fontFeatureSettings: '"tnum"' }}
             >
               {hr.toFixed(1)}
             </text>
@@ -252,7 +252,7 @@ export default function HazardRatioTimeline() {
           fontSize="56"
           fontWeight="600"
           letterSpacing="-0.04em"
-          fontFeatureSettings='"tnum" 1, "lnum" 1'
+          style={{ fontFeatureSettings: '"tnum" 1, "lnum" 1' }}
           fill={tk('--coral')}
         >
           HR 3.95
@@ -305,7 +305,7 @@ export default function HazardRatioTimeline() {
             fontWeight={emphasized ? 700 : 500}
             letterSpacing="0.22em"
             fill={emphasized ? tk('--coral') : tk('--cream-faint')}
-            fontFeatureSettings='"tnum"'
+            style={{ fontFeatureSettings: '"tnum"' }}
           >
             {emphasized ? 'AUG 2012' : String(year)}
           </text>

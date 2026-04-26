@@ -78,7 +78,6 @@ export default function TplHeroStat() {
             flexDirection: 'column',
             gap: 'var(--space-3)',
             height: '100%',
-            minHeight: 0,
             minWidth: 0,
             paddingTop: 'var(--space-2)',
           }}
@@ -88,9 +87,7 @@ export default function TplHeroStat() {
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(min(16rem, 100%), 1fr))',
               gap: 'var(--space-3)',
-              flex: '1 1 auto',
-              minHeight: 0,
-              alignContent: 'center',
+              alignContent: 'start',
             }}
           >
             {STATS.map((stat, i) => (
@@ -161,6 +158,7 @@ export default function TplHeroStat() {
                 border: '1px solid color-mix(in srgb, var(--case) 35%, transparent)',
                 borderLeft: '4px solid var(--case)',
                 borderRadius: 'var(--radius-lg)',
+                marginTop: 'auto',
                 flex: '0 0 auto',
               }}
               initial={reduced ? false : { opacity: 0, y: 8 }}

@@ -53,6 +53,7 @@ export default function SlideFrame({
   headlineMaxChars,
   subhead,
   subheadMaxChars,
+  subheadSize,
   footerKicker,
   footerTagline,
   footerSource,
@@ -91,7 +92,7 @@ export default function SlideFrame({
       )}
 
       {subhead != null && (
-        <Subhead delay={D.subhead} maxChars={subheadMaxChars}>
+        <Subhead delay={D.subhead} maxChars={subheadMaxChars} size={subheadSize}>
           {subhead}
         </Subhead>
       )}

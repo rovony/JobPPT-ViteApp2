@@ -58,14 +58,14 @@ const DISRUPTIONS = [
 function DisruptionCard({ d, delay, reduced }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 14 }}
-      animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay, ease: EASE }}
+      initial={reduced ? false : { opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : delay, ease: EASE }}
       style={{
         position: 'relative',
         minWidth: 0,
         border: '1px solid var(--cream-hairline)',
-        borderLeft: '4px solid var(--coral)',
+        borderLeft: '4px solid var(--case)',
         borderRadius: 'var(--radius-lg)',
         background: 'color-mix(in srgb, var(--panel) 65%, transparent)',
         padding: 'clamp(var(--space-3), 1.6vw, var(--space-5))',
@@ -78,7 +78,7 @@ function DisruptionCard({ d, delay, reduced }) {
         <span className="deck-mono" style={{
           fontSize: 'var(--fs-slide-eyebrow)',
           letterSpacing: 'var(--ls-mono-wide)',
-          color: 'var(--coral)',
+          color: 'var(--case)',
           fontWeight: 700,
           fontVariantNumeric: 'tabular-nums',
         }}>
@@ -87,14 +87,14 @@ function DisruptionCard({ d, delay, reduced }) {
         <span className="deck-mono uppercase" style={{
           fontSize: 'var(--fs-slide-eyebrow)',
           letterSpacing: 'var(--ls-mono-wide)',
-          color: 'var(--coral)',
+          color: 'var(--case)',
           fontWeight: 700,
         }}>
           · {d.label}
         </span>
       </div>
       <div className="deck-display" style={{
-        fontSize: 'clamp(1.05rem, 1.8vw, 1.4rem)',
+        fontSize: 'var(--fs-card-quote)',
         color: 'var(--cream)',
         fontWeight: 600,
         lineHeight: 1.2,
@@ -104,7 +104,7 @@ function DisruptionCard({ d, delay, reduced }) {
       </div>
       <div className="deck-mono" style={{
         fontSize: 'var(--fs-slide-pageno)',
-        color: 'var(--coral)',
+        color: 'var(--case)',
         opacity: 0.85,
         letterSpacing: 'var(--ls-mono)',
         lineHeight: 1.45,
@@ -123,7 +123,7 @@ function DisruptionCard({ d, delay, reduced }) {
       <div aria-hidden style={{
         height: 'var(--stroke-hair)',
         width: 'clamp(40px, 6vw, 64px)',
-        background: 'var(--coral)',
+        background: 'var(--case)',
         opacity: 0.5,
         marginTop: 'var(--space-1)',
       }} />
@@ -170,13 +170,13 @@ export default function Cs1Outcome() {
         />
       </div>
 
-      <Eyebrow color="var(--coral)" delay={0.10}>
+      <Eyebrow delay={0.10}>
         Case 01 · The program under stress
       </Eyebrow>
 
       <Headline delay={0.25} maxChars={62}>
         AMB112529 absorbed three simultaneous disruptions —{' '}
-        <span style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 600 }}>
+        <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 600 }}>
           and the framework had to hold.
         </span>
       </Headline>

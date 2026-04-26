@@ -199,10 +199,10 @@ export default function Slide14CaseBridge() {
 }
 
 /* ========================================================
-   TemplateList — numbered hairline rows. No checkmark
-   pills, no boxes. Each row = mono index · body text,
-   separated by 1px cream hairlines that read as a
-   structural list rather than a stack of cards.
+   TemplateList — visual pipeline flow. Each step is a
+   node on a vertical spine with connecting arrows and
+   a numbered circle marker. The final step is highlighted
+   in amber as the anchor conclusion.
    ======================================================== */
 function TemplateList({ bullets, ease, labelDelay, rowDelay }) {
   return (
@@ -224,57 +224,96 @@ function TemplateList({ bullets, ease, labelDelay, rowDelay }) {
         The template — generalizes to any oral small-molecule entering a pediatric population
       </motion.div>
 
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          borderTop: '1px solid var(--cream-hairline)',
-        }}
-      >
-        {bullets.map((b, i) => (
-          <TemplateRow
-            key={i}
-            index={i + 1}
-            text={b}
-            delay={rowDelay + i * 0.10}
-            highlight={i === bullets.length - 1}
-          />
-        ))}
+      <div style={{ position: 'relative' }}>
+        {/* Vertical spine */}
+        <motion.div
+          style={{
+            position: 'absolute',
+            left: 14,
+            top: 16,
+            bottom: 16,
+            width: 2,
+            background: 'linear-gradient(to bottom, var(--cream-hairline), var(--amber))',
+            transformOrigin: 'top',
+          }}
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{ duration: 1.2, ease, delay: rowDelay }}
+        />
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          {bullets.map((b, i) => (
+            <TemplateNode
+              key={i}
+              index={i + 1}
+              text={b}
+              delay={rowDelay + i * 0.12}
+              highlight={i === bullets.length - 1}
+              isLast={i === bullets.length - 1}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
 }
 
-function TemplateRow({ index, text, delay, highlight }) {
+function TemplateNode({ index, text, delay, highlight, isLast }) {
   const ease = [0.2, 0.7, 0.3, 1];
   return (
     <motion.div
       style={{
         display: 'grid',
-        gridTemplateColumns: 'auto 1fr',
-        columnGap: 'var(--space-4)',
-        alignItems: 'baseline',
-        padding: '10px 0',
-        borderBottom: '1px solid var(--cream-hairline)',
+        gridTemplateColumns: '30px 1fr',
+        columnGap: 'var(--space-3)',
+        alignItems: 'center',
+        padding: '8px 0',
       }}
-      initial={{ opacity: 0, x: -8 }}
+      initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, ease, delay }}
     >
-      <span
-        className="deck-mono"
+      {/* Node marker */}
+      <div
         style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: 'var(--fs-card-label)',
-          color: highlight ? 'var(--amber)' : 'var(--cream-faint)',
-          fontWeight: 700,
-          letterSpacing: 'var(--ls-mono-wide)',
-          minWidth: 24,
-          textAlign: 'right',
+          width: 30,
+          height: 30,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'relative',
+          zIndex: 1,
         }}
       >
-        {String(index).padStart(2, '0')}
-      </span>
+        <div
+          style={{
+            width: highlight ? 28 : 22,
+            height: highlight ? 28 : 22,
+            borderRadius: '50%',
+            border: `2px solid ${highlight ? 'var(--amber)' : 'var(--cream-hairline)'}`,
+            background: highlight
+              ? 'color-mix(in srgb, var(--amber) 15%, var(--bg))'
+              : 'var(--bg)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <span
+            className="deck-mono"
+            style={{
+              fontSize: 'var(--fs-card-meta)',
+              color: highlight ? 'var(--amber)' : 'var(--cream-faint)',
+              fontWeight: 700,
+              lineHeight: 1,
+            }}
+          >
+            {String(index).padStart(2, '0')}
+          </span>
+        </div>
+      </div>
+
+      {/* Step text */}
       <span
         style={{
           fontFamily: 'var(--font-body)',
@@ -282,6 +321,8 @@ function TemplateRow({ index, text, delay, highlight }) {
           lineHeight: 1.4,
           color: highlight ? 'var(--cream)' : 'var(--cream)',
           fontWeight: highlight ? 600 : 400,
+          borderLeft: highlight ? '2px solid var(--amber)' : 'none',
+          paddingLeft: highlight ? 10 : 0,
         }}
       >
         {text}

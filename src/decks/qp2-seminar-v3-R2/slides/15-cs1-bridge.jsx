@@ -45,14 +45,14 @@ const TAKEAWAYS = [
 function TakeawayCard({ t, delay, reduced }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay, ease: EASE }}
+      initial={reduced ? false : { opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : delay, ease: EASE }}
       style={{
         position: 'relative',
         minWidth: 0,
         border: '1px solid var(--cream-hairline)',
-        borderLeft: '4px solid var(--coral)',
+        borderLeft: '4px solid var(--case)',
         borderRadius: 'var(--radius-lg)',
         background: 'color-mix(in srgb, var(--panel) 65%, transparent)',
         padding: 'clamp(var(--space-3), 1.6vw, var(--space-5))',
@@ -65,14 +65,14 @@ function TakeawayCard({ t, delay, reduced }) {
       <div className="deck-mono uppercase" style={{
         fontSize: 'var(--fs-slide-kicker)',
         letterSpacing: 'var(--ls-mono-wide)',
-        color: 'var(--coral)',
+        color: 'var(--case)',
         fontWeight: 700,
         fontVariantNumeric: 'tabular-nums',
       }}>
         {t.n} · {t.label}
       </div>
       <div className="deck-display" style={{
-        fontSize: 'clamp(1.15rem, 2vw, 1.5rem)',
+        fontSize: 'var(--fs-card-quote)',
         color: 'var(--cream)',
         fontWeight: 700,
         lineHeight: 1.2,
@@ -124,13 +124,13 @@ export default function Cs1Bridge() {
         />
       </div>
 
-      <Eyebrow color="var(--coral)" delay={0.10}>
+      <Eyebrow delay={0.10}>
         Case 01 · What the case teaches
       </Eyebrow>
 
       <Headline delay={0.25} maxChars={62}>
         When the trial cannot carry the dose,{' '}
-        <span style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 600 }}>
+        <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 600 }}>
           the framework does
         </span>{' '}
         — and the framework holds under disruption.
@@ -163,9 +163,9 @@ export default function Cs1Bridge() {
 
           {/* Bridge ribbon to CS2 — amber rotate-45 + pointer */}
           <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.55, ease: EASE }}
+            initial={reduced ? false : { opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : 1.55, ease: EASE }}
             style={{
               alignSelf: 'center',
               maxWidth: 'clamp(28rem, 80vw, 64rem)',
@@ -187,9 +187,9 @@ export default function Cs1Bridge() {
                 height: 'clamp(0.875rem, 1.4vw, 1.25rem)',
                 background: 'var(--amber)',
               }}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={reduced ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: 1.75, ease: [0.34, 1.56, 0.64, 1] }}
+              initial={reduced ? false : { opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 1.75, ease: [0.34, 1.56, 0.64, 1] }}
             />
             <div className="deck-display italic" style={{
               fontSize: 'var(--fs-slide-tagline)',
@@ -199,11 +199,11 @@ export default function Cs1Bridge() {
               fontWeight: 500,
               flex: 1,
             }}>
-              From a <strong style={{ color: 'var(--coral)', fontStyle: 'normal' }}>rare pediatric pulmonary disease</strong> to a{' '}
+              From a <strong style={{ color: 'var(--case)', fontStyle: 'normal' }}>rare pediatric pulmonary disease</strong> to a{' '}
               <motion.span
-                initial={{ color: 'var(--cream)' }}
-                animate={reduced ? { color: 'var(--cyan)' } : { color: 'var(--cyan)' }}
-                transition={{ duration: 0.4, delay: 2.55 }}
+                initial={reduced ? false : { color: 'var(--cream)' }}
+                animate={{ color: 'var(--cyan)' }}
+                transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 2.55 }}
                 style={{ fontWeight: 600, fontStyle: 'normal' }}
               >
                 regulatory bridging waiver in oncology
