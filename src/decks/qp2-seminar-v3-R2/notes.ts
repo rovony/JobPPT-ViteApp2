@@ -48,7 +48,7 @@ It can't be run because it's **untrialable** — you ==can't randomize children 
 
 It can't be run because it's **unavailable** — ==a regulator asks for a local Phase 3 the drug has never seen, in a population the global program never enrolled==, on a timeline that patients do not have. ⏸
 
-It can't be run because it's **unbuilt** — the next decade of clinical pharmacology will need ==infrastructure, audit, and decision tools no one ships off the shelf==. ⏸
+It can't be run because it's **unbuilt** — the next decade of clinical pharmacology will need ==infrastructure, audit, and decision tools no vendor can give you off the shelf==. ⏸
 
 Three cases — three trials that couldn't be run — and *three answers anyway*. ⏸ That's the function.
 
@@ -73,30 +73,31 @@ Three cases — three trials that couldn't be run — and *three answers anyway*
   //   The graphic does the visual work; the speaker names each stop
   //   with ONE concrete fact that earns the panel's trust.
   'career-arc': `## Spoken
-A short orientation before the cases — so you know whose lens you're looking through.
+I'll start where I started — at a bedside in Jordan, asking what the right dose was for the person in front of me. ⏸ Twenty years on, I'm asking the same question — but for whole populations, in front of regulators. That's the lens this whole talk runs through.
 
-Five stops. ⏸ ==One question== — what dose, for whom, and why? — has followed me through every one of them.
+So — five stops, ==one question==. *What dose, for whom, and why?*
 
-==**Jordan**== — I started at the bedside. Dental surgery, clinical license. ==A dose is an answer to a person, not just a number.== ⏸
+I started as a dentist in Jordan — that's where the question started. ⏸
 
-==**Minnesota**== — PhD with Dr. Richard Brundage. Population PK, exposure-response, ECP Fellowship — three research awards. The craft layer, where modeling stopped being a tool I used and became a way of thinking. ⏸
+Then Minnesota — PhD with Dr. Brundage. That's where modeling stopped being a tool I picked up and became how I think. ⏸
 
-==**Merck · QP2 · summer 2014**== — first time I saw nonlinear-mixed-effects simulation inside a development pipeline that actually ships drugs. *That summer is part of why we're talking today.* ⏸
+Summer of 2014 — I came **here**, to Merck. QP2, as an intern. First time I saw nonlinear-mixed-effects simulation actually ship a drug. *Honestly, that summer is part of why we're sitting here today.* ⏸
 
-==**GSK · seven years**== — Clinical Pharmacology Modeling and Simulation. Five therapeutic areas. ==Four approvals across five agencies== — including ambrisentan pediatric, the case I'll open with. Top-10% Award, 2019. ⏸
+Then seven years at GSK — Clin Pharm modeling and simulation, five therapeutic areas, four approvals during my tenure. That's where the ambrisentan pediatric story happened — case one. ⏸
 
-==**Servier · Director, since 2022**== — leading the oncology Clin Pharm portfolio. ==Three approvals during my tenure== — Onivyde, Oncaspar, Tibsovo global lifecycle — and the India ivosidenib waiver, which is case two.
+And since 2022 — Director at Servier, leading oncology Clin Pharm. Three approvals on my watch — Onivyde, Oncaspar, Tibsovo lifecycle. The India ivosidenib waiver — that's case two.
 
-The work has crossed therapeutic areas, agencies, and continents. The question hasn't changed.
+Different drugs, different agencies, four countries. ==The question hasn't changed.==
 
 ## Cues
-- ⏱ ~90 sec — the graphic does the heavy lifting; resist the urge to read every satellite
-- 🎚 Each stop gets ONE beat — name the institution, name the work, move on
-- 🎯 Gesture left-to-right across the five hubs as you name them; the spine ascends, your hand should too
-- 🎯 Eye contact: panel chair on "Jordan", a pharmacometrics-leaning panelist on "Minnesota", the most senior panelist on "Merck", regulatory-leaning panelist on "GSK", chair again on "Servier"
-- ⚠ Do NOT name compounds beyond ambrisentan + ivosidenib here (Tibsovo is named because Servier's portfolio is public; that's fine). Stay above the case-detail level — depth comes in CS1/CS2/CS3.
-- ⚠ Do NOT linger on awards; mention each once and move
-- ⚠ Do NOT preview the AI/ML work yet — that's CS3
+- ⏱ ~90 sec — ~200 words at conversational pace; the graphic carries the visual, don't read every satellite
+- 🎚 Conversational throughout; small warm lift on "I came **here**, to Merck" — earn it, don't perform it
+- 🎚 Drop the voice slightly on "honestly, that summer is part of why we're sitting here today" — said quietly, not as a punchline
+- 🎯 Sweep gesture left-to-right across the five hubs as you name each; the spine ascends — your hand should too
+- 🎯 Eye contact: panel chair on Jordan → modeling-leaning panelist on Minnesota → most senior panelist on "I came here, to Merck" → regulatory-leaning panelist on GSK → chair again on Servier
+- ⚠ Do NOT name compounds beyond ambrisentan, ivosidenib, and the public Servier portfolio (Onivyde, Oncaspar, Tibsovo). No CS3 compounds yet.
+- ⚠ Do NOT linger on awards or numbers; name once and move
+- ⚠ Do NOT preview the AI/ML work — that's CS3
 - ✅ Land cleanly on "The question hasn't changed."
 - 🛟 If you blank — fallback: "Five stops. One question — what dose, for whom, and why? Let me show you the cases."
 

@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useDeck } from '@/lib/deck-store';
+import CASES from '../_shared/cases';
 
 /**
  * 01-title — V3-R2 cover (Kinetic PK Spine).
@@ -33,41 +34,9 @@ import { useDeck } from '@/lib/deck-store';
 // Landmarks float ABOVE the PK curve — pharmacologic markers, no drop-lines.
 // Each dot is positioned at its own (x,y) independent of the curve path.
 // Labels sit at a shared baseline below, offset to match reference layout.
-const CASES = [
-  {
-    id: 1,
-    label: 'CASE 01 · AMBRISENTAN · PEDIATRIC PAH',
-    title: 'Model-based dose for a trial that could not be run.',
-    note: 'Approved by EMA + PMDA.',
-    color: 'var(--coral)',
-    dotX: 170,
-    dotY: 18,
-    labelX: 235,
-    labelText: 'CMAX',
-  },
-  {
-    id: 2,
-    label: 'CASE 02 · IVOSIDENIB · INDIA AML',
-    title: 'Global dossier extrapolated to CDSCO.',
-    note: 'Local-data waiver granted, 2025.',
-    color: 'var(--cyan)',
-    dotX: 495,
-    dotY: 118,
-    labelX: 555,
-    labelText: 'AUC',
-  },
-  {
-    id: 3,
-    label: 'CASE 03 · AI / ML · CLIN PHARM AGENT',
-    title: 'Agentic ML for dose-finding workflows.',
-    note: 'Pilot deployment, 2026.',
-    color: 'var(--violet)',
-    dotX: 625,
-    dotY: 165,
-    labelX: 680,
-    labelText: 'T½',
-  },
-];
+// CASES data is now imported from _shared/cases.ts so slide 02 (hook-A)
+// can render the same 3 cards via shared layoutId — the cards persist
+// visually across the slide-1 → slide-2 transition.
 
 // Primary oral-PK curve — absorption → Cmax (x=150, y=20) → decline.
 const PK_PRIMARY = 'M 0,200 C 60,200 100,20 150,20 C 200,20 280,80 400,120 C 520,160 700,180 900,190';
@@ -367,7 +336,7 @@ export default function TitleSlide() {
             transition={{ duration: 0.3, delay: 2.7 }}
           >
             <div>SEMINAR · APRIL 2026</div>
-            <div>3 CASES · 3 REGULATORS · 45 MIN</div>
+            <div>3 CASES · ONE DISCIPLINE · 45 MIN</div>
           </motion.div>
         </div>
       </div>
@@ -398,6 +367,8 @@ function CaseCard({ c, index, go, idleAtRest }) {
   const cardGlowFade = `${baseInset}, 0 0 12px 1px color-mix(in srgb, ${c.color} 35%, transparent)`;
   return (
     <motion.div
+      layoutId={`hook-mark-cs${c.id}`}
+      layout
       className="relative h-full"
       style={{
         padding: 'var(--space-4) var(--space-4) var(--space-4) var(--space-5)',

@@ -338,11 +338,14 @@ A: The 42 figure comes from the public approval list at the time of the
 Indian MAA submission (Aug 2024). It includes all jurisdictions where
 Tibsovo held marketing authorization — FDA, EMA centralized, PMDA, NMPA,
 MFDS, Health Canada, Swissmedic, and 30+ national regulators via the EU
-centralised procedure. Happy to share the full country-by-country list
-after the talk.
+centralised procedure. Servier India's June 2025 commercial-launch
+press release used the same "more than 42 countries" framing publicly.
+Happy to share the full country-by-country list after the talk.
 
-> {{VERIFY: lock the exact count against the submission dossier before
-> finalizing the NumberTicker target.}}
+> **If pressed:** I'll defend "more than 42" rather than an exact integer —
+> the count is cumulative regulatory authorizations, not unique geographies,
+> and I'd rather over-defer to the Servier public statement than risk a
+> single-country miscount in front of the panel.
 
 ## Q2: "India isn't unique here — China, Brazil, Russia all have local-trial frameworks. Why this case?"
 **From:** cross-regional panelist

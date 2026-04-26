@@ -2,6 +2,7 @@
 import React, { useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import TitleLayout from '@/components/deck/layouts/TitleLayout';
+import CASES from '../_shared/cases';
 
 /**
  * 02-hook-A — "When the trial isn't the answer."  (~75 sec)
@@ -191,156 +192,222 @@ export default function HookATrialNotAnswer({ deck }) {
             for chrome only on this slide. See Stewardship rule in
             merck-deck/CLAUDE.md. */}
 
-        {/* ─── Zone 3 — HEADLINE (the anchor) ─── */}
+        {/* ─── Zone 3 — Persistent cards + connector lines + badges + right-side headline
+             2026-04-26 cinematic-persist pass per user direction:
+             The 3 case cards from slide 01 PERSIST visually onto slide 02
+             via shared layoutId="hook-mark-csN" — as if they never left
+             when the speaker advanced from slide 01 to slide 02. Below
+             each card sits an amber U-badge that fades in at 16s/37s/55s
+             (when the speaker says "untrialable / unavailable / unbuilt"),
+             and a connector line draws between each card and its badge
+             at the same time. Headline + subtitle live to the right and
+             are visible from frame 0 (before the first badge appears).
+        ─── */}
         <div
           style={{
             position: 'absolute',
-            top: '55%',
-            left: 'clamp(var(--space-4), 12%, 12%)',
-            right: 'var(--space-4)',
-            transform: 'translateY(-50%)',
+            top: 'clamp(var(--space-6), 14%, 18%)',
+            left: 'clamp(var(--space-4), 6%, 8%)',
+            right: 'clamp(var(--space-4), 6%, 8%)',
+            bottom: 'clamp(var(--space-6), 12%, 14%)',
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0, 1.45fr) minmax(0, 1fr)',
+            gap: 'clamp(var(--space-5), 4vw, var(--space-9))',
+            alignItems: 'start',
           }}
         >
-          <h1
-            className="deck-display"
-            style={{
-              fontSize: 'var(--fs-slide-hook)',
-              lineHeight: 0.95,
-              fontWeight: 'var(--fw-display-md)',
-              color: 'var(--cream)',
-              letterSpacing: '-0.015em',
-              margin: 0,
-            }}
-          >
-            <motion.span
-              style={{ display: 'block' }}
-              initial={{ opacity: 0 }}
-              animate={go ? { opacity: 1 } : { opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.45, ease: [0.2, 0.7, 0.3, 1] }}
-            >
-              When the trial
-            </motion.span>
-            <motion.span
-              style={{
-                display: 'block',
-                /* Editorial second-line indent — fluid so the indent shrinks
-                   on narrow viewports instead of pushing the line off-screen */
-                paddingLeft: 'clamp(0px, 3em, 12vw)',
-              }}
-              initial={{ opacity: 0 }}
-              animate={go ? { opacity: 1 } : { opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.65, ease: [0.2, 0.7, 0.3, 1] }}
-            >
-              isn't the answer.
-            </motion.span>
-          </h1>
-
-          {/* ─── Subtitle — thesis framing line ─── */}
-          <motion.p
-            className="deck-body"
-            style={{
-              fontSize: 'var(--fs-slide-lead)',
-              color: 'color-mix(in srgb, var(--cream) 78%, transparent)',
-              lineHeight: 1.35,
-              margin: 0,
-              marginTop: 'var(--space-4)',
-              maxWidth: '60ch',
-            }}
-            {...fade(0.8)}
-          >
-            Three decisions where the trial that would have answered
-            them couldn't be run — and{' '}
-            <span style={{ color: 'var(--amber)', fontWeight: 600 }}>
-              clinical pharmacology
-            </span>
-            {' '}had to.
-          </motion.p>
-
-          {/* ─── Zone 4 — STRUCTURAL PROMISE (three marks) ─── */}
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',           /* reflow on narrow viewports */
-              gap: 'clamp(var(--space-3), 4vw, var(--space-10))', /* fluid gap shrinks on mobile */
-              marginTop: 'var(--space-7)',
-            }}
-          >
-            {MARKS.map((m, i) => {
-              /* Speaker-paced reveal — each mark lands when the speaker
-                 says its word. Math-locked to spoken script at 130 wpm
-                 with 1.5-sec ⏸ pauses:
-                   16s "It can't be run because it's [untrialable]" → UNTRIALABLE
-                   37s "It can't be run because it's [unavailable]" → UNAVAILABLE
-                   55s "It can't be run because it's [unbuilt]"     → UNBUILT
-                 Notes 🧷 cues give the speaker target seconds. */
+          {/* ── LEFT — 3 persistent cards on top, connector lines, 3 badges below ── */}
+          <div style={{
+            position: 'relative',
+            minWidth: 0,
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+            gap: 'clamp(var(--space-3), 1.6vw, var(--space-5))',
+          }}>
+            {CASES.map((c, i) => {
               const markDelay = [16, 37, 55][i];
               return (
-                <motion.div
-                  key={m.label}
+                <div
+                  key={c.id}
                   style={{
                     minWidth: 0,
-                    position: 'relative',
-                    overflow: 'hidden',
                     display: 'flex',
-                    alignItems: 'center',
-                    gap: 'var(--space-2)',
-                    border: '1px solid color-mix(in srgb, var(--amber) 36%, transparent)',
-                    borderRadius: 'var(--radius-md)',
-                    background: 'color-mix(in srgb, var(--amber) 6%, transparent)',
-                    padding: 'var(--space-2) var(--space-4)',
+                    flexDirection: 'column',
+                    gap: 0,
                   }}
-                  {...fade(markDelay)}
                 >
-                  {/* Left accent rail (vertical) */}
-                  <div
-                    aria-hidden
+                  {/* Card — persists visually from slide 01 via shared layoutId */}
+                  <motion.div
+                    layoutId={`hook-mark-cs${c.id}`}
+                    layout
                     style={{
-                      position: 'absolute',
-                      left: 0,
-                      top: 0,
-                      bottom: 0,
-                      width: 3,
-                      background: 'var(--amber)',
+                      position: 'relative',
+                      padding: 'var(--space-3) var(--space-3) var(--space-3) var(--space-4)',
+                      borderRadius: 'var(--radius-md)',
+                      border: '1px solid color-mix(in srgb, var(--cream) 10%, transparent)',
+                      background: 'color-mix(in srgb, var(--panel) 38%, transparent)',
+                      overflow: 'hidden',
+                      minHeight: 0,
+                    }}
+                  >
+                    <div
+                      aria-hidden
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        top: 'var(--space-3)',
+                        bottom: 'var(--space-3)',
+                        width: 2,
+                        borderRadius: '1px',
+                        background: c.color,
+                      }}
+                    />
+                    <div className="deck-mono uppercase" style={{
+                      fontSize: 'var(--fs-slide-eyebrow)',
+                      letterSpacing: 'var(--ls-mono)',
+                      fontWeight: 600,
+                      color: c.color,
+                      marginBottom: 'var(--space-1)',
+                    }}>
+                      {c.label}
+                    </div>
+                    <div className="deck-display" style={{
+                      fontSize: 'var(--fs-slide-subhead)',
+                      color: 'var(--cream)',
+                      fontWeight: 600,
+                      lineHeight: 1.3,
+                    }}>
+                      {c.title}
+                    </div>
+                  </motion.div>
+
+                  {/* Connector — vertical line drawn at the time-locked beat */}
+                  <motion.div
+                    aria-hidden
+                    initial={{ scaleY: 0, opacity: 0 }}
+                    animate={go ? { scaleY: 1, opacity: 1 } : { scaleY: 1, opacity: 1 }}
+                    transition={{ duration: 0.5, delay: markDelay - 0.2, ease: [0.2, 0.7, 0.3, 1] }}
+                    style={{
+                      width: 2,
+                      height: 'clamp(var(--space-6), 6vh, var(--space-9))',
+                      background: `linear-gradient(180deg, ${c.color} 0%, var(--amber) 100%)`,
+                      margin: 'var(--space-3) auto var(--space-3) auto',
+                      transformOrigin: 'top',
+                      borderRadius: 1,
                     }}
                   />
-                  {/* Bottom hairline — case-color foreshadow */}
-                  <div
-                    aria-hidden
+
+                  {/* Amber U-badge — fades in at the time-locked beat */}
+                  <motion.div
+                    {...fade(markDelay)}
                     style={{
-                      position: 'absolute',
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      height: 1,
-                      background: m.foreshadow,
-                      opacity: 0.6,
+                      minWidth: 0,
+                      position: 'relative',
+                      overflow: 'hidden',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 'var(--space-2)',
+                      border: '1px solid color-mix(in srgb, var(--amber) 36%, transparent)',
+                      borderRadius: 'var(--radius-md)',
+                      background: 'color-mix(in srgb, var(--amber) 6%, transparent)',
+                      padding: 'var(--space-2) var(--space-3)',
                     }}
-                  />
-                  {/* Icon — inherits amber 80% from parent color */}
-                  <span
-                    aria-hidden
-                    style={{
+                  >
+                    <div
+                      aria-hidden
+                      style={{
+                        position: 'absolute',
+                        left: 0, top: 0, bottom: 0,
+                        width: 3,
+                        background: 'var(--amber)',
+                      }}
+                    />
+                    <div
+                      aria-hidden
+                      style={{
+                        position: 'absolute',
+                        left: 0, right: 0, bottom: 0,
+                        height: 1,
+                        background: c.color,
+                        opacity: 0.6,
+                      }}
+                    />
+                    <span aria-hidden style={{
                       display: 'inline-flex',
                       alignItems: 'center',
                       color: 'color-mix(in srgb, var(--amber) 80%, transparent)',
-                    }}
-                  >
-                    <MarkIcon kind={m.icon} />
-                  </span>
-                  <div
-                    className="deck-mono uppercase"
-                    style={{
+                    }}>
+                      <MarkIcon kind={MARKS[i].icon} />
+                    </span>
+                    <div className="deck-mono uppercase" style={{
                       fontSize: 'var(--fs-slide-eyebrow)',
                       letterSpacing: '0.12em',
                       whiteSpace: 'nowrap',
                       color: 'var(--cream)',
-                    }}
-                  >
-                    {m.label}
-                  </div>
-                </motion.div>
+                    }}>
+                      {MARKS[i].label}
+                    </div>
+                  </motion.div>
+                </div>
               );
             })}
+          </div>
+
+          {/* ── RIGHT — Headline + subtitle (visible from frame 0) ── */}
+          <div style={{
+            minWidth: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--space-5)',
+            paddingTop: 'var(--space-2)',
+          }}>
+            <h1
+              className="deck-display"
+              style={{
+                fontSize: 'var(--fs-slide-hook)',
+                lineHeight: 0.95,
+                fontWeight: 'var(--fw-display-md)',
+                color: 'var(--cream)',
+                letterSpacing: '-0.015em',
+                margin: 0,
+              }}
+            >
+              <motion.span
+                style={{ display: 'block' }}
+                {...fade(0.45)}
+              >
+                When the trial
+              </motion.span>
+              <motion.span
+                style={{
+                  display: 'block',
+                  paddingLeft: 'clamp(0px, 2em, 8vw)',
+                }}
+                {...fade(0.65)}
+              >
+                isn't the answer.
+              </motion.span>
+            </h1>
+
+            <motion.p
+              className="deck-body"
+              style={{
+                fontSize: 'var(--fs-slide-lead)',
+                color: 'color-mix(in srgb, var(--cream) 78%, transparent)',
+                lineHeight: 1.4,
+                margin: 0,
+                maxWidth: '36ch',
+              }}
+              {...fade(0.85)}
+            >
+              Three decisions where the trial that would have answered them
+              couldn't be run — and{' '}
+              <span style={{ color: 'var(--amber)', fontWeight: 600 }}>
+                clinical pharmacology
+              </span>
+              {' '}had to.
+            </motion.p>
           </div>
         </div>
 
