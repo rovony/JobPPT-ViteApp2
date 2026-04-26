@@ -147,45 +147,46 @@ export default function Cs1Context() {
             />
           </div>
 
-          {/* Top-left corner — fact 01 PATHOLOGY */}
+          {/* Top-left card — fact 01 PATHOLOGY (pulled inward toward
+              the lung's left lobe instead of slammed to the edge) */}
           <div className="cs1-corner cs1-corner-tl" style={{
             position: 'absolute',
             top: 'clamp(var(--space-2), 2vh, var(--space-3))',
-            left: 0,
-            width: 'clamp(13rem, 26vw, 19rem)',
+            left: 'clamp(var(--space-2), 4vw, var(--space-6))',
+            width: 'clamp(15rem, 30vw, 22rem)',
             zIndex: 2,
           }}>
             <FactPanel fact={FACTS[0]} delay={0.85} reduced={reduced} />
           </div>
 
-          {/* Top-right corner — fact 02 HEMODYNAMIC */}
+          {/* Top-right card — fact 02 HEMODYNAMIC */}
           <div className="cs1-corner cs1-corner-tr" style={{
             position: 'absolute',
             top: 'clamp(var(--space-2), 2vh, var(--space-3))',
-            right: 0,
-            width: 'clamp(13rem, 26vw, 19rem)',
+            right: 'clamp(var(--space-2), 4vw, var(--space-6))',
+            width: 'clamp(15rem, 30vw, 22rem)',
             zIndex: 2,
           }}>
             <FactPanel fact={FACTS[1]} delay={0.97} reduced={reduced} />
           </div>
 
-          {/* Bottom-left corner — fact 03 PATHWAYS */}
+          {/* Bottom-left card — fact 03 PATHWAYS */}
           <div className="cs1-corner cs1-corner-bl" style={{
             position: 'absolute',
             bottom: 'clamp(var(--space-2), 2vh, var(--space-3))',
-            left: 0,
-            width: 'clamp(13rem, 26vw, 19rem)',
+            left: 'clamp(var(--space-2), 4vw, var(--space-6))',
+            width: 'clamp(15rem, 30vw, 22rem)',
             zIndex: 2,
           }}>
             <FactPanel fact={FACTS[2]} delay={1.09} reduced={reduced} />
           </div>
 
-          {/* Bottom-right corner — fact 04 OUTCOME */}
+          {/* Bottom-right card — fact 04 OUTCOME */}
           <div className="cs1-corner cs1-corner-br" style={{
             position: 'absolute',
             bottom: 'clamp(var(--space-2), 2vh, var(--space-3))',
-            right: 0,
-            width: 'clamp(13rem, 26vw, 19rem)',
+            right: 'clamp(var(--space-2), 4vw, var(--space-6))',
+            width: 'clamp(15rem, 30vw, 22rem)',
             zIndex: 2,
           }}>
             <FactPanel fact={FACTS[3]} delay={1.21} reduced={reduced} />
