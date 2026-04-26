@@ -21,6 +21,10 @@ import TplFlow from './slides/tpl-flow';
 import TplStackedList from './slides/tpl-stacked-list';
 import TplHeroStat from './slides/tpl-hero-stat';
 import TplBackup from './slides/tpl-backup';
+import TplEditorialHook from './slides/tpl-editorial-hook';
+import TplAmberBand from './slides/tpl-amber-band';
+import TplTimeline from './slides/tpl-timeline';
+import TplClosingRibbon from './slides/tpl-closing-ribbon';
 
 const manifest = {
   id: 'slide-templates',
@@ -35,12 +39,18 @@ const manifest = {
     },
   },
   slides: [
-    { component: TplCardGrid,    id: 'tpl-card-grid',    title: 'Template: Card Grid',    time: 60 },
-    { component: TplTwoCol,      id: 'tpl-two-col',      title: 'Template: Two-Column',   time: 60 },
-    { component: TplFlow,        id: 'tpl-flow',          title: 'Template: Flow Diagram', time: 60 },
-    { component: TplStackedList, id: 'tpl-stacked-list',  title: 'Template: Stacked List', time: 60 },
-    { component: TplHeroStat,    id: 'tpl-hero-stat',     title: 'Template: Hero Stat',    time: 60 },
-    { component: TplBackup,      id: 'tpl-backup',        title: 'Template: Backup Slide', time: 60 },
+    /* ── Body slides (use SlideGrid + SlideParts) ── */
+    { component: TplCardGrid,      id: 'tpl-card-grid',      title: 'Template: Card Grid',      time: 60 },
+    { component: TplTwoCol,        id: 'tpl-two-col',        title: 'Template: Two-Column',     time: 60 },
+    { component: TplFlow,          id: 'tpl-flow',            title: 'Template: Flow Diagram',   time: 60 },
+    { component: TplStackedList,   id: 'tpl-stacked-list',    title: 'Template: Stacked List',   time: 60 },
+    { component: TplHeroStat,      id: 'tpl-hero-stat',       title: 'Template: Hero Stat',      time: 60 },
+    { component: TplAmberBand,     id: 'tpl-amber-band',      title: 'Template: Amber Band',     time: 60 },
+    { component: TplTimeline,      id: 'tpl-timeline',        title: 'Template: Timeline',       time: 60 },
+    { component: TplClosingRibbon, id: 'tpl-closing-ribbon',  title: 'Template: Closing Ribbon', time: 60 },
+    { component: TplBackup,        id: 'tpl-backup',          title: 'Template: Backup Slide',   time: 60 },
+    /* ── Bespoke slides (use TitleLayout or BodyLayout) ── */
+    { component: TplEditorialHook, id: 'tpl-editorial-hook',  title: 'Template: Editorial Hook', time: 60 },
   ],
 };
 

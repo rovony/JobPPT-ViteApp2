@@ -72,7 +72,7 @@ const nodeStyle = {
   gap: 'var(--space-2)',
 };
 
-function FlowArrow({ reduced, delay }) {
+function FlowArrow({ reduced, delay, inView }) {
   return (
     <motion.div
       style={{
@@ -84,7 +84,7 @@ function FlowArrow({ reduced, delay }) {
         width: 'var(--space-5)',
       }}
       initial={reduced ? false : { opacity: 0 }}
-      animate={{ opacity: 1 }}
+      animate={inView ? { opacity: 1 } : undefined}
       transition={{ duration: reduced ? 0 : 0.3, delay: reduced ? 0 : delay, ease: EASE }}
     >
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style={{ display: 'block' }}>
@@ -197,7 +197,7 @@ export default function TplFlow() {
               </motion.div>
 
               {i < NODES.length - 1 && (
-                <FlowArrow reduced={reduced} delay={0.6 + i * 0.2} />
+                <FlowArrow reduced={reduced} delay={0.6 + i * 0.2} inView={inView} />
               )}
             </div>
           ))}

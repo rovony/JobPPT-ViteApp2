@@ -48,7 +48,6 @@ const panelStyle = {
   background: 'color-mix(in srgb, var(--panel) 65%, transparent)',
   padding: 'var(--space-4) var(--space-5)',
   minWidth: 0,
-  minHeight: 0,
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
