@@ -7,13 +7,15 @@
  *   02            hook-A (TitleLayout, deck-neutral, amber default)
  *   03            career-arc (BodyLayout)
  *   04            roadmap (BodyLayout)
- *   05 → 15       CS1 · ambrisentan       — 11 slides — coral cascade
- *   16 → 26       CS2 · ivosidenib        — 11 slides — cyan  cascade
+ *   05 → 16       CS1 · ambrisentan       — 12 slides — coral cascade
+ *                  (added cs1-poppk 2026-04-26 per cs1.md "no PK/PD charts")
+ *   17 → 27       CS2 · ivosidenib        — 11 slides — cyan  cascade
  *                  (was 13 · cs2-decisive-move + cs2-outcome archived 2026-04-26
  *                   for dedup; backups in slides/_backup/)
- *   27 → 34       CS3 · PharmAgent        —  8 slides — sage  cascade
- *   (no cross-case synthesis slide; no closer slide currently registered —
- *    flagged 2026-04-26 Phase 0 audit; closer to be added before lock.)
+ *   28 → 35       CS3 · PharmAgent        —  8 slides — sage  cascade
+ *   36 → 38       Closing                 —  3 slides — amber default
+ *                  (synthesis · Merck fit · thanks/Q&A — added 2026-04-26
+ *                   per Phase 0 audit "no closer slide currently registered")
  *
  * Backup slides (17 total, all CS1):
  *   3 timeline backups (1995–2026 / 2004–2024 amb-only / program-detail)
@@ -50,6 +52,7 @@ import Cs1Mechanism from './slides/07b-cs1-mechanism';
 import Cs1History from './slides/cs1-history';
 import Cs1Trial from './slides/08-cs1-trial';
 import Cs1Architecture from './slides/09-cs1-architecture';
+import Cs1Poppk from './slides/09b-cs1-poppk';
 import Cs1Results from './slides/10-cs1-results';
 import Cs1Outcome from './slides/11-cs1-outcome';
 import Cs1Bracket from './slides/12-cs1-bracket';
@@ -82,6 +85,11 @@ import CS3DecisiveMove from './slides/cs3-05-decisive-move';
 import CS3Pilot from './slides/cs3-06-pilot';
 import CS3Bracket from './slides/cs3-07-bracket';
 import CS3Portable from './slides/cs3-08-portable';
+// Closing slides — added 2026-04-26 per Phase 0 audit (manifest flagged
+// "no closer slide currently registered"). Synthesis + fit + Q&A.
+import ClosingThread from './slides/closing-01-thread';
+import ClosingMerck from './slides/closing-02-merck';
+import ClosingThanks from './slides/closing-03-thanks';
 import Cs1BackupTimelineContext from './slides/cs1-backup-01-timeline-context';
 import Cs1BackupTimelineAmbOnly from './slides/cs1-backup-02-timeline-amb-only';
 import Cs1BackupTimelineProgramDetail from './slides/cs1-backup-03-timeline-program-detail';
@@ -270,13 +278,18 @@ const manifest = {
     // 08 — CS1 trial design + LTE
     { id: 'cs1-trial', title: 'CS1 · AMB112529 + LTE', component: Cs1Trial, isTitle: false, transition: 'fade', time: 75 },
 
-    // 09 — CS1 architecture (three pillars; ends pointing forward)
-    { id: 'cs1-architecture', title: 'CS1 · three pillars', component: Cs1Architecture, isTitle: false, transition: 'fade', time: 90 },
+    // 09 — CS1 architecture (drug profile + 5 pediatric trial constraints —
+    //      sets up why a 41-patient trial had to carry the dose)
+    { id: 'cs1-architecture', title: 'CS1 · drug + 5 constraints', component: Cs1Architecture, isTitle: false, transition: 'fade', time: 75 },
 
-    // 10 — CS1 results (the 3% match — single hero numeral)
+    // 09b — CS1 PopPK build + fit (added 2026-04-26 per cs1.md "no PK/PD charts")
+    //       2-cmt schematic · param table · pcVPC · exposure-match strip
+    { id: 'cs1-poppk', title: 'CS1 · PopPK · build + fit', component: Cs1Poppk, isTitle: false, transition: 'fade', time: 75 },
+
+    // 10 — CS1 results (the 3% match · two precedents · EMA branch chosen)
     { id: 'cs1-results', title: 'CS1 · within 3% of adult', component: Cs1Results, isTitle: false, transition: 'fade', time: 60 },
 
-    // 11 — CS1 clinical outcome
+    // 11 — CS1 clinical outcome (3 disruptions absorbed)
     { id: 'cs1-outcome', title: 'CS1 · the numbers', component: Cs1Outcome, isTitle: false, transition: 'fade', time: 75 },
 
     // 12 — CS1 Bracket Method (leadership ownership before the verdict)
@@ -327,6 +340,15 @@ const manifest = {
     { id: 'cs3-pilot', title: 'CS3 · Pilot evidence', component: CS3Pilot, isTitle: false },
     { id: 'cs3-bracket', title: 'CS3 · Bracket Method', component: CS3Bracket, isTitle: false },
     { id: 'cs3-portable', title: 'CS3 · Portable principle', component: CS3Portable, isTitle: false },
+
+    // ══════════════════════════════════════════════════════════════
+    // CLOSING — synthesis · Merck fit · Q&A invitation
+    // Added 2026-04-26 per Phase 0 audit. Three slides closing the
+    // live arc before the backup library opens.
+    // ══════════════════════════════════════════════════════════════
+    { id: 'closing-thread',  title: 'Closing · The throughline', component: ClosingThread, isTitle: false, transition: 'fade', time: 60 },
+    { id: 'closing-merck',   title: 'Closing · The fit',         component: ClosingMerck,  isTitle: false, transition: 'fade', time: 75 },
+    { id: 'closing-thanks',  title: 'Thank you · Q&A',           component: ClosingThanks, isTitle: true,  transition: 'fade', time: 30 },
 
     // ══════════════════════════════════════════════════════════════
     // BACKUP · CS1 — Defense library (parked at end of deck so it

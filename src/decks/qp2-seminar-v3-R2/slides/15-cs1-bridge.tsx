@@ -129,10 +129,10 @@ export default function Cs1Bridge() {
         Case 01 · What the case teaches
       </Eyebrow>
 
-      <Headline delay={0.25} maxChars={62}>
-        When the trial cannot carry the dose,{' '}
+      <Headline delay={0.25} maxChars={68}>
+        When the trial cannot deliver the dose,{' '}
         <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 600 }}>
-          the framework does.
+          the model delivers the label.
         </span>
       </Headline>
 

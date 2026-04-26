@@ -302,7 +302,33 @@ Ambrisentan in adults: **==selective ETA antagonist, FDA Jun 2007, EMA Apr 2008,
 - ✅ Land on "how do you defend a pediatric dose under these constraints?" — that's the pivot
 
 ## Bridge
-→ Two architectures answer that question — the EMA path and the FDA path.`,
+→ Now the PopPK build itself — what model, what fit, what exposure match.`,
+
+  // Slide 09b — CS1 PopPK build + fit (added 2026-04-26 per cs1.md "no PK/PD charts")
+  'cs1-poppk': `## Spoken
+The model: **==two-compartment, first-order absorption with t-lag==**. Allometric scaling — body weight on clearance with exponent zero point seven five, on volume with exponent one — fixed *a priori*, not estimated, because n=39 cannot identify the exponent and because the Holford convention is what regulators expect.
+
+**==Three hundred eighty adult patients build the model. Thirty-nine pediatric patients confirm it.==**
+
+⏸ The parameters land where they should. Clearance over F: **==one point eight six liters per hour, %RSE 5.3==**. Central volume over F: **==17.6 liters, %RSE 7.1==**. Inter-individual variability — BLOCK(6) omega — converged. BLQ around 3% handled with Beal's M3.
+
+⏸ The **==pcVPC==** is the receipt. Eighty percent prediction interval ribbon, observed dots scatter inside it across the full 24-hour interval — *no systematic bias*. The pediatric data sit where the model says they should.
+
+⏸ Then the payoff — **==exposure match==**. Adult target AUCss is two point four two micrograms·h/mL. The three pediatric weight bands — 8 to 25 kg at 2.5 mg, 25 to 50 kg at 5 mg, ≥50 kg at 10 mg — come in at ==minus 2.8%==, ==plus 0.3%==, and ==plus 1.4%== of that adult target.
+
+==**Within three percent. Across all three bands. With 39 patients.**==
+
+## Cues
+- ⏱ 75 sec — receipts-heavy; PI defenders mode, slow on the numbers
+- 🎚 Tabular cadence on parameter row — "one point eight six … 17.6 … 57.4"
+- 🎯 The pcVPC ribbon is the *no systematic bias* line — gesture to it on that phrase
+- 🎯 The amber match-percentages are the payoff — slow on "minus 2.8 … plus 0.3 … plus 1.4"
+- ⚠ Do NOT promise a covariate-free answer — body weight IS the covariate (allometry); cite Okour 2023 if asked
+- ⚠ Do NOT estimate the allometric exponent — it was prespecified at 0.75/1.0 (Holford 1996, FDA-anchored)
+- ✅ Land on "within three percent across all three bands"
+
+## Bridge
+→ Now what that match means in the regulatory record — the EMA path versus the FDA path.`,
 
   // Slide 10 — CS1 two architectural precedents (FUTURE-1 + Garnett-Florian)
   'cs1-results': `## Spoken
@@ -974,7 +1000,70 @@ That's the function. That's clinical pharmacology. Thank you.
 - ✅ Landing line: "Three answers from the same discipline." Full stop. Then "thank you." Full stop.
 
 ## Bridge
-→ Q&A. Stand still. Wait for the chair.`,
+→ Now the throughline — what these three cases share.`,
+
+  // Closing slides — added 2026-04-26 per Phase 0 audit
+  'closing-thread': `## Spoken
+The throughline.
+
+==When the trial isn't the answer, the framework is.== ⏸
+
+Case one — ambrisentan. ==Trial untrialable.== Adult anchor, pediatric PopPK, exposure match within three percent. EMA and PMDA, 2021.
+
+Case two — ivosidenib. ==Trial unavailable.== Six-pillar regulatory dossier, MOA-anchored, regulator-aligned. CDSCO India, May 14, 2025.
+
+Case three — PharmAgent. ==Trial unbuilt.== Thirteen agents, one hundred fifty-one tools, ICH M15 by construction. Pilot evidence, eighty percent of the scaffolding cut. ⏸
+
+In each case, the model produced what the trial could not — ==a defensible dose, accepted by a regulator==. That is what quantitative pharmacology is for.
+
+## Cues
+- ⏱ 60 sec — synthesis · slow on the three obstacle words ("untrialable / unavailable / unbuilt")
+- 🎯 The amber synthesis ribbon at bottom is the thesis — gesture to it on "what quantitative pharmacology is for"
+- ⚠ Do NOT add a fourth case or a fourth example — three is the package
+- ✅ Land on "what quantitative pharmacology is for"
+
+## Bridge
+→ Now the fit — why this work, this team, this moment.`,
+
+  'closing-merck': `## Spoken
+Three intersections — this work, this team, this moment.
+
+==One. PAH and sotatercept.== Eight years inside pediatric PAH PopPK and regulatory bridging. Sotatercept, Winrevair, opened the BMPR2 / activin pathway in March 2024 — the fourth column on the history slide. I read that label as a continuation of the work that brought me here. ⏸
+
+==Two. Oncology and rare populations.== The ivosidenib India case was a six-pillar dossier replacing a local trial — MOA-anchored, regulator-aligned. Merck's oncology pipeline has the same structural problem at scale: small populations, fast-moving competitors, regulatory geography that fragments trials. I have run that dossier. ⏸
+
+==Three. Platforms and AI / ML.== PharmAgent is a thirteen-agent platform. ICH M15 audit by construction. Schema-only privacy. Deterministic tool execution. Merck's QP2 organization has stated AI / ML as a strategic priority. I bring a working architecture and a record of regulatory-grade outputs. ⏸
+
+The function keeps owning the science. ==I bring the methods, the regulator-tested judgment, and the platform mindset.==
+
+## Cues
+- ⏱ 75 sec — the personal pivot · this is the only place in the deck where "I" carries weight
+- 🎚 Slow and deliberate on each intersection — let each card breathe
+- 🎯 The three numerals 01 / 02 / 03 read as a structured argument; gesture per number
+- ⚠ Do NOT inflate ("uniquely positioned", "perfect fit") — the audience will recoil
+- ⚠ Do NOT name a Merck competitor by name — pipeline references stay generic
+- ✅ Land on "the methods, the regulator-tested judgment, and the platform mindset"
+
+## Bridge
+→ Open the floor.`,
+
+  'closing-thanks': `## Spoken
+Thank you. ⏸
+
+I would be glad to take your questions. Three cases — pediatric PAH, India CDSCO, PharmAgent — I'm here to discuss any of them in more depth, or to talk about how that translates to Merck's QP2 / CMD priorities.
+
+The trial is not the only answer.
+
+## Cues
+- ⏱ 30 sec — minimal · let the silence after "questions" do the work
+- 📍 Stand still. Hands at your sides or on the lectern. Do NOT pace.
+- 🎯 Eye contact with the panel chair first; then the rest of the panel.
+- ⚠ Do NOT keep talking after "the trial is not the only answer" — that's the close
+- ⚠ Do NOT preview your answers ("happy to talk about X") — let them ask
+- ✅ Wait for the chair to invite questions. Stand quiet.
+
+## Bridge
+→ First question.`,
 
   'cs2-competitors': `## Spoken
 Before I close this case, ==one frame for the IDH inhibitor class itself==. ⏸

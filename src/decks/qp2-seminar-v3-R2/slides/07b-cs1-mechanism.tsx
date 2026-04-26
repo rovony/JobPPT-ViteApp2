@@ -116,13 +116,13 @@ export default function Cs1Mechanism() {
       eyebrow="Case 01 · Mechanism — endothelin pathway"
       headline={
         <>
-          Three pathways drive PAH.{' '}
+          Three pathways drive PAH — combination therapy hits all three.{' '}
           <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 700 }}>
-            Ambrisentan blocks one — selectively.
+            Ambrisentan owns the endothelin arm.
           </span>
         </>
       }
-      headlineMaxChars={56}
+      headlineMaxChars={88}
       footerKicker="07b · CS1 · Mechanism"
       footerSource="Sources · ESC/ERS 2022 · Letairis PI · Tracleer PI · Opsumit PI · Humbert NEJM 2023"
     >

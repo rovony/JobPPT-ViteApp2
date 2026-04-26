@@ -1174,6 +1174,24 @@ A: Each constraint corresponds to a *necessary* condition for an efficacy trial 
 
 A: The trial design was per-protocol correct — combined sildenafil dose groups vs placebo, prespecified CPET peak VO₂ primary. The p=0.056 came in just above the conventional threshold; the FDA label aligns with that result (no 6MWD primary on the basis of STARTS-1 alone). The takeaway isn't "the design was wrong" — it's that even at N=235, you couldn't get pediatric PAH efficacy across the line. That's the *empirical* basis for moving to exposure-matching. STARTS-1 is the constraint that closes the door; FUTURE-1 is the precedent that opens the alternative.`,
 
+  'cs1-poppk': `## Q1: Why fix the allometric exponents at 0.75 / 1.0 instead of estimating them?
+**From:** modeling-leaning panelist
+**Difficulty:** ★★★★ · **Topic:** methodology
+
+A: Three reasons. First, n=39 cannot identify the exponent — the body-weight range in AMB112529 (≈18–86 kg) is too narrow to estimate it without confounding with structural CL/F. Second, the Holford 1996 convention (0.75 for clearance, 1.0 for volume) is what FDA and EMA expect for pediatric PopPK; deviating from it draws review-team scrutiny that the data can't support. Third, Okour 2023 sensitivity-tested exponents in the range 0.6–0.9 — point estimates of CL/F shifted ≤8%, exposure-match conclusions unchanged. Robust to the assumption.
+
+## Q2: The pcVPC shows scatter — how do you defend "no systematic bias" quantitatively?
+**From:** statistics-focused panelist
+**Difficulty:** ★★★ · **Topic:** model evaluation
+
+A: The defense is the proportion of observations inside the 80% prediction interval — should be ≈80% if the model is unbiased. AMB112529's pcVPC came in at 78–82% across the 24-h interval (Okour 2023, Figure S5). That's the formal answer. Visually, the scatter is symmetric around the median line, and the median tracks observation across early absorption, peak, and elimination phases. No systematic over- or under-prediction at any time region.
+
+## Q3: %RSE on Vp/F is 12.4 — isn't that high? Does the peripheral compartment really exist?
+**From:** parsimony-leaning panelist
+**Difficulty:** ★★★ · **Topic:** model structure
+
+A: Vp/F precision is naturally lower than Vc/F because the peripheral compartment is informed by terminal-phase samples — the sparsest part of the AMB112529 design (4-point profile, no late terminal). 12% RSE is acceptable for a peripheral volume; FDA's PopPK guidance flags >50% as concerning. The structural model's existence is anchored from the 380-patient adult dataset where rich sampling characterized the terminal phase definitively. The pediatric data confirm consistency, not re-derive structure.`,
+
   'cs1-results': `## Q1: Why didn't you use the Garnett-Florian framework? Wasn't it more rigorous?
 **From:** methodology-leaning panelist
 **Difficulty:** ★★★★ · **Topic:** methodology
@@ -1424,6 +1442,43 @@ A: The LLMs in the platform do two things: orchestration (deciding which determi
 **Difficulty:** ★★★ · **Topic:** career
 
 A: The platform demonstrates a capability — the ability to design and build regulatory-grade AI infrastructure for clinical pharmacology. The specific platform is a research project. The capability it demonstrates is what I'd bring to any organization. Merck's scale — the volume of MIDD submissions, the global regulatory footprint, the therapeutic diversity — is exactly the environment where this kind of infrastructure creates leverage. I'm not offering to install PharmAgent at Merck. I'm offering the judgment and architectural vision that built it.`,
+
+  // Closing slides — added 2026-04-26
+  'closing-thread': `## Q1: The "trial isn't the answer" framing risks sounding anti-trial. How do you avoid that?
+**From:** clinical-trial-leaning panelist
+**Difficulty:** ★★★ · **Topic:** framing
+
+A: I'm careful to say "isn't the *only* answer." Each of the three cases had real trials behind them — AMB112529, ivosidenib's Phase 1/2 dose-finding, and the simulated NPAA endpoints PharmAgent helps optimize. The framing isn't anti-trial; it's that when a trial alone can't carry the regulatory question — because of pediatric ethics, geography, or rare-disease enrollment — the model carries the *complement*. Trials and models are partners. The deck argues for the model where it earns its keep.
+
+## Q2: All three cases are about non-traditional regulatory paths. Are there cases where the traditional path was right?
+**From:** balance-questioning panelist
+**Difficulty:** ★★★ · **Topic:** scope
+
+A: Yes — most adult oncology, cardiometabolic, and major-population indications run on traditional paths and should. The three cases here are *selected* for the structural problem they share: a question the trial alone can't answer. That selection is honest — I'm not arguing the framework replaces trials; I'm arguing it complements them in the cases where trials structurally cannot deliver. The everyday QP2 work is split roughly 70/30 between traditional and non-traditional paths in my experience; the deck samples the 30% because that's where the methodology is the differentiator.`,
+
+  'closing-merck': `## Q1: You named sotatercept and the BMPR2 pathway — what specifically do you bring beyond awareness?
+**From:** technical-fit panelist
+**Difficulty:** ★★★★ · **Topic:** technical
+
+A: Three concrete capabilities. First, pediatric PopPK with allometric defenses for ERAs, which would carry to any pediatric extrapolation in the PAH space. Second, regulatory-bridging dossier construction — relevant when sotatercept's pediatric program reaches the same crossroads ambrisentan did, and PIP / PSP submissions become the rate-limiter. Third, exposure-response modeling for pulmonary hemodynamics — PVR, RVSP, 6MWD relationships — which I've published on (Okour 2023) and which would translate directly to Winrevair's lifecycle strategy. None of those are theoretical; all three trace to publications and approvals.
+
+## Q2: PharmAgent at Merck — would you actually deploy it, or is it just a portfolio piece?
+**From:** strategic-reality panelist
+**Difficulty:** ★★★★ · **Topic:** practical
+
+A: I would *not* deploy PharmAgent at Merck on day one. Two reasons. One, Merck's existing infrastructure — internal ML platforms, validated pharmacometric pipelines, established review-team workflows — should be the substrate; replacing them creates organizational risk for marginal gain. Two, the value I bring is the *architectural pattern*, not the specific implementation: schema-only privacy, deterministic tool execution under LLM orchestration, ICH M15 audit by construction. That pattern can be applied to whatever Merck is already building or planning to build. PharmAgent is the proof I can design that pattern; deploying it is not the offer.`,
+
+  'closing-thanks': `## Q1: Walk us through one case study in more depth — your choice.
+**From:** open-prompt panelist
+**Difficulty:** ★★ · **Topic:** depth
+
+A: I default to CS1 (ambrisentan) because it has the most completed regulatory record and the most published data — ARIES-1/2, AMB112529, the LTE, EMA + PMDA approvals, ICH E11A codification. CS2 (ivosidenib India) is more recent and has more proprietary detail to navigate. CS3 (PharmAgent) is research, not deployed. So unless the panel has a specific interest, I lead with CS1's PopPK build — that's where the methodological depth is most defensible.
+
+## Q2: What's the question you were hoping we'd ask?
+**From:** rhetorical panelist
+**Difficulty:** ★★★ · **Topic:** disclosure
+
+A: "Where did the framework not work?" The three cases all landed approvals, which can read as cherry-picked. The honest answer is FDA's gap on pediatric ambrisentan — same Clin Pharm package, same allometric defense, but FDA didn't proceed (different commercial owner, different submission posture). That's the case where the *methodology* held but the *organization* couldn't carry it. It tells me the framework isn't sufficient on its own; it needs aligned incentives and a sponsor willing to file. That's also why the CS2 dossier in India and the CS3 platform are deliberately lessons in *organizational* discipline alongside the methodology.`,
 };
 
 export default qa;

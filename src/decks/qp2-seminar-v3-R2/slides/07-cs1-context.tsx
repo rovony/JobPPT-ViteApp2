@@ -156,7 +156,7 @@ export default function Cs1Context() {
             <Lungs
               layoutId="cs1-lung"
               variant="foundation"
-              widthOverride="min(76vw, 60rem)"
+              widthOverride="min(86vw, 68rem)"
             />
           </div>
 
@@ -166,7 +166,7 @@ export default function Cs1Context() {
             position: 'absolute',
             top: 'clamp(var(--space-2), 2vh, var(--space-3))',
             left: 'clamp(var(--space-2), 4vw, var(--space-6))',
-            width: 'clamp(17rem, 33vw, 25rem)',
+            width: 'clamp(19rem, 36vw, 28rem)',
             zIndex: 2,
           }}>
             <FactPanel fact={FACTS[0]} delay={0.85} reduced={reduced} />
@@ -177,7 +177,7 @@ export default function Cs1Context() {
             position: 'absolute',
             top: 'clamp(var(--space-2), 2vh, var(--space-3))',
             right: 'clamp(var(--space-2), 4vw, var(--space-6))',
-            width: 'clamp(17rem, 33vw, 25rem)',
+            width: 'clamp(19rem, 36vw, 28rem)',
             zIndex: 2,
           }}>
             <FactPanel fact={FACTS[1]} delay={0.97} reduced={reduced} />
@@ -188,7 +188,7 @@ export default function Cs1Context() {
             position: 'absolute',
             bottom: 'clamp(var(--space-2), 2vh, var(--space-3))',
             left: 'clamp(var(--space-2), 4vw, var(--space-6))',
-            width: 'clamp(17rem, 33vw, 25rem)',
+            width: 'clamp(19rem, 36vw, 28rem)',
             zIndex: 2,
           }}>
             <FactPanel fact={FACTS[2]} delay={1.09} reduced={reduced} />
@@ -199,7 +199,7 @@ export default function Cs1Context() {
             position: 'absolute',
             bottom: 'clamp(var(--space-2), 2vh, var(--space-3))',
             right: 'clamp(var(--space-2), 4vw, var(--space-6))',
-            width: 'clamp(17rem, 33vw, 25rem)',
+            width: 'clamp(19rem, 36vw, 28rem)',
             zIndex: 2,
           }}>
             <FactPanel fact={FACTS[3]} delay={1.21} reduced={reduced} />
