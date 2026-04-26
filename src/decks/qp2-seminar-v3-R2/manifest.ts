@@ -71,6 +71,7 @@ import CS2Reckoning from './slides/cs2-07b-reckoning';
 // cs2-09-leadership bottom thesis. Backup at _backup/cs2-08-outcome.pre-dedup-2026-04-26.tsx
 import CS2Leadership from './slides/cs2-09-leadership';
 import CS2BridgeRecap from './slides/cs2-10-bridge-recap';
+import CS2Competitors from './slides/cs2-competitors';
 import CS3Divider from './slides/cs3-01-divider';
 import CS3Question from './slides/cs3-02-question';
 import CS3Problem from './slides/cs3-03-problem';
@@ -303,6 +304,7 @@ const manifest = {
     { id: 'cs2-velocity', title: 'CS2 · Seven years → one pivot', component: CS2Velocity, isTitle: false },
     { id: 'cs2-reckoning', title: 'CS2 · What we shipped, what we did not', component: CS2Reckoning, isTitle: false },
     { id: 'cs2-leadership', title: 'CS2 · Bracket Method ownership', component: CS2Leadership, isTitle: false },
+    { id: 'cs2-competitors', title: 'CS2 · IDH inhibitor landscape · history + competitors', component: CS2Competitors, isTitle: false },
     { id: 'cs2-bridge-recap', title: 'CS2 · The science was the bridge', component: CS2BridgeRecap, isTitle: false },
 
     // ══════════════════════════════════════════════════════════════

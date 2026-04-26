@@ -819,6 +819,77 @@ milestones are part of the marketing authorization conditions. I can
 speak to the study design parameters; the enrollment status is an
 operational question for the Servier India affiliate team.`,
 
+  'cs2-competitors': `## Q1: Why did ivosidenib reach India before the others — was that a Servier strategic choice or a regulatory accident?
+**From:** commercial-leaning panelist
+**Difficulty:** ★★★ · **Topic:** commercial / regulatory
+
+A: Both. The Rule-101 waiver pathway is open to any sponsor with a
+qualifying global dataset and an FDA, EMA, PMDA, or Health Canada
+approval. Ivosidenib qualified because the global PopPK was mature and
+the orphan indication fit the rule's criteria. Servier made the
+strategic decision to file under the new pathway in 2024. Other IDH
+inhibitors have different sponsor footprints in India and different
+filing timelines — that's the operational answer.
+
+> **If pressed:** "Strategic choice operationalized through a regulatory pathway." That's the framing. Not luck, not paperwork.
+
+## Q2: Enasidenib was first-in-class for IDH2 — why did the field move toward IDH1 inhibitors instead?
+**From:** scientific panelist
+**Difficulty:** ★★★ · **Topic:** science / market
+
+A: IDH1 mutations are more prevalent than IDH2 across the AML
+population — roughly 6–10% IDH1 versus 8–19% IDH2 depending on the
+series, but with IDH1 also showing in cholangiocarcinoma, glioma, and
+chondrosarcoma. The broader indication footprint drove more development
+investment toward IDH1 chemistry. Enasidenib remains the first-in-class
+IDH2 agent and is approved for that mutation; the IDH1 vs IDH2 split is
+biology, not commercial preference.
+
+> **If pressed:** Cite the cross-indication data — IDH1 hits AML + CCA + glioma + chondrosarcoma. IDH2 is largely AML.
+
+## Q3: Olutasidenib followed ivosidenib by four years. What's the differentiation?
+**From:** competitive-strategy panelist
+**Difficulty:** ★★★ · **Topic:** competitive
+
+A: Olutasidenib (Rezlidhia, Rigel) was approved December 2022 for
+relapsed/refractory IDH1-mutant AML — same indication as ivosidenib's
+2018 monotherapy approval. The differentiation is on safety and
+efficacy profile in the R/R setting; the 2103-patient registrational
+trial showed durable CR/CRh rates. It's a second-entrant in the same
+indication, not a leapfrog. Ivosidenib's first-mover advantage and
+broader label (CCA, ND-AML combination) keep it in front commercially.
+
+> **If pressed:** Olutasidenib is a real second-line option, not a me-too. But ivosidenib has the broader label.
+
+## Q4: Vorasidenib is pan-IDH and CNS-penetrant — does it threaten ivosidenib's franchise?
+**From:** strategic panelist
+**Difficulty:** ★★★★ · **Topic:** competitive / scientific
+
+A: Vorasidenib (Voranigo, Servier) was approved August 2024 for grade-2
+IDH-mutant glioma based on the INDIGO trial. Different indication, same
+sponsor. CNS penetration is what makes it a glioma drug — that's a
+deliberate medicinal-chemistry trade-off, not an upgrade to
+ivosidenib's AML positioning. The two molecules are complementary in
+Servier's IDH portfolio: ivosidenib for AML and CCA, vorasidenib for
+glioma. Same target family, different therapeutic territory.
+
+> **If pressed:** Same sponsor — that's the key. Servier owns both. Portfolio play, not cannibalization.
+
+## Q5: Sixteen years from gene discovery to first-in-class is slow. Is that typical?
+**From:** academic / strategic panelist
+**Difficulty:** ★★★★ · **Topic:** R&D timeline
+
+A: Sixteen years is on the longer end but not exceptional for a novel
+target class. Imatinib was twenty years from BCR-ABL discovery to
+approval. Olaparib was about fifteen from BRCA mutations to approval.
+The IDH1/IDH2 timeline is competitive — driven by the speed at which
+2-HG was identified as a direct biomarker of the mutation, which made
+PD measurable from the start. The slow part was the medicinal chemistry
+to get a selective inhibitor through the AML and CCA trials. Sixteen
+years is the price of first-in-class for a new mechanism.
+
+> **If pressed:** Compare to BTK inhibitors (ibrutinib): about eight years from discovery to approval — but BTK was a known kinase. Novel-mechanism timelines are longer.`,
+
   'cs2-bridge-recap': `## Q1: "PBPK is no longer optional" — that's a strong claim. What about drugs where PBPK isn't mature?
 **From:** methodology-leaning panelist
 **Difficulty:** ★★★ · **Topic:** methodology

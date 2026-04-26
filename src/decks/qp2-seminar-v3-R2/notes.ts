@@ -946,6 +946,31 @@ That's the function. That's clinical pharmacology. Thank you.
 ## Bridge
 → Q&A. Stand still. Wait for the chair.`,
 
+  'cs2-competitors': `## Spoken
+Before I close this case, ==one frame for the IDH inhibitor class itself==. ⏸
+
+The story is sixteen years long. ==2008== — Mardis and Yan publish back-to-back in the New England Journal: IDH1 and IDH2 mutations in AML. 2010 — Dang shows ==2-hydroxyglutarate is the oncometabolite==, the mechanism that makes the mutation druggable. ⏸
+
+Then the race. ==August 2017== — enasidenib. First-in-class IDH2. Celgene and Agios. ==Nine years from gene to approval==. ==July 2018== — ivosidenib. First-in-class IDH1. Tibsovo. Agios, then Servier. The cyan column on the slide. ⏸
+
+Three more approvals follow — ivosidenib in cholangiocarcinoma, the AGILE-trial front-line combination with azacitidine, olutasidenib as the second IDH1 entrant, vorasidenib for grade-2 glioma in 2024. ==Four IDH inhibitors. Three sponsors. Three indications.== A real class. ⏸
+
+And then — ==December 2024==. Sixteen years after the gene was named. Ivosidenib gets the CDSCO Rule-101 waiver. ==First IDH-targeted therapy on the Indian market.== That's the highlighted row. The empty column that finally got filled. ⏸
+
+The point of this slide is not the names of the drugs. The point is the ==pace==. Sixteen years from biology to first-in-class — globally. Sixteen years and ==a few extra months== from biology to first-in-class — in India. The Rule-101 pathway is what closed that gap.
+
+## Cues
+- ⏱ 75 sec — pace it. Each era gets its own beat.
+- 🎚 Quiet on the discovery beats; lift on "the race"; land hard on "first IDH-targeted therapy on the Indian market."
+- 📍 Use the timeline as the visual spine. The competitor cards at the bottom are reference, not the main read.
+- 🎯 On "the empty column that finally got filled" — pause. Eye contact with the chair.
+- ⚠ Do NOT enumerate every approval. The slide does that. Speak to the ARC.
+- ⚠ Do NOT use Servier-internal commercial framing. This is published-record territory only — FDA Orange Book, Servier press releases, CDSCO public record.
+- ✅ The line they should remember: "sixteen years to first-in-class globally — and a few extra months to first-in-class in India."
+
+## Bridge
+→ Bridge-recap. The class has matured; India is now part of the map. That's the close.`,
+
   'cs2-bridge-recap': `## Spoken
 Three things this case proves. ⏸
 
