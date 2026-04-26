@@ -262,11 +262,13 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
   /* Cross-tab sync */
   const channelRef = useRef(null);
   const suppressRef = useRef(false);
+  const indexRef = useRef(index);
+  useEffect(() => { indexRef.current = index; }, [index]);
 
   useEffect(() => {
     channelRef.current = makeChannel();
     const unsub = subscribe(channelRef.current, deck.id, (msg) => {
-      if (msg?.type === 'goto' && typeof msg.index === 'number' && msg.index !== index) {
+      if (msg?.type === 'goto' && typeof msg.index === 'number' && msg.index !== indexRef.current) {
         suppressRef.current = true;
         goto(msg.index);
       } else if (msg?.type === 'close') {
@@ -330,6 +332,14 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
               {String(index + 1).padStart(2, '0')}
               <span style={{ color: 'var(--cream-faint)' }}> / {String(total).padStart(2, '0')}</span>
             </div>
+            {current?.time != null && (
+              <div style={{ fontSize: '0.6rem', color: 'var(--cream-muted)', marginTop: 2 }}>
+                {current.time >= 60
+                  ? `${Math.floor(current.time / 60)}:${String(current.time % 60).padStart(2, '0')}`
+                  : `${current.time}s`}
+                {' '}budget
+              </div>
+            )}
           </div>
           {current?.title && (
             <div className="hidden md:block min-w-0">
@@ -473,7 +483,7 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
           <ChevronLeft className="w-4 h-4" /> Prev
         </button>
 
-        <div className="flex gap-1.5 overflow-x-auto max-w-[60%] px-2">
+        <div className="flex gap-1.5 overflow-x-auto scrollbar-hide max-w-[60%] px-2">
           {deck.slides.map((s, i) => (
             <button
               key={s.id || i}

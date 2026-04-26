@@ -169,23 +169,21 @@ function DeckStage({ deck, viewMode = 'default', sharePathBase = null, shareHasC
      
   }, [presenter, isShareView]);
 
-  // Audience tab: bidirectional cross-tab navigation sync.
+  // Cross-tab navigation sync for non-presenter tabs (audience AND
+  // default/no-role tabs). PresenterView has its own matching
+  // broadcast effect, so we gate on `isPresenterRoute` to avoid
+  // double-broadcasting from the same tab.
   //   · Subscribe to presenter broadcasts → apply goto().
   //   · When this tab's `index` changes locally (arrow keys on the
-  //     audience display), broadcast it back so the presenter tab also
-  //     advances. Prevents drift when someone clicks on the audience
-  //     monitor out of habit.
+  //     audience/presentation display), broadcast it back so the
+  //     presenter tab also advances.
   //   · `suppressRef` breaks the echo loop: when we APPLY an incoming
   //     goto, we set suppress so the very next index-change effect
   //     doesn't re-broadcast the same move.
-  // PresenterView has its own matching broadcast effect, so we're
-  // careful NOT to also broadcast here when the tab is presenter-side
-  // (presenter && !isAudience) — otherwise every navigation would
-  // fire twice.
   const audienceChannelRef = useRef(null);
   const audienceSuppressRef = useRef(false);
   useEffect(() => {
-    if (isShareView || !isAudience) return;
+    if (isShareView || isPresenterRoute) return;
     audienceChannelRef.current = makeChannel();
     const unsub = subscribe(audienceChannelRef.current, deck.id, (msg) => {
       if (msg?.type === 'goto' && typeof msg.index === 'number') {
@@ -199,14 +197,14 @@ function DeckStage({ deck, viewMode = 'default', sharePathBase = null, shareHasC
       audienceChannelRef.current = null;
     };
      
-  }, [isAudience, deck.id]);
+  }, [isPresenterRoute, deck.id]);
 
   useEffect(() => {
-    if (isShareView || !isAudience) return;
+    if (isShareView || isPresenterRoute) return;
     if (audienceSuppressRef.current) { audienceSuppressRef.current = false; return; }
     if (!audienceChannelRef.current) return;
     broadcast(audienceChannelRef.current, deck.id, { type: 'goto', index });
-  }, [index, isAudience, deck.id]);
+  }, [index, isPresenterRoute, deck.id]);
 
   // ───────────────── URL ⇄ slide state sync ─────────────────
   // The slide id (preferred) or numeric index is the 4th path segment:

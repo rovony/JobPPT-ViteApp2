@@ -247,10 +247,10 @@ const manifest = {
     { id: 'hook-A-trial-not-answer', title: 'Hook A · When the trial isn\'t the answer', component: HookATrialNotAnswer, isTitle: true, transition: 'fade', time: 75 },
 
     // 03 — career arc (pre-roadmap orientation: who's giving this talk)
-    { id: 'career-arc', title: 'Career arc · five stops, one question', component: CareerArc, isTitle: false },
+    { id: 'career-arc', title: 'Career arc · five stops, one question', component: CareerArc, isTitle: false, time: 90 },
 
     // 04 — roadmap (the agenda — names CS1 amb / CS2 ivo / CS3 AI/ML)
-    { id: 'roadmap', title: 'Roadmap · three cases, one discipline', component: Roadmap, isTitle: false },
+    { id: 'roadmap', title: 'Roadmap · three cases, one discipline', component: Roadmap, isTitle: false, time: 75 },
 
     // ══════════════════════════════════════════════════════════════
     // CS1 — Ambrisentan · post flow refactor (2026-04-25)
@@ -346,7 +346,7 @@ const manifest = {
     // Added 2026-04-26 per Phase 0 audit. Three slides closing the
     // live arc before the backup library opens.
     // ══════════════════════════════════════════════════════════════
-    { id: 'closing-thread',  title: 'Closing · The throughline', component: ClosingThread, isTitle: false, transition: 'fade', time: 60 },
+    { id: 'closing-thread',  title: 'Closing · The common thread', component: ClosingThread, isTitle: false, transition: 'fade', time: 60 },
     { id: 'closing-merck',   title: 'Closing · The fit',         component: ClosingMerck,  isTitle: false, transition: 'fade', time: 75 },
     { id: 'closing-thanks',  title: 'Thank you · Q&A',           component: ClosingThanks, isTitle: true,  transition: 'fade', time: 30 },
 

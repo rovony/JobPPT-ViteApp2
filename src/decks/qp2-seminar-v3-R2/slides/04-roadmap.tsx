@@ -66,16 +66,16 @@ export default function Roadmap({ deck }) {
         Roadmap · the next 35 minutes
       </Eyebrow>
 
-      <Headline delay={0.25} maxChars={48}>
-        Three cases. Three regulators.{' '}
+      <Headline delay={0.25} maxChars={56}>
+        Three cases. Three impossibilities.{' '}
         <span style={{ color: 'var(--amber)', fontStyle: 'italic', fontWeight: 500 }}>
-          One discipline doing the load-bearing work.
+          One discipline at the center.
         </span>
       </Headline>
 
       <Subhead delay={0.55} maxChars={88} size="lead">
-        Each case is a different drug and a different impossibility — pediatric,
-        geographic, and methodological. The Clin Pharm answer is what they share.
+        Each case is a different drug and a different kind of impossible — pediatric,
+        geographic, methodological. Quantitative pharmacology is what they share.
       </Subhead>
 
       <Viz>

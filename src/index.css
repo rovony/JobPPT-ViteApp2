@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* ============================================================
    Font imports — v3.3 stack
    Fraunces (display, variable opsz) · Inter (body) · JetBrains Mono (chrome)
@@ -269,9 +279,9 @@
        always fits. Mobile portrait still scales gracefully.
        ========================================================= */
     --fs-slide-display:  clamp(2rem,    min(5.2vw, 8.5vh), 5.5rem);  /* hero title */
+    --fs-slide-hook:     clamp(2rem,    min(4.4vw, 7vh),   4.5rem);  /* hook-slide thesis headline (slightly larger than --fs-slide-headline; smaller than --fs-slide-display) */
     --fs-slide-lead:     clamp(1rem,    min(1.7vw, 2.6vh), 1.75rem); /* subtitle / lead body on a cover */
     --fs-slide-name:     clamp(0.95rem, min(1.4vw, 2.2vh), 1.4rem);  /* speaker name / pull-quote attribution */
-    --fs-slide-hook:     clamp(2rem,    min(4.4vw, 7vh),   4.5rem);  /* editorial hook headline (slightly larger than headline, smaller than display) */
 
     /* =========================================================
        Shape + elevation tokens
@@ -626,14 +636,6 @@
                             50%     { opacity: 0;    transform: scale(2.2); } }
   @keyframes tk-slide-up  { from { opacity: 0; transform: translateY(12px); }
                             to   { opacity: 1; transform: translateY(0); } }
-
-  /* Magic UI — BorderBeam */
-  @keyframes border-beam {
-    100% { offset-distance: 100%; }
-  }
-  .animate-border-beam {
-    animation: border-beam calc(var(--duration) * 1s) infinite linear;
-  }
 
   @media (prefers-reduced-motion: reduce) {
     .deck-motion-safe { transition: none !important; animation: none !important; }

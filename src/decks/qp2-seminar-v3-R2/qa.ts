@@ -941,7 +941,7 @@ tools — PopPK, PBPK, exposure-response — carried the regulatory
 argument. The tools were mature; the innovation was in how they were
 applied. CS3 is different: it's about the situation where the tools
 themselves don't exist yet, and building them is the contribution.
-The through-line is the same discipline — clinical pharmacology as the
+The common thread is the same discipline — clinical pharmacology as the
 load-bearing function — but CS3 shifts from applying tools to creating
 them.`,
 

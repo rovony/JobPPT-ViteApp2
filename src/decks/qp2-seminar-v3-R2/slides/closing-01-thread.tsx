@@ -49,7 +49,7 @@ export default function ClosingThread() {
 
   return (
     <SlideGrid dataCase="amber" areas={STANDARD_AREAS}>
-      <Eyebrow delay={0.10}>Closing · The throughline</Eyebrow>
+      <Eyebrow delay={0.10}>Closing · The common thread</Eyebrow>
 
       <Headline delay={0.25} maxChars={62}>
         When the trial isn&rsquo;t the answer,{' '}

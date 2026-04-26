@@ -14,22 +14,22 @@ const notes = {
   // Merck). The hook lands on slide 02; this slide warms the room and
   // names the through-line.
   title: `## Spoken
-Good morning — and thank you for the time. I'm Malek Okour. ⏸ Over the next forty-five minutes I want to walk you through three clinical pharmacology decisions where ==the data, on its own, was never going to be enough==.
+Good morning — and thank you for the time. I'm ==Malek Okour==. ⏸ Over the next ==forty-five minutes== I want to walk you through ==three clinical pharmacology decisions== where ==the data, on its own, was never going to be enough==.
 
-Three different therapeutic areas. ⏸ Three different regulators. **One discipline doing the load-bearing work** — quantitative pharmacology turning complexity into a defensible dose, a defensible label, or a trial that ships.
+In each case the conventional path didn't work — so we built another one. ⏸ **One discipline at the center** — ==quantitative pharmacology== — turning each hard question into a defensible dose, a defensible label, or a workable trial.
 
-That's the through-line. ⏸ Let me show you what that looks like in practice.
+That's the common thread. ⏸ To show you how — let's start with the main question.
 
 ## Cues
 - ⏱ 45 sec — ~100 words with ⏸ pauses; hook lands on slide 02
 - 🎚 Steady, low-energy open — earn the room before pushing
 - 🎯 Lock eyes with the panel chair on "thank you for the time"
 - ⚠ Do NOT preview drug names or therapeutic areas yet — that's slide 02's job
-- ✅ Land cleanly on "what that looks like in practice"
+- ✅ Land cleanly on "let's start with the main question"
 - 🛟 If you blank — fallback: "Three cases. One discipline. Let's begin."
 
 ## Bridge
-That last sentence — *what that looks like in practice* — is the cue to advance.`,
+That last sentence — *let's start with the main question* — is the cue to advance into the hook (slide 02 opens: "It's the question every clinical pharmacologist eventually faces…").`,
 
   // Slide 02-A — Hook: "When the trial isn't the answer." (~75 sec)
   // Phase A audit 2026-04-26: Spoken locked to UNTRIALABLE/UNAVAILABLE/UNBUILT
@@ -40,34 +40,97 @@ That last sentence — *what that looks like in practice* — is the cue to adva
   // the ghost-line "What clinical pharmacology does next." reference (not on
   // the slide; was an unauthorized linter add reverted 2026-04-25).
   'hook-A-trial-not-answer': `## Spoken
-There's a question every clinical pharmacologist eventually faces.
+It's the question every clinical pharmacologist eventually faces.
 
 ==What do you do when the trial that would answer your question can't be run?== ⏸
 
-It can't be run because it's **untrialable** — you can't randomize children with a fatal disease to placebo, you can't withhold an active control when the control IS the standard of care, you can't enroll the population the regulator wants you to enroll. ⏸
+It can't be run because it's **untrialable** — you ==can't randomize children with a fatal disease to placebo==, you ==can't pull a working drug from patients who need it==, and ==you can't recruit a population the disease itself can barely supply==. ⏸
 
-It can't be run because it's **unavailable** — a regulator demands a local Phase 3 in a population the drug has never been studied in, and the timeline to run that trial is the timeline patients don't have. ⏸
+It can't be run because it's **unavailable** — ==a regulator asks for a local Phase 3 the drug has never seen, in a population the global program never enrolled==, on a timeline that patients do not have. ⏸
 
-It can't be run because it's **unbuilt** — the next decade of clinical pharmacology will need infrastructure, audit, and decision tools that don't exist on any shelf today. ⏸
+It can't be run because it's **unbuilt** — the next decade of clinical pharmacology will need ==infrastructure, audit, and decision tools no one ships off the shelf==. ⏸
 
-Three cases. Three trials that couldn't be run. *Three answers anyway.*
-
-That's the function. Three cases.
+Three cases — three trials that couldn't be run — and *three answers anyway*. ⏸ That's the function.
 
 ## Cues
 - ⏱ 75 sec total — the slide is a stage. The pauses do the work.
 - 🎚 Lower register on the three "it can't be run" beats. Each one lands separately. Resist the urge to chain them into a single breath.
 - 🧷 Time-lock the three beats: say **"untrialable"** at ~16 sec · **"unavailable"** at ~37 sec · **"unbuilt"** at ~55 sec. Each mark fades onto the slide AS you say its word — visual + voice in lockstep. (Math-locked at 130 wpm; if you naturally run faster or slower, anchor to landing each word on the second mark, not the clock.)
-- 📍 Stand still through the three reasons. Step forward on "Three cases. Three trials that couldn't be run. Three answers anyway."
+- 📍 Stand still through the three reasons. Step forward on "Three cases — three trials that couldn't be run — and three answers anyway."
 - 🎯 Eye contact rotates: first beat to the panel chair, second to a regulatory-leaning panelist if you can identify one, third to the most senior pharmacometrics panelist.
 - ⚠ Do NOT name drugs here. Drugs come at S04. Naming a drug now collapses the rhetorical weight of the open.
 - ⚠ Do NOT say "today's topic is" or "I'm going to walk you through" or any other tutorial-voice phrase. The hook IS the framing; do not narrate that you are framing.
 - ✅ The most quotable line is "Three answers anyway." Land it cleanly.
-- ✅ Closing beat — "That's the function. Three cases." — is short by design. Two sentences, hard cut. Do NOT extend.
+- ✅ Closing — "Three cases — three trials that couldn't be run — and three answers anyway. ⏸ That's the function." — em-dashes give you the rhythm; the ⏸ before "That's the function" is the load-bearing pause. Hard cut after; do NOT extend.
 - 🛟 If you blank, the recovery line is: "Three trials that couldn't be run. Three answers anyway. That's the function."
 
 ## Bridge
 → Next slide names the three cases as decision-classes — pediatric extrapolation, regional bridging, forward-looking infrastructure — without yet naming the drugs.`,
+
+  // Slide 03 — Career arc · five stops, one question (~90 sec)
+  // Visual: 5 hubs along an ascending amber spine — Jordan → Minnesota
+  //   → Merck (intern) → GSK → Servier. Don't read every satellite.
+  //   The graphic does the visual work; the speaker names each stop
+  //   with ONE concrete fact that earns the panel's trust.
+  'career-arc': `## Spoken
+A short orientation before the cases — so you know whose lens you're looking through.
+
+Five stops. ⏸ ==One question== — what dose, for whom, and why? — has followed me through every one of them.
+
+==**Jordan**== — I started at the bedside. Dental surgery, clinical license. ==A dose is an answer to a person, not just a number.== ⏸
+
+==**Minnesota**== — PhD with Dr. Richard Brundage. Population PK, exposure-response, ECP Fellowship — three research awards. The craft layer, where modeling stopped being a tool I used and became a way of thinking. ⏸
+
+==**Merck · QP2 · summer 2014**== — first time I saw nonlinear-mixed-effects simulation inside a development pipeline that actually ships drugs. *That summer is part of why we're talking today.* ⏸
+
+==**GSK · seven years**== — Clinical Pharmacology Modeling and Simulation. Five therapeutic areas. ==Four approvals across five agencies== — including ambrisentan pediatric, the case I'll open with. Top-10% Award, 2019. ⏸
+
+==**Servier · Director, since 2022**== — leading the oncology Clin Pharm portfolio. ==Three approvals during my tenure== — Onivyde, Oncaspar, Tibsovo global lifecycle — and the India ivosidenib waiver, which is case two.
+
+The work has crossed therapeutic areas, agencies, and continents. The question hasn't changed.
+
+## Cues
+- ⏱ ~90 sec — the graphic does the heavy lifting; resist the urge to read every satellite
+- 🎚 Each stop gets ONE beat — name the institution, name the work, move on
+- 🎯 Gesture left-to-right across the five hubs as you name them; the spine ascends, your hand should too
+- 🎯 Eye contact: panel chair on "Jordan", a pharmacometrics-leaning panelist on "Minnesota", the most senior panelist on "Merck", regulatory-leaning panelist on "GSK", chair again on "Servier"
+- ⚠ Do NOT name compounds beyond ambrisentan + ivosidenib here (Tibsovo is named because Servier's portfolio is public; that's fine). Stay above the case-detail level — depth comes in CS1/CS2/CS3.
+- ⚠ Do NOT linger on awards; mention each once and move
+- ⚠ Do NOT preview the AI/ML work yet — that's CS3
+- ✅ Land cleanly on "The question hasn't changed."
+- 🛟 If you blank — fallback: "Five stops. One question — what dose, for whom, and why? Let me show you the cases."
+
+## Bridge
+→ Now the agenda — three cases, three impossibilities, one discipline.`,
+
+  // Slide 04 — Roadmap · three cases, one discipline (~75 sec)
+  // Visual: 3-card grid (CS1 coral / CS2 cyan / CS3 violet) naming
+  //   each case's drug, indication, regulator, and what it proves.
+  //   This slide sets the timing expectations for the panel.
+  'roadmap': `## Spoken
+Three cases. ⏸ Each one a different kind of impossible.
+
+==**Case one — ambrisentan, pediatric PAH.**== A trial that couldn't be run for ethical and demographic reasons — too few children, no acceptable placebo arm, no transferable endpoint. EMA and PMDA approved a pediatric label in 2021 anyway. The framework was exposure matching. ⏸
+
+==**Case two — ivosidenib, India.**== A drug approved in the US and Europe but ==unavailable== to Indian patients because CDSCO required a local Phase 3 the program had no time to run. We replaced the local trial with a six-pillar regulatory dossier under Rule 101. Approved May 2025. ⏸
+
+==**Case three — AI and machine learning in pharmacometrics.**== The infrastructure that the next decade of clinical pharmacology will need — agent-assisted analysis, audit-by-construction, ICH M15-aligned platforms. Personal research, designed to be publication- and regulator-grade.
+
+⏸ ==Three impossibilities — pediatric, geographic, methodological.== One discipline doing the work that carried each one across the line.
+
+About ten minutes per case, then a brief synthesis at the end.
+
+## Cues
+- ⏱ ~75 sec — three card-beats + one synthesis line + timing expectations
+- 🎚 Lower register on each case-name; let the audience read the card
+- 🎯 Gesture toward each card as you name it; left-to-right
+- ⚠ Do NOT preview case-level numbers (39 patients, May 14 2025, etc.) — those land inside the case
+- ⚠ Do NOT apologize for CS3 being "personal research" — it's positioned deliberately. State it neutrally and move
+- ✅ Land cleanly on "About ten minutes per case, then a brief synthesis at the end" — sets the panel's clock
+- 🛟 If you blank — fallback: "Three cases. Pediatric, geographic, methodological. About ten minutes each. Let's start with case one."
+
+## Bridge
+→ Case 01 — ambrisentan in pediatric PAH.`,
 
   // Slide 02-B — Hook: "Twenty months changed the function."
   // Amendment 2: expanded Spoken to ~165 words (45 sec at ~155 wpm with ⏸ pauses).
@@ -1000,11 +1063,11 @@ That's the function. That's clinical pharmacology. Thank you.
 - ✅ Landing line: "Three answers from the same discipline." Full stop. Then "thank you." Full stop.
 
 ## Bridge
-→ Now the throughline — what these three cases share.`,
+→ Now the common thread — what these three cases share.`,
 
   // Closing slides — added 2026-04-26 per Phase 0 audit
   'closing-thread': `## Spoken
-The throughline.
+The common thread.
 
 ==When the trial isn't the answer, the framework is.== ⏸
 
