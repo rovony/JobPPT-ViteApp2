@@ -99,115 +99,109 @@ The cases I'm going to walk you through are not abstractions. *They are the work
 → Next slide names the three cases as the working reality of the new frameworks — pediatric extrapolation, regional bridging, and forward-looking infrastructure — mapping each to which framework it lives in.`,
 
   // ════════════════════════════════════════════════════════════════
-  // CASE 01 — Ambrisentan in pediatric PAH (coral cascade)
-  // ~10 minutes total stage time across 11 slides.
+  // CASE 01 — Ambrisentan in pediatric PAH (coral cascade) · v2-final
+  // ~10:30–10:45 total stage time across 11 slides.
+  //
+  // 2026-04-25 v2-final pass — speaker scripts replaced wholesale per
+  // 2-Slides_Dev/2-Slides-Plan-V2/_Results/2-SlidesPlan/V2/3-SpeakerNotes-CS1-v2.md.
+  // Amendments applied: A1.1 PDE-5i mechanistic-only (Slide 8), A1.2 adult
+  // anchor 380 from 6 studies (Slide 8), A1.3 dual-precedent reframe (Slide
+  // 6 = FUTURE-1 EMA + Garnett-Florian FDA), A1.4 hemodynamic substudy
+  // surfaced (Slide 9), A1.5 PMDA March 23 2021 (Slide 10), A1.6 etiology
+  // explicit (Slide 5), A1.7 80% baseline therapy (Slide 5), A3.3 trial
+  // dates Jan 4 2011 / Nov 12 2013 / Feb 11 2019 (Slide 7), A3.4 two
+  // deaths neither drug-attributed (Slide 7), 35-<50 kg subgroup AUC/Cmax
+  // outliers proactively disclosed (Slide 9), FDA honesty caveat moved
+  // on-slide (Slide 10).
+  //
+  // CONTENT-TO-SLOT MAPPING (current slide ID → V2 conceptual slide):
+  //   cs1-divider     → V2-S1  · Divider · "Ambrisentan"          (0:30)
+  //   cs1-question    → V2-S2  · Hook + question                   (0:45)
+  //   cs1-context     → V2-S3  · PAH 101 · disease foundation      (1:00)
+  //   cs1-trial       → V2-S4  · Pediatric PAH timeline            (1:00)
+  //   cs1-architecture→ V2-S5  · Drug + constraint                 (0:45)
+  //   cs1-results     → V2-S6  · Two precedents · FUTURE-1 + GF    (1:15)
+  //   cs1-outcome     → V2-S7  · Three disruptions                 (1:30)
+  //   cs1-bracket     → V2-S8  · The framework · PopPK             (1:15)
+  //   cs1-verdict     → V2-S9  · Exposure match · the result       (1:15)
+  //   cs1-lesson      → V2-S10 · Outcome + ICH E11A                (1:15)
+  //   cs1-bridge      → V2-S11 · Three takeaways + bridge          (0:45)
+  //
+  // NOTE: slide IDs were chosen for the prior CS1 flow and now drift from
+  // V2 conceptual labels (e.g. cs1-bracket carries V2-S8 PopPK framework
+  // content, not the old Bracket Method). Renaming IDs is deferred until
+  // the Wave-2 visual rebuild lands.
   // ════════════════════════════════════════════════════════════════
 
-  // Slide 05 — CS1 case divider (~15 sec on stage)
+  // V2-S1 · Divider · "Ambrisentan" — 30 sec
   'cs1-divider': `## Spoken
-Case one. ⏸ ==Ambrisentan== — an endothelin receptor antagonist for pulmonary arterial hypertension. Approved in adults across the world. The question I want to walk through is what happened when GSK and the EMA committed to extending it to **children aged eight to under eighteen** — a population in which the adult trial we used to license ambrisentan in adults was *never going to be runnable*.
+The first case study is **==ambrisentan==** ⏸ — an oral selective endothelin-A receptor antagonist for pulmonary arterial hypertension.
 
-⏸ This is the case where exposure-matching had to carry the dose.
+The clinical pharmacology question is one every pediatric drug-development program faces in some form: ⏸ ==when the pediatric trial cannot carry the dose==, the model has to.
 
-## Cues
-- ⏱ 15 sec — divider beat, no dwelling
-- 🎚 Steady, almost matter-of-fact tone — drama lives in the next 10 minutes
-- 🎯 Eyes on the panel chair on "exposure-matching had to carry the dose"
-- ⚠ Do NOT mention FDA — FDA framing is reserved for Q&A defense (rights-split answer)
-- ✅ Land cleanly on the divider — advance immediately
-
-## Bridge
-→ The Clin Pharm question next — lung morphs in as the editorial backdrop, the question becomes the foreground.`,
-
-  // Slide 06 — CS1 disease backstory
-  'cs1-disease': `## Spoken
-Pediatric PAH is a small, lethal, drug-poor indication. ⏸ Roughly **fourteen to twenty cases per million children** in Europe — call it a few hundred patients per country at most. Without treatment, median survival from diagnosis was historically *under one year*. With modern multi-modal therapy — anticoagulation, diuretics, an ERA, a PDE-5 inhibitor, prostacyclin analogues — five-year survival is now around **ninety percent**.
-
-That ninety-percent number is the ==operating context== for the next ten minutes. The audience for any pediatric PAH dosing decision is a discipline that ships dosing for a few hundred children at a time. ⏸ Globally.
-
-The class is drug-poor by construction — every trial in this space starts from forty enrolled patients and a regulator's PIP commitment. Not from a sample-size calculation that could power on efficacy.
+The work is a model-informed pediatric label, anchored on adult exposure-response data, validated by sparse pediatric pharmacokinetic observations, and defended through three simultaneous program disruptions.
 
 ## Cues
-- ⏱ 50 sec — establishes scale, do not exceed
-- 🎚 Lower register on "median survival from diagnosis was historically under one year" — the gravity of the indication earns the rest of the case
-- 🎯 Eye contact rotates: prevalence number to the panel chair, mortality number to the most senior pediatric panelist (if any)
-- ⚠ Do NOT cite STARTS-2 numbers here — that's the next slide
-- ✅ Land on "globally" with a slight pause before advancing
-- 📍 If the panel looks impatient, you can compress: "Few patients, fatal trajectory, even fewer approved drugs. That's the operating context."
+- ⏱ Land in 30 sec — no overrun
+- 🎯 Eye contact across the panel; don't read the slide
+- 🎚 Open with measured authority — this is the case opening, set the tone
+- 📍 Stand center-stage; don't gesture to the lung yet, let it land visually
+- ⚠ Do NOT mention FDA — FDA framing is reserved for Slide 10 caveat + Q&A defense
+- ✅ Land cleanly on "three simultaneous program disruptions" — advance
 
 ## Bridge
-→ Class history next — what STARTS-2 closed and what FUTURE-1 opened.`,
+→ Let me start with the question this case answers.`,
 
-  // Slide 07 — CS1 class history
-  'cs1-class': `## Spoken
-The class arrived at the ambrisentan pediatric program with one cautionary tale and one methodological precedent. ⏸
-
-The **cautionary tale** is sildenafil — STARTS-1 and STARTS-2. ==Hazard ratio of three-point-nine-five== for high-versus-low dose mortality in STARTS-2. The FDA recommended *against* use in pediatric PAH in 2012; the EMA approved low-dose only. ⏸ The first regulatory schism in the class.
-
-The **methodological precedent** is bosentan — FUTURE-1 and FUTURE-2. PK-bridging worked. Pediatric label achieved. But with a hepatotoxicity black box that defines the class concern ambrisentan inherits.
-
-⏸ So the table our case sits on is: one mortality signal that closed the door on empirical dose-escalation, one PK-bridging precedent that opened the door to exposure-matching. Ambrisentan's job was to walk through the second door without re-encountering the first.
-
-## Cues
-- ⏱ 60 sec — the most number-heavy of the BG slides
-- 🎚 Slow on "three-point-nine-five" — it's the load-bearing number on the slide
-- 🎯 Lock eyes with the panel chair on "the first regulatory schism in the class"
-- ⚠ Do NOT defend or attack the FDA / EMA divergence — describe it
-- ⚠ Do NOT say "ambrisentan inherits the bosentan black box" — ambrisentan does NOT have a hepatotox black box. Frame it as the *concern* the program had to address.
-- ✅ Land on "without re-encountering the first" — that sentence is the slide's argument
-
-## Bridge
-→ The Clin Pharm question next — stated precisely in one sentence.`,
-
-  // Slide 07 — CS1 context (merged disease + class) — STUB.
-  // Added 2026-04-25 as part of CS1 flow refactor. Full content to be
-  // filled in a separate prompt; until then, presenter notes can draw
-  // from the legacy 'cs1-disease' and 'cs1-class' entries above.
-  'cs1-context': `## Spoken
-Pediatric PAH. ⏸ **Fourteen to twenty cases per million children** in Europe. Untreated, median survival from diagnosis was historically under one year. With modern multi-modal therapy — ERAs, PDE-5 inhibitors, prostacyclin — five-year survival is now around ninety percent.
-
-⏸ The class arrived at the ambrisentan program with two landmarks.
-
-The **cautionary tale** is sildenafil — STARTS-2 showed a ==hazard ratio of 3.95== for high-versus-low dose mortality. FDA recommended against pediatric use in 2012; EMA approved low-dose only. That closed the door on empirical dose-escalation in this class. ⏸
-
-The **methodological precedent** is bosentan — FUTURE-1 and FUTURE-2 showed PK-bridging worked. Pediatric label achieved.
-
-⏸ One signal that shut down the escalation playbook. One precedent that opened ==exposure-matching as the live alternative==. Ambrisentan's job was to walk through the second door.
-
-## Cues
-- ⏱ 65 sec — two halves: disease scale, then class history
-- 🎚 Lower register on mortality and STARTS-2 numbers
-- 📍 Pause between the two halves — the audience needs to feel the constraint tightening
-- ⚠ Do NOT say "the trial failed" about STARTS-2 — it delivered a safety signal, not a failure
-- ⚠ Do NOT cite FUTURE-2 hepatotox details here — save for Q&A
-- ✅ Land on "exposure-matching as the live alternative"
-
-## Bridge
-→ Trial design next — AMB112529 + LTE.`,
-
-  // Slide 06 — CS1 the Clin Pharm question
+  // V2-S2 · Hook + question — 45 sec
+  // (manifest order places cs1-question at slot 06, immediately after cs1-divider)
   'cs1-question': `## Spoken
-Here is the question we had to answer. ⏸
+Adult ambrisentan dosing was set in **==the ARIES program==** — two parallel pivotal trials, **380 patients combined**, 6-minute walk distance as the primary endpoint, the standard adult PAH playbook.
 
-==Can we defend a body-weight-based pediatric dosing scheme on **exposure-matching grounds** — against an adult exposure-response benchmark — in a population we will never adequately power for efficacy?==
+⏸
 
-That is the question. Frame it that way and the rest of the case writes itself.
+The pediatric dose was set in **==39 patients==** with sparse pharmacokinetic sampling, in a trial that was terminated mid-program.
 
-⏸ What we cannot do is run the adult trial. About forty patients globally, almost all on background therapy that cannot be changed. A placebo-controlled efficacy trial is unethical — there is no untreated arm any IRB will accept. Six-minute walk distance is the least-bad endpoint, but it weakens under age seven and the program enrolled eight to under eighteen anyway. And the EMA Paediatric Investigation Plan commitment — signed in 2008 — meant the clock was running.
+Both regulators that received the package approved it.
 
-⏸ So the question becomes: *what evidence carries the dose, when the trial we would normally run can't be run?*
+The case is what makes that bridge work… ⏸ and why the framework now anchors current pediatric extrapolation programs in this disease and others.
+
+The question — *the clinical pharmacology question* — is on the slide:
+
+**==How do you defend a pediatric dose when the trial that defined the adult dose isn't an option?==**
 
 ## Cues
-- ⏱ 70 sec — the slide's argumentative spine; do not rush
-- 🎚 Slow, measured delivery on the question itself. Each phrase lands separately: "exposure-matching grounds" / "adult exposure-response benchmark" / "never adequately power for efficacy"
-- 🎯 Read the question with eyes on the slide — the audience needs to see and hear it together
-- 📍 After the question, step back from the slide and face the panel for the constraints
-- ⚠ Do NOT preview the answer. The answer is Slides 10-11. This slide is purely the question.
-- ⚠ Do NOT apologize for n=40 or for 6MWD. State the constraints; do not editorialize.
-- ✅ The phrase the panel will quote is "exposure-matching grounds." Say it slowly.
+- ⏱ ~45 sec — pause at the asymmetry; the 380-vs-39 contrast is meant to land
+- 🎯 Look up at "39 patients" — let the panel see you take ownership of the small-N
+- 🎚 Slightly slower at "39 patients" — the asymmetry is the hook
+- ⚠ Do NOT say "two of three regulators" — say "both regulators that received the package"
+- ✅ Read the question quote verbatim — it's the slide's job to plant it
 
 ## Bridge
-→ Trial design next — AMB112529, the LTE, fourteen years on the clock.`,
+→ Before I take you through how the framework solves that, the audience needs context on the disease and the field — let me set that up.`,
+
+  // V2-S3 · PAH 101 · disease foundation — 60 sec
+  'cs1-context': `## Spoken
+Pulmonary arterial hypertension is **==a small-vessel disease of the lungs that kills through right-heart failure==**.
+
+The pulmonary arterioles undergo three things at once — vasoconstriction, smooth-muscle and endothelial proliferation, and in-situ thrombosis. The lumen narrows. Pulmonary vascular resistance rises. The right ventricle has to push blood through a stiffer, narrower bed; it hypertrophies, then dilates, then **fails**.
+
+⏸ Patients don't die of pulmonary hypertension. They die of right-heart failure.
+
+The hemodynamic definition — *2022 ESC/ERS* — is **mean pulmonary arterial pressure ≥ 20 millimeters of mercury, pulmonary vascular resistance ≥ 2 Wood units, with a wedge pressure ≤ 15**. That last criterion is what makes it pre-capillary disease — the pathology is in the arterioles themselves.
+
+There are four therapeutic pathways — endothelin, nitric oxide / cGMP, prostacyclin, and the activin pathway most recently — and ambrisentan blocks the **==endothelin pathway==**, which is the over-active vasoconstrictor and proliferative arm.
+
+Untreated median survival is **==2.8 years==** — that's the *D'Alonzo NIH registry from 1991*, the benchmark every PAH therapy has been measured against.
+
+## Cues
+- ⏱ ~60 sec; this slide carries the disease-onboarding load — don't rush
+- 🎯 Make eye contact at "they die of right-heart failure" — that's the moment the panel registers severity
+- 🎚 Lower volume slightly at "Patients don't die of pulmonary hypertension" — adds weight
+- 📍 Gesture toward the lung at "small-vessel disease of the lungs"
+- ⚠ Don't dive deeper into the four pathways — name them, move on
+
+## Bridge
+→ That's the adult disease. The pediatric problem looks different — let me show you the field-level history.`,
 
   // Slide 09 — CS1 trial design + LTE
   'cs1-trial': `## Spoken
@@ -433,6 +427,16 @@ That's what this case is about.
 → Next two slides set the disease and regulatory background before the case question lands.`,
 
   'cs2-bg-disease': `## Spoken
+(Hook slide — speaker notes refresh pending. ~45 sec beat. Let the map and question land.)
+
+## Cues
+- ⏱ 45 sec — the question hangs; do not answer it here.
+- 🎯 Land on "without a local trial?" and HOLD the pause.
+
+## Bridge
+→ Next: disease background (IDH1 mechanism, epidemiology).`,
+
+  'cs2-disease': `## Spoken
 Quick orientation on the biology. ⏸
 
 IDH1 mutations show up in about ==six to ten percent of AML== and roughly ==thirteen percent of intrahepatic cholangiocarcinoma==. Both are rare. Both are biologically distinct within their cancers.
@@ -444,7 +448,7 @@ Before 2018, there was no targeted option for these patients. Ivosidenib changed
 One thing to note for later: this mutation is ==somatic==, not germline. It's acquired in tumor cells, not inherited. That distinction becomes the intellectual core of the regulatory argument in this case.
 
 ## Cues
-- ⏱ 45 sec — this is context, not the case. Move through it.
+- ⏱ ~50 sec — context, not the case. Move through it.
 - 🎚 Conversational. This is "let me orient you" energy, not assertion energy.
 - 📍 The somatic vs. germline foreshadow is deliberate — plant it here, pay it off in the architecture slide.
 - ⚠ Do NOT say "UGT1A1" here. That is Q&A-only material. The public metabolism story is CYP3A4.

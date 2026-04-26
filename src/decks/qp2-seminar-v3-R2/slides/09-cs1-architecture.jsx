@@ -4,163 +4,167 @@ import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 
 /**
- * CS1 · Slide 09 — Architecture (three pillars).
+ * CS1 · Slide 09 (slot) — V2-S5 · Drug + constraint.
  *
- * Renamed from cs1-method → cs1-architecture as part of the CS1 flow
- * refactor. Content preserved verbatim from the pre-flow-refactor
- * version. Added forward-pointer hairline annotation below the three-
- * pillar grid so this slide reads as SETUP for slide 10's exposure-match
- * climax, not as its own ending.
+ * 2026-04-25 v2-final pass — content replaced wholesale per
+ * 2-Slides_Dev/2-Slides-Plan-V2/_Results/2-SlidesPlan/V2/2A-Slides-CS1-Slides01-06-v2.md.
+ * Slide ID `cs1-architecture` retained for manifest stability; the V2
+ * spec places the drug-profile + pediatric-constraint two-column here.
+ * The "three pillars" architecture content has been folded into slide
+ * 12 (cs1-bracket) PopPK framework architecture.
+ *
+ * v2-final amendments:
+ *   - A1.6 Etiologic distribution explicit (66% IPAH, 20% post-repair
+ *     CHD, 10% CTD, 5% familial) per Ivy 2020 Table IV.
+ *   - A1.7 Background therapy explicit (80% on baseline PAH therapy at
+ *     entry; 66% ongoing; PDE-5i mono 44%, prostanoid mono 2%, combo 20%).
  */
 
-const PILLARS = [
-  {
-    n: '01',
-    name: 'Adult exposure-response anchor',
-    role: 'The benchmark',
-    detail: 'ARIES-1/2 establishes the adult AUCss / Cmax,ss range across 2.5 / 5 / 10 mg/day, with 6MWD improvement and acceptable safety. This is the curve we match to.',
-  },
-  {
-    n: '02',
-    name: 'Pediatric PopPK with allometry',
-    role: 'The bridge',
-    detail: '2-compartment model with absorption lag. Allometric exponents prespecified at 0.75 (CL) / 1.0 (V) — not estimated. Body weight is the only retained covariate.',
-    isHero: true,
-  },
-  {
-    n: '03',
-    name: 'Long-term safety follow-up',
-    role: 'The durability',
-    detail: 'LTE NCT01342952. 3.5-year median exposure. Monitors pubertal development, hepatic safety, mortality attribution. Becomes the de facto efficacy follow-on.',
-  },
+const EASE = [0.2, 0.7, 0.3, 1];
+
+const DRUG_FACTS = [
+  { label: 'Mechanism', value: 'Selective ETA antagonist · >4,000-fold selectivity vs ETB' },
+  { label: 'Indication', value: 'Adult PAH (WHO Group 1) · FDA 2007 · EMA 2008' },
+  { label: 'Pivotal program', value: 'ARIES-1 + ARIES-2 · N≈380 combined · 6MWD primary' },
+  { label: 'Adult dose', value: '5 mg or 10 mg once daily · fixed dose' },
+  { label: 'Distinctive feature', value: 'Hepatotoxicity black-box removed 2011 — distinguishes from bosentan' },
 ];
+
+const CONSTRAINTS = [
+  { label: 'Rarity', value: 'Pediatric PAH prevalence 2–16 per million children — patient pool barely exists' },
+  { label: 'Heterogeneity', value: 'AMB112529 mix · 66% IPAH · 20% post-repair CHD · 10% CTD · 5% familial' },
+  { label: 'Ethics', value: '80% on baseline PAH therapy at entry · 66% ongoing → placebo arms untenable' },
+  { label: 'Endpoint', value: '6MWD doesn\'t transfer — children <7–8 can\'t perform reliably; growth confounds longer trials' },
+  { label: 'Empirical record', value: 'No pediatric PAH trial has hit a 6MWD primary at α=0.05 (incl. STARTS-1 N=235, p=0.056)' },
+];
+
+function FactCard({ items, headerKicker, headerColor, delay, reduced, isHero }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay, ease: EASE }}
+      style={{
+        position: 'relative',
+        minWidth: 0,
+        border: `1px solid ${isHero ? 'color-mix(in srgb, var(--coral) 32%, transparent)' : 'var(--cream-hairline)'}`,
+        borderLeft: `4px solid ${headerColor}`,
+        borderRadius: 'var(--radius-lg)',
+        background: isHero
+          ? 'color-mix(in srgb, var(--coral) 6%, transparent)'
+          : 'color-mix(in srgb, var(--panel) 60%, transparent)',
+        padding: 'clamp(var(--space-3), 1.6vw, var(--space-5))',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 'var(--space-3)',
+      }}
+    >
+      <div className="deck-mono uppercase" style={{
+        fontSize: 'var(--fs-slide-kicker)',
+        letterSpacing: 'var(--ls-mono-wide)',
+        color: headerColor,
+        fontWeight: 700,
+      }}>
+        {headerKicker}
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+        {items.map((it) => (
+          <div key={it.label} style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+            <span className="deck-mono uppercase" style={{
+              fontSize: 'var(--fs-slide-pageno)',
+              color: 'var(--cream-faint)',
+              letterSpacing: 'var(--ls-mono-wide)',
+              fontWeight: 700,
+            }}>
+              {it.label}
+            </span>
+            <span className="deck-body" style={{
+              fontSize: 'var(--fs-slide-subhead)',
+              color: 'var(--cream)',
+              opacity: 0.86,
+              lineHeight: 1.4,
+            }}>
+              {it.value}
+            </span>
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Cs1Architecture() {
   const reduced = useReducedMotion();
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
       <Eyebrow color="var(--coral)" delay={0.10}>
-        Case 01 · Architecture
+        Case 01 · The drug and the constraint
       </Eyebrow>
 
-      <Headline delay={0.25} maxChars={48}>
-        Three pillars.{' '}
-        <span style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 500 }}>
-          Modeling earns its keep as one of them.
+      <Headline delay={0.25} maxChars={64}>
+        Ambrisentan was approved in adults in 2007 —{' '}
+        <span style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 600 }}>
+          but the trial path that defined the adult dose was not viable for children.
         </span>
       </Headline>
 
       <Subhead delay={0.55} maxChars={92} size="lead">
-        The case does not rest on the model alone. It rests on three pillars,
-        of which the model is the load-bearing middle.
+        The drug profile on the left; the five constraints on a pediatric
+        efficacy trial on the right.
       </Subhead>
 
       <Viz>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(16rem, 100%), 1fr))',
-          gap: 'clamp(var(--space-3), 2vw, var(--space-6))',
-          paddingTop: 'clamp(var(--space-3), 3vh, var(--space-6))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(20rem, 100%), 1fr))',
+          gap: 'clamp(var(--space-3), 2vw, var(--space-5))',
+          paddingTop: 'clamp(var(--space-2), 2vh, var(--space-4))',
           alignItems: 'stretch',
+          height: '100%',
         }}>
-          {PILLARS.map((p, i) => {
-            const accent = p.isHero ? 'var(--coral)' : 'var(--cream-muted)';
-            return (
-              <motion.div
-                key={p.n}
-                initial={{ opacity: 0, y: 12 }}
-                animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: 0.85 + i * 0.14, ease: [0.2, 0.7, 0.3, 1] }}
-                style={{
-                  position: 'relative',
-                  minWidth: 0,
-                  border: `1px solid ${p.isHero
-                    ? 'color-mix(in srgb, var(--coral) 38%, transparent)'
-                    : 'var(--cream-hairline)'}`,
-                  borderLeft: `3px solid ${accent}`,
-                  borderRadius: 'var(--radius-md)',
-                  background: p.isHero
-                    ? 'color-mix(in srgb, var(--coral) 6%, transparent)'
-                    : 'color-mix(in srgb, var(--panel) 60%, transparent)',
-                  padding: 'clamp(var(--space-3), 2vw, var(--space-5))',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 'var(--space-2)',
-                }}
-              >
-                <div className="deck-mono" style={{
-                  fontSize: 'var(--fs-slide-name)',
-                  color: accent,
-                  letterSpacing: '0.08em',
-                  fontVariantNumeric: 'tabular-nums',
-                  fontWeight: 700,
-                  lineHeight: 1,
-                }}>
-                  PILLAR {p.n}
-                </div>
-                <div className="deck-display" style={{
-                  fontSize: 'clamp(1.2rem, 2.2vw, 1.65rem)',
-                  color: 'var(--cream)',
-                  fontWeight: 600,
-                  lineHeight: 1.15,
-                  letterSpacing: '-0.01em',
-                }}>
-                  {p.name}
-                </div>
-                <div className="deck-display italic" style={{
-                  fontSize: 'var(--fs-slide-subhead)',
-                  color: accent,
-                  fontWeight: 500,
-                }}>
-                  {p.role}
-                </div>
-                <div aria-hidden style={{
-                  width: 'clamp(40px, 6vw, 64px)',
-                  height: 'var(--stroke-hair)',
-                  background: accent,
-                  opacity: 0.5,
-                  marginTop: 'var(--space-1)',
-                }} />
-                <div className="deck-body" style={{
-                  fontSize: 'var(--fs-slide-subhead)',
-                  color: 'var(--cream)',
-                  opacity: 0.84,
-                  lineHeight: 1.45,
-                  marginTop: 'var(--space-1)',
-                }}>
-                  {p.detail}
-                </div>
-              </motion.div>
-            );
-          })}
+          <FactCard
+            items={DRUG_FACTS}
+            headerKicker="The drug"
+            headerColor="var(--coral)"
+            delay={0.85}
+            reduced={reduced}
+            isHero
+          />
+          <FactCard
+            items={CONSTRAINTS}
+            headerKicker="Why no pediatric efficacy trial"
+            headerColor="var(--cream-muted)"
+            delay={1.00}
+            reduced={reduced}
+          />
         </div>
 
-        {/* Forward-pointer to slide 10 — sets up the exposure-match climax.
-            Per CS1 flow refactor: this slide is SETUP for the next slide,
-            not its own ending. Upright deck-body at tagline size. */}
+        {/* Closing reframe — the question shifted */}
         <motion.div
-          initial={{ opacity: 0, y: 6 }}
-          animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1.55, ease: [0.2, 0.7, 0.3, 1] }}
-          className="deck-body"
+          initial={{ opacity: 0 }}
+          animate={reduced ? { opacity: 1 } : { opacity: 1 }}
+          transition={{ duration: 0.55, delay: 1.45, ease: EASE }}
+          className="deck-display italic"
           style={{
-            marginTop: 'var(--space-5)',
+            marginTop: 'clamp(var(--space-3), 3vh, var(--space-5))',
             fontSize: 'var(--fs-slide-tagline)',
-            color: 'var(--cream)',
-            opacity: 0.82,
+            color: 'var(--cream-muted)',
             lineHeight: 1.5,
             fontWeight: 400,
-            maxWidth: '72ch',
+            maxWidth: '78ch',
+            paddingLeft: 'var(--space-3)',
+            borderLeft: '1px solid var(--coral)',
           }}
         >
-          The load-bearing piece — the exposure match — is what the next slide is about.
+          The clinical question wasn&rsquo;t &ldquo;does it work in children?&rdquo; &mdash; mechanism is conserved. The question was: <strong style={{ color: 'var(--cream)', fontStyle: 'normal' }}>how do you defend a pediatric dose under these constraints?</strong>
         </motion.div>
       </Viz>
 
       <Footer
-        delay={reduced ? 0 : 1.95}
-        kicker="09 · CS1 · ARCHITECTURE"
-        tagline="Modeling is the bridge — not the whole case. The pillars stand together or not at all."
+        delay={reduced ? 0 : 1.85}
+        kicker="09 · CS1 · DRUG + CONSTRAINT"
+        tagline="Mechanism is conserved. The trial path is closed. The question shifts to the framework."
+        source="Source · FDA Letairis label · Ivy DD et al. J Pediatr X 2020 Table IV · ESC/ERS 2022 PAH guideline"
       />
     </SlideGrid>
   );

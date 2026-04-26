@@ -1,79 +1,92 @@
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import SlideGrid, { STANDARD_AREAS, GridSlot } from '@/components/deck/SlideGrid';
-import { Eyebrow, Headline, Viz, Footer } from '@/components/deck/SlideParts';
+import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
+import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 
 /**
- * CS1 · Slide 12 — Bracket Method (leadership ownership).
+ * CS1 · Slide 12 (slot) — V2-S8 · The framework · PopPK architecture.
  *
- * Per CS1 STRUCTURAL FLOW REBUILD spec: this slide POSITIONS the
- * leadership ownership BEFORE the verdict. The audience reads it as
- * "results landed → here's how the work was distributed → therefore the
- * agencies acted." Leadership earns the verdict instead of trailing as
- * gratitude.
+ * 2026-04-25 v2-final pass — content replaced wholesale per
+ * 2-Slides_Dev/2-Slides-Plan-V2/_Results/2-SlidesPlan/V2/2B-Slides-CS1-Slides07-11-v2.md.
+ * Slide ID `cs1-bracket` retained for manifest stability; the V2 spec
+ * removed the standalone Bracket Method ownership beat and folded
+ * leadership signaling into the technical narrative on this slide.
  *
- * Bracket-shape composition: two columns separated by a vertical hairline
- * rule. Left = "I OWNED"; right = "THE TEAM OWNED". Bottom thesis line
- * names what the bracket actually does — both sides have to hold.
+ * v2-final amendments:
+ *   - A1.2 Adult anchor decomposed: 380 participants (41 healthy + 339 PAH)
+ *     across 6 studies (AMB-105, AMB-106, AMB-220, AMB-222, ARIES-1,
+ *     ARIES-2, ARIES-E). The "ARIES program N=380" shorthand
+ *     undercounts the dataset.
+ *   - A1.1 PDE-5 inhibitor was NOT a formally tested PopPK covariate
+ *     per Okour 2023 p.596. Defense is mechanistic-only: ambrisentan,
+ *     unlike bosentan, doesn't induce CYP3A4 → no expected DDI.
  *
- * Subhead is rendered as a custom GridSlot at --fs-slide-lead in upright
- * deck-body per the spec's explicit "upright" instruction.
- *
- * All collaborator names are public co-authors of Ivy 2020 (J Pediatr X)
- * and Okour 2023 (J Clin Pharmacol).
+ * Source: Okour M et al. J Clin Pharmacol 2023;63(5):593–603.
  */
 
 const EASE = [0.2, 0.7, 0.3, 1];
 
-const I_OWNED = [
-  'The pediatric population PK model',
-  'The exposure–response analysis',
-  'The regulatory narrative for the EMA PIP',
+const COVARIATES = [
+  { name: 'Body weight', tested: 'allometric — fixed exponents', sig: '✓ retained · mechanistic, not estimated' },
+  { name: 'Age',         tested: 'on CL/F + Vc/F',                sig: '— ns' },
+  { name: 'Sex',         tested: 'on CL/F + Vc/F',                sig: '— ns' },
+  { name: 'Race',        tested: 'White vs East Asian vs Other',  sig: '— ns' },
+  { name: 'Bilirubin',   tested: 'on CL/F',                       sig: '— ns' },
+  { name: 'Alkaline phosphatase', tested: 'on CL/F',              sig: '— ns' },
+  { name: 'Creatinine clearance', tested: 'on CL/F',              sig: '— ns' },
+  { name: 'Dose level',  tested: 'on absorption lag time',        sig: '— ns' },
 ];
 
-const TEAM_OWNED = [
-  'Pediatric trial conduct — Beghetti, Berger, Lukas, Ivy',
-  'Long-term extension retention — site investigators across 4 continents',
-  'Pharmacokinetic sample collection — clinical operations',
-  'Regulatory submissions — Beerahee + filing teams',
-  'The trust of the field — clinicians and families',
-];
-
-function ColumnHeader({ label, color, delay, reduced }) {
+function PanelCard({ kicker, children, accent = 'var(--coral)', delay, reduced, isHero = false }) {
   return (
     <motion.div
-      initial={{ opacity: 0, x: -8 }}
-      animate={reduced ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
-      transition={{ duration: 0.5, delay, ease: EASE }}
-      className="deck-mono uppercase"
+      initial={{ opacity: 0, y: 12 }}
+      animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay, ease: EASE }}
       style={{
-        fontSize: 'var(--fs-slide-eyebrow)',
-        letterSpacing: '0.10em',
-        color,
-        fontWeight: 700,
+        position: 'relative',
+        minWidth: 0,
+        border: '1px solid var(--cream-hairline)',
+        background: isHero
+          ? 'color-mix(in srgb, var(--coral) 8%, transparent)'
+          : 'color-mix(in srgb, var(--panel) 65%, transparent)',
+        borderRadius: 'var(--radius-lg)',
+        padding: 'clamp(var(--space-3), 1.6vw, var(--space-5))',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 'var(--space-2)',
+        overflow: 'hidden',
       }}
     >
-      {label}
+      {isHero && (
+        <div aria-hidden style={{
+          position: 'absolute', left: 0, top: 0, bottom: 0,
+          width: 4, background: accent,
+        }} />
+      )}
+      <div className="deck-mono uppercase" style={{
+        fontSize: 'var(--fs-slide-kicker)',
+        letterSpacing: 'var(--ls-mono-wide)',
+        color: accent,
+        fontWeight: 700,
+      }}>
+        {kicker}
+      </div>
+      {children}
     </motion.div>
   );
 }
 
-function BodyLine({ children, delay, reduced }) {
+function Bullet({ children }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 6 }}
-      animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, delay, ease: EASE }}
-      className="deck-body"
-      style={{
-        fontSize: 'var(--fs-slide-subhead)',
-        color: 'var(--cream-muted)',
-        lineHeight: 1.45,
-        fontWeight: 400,
-      }}
-    >
+    <div className="deck-body" style={{
+      fontSize: 'var(--fs-slide-subhead)',
+      color: 'var(--cream)',
+      opacity: 0.86,
+      lineHeight: 1.4,
+    }}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -82,152 +95,161 @@ export default function Cs1Bracket() {
 
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
-      <Eyebrow color="var(--coral)" delay={0.25}>
-        Case 01 · Ownership
+      <Eyebrow color="var(--coral)" delay={0.10}>
+        Case 01 · The framework
       </Eyebrow>
 
-      <Headline delay={0.45} maxChars={56}>
-        Owned the model.{' '}
-        <span style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 500 }}>
-          Credited the team that owned the trial.
+      <Headline delay={0.25} maxChars={64}>
+        Adult-anchored, allometrically scaled, pediatrically validated —{' '}
+        <span style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 600 }}>
+          the structural model wasn&rsquo;t built on N=39.
         </span>
       </Headline>
 
-      {/* Custom subhead slot: lead size, UPRIGHT deck-body per spec. */}
-      <GridSlot
-        area="subhead"
-        motion={{
-          initial: { opacity: 0, y: 10 },
-          animate: { opacity: 1, y: 0 },
-          delay: 0.65,
-        }}
-        className="deck-body self-start"
-        style={{
-          fontSize: 'var(--fs-slide-lead)',
-          color: 'var(--cream)',
-          opacity: 0.78,
-          fontWeight: 400,
-          lineHeight: 1.4,
-          maxWidth: '78ch',
-          margin: 0,
-        }}
-      >
-        The 3% AUC match was modeling and analysis. Everything around
-        it — the trial, the long-term follow-up, the regulatory craft —
-        was the team.
-      </GridSlot>
+      <Subhead delay={0.55} maxChars={94} size="lead">
+        Three blocks. The pediatric data validate adequacy; the structure is
+        inherited from the adult anchor.
+      </Subhead>
 
       <Viz>
         <div style={{
-          width: '100%',
-          height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
-          paddingTop: 'clamp(var(--space-3), 3vh, var(--space-6))',
+          gap: 'clamp(var(--space-3), 2vh, var(--space-5))',
+          paddingTop: 'clamp(var(--space-2), 2vh, var(--space-4))',
+          height: '100%',
         }}>
-          {/* Bracket — two columns separated by a vertical hairline rule.
-              auto-fit ensures graceful reflow on narrow viewports (the
-              vertical rule is hidden when columns stack). */}
+          {/* Three-block architecture diagram */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(20rem, 100%), 1fr))',
-            gap: 'clamp(var(--space-6), 5vw, var(--space-10))',
-            alignItems: 'start',
-            position: 'relative',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(16rem, 100%), 1fr))',
+            gap: 'clamp(var(--space-3), 2vw, var(--space-5))',
           }}>
-            {/* Vertical hairline rule. scaleY entrance from top.
-                Hidden on narrow viewports where columns stack. */}
-            <motion.div
-              aria-hidden
-              initial={{ scaleY: 0, opacity: 0 }}
-              animate={reduced ? { scaleY: 1, opacity: 1 } : { scaleY: 1, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.85, ease: EASE }}
-              className="hidden md:block"
-              style={{
-                position: 'absolute',
-                left: '50%',
-                top: '10%',
-                bottom: '10%',
-                width: 1,
-                background: 'var(--cream-faint)',
-                transformOrigin: 'top center',
-                pointerEvents: 'none',
-              }}
-            />
+            <PanelCard kicker="01 · Adult anchor" delay={0.85} reduced={reduced} isHero>
+              <div className="deck-display" style={{
+                fontSize: 'var(--fs-card-numeral)',
+                color: 'var(--coral)',
+                fontWeight: 700,
+                lineHeight: 0.95,
+                fontVariantNumeric: 'tabular-nums',
+              }}>
+                380
+              </div>
+              <Bullet>
+                <span style={{ color: 'var(--cream)', fontWeight: 600 }}>participants</span> · 41 healthy + 339 PAH
+              </Bullet>
+              <Bullet>
+                6 studies pooled — AMB-105, AMB-106, AMB-220, AMB-222, <em>ARIES-1</em>, <em>ARIES-2</em>, ARIES-E
+              </Bullet>
+              <Bullet>
+                3,126 PK observations · 2-compartment, 1st-order absorption + lag
+              </Bullet>
+            </PanelCard>
 
-            {/* LEFT — what I owned */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 'var(--space-3)',
-              minWidth: 0,
-              borderLeft: '3px solid var(--coral)',
-              paddingLeft: 'clamp(var(--space-3), 1.6vw, var(--space-5))',
-            }}>
-              <ColumnHeader
-                label="I owned"
-                color="var(--coral)"
-                delay={1.00}
-                reduced={reduced}
-              />
-              {I_OWNED.map((line, i) => (
-                <BodyLine key={line} delay={1.15 + i * 0.10} reduced={reduced}>
-                  {line}
-                </BodyLine>
-              ))}
-            </div>
+            <PanelCard kicker="02 · Allometric scaling" delay={1.00} reduced={reduced}>
+              <Bullet>
+                <span style={{ color: 'var(--coral)', fontWeight: 700 }}>CL &prop; WT<sup>0.75</sup></span>
+              </Bullet>
+              <Bullet>
+                <span style={{ color: 'var(--coral)', fontWeight: 700 }}>V &prop; WT<sup>1.0</sup></span>
+              </Bullet>
+              <Bullet>
+                Anderson&ndash;Holford convention · exponents <em>fixed, not estimated</em>
+              </Bullet>
+              <Bullet>
+                Estimation attempted; OFV improvement within noise; pcVPC not improved
+              </Bullet>
+            </PanelCard>
 
-            {/* RIGHT — what the team owned */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 'var(--space-3)',
-              minWidth: 0,
-              borderLeft: '3px solid var(--cream-faint)',
-              paddingLeft: 'clamp(var(--space-3), 1.6vw, var(--space-5))',
-            }}>
-              <ColumnHeader
-                label="The team owned"
-                color="var(--cream-faint)"
-                delay={1.00}
-                reduced={reduced}
-              />
-              {TEAM_OWNED.map((line, i) => (
-                <BodyLine key={line} delay={1.20 + i * 0.10} reduced={reduced}>
-                  {line}
-                </BodyLine>
-              ))}
-            </div>
+            <PanelCard kicker="03 · Pediatric validation" delay={1.15} reduced={reduced}>
+              <div className="deck-display" style={{
+                fontSize: 'var(--fs-card-numeral)',
+                color: 'var(--cream)',
+                fontWeight: 700,
+                lineHeight: 0.95,
+                fontVariantNumeric: 'tabular-nums',
+              }}>
+                39
+              </div>
+              <Bullet>
+                <span style={{ color: 'var(--cream)', fontWeight: 600 }}>patients evaluable</span> · 211 PK observations
+              </Bullet>
+              <Bullet>
+                pcVPC: predictions sit within 90% PI of adult model
+              </Bullet>
+              <Bullet>
+                Sole significant covariate among formally tested set: <span style={{ color: 'var(--coral)', fontWeight: 600 }}>body weight</span>
+              </Bullet>
+            </PanelCard>
           </div>
 
-          {/* Bottom thesis line — the bracket-method payoff */}
+          {/* Covariate table */}
           <motion.div
-            initial={{ opacity: 0, y: 6 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 1.95, ease: EASE }}
-            className="deck-body"
+            transition={{ duration: 0.55, delay: 1.45, ease: EASE }}
             style={{
-              marginTop: 'var(--space-6)',
-              fontSize: 'var(--fs-slide-tagline)',
-              color: 'var(--cream)',
-              lineHeight: 1.5,
-              fontWeight: 500,
-              textAlign: 'center',
-              maxWidth: '60ch',
-              marginLeft: 'auto',
-              marginRight: 'auto',
+              border: '1px solid var(--cream-hairline)',
+              borderRadius: 'var(--radius-md)',
+              background: 'color-mix(in srgb, var(--panel) 55%, transparent)',
+              padding: 'clamp(var(--space-2), 1.2vw, var(--space-3)) clamp(var(--space-3), 1.6vw, var(--space-4))',
             }}
           >
-            Both sides of that bracket had to hold for the agencies to act.
+            <div className="deck-mono uppercase" style={{
+              fontSize: 'var(--fs-slide-pageno)',
+              color: 'var(--cream-faint)',
+              letterSpacing: 'var(--ls-mono-wide)',
+              marginBottom: 'var(--space-2)',
+            }}>
+              Formally tested covariates · Okour 2023 p.596
+            </div>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(13rem, 100%), 1fr))',
+              gap: 'var(--space-1) clamp(var(--space-3), 2vw, var(--space-5))',
+              fontSize: 'var(--fs-slide-pageno)',
+              fontVariantNumeric: 'tabular-nums',
+            }}>
+              {COVARIATES.map((c) => (
+                <div key={c.name} style={{ display: 'flex', justifyContent: 'space-between', gap: 'var(--space-2)', minWidth: 0 }}>
+                  <span style={{ color: c.sig.startsWith('✓') ? 'var(--coral)' : 'var(--cream)', fontWeight: c.sig.startsWith('✓') ? 600 : 400, opacity: c.sig.startsWith('✓') ? 1 : 0.78 }}>
+                    {c.name}
+                  </span>
+                  <span style={{ color: c.sig.startsWith('✓') ? 'var(--coral)' : 'var(--cream-faint)', whiteSpace: 'nowrap' }}>
+                    {c.sig}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* PDE-5i mechanistic-only footer (the v2-final A1.1 correction) */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={reduced ? { opacity: 1 } : { opacity: 1 }}
+            transition={{ duration: 0.5, delay: 1.85, ease: EASE }}
+            className="deck-body"
+            style={{
+              fontSize: 'var(--fs-slide-tagline)',
+              color: 'var(--cream)',
+              opacity: 0.82,
+              lineHeight: 1.5,
+              fontStyle: 'italic',
+              borderLeft: '3px solid var(--coral)',
+              paddingLeft: 'var(--space-3)',
+              maxWidth: '78ch',
+            }}
+          >
+            <span style={{ fontStyle: 'normal', fontWeight: 600, color: 'var(--coral)' }}>PDE-5 inhibitor</span> was <strong>not</strong> a formally tested PopPK covariate. Defense is mechanistic: ambrisentan, unlike bosentan, doesn&rsquo;t induce CYP3A4 &rarr; clinically meaningful DDI is not pharmacologically expected. Exposure-matching held across the 66% on PDE-5i background &mdash; consistent with the mechanistic prediction.
           </motion.div>
         </div>
       </Viz>
 
       <Footer
-        delay={reduced ? 0 : 2.20}
-        kicker="12 · CS1 · OWNERSHIP"
-        tagline="What every Director-level case has and most case studies hide."
+        delay={reduced ? 0 : 2.10}
+        kicker="12 · CS1 · FRAMEWORK"
+        tagline="The structural model wasn't built on N=39. It was confirmed by it."
+        source="Source · Okour M et al. J Clin Pharmacol 2023;63(5):593–603 · PMID 36579617"
       />
     </SlideGrid>
   );

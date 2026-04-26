@@ -1,93 +1,150 @@
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
-import { Eyebrow, Headline, Viz, Footer } from '@/components/deck/SlideParts';
-
-// === HOOK-AWARE BRIDGE TAGLINE TOGGLE ===
-// Match this to whichever hook is active in slide 02.
-// To swap: comment the active line, uncomment the alternate.
-const BRIDGE_TAGLINE = "In CS1, the trial was untrialable. In CS2, the trial was unavailable. Same function, different shape.";
-// const BRIDGE_TAGLINE = "In CS1, the model became the dose. In CS2, the dossier becomes the trial.";
-// ====================================================
+import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 
 /**
- * CS1 · Slide 15 — CS1 → CS2 bridge (hook-aware tagline).
+ * CS1 · Slide 15 (slot) — V2-S11 · Three takeaways + bridge to CS2.
  *
- * Per CS1 STRUCTURAL FLOW REBUILD spec: the bridge slide visual stays
- * (headline + closing-ribbon vocabulary per CLAUDE.md ribbon pattern),
- * but the load-bearing tagline is now driven by a top-of-file constant
- * that toggles per active hook (Hook A "trial isn't the answer" or
- * Hook G "decision is the product").
+ * 2026-04-25 v2-final pass — content replaced wholesale per
+ * 2-Slides_Dev/2-Slides-Plan-V2/_Results/2-SlidesPlan/V2/2B-Slides-CS1-Slides07-11-v2.md.
+ * V2 spec consolidates "what this case teaches" (was slide 14) + the
+ * CS2 bridge (was slide 15) into a single closing slot. The previous
+ * three-lessons content has been retained but reframed per V2 takeaway
+ * structure (methodology · architecture · robustness).
  *
- * The BRIDGE_TAGLINE is rendered as upright deck-body (NOT italic
- * Fraunces) per CLAUDE.md italic-Fraunces ban under 24px. Footer
- * carries kicker only — the tagline IS the slide's load-bearing line.
+ * v2-final amendment in takeaway 02: dual-architecture call-out
+ * (FUTURE-1 EMA vs Garnett-Florian FDA) — surfacing both branches in
+ * the closing summary signals regulatory literacy.
  */
+
+const EASE = [0.2, 0.7, 0.3, 1];
+
+const TAKEAWAYS = [
+  {
+    n: '01',
+    label: 'METHODOLOGY',
+    headline: 'Pediatric extrapolation is not a workaround.',
+    body: 'When efficacy trials aren\'t feasible, exposure matching is the primary methodology — now codified as the ICH E11A extrapolation continuum.',
+  },
+  {
+    n: '02',
+    label: 'ARCHITECTURE',
+    headline: 'Inheritance is the framework\'s strength.',
+    body: <>Structural model from the adult anchor; pediatric data validates adequacy. <strong>39 patients cannot build a model — 39 patients can confirm one.</strong> EMA accepts PK-matching alone (FUTURE-1 architecture); FDA wants the hemodynamic surrogate too (Garnett-Florian).</>,
+  },
+  {
+    n: '03',
+    label: 'ROBUSTNESS',
+    headline: 'The framework absorbs disruption.',
+    body: 'Trial truncation, regulatory caution, split commercial geography — any one would have killed a traditional efficacy trial. The framework absorbed all three and still produced regulatorily-defensible weight-banded dosing.',
+  },
+];
+
+function TakeawayCard({ t, delay, reduced }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay, ease: EASE }}
+      style={{
+        position: 'relative',
+        minWidth: 0,
+        border: '1px solid var(--cream-hairline)',
+        borderLeft: '4px solid var(--coral)',
+        borderRadius: 'var(--radius-lg)',
+        background: 'color-mix(in srgb, var(--panel) 65%, transparent)',
+        padding: 'clamp(var(--space-3), 1.6vw, var(--space-5))',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 'var(--space-2)',
+        height: '100%',
+      }}
+    >
+      <div className="deck-mono uppercase" style={{
+        fontSize: 'var(--fs-slide-kicker)',
+        letterSpacing: 'var(--ls-mono-wide)',
+        color: 'var(--coral)',
+        fontWeight: 700,
+        fontVariantNumeric: 'tabular-nums',
+      }}>
+        {t.n} · {t.label}
+      </div>
+      <div className="deck-display" style={{
+        fontSize: 'clamp(1.15rem, 2vw, 1.5rem)',
+        color: 'var(--cream)',
+        fontWeight: 700,
+        lineHeight: 1.2,
+        letterSpacing: '-0.005em',
+      }}>
+        {t.headline}
+      </div>
+      <div className="deck-body" style={{
+        fontSize: 'var(--fs-slide-subhead)',
+        color: 'var(--cream)',
+        opacity: 0.86,
+        lineHeight: 1.5,
+        marginTop: 'var(--space-1)',
+      }}>
+        {t.body}
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Cs1Bridge() {
   const reduced = useReducedMotion();
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
       <Eyebrow color="var(--coral)" delay={0.10}>
-        Case 01 → Case 02 · the bridge
+        Case 01 · What the case teaches
       </Eyebrow>
 
-      <Headline delay={0.25} maxChars={56}>
-        From a population we{' '}
-        <span style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 500 }}>
-          could not ethically test
-        </span>
-        {' '}— to a population we{' '}
-        <span style={{ color: 'var(--cyan)', fontStyle: 'italic', fontWeight: 500 }}>
-          could not geographically reach.
-        </span>
+      <Headline delay={0.25} maxChars={62}>
+        When the trial cannot carry the dose,{' '}
+        <span style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 600 }}>
+          the framework does
+        </span>{' '}
+        — and the framework holds under disruption.
       </Headline>
+
+      <Subhead delay={0.55} maxChars={92} size="lead">
+        Three takeaways that travel beyond ambrisentan, beyond pediatric PAH,
+        beyond the specific case.
+      </Subhead>
 
       <Viz>
         <div style={{
-          width: '100%',
-          height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 'clamp(var(--space-5), 5vh, var(--space-10))',
-          padding: 'clamp(var(--space-3), 4vh, var(--space-8)) 0',
+          gap: 'clamp(var(--space-3), 2.5vh, var(--space-5))',
+          paddingTop: 'clamp(var(--space-2), 2vh, var(--space-4))',
+          height: '100%',
         }}>
-          {/* BRIDGE_TAGLINE — load-bearing prose line, hook-aware.
-              Upright deck-body per spec; italic-Fraunces banned at this size. */}
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.85, ease: [0.2, 0.7, 0.3, 1] }}
-            className="deck-body"
-            style={{
-              fontSize: 'var(--fs-slide-tagline)',
-              color: 'var(--cream)',
-              opacity: 0.82,
-              fontWeight: 400,
-              lineHeight: 1.5,
-              maxWidth: 'min(60ch, 100%)',
-              textAlign: 'center',
-            }}
-          >
-            {BRIDGE_TAGLINE}
-          </motion.div>
+          {/* Three takeaway cards */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(17rem, 100%), 1fr))',
+            gap: 'clamp(var(--space-3), 2vw, var(--space-5))',
+            alignItems: 'stretch',
+          }}>
+            {TAKEAWAYS.map((t, i) => (
+              <TakeawayCard key={t.n} t={t} delay={0.85 + i * 0.15} reduced={reduced} />
+            ))}
+          </div>
 
-          {/* Closing-ribbon — rotate-45 amber square + pointer text to CS2.
-              Visual unchanged from prior version per spec; inner text
-              updated to "Three decisions ahead. Case 02 — the
-              regulatory bridge." */}
+          {/* Bridge ribbon to CS2 — amber rotate-45 + pointer */}
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 1.40, ease: [0.2, 0.7, 0.3, 1] }}
+            transition={{ duration: 0.6, delay: 1.55, ease: EASE }}
             style={{
-              maxWidth: 'clamp(28rem, 70vw, 56rem)',
+              alignSelf: 'center',
+              maxWidth: 'clamp(28rem, 80vw, 64rem)',
               display: 'flex',
               alignItems: 'center',
-              gap: 'clamp(var(--space-4), 3vw, var(--space-8))',
-              padding: 'var(--space-4) var(--space-6)',
+              gap: 'clamp(var(--space-3), 2vw, var(--space-5))',
+              padding: 'var(--space-3) var(--space-5)',
               background: 'color-mix(in srgb, var(--amber) 8%, transparent)',
               border: '1px solid color-mix(in srgb, var(--amber) 28%, transparent)',
               borderRadius: 'var(--radius-md)',
@@ -104,41 +161,34 @@ export default function Cs1Bridge() {
               }}
               initial={{ opacity: 0, scale: 0 }}
               animate={reduced ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: 1.55, ease: [0.34, 1.56, 0.64, 1] }}
+              transition={{ duration: 0.4, delay: 1.75, ease: [0.34, 1.56, 0.64, 1] }}
             />
-            <motion.div
-              className="deck-body"
-              style={{
-                fontSize: 'var(--fs-slide-tagline)',
-                color: 'var(--cream)',
-                opacity: 0.88,
-                lineHeight: 1.5,
-                fontWeight: 400,
-                flex: 1,
-              }}
-              initial={{ opacity: 0 }}
-              animate={reduced ? { opacity: 0.88 } : { opacity: 0.88 }}
-              transition={{ duration: 0.5, delay: 1.75 }}
-            >
-              Three decisions ahead.{' '}
+            <div className="deck-display italic" style={{
+              fontSize: 'var(--fs-slide-tagline)',
+              color: 'var(--cream)',
+              opacity: 0.92,
+              lineHeight: 1.5,
+              fontWeight: 500,
+              flex: 1,
+            }}>
+              From a <strong style={{ color: 'var(--coral)', fontStyle: 'normal' }}>rare pediatric pulmonary disease</strong> to a{' '}
               <motion.span
-                style={{ color: 'var(--cyan)', fontWeight: 600 }}
                 initial={{ color: 'var(--cream)' }}
-                animate={reduced
-                  ? { color: 'var(--cyan)' }
-                  : { color: 'var(--cyan)' }}
+                animate={reduced ? { color: 'var(--cyan)' } : { color: 'var(--cyan)' }}
                 transition={{ duration: 0.4, delay: 2.55 }}
+                style={{ fontWeight: 600, fontStyle: 'normal' }}
               >
-                Case 02 — the regulatory bridge.
-              </motion.span>
-            </motion.div>
+                regulatory bridging waiver in oncology
+              </motion.span>{' '}— the next case takes the same intellectual move into a different therapeutic area.
+            </div>
           </motion.div>
         </div>
       </Viz>
 
       <Footer
-        delay={reduced ? 0 : 2.85}
+        delay={reduced ? 0 : 2.20}
         kicker="15 · CS1 CLOSES · CS2 OPENS"
+        tagline="The framework absorbed all three. Case 02 — the regulatory bridge."
       />
     </SlideGrid>
   );
