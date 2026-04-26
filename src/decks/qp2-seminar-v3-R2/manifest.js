@@ -38,6 +38,7 @@ import Roadmap from './slides/04-roadmap';
 import Cs1Divider from './slides/05-cs1-divider';
 import Cs1Question from './slides/06-cs1-question';
 import Cs1Context from './slides/07-cs1-context';
+import Cs1Mechanism from './slides/07b-cs1-mechanism';
 import Cs1Trial from './slides/08-cs1-trial';
 import Cs1Architecture from './slides/09-cs1-architecture';
 import Cs1Results from './slides/10-cs1-results';
@@ -48,6 +49,7 @@ import Cs1Lesson from './slides/14-cs1-lesson';
 import Cs1Bridge from './slides/15-cs1-bridge';
 import CS2Divider from './slides/cs2-01-divider';
 import CS2BackgroundDisease from './slides/cs2-02-background-disease';
+import CS2DiseaseBackground from './slides/cs2-disease-background';
 import CS2BackgroundRegulatory from './slides/cs2-03-background-regulatory';
 import CS2Setup from './slides/cs2-04-setup';
 import CS2Architecture from './slides/cs2-05-architecture';
@@ -64,6 +66,9 @@ import CS3DecisiveMove from './slides/cs3-05-decisive-move';
 import CS3Pilot from './slides/cs3-06-pilot';
 import CS3Bracket from './slides/cs3-07-bracket';
 import CS3Portable from './slides/cs3-08-portable';
+import Cs1BackupTimelineContext from './slides/cs1-backup-01-timeline-context';
+import Cs1BackupTimelineAmbOnly from './slides/cs1-backup-02-timeline-amb-only';
+import Cs1BackupTimelineProgramDetail from './slides/cs1-backup-03-timeline-program-detail';
 import StubSlide from './slides/_StubSlide';
 
 import notes from './notes';
@@ -153,6 +158,9 @@ const manifest = {
     // 07 — CS1 context (merged disease + class)
     { id: 'cs1-context', title: 'CS1 · why the question is hard', component: Cs1Context, isTitle: false, transition: 'fade' },
 
+    // 07b — CS1 mechanism (4 PAH pathways + ambrisentan ETA blocker; Merck/sotatercept anchor)
+    { id: 'cs1-mechanism', title: 'CS1 · pathway + drug', component: Cs1Mechanism, isTitle: false, transition: 'fade' },
+
     // 08 — CS1 trial design + LTE
     { id: 'cs1-trial', title: 'CS1 · AMB112529 + LTE', component: Cs1Trial, isTitle: false, transition: 'fade' },
 
@@ -182,7 +190,8 @@ const manifest = {
     // ══════════════════════════════════════════════════════════════
 
     { id: 'cs2-divider', title: 'Case 02 · Ivosidenib', component: CS2Divider, isTitle: true },
-    { id: 'cs2-bg-disease', title: 'CS2 · IDH1-mutant AML & CCA', component: CS2BackgroundDisease, isTitle: false },
+    { id: 'cs2-bg-disease', title: 'CS2 · 42 countries · India empty', component: CS2BackgroundDisease, isTitle: false },
+    { id: 'cs2-disease', title: 'CS2 · Disease — IDH1 mechanism & epidemiology', component: CS2DiseaseBackground, isTitle: false },
     { id: 'cs2-bg-regulatory', title: 'CS2 · Rule 101 reform', component: CS2BackgroundRegulatory, isTitle: false },
     { id: 'cs2-setup', title: 'CS2 · Can the dossier replace a local trial?', component: CS2Setup, isTitle: false },
     { id: 'cs2-architecture', title: 'CS2 · Three pillars', component: CS2Architecture, isTitle: false },
@@ -206,6 +215,28 @@ const manifest = {
     { id: 'cs3-pilot', title: 'CS3 · Pilot evidence', component: CS3Pilot, isTitle: false },
     { id: 'cs3-bracket', title: 'CS3 · Bracket Method', component: CS3Bracket, isTitle: false },
     { id: 'cs3-portable', title: 'CS3 · Portable principle', component: CS3Portable, isTitle: false },
+
+    // ══════════════════════════════════════════════════════════════
+    // BACKUP · CS1 — Q&A timeline slides (parked at end of deck so
+    // they don't interfere with the 35-slide live arc but remain
+    // navigable for hostile-question defense). Source for the first
+    // two slides: 2-Slides_Dev/2-Slides-Plan-V2/_Results/2-SlidesPlan/
+    // V2/inputs/Mariam/timeline.md  (Gamma prompts #1 + #2).
+    // 1995→2026 = full PAH context with two precedent frameworks
+    //   (FUTURE-1 EMA path 2009 + Garnett-Florian FDA path 2017).
+    // 2004→2024 = ambrisentan-only zoom with denser ticks and
+    //   emphasised causal chains incl. upward methodological arc.
+    // 2004→2024 program-detail = stacked dual-timeline (compact
+    //   adult lifecycle on top + expanded AMB112529 pediatric arc
+    //   below) with PIP architecture / trial events / fracture
+    //   columns / regulatory outputs, plus a right-side dosing
+    //   matrix + target-vs-actual callout pair. Source: chat
+    //   prompt 2026-04-25 (Gamma prompt #3, "what the program
+    //   actually did").
+    // ══════════════════════════════════════════════════════════════
+    { id: 'cs1-backup-timeline-context',        title: 'Backup · CS1 timeline · 1995–2026',                       component: Cs1BackupTimelineContext,       isTitle: false, transition: 'fade' },
+    { id: 'cs1-backup-timeline-amb-only',       title: 'Backup · CS1 timeline · ambrisentan-only 2004–2024',     component: Cs1BackupTimelineAmbOnly,       isTitle: false, transition: 'fade' },
+    { id: 'cs1-backup-timeline-program-detail', title: 'Backup · CS1 timeline · program detail (adult + AMB112529)', component: Cs1BackupTimelineProgramDetail, isTitle: false, transition: 'fade' },
   ],
 };
 
