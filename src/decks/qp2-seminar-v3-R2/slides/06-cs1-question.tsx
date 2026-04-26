@@ -8,210 +8,230 @@ import Lungs from '../components/Lungs';
  * CS1 · Slide 06 — The Clin Pharm question.
  *
  * Hero question + constraint subtitle + story card (left column) +
- * obstacle-path visual (right column).
+ * milestone evidence panel (right column).
  *
- * The path visual ("The whole story") makes the 3 disruptions the
- * story card describes legible at a glance — three coral obstacle
- * nodes connected by a wiggling dashed road, terminating in an
- * amber APPROVED node. Audience reads left (question + prose) → right
- * (the journey through obstacles → destination). Reinforces the case's
- * core promise: "a defensible pediatric dose came out anyway."
+ * The right-column panel ("The whole story") compresses the 3
+ * disruptions the story card describes into a single bordered
+ * timeline — coral obstacle dots → amber APPROVED dot, vertical line
+ * connecting them — so the audience reads "obstacles, obstacles,
+ * obstacles, then approval" at a glance. Reinforces the case's core
+ * promise: "a defensible pediatric dose came out anyway."
  *
- * Reveal cadence: question → subtitle → story card → path label →
- * road draws → 4 nodes stagger in (coral → coral → coral → amber).
- * Lung remains at 12% opacity behind everything as case-color anchor
- * (also part of cs1-lung layoutId chain: divider → here → context).
+ * Each milestone row carries: dot + LABEL · when + 1-line detail.
+ * Together they pre-empt the foreseeable Q&A probes (when, what,
+ * who) so panelists don't surface them in cold-open.
+ *
+ * Lung fills the right half at 16% opacity as ambient anatomical
+ * anchor; the evidence panel sits on top (z-index 1). Lung is part
+ * of the cs1-lung layoutId morph chain:
+ *   05 cs1-divider (hero centered) → 06 here (right-half ambient)
+ *     → 07 cs1-context (large center foundation).
+ *
+ * Reveal cadence: question → subtitle → story card → panel fade-in
+ * (0.65s) → vertical timeline scales (0.85s) → 4 milestone rows
+ * stagger in (1.05s + 0.18s × i) → final amber row scale-pops.
  */
 
 const EASE = [0.2, 0.7, 0.3, 1];
 
-// Obstacle-path nodes — 3 coral disruptions + 1 amber destination.
-// Y values are percentages down the SVG viewBox; bias is which side
-// of the centerline the node card anchors to (alternating gives the
-// "wiggle road" feel). Source: cs1-outcome / amd1.md inputs.
+// Story-path milestones — 3 coral disruptions + 1 amber destination.
+// Order is chronological top → bottom inside the evidence panel.
+// Sources: cs1-outcome / amd1.md / additionstoBackups.md.
 const PATH_NODES = [
-  { y: 14, bias: 'left',  tone: 'case',  label: 'HELD',         detail: 'Juvenile rat brain-weight finding', when: 'Aug 2017' },
-  { y: 38, bias: 'right', tone: 'case',  label: 'REFRAMED',     detail: 'STARTS-2 mortality signal',          when: '2017' },
-  { y: 62, bias: 'left',  tone: 'case',  label: 'CONSTRAINED',  detail: 'Split commercial rights',            when: 'GSK · Servier' },
-  { y: 88, bias: 'right', tone: 'amber', label: 'APPROVED',     detail: 'EMA + PMDA · pediatric PAH',         when: '2021' },
+  { tone: 'case',  label: 'HELD',         detail: 'Juvenile rat brain-weight finding', when: 'Aug 2017' },
+  { tone: 'case',  label: 'REFRAMED',     detail: 'STARTS-2 mortality signal',          when: '2017' },
+  { tone: 'case',  label: 'CONSTRAINED',  detail: 'Split commercial rights',            when: 'GSK · Servier' },
+  { tone: 'amber', label: 'APPROVED',     detail: 'EMA + PMDA · pediatric PAH',         when: '2021' },
 ];
 
 /**
- * StoryPath — vertical obstacle-path visual.
+ * StoryPath — vertical milestone evidence panel ("The whole story").
  *
- * SVG zigzag road (dashed coral) connects 4 waypoints. Each waypoint
- * has a small block card with eyebrow label + 1-line detail + when.
- * Final node renders amber to signal the destination (approval).
+ * v2 redesign (2026-04-26 user pass) — replaces the broken floating-
+ * cards SVG-zigzag pattern. Now uses the v2 deck's evidence-panel
+ * convention (cs1-challenge): single bordered container with stacked
+ * milestone rows, dot-on-line vertical timeline, hairline dividers
+ * between rows, amber-tinted destination row.
  *
- * Geometry: 100×100 viewBox, preserveAspectRatio='none' so the path
- * stretches to fill its container at any aspect. Node y-positions
- * match PATH_NODES[].y. Card cards are absolutely positioned with
- * alternating left/right bias to reinforce the "wiggle" feel.
+ * Each row carries everything needed to pre-empt the obvious probe:
+ *   ● LABEL · when · 1-line detail
+ * Reading direction is top → bottom (chronological). Vertical line
+ * connects all dots; transitions to amber at the destination so the
+ * eye reads "obstacles, obstacles, obstacles, then approval."
  *
  * Animation:
- *   - 0.6s · label fades in
- *   - 0.8s · path strokes left-to-right via pathLength 0→1 over 1.6s
- *   - 1.0s+i*0.30 · each node fades + slides in from its bias side
- *   - final amber node gets a small scale-pop overshoot
+ *   t=0.65s  · panel fades in + slight y-lift
+ *   t=0.85s  · vertical timeline scales from top
+ *   t=1.05s+ · each milestone row fades in left-to-right (stagger 0.18s)
+ *   t=2.15s  · final amber row scale-pops overshoot
  */
 function StoryPath({ reduced }) {
   return (
-    <>
-      {/* Eyebrow label — top of the path */}
-      <motion.div
+    <motion.div
+      initial={reduced ? false : { opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: reduced ? 0 : 0.65, duration: 0.55, ease: EASE }}
+      style={{
+        width: '100%',
+        maxWidth: '24rem',
+        marginLeft: 'auto',
+        border: '1px solid var(--cream-hairline)',
+        borderRadius: 'var(--radius-md)',
+        background: 'color-mix(in srgb, var(--panel) 72%, transparent)',
+        backdropFilter: 'blur(2px)',
+        padding: 'clamp(var(--space-3), 1.4vw, var(--space-4)) clamp(var(--space-3), 1.6vw, var(--space-5))',
+        position: 'relative',
+      }}
+    >
+      {/* Panel eyebrow */}
+      <div
         className="deck-mono uppercase"
-        initial={reduced ? false : { opacity: 0, y: -6 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: reduced ? 0 : 0.65, duration: 0.5, ease: EASE }}
         style={{
           fontSize: 'var(--fs-slide-eyebrow)',
           letterSpacing: 'var(--ls-mono-wide)',
           color: 'var(--cream-faint)',
           fontWeight: 600,
-          marginBottom: 'clamp(var(--space-2), 1vh, var(--space-3))',
+          marginBottom: 'var(--space-3)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 'var(--space-2)',
         }}
       >
-        ─── The whole story
-      </motion.div>
+        <span aria-hidden style={{
+          width: 'clamp(20px, 3vw, 32px)',
+          height: 1,
+          background: 'var(--cream-hairline)',
+        }} />
+        The whole story
+      </div>
 
-      {/* Path container — SVG fills, nodes overlay */}
-      <div style={{
-        flex: 1,
-        minHeight: 0,
-        position: 'relative',
-        width: '100%',
-      }}>
-        {/* Wiggle road — SVG path stretched to container */}
-        <svg
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
+      {/* Rows container — vertical timeline behind, rows on top */}
+      <div style={{ position: 'relative' }}>
+        {/* Vertical timeline line — coral 0–75%, amber at bottom 25% */}
+        <motion.div
           aria-hidden
+          initial={reduced ? false : { scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{ delay: reduced ? 0 : 0.85, duration: 1.2, ease: EASE }}
           style={{
             position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            overflow: 'visible',
+            left: 5,
+            top: 8,
+            bottom: 8,
+            width: 2,
+            borderRadius: 1,
+            background: 'linear-gradient(180deg, var(--case) 0%, var(--case) 70%, var(--amber) 100%)',
+            opacity: 0.5,
+            transformOrigin: 'top center',
           }}
-        >
-          <motion.path
-            d="M 50 8 Q 18 22, 50 38 Q 82 54, 50 62 Q 18 80, 50 92"
-            stroke="var(--case)"
-            strokeWidth="0.5"
-            fill="none"
-            strokeDasharray="1.6 1.4"
-            strokeLinecap="round"
-            opacity={0.45}
-            initial={reduced ? false : { pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ delay: reduced ? 0 : 0.85, duration: 1.6, ease: EASE }}
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+        />
 
-        {/* Node cards — absolute positioned */}
         {PATH_NODES.map((node, i) => {
+          const isLast = i === PATH_NODES.length - 1;
           const isAmber = node.tone === 'amber';
           const accent = isAmber ? 'var(--amber)' : 'var(--case)';
-          const bg = isAmber
-            ? 'color-mix(in srgb, var(--amber) 10%, transparent)'
-            : 'color-mix(in srgb, var(--panel) 65%, transparent)';
-          const border = isAmber
-            ? '1px solid color-mix(in srgb, var(--amber) 36%, transparent)'
-            : '1px solid var(--cream-hairline)';
-          const dx = node.bias === 'left' ? -8 : 8;
 
           return (
             <motion.div
               key={node.label}
-              initial={reduced ? false : { opacity: 0, x: dx }}
+              initial={reduced ? false : { opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{
-                delay: reduced ? 0 : 1.0 + i * 0.30,
+                delay: reduced ? 0 : 1.05 + i * 0.18,
                 duration: isAmber ? 0.6 : 0.5,
                 ease: isAmber ? [0.34, 1.56, 0.64, 1] : EASE,
               }}
               style={{
-                position: 'absolute',
-                top: `${node.y}%`,
-                ...(node.bias === 'left'
-                  ? { left: 0, right: '38%' }
-                  : { right: 0, left: '38%' }),
-                transform: 'translateY(-50%)',
                 display: 'flex',
-                alignItems: 'center',
-                gap: 'var(--space-2)',
-                flexDirection: node.bias === 'left' ? 'row' : 'row-reverse',
+                gap: 'var(--space-3)',
+                paddingTop: i === 0 ? 0 : 'var(--space-3)',
+                paddingBottom: isLast ? 0 : 'var(--space-3)',
+                borderBottom: isLast ? 'none' : '1px solid color-mix(in srgb, var(--cream-hairline) 60%, transparent)',
+                position: 'relative',
+                background: isAmber
+                  ? 'color-mix(in srgb, var(--amber) 7%, transparent)'
+                  : 'transparent',
+                marginLeft: isAmber ? -8 : 0,
+                marginRight: isAmber ? -8 : 0,
+                paddingLeft: isAmber ? 'var(--space-2)' : 0,
+                paddingRight: isAmber ? 'var(--space-2)' : 0,
+                borderRadius: isAmber ? 'var(--radius-sm)' : 0,
               }}
             >
-              {/* Dot */}
+              {/* Dot on the timeline */}
               <span
                 aria-hidden
                 style={{
                   flexShrink: 0,
-                  width: isAmber ? 12 : 9,
-                  height: isAmber ? 12 : 9,
+                  position: 'relative',
+                  zIndex: 2,
+                  marginTop: '0.35em',
+                  marginLeft: isAmber ? 8 : 0,
+                  width: isAmber ? 14 : 10,
+                  height: isAmber ? 14 : 10,
                   borderRadius: '50%',
                   background: accent,
                   boxShadow: isAmber
-                    ? '0 0 0 3px color-mix(in srgb, var(--amber) 22%, transparent)'
-                    : 'none',
+                    ? `0 0 0 3px color-mix(in srgb, ${accent} 24%, transparent), 0 0 14px color-mix(in srgb, ${accent} 38%, transparent)`
+                    : `0 0 0 2px color-mix(in srgb, var(--panel) 90%, transparent)`,
+                  alignSelf: 'flex-start',
                 }}
               />
-              {/* Block card */}
-              <div
-                style={{
-                  border,
-                  borderLeft: node.bias === 'left' ? `2px solid ${accent}` : undefined,
-                  borderRight: node.bias === 'right' ? `2px solid ${accent}` : undefined,
-                  background: bg,
-                  borderRadius: 'var(--radius-sm)',
-                  padding: 'var(--space-2) var(--space-3)',
-                  minWidth: 0,
-                  textAlign: node.bias === 'left' ? 'left' : 'right',
-                }}
-              >
-                <div
-                  className="deck-mono uppercase"
-                  style={{
-                    fontSize: 'var(--fs-slide-pageno)',
-                    letterSpacing: 'var(--ls-mono-wide)',
-                    color: accent,
-                    fontWeight: 700,
-                    lineHeight: 1.2,
-                  }}
-                >
-                  {node.label}
+
+              {/* Content — label row + detail */}
+              <div style={{ flex: 1, minWidth: 0 }}>
+                {/* Top row: LABEL · when */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'baseline',
+                  justifyContent: 'space-between',
+                  gap: 'var(--space-2)',
+                  marginBottom: 2,
+                }}>
+                  <div
+                    className="deck-mono uppercase"
+                    style={{
+                      fontSize: 'var(--fs-slide-eyebrow)',
+                      letterSpacing: 'var(--ls-mono-wide)',
+                      color: accent,
+                      fontWeight: 700,
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {node.label}
+                  </div>
+                  <div
+                    className="deck-mono"
+                    style={{
+                      fontSize: 'var(--fs-slide-pageno)',
+                      color: 'var(--cream-faint)',
+                      fontVariantNumeric: 'tabular-nums',
+                      whiteSpace: 'nowrap',
+                      letterSpacing: '0.06em',
+                    }}
+                  >
+                    {node.when}
+                  </div>
                 </div>
+                {/* Detail */}
                 <div
                   className="deck-body"
                   style={{
                     fontSize: 'var(--fs-slide-subhead)',
-                    color: 'var(--cream)',
-                    opacity: 0.88,
-                    lineHeight: 1.3,
-                    marginTop: 2,
+                    color: isAmber ? 'var(--cream)' : 'var(--cream)',
+                    opacity: isAmber ? 1 : 0.85,
+                    lineHeight: 1.35,
+                    fontWeight: isAmber ? 500 : 400,
                   }}
                 >
                   {node.detail}
-                </div>
-                <div
-                  className="deck-mono"
-                  style={{
-                    fontSize: 'var(--fs-slide-pageno)',
-                    color: 'var(--cream-faint)',
-                    fontVariantNumeric: 'tabular-nums',
-                    marginTop: 2,
-                  }}
-                >
-                  {node.when}
                 </div>
               </div>
             </motion.div>
           );
         })}
       </div>
-    </>
+    </motion.div>
   );
 }
 
@@ -220,27 +240,34 @@ export default function Cs1Question() {
 
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
-      {/* Lung — ambient right, 12% opacity */}
+      {/* Lung — fills right half as ambient anatomical anchor.
+          2026-04-26 user pass — was at right:-6% (bled off-screen).
+          Now centered in the right 50% of the slide, full height,
+          opacity tuned so the evidence panel sits cleanly on top.
+          Part of cs1-lung layoutId morph chain:
+            05 cs1-divider (hero)  → 06 here (right-half ambient)
+              → 07 cs1-context (large center foundation). */}
       <motion.div
         aria-hidden
         style={{
           position: 'absolute',
-          right: '-6%',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          width: 'clamp(22rem, 40vw, 32rem)',
-          opacity: 0.12,
-          pointerEvents: 'none',
-          zIndex: 0,
+          right: 0,
+          top: 0,
+          bottom: 0,
+          width: '50%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          opacity: 0.16,
+          pointerEvents: 'none',
+          zIndex: 0,
+          overflow: 'hidden',
         }}
       >
         <Lungs
           layoutId="cs1-lung"
           variant="context"
-          widthOverride="clamp(22rem, 40vw, 32rem)"
+          widthOverride="clamp(22rem, 38vw, 34rem)"
         />
       </motion.div>
 
@@ -383,16 +410,16 @@ export default function Cs1Question() {
           </motion.div>
         </div>
 
-        {/* RIGHT — obstacle-path visual ("The whole story") */}
+        {/* RIGHT — milestone evidence panel ("The whole story") */}
         <div
           className="cs1-q-path"
           style={{
-            flex: '1 1 clamp(13rem, 26%, 17rem)',
+            flex: '0 1 clamp(16rem, 30%, 22rem)',
             minWidth: 0,
-            minHeight: 'clamp(20rem, 56vh, 32rem)',
             position: 'relative',
             display: 'flex',
             flexDirection: 'column',
+            justifyContent: 'center',
             paddingTop: 'clamp(var(--space-2), 2vh, var(--space-4))',
           }}
         >
