@@ -562,11 +562,123 @@ DDI package fully characterizes that pathway.
 > primary pathway. I'm happy to walk through the USPI section 12.3
 > if that would help.`,
 
-  // cs2-decisive-move Q&A ARCHIVED 2026-04-26 — slide cut for dedup with Pillar 05.
-  // The 3 Qs (PBPK defense / substrates predicted / India OTC azoles) are still
-  // relevant defense ammo. Fold into cs2-pillars or cs2-velocity Q&A on demand.
-  // Source preserved in _backup/cs2-05c-decisive-move.pre-dedup-2026-04-26.tsx (slide
-  // file) and via git history of this qa.ts (search "cs2-decisive-move" pre-2026-04-26).
+  // cs2-architecture-v2 — A/B variant of cs2-architecture. Q&A coverage at
+  // the architecture level is shared via cs2-architecture (above). The
+  // mechanism / cell-strip / competitor probes apply equally to either layout;
+  // pick which slide to walk in rehearsal — do not present both.
+
+  'cs2-pillars': `## Q1: Six pillars looks complete on the page. Why six and not three, or twelve? How was the package scoped?
+**From:** methodology-skeptic panelist
+**Difficulty:** ★★★★ · **Topic:** methodology
+
+A: The package was scoped to ==ICH E5(R1) ethnic-sensitivity criteria== —
+the regulatory framework that defines what evidence supports cross-
+ethnic extrapolation. Six pillars map to the six categories E5 examines:
+mechanism, PK, exposure-response, intrinsic factors (covariates),
+extrinsic factors (DDIs, formulation), and the safety database. We
+didn't invent six. We mapped to E5 and made each category
+defensible on its own. Three would have left categories unaddressed;
+twelve would have been padding. The discipline was: one pillar per
+E5 category, no more.
+
+## Q2: The PBPK story — what specifically is in the label? Is the midazolam AUC ratio just a number, or is it doing regulatory work?
+**From:** PBPK-aware panelist
+**Difficulty:** ★★★★ · **Topic:** PBPK
+
+A: The Tibsovo USPI section 12.3 includes a PBPK-supported DDI
+characterization with a midazolam AUC-ratio prediction for ivosidenib
+co-administration. That number is in the label. It's doing work two
+ways: first, it lets prescribers manage CYP3A4-substrate co-medications
+without a separate clinical DDI study for every pair. Second, it
+served as evidence to CDSCO that the DDI package was complete enough
+to extrapolate to the Indian co-medication landscape — including the
+OTC-azole concern, where ketoconazole is widely available without
+prescription and could co-occur with ivosidenib. PBPK predicted that
+interaction; we didn't need a local DDI trial to characterize it.
+
+> **If pressed:** Public source for the AUC ratio is the Tibsovo USPI,
+> section 12.3 (Drug Interactions / In Vitro and Clinical Studies).
+> The internal Servier PBPK report is not public; I can only cite what
+> the FDA-approved label discloses.
+
+## Q3: Wouldn't a small Phase 1 in Indian volunteers have been more rigorous than relying on ICH E5 invariance?
+**From:** clinical-trial-traditionalist panelist
+**Difficulty:** ★★★★★ · **Topic:** strategy
+
+A: It would have been more conservative, not necessarily more rigorous.
+The PopPK had ==253 patients across multiple ethnicities==, including
+Asian patients in AGILE. A 12–24-subject Indian PK study would have
+added one more covariate cell with limited power to detect a real
+race effect. The rigorous question isn't "did we run a local study?"
+— it's "does the global dataset answer the regulatory question?" For a
+somatic-target drug with a CYP3A4 metabolic pathway and no UGT1A1
+polymorphism risk, the answer was yes. The Phase 4 PK/PD study —
+which we committed to — confirms the global predictions in Indian
+patients post-approval. That sequence (waiver pre-approval, confirm
+post-approval) is what the Rule 101 reform was designed to enable.
+
+## Q4: One pillar weak, the whole package falls. Which pillar is the weakest?
+**From:** stress-test panelist
+**Difficulty:** ★★★★ · **Topic:** methodology
+
+A: Honest answer: the ==intrinsic factors== pillar — the Bayesian
+covariate re-estimation. With nine covariates screened in a 253-patient
+PopPK, the power to detect rare-but-real ethnic effects is limited.
+That's why the package doesn't lean on any single pillar. The
+mechanism pillar (somatic IDH1 R132) carries the strongest standalone
+argument — the drug-target interaction is biologically ethnicity-
+independent. The PK and ER pillars confirm the population-level
+behavior. The covariate pillar adds support but doesn't carry the
+case. That's the design: convergent evidence, not single-pillar
+proof.`,
+
+  'cs2-reversal': `## Q1: April 2025 SEC opinion was favorable. May 14 was the approval. What happened in those six weeks?
+**From:** regulatory-process panelist
+**Difficulty:** ★★★ · **Topic:** regulatory
+
+A: The April 2 SEC presentation produced a favorable opinion *with*
+the Phase 4 PK/PD condition attached. Six weeks is the standard CDSCO
+window between SEC opinion and DCGI marketing-authorization issuance —
+internal ratification, conditions documentation, label finalization,
+and the formal authorization order. Nothing dramatic happened in
+those six weeks. The science was settled at the April 2 meeting; the
+May 14 date is the administrative seal.
+
+## Q2: The Phase 4 condition — is that a real obligation or a face-saver to let CDSCO close the file?
+**From:** skeptic panelist
+**Difficulty:** ★★★★ · **Topic:** regulatory
+
+A: It's a real obligation with regulatory teeth. CDSCO conditional
+marketing authorizations are subject to ==withdrawal if the post-
+approval commitment is not met== — the precedent here is the same
+mechanism that lets DCGI suspend authorizations when Phase 4
+commitments lapse. The study design parameters were submitted as
+part of the waiver package, so the commitment is not hand-wavy. From
+Servier's side, the Phase 4 was already in scope during the global
+clinical plan — running it in Indian patients post-approval was the
+strategic answer to "we don't have local data," not a side payment
+to CDSCO.
+
+> **If pressed:** I can speak to the study design parameters but not
+> to current enrollment status — that sits with the Servier India
+> affiliate team's operations, not with the global Clin Pharm function
+> I led.
+
+## Q3: This was a Servier asset, not a Merck one. What carries to QP2-CMD?
+**From:** Merck-relevance panelist
+**Difficulty:** ★★★ · **Topic:** career
+
+A: Three things. First, the ==regulatory architecture== — Rule 101 is
+not a one-jurisdiction artifact. CDSCO's reform is the prototype for
+similar pathways under discussion in Brazil, Egypt, Indonesia, and
+others. Merck's portfolio touches every one of those geographies.
+Second, the ==mechanism-first defense pattern== — somatic-target
+oncology drugs and any drug where mechanism predicts ethnic
+invariance. That's a sizeable fraction of QP2-CMD's pipeline. Third,
+the ==scoping discipline== — knowing when to run a local trial versus
+when to defend with a model-based bridging argument. That judgment
+call sits in the Senior-Director scope across every program, not just
+oncology.`,
 
   'cs2-velocity': `## Q1: Why did it take from 2018 to 2025 to reach India if the drug was already approved by FDA?
 **From:** timeline-curious panelist
@@ -597,12 +709,72 @@ May 14, 2025 — CDSCO marketing authorization. That's fourteen months
 from MAA to authorization — fast by India standards for a new molecular
 entity, but not unprecedentedly fast.`,
 
-  // cs2-outcome Q&A ARCHIVED 2026-04-26 — slide cut for dedup with cs2-reversal.
-  // The 4 Qs (0-Indian-patients defense / CCA-efficacy magnitude / Phase 4 teeth /
-  // AGILE EFS controversy) are high-value defense ammo. Fold into cs2-leadership
-  // Q&A (Phase 4, scope) or cs2-reckoning Q&A (efficacy, AGILE) on demand.
-  // Source preserved in _backup/cs2-08-outcome.pre-dedup-2026-04-26.tsx (slide file)
-  // and via git history of this qa.ts (search "cs2-outcome" pre-2026-04-26).
+  'cs2-reckoning': `## Q1: You list "no pre-approval Indian PK/PD data" as a not-shipped item. Wasn't avoiding that local trial the entire point of the case?
+**From:** framing-probing panelist
+**Difficulty:** ★★★★ · **Topic:** strategy
+
+A: That's the right question. The waiver pathway let us substitute
+==model-based bridging for a pre-approval local trial== — that was
+the strategic win. But the slide is honest: it's a substitution, not
+an erasure. CDSCO accepted PopPK + PBPK + mechanism in lieu of a
+local Phase III, and they attached a Phase 4 PK/PD study as the
+condition. So the data exists post-approval, not pre-approval. Listing
+it as "not shipped pre-approval" is the calibrated framing — patients
+got access on May 14, 2025; the local PK/PD evidence catches up
+through the Phase 4. That sequence is what the Rule 101 reform was
+designed to enable, but I won't dress it up as if no local data
+mattered.
+
+## Q2: AGILE used event-free survival as the primary endpoint. The FDA review questioned that. Where does that controversy sit in your defense?
+**From:** clinical-trial-aware panelist
+**Difficulty:** ★★★★★ · **Topic:** clinical
+
+A: The FDA review of AGILE flagged that ==EFS as defined included
+treatment-failure events that may have inflated the comparator-arm
+event count==, biasing toward ivosidenib + azacitidine. The OS benefit
+was the more conservative readout. The CDSCO submission did not lean
+on EFS as the primary defense — the bridge-to-India argument was
+mechanism, PK invariance, and DDI characterization, not the magnitude
+of the AGILE primary endpoint. That separation is intentional: the
+efficacy controversy belongs to the global filing; the bridging
+argument belongs to the population pharmacology. I'd defend ivosidenib
++ aza on OS, not on AGILE EFS as defined.
+
+> **If pressed:** Public source for the EFS concern is the FDA
+> CDER review documents on Tibsovo + azacitidine, May 2022 supplement.
+> The OS hazard ratio in AGILE was the durable readout.
+
+## Q3: PopPK said race wasn't a covariate. But the Asian subgroup in AGILE was N=8. Are you over-interpreting that?
+**From:** statistician
+**Difficulty:** ★★★★ · **Topic:** methodology
+
+A: Yes — relying on N=8 alone would be over-interpretation. That's
+why the case as a whole did not lean on the Asian-subgroup PK as the
+primary defense. The 253-patient PopPK includes Asian patients across
+multiple studies, not just the AGILE Asian subgroup, and the covariate
+analysis is the right unit of evidence — race tested as a continuous
+or categorical covariate in a large pooled analysis. The single-study
+subgroup is a sensitivity check, not the load-bearing argument. The
+calibrated statement is: "no race signal in the pooled PopPK
+covariate screen at standard significance thresholds, with the
+caveat that absence of evidence at this sample size is not evidence
+of absence at all sample sizes." The Phase 4 closes that gap with
+prospective Indian-patient data.
+
+## Q4: "Three things shipped, three didn't" — how do you defend that in a tenure review?
+**From:** career-evaluation panelist
+**Difficulty:** ★★★ · **Topic:** career
+
+A: You defend it by being clear about ==what was inside the Clin Pharm
+scope and what was outside==. The mechanism-first defense, the six-
+pillar dossier, the PBPK in the label, the waiver granted — those
+were inside scope. The pre-approval Indian PK/PD didn't ship because
+the Rule 101 reform was the wrong tool to force a pre-approval local
+study; that's structural, not a Clin Pharm execution failure. The
+PV maturation gap is real but belongs to the post-marketing function.
+Naming the not-shipped items honestly is what makes the shipped list
+credible. A list with no gaps reads as polished; a list with calibrated
+gaps reads as honest.`,
 
   'cs2-leadership': `## Q1: You say the scientific defense was yours — but this was a team effort. What did you personally decide?
 **From:** leadership-probing panelist
@@ -959,17 +1131,66 @@ A: The 80/20 is a directional estimate from my own workflow audits and from publ
 
 A: The insight is that the bottleneck to regulatory pharmacology decisions has shifted. In the 2010s, the bottleneck was methodology — we didn't have mature PBPK, adequate PopPK, or accepted exposure-response frameworks. In the 2020s, the methodology is mature (M15 wouldn't exist otherwise). The new bottleneck is assembly — how fast the function can package mature methodology into a defensible deliverable. That's a Clin Pharm organizational insight, not just an IT one.`,
 
-  'cs3-architecture': `## Q1: Kim et al. 2025 — what specifically does that paper contribute to your platform design?
-**From:** literature-aware panelist
-**Difficulty:** ★★★★ · **Topic:** methodology
+  'cs3-architecture': `## Q1: Why three levels and 13 agents specifically — what makes that the right decomposition?
+**From:** systems-architect panelist
+**Difficulty:** ★★★★ · **Topic:** architecture
 
-A: Kim et al. established scaling laws for centralized vs. decentralized multi-agent topologies in pharmaceutical applications. The key finding is that centralized topologies with deterministic tool discipline outperform decentralized topologies when the outputs must be auditable and reproducible. PharmAgent's centralized orchestrator-specialist-worker hierarchy directly implements that finding. The typed state bus and deterministic tool calls are the implementation of the "tool discipline" the paper formalizes.
+A: The hierarchy mirrors how a pharmacometrics department actually decomposes work. Level 0 — the Supervisor — handles intent classification and routing, the same job a project lead does. Level 1 — ten domain agents (Data Manager, NCA, PBPK, Statistical, Simulator, QC, Report, Reg Intel, Modeler Manager, General) — each owns one analytical method. Level 2 — three modeling specialists (PopPK, PKPD, E-R) — are sub-routed by the Modeler Manager because modeling is where you need sub-specialty depth. Thirteen agents wasn't an arbitrary number; it's the count of distinct analytical roles in a complete MIDD workflow.
+
+> **Anchor:** "Mirrors a department"
+> **If pressed:** Apollo-AI uses ~5 agents at the conceptual level, DruGagent uses 5 for drug-target prediction. Those work for narrow scopes. Full-pipeline MIDD has more analytical roles, so the agent count is higher. The Level 2 split (PopPK / PKPD / E-R) exists because those three modeling families have different structural assumptions and different tool sets.
 
 ## Q2: 151 deterministic tools and 76 templates — isn't this over-engineered?
 **From:** simplicity-advocating panelist
 **Difficulty:** ★★★ · **Topic:** architecture
 
-A: Each tool corresponds to a specific, named step in a pharmacometric workflow — a Nonmem run, a VPC generation, a covariate significance test, a table format, a plot specification. They're deterministic because the regulatory expectation is reproducibility. The number reflects the actual complexity of a complete pharmacometric workflow from data receipt through regulatory report. Over-engineering would be adding tools for workflows that don't exist; these 151 map to workflows we run manually today.`,
+A: Each tool corresponds to a specific, named step in a pharmacometric workflow — an NCA AUC computation, a VPC generation, a covariate significance test, a NONMEM control stream, a Section 12.3 labeling block. They're deterministic because the regulatory expectation is reproducibility. 151 tools maps to the actual complexity of a complete MIDD workflow from data receipt through M15-compliant report. Over-engineering would be adding tools for workflows that don't exist — these all map to work the function runs manually today.
+
+> **Anchor:** "One tool per named step"
+
+## Q3: What stops the LLM from hallucinating an analytical decision that bypasses your tools?
+**From:** safety-critical panelist
+**Difficulty:** ★★★★ · **Topic:** safety
+
+A: Two structural defenses. First, agents-decide-tools-execute is enforced at the framework level — the LLM emits a tool call with typed parameters; if the parameters don't validate, the call fails before execution. The LLM can suggest, but it cannot compute outside the tool layer. Second, the QC Agent runs an independent 15-point diagnostic checklist on every model — convergence, shrinkage, condition number, parameter plausibility — and returns a traffic-light verdict (PASS / CONDITIONAL / FAIL). A hallucinated analytical decision shows up as a QC failure before it reaches a report.
+
+> **Anchor:** "Tools validate; QC verifies"
+> **Verbatim:** "agents-decide, tools-execute"`,
+
+  'cs3-landscape': `## Q1: How is PharmAgent different from Apollo-AI?
+**From:** literature-aware panelist
+**Difficulty:** ★★★ · **Topic:** competitive
+
+A: Apollo-AI is the conceptual framework Shahin and colleagues at Pfizer published in CTS in 2025 — a vision for multi-agent quantitative clinical pharmacology. It's an architectural sketch, not a working platform. PharmAgent is the implementation: 13 agents wired together, 151 tools running, 76 templates executing, with privacy and audit boundaries enforced at the code level. Ideas overlap; running code is the difference.
+
+> **Anchor:** "Theory vs. running code"
+
+## Q2: pyDarwin already does PopPK structural search. Why build something else?
+**From:** open-source-aware panelist
+**Difficulty:** ★★★ · **Topic:** competitive
+
+A: pyDarwin solves one cell — structural model search via genetic algorithms, and excellent at it. But pharmacometric submission readiness is data ingestion plus NCA plus PopPK plus QC plus simulation plus report plus audit — pyDarwin covers one column. PharmAgent doesn't replace pyDarwin; the PopPK Expert agent could call pyDarwin as a tool. The gap pyDarwin doesn't address is integration and M15-compliant documentation.
+
+> **Anchor:** "Cell vs. row"
+
+## Q3: Couldn't you just chain existing tools yourself?
+**From:** skeptical panelist
+**Difficulty:** ★★★★ · **Topic:** value
+
+A: Yes — and that's exactly what pharmacometricians do today. The pharmacometrician IS the integration layer. The cost is four-to-eight weeks per analysis, manual documentation that drifts from what was actually run, and no tamper-evident audit trail. PharmAgent eliminates the manual integration layer, auto-generates Methods sections from the actual analytical steps, and provides hash-chain provenance. The existing-tools approach works; it just doesn't scale to the volume of decisions ICH M15, E11A, Project Optimus, and Rule 101 will generate.
+
+> **Anchor:** "We are the integration layer"
+> **Hostile:** "If PharmAgent breaks, the function does the analysis manually — same as today. We'd lose throughput, not capability."
+
+## Q4: Where is the published evidence that PharmAgent works?
+**From:** evidence-demanding panelist
+**Difficulty:** ★★★★★ · **Topic:** validation
+
+A: Honest answer: PharmAgent is v1.0 as of February 2026 — pre-publication. Components have been validated against the same benchmark datasets the published systems use. Next 12 months I'm planning two things: a CPT:PSP submission demonstrating full-pipeline analysis on a published Phase II dataset, and an open benchmark against pyDarwin for PopPK and against PEARL for regulatory search. I'm not asking the panel to take this on faith — I'm asking for the chance to ship the validation.
+
+> **Anchor:** "v1.0; validation in flight"
+> **Hostile:** "Right — no peer-reviewed validation yet. The architecture is published-adjacent (Apollo-AI is the closest concept), and the deterministic-tool layer uses libraries that ARE validated. Full-platform benchmark is the next 12 months."
+> **Backup:** cs3-B3-trial-status`,
 
   'cs3-decisive-move': `## Q1: "By construction, not by promise" — can you actually guarantee that patient data never reaches the LLM?
 **From:** privacy-focused panelist

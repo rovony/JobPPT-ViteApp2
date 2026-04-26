@@ -459,14 +459,27 @@ That's what this case is about.
 → Next two slides set the disease and regulatory background before the case question lands.`,
 
   'cs2-bg-disease': `## Spoken
-(Hook slide — speaker notes refresh pending. ~45 sec beat. Let the map and question land.)
+By August 2024, ivosidenib had been approved in ==forty-two countries== — FDA, EMA, NMPA, TGA, and dozens of national agencies on top of that. ⏸
+
+India was not one of them.
+
+Not because the science was incomplete. Not because the drug was new. By 2024 it had six years of post-approval safety data in the U.S. and a multi-jurisdictional dossier. The reason was structural: India still required pre-approval local clinical data — typically a Phase 3 or a bridging PK/PD study — before a foreign-approved drug could be registered. ⏸
+
+So the question this case answers is the one on the screen: ==can a global Clin Pharm package register a drug in India — without a local trial?== ⏸
+
+Let the question hang.
 
 ## Cues
 - ⏱ 45 sec — the question hangs; do not answer it here.
-- 🎯 Land on "without a local trial?" and HOLD the pause.
+- 🎚 Drop into conversational. This is "let me set the scene" energy, not assertion.
+- 📍 Trace the world map left-to-right when you say "forty-two countries." Land on India when you say "India was not one of them."
+- 🎯 Land on "without a local trial?" and HOLD the pause for two beats.
+- ⚠ Do NOT preview Rule 101. That's the next slide's job.
+- ⚠ "Forty-two countries" — verified from FDA Orange Book + EMA EPAR + Servier public record cross-walk. The number fluctuates as new filings clear; "42+" reads as accurate for Aug 2024.
+- ✅ Land on the question without answering it.
 
 ## Bridge
-→ Next: disease background (IDH1 mechanism, epidemiology).`,
+→ Next: disease background (IDH1 mechanism, epidemiology) before the regulatory pivot.`,
 
   'cs2-disease': `## Spoken
 Quick orientation on the biology. ⏸
@@ -541,30 +554,109 @@ The answer was to build the dossier so it could stand alone.
   'cs2-architecture': `## Spoken
 Mechanism is the foundation. ⏸
 
-IDH1 R132 is ==somatic== — tumor-acquired, not inherited. Ivosidenib binds the same mutant enzyme in every patient, regardless of host genetics. ⏸
+IDH1 R132 is ==somatic== — acquired in the tumor cell, not inherited. The slide shows three cells; only the middle one carries the mutation. If this were germline, every cell would carry it and ancestry would matter. It isn't, and it doesn't. ⏸
 
-Three things follow.
+The cascade on the left walks through it: mutant IDH1 produces 2-HG, which inhibits TET2 and JmjC dioxygenases, which blocks differentiation. Ivosidenib binds the mutant enzyme directly, restores α-KG production, and the cascade reverses.
 
-==One== — the mutation is acquired in tumor tissue, not inherited from parents. Patient ancestry does not gate the drug-target interaction.
+There are four IDH inhibitors approved across the field — ivosidenib, enasidenib, olutasidenib, vorasidenib. Different targets, different indications, different years. Ivosidenib is the IDH1 + AML/CCA entrant; that's the case in front of us. ⏸
 
-==Two== — drug binding is direct. Ivosidenib binds mutant IDH1 R132, the same enzyme in every population.
-
-==Three== — the indication is molecular, not ethnic — defined by the mutation, not by geography.
-
-This is why the ethnic-sensitivity question for ivosidenib is structured differently from a typical CYP-substrate drug. Mechanism does specific work in the regulatory argument here. ⏸
-
-Statistics confirm what mechanism predicts. The next slide shows the six convergent pillars that translate this foundation into the dossier.
+Mechanism does specific work in the regulatory argument here — because the drug-target lives only in the tumor, the dossier can argue ICH E5 ethnic insensitivity from biology, not just statistics.
 
 ## Cues
 - ⏱ 50 sec — the foundation slide. Slow, deliberate.
 - 🎚 Conversational. This is the framework being laid, not the high-energy moment.
-- 📍 Gesture to the somatic-vs-germline contrast — that's the visual anchor.
+- 📍 Point to the three-cell strip when you say "only the middle one." That visual carries the somatic-vs-germline distinction.
+- 🎯 If a panelist asks "why ivosidenib not vorasidenib," the competitor strip on the right answers it: vorasidenib is glioma, not AML.
 - ⚠ Do NOT say "ICH E5 Appendix D" here — that's pillar territory on the next slide.
 - ⚠ Do NOT inflate. "Mechanism does specific work here" is calibrated; "the intellectual core" overclaims.
-- ✅ Land on "statistics confirm what mechanism predicts" — that's the bridge to the six pillars.
+- ✅ Land on "from biology, not just statistics" — that's the bridge to the six pillars.
 
 ## Bridge
 → Six convergent pillars next — PK similarity, ER similarity, intrinsic, extrinsic, regulatory, mechanism.`,
+
+  // cs2-architecture-v2 — A/B variant of cs2-architecture. Single-canvas
+  // restatement: cell strip + cascade + competitor column in one frame.
+  // Presenter uses EITHER v1 OR v2, not both — pick one in rehearsal.
+  'cs2-architecture-v2': `## Spoken
+Three claims, one canvas. ⏸
+
+The mutation is ==somatic== — only the tumor cell carries it. Watch the cell strip on the left: middle cell mutant, neighbors clean. Germline would mean every cell. It doesn't. ⏸
+
+The drug ==binds== the mutant enzyme directly — that's the cascade in the middle. Ivosidenib hits mutant IDH1, 2-HG drops, TET2 and the JmjC dioxygenases come back online, differentiation resumes. ⏸
+
+The cascade ==reverses==. ⏸
+
+For context, four IDH inhibitors are approved across the field — different targets, different indications. Ivosidenib is the IDH1 entrant for AML and cholangiocarcinoma. That's the molecule in this case.
+
+Why this matters for the regulatory argument: ==the drug-target lives only in the tumor==. That biology is what lets the dossier argue ICH E5 ethnic insensitivity from mechanism, not just statistics.
+
+## Cues
+- ⏱ 40 sec — tighter than v1; the canvas does the work, the speaker narrates over it.
+- 🎚 Calm. Three claims, three beats. Don't rush.
+- 📍 Point to the cell strip on "only the tumor cell." Point to the cascade midpoint on "binds." Point to the post-flip color on "reverses."
+- 🎯 The three italic words on the headline (somatic / binds / reverses) are the only words that need emphasis in the voice.
+- ⚠ A/B variant — use EITHER cs2-architecture OR cs2-architecture-v2. Do NOT walk both.
+- ⚠ Do NOT preview the six pillars here. That's the next slide's job.
+- ✅ Land on "from mechanism, not just statistics." That's the bridge.
+
+## Bridge
+→ Six convergent pillars — the dossier that made the waiver defensible.`,
+
+  'cs2-pillars': `## Spoken
+Six lines of evidence — and they all converge.
+
+Pillar one is mechanism — the foundation slide we just walked. Somatic IDH1 R132. ⏸
+
+Pillar two is ==PK similarity==. Pooled phase one and AGILE PK across two hundred fifty-three patients — race not a significant covariate. Linear PK across ethnic groups.
+
+Pillar three is ==exposure-response==. Flat across the studied range. No exposure-AE relationship, no exposure-efficacy cliff. Wide therapeutic index. Five hundred milligrams once daily covers the population.
+
+Pillar four — ==intrinsic factors==. No demographic dose adjustment. CYP polymorphism characterized.
+
+Pillar five — ==extrinsic==. PBPK model called the midazolam AUC ratio at zero point one eight. That number went into the Tibsovo USPI.
+
+Pillar six — ==global regulatory==. Thirty-plus jurisdictions, eight years of post-marketing surveillance, no ethnicity-specific signals. ⏸
+
+==No single pillar is sufficient.== The convergence is the case. ICH E5(R1) — fully populated.
+
+## Cues
+- ⏱ 60 sec — the heart of the dossier. Slow on each pillar, fast through the convergence.
+- 🎚 Build energy across pillars — pillar one is conversational, pillar six is assertion.
+- 📍 Stack a visible "pillar 1 / 2 / 3 / 4 / 5 / 6" mental count by lifting fingers if it helps the rhythm.
+- 🎯 Eye contact on "the convergence is the case."
+- ⚠ Do NOT recite every number — pick three: 253, 0.18, eight years. Audience holds maybe three numbers.
+- ⚠ "No single pillar is sufficient" — that line lands the ICH E5(R1) framework. Do not skip it.
+- ✅ Landing line: "the convergence is the case."
+
+## Bridge
+→ Next: the reversal — CDSCO approves on 14 May 2025.`,
+
+  'cs2-reversal': `## Spoken
+==14 May 2025.== ⏸
+
+CDSCO marketing authorization. India approves ivosidenib under Rule 101 — the dossier-led waiver pathway. ⏸
+
+Three beats over four months got us here.
+
+January 2025 — we filed the revised dossier. Six-pillar package, mechanism-first reframe.
+
+March 2025 — in-person SEC defense.
+
+May 2025 — approval. Launch followed in June. ⏸
+
+The waiver was conditional, not categorical — Phase 4 PK/PD study commitment in lieu of pre-approval local data. That's the trade Rule 101 specifies and that's the trade the agency took.
+
+## Cues
+- ⏱ 40 sec — climax of CS2. Land each beat.
+- 🎚 Slow and assertive on "fourteen May twenty twenty-five." That's the date the case turns on.
+- 📍 Step toward the screen on the date. The room reads commitment.
+- 🎯 Hold eye contact across the panel during the date — every face should land it.
+- ⚠ Do NOT say "approval" before the date. Date first, then the verb.
+- ⚠ "Conditional, not categorical" is calibrated; "first-ever" is over-inflation. Do not embellish.
+- ✅ Landing line: "Phase 4 commitment in lieu of pre-approval local data."
+
+## Bridge
+→ Next: the seven-year regulatory timeline that built up to this.`,
 
   // cs2-decisive-move notes ARCHIVED 2026-04-26 (slide cut for dedup with Pillar 05).
   // Slide file at _backup/cs2-05c-decisive-move.pre-dedup-2026-04-26.tsx.
@@ -596,6 +688,35 @@ The Indian approval doesn't stand on its own. It sits on top of seven years of a
   // cs2-outcome notes ARCHIVED 2026-04-26 (slide cut for dedup; "first IDH1 inhibitor
   // in India · 5 Jun 2025 launch" beat folded into cs2-leadership bottom thesis).
   // Slide file at _backup/cs2-08-outcome.pre-dedup-2026-04-26.tsx.
+
+  'cs2-reckoning': `## Spoken
+Honest reckoning. ⏸
+
+What we shipped — left side, four items.
+
+==Mechanism-first defense== — the somatic IDH1 R132 argument under ICH E5.
+==Six-pillar dossier== — convergent evidence, thirty-six-page justification.
+==PBPK in the label== — midazolam AUC ratio zero point one eight, predicted, qualified, regulatory text.
+==Waiver granted with Phase 4== — CDSCO 14 May 2025, conditional on the post-marketing cohort. ⏸
+
+What we did not ship — right side. Three honest gaps.
+
+==No pre-approval Indian PK/PD==. Zero Indian sites in AG120-C-001, ClarIDHy, AGILE — Phase 4 closes that gap, but on a delay.
+==No Indian-specific peer-reviewed PK==. The PopPK n=253 with race not significant is the inference, not a published Indian-cohort paper.
+==PV maturation at approval==. The Indian pharmacovigilance system continues to scale — Phase 4 plus RWE plan address residual risk. ⏸
+
+The dossier carried what evidence it could. We named what it could not.
+
+## Cues
+- ⏱ 55 sec — name the credit AND the gaps. The credibility move is the gap-naming.
+- 🎚 Calm and even. Do not dramatize either column.
+- 🎯 Hold eye contact on the gap side longer than the credit side. The room reads honesty.
+- ⚠ Do NOT call the gaps "minor" or "negligible." That's hedging. Name them straight.
+- ⚠ Do NOT inflate the credits. "Mechanism-first defense" is the thing; "groundbreaking strategy" overclaims.
+- ✅ Landing line: "we named what it could not."
+
+## Bridge
+→ Next: leadership scope — what was mine to build, what belonged to the team.`,
 
   'cs2-leadership':`## Spoken
 Scope. ⏸
@@ -692,26 +813,47 @@ CS1's PopPK analysis took weeks of modeling. The regulatory package around it to
 → The architecture next — PharmAgent.`,
 
   'cs3-architecture': `## Spoken
-This is the architectural answer. ⏸
+This is the architectural answer.  ⏸
 
-==PharmAgent.== A multi-agent platform that lets the model carry the evidence at scale.
+==PharmAgent.== A multi-agent platform that orchestrates the full pharmacometric pipeline — data ingestion through ICH M15-ready report — without ever exposing patient rows to the LLM.
 
-Centralized topology. ==Three-level agent hierarchy== — an orchestrator that owns the workflow, specialist agents that own domains like PopPK, PBPK, and exposure-response, and worker agents that execute deterministic tools. ⏸
+==Three levels.==  Level zero: a Supervisor that classifies intent and routes the work. Level one: ten domain agents — Data Manager, NCA, Modeler Manager, PBPK, Statistical, Simulator, QC, Report, Regulatory Intelligence, and General. Level two: three modeling specialists — PopPK, PKPD, and Exposure-Response — sub-routed by the Modeler Manager.  ⏸
 
-==Thirteen specialized agents. One hundred fifty-one deterministic tools.== Typed, versioned, auditable. ==Seventy-six review-gated templates== that produce regulatory-format outputs.
+==Thirteen agents. One hundred fifty-one deterministic tools. Seventy-six workflow templates.==  Agents decide; tools execute. ==scipy, numpy, XGBoost== do the math. The LLM never computes a number.  ⏸
 
-⏸ Clin pharm hears: "the platform that lets the function ship CS1- and CS2-shaped work at scale." Pharmacometrics hears: "centralized topology grounded in Kim et al. 2025; deterministic-tool discipline; typed state bus."
+Four design commitments make this M15-native: ==agents-decide-tools-execute==, ==schema-only privacy==, ==hash-chain audit==, ==human-in-the-loop review gates.==
+
+⏸ Clinical pharmacology hears: "the platform that lets the function ship CS1- and CS2-shaped work at scale." Pharmacometrics hears: "hierarchical multi-agent orchestration with deterministic computation and tamper-evident audit."
 
 ## Cues
-- ⏱ 55 sec — the densest slide in CS3. Deliver numbers crisply.
+- ⏱ 60 sec — the densest CS3 slide. Deliver numbers crisply.
 - 🎚 Confident, not breathless. The numbers are the argument; don't oversell.
-- 📍 Walk the four spec cards left-to-right on screen
-- ⚠ Cite "Kim et al. CPT 2025" — the centralized-topology scaling-law paper. If a panelist asks, the citation is ready.
+- 📍 Walk the hierarchy left side first (Supervisor → 10 → 3), then the four design commitments on the right
 - ⚠ Do NOT say "AI replaces pharmacometricians." Say "the platform carries the scaffolding; the function keeps owning the science."
-- ✅ Land on "at scale"
+- ✅ Land on "M15-native by architecture, not by feature"
+- 🛟 If I blank: just read the 13 / 151 / 76 / 34 / 24 strip and say "that's the skeleton."
 
 ## Bridge
-→ The decisive move next — privacy and audit by construction.`,
+→ The competitive landscape next — what others built, where the gap is.`,
+
+  'cs3-landscape': `## Spoken
+Before we go deeper, let me show you the field. ⏸
+
+Five published or commercial systems address fragments of pharmacometric AI.  ==Apollo-AI== from Pfizer — conceptual framework, no implementation. ==pyDarwin== from AstraZeneca — model search only. ==DeepPumas== from PumasAI — neural ODEs inside compartmental models. ==PEARL== from Buffalo — RAG over guidances. ==QSP-Copilot== — multi-agent for systems pharmacology, adjacent domain. ⏸
+
+Each of them solves one cell. ==None covers the full pipeline.==  Data ingestion, NCA, PopPK, QC, simulation, report, audit, M15 — eight columns. PharmAgent fills every one.  ⏸
+
+The gap is not capability. Every cell here works in isolation. ==The gap is integration with audit and privacy by construction.== That is what M15 will reward — not the cleverest model, but the platform that documents itself.
+
+## Cues
+- ⏱ 45 sec — fast. The matrix tells the story; you narrate the punchline.
+- 🎚 Even tone walking through the five competitors; lift on PharmAgent's row.
+- 📍 Eyes on the panel during the punchline, not the screen.
+- ⚠ Don't disparage competitors. Each pushed the field forward; PharmAgent stitches the parts.
+- ✅ Land on "the platform that documents itself."
+
+## Bridge
+→ Privacy and audit — the two commitments next.`,
 
   'cs3-decisive-move': `## Spoken
 Two architectural commitments. ⏸
