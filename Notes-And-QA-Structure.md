@@ -98,16 +98,35 @@ Pick the prefixes that matter; you don't need all seven on every slide.
 - ✅ Land on "nineteen years" for hook timing
 ```
 
-### 1.3 The `Bridge` section — segue to next slide
+### 1.3 The `Bridge` section — segue to the **next** slide (notes vocabulary)
 
-One sentence. The line you'll actually say as you advance. Optional but
-strongly recommended — it eliminates the "uhhh, so…" between slides.
+> **This “Bridge” is not** your deck’s on-screen “regulatory bridge” or
+> Case Study bridge slides. In **speaker notes**, `## Bridge` is only:
+> a **reminder for the click to the next slide** — either the *exact
+> line* you want to say as you press **Next**, **or** a *meta* reminder
+> (e.g. *which line in `## Spoken` is the cue to advance*).
 
-**Example:**
+Authors sometimes write Bridge as a **one-sentence segue**; sometimes as a
+**short timing note** (“after you land X, click”). Both are valid. If a
+line reads like *“That last sentence — what that looks like in practice —
+is the cue to advance”*, it is telling you **when** to advance, not adding
+a second script block — you still deliver the words in `## Spoken`.
+
+Optional but useful — omit the `## Bridge` heading entirely if you do not
+need a next-slide reminder.
+
+**Example (classic segue line):**
 
 ```markdown
 ## Bridge
 That nineteen-year sentence is where this story starts.
+```
+
+**Example (advance-cue note):**
+
+```markdown
+## Bridge
+After “what that looks like in practice” — then Next.
 ```
 
 ### 1.4 Full example (slide id `title`)
@@ -136,6 +155,13 @@ years*. ⏸
 That nineteen-year sentence is where this story starts.
 ```
 
+### 1.5 Slide `time` in `manifest.js` (delivery planning)
+
+Some slides set a `time` field (seconds) in `manifest.js` for rehearsal /
+word-budget planning. It is **not** parsed from notes markdown; it is
+deck metadata alongside `id`, `title`, and `component`. Align target times
+with the speaking pace you assume in `## Spoken`.
+
 ---
 
 ## 2. Anticipated Q&A — per-slide template
@@ -157,13 +183,14 @@ A: <prepared answer in delivery voice — the words to say>
 ### 2.1 Why this shape
 
 - The `## Q:` heading prefix is what the count badge counts (`Q&A · 3
-  anticipated`). It's also the search anchor in Phase 4.
+  anticipated`). It is also the search anchor in the Anticipated Q&A
+  search box in Presenter view.
 - Numbering (`Q1`, `Q2`, `Q3`) makes it referenceable — "see Q4 on
   slide 12" works in cross-talk between you and your other assistant.
-- **From / Difficulty / Topic** are filterable metadata. Phase 4
-  search will let you type "Sergi" or "stats" and jump to relevant Qs.
+- **From / Difficulty / Topic** are filterable via search (substring match
+  on question, asker, topic, and answer text).
 - The `If pressed:` blockquote is the second-line defense — only used
-  if the asker doesn't accept the first answer. Keeps your primary
+  if the asker does not accept the first answer. Keeps your primary
   answer tight without losing the depth.
 
 ### 2.2 Difficulty scale
@@ -263,7 +290,7 @@ contrast in both modes.
   in either notes or QA — see `⚠` cue convention to flag the avoidance
   instead
 - ❌ Don't invent new section headings (`## Background`, `## Trivia`) —
-  Phase 4 search and rendering rely on the fixed vocabulary in §1 / §2
+  parsers and the Presenter view rely on the fixed vocabulary in §1 / §2
 - ❌ Don't include slide content the audience can already read — the
   notes are for what's NOT on the slide
 
@@ -275,6 +302,31 @@ contrast in both modes.
   the file content per-device. The UI shows a `Live edit` badge when an
   override is active.
 - Click the `↺` icon to revert a live edit and fall back to the file.
+
+### 5.1 Presenter view — which blocks to show (speaker notes)
+
+The notes panel’s **top-right** also has a **book** icon — it opens the
+same **Reference** dialog as the Q&A help: markers (`==` highlight, ⏸,
+`##` sections), the three-part notes shape, and Anticipated Q&A format,
+so you can apply the structure while authoring.
+
+For notes that use `## Spoken` / `## Cues` / `## Bridge`, the app parses
+them into **three blocks**. In Presenter view (read mode, not the editor),
+**View** in the notes toolbar opens:
+
+- **Presets** — e.g. *Script* (spoken only), *Script+Segue* (hide Cues),
+  *No segue* (hide Bridge), *All*.
+- **Per-section toggles** — show/hide **Spoken**, **Cues**, and **Bridge**
+  independent of the author file (per-device, stored in
+  `localStorage` under `presenter:notes:sections`).
+
+Hiding a section only affects **display**; the markdown on disk and in
+**Edit** is unchanged. **Cues**, when shown, still **collapse/expand** in
+the panel so they do not dominate the read — toggling “Cues” off removes
+the block entirely.
+
+Anticipated Q&A has a similar **sliders** control for **collapsed row
+density** (see `useQADensity`); that is separate from the notes View menu.
 
 ---
 
@@ -301,10 +353,11 @@ SPEAKER NOTES                          ANTICIPATED Q&A
   - 🛟 recovery line
 
 ## Bridge
-  one segue sentence
+  one segue or “when to click Next” note (not the deck’s “bridge” slides)
 ```
 
 ---
 
-**Last updated:** 2026-04-25 · scope: Phase 4 rendering work to follow.
-The structure here is stable — start authoring against it now.
+**Last updated:** 2026-04-26 — Presenter “View” toggles for structured
+notes; Bridge vs deck “bridge” slides clarified; Q&A search wording
+updated (no “Phase 4” placeholder).
