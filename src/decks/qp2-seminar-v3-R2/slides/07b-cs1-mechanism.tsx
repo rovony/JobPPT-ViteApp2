@@ -269,9 +269,12 @@ function PathwayBand() {
   return (
     <div style={{
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(min(14rem, 100%), 1fr))',
-      gap: 'var(--space-3)',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(min(13rem, 100%), 1fr))',
+      gap: 'var(--space-2)',
       minWidth: 0,
+      maxWidth: 'min(72rem, 100%)',
+      marginLeft: 'auto',
+      marginRight: 'auto',
     }}>
       {PATHWAYS.map((p) => (
         <PathwayCardCompact key={p.n} {...p} delay={D[p.delay]} />
@@ -352,7 +355,7 @@ function PathwayCardCompact({
       {/* Year */}
       <div style={{ textAlign: 'right', flexShrink: 0 }}>
         <div className="deck-display" style={{
-          fontSize: 'clamp(1.2rem, min(2.4vw, 3.5vh), 1.8rem)',
+          fontSize: 'var(--fs-slide-lead)',
           color: accent,
           fontWeight: 700,
           lineHeight: 1,
