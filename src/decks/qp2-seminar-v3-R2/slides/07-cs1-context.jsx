@@ -93,17 +93,18 @@ export default function Cs1Context() {
 
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
-      {/* Centered lung backdrop — Wave-2 will add anatomy-anchored leader lines.
-          For now, the lung sits behind the fact grid as ambient anchor. */}
-      <motion.div
+      {/* V2-S3 lung-anchor treatment · foundation variant (center, large,
+          full color) — the lung is the SUBJECT of this slide. Anatomy-
+          anchored fact-box leader lines are deferred to a polish pass. */}
+      <div
         aria-hidden
         style={{
           position: 'absolute',
           left: '50%',
-          top: '52%',
+          top: '54%',
           transform: 'translate(-50%, -50%)',
-          width: 'clamp(18rem, 32vw, 28rem)',
-          opacity: 0.16,
+          width: 'clamp(20rem, 38vw, 32rem)',
+          opacity: 0.32,
           pointerEvents: 'none',
           zIndex: 0,
           display: 'flex',
@@ -113,10 +114,9 @@ export default function Cs1Context() {
       >
         <Lungs
           layoutId="cs1-lung"
-          variant="context"
-          widthOverride="clamp(18rem, 32vw, 28rem)"
+          variant="foundation"
         />
-      </motion.div>
+      </div>
 
       <Eyebrow color="var(--coral)" delay={0.10}>
         Case 01 · Disease foundation

@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
+import Lungs from '../components/Lungs';
 
 /**
  * CS1 · Slide 08 (slot) — V2-S4 · Pediatric PAH timeline.
@@ -141,6 +142,37 @@ export default function Cs1Trial() {
   const reduced = useReducedMotion();
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
+      {/* V2-S4 lung-anchor treatment · trachea-as-axis · rotated 90°
+          so the bronchi/trachea run horizontally as a backdrop to
+          the timeline. Wave 1.5 implementation: subtle backdrop
+          hint at low opacity so it doesn't compete with the existing
+          timeline scaffold (which renders its own 1px hairline axis).
+          Wave 2 polish pass should re-align the timeline marker
+          coordinates to anatomical regions of the bronchi for the
+          full V2 §0 trachea-as-axis effect. */}
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute',
+          left: '50%',
+          top: '54%',
+          transform: 'translate(-50%, -50%)',
+          width: 'clamp(24rem, 50vw, 40rem)',
+          opacity: 0.18,
+          pointerEvents: 'none',
+          zIndex: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Lungs
+          layoutId="cs1-lung"
+          variant="trachea-axis"
+          rotation={90}
+        />
+      </div>
+
       <Eyebrow color="var(--coral)" delay={0.10}>
         Case 01 · The field-level context
       </Eyebrow>

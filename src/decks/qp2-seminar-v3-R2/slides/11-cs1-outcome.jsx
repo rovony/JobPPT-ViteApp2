@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
+import Lungs from '../components/Lungs';
 
 /**
  * CS1 · Slide 11 (slot) — V2-S7 · Three disruptions · the trial that wasn't.
@@ -143,6 +144,32 @@ export default function Cs1Outcome() {
   const reduced = useReducedMotion();
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
+      {/* V2-S7 lung-anchor treatment · stress · background presence
+          with tension. Sized larger than ambient (variant CSS opacity
+          0.14 tissue / 0.55 detail / 0.38 stroke) — meant to feel
+          like a strained organ behind the disruption cards. */}
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute',
+          left: '50%',
+          top: '52%',
+          transform: 'translate(-50%, -50%)',
+          width: 'clamp(22rem, 36vw, 32rem)',
+          opacity: 0.22,
+          pointerEvents: 'none',
+          zIndex: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Lungs
+          layoutId="cs1-lung"
+          variant="stress"
+        />
+      </div>
+
       <Eyebrow color="var(--coral)" delay={0.10}>
         Case 01 · The program under stress
       </Eyebrow>

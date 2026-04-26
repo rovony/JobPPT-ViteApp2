@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
+import Lungs from '../components/Lungs';
 
 /**
  * CS1 · Slide 09 (slot) — V2-S5 · Drug + constraint.
@@ -97,6 +98,32 @@ export default function Cs1Architecture() {
   const reduced = useReducedMotion();
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
+      {/* V2-S5 lung-anchor treatment · ambient · barely-visible
+          decorative ghost in the right margin behind the constraint
+          column — a quiet reminder of the disease while the slide
+          focuses on the trial-design constraints. */}
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute',
+          right: '4%',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          width: 'clamp(18rem, 32vw, 28rem)',
+          opacity: 0.32,
+          pointerEvents: 'none',
+          zIndex: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Lungs
+          layoutId="cs1-lung"
+          variant="ambient"
+        />
+      </div>
+
       <Eyebrow color="var(--coral)" delay={0.10}>
         Case 01 · The drug and the constraint
       </Eyebrow>

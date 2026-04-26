@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
+import Lungs from '../components/Lungs';
 
 /**
  * CS1 · Slide 13 (slot) — V2-S9 · Exposure match · the result.
@@ -53,6 +54,31 @@ export default function Cs1Verdict() {
 
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
+      {/* V2-S9 lung-anchor treatment · signature corner — small,
+          subtle, top-right corner motif. The exposure-match payoff
+          owns the slide; the lung is just a quiet identity tag tying
+          the case visual back to its origin. */}
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute',
+          right: 'clamp(var(--space-3), 3vw, var(--space-5))',
+          top: 'clamp(var(--space-2), 2vh, var(--space-4))',
+          width: 'clamp(8rem, 14vw, 12rem)',
+          opacity: 0.55,
+          pointerEvents: 'none',
+          zIndex: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Lungs
+          layoutId="cs1-lung"
+          variant="signature"
+        />
+      </div>
+
       <Eyebrow color="var(--coral)" delay={0.10}>
         Case 01 · The exposure match
       </Eyebrow>

@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
+import Lungs from '../components/Lungs';
 
 /**
  * CS1 · Slide 14 (slot) — V2-S10 · Regulatory outcome + ICH E11A.
@@ -114,6 +115,34 @@ export default function Cs1Lesson() {
 
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
+      {/* V2-S10 lung-anchor treatment · closure · full presence,
+          anatomy-pinable. The lung returns to the center as the case
+          closes — same visual subject the case opened with, now
+          carrying the regulatory pins that codified the framework.
+          (Future: the EMA/PMDA pin cards could be anchored to
+          anatomical regions via leader lines.) */}
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute',
+          left: '50%',
+          top: '52%',
+          transform: 'translate(-50%, -50%)',
+          width: 'clamp(18rem, 32vw, 28rem)',
+          opacity: 0.18,
+          pointerEvents: 'none',
+          zIndex: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Lungs
+          layoutId="cs1-lung"
+          variant="closure"
+        />
+      </div>
+
       <Eyebrow color="var(--coral)" delay={0.10}>
         Case 01 · Outcome + codification
       </Eyebrow>

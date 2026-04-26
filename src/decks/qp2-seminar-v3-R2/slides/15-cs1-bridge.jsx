@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
+import Lungs from '../components/Lungs';
 
 /**
  * CS1 · Slide 15 (slot) — V2-S11 · Three takeaways + bridge to CS2.
@@ -96,6 +97,33 @@ export default function Cs1Bridge() {
   const reduced = useReducedMotion();
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
+      {/* V2-S11 lung-anchor treatment · exit · opening size, parked
+          to the right, ready to leave. The CS1 visual subject takes
+          its bow on the right side — closing the coral chapter as
+          the bridge ribbon hands off to CS2 (cyan/oncology). The
+          shared layoutId chain ends here for CS1. */}
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute',
+          right: 'clamp(var(--space-4), 5vw, var(--space-7))',
+          top: '52%',
+          transform: 'translateY(-50%)',
+          width: 'clamp(220px, 22vw, 380px)',
+          opacity: 0.28,
+          pointerEvents: 'none',
+          zIndex: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Lungs
+          layoutId="cs1-lung"
+          variant="exit"
+        />
+      </div>
+
       <Eyebrow color="var(--coral)" delay={0.10}>
         Case 01 · What the case teaches
       </Eyebrow>
