@@ -93,31 +93,6 @@ export default function Cs1Context() {
 
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
-      {/* V2-S3 lung-anchor treatment · foundation variant (center, large,
-          full color) — the lung is the SUBJECT of this slide. Anatomy-
-          anchored fact-box leader lines are deferred to a polish pass. */}
-      <div
-        aria-hidden
-        style={{
-          position: 'absolute',
-          left: '50%',
-          top: '54%',
-          transform: 'translate(-50%, -50%)',
-          width: 'clamp(20rem, 38vw, 32rem)',
-          opacity: 0.32,
-          pointerEvents: 'none',
-          zIndex: 0,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Lungs
-          layoutId="cs1-lung"
-          variant="foundation"
-        />
-      </div>
-
       <Eyebrow color="var(--coral)" delay={0.10}>
         Case 01 · Disease foundation
       </Eyebrow>
@@ -135,21 +110,86 @@ export default function Cs1Context() {
       </Subhead>
 
       <Viz>
-        <div style={{
+        {/* V2 §0 anatomy-anchored fact composition: 2 cards above the
+            lung, 2 below — the lung is the SUBJECT, the facts orbit
+            its anatomy. Desktop: 3-column grid (fact-left | lung |
+            fact-right) × 2 rows. Narrow viewports collapse to a
+            single column stack so nothing clips. */}
+        <div className="cs1-context-anatomy" style={{
           width: '100%',
           height: '100%',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(18rem, 100%), 1fr))',
-          gap: 'clamp(var(--space-3), 2vw, var(--space-5))',
-          paddingTop: 'clamp(var(--space-2), 2vh, var(--space-4))',
           position: 'relative',
           zIndex: 1,
-          alignItems: 'stretch',
-          alignContent: 'start',
         }}>
-          {FACTS.map((f, i) => (
-            <FactPanel key={f.n} fact={f} delay={0.85 + i * 0.12} reduced={reduced} />
-          ))}
+          {/* BIG LUNG — anatomical SUBJECT filling the whole Viz, with
+              fact cards anchored to the 4 corners. Cards may overlap
+              the outer edges of the lung — that's intentional, the
+              anatomy is the canvas the facts live on. */}
+          <div
+            aria-hidden
+            className="cs1-lung-canvas"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              opacity: 0.40,
+              pointerEvents: 'none',
+              zIndex: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              overflow: 'hidden',
+            }}
+          >
+            <Lungs
+              layoutId="cs1-lung"
+              variant="foundation"
+              widthOverride="min(68vw, 54rem)"
+            />
+          </div>
+
+          {/* Top-left corner — fact 01 PATHOLOGY */}
+          <div className="cs1-corner cs1-corner-tl" style={{
+            position: 'absolute',
+            top: 'clamp(var(--space-2), 2vh, var(--space-3))',
+            left: 0,
+            width: 'clamp(13rem, 26vw, 19rem)',
+            zIndex: 2,
+          }}>
+            <FactPanel fact={FACTS[0]} delay={0.85} reduced={reduced} />
+          </div>
+
+          {/* Top-right corner — fact 02 HEMODYNAMIC */}
+          <div className="cs1-corner cs1-corner-tr" style={{
+            position: 'absolute',
+            top: 'clamp(var(--space-2), 2vh, var(--space-3))',
+            right: 0,
+            width: 'clamp(13rem, 26vw, 19rem)',
+            zIndex: 2,
+          }}>
+            <FactPanel fact={FACTS[1]} delay={0.97} reduced={reduced} />
+          </div>
+
+          {/* Bottom-left corner — fact 03 PATHWAYS */}
+          <div className="cs1-corner cs1-corner-bl" style={{
+            position: 'absolute',
+            bottom: 'clamp(var(--space-2), 2vh, var(--space-3))',
+            left: 0,
+            width: 'clamp(13rem, 26vw, 19rem)',
+            zIndex: 2,
+          }}>
+            <FactPanel fact={FACTS[2]} delay={1.09} reduced={reduced} />
+          </div>
+
+          {/* Bottom-right corner — fact 04 OUTCOME */}
+          <div className="cs1-corner cs1-corner-br" style={{
+            position: 'absolute',
+            bottom: 'clamp(var(--space-2), 2vh, var(--space-3))',
+            right: 0,
+            width: 'clamp(13rem, 26vw, 19rem)',
+            zIndex: 2,
+          }}>
+            <FactPanel fact={FACTS[3]} delay={1.21} reduced={reduced} />
+          </div>
         </div>
 
         {/* Closing pathway-mechanism line */}
@@ -159,7 +199,7 @@ export default function Cs1Context() {
           transition={{ duration: 0.55, delay: 1.45, ease: EASE }}
           className="deck-display italic"
           style={{
-            marginTop: 'clamp(var(--space-3), 3vh, var(--space-5))',
+            marginTop: 'clamp(var(--space-2), 2vh, var(--space-4))',
             fontSize: 'var(--fs-slide-tagline)',
             color: 'var(--coral)',
             lineHeight: 1.5,
@@ -171,6 +211,38 @@ export default function Cs1Context() {
         >
           Ambrisentan blocks the endothelin pathway &mdash; the over-active vasoconstrictor and proliferative arm.
         </motion.div>
+
+        {/* Mobile fallback — under 640px viewport, drop absolute
+            positioning and stack everything in flow so nothing clips
+            off-screen. Lung shrinks and goes between the top pair
+            and bottom pair. */}
+        <style>{`
+          @media (max-width: 640px) {
+            .cs1-context-anatomy {
+              display: flex !important;
+              flex-direction: column;
+              gap: var(--space-3);
+              padding-top: var(--space-3);
+            }
+            .cs1-context-anatomy .cs1-corner,
+            .cs1-context-anatomy .cs1-lung-canvas {
+              position: static !important;
+              width: 100% !important;
+              transform: none !important;
+              top: auto !important;
+              left: auto !important;
+              right: auto !important;
+              bottom: auto !important;
+            }
+            .cs1-context-anatomy .cs1-lung-canvas {
+              order: 99;
+              opacity: 0.6 !important;
+              max-height: 16rem;
+              align-self: center;
+              width: 60vw !important;
+            }
+          }
+        `}</style>
       </Viz>
 
       <Footer
