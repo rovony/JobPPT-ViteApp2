@@ -5,32 +5,33 @@
 > Before opening, editing, or generating any slide file in `src/decks/qp2-seminar-v3-R2/`:
 >
 > 1. **Read this entire file end-to-end.** Not just the section that seems
->    relevant. The Stewardship rule, Responsiveness Contract (fonts + layout),
+>   relevant. The Stewardship rule, Responsiveness Contract (fonts + layout),
 >    case-color contract, and layout system are all load-bearing — skipping
 >    one produces output that gets reverted.
 > 2. **Read the workspace root `../../CLAUDE.md` and `../../PROJECT-BRIEF.md`** —
->    the V5 Clinical-Pharmacology framing, the no-internal-data rule, and the
+>   the V5 Clinical-Pharmacology framing, the no-internal-data rule, and the
 >    public-sources-only requirement live there.
 > 3. **Run the pre-commit greps** at the bottom of the Responsiveness Contract
->    section before declaring slide work done. If they return matches, the
+>   section before declaring slide work done. If they return matches, the
 >    slide will fail at portrait viewports.
 > 4. **Resize the rendered slide to 375×812 (mobile portrait), 768×1024
->    (tablet portrait), and 1280×720 (laptop) before committing.** If text
+>   (tablet portrait), and 1280×720 (laptop) before committing.** If text
 >    clips, layouts overflow, or grids don't reflow — the slide isn't ready.
 > 5. **Do not rewrite an existing slide's composition without explicit user
->    authorization in the current session.** See "Slide File Stewardship"
+>   authorization in the current session.** See "Slide File Stewardship"
 >    below for the full rule.
 >
 > Recurring failure modes this checklist prevents:
-> - Agents using fixed `--fs-*` pt tokens that overflow on mobile
+>
+> - Agents using fixed `--fs-`* pt tokens that overflow on mobile
 > - Agents creating fixed-column grids that don't reflow on narrow viewports
 > - Agents rewriting a simple slide into a "cinematic 6-zone composition"
->   without being asked
+> without being asked
 > - Agents shipping slides without testing at portrait viewports
 
 React/Vite fork of a base44 scaffold. QP2-seminar presentation deck for
 the Merck Senior-Director interview. Deployed on Vercel from GitHub
-(`rovony/merck-deck`): `main` → production, `dev` → preview.
+(`rovony/JobPPT-ViteApp`): `main` → production, `dev` → preview.
 
 ## Stack
 
@@ -62,29 +63,31 @@ change its visual structure unless the user has explicitly authorized that
 specific change in the current session.**
 
 Acceptable agent/linter touches without explicit approval:
+
 - ✅ Code-formatting only (whitespace, semicolons, import order, prettier-style)
 - ✅ Single-token swap when fixing a documented contract violation (e.g., the
-  v3+ Slide Responsiveness Contract above — swapping a banned `--fs-*` token
-  for the correct `--fs-slide-*` fluid token, **without changing the slide's
-  composition or copy**)
+v3+ Slide Responsiveness Contract above — swapping a banned `--fs-`* token
+for the correct `--fs-slide-`* fluid token, **without changing the slide's
+composition or copy**)
 - ✅ Removing dead imports, fixing obvious syntax errors that prevent the file
-  from compiling
+from compiling
 - ✅ The user explicitly said "rewrite this slide" / "redesign it" / "make it
-  cinematic" / "match this reference" in the current session
+cinematic" / "match this reference" in the current session
 
 NOT acceptable without explicit user authorization in the current session:
+
 - ❌ Rewriting from a centered-stack composition to a multi-zone composition
-  (or vice-versa)
+(or vice-versa)
 - ❌ Adding new visible content — chapter marks, sub-headlines, eyebrows,
-  context lines, structural marks, decorative elements — that wasn't in the
-  prior version
+context lines, structural marks, decorative elements — that wasn't in the
+prior version
 - ❌ Changing the copy of any visible text
 - ❌ Adding animation primitives (`useInView`, `motion.span` per-line stagger,
-  GSAP timelines) to a slide that didn't have them
+GSAP timelines) to a slide that didn't have them
 - ❌ Citing "compositional patterns" from other slides as comments and
-  importing those patterns into this slide's design
+importing those patterns into this slide's design
 - ❌ Replacing the user's editorial choice (italic pivot, asymmetric layout,
-  hairline placement) with a different choice
+hairline placement) with a different choice
 - ❌ "Improving" or "elevating" the design without being asked
 
 ### When an agent thinks the slide should be redesigned
@@ -144,16 +147,18 @@ not adapt to viewport, so text overflows on mobile and tablet.
 
 ### The fluid scale (defined in `src/index.css`)
 
-| Slide content type | Fluid token | Range | When to use |
-|---|---|---|---|
-| Hero / cover title (largest display) | `--fs-slide-display` | 32px – 88px | Title slide, cold-open hook headline, closer |
-| Body slide headline | `--fs-slide-headline` | 24px – 58px | `BodyLayout`'s `headline` prop, section heads |
-| Lead paragraph / subtitle | `--fs-slide-lead` | 16px – 28px | Title-slide subtitle, opener prose, large body |
-| Speaker name / framework label | `--fs-slide-name` | 15px – 22px | Speaker block, named-thing labels |
-| Tagline / pull quote / body emphasis | `--fs-slide-tagline` | 13px – 18px | Editorial pull quotes, secondary lead |
-| Subhead / minor headline / card body | `--fs-slide-subhead` | 13px – 18px | Card heads, sub-section dividers, dense body |
-| Eyebrow / mono kicker / metadata | `--fs-slide-eyebrow` | 10px – 13px | "CASE 02 · INDIA CDSCO", chapter marks |
-| Page number / smallest mono | `--fs-slide-pageno` | 9px – 11px | "01 / 37", structural marks, footer-meta |
+
+| Slide content type                   | Fluid token           | Range       | When to use                                    |
+| ------------------------------------ | --------------------- | ----------- | ---------------------------------------------- |
+| Hero / cover title (largest display) | `--fs-slide-display`  | 32px – 88px | Title slide, cold-open hook headline, closer   |
+| Body slide headline                  | `--fs-slide-headline` | 24px – 58px | `BodyLayout`'s `headline` prop, section heads  |
+| Lead paragraph / subtitle            | `--fs-slide-lead`     | 16px – 28px | Title-slide subtitle, opener prose, large body |
+| Speaker name / framework label       | `--fs-slide-name`     | 15px – 22px | Speaker block, named-thing labels              |
+| Tagline / pull quote / body emphasis | `--fs-slide-tagline`  | 13px – 18px | Editorial pull quotes, secondary lead          |
+| Subhead / minor headline / card body | `--fs-slide-subhead`  | 13px – 18px | Card heads, sub-section dividers, dense body   |
+| Eyebrow / mono kicker / metadata     | `--fs-slide-eyebrow`  | 10px – 13px | "CASE 02 · INDIA CDSCO", chapter marks         |
+| Page number / smallest mono          | `--fs-slide-pageno`   | 9px – 11px  | "01 / 37", structural marks, footer-meta       |
+
 
 Each token is `clamp(min, min(Xvw, Yvh), max)` — narrow OR short viewports both
 shrink text proportionally, so slides stay readable on phones, tablets, and
@@ -208,40 +213,40 @@ A slide can pass the fluid-font contract above and still clip on mobile if
 its **layout** assumes a wide canvas. The recurring failure modes:
 
 - ❌ `gridTemplateColumns: 'repeat(4, 1fr)'` (or `repeat(N, 1fr)` for any
-  N ≥ 3) without a reflow strategy — on portrait phones, 4 columns squeeze
-  to ~80px each and content wraps badly (mono dates split per-character)
+N ≥ 3) without a reflow strategy — on portrait phones, 4 columns squeeze
+to ~80px each and content wraps badly (mono dates split per-character)
 - ❌ Fixed `width: 80` (or any fixed px width) on a row of N items where
-  `N × width + (N-1) × gap > viewport_width_at_375px` (~~290px usable~~)
+`N × width + (N-1) × gap > viewport_width_at_375px` (~~290px usable~~)
 - ❌ `position: absolute` with `left: '12%'` + `paddingLeft: '3em'` on a
-  multi-line headline — the indent pushes the second line off-screen on
-  narrow viewports
+multi-line headline — the indent pushes the second line off-screen on
+narrow viewports
 - ❌ `position: absolute, top: 0, right: 0, maxWidth: 360` for content
-  that needs to be SEEN — at 375 viewport that maxWidth exceeds the
-  usable width minus the safe margin
+that needs to be SEEN — at 375 viewport that maxWidth exceeds the
+usable width minus the safe margin
 - ❌ `letter-spacing: 0.12em` (or wider) on mono text that contains
-  spaces — narrow column widths force the text to wrap **per-character**
-  because each spaced glyph becomes its own break opportunity
+spaces — narrow column widths force the text to wrap **per-character**
+because each spaced glyph becomes its own break opportunity
 - ❌ `gap: var(--space-10)` (40px) or larger between flex/grid items —
-  on a 375 viewport that's >10% of the width per gap, multiplying the
-  overflow risk
+on a 375 viewport that's >10% of the width per gap, multiplying the
+overflow risk
 
 The required positive patterns:
 
 - ✅ `gridTemplateColumns: 'repeat(auto-fit, minmax(min(<min-card-width>, 100%), 1fr))'` —
-  cards reflow to fewer columns automatically as the viewport narrows
+cards reflow to fewer columns automatically as the viewport narrows
 - ✅ `flex-wrap: wrap` on horizontal rows of N items so they stack on
-  narrow viewports
+narrow viewports
 - ✅ `min-width: 0` on flex children that contain wrapping text (prevents
-  blowout)
+blowout)
 - ✅ Use percentage / `cqi` / `cqh` / fluid clamp for offsets, NOT fixed
-  px or em multipliers that compound at narrow widths
+px or em multipliers that compound at narrow widths
 - ✅ For mono text with letter-spacing: `white-space: nowrap` so the whole
-  string moves as a unit, OR scale letter-spacing down on narrow viewports
-  via clamp
+string moves as a unit, OR scale letter-spacing down on narrow viewports
+via clamp
 - ✅ Maximum 3 columns on horizontal grids by default; if you need 4+,
-  switch to `auto-fit` with a min-card-width that allows reflow
+switch to `auto-fit` with a min-card-width that allows reflow
 - ✅ Test at 375×812 BEFORE committing. If anything clips, redesign the
-  layout — don't just shrink the font
+layout — don't just shrink the font
 
 ### Pre-commit grep — flag layout patterns that break on mobile
 
@@ -280,16 +285,18 @@ fix the layout, not just the font.
 The deck app ships an in-app design system at `/dev` (admin-gated).
 Sub-pages, all under `src/components/devkit/pages/`:
 
-| Route | Purpose |
-|---|---|
-| `/dev` | Overview · entry index for the catalog |
-| `/dev/tokens` | Color tokens, spacing scale, font-size scale (fixed AND fluid), shadow / radius / stroke tokens — render with live values |
-| `/dev/typography` | Display (Fraunces) + body (Inter) + mono (JetBrains) specimens; line-height, letter-spacing, tabular-nums in context |
-| `/dev/scientific` | Forest plots, exposure-response curves, dose-finding lattices, error bars — chart primitives |
-| `/dev/transitions` | Motion / shared-element layoutId / 3D transition presets — visual demos |
-| `/dev/viz` | Maps, isotypes, Sankey, dataflow — visualization primitives |
-| `/dev/patterns` | Composed components: HeroTile, RecapCard, ImpactNumerals, CaseHeroDivider — live exemplars of the patterns codified below |
-| `/dev/libraries` | External library cheatsheet: which library to reach for for each visualization need (recharts, react-simple-maps, @xyflow/react, etc.) |
+
+| Route              | Purpose                                                                                                                                |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `/dev`             | Overview · entry index for the catalog                                                                                                 |
+| `/dev/tokens`      | Color tokens, spacing scale, font-size scale (fixed AND fluid), shadow / radius / stroke tokens — render with live values              |
+| `/dev/typography`  | Display (Fraunces) + body (Inter) + mono (JetBrains) specimens; line-height, letter-spacing, tabular-nums in context                   |
+| `/dev/scientific`  | Forest plots, exposure-response curves, dose-finding lattices, error bars — chart primitives                                           |
+| `/dev/transitions` | Motion / shared-element layoutId / 3D transition presets — visual demos                                                                |
+| `/dev/viz`         | Maps, isotypes, Sankey, dataflow — visualization primitives                                                                            |
+| `/dev/patterns`    | Composed components: HeroTile, RecapCard, ImpactNumerals, CaseHeroDivider — live exemplars of the patterns codified below              |
+| `/dev/libraries`   | External library cheatsheet: which library to reach for for each visualization need (recharts, react-simple-maps, @xyflow/react, etc.) |
+
 
 **Use it like documentation that can't go stale:** when you're not sure
 what a token resolves to or what a pattern looks like in motion, open
@@ -305,6 +312,7 @@ agents discover it via the catalog instead of grepping source.
 
 User-invocable skill at `~/.claude/skills/zaj-slides/`. Triggered by
 the words "slide", "deck", "presentation". Provides:
+
 - Universal slide-craft defaults (canvas, typography, density, motion)
 - Hard bans on AI / SaaS visual cliches (`references/craft-bans-and-borders.md`)
 - Story architecture (6 shapes, TURN, 7-act case-study) (`references/story-architecture.md`)
@@ -316,21 +324,24 @@ the words "slide", "deck", "presentation". Provides:
 
 **Where merck-deck deliberately diverges from zaj-slides defaults:**
 
-| zaj-slides default | merck-deck v3+ override | Why |
-|---|---|---|
-| **px / pt only** at slide level (no clamp / vw / vh) | **fluid `--fs-slide-*` tokens** mandatory | Fixed-canvas + transform-scale produced ugly mobile letterboxing on 9:19 phone aspect; fluid tokens make content fill any aspect |
-| **Hard ban on bordered cards with drop shadows** | HeroTile / RecapCard with 1.5px border + left-accent rail are CANONICAL | Clinical-pharm decks need rapid scan parity between case cards; the deck has shipped these in v1/v2 already |
-| **14pt floor on all text** | Eyebrow tokens at 10-13px allowed for chrome | The deck uses fluid tokens that exceed 14pt at large viewports; on small viewports 10-13px is acceptable for non-load-bearing chrome |
-| **"Rounded-rectangle cards with left-border-accent" called the SaaS cliche** | Same pattern is the deck's HeroTile vocabulary | Override accepted; must still pass the zaj-slides "editorial touch present" test |
+
+| zaj-slides default                                                           | merck-deck v3+ override                                                 | Why                                                                                                                                  |
+| ---------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| **px / pt only** at slide level (no clamp / vw / vh)                         | *fluid `--fs-slide-` tokens** mandatory                                 | Fixed-canvas + transform-scale produced ugly mobile letterboxing on 9:19 phone aspect; fluid tokens make content fill any aspect     |
+| **Hard ban on bordered cards with drop shadows**                             | HeroTile / RecapCard with 1.5px border + left-accent rail are CANONICAL | Clinical-pharm decks need rapid scan parity between case cards; the deck has shipped these in v1/v2 already                          |
+| **14pt floor on all text**                                                   | Eyebrow tokens at 10-13px allowed for chrome                            | The deck uses fluid tokens that exceed 14pt at large viewports; on small viewports 10-13px is acceptable for non-load-bearing chrome |
+| **"Rounded-rectangle cards with left-border-accent" called the SaaS cliche** | Same pattern is the deck's HeroTile vocabulary                          | Override accepted; must still pass the zaj-slides "editorial touch present" test                                                     |
+
 
 For everything NOT in the divergence table — the zaj-slides defaults
 hold:
+
 - Assertion titles, never topic labels
 - Tabular numerals on every number
 - One dominant element per slide; one accent carries the payoff
 - `prefers-reduced-motion` fallback on every animation
 - Confidentiality bans (no Servier/GSK internal data, no salary, no
-  internal-doc verbatim quotes)
+internal-doc verbatim quotes)
 - AI-tell scrub before delivery (40 tells in 5 passes)
 - Public-evidence-only for case-study claims (DOI / PubMed / FDA / EMA / PMDA published docs only)
 
@@ -368,8 +379,7 @@ order before writing absolute-positioned bespoke layouts.
 
 `src/components/deck/SlideGrid.jsx` exports a CSS-Grid primitive with
 named areas. **Two children CANNOT occupy the same cell** — the grid
-enforces it structurally. Standard areas: `chrome-l chrome-r eyebrow
-headline subhead viz footer`. The `viz` row is `1fr` (flex-grow), all
+enforces it structurally. Standard areas: `chrome-l chrome-r eyebrow headline subhead viz footer`. The `viz` row is `1fr` (flex-grow), all
 other rows are `auto`.
 
 ```jsx
@@ -392,24 +402,27 @@ Use this for **every body slide** unless you have a documented reason.
 #### 2. `<SlideParts>` — typographic furniture
 
 `src/components/deck/SlideParts.jsx`. Every part reads the fluid
-`--fs-slide-*` tokens, so they're responsive by default. Single source
+`--fs-slide-`* tokens, so they're responsive by default. Single source
 of truth for the deck's typographic hierarchy:
 
-| Part | Token | Visual | Use for |
-|---|---|---|---|
-| `<Eyebrow>` | `--fs-slide-eyebrow` (10–13px) | mono · uppercase · case-color · short hairline rule prepended | "CASE 02 · INDIA CDSCO" |
-| `<TopRight>` | `--fs-slide-topright` | mono · uppercase · cream-faint · right-aligned | NN/total badge, segment label |
-| `<Headline>` | `--fs-slide-headline` (24–58px) | display · weight 500 · cream · `maxChars={34}` default | The thesis sentence |
-| `<Subhead>` | `--fs-slide-subhead` (13–18px) OR `'lead'` size (16–24px) | display · italic · cream-muted · `maxChars={100}` default | One-line setup or lead |
-| `<Viz>` | (no font) | flex grow with `minHeight:0, minWidth:0` | The body — chart / cards / illustration |
-| `<Footer kicker tagline source>` | `--fs-slide-kicker / -tagline / -pageno` | hairline above · 3-cell row | Slide-meta + payoff + page N/total |
+
+| Part                             | Token                                                     | Visual                                                        | Use for                                 |
+| -------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------- | --------------------------------------- |
+| `<Eyebrow>`                      | `--fs-slide-eyebrow` (10–13px)                            | mono · uppercase · case-color · short hairline rule prepended | "CASE 02 · INDIA CDSCO"                 |
+| `<TopRight>`                     | `--fs-slide-topright`                                     | mono · uppercase · cream-faint · right-aligned                | NN/total badge, segment label           |
+| `<Headline>`                     | `--fs-slide-headline` (24–58px)                           | display · weight 500 · cream · `maxChars={34}` default        | The thesis sentence                     |
+| `<Subhead>`                      | `--fs-slide-subhead` (13–18px) OR `'lead'` size (16–24px) | display · italic · cream-muted · `maxChars={100}` default     | One-line setup or lead                  |
+| `<Viz>`                          | (no font)                                                 | flex grow with `minHeight:0, minWidth:0`                      | The body — chart / cards / illustration |
+| `<Footer kicker tagline source>` | `--fs-slide-kicker / -tagline / -pageno`                  | hairline above · 3-cell row                                   | Slide-meta + payoff + page N/total      |
+
 
 **Convention** (hard-set in `<Footer>`):
+
 - `kicker` ≤ 25 chars · mono · uppercase · cream-faint
 - `tagline` ≤ 16 words · display italic · cream-muted · sm:flex-1 sm:text-right
 - `source` (optional second row) · 4-cite chains stay legible because
-  they wrap (callers were stuffing them into `tagline` and getting
-  truncated below 1366px)
+they wrap (callers were stuffing them into `tagline` and getting
+truncated below 1366px)
 - Page N/total auto-rendered from `useDeck()` context — **never hardcode** "03 / 20".
 
 The legacy `<PageNo />` is now a no-op; the page indicator lives inside
@@ -418,8 +431,7 @@ The legacy `<PageNo />` is now a no-op; the page indicator lives inside
 #### 3. `<CaseHeroDivider>` — case study openers
 
 `src/components/deck/patterns/CaseHeroDivider.jsx`. Use for case dividers
-(slides 5/15/23 in v2). Props: `caseToken caseNumber totalCases kicker
-title subtitle tagline meta verdict illustration source`. Sets
+(slides 5/15/23 in v2). Props: `caseToken caseNumber totalCases kicker title subtitle tagline meta verdict illustration source`. Sets
 `data-case` on the section root, drives `--case` cascade. Illustration
 slot accepts an SVG component (e.g. `<IndiaMap />`, `<LungIcon />`).
 
@@ -444,8 +456,7 @@ that fits the content; do not invent a fourth.
 #### A. **RecapCard** — left accent rail + theme number + payoff + proof
 
 Used in `14b-case-recap.jsx` (CS1 framework recap). Border 1px hairline,
-left rail 4px in case color, background `color-mix(in srgb, var(--panel)
-65%, transparent)`. Eyebrow row has `THEME NN` (accent color) + theme
+left rail 4px in case color, background `color-mix(in srgb, var(--panel) 65%, transparent)`. Eyebrow row has `THEME NN` (accent color) + theme
 title (cream-faint). Payoff line is italic accent-colored display
 text at `--fs-card-title`. Body proof is `--fs-slide-body` cream-muted.
 
@@ -509,20 +520,22 @@ Use for slides where the numbers ARE the slide (CS2 impact, CS3 impact).
 > the chart; they need to be readable.
 
 Use the table below. If a label doesn't fit any of these roles, you're
-inventing a new one — propose a new `--fs-slide-*` token instead of
+inventing a new one — propose a new `--fs-slide-`* token instead of
 reaching for `--fs-meta` or `--fs-micro`.
 
-| Role | Token | Px range | Examples |
-|---|---|---|---|
-| **Hero / cover title** | `--fs-slide-display` | 32–88 | Title slide; cold-open thesis |
-| **Body headline** | `--fs-slide-headline` | 24–58 | The slide's claim |
-| **Lead / subtitle** | `--fs-slide-lead` | 16–28 | Title-slide subtitle, opener prose |
-| **Speaker / framework name** | `--fs-slide-name` | 15–22 | Speaker block, framework labels |
-| **Annotation under chart** ← *use this for "WHAT CHANGED"* | `--fs-slide-tagline` or `--fs-slide-subhead` | 13–18 | "Fifteen days · three frameworks", "What changed" callout |
-| **Body / paragraph** | `--fs-slide-body` (or `--fs-slide-subhead`) | 13–18 | Multi-sentence prose |
-| **Card title** | `--fs-card-title` | (existing card scale) | RecapCard payoff |
-| **Eyebrow / kicker / segment label** | `--fs-slide-eyebrow` | 10–13 | "CASE 02 · INDIA CDSCO", chapter marks |
-| **Page number / smallest** | `--fs-slide-pageno` | 9–11 | "01 / 37", structural marks |
+
+| Role                                                       | Token                                        | Px range              | Examples                                                  |
+| ---------------------------------------------------------- | -------------------------------------------- | --------------------- | --------------------------------------------------------- |
+| **Hero / cover title**                                     | `--fs-slide-display`                         | 32–88                 | Title slide; cold-open thesis                             |
+| **Body headline**                                          | `--fs-slide-headline`                        | 24–58                 | The slide's claim                                         |
+| **Lead / subtitle**                                        | `--fs-slide-lead`                            | 16–28                 | Title-slide subtitle, opener prose                        |
+| **Speaker / framework name**                               | `--fs-slide-name`                            | 15–22                 | Speaker block, framework labels                           |
+| **Annotation under chart** ← *use this for "WHAT CHANGED"* | `--fs-slide-tagline` or `--fs-slide-subhead` | 13–18                 | "Fifteen days · three frameworks", "What changed" callout |
+| **Body / paragraph**                                       | `--fs-slide-body` (or `--fs-slide-subhead`)  | 13–18                 | Multi-sentence prose                                      |
+| **Card title**                                             | `--fs-card-title`                            | (existing card scale) | RecapCard payoff                                          |
+| **Eyebrow / kicker / segment label**                       | `--fs-slide-eyebrow`                         | 10–13                 | "CASE 02 · INDIA CDSCO", chapter marks                    |
+| **Page number / smallest**                                 | `--fs-slide-pageno`                          | 9–11                  | "01 / 37", structural marks                               |
+
 
 **Rule for "annotations under a chart":** they get `--fs-slide-tagline`
 or `--fs-slide-subhead` (13-18px range), NOT `--fs-slide-eyebrow`. Eyebrow
@@ -535,10 +548,11 @@ italic), `deck-body` class (Inter sans · NOT Fraunces serif),
 `--fs-slide-lead`, `color: var(--cream); opacity: 0.78` for muted-
 but-legible contrast. Italic Fraunces at small sizes is hard to
 scan — the user has flagged it twice. Reserve italic for:
+
 - Inline emphasis on key phrases (`<em>` inside body prose)
 - Pull quotes / closing payoff lines at tagline size
 - The `<Subhead>` component when the line is a captioned tagline,
-  not a real subtitle
+not a real subtitle
 
 If the subtitle exceeds 1.5 lines, drop it or split it. Subtitles
 that wrap to 3+ lines compete with the headline for attention.
@@ -581,14 +595,17 @@ sizing it weakens the open.
 The deck uses **four** border weights deliberately. Pick the one that
 matches the role; don't invent intermediates.
 
-| Weight | Token | Use |
-|---|---|---|
-| `var(--stroke-hair)` (1px) | hairline rule | section dividers, header underlines, "axis" lines on charts, small marker stems |
-| `1px solid var(--cream-hairline)` | card outline | RecapCard, dense-content cards |
-| `1.5px solid <case-color>` | tinted-card outline | HeroTile (case-tinted cards) |
-| `4px solid <case-color>` | accent rail | left edge of RecapCard / HeroTile, "this is a colored card" semantic |
+
+| Weight                            | Token               | Use                                                                             |
+| --------------------------------- | ------------------- | ------------------------------------------------------------------------------- |
+| `var(--stroke-hair)` (1px)        | hairline rule       | section dividers, header underlines, "axis" lines on charts, small marker stems |
+| `1px solid var(--cream-hairline)` | card outline        | RecapCard, dense-content cards                                                  |
+| `1.5px solid <case-color>`        | tinted-card outline | HeroTile (case-tinted cards)                                                    |
+| `4px solid <case-color>`          | accent rail         | left edge of RecapCard / HeroTile, "this is a colored card" semantic            |
+
 
 **Decorative blocks** allowed (no others — propose before adding):
+
 - Hairline rule: `width: clamp(48px, 8vw, 80px); height: var(--stroke-hair); background: var(--cream-faint)` — the deck's signature "this is a structural mark" element. Used in eyebrows, mark rows, axis ends.
 - Rotate-45 amber square: `transform: rotate(45deg); width: 14px; height: 14px; background: var(--amber)` — the "next" pointer on closing ribbons.
 - Color-mix wash: `background: color-mix(in srgb, var(--token) Npc, transparent)` (N typically 6–28 for surfaces, 60–75 for cards). Always `in srgb` — `html-to-image` doesn't yet support OKLCH.
@@ -651,21 +668,22 @@ const go = isInView && !prefersReduced;
 ```
 
 **Animation rules:**
+
 - Section mounts opaque (`initial: { opacity: 1 }`) on the slide-root.
-  The slide-level fade is owned by `SlideTransition`. Adding
-  `initial: 0` on the section compounds with `SlideTransition`'s exit
-  fade and produces visible flickers during shared-element morphs.
-  See `SlideGrid.jsx` lines 85-93 for the diagnostic.
+The slide-level fade is owned by `SlideTransition`. Adding
+`initial: 0` on the section compounds with `SlideTransition`'s exit
+fade and produces visible flickers during shared-element morphs.
+See `SlideGrid.jsx` lines 85-93 for the diagnostic.
 - Per-element animations DO use `initial: { opacity: 0, y: 10 }` —
-  that's element-level entrance, separate from the section fade.
+that's element-level entrance, separate from the section fade.
 - Always `useReducedMotion` guard. Always `useInView` once-only trigger
-  with `amount: 0.3` so animations replay only when the slide is
-  meaningfully on-screen, not on micro-scrolls.
+with `amount: 0.3` so animations replay only when the slide is
+meaningfully on-screen, not on micro-scrolls.
 
 ### Color & token discipline (beyond fonts)
 
 - **NO hex literals in slide JSX.** Even amber, even cream. Always
-  `var(--amber)` / `var(--cream)` / `var(--case)`.
+`var(--amber)` / `var(--cream)` / `var(--case)`.
 - **Case-color inheritance:** wrap the slide root in `data-case="coral|cyan|violet|amber|sage"`. The `--case` cascade is set globally — children read `var(--case)` for case-aware accents. Cross-case slides default to `--amber` / `--sage`.
 - **Color-mix tints:** `color-mix(in srgb, var(--token) Npc, transparent)`. Standard percentages: 8 (background wash), 12 (gradient stop), 28 (border tint), 60-75 (card surface).
 - **Gradients:** `linear-gradient(180deg, color-mix(...) , color-mix(... 70%))` — top-tinted cards. Always 180deg vertical for tiles; 90deg horizontal only for explicit left-to-right reveals.
@@ -752,13 +770,13 @@ rg "left:\s*-?[0-9]+" 4-Apps/merck-deck/src/decks/qp2-seminar-v3-R2/slides/ \
 
 ### Card / label widths use REM, not raw PX
 
-> Added 2026-04-25 after card widths landed in raw px (`min(240px,
-> 38vw)`) and didn't scale with the root font-size or grow on large
+> Added 2026-04-25 after card widths landed in raw px (`min(240px, 38vw)`) and didn't scale with the root font-size or grow on large
 > displays.
 
 Width clamps for cards, labels, callouts, and any container holding
 text MUST use `rem` units (or `ch` for character-based widths), not
 raw `px`. Raw px:
+
 - Doesn't honor user font-size preferences (accessibility regression)
 - Doesn't grow proportionally on 4K / projector resolutions
 - Locks the design to one assumed viewing distance
@@ -779,14 +797,16 @@ maxWidth: '300px'              /* DEPRECATED */
 
 **Reference width scale for cards:**
 
-| Card class | Width range | When |
-|---|---|---|
-| Tight cluster label | `clamp(9rem, 34vw, 11rem)` | timeline cluster markers, dense labels |
-| Standard label | `clamp(11rem, 40vw, 15rem)` | typical chart labels with 1-line gloss |
-| Standalone callout | `clamp(14rem, 38vw, 18rem)` | lone-marker HeroTile callouts |
-| Body card | `clamp(16rem, 28vw, 22rem)` | RecapCard, HeroTile body content |
-| Reading card | `clamp(20rem, 60vw, 32rem)` | full-prose pull cards, quote cards |
-| Prose column | `52ch` to `66ch` | text-only columns (use ch, not rem) |
+
+| Card class          | Width range                 | When                                   |
+| ------------------- | --------------------------- | -------------------------------------- |
+| Tight cluster label | `clamp(9rem, 34vw, 11rem)`  | timeline cluster markers, dense labels |
+| Standard label      | `clamp(11rem, 40vw, 15rem)` | typical chart labels with 1-line gloss |
+| Standalone callout  | `clamp(14rem, 38vw, 18rem)` | lone-marker HeroTile callouts          |
+| Body card           | `clamp(16rem, 28vw, 22rem)` | RecapCard, HeroTile body content       |
+| Reading card        | `clamp(20rem, 60vw, 32rem)` | full-prose pull cards, quote cards     |
+| Prose column        | `52ch` to `66ch`            | text-only columns (use ch, not rem)    |
+
 
 `vw` is the bridge between the rem floor and rem ceiling — at narrow
 viewports rem floor binds; at wide viewports rem ceiling binds; in
@@ -875,11 +895,13 @@ And the gloss size jumps from `--fs-slide-kicker` (raw-text default) to
 vertically per word.
 
 Use this when:
+
 - One data point is structurally apart from others (>50% axis distance from cluster)
 - The lone point's annotation is the slide's payoff (the "and a fourth came later" beat on hook-B)
 - The cluster gets a separate gloss panel below; the lone point would look orphaned at the same raw-text treatment
 
 DON'T use when:
+
 - All data points are at roughly equal density on the axis (use uniform raw-text labels)
 - The lone point is decorative / supporting, not the payoff
 
@@ -889,7 +911,7 @@ DON'T use when:
 - ❌ **Top-right context line on a hook slide.** Top-right corner is reserved for chrome (page indicator, segment label) — adding a sentence there creates two competing reading orders. Put narrative copy in headline/subhead.
 - ❌ **Three structural marks with `width: 80` fixed.** Use `width: 'clamp(48px, 8vw, 80px)'` AND `flex-wrap: wrap` AND `gap: 'clamp(var(--space-3), 4vw, var(--space-10))'` so marks reflow.
 - ❌ **Timeline with 3 markers within 15% of axis, each with 180px label.** See bounding-box rule above.
-- ❌ **`max-width: 360px` on absolute-positioned text.** At 375 viewport that's the entire usable width — text overflows the safe margin. Use `min(360px, 80%)` or `min(360px, calc(100% - var(--space-8)))`.
+- ❌ `**max-width: 360px` on absolute-positioned text.** At 375 viewport that's the entire usable width — text overflows the safe margin. Use `min(360px, 80%)` or `min(360px, calc(100% - var(--space-8)))`.
 - ❌ **Reaching for `--fs-meta` / `--fs-micro` on an annotation under a chart.** Use `--fs-slide-tagline` or `--fs-slide-subhead`. The fixed-pt micro tokens are 9-11px and unreadable at projector distance.
 
 ### Cross-slide patterns & cinematic transitions
@@ -927,46 +949,49 @@ arc.
 **Hard rules** (these prevent the slide-5→6 lung flicker class of bug):
 
 - Wrap the deck root in `<LayoutGroup id="qp2-deck-layout">` (already
-  done in `DeckRunner.jsx`)
+done in `DeckRunner.jsx`)
 - Both source AND destination slides render `motion.div` with the
-  SAME `layoutId` AND the `layout` prop
+SAME `layoutId` AND the `layout` prop
 - The shared element MUST NOT live inside a CSS-grid cell whose
-  width depends on siblings — layout thrash → flicker. Use
-  `position: absolute` overlay or a fixed-width container.
+width depends on siblings — layout thrash → flicker. Use
+`position: absolute` overlay or a fixed-width container.
 - The slide-section wrapper MUST mount opaque (`initial: { opacity: 1 }`).
-  The slide-level fade is owned by `<SlideTransition>`. Adding
-  `initial: 0` on the section compounds with SlideTransition's exit
-  fade and exposes the cream deck-root underneath the morphing
-  element for ~200ms — that IS the flicker.
+The slide-level fade is owned by `<SlideTransition>`. Adding
+`initial: 0` on the section compounds with SlideTransition's exit
+fade and exposes the cream deck-root underneath the morphing
+element for ~200ms — that IS the flicker.
 - 3D transition presets (`cube`/`flip`/`depth`/`pan`) DO NOT
-  participate in `layoutId`. If a slide-pair uses a 3D transition,
-  the shared element won't morph — pick one or the other.
+participate in `layoutId`. If a slide-pair uses a 3D transition,
+the shared element won't morph — pick one or the other.
 
 **When to use shared-element morphs:**
+
 - A piece of evidence (quote, datum, illustration) returns later in
-  resolved / answered / scaled form
+resolved / answered / scaled form
 - A case-study illustration (lung, India outline, brain) appears on
-  the divider AND the impact slide
+the divider AND the impact slide
 - A framework theme card on the recap slide morphs from the slide-04
-  framework grid
+framework grid
 
 **When NOT to use:**
+
 - Two unrelated slides happen to have similar elements — gratuitous
-  morphs feel like a magic trick
+morphs feel like a magic trick
 - The morph would obscure the audience's reading order — never put
-  the morph in front of the headline they need to read
+the morph in front of the headline they need to read
 
 #### B. The "next-case bridge" pattern
 
 Every case study ends with a closing ribbon (see Patterns Library →
 "Closing / conclusion / next ribbon pattern" above) that sets up the
 next case. The case divider for the next slide RECEIVES that handoff:
+
 - Closing ribbon's amber square → next case divider's case-color
-  hairline (token swap on slide change)
+hairline (token swap on slide change)
 - Closing ribbon's "Next: a regulatory waiver in India." text →
-  next slide's giant compound title ("Ivosidenib")
+next slide's giant compound title ("Ivosidenib")
 - Optional: shared-element morph from the ribbon's amber square →
-  the divider's accent rule
+the divider's accent rule
 
 The audience reads it as one continuous gesture: "ending → opening" —
 not "slide N done, slide N+1 begin."
@@ -975,13 +1000,13 @@ not "slide N done, slide N+1 begin."
 
 Two pieces of chrome continue across consecutive slides to give the
 audience a "we're still in CS2" anchor:
+
 - **Running line** — a 1px hairline at consistent y-position across
-  every slide of a case study (top of viz area, beneath eyebrow). Its
-  color is the case-color at low alpha (`color-mix(in srgb, var(--case)
-  20%, transparent)`).
+every slide of a case study (top of viz area, beneath eyebrow). Its
+color is the case-color at low alpha (`color-mix(in srgb, var(--case) 20%, transparent)`).
 - **Footer provenance** — the kicker (`Case 02 · Bridge`) updates per
-  slide but the deck-id ("QP2 Seminar · v3-R2 · Spring 2026") stays
-  constant. That stability IS the audience's "you are here."
+slide but the deck-id ("QP2 Seminar · v3-R2 · Spring 2026") stays
+constant. That stability IS the audience's "you are here."
 
 **Rule:** if a slide deliberately breaks running-line continuity (a
 cross-case synthesis slide, a closer), it should ALSO swap to a
@@ -993,6 +1018,7 @@ break is intentional, not accidental.
 Every case study opens with `<CaseHeroDivider>` (slides 5/15/23 in
 v2). The divider is the audience's pause-and-recalibrate beat — it
 sets:
+
 - `data-case` cascade for the next ~10 slides
 - The case-color tone (coral → cyan → violet)
 - The illustration that may morph into the impact slide via `layoutId`
@@ -1005,26 +1031,27 @@ case. Mismatch = no morph; the audience just sees a fresh element.
 #### E. Slide-transition defaults (deck-wide, in `SlideTransition.jsx`)
 
 - **Incoming slide:** `initial: { opacity: 1 }` (NO enter-fade). This
-  is critical for layoutId morphs — a fading-in destination
-  inherits low opacity during the FLIP, producing visible flicker.
+is critical for layoutId morphs — a fading-in destination
+inherits low opacity during the FLIP, producing visible flicker.
 - **Outgoing slide:** `exit: { opacity: 0 }` over 0.4s.
 - **3D presets** (cube, flip, depth, pan) override the default fade
-  and should be opt-in per slide-pair, not deck-wide. They're best
-  for "we're entering a new act" beats (case-divider arrivals).
+and should be opt-in per slide-pair, not deck-wide. They're best
+for "we're entering a new act" beats (case-divider arrivals).
 
 #### F. Animation budget (deck-wide)
 
 Treat motion as a finite resource:
+
 - ≤ 1 cinematic morph per slide-pair (use it where it carries the
-  argument; everything else is element-level fade)
+argument; everything else is element-level fade)
 - ≤ 3 element-level entrance animations per slide visible at once
-  (eyebrow → headline → subhead → maybe ONE viz element). Stagger
-  them; don't fire simultaneously.
+(eyebrow → headline → subhead → maybe ONE viz element). Stagger
+them; don't fire simultaneously.
 - ≤ 1 "show-stopper" per case study (impact-numerals scale-pop, full
-  India outline filling, ECG drawing in). Multiple show-stoppers
-  desensitize the audience.
+India outline filling, ECG drawing in). Multiple show-stoppers
+desensitize the audience.
 - Total animation time per slide ≤ 3 seconds. The speaker's voice is
-  the load-bearing element, not the screen.
+the load-bearing element, not the screen.
 
 Pre-commit grep — flag slides with too many concurrent animations:
 
@@ -1063,11 +1090,12 @@ animation that hides content from reduced-motion users.
 > Tech Debt" below.
 
 When you encounter ANY new layoutId flicker:
+
 1. Check section opacity — section MUST mount at opacity 1
 2. Check parent grid — shared element CANNOT live in a width-
-   varying grid cell
+  varying grid cell
 3. Check `<AnimatePresence mode>` — `mode="wait"` blocks layoutId
-   compute; default `mode="sync"` or move the element outside the
+  compute; default `mode="sync"` or move the element outside the
    AnimatePresence subtree
 4. Re-read the existing tech-debt note before reinventing fixes
 
@@ -1080,22 +1108,191 @@ work outside React (e.g. a PPTX export).
 
 ### Pre-flight checklist (before declaring any slide done)
 
-- [ ] Used `<SlideGrid>` + `<SlideParts>` OR documented why a bespoke layout is required
-- [ ] All visible-text `fontSize` values resolve to `--fs-slide-*` tokens (no fixed-pt `--fs-*`, no inline `clamp()`, no Tailwind `text-*` on slide content)
-- [ ] All annotations / "what changed" callouts use `--fs-slide-tagline` or `--fs-slide-subhead`, not `--fs-slide-eyebrow`
-- [ ] All cards follow one of the three card vocabularies (RecapCard / HeroTile / ImpactNumerals); no fourth invented
-- [ ] Border weights chosen from the 4-weight vocabulary (hairline / 1px / 1.5px / 4px accent rail)
-- [ ] No hex literals; all colors via `var(--*)` or `color-mix(in srgb, var(--*) Npc, transparent)`
-- [ ] `data-case` set on root for case-aware slides; `--case` defaults to amber/sage for cross-case
-- [ ] Animations guarded by `useReducedMotion()` + `useInView(... once: true, amount: 0.3)`
-- [ ] Section mounts opaque (`initial: { opacity: 1 }`); element-level entrances are separate
-- [ ] Bounding-box audit comment present at top of any absolute-positioned or SVG-based slide
-- [ ] Rendered at 375×812, 768×1024, 1280×720 with no clipping or overlap
-- [ ] Source citations in `<Footer source>`, not `tagline` (4-cite chains need wrap, not truncate)
-- [ ] If the slide shares an element with another slide (same `layoutId`): both source AND destination render `motion.div` + `layout` prop, neither lives inside a width-varying grid cell, both sections mount opaque
-- [ ] Animation budget respected: ≤ 3 entrance animations visible at once, total ≤ 3 seconds, ≤ 1 cinematic morph per slide-pair
-- [ ] Closing-ribbon → next-divider handoff intact (if this slide ends a case)
-- [ ] Running-line continuity preserved (if mid-case) OR deliberately broken with neutral `data-case` (if cross-case)
+- Used `<SlideGrid>` + `<SlideParts>` OR documented why a bespoke layout is required
+- All visible-text `fontSize` values resolve to `--fs-slide-*` tokens (no fixed-pt `--fs-*`, no inline `clamp()`, no Tailwind `text-*` on slide content)
+- All annotations / "what changed" callouts use `--fs-slide-tagline` or `--fs-slide-subhead`, not `--fs-slide-eyebrow`
+- All cards follow one of the three card vocabularies (RecapCard / HeroTile / ImpactNumerals); no fourth invented
+- Border weights chosen from the 4-weight vocabulary (hairline / 1px / 1.5px / 4px accent rail)
+- No hex literals; all colors via `var(--*)` or `color-mix(in srgb, var(--*) Npc, transparent)`
+- `data-case` set on root for case-aware slides; `--case` defaults to amber/sage for cross-case
+- Animations guarded by `useReducedMotion()` + `useInView(... once: true, amount: 0.3)`
+- Section mounts opaque (`initial: { opacity: 1 }`); element-level entrances are separate
+- Bounding-box audit comment present at top of any absolute-positioned or SVG-based slide
+- Rendered at 375×812, 768×1024, 1280×720 with no clipping or overlap
+- Source citations in `<Footer source>`, not `tagline` (4-cite chains need wrap, not truncate)
+- If the slide shares an element with another slide (same `layoutId`): both source AND destination render `motion.div` + `layout` prop, neither lives inside a width-varying grid cell, both sections mount opaque
+- Animation budget respected: ≤ 3 entrance animations visible at once, total ≤ 3 seconds, ≤ 1 cinematic morph per slide-pair
+- Closing-ribbon → next-divider handoff intact (if this slide ends a case)
+- Running-line continuity preserved (if mid-case) OR deliberately broken with neutral `data-case` (if cross-case)
+
+---
+
+## Best-in-Class Slide Design — Reference Patterns from Shipped Slides
+
+> Added 2026-04-25 after multiple rounds of "why does this look bad?"
+> The root cause is always the same: agents build slides with raw inline
+> styles, no panel structure, tiny elements, and no compositional
+> backbone. The slides that look great in this deck ALL share the same
+> DNA. This section codifies that DNA so any agent can reproduce it.
+
+### What "great design" means in this deck
+
+It does NOT mean complex. It means **structured, filled, and
+token-driven**. Study these four shipped slides before building
+anything:
+
+
+| Slide      | URL slug                      | Why it works                                                                                                                                                               |
+| ---------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Hook       | `qp2-seminar/s/hook`          | Hero number (amber, 140pt+), italic headline, sparse editorial layout, timeline at bottom — empty space is INTENTIONAL                                                     |
+| Career Arc | `qp2-seminar/s/career-arc`    | Full-canvas SVG network, interactive satellites, clean kicker labels — the ILLUSTRATION fills the canvas                                                                   |
+| Strategy   | `qp2-seminar/s/case-strategy` | Three-column bento inside SlideFrame, each column has kicker → title → rationale → Viz pushed to bottom, SVG brackets, closing ribbon                                      |
+| Build      | `qp2-seminar/s/case-build`    | Two-column bento (2fr 3fr), panel cards with hairline borders + panel-mix backgrounds, hero numerals in accent, compartment diagram + decision flowchart fill their panels |
+
+
+### The Panel Card recipe (use this, not bare divs)
+
+Every data region, stat block, or content group lives inside a
+**panel card**. This is what gives the deck its editorial depth.
+
+```jsx
+<motion.div
+  style={{
+    border: '1px solid var(--cream-hairline)',
+    background: 'color-mix(in srgb, var(--panel) 55%, transparent)',
+    borderRadius: 'var(--radius-lg)',
+    padding: 'var(--space-4) var(--space-5)',
+  }}
+  initial={{ opacity: 0, y: 12 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: [0.2, 0.7, 0.3, 1], delay }}
+>
+  {/* Kicker label */}
+  <div className="deck-mono uppercase" style={{
+    fontSize: 'var(--fs-slide-kicker)',
+    letterSpacing: 'var(--ls-mono-wide)',
+    color: 'var(--case, var(--coral))',  // accent color
+    marginBottom: 'var(--space-3)',
+  }}>
+    Panel Title · Context
+  </div>
+  {/* Content */}
+</motion.div>
+```
+
+Key tokens:
+
+- `var(--panel)` = `#27272B` — one shade lighter than `var(--bg)`
+- `var(--cream-hairline)` = cream at 14% — structural border
+- `var(--radius-lg)` — consistent rounding
+- `color-mix(in srgb, var(--panel) 55–70%, transparent)` — the
+transparency range. 70% for primary panels, 55% for secondary.
+- NEVER use raw hex, `rgba()`, or `var(--ink)` for panel backgrounds.
+
+### Kicker Label pattern (the accent-colored section header)
+
+Every panel and every column starts with one:
+
+```jsx
+<div className="deck-mono uppercase" style={{
+  fontSize: 'var(--fs-slide-kicker)',
+  letterSpacing: 'var(--ls-mono-wide)',
+  color: 'var(--cyan)',  // case accent
+  marginBottom: 'var(--space-3)',
+}}>
+  Section Label · Qualifier
+</div>
+```
+
+Always `deck-mono uppercase`. Always the case accent color. Always
+`--fs-slide-kicker` + `--ls-mono-wide`. This is non-negotiable
+typographic furniture.
+
+### Hero Number pattern (the big stat)
+
+```jsx
+<div className="deck-display" style={{
+  fontSize: 'var(--fs-card-numeral)',  // or clamp(2.2rem, min(4vw, 5.5vh), 3.8rem)
+  lineHeight: 1,
+  color: 'var(--cyan)',  // accent or cream
+  fontWeight: 700,
+  fontVariantNumeric: 'tabular-nums',
+}}>
+  380
+</div>
+```
+
+Use `var(--fs-card-numeral)` when available. The number must be
+visually DOMINANT — the largest element in its panel. If the number
+doesn't command attention, it's too small.
+
+### SlideFrame as structural backbone
+
+**All body slides in the reference deck use `SlideFrame`**, not raw
+`<section>` + `<BodyLayout>`. SlideFrame provides:
+
+- Eyebrow (accent-colored, mono, tracked)
+- Headline (display, with inline accent `<span>` for pivot words)
+- Subhead (with `HighlightWord` for emphasis)
+- Footer (kicker + source line)
+- A **viz cell** that fills remaining vertical space
+
+Content goes INSIDE the viz cell. Use `position: absolute; inset: 0`
+on a wrapper div if the content must fill the entire viz area (common
+for grids, diagrams, illustrations).
+
+```jsx
+<SlideFrame
+  dataCase="cyan"
+  eyebrowColor="var(--cyan)"
+  eyebrow="Case 02 · Background — Disease"
+  headline={<>IDH1-mutant cancers: small populations, <span style={{ color: 'var(--cyan)', fontStyle: 'italic', fontWeight: 700 }}>no targeted option.</span></>}
+  subhead="Both indications lacked a targeted therapy before 2018."
+  footerKicker="Case 02 · Background"
+  footerSource="Source · Dang 2009 · Figueroa 2010"
+>
+  {/* Your grid / panels / viz here — fills remaining space */}
+</SlideFrame>
+```
+
+### Grid Containment for diagrams/SVGs
+
+When a panel contains an SVG diagram or illustration that must scale:
+
+```jsx
+<div style={{ flex: 1, minHeight: 0, position: 'relative', overflow: 'hidden' }}>
+  <div style={{ position: 'absolute', inset: 0 }}>
+    <MyDiagram />
+  </div>
+</div>
+```
+
+The `flex: 1` + `minHeight: 0` lets the container shrink. The
+`position: absolute; inset: 0` prevents the SVG from growing its
+parent. This pattern is used on EVERY diagram panel in the deck.
+
+### Staggered Reveal timing
+
+```
+const EASE = [0.2, 0.7, 0.3, 1];
+// Stagger by ~0.15–0.40s between elements
+// Column stagger: [0.70, 1.10, 1.50]
+// duration: 0.5–0.7s per element
+// translateY: 12px (subtle lift, not a bounce)
+```
+
+### Design checklist (run before declaring any slide done)
+
+- Every content group is inside a **panel card** (hairline border + panel-mix bg)
+- Every panel has a **kicker label** (deck-mono uppercase, accent color)
+- Hero numbers use `--fs-card-numeral` or equivalent large scale
+- Grid fills the viz cell (`position: absolute; inset: 0` or flex fill)
+- All colors from tokens — no hex literals, no rgba()
+- All spacing from `var(--space-*)` — no px literals
+- Background uses `color-mix(in srgb, var(--panel) NN%, transparent)`
+- Staggered reveals with `ease: [0.2, 0.7, 0.3, 1]` and `y: 12`
+- Content fills available vertical space — no dead space at bottom
+- Slide uses `SlideFrame` (or `BodyLayout`) — not a bare `<section>`
 
 ---
 
@@ -1103,17 +1300,18 @@ work outside React (e.g. a PPTX export).
 
 - All CSS custom properties live in `src/styles/*.css` — NEVER hardcode hex.
 - Core tokens: `--cream`, `--cream-muted`, `--cream-faint`, `--panel`,
-  `--coral`, `--amber`, `--cyan`, `--sage`, `--violet`, `--case` (case
-  study color, defaults to `--coral`)
+`--coral`, `--amber`, `--cyan`, `--sage`, `--violet`, `--case` (case
+study color, defaults to `--coral`)
 - Fonts: IBM Plex Sans (`--font-display`, `--font-body`), IBM Plex Mono
-  (`--font-mono`)
+(`--font-mono`)
 - Spacing scale: `var(--space-1..8)` — don't invent pixel values
 - Card/tile font sizes: use the `--fs-card-{numeral|title|body|label|meta|hero-num|quote}`
-  family — do NOT inline raw `clamp()` literals in slide JSX
+family — do NOT inline raw `clamp()` literals in slide JSX
 
 ### Case-color discipline (P5 contract)
 
 Coral, Cyan, Violet ALWAYS mean CS1, CS2, CS3 across this deck:
+
 - `--coral` ⇄ Case Study 1 (pediatric PAH / ambrisentan)
 - `--cyan`  ⇄ Case Study 2 (oncology / Lynparza-style asymmetry)
 - `--violet`⇄ Case Study 3 (rare disease / CMD pipeline)
@@ -1183,9 +1381,9 @@ src/
 
 ### `src/lib/` vs `src/utils/` (don't add to utils/)
 
-- **`src/lib/`** — active home for runtime utilities. New utilities GO HERE.
-- **`src/utils/index.ts`** — base44-scaffold leftover. Effectively
-  read-only — touch only when reconciling a base44 update.
+- `**src/lib/**` — active home for runtime utilities. New utilities GO HERE.
+- `**src/utils/index.ts**` — base44-scaffold leftover. Effectively
+read-only — touch only when reconciling a base44 update.
 
 ## URL State
 
@@ -1261,6 +1459,7 @@ environment.
 
 User-facing toggle in the assistant header. Persists in
 `localStorage('presenter-assistant:mode')`. Affects:
+
 - **System prompt** — different `lengthRule` (LIVE: ≤15-word quick + 2-3 short bullets; REHEARSE: ≤25-word quick + 3-5 fuller bullets) and persona framing (LIVE = stage-deliverable, REHEARSE = prep)
 - **Response shape** — same JSON shape, different copy density
 - **UI rendering** — LIVE message has amber `⚡ Say this` eyebrow + collapsed details by default; REHEARSE has `🎓 Headline` eyebrow + auto-expanded details
@@ -1287,10 +1486,10 @@ back to plain text if the model returns non-JSON.
 - Hard cap **30s** so a forgotten mic doesn't stay on forever
 - 'M' keyboard shortcut to toggle, 'Esc' cancels (drops buffer)
 - Pre-warms permission via `getUserMedia` BEFORE creating SpeechRecognition
-  so the user gets a real permission prompt, not a silent denial
+so the user gets a real permission prompt, not a silent denial
 - **Permission errors (`not-allowed`, `service-not-allowed`) MUST bail
-  out hard** — restarts loop forever otherwise. See git log for the
-  bug that prompted this rule.
+out hard** — restarts loop forever otherwise. See git log for the
+bug that prompted this rule.
 
 ### Diagnostic surfaces (DON'T weaken these)
 
@@ -1298,13 +1497,13 @@ The assistant has THREE always-on layers of voice diagnostics. They
 all need to stay because each catches a failure mode the others miss:
 
 1. **MicStatusBanner** above the input — always visible, four states
-   (idle / listening / error / unsupported). Banner color + copy
+  (idle / listening / error / unsupported). Banner color + copy
    tells the user what's happening without opening anything.
 2. **DebugPanel** (Bug icon in header) — snapshot grid + 30-event
-   ring buffer. **Auto-opens on first dictation error** (sawErrorRef
+  ring buffer. **Auto-opens on first dictation error** (sawErrorRef
    pattern in PresenterAssistant.jsx).
 3. **Console logs** under `[dictation]` and `[assistant]` tags —
-   for filtering in DevTools.
+  for filtering in DevTools.
 
 If you remove any of these, the user sees "tap mic, nothing happens"
 and has no path to diagnose. Don't.
@@ -1347,6 +1546,7 @@ standardLayout: {
 ```
 
 Slot-resolution rule (`DeckLayout.jsx`):
+
 - `slideValue === undefined` → inherit deck-level slot
 - `slideValue === null` → hide this slot for this slide
 - `slideValue === <value>` → override deck-level
@@ -1357,7 +1557,7 @@ TitleLayout and BodyLayout are thin presets over DeckLayout.
 
 ## Speaker Notes / Q&A / Reading Material — authoring vocabulary
 
-See [`Notes-And-QA-Structure.md`](./Notes-And-QA-Structure.md) for the
+See `[Notes-And-QA-Structure.md](./Notes-And-QA-Structure.md)` for the
 full spec. Quick reference:
 
 ### Speaker notes (notes.js, keyed by slide.id)
@@ -1406,11 +1606,14 @@ compact / full + 5 individual toggles).
 ### Reading material (`reading/*.md` + `reading/index.js`)
 
 Vite `?raw` import inlines markdown content at build time. Each entry:
+
 ```js
 { slug, title, attachedTo: 'deck'|'cs1'|'cs2'|'cs3'|<slide-id>|[ids],
   minutes, content }
 ```
+
 Surfaced via:
+
 - Modal: ReadingMaterialPane (presenter view, Esc to close)
 - Page: `/decks/:deckId/reading[/:slug]` (full-page route, deep-linkable)
 
@@ -1423,15 +1626,15 @@ lockstep across surfaces.
 
 - `<LayoutGroup id="qp2-deck-layout">` wraps AnimatePresence in DeckRunner
 - Both source AND destination slides render motion.div with the same
-  `layoutId` + `layout` prop to opt into FLIP morph
+`layoutId` + `layout` prop to opt into FLIP morph
 - **Must NOT put shared element inside a grid cell** whose width
-  depends on siblings — layout thrash → flicker. Use absolute overlay.
+depends on siblings — layout thrash → flicker. Use absolute overlay.
 
 ### Slide transition defaults
 
 - Incoming slide: `initial: { opacity: 1 }` (no enter-fade). Only the
-  EXIT fades — prevents shared elements from inheriting low opacity
-  during the layoutId morph.
+EXIT fades — prevents shared elements from inheriting low opacity
+during the layoutId morph.
 - 3D presets (cube/flip/depth/pan) DON'T participate in layoutId.
 
 ### Drag-drop reorder drives presentation order (Phase 11)
@@ -1444,9 +1647,11 @@ footer numbering all follow. `hidden` remains Overview-only by design
 ### Presenter layout (sections + columns)
 
 `usePresenterLayout` storage shape v2:
+
 ```js
 { visibility: { ... }, columns: { left: [...], center: [...], right: [...] } }
 ```
+
 Auto-migrates v1 (`{centerOrder, rightOrder}` + assistant-always-left
 assumption). PresenterLayoutSettings modal has ↑/↓ within column +
 ←/→ between columns + Eye/EyeOff visibility toggle per section.
@@ -1456,6 +1661,7 @@ assumption). PresenterLayoutSettings modal has ↑/↓ within column +
 Every modal that listens for Escape MUST do it in capture phase with
 `stopImmediatePropagation` so the deck-store's global Escape handler
 (which closes presenter view) doesn't also fire:
+
 ```js
 const onKey = (e) => {
   if (e.key !== 'Escape') return;
@@ -1465,6 +1671,7 @@ const onKey = (e) => {
 };
 window.addEventListener('keydown', onKey, true);  // capture: true
 ```
+
 Reference implementation: `ReadingMaterialPane`, `AIKeySettings`,
 `PresenterLayoutSettings`. The deck-store also auto-skips Escape if a
 `[role="dialog"][aria-modal="true"]` is open.
@@ -1495,10 +1702,11 @@ A hard reload clears it temporarily; the structural fix is the extract.
 
 ## Git / Deploy
 
-- Remote: `rovony/merck-deck`
+- Remote: `rovony/JobPPT-ViteApp` (renamed from `rovony/merck-deck` on
+  2026-04-26; old URL redirects automatically)
 - Branches: `main` (prod) + `dev` (preview)
 - User email must be `zaj.commerce@gmail.com` (the rovony-verified email;
-  `zajalyapps@gmail.com` is rejected by GitHub email privacy)
+`zajalyapps@gmail.com` is rejected by GitHub email privacy)
 - Vercel auto-deploys on push; `main` → production URL, `dev` → preview URL
 
 ## Slide backups — `_backup/` convention
@@ -1516,29 +1724,29 @@ Never delete a backup without explicit user approval.
 When the user sends a new ask while you're mid-task:
 
 1. **Finish the current in-progress task first** — don't jump to the
-   new ask and leave the old one half-done.
+  new ask and leave the old one half-done.
 2. **Queue the new ask at the END of your TodoWrite list** — even if
-   it feels urgent, it goes to the end so the in-progress batch gets
+  it feels urgent, it goes to the end so the in-progress batch gets
    committed as an atomic unit.
 3. **If the new ask invalidates the in-progress work** (user says
-   "never mind, do X instead"), THEN stop, discard in-flight changes
+  "never mind, do X instead"), THEN stop, discard in-flight changes
    explicitly, and start the new ask.
 4. **When in doubt, acknowledge both**: "Queued [new ask] — finishing
-   [in-progress] first, then will handle it."
+  [in-progress] first, then will handle it."
 
 ## Workspace Conventions (from JobHunt2026 CLAUDE.md)
 
 - **Response footer mandatory** on every non-trivial response:
-  `### TL;DR` + `### Actions` + (`### Questions` if any)
+`### TL;DR` + `### Actions` + (`### Questions` if any)
 - **Plan FIRST, code SECOND** for multi-file changes
 - **Small diffs** — one file → verify → next. Atomic commits.
 - **Never commit proprietary data** — Servier/GSK numbers blocked by `.gitignore`
 - **Filename / folder hygiene** — Title-Case-With-Hyphens, numbered prefixes
-  for ordered folders
+for ordered folders
 - **Layout-with-coordinates rule**: for any SVG / absolute-positioned
-  layout, maintain a bounding-box audit comment at the top of the
-  file, update it on every coordinate change, verify by actual render
-  (not code review), re-audit after moving any single element.
+layout, maintain a bounding-box audit comment at the top of the
+file, update it on every coordinate change, verify by actual render
+(not code review), re-audit after moving any single element.
 
 ### Phase progression — never ask "what's next" between phases
 
@@ -1550,18 +1758,18 @@ at the end. The queued phases ARE the plan.
 ## Known Tech Debt
 
 - **Slide 5→6 lung flicker on arrival** (as of 2026-04-23). Tried:
-  inline-SVG, `layout` prop on motion.div, absolute overlay, sync vs
-  popLayout. Residual flicker remains. Next avenues:
+inline-SVG, `layout` prop on motion.div, absolute overlay, sync vs
+popLayout. Residual flicker remains. Next avenues:
   - Confirm CaseHeroDivider's illustration wrapper isn't mismeasuring
-    on slide-5 EXIT (own opacity animation may be confusing FROM-bbox)
+  on slide-5 EXIT (own opacity animation may be confusing FROM-bbox)
   - `<MotionConfig reducedMotion="always">` or explicit
-    `animate={{ layout: false }}` fallback
+  `animate={{ layout: false }}` fallback
   - framer-motion 12 vs current 11 (12 reworked layoutId timing)
   - Fallback: drop layoutId entirely, use CSS keyframe pullback
 - DeckSource (uploaded PDFs/DOCX) **not RAG-indexed** — the upload
-  flow goes through the offline-stub base44 client which returns
-  empty file URLs. Reconnecting a real backend OR adding a direct
-  client-side file-text extractor would close this gap.
+flow goes through the offline-stub base44 client which returns
+empty file URLs. Reconnecting a real backend OR adding a direct
+client-side file-text extractor would close this gap.
 
 ## Commands
 
@@ -1572,3 +1780,4 @@ npm run lint       # eslint --quiet
 npm run typecheck  # tsc -p jsconfig.json
 npm run preview    # vite preview (serve built dist/)
 ```
+
