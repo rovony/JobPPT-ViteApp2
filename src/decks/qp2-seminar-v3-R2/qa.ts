@@ -1018,18 +1018,6 @@ A: The LLMs in the platform do two things: orchestration (deciding which determi
 **Difficulty:** ★★★ · **Topic:** career
 
 A: The platform demonstrates a capability — the ability to design and build regulatory-grade AI infrastructure for clinical pharmacology. The specific platform is a research project. The capability it demonstrates is what I'd bring to any organization. Merck's scale — the volume of MIDD submissions, the global regulatory footprint, the therapeutic diversity — is exactly the environment where this kind of infrastructure creates leverage. I'm not offering to install PharmAgent at Merck. I'm offering the judgment and architectural vision that built it.`,
-
-  'cs1-lesson': `## Q1: "The principle outlives the molecule" — what principle specifically?
-**From:** summary-seeking panelist
-**Difficulty:** ★★ · **Topic:** career
-
-A: Three principles. First: exposure-matching is a legitimate regulatory strategy when the alternative is an underpowered efficacy trial. Second: allometric PopPK is the bridge, but it's one pillar — the adult E-R anchor and the long-term safety data are the other two. Third: the function should name the commercial-rights gap before the panel does, because director-level work is surfacing the hard number first.
-
-## Q2: What would you do differently if you ran this case again?
-**From:** reflective panelist
-**Difficulty:** ★★★ · **Topic:** career
-
-A: Two things. First, I'd advocate earlier for a parallel FDA filing structure — even though the commercial rights were split, the Clin Pharm package was identical, and the FDA path was worth exploring. Second, I'd build in a planned analysis of the LTE safety data at the 2-year mark rather than waiting for the full 3.5-year readout. Earlier safety data would have strengthened the regulatory package during the EMA review.`,
 };
 
 export default qa;
