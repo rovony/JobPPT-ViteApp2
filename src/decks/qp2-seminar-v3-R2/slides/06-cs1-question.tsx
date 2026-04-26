@@ -53,12 +53,15 @@ export default function Cs1Question() {
         Case 01 · The question
       </Eyebrow>
 
-      {/* Stage 1 — Hero question (Mariam Option A wording, 2026-04-26)
-          Replaces ambiguous "what carries the dose when the trial can't?"
-          which read as if the ADULT trial wasn't an option. Concrete now:
-          names the pediatric efficacy trial + the 39/66 termination. */}
-      <Headline delay={0.35} maxChars={70}>
-        If you can&rsquo;t run the pediatric efficacy trial —{' '}
+      {/* Stage 1 — Hero question (2026-04-26 user pass)
+          Earlier wording "If you can't run the pediatric efficacy trial"
+          read as a contradiction with the body copy ("the trial you do
+          run gets terminated") — readers asked "didn't you run a trial?"
+          Fix: name the SPECIFIC kind of trial that wasn't ethical
+          (placebo-controlled). The open-label PK/safety trial that was
+          run (AMB112529) is a different beast — disambiguated below. */}
+      <Headline delay={0.35} maxChars={74}>
+        When a placebo-controlled efficacy trial isn&rsquo;t ethical —{' '}
         <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 500 }}>
           what carries the dose?
         </span>
@@ -75,10 +78,14 @@ export default function Cs1Question() {
           gap: 'clamp(var(--space-6), 5vh, var(--space-10))',
           paddingTop: 'clamp(var(--space-2), 2vh, var(--space-4))',
         }}>
-          {/* Constraint subtitle (Fraunces italic) — 2026-04-26 Mariam pass.
-              Concrete numbers (39 of 66) replace the soft "held, contested,
-              and short" phrasing. Names the disruption explicitly so the
-              audience reads slide 11 (three disruptions) as proof, not surprise. */}
+          {/* Constraint subtitle — 2026-04-26 user pass.
+              Earlier wording "placebo-controlled efficacy trial isn't an
+              option — and the trial you do run gets terminated" read as
+              a contradiction (no trial / yes trial). After moving the
+              ethics premise into the headline, this subtitle now names
+              the SECOND, COMPOUNDING constraint: the open-label PK/safety
+              trial we did run (AMB112529) terminated at 41 of 66 enrolled
+              — so neither path produced a powered efficacy answer. */}
           <motion.p
             initial={reduced ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -87,19 +94,19 @@ export default function Cs1Question() {
               delay: reduced ? 0 : 0.95,
               ease: EASE,
             }}
-            className="deck-display"
+            className="deck-body"
             style={{
               fontSize: 'var(--fs-slide-lead)',
               lineHeight: 'var(--lh-snug)',
-              fontStyle: 'italic',
-              color: 'var(--cream-muted)',
+              color: 'var(--cream)',
+              opacity: 0.78,
               fontWeight: 400,
-              maxWidth: 'min(48ch, 60%)',
+              maxWidth: 'min(52ch, 62%)',
               margin: 0,
             }}
           >
-            A placebo-controlled pediatric efficacy trial isn&rsquo;t an option
-            {' — '}and the trial you do run gets terminated at 39 of 66 planned patients.
+            And the open-label PK/safety trial we did run terminated at
+            {' '}<strong style={{ fontWeight: 600, color: 'var(--cream)' }}>41 of 66 enrolled</strong>.
             {' '}The dose has to come from somewhere else.
           </motion.p>
 
@@ -129,9 +136,9 @@ export default function Cs1Question() {
                 fontWeight: 400,
               }}
             >
-              The adult dose came from <strong style={{ fontWeight: 600 }}>380 patients</strong> across 6 studies — a mature exposure-response.
+              The adult dose came from <strong style={{ fontWeight: 600 }}>380 patients</strong> across 6 placebo-controlled studies — a mature exposure-response.
               <br />
-              The pediatric trial enrolled <strong style={{ fontWeight: 600 }}>41 of 66 planned</strong>. No placebo arm possible.
+              The pediatric trial — <em style={{ fontStyle: 'italic', opacity: 0.85 }}>open-label, PK-anchored</em> — enrolled <strong style={{ fontWeight: 600 }}>41 of 66 planned</strong>.
               <br />
               Held by a juvenile rat finding. Reframed by a sildenafil mortality signal. Constrained by split commercial rights.
             </div>
