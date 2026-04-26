@@ -95,9 +95,9 @@ export default function CS1History() {
             style={{
               flex: '1 1 0%',
               minHeight: 0,
-              display: 'grid',
-              gridTemplateColumns: '128px 1fr',
-              gap: 'var(--space-3)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'var(--space-2)',
               padding: 'var(--space-3) var(--space-4)',
               border: '1px solid var(--cream-hairline)',
               borderRadius: 'var(--radius-lg)',
@@ -105,20 +105,53 @@ export default function CS1History() {
               overflow: 'hidden',
             }}
           >
-            {/* Era column */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)', justifyContent: 'space-around' }}>
-              <EraLabel era="SUPPORTIVE" detail="pre-1995" tone="var(--cream-faint)" />
-              <EraLabel era="FIRSTS" detail="1995–2005" tone="var(--cream)" />
-              <EraLabel era="EXPANSION" detail="2007–2015" tone="var(--coral)" />
-              <EraLabel era="MERCK ERA" detail="2024" tone="var(--sage)" />
+            {/* Era chip strip — horizontal, replaces the misaligned era
+                column. 2026-04-26 user pass per cs1.md "timeline looks bad". */}
+            <div style={{
+              display: 'flex',
+              gap: 'var(--space-2)',
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              paddingBottom: 'var(--space-2)',
+              borderBottom: '1px solid var(--cream-hairline)',
+            }}>
+              {[
+                { era: 'SUPPORTIVE', detail: 'pre-1995', tone: 'var(--cream-faint)' },
+                { era: 'FIRSTS',     detail: '1995–2005', tone: 'var(--cream)' },
+                { era: 'EXPANSION',  detail: '2007–2015', tone: 'var(--coral)' },
+                { era: 'MERCK ERA',  detail: '2024',      tone: 'var(--sage)' },
+              ].map((c, i) => (
+                <div key={c.era} style={{
+                  display: 'flex',
+                  alignItems: 'baseline',
+                  gap: 6,
+                  padding: '2px 8px',
+                  borderLeft: `2px solid ${c.tone}`,
+                }}>
+                  <span className="deck-mono uppercase" style={{
+                    fontSize: 'var(--fs-slide-pageno)',
+                    letterSpacing: 'var(--ls-mono-wide)',
+                    color: c.tone,
+                    fontWeight: 700,
+                  }}>{c.era}</span>
+                  <span className="deck-mono" style={{
+                    fontSize: 'var(--fs-slide-pageno)',
+                    color: 'var(--cream)',
+                    opacity: 0.6,
+                    fontVariantNumeric: 'tabular-nums',
+                  }}>{c.detail}</span>
+                  {i < 3 && <span aria-hidden style={{ marginLeft: 6, color: 'var(--cream-faint)', opacity: 0.5 }}>→</span>}
+                </div>
+              ))}
             </div>
 
-            {/* Events column */}
+            {/* Events list — single column, hairline-separated rows */}
             <div style={{
-              display: 'grid',
-              gridTemplateRows: 'repeat(9, minmax(0, 1fr))',
-              gap: 4,
+              flex: '1 1 0%',
               minHeight: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
               overflow: 'hidden',
             }}>
               {TIMELINE_EVENTS.map((e, i) => (
@@ -216,15 +249,16 @@ function TimelineRow({ e, delay, go }) {
       transition={{ duration: 0.4, ease: EASE, delay }}
       style={{
         display: 'grid',
-        gridTemplateColumns: '76px 14px 1fr auto',
+        gridTemplateColumns: 'minmax(64px, auto) 14px minmax(0, 1fr) auto',
         gap: 'var(--space-2)',
         alignItems: 'center',
-        padding: '2px var(--space-2)',
+        padding: '4px var(--space-2)',
         background: e.highlight
-          ? `color-mix(in srgb, ${e.tone} 8%, transparent)`
+          ? `color-mix(in srgb, ${e.tone} 10%, transparent)`
           : 'transparent',
         borderRadius: 'var(--radius-sm)',
-        borderLeft: e.highlight ? `2px solid ${e.tone}` : '2px solid transparent',
+        borderLeft: e.highlight ? `3px solid ${e.tone}` : '3px solid transparent',
+        borderBottom: '1px solid color-mix(in srgb, var(--cream-hairline) 50%, transparent)',
       }}
     >
       <span className="deck-mono" style={{
