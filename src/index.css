@@ -271,6 +271,7 @@
     --fs-slide-display:  clamp(2rem,    min(5.2vw, 8.5vh), 5.5rem);  /* hero title */
     --fs-slide-lead:     clamp(1rem,    min(1.7vw, 2.6vh), 1.75rem); /* subtitle / lead body on a cover */
     --fs-slide-name:     clamp(0.95rem, min(1.4vw, 2.2vh), 1.4rem);  /* speaker name / pull-quote attribution */
+    --fs-slide-hook:     clamp(2rem,    min(4.4vw, 7vh),   4.5rem);  /* editorial hook headline (slightly larger than headline, smaller than display) */
 
     /* =========================================================
        Shape + elevation tokens
@@ -626,6 +627,14 @@
   @keyframes tk-slide-up  { from { opacity: 0; transform: translateY(12px); }
                             to   { opacity: 1; transform: translateY(0); } }
 
+  /* Magic UI — BorderBeam */
+  @keyframes border-beam {
+    100% { offset-distance: 100%; }
+  }
+  .animate-border-beam {
+    animation: border-beam calc(var(--duration) * 1s) infinite linear;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .deck-motion-safe { transition: none !important; animation: none !important; }
   }
@@ -739,6 +748,23 @@
     vertical-align: 0.05em;
   }
 
+  .notes-pause-soft {
+    letter-spacing: 0.12em;
+    opacity: 0.9;
+    font-size: 0.95em;
+  }
+
+  /* Bridge line — same voice size as Spoken; tinted so “say this on Next” stands out. */
+  .notes-bridge-speak {
+    background: color-mix(in srgb, var(--case, var(--amber)) 16%, var(--panel));
+    border: 1px solid color-mix(in srgb, var(--case, var(--amber)) 40%, var(--cream-hairline));
+    border-radius: 6px;
+    padding: 0.65rem 0.8rem;
+    color: var(--cream);
+  }
+  .notes-bridge-speak .notes-p:first-child { margin-top: 0; }
+  .notes-bridge-speak .notes-p:last-child { margin-bottom: 0; }
+
   /* ─────────────────────────────────────────────────────────────────
      Reading-material prose — used by ReadingMaterialPane modal.
      Inherits the deck's color tokens so it works in light + dark.
@@ -850,4 +876,9 @@
     margin-right: 0.4em;
     accent-color: var(--case, var(--amber));
   }
+}
+
+/* qp2 cover (01-title) — ambient stack uses amber/violet tints; paper mode is already bright */
+.deck-root[data-theme-mode="light"] .title-slide-ambient {
+  opacity: 0.52;
 }

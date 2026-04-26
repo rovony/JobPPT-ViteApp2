@@ -35,7 +35,7 @@ the Merck Senior-Director interview. Deployed on Vercel from GitHub
 
 ## Stack
 
-- **React 18 + Vite 6** + Tailwind (postcss) + shadcn/ui (Radix primitives)
+- **React 18 + Vite 6 + TypeScript** + Tailwind (postcss) + shadcn/ui (Radix primitives)
 - **framer-motion** for slide transitions + shared-element layoutId morphs
 - **react-router-dom v6** (v7 future flags enabled)
 - **react-resizable-panels** — column layout in PresenterView
@@ -1333,50 +1333,50 @@ src/
 │   └── template-blank/            # blank template
 ├── components/
 │   └── deck/
-│       ├── DeckRunner.jsx         # AnimatePresence + LayoutGroup root + path-segment routing
-│       ├── PresenterView.jsx      # 3-column resizable presenter pane
-│       ├── PresenterAssistant.jsx # AI co-pilot (chat + dictation + RAG)
-│       ├── PresenterNotesPane.jsx # speaker notes editor
-│       ├── PresenterLayoutSettings.jsx # show/hide/reorder sections + cross-column move
-│       ├── AnticipatedQAPane.jsx  # rehearsed Q&A panel
-│       ├── StructuredQAView.jsx   # Q&A accordion + density popover
-│       ├── StructuredNotesView.jsx # Spoken (numbered beats) / Cues (collapsed) / Bridge
-│       ├── ReadingViewer.jsx      # SHARED TOC+content body for modal AND page
-│       ├── ReadingMaterialPane.jsx # presenter modal wrapper
-│       ├── DeckOverview.jsx       # grid + drag-drop reorder
-│       ├── NavControls.jsx        # bottom-right chrome
-│       ├── TopRightMenu.jsx       # top-right hover menu (Reading, Sources, Export, Theme)
-│       ├── SlideFrame.jsx         # eyebrow/headline/footer chrome (legacy)
-│       ├── SlideTransition.jsx    # per-slide fade/3D wrapper
-│       ├── ModeSwitcher.jsx       # Normal/SlideShow/Presenter/DualScreen
-│       ├── MicStatusBanner.jsx    # always-visible mic state above input
-│       ├── AIKeySettings.jsx      # OpenAI key paste modal + RAG status
-│       ├── AmbientListenPanel.jsx # audience-question detection
+│       ├── DeckRunner.tsx         # AnimatePresence + LayoutGroup root + path-segment routing
+│       ├── PresenterView.tsx      # 3-column resizable presenter pane
+│       ├── PresenterAssistant.tsx # AI co-pilot (chat + dictation + RAG)
+│       ├── PresenterNotesPane.tsx # speaker notes editor
+│       ├── PresenterLayoutSettings.tsx # show/hide/reorder sections + cross-column move
+│       ├── AnticipatedQAPane.tsx  # rehearsed Q&A panel
+│       ├── StructuredQAView.tsx   # Q&A accordion + density popover
+│       ├── StructuredNotesView.tsx # Spoken (numbered beats) / Cues (collapsed) / Bridge
+│       ├── ReadingViewer.tsx      # SHARED TOC+content body for modal AND page
+│       ├── ReadingMaterialPane.tsx # presenter modal wrapper
+│       ├── DeckOverview.tsx       # grid + drag-drop reorder
+│       ├── NavControls.tsx        # bottom-right chrome
+│       ├── TopRightMenu.tsx       # top-right hover menu (Reading, Sources, Export, Theme)
+│       ├── SlideFrame.tsx         # eyebrow/headline/footer chrome (legacy)
+│       ├── SlideTransition.tsx    # per-slide fade/3D wrapper
+│       ├── ModeSwitcher.tsx       # Normal/SlideShow/Presenter/DualScreen
+│       ├── MicStatusBanner.tsx    # always-visible mic state above input
+│       ├── AIKeySettings.tsx      # OpenAI key paste modal + RAG status
+│       ├── AmbientListenPanel.tsx # audience-question detection
 │       └── layouts/
-│           ├── DeckLayout.jsx     # base primitive (slot resolution: undefined=inherit, null=hide, value=show)
-│           ├── TitleLayout.jsx    # thin preset for cover slides
-│           └── BodyLayout.jsx     # thin preset with footer chrome
+│           ├── DeckLayout.tsx     # base primitive (slot resolution: undefined=inherit, null=hide, value=show)
+│           ├── TitleLayout.tsx    # thin preset for cover slides
+│           └── BodyLayout.tsx     # thin preset with footer chrome
 ├── pages/
-│   ├── Home.jsx
-│   ├── Reading.jsx                # full-page reading-material route
-│   ├── DeckAnalytics.jsx
-│   ├── AudienceQA.jsx             # /qa/:deckId — public Q&A submission page
-│   └── Deck.jsx                   # legacy redirect
+│   ├── Home.tsx
+│   ├── Reading.tsx                # full-page reading-material route
+│   ├── DeckAnalytics.tsx
+│   ├── AudienceQA.tsx             # /qa/:deckId — public Q&A submission page
+│   └── Deck.tsx                   # legacy redirect
 └── lib/
-    ├── deck-store.jsx             # presenter state + keyboard nav
-    ├── usePresenterLayout.js      # column visibility/order, v1→v2 migration
-    ├── useSpeakerNotes.js         # localStorage notes; live-edit re-index hook
-    ├── useAnticipatedQA.js        # localStorage Q&A; live-edit re-index hook
-    ├── useQADensity.js            # row-density toggles + presets
-    ├── useDeckOverrides.js        # drag-drop reorder drives presentation order
-    ├── useFullscreen.js
-    ├── useDictation.js            # Web Speech API + auto-stop + diagnostic event log
-    ├── aiLocalClient.js           # OpenAI direct (chat + Whisper) — env or localStorage key
-    ├── aiRagIndex.js              # collect chunks → embed → upsert Qdrant
-    ├── qdrantClient.js            # Qdrant REST wrapper (browser-side)
-    ├── parseStructuredContent.js  # parses Spoken/Cues/Bridge + ## QN: blocks
-    ├── deck-export.js             # PDF/PNG export via html-to-image
-    └── slide-transitions.js       # 3D transition presets
+    ├── deck-store.tsx             # presenter state + keyboard nav
+    ├── usePresenterLayout.ts      # column visibility/order, v1→v2 migration
+    ├── useSpeakerNotes.ts         # localStorage notes; live-edit re-index hook
+    ├── useAnticipatedQA.ts        # localStorage Q&A; live-edit re-index hook
+    ├── useQADensity.ts            # row-density toggles + presets
+    ├── useDeckOverrides.ts        # drag-drop reorder drives presentation order
+    ├── useFullscreen.ts
+    ├── useDictation.ts            # Web Speech API + auto-stop + diagnostic event log
+    ├── aiLocalClient.ts           # OpenAI direct (chat + Whisper) — env or localStorage key
+    ├── aiRagIndex.ts              # collect chunks → embed → upsert Qdrant
+    ├── qdrantClient.ts            # Qdrant REST wrapper (browser-side)
+    ├── parseStructuredContent.ts  # parses Spoken/Cues/Bridge + ## QN: blocks
+    ├── deck-export.ts             # PDF/PNG export via html-to-image
+    └── slide-transitions.ts       # 3D transition presets
 ```
 
 ### `src/lib/` vs `src/utils/` (don't add to utils/)
@@ -1771,13 +1771,34 @@ flow goes through the offline-stub base44 client which returns
 empty file URLs. Reconnecting a real backend OR adding a direct
 client-side file-text extractor would close this gap.
 
+## TypeScript migration (2026-04-26)
+
+All source files under `src/` are now `.tsx` / `.ts`. The migration
+uses `strict: false` + `allowJs: true` in `tsconfig.json` for
+incremental adoption:
+
+- **266 files** have `// @ts-nocheck` — the standard incremental
+  migration pattern. Remove the directive file-by-file as you add
+  proper type annotations.
+- **~190 files** already pass `tsc` clean (no `@ts-nocheck`).
+- `vite-env.d.ts` declares `*.svg?react` and `*.md?raw` modules.
+- ESLint uses `@typescript-eslint/parser` for `.ts`/`.tsx` parsing.
+- Root config files (`vite.config.js`, `eslint.config.js`,
+  `postcss.config.js`, `tailwind.config.js`) stay `.js` — they're
+  Node-side, not app code.
+- `jsconfig.json` is kept as a legacy reference but `tsconfig.json`
+  is now the active config for `npm run typecheck`.
+
+When creating NEW files, use `.tsx` (components) or `.ts` (utilities).
+Do NOT create new `.jsx` / `.js` files under `src/`.
+
 ## Commands
 
 ```sh
 npm run dev        # vite dev server (localhost:5173)
 npm run build      # vite build → dist/
 npm run lint       # eslint --quiet
-npm run typecheck  # tsc -p jsconfig.json
+npm run typecheck  # tsc -p tsconfig.json
 npm run preview    # vite preview (serve built dist/)
 ```
 

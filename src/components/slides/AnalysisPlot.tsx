@@ -2,7 +2,6 @@ import React from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import {
   ComposedChart,
-  LineChart,
   ScatterChart,
   Line,
   Area,
@@ -10,7 +9,6 @@ import {
   CartesianGrid,
   XAxis,
   YAxis,
-  Tooltip,
   ReferenceLine,
   ResponsiveContainer,
 } from 'recharts';

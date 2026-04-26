@@ -47,6 +47,7 @@ import Cs1Divider from './slides/05-cs1-divider';
 import Cs1Question from './slides/06-cs1-question';
 import Cs1Context from './slides/07-cs1-context';
 import Cs1Mechanism from './slides/07b-cs1-mechanism';
+import Cs1History from './slides/cs1-history';
 import Cs1Trial from './slides/08-cs1-trial';
 import Cs1Architecture from './slides/09-cs1-architecture';
 import Cs1Results from './slides/10-cs1-results';
@@ -200,6 +201,7 @@ const manifest = {
       'cs1-question': 1600,
       'cs1-context': 1800,
       'cs1-mechanism': 2000,
+      'cs1-history': 2400,
       'cs1-trial': 2600,
       'cs1-architecture': 2200,
       'cs1-results': 2600,
@@ -261,6 +263,9 @@ const manifest = {
 
     // 07b — CS1 mechanism (4 PAH pathways + ambrisentan ETA blocker; Merck/sotatercept anchor)
     { id: 'cs1-mechanism', title: 'CS1 · pathway + drug', component: Cs1Mechanism, isTitle: false, transition: 'fade', time: 45 },
+
+    // 07c — CS1 PAH treatment history (separate visual per fixes-on-v6 — three decades, four pathways, Merck arrives 2024)
+    { id: 'cs1-history', title: 'CS1 · PAH treatment history', component: Cs1History, isTitle: false, transition: 'fade', time: 75 },
 
     // 08 — CS1 trial design + LTE
     { id: 'cs1-trial', title: 'CS1 · AMB112529 + LTE', component: Cs1Trial, isTitle: false, transition: 'fade', time: 75 },

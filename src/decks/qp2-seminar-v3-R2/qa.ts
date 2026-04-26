@@ -1072,6 +1072,84 @@ A: ETB does two things you want: it clears endothelin-1 from circulation and it 
 
 A: The clearest clinical difference is hepatotoxicity. Bosentan carries a black-box warning for hepatic injury; ambrisentan's hepatic black box was *removed* in 2011. That's the load-bearing differentiator on the safety side. On efficacy in adult PAH, head-to-head data are limited — both are first-line ERAs in the 2022 ESC/ERS guideline. The case for ambrisentan in pediatric PAH rests on its safety profile and the cleaner allometric PK, not on a claim of superior efficacy.`,
 
+  'cs1-history': `## Q1: Why frame Merck as "owning the fourth column" — isn't sotatercept just one drug?
+**From:** scientific / commercial panelist
+**Difficulty:** ★★★ · **Topic:** market positioning
+
+A: Sotatercept is one drug, but it's the only first-in-class PAH
+approval since selexipag in 2015 and the only mechanism since the
+NO·cGMP and ETA classes opened in the early 2000s. The BMPR2 / activin
+axis was a research target for over a decade — the STELLAR trial in
+NEJM 2023 was the first positive Phase 3 in that pathway. So when I
+say Merck owns the fourth column, I mean Merck owns the fourth
+*pathway*. That's a structural difference from being the third
+prostacyclin or the second PDE5i.
+
+> **If pressed:** The next new mechanism — whatever that turns out to be — will get measured against the BMPR2 / activin precedent. Merck is the prior.
+
+## Q2: Sotatercept was an Acceleron asset — Merck acquired it. Does that change the framing?
+**From:** commercial panelist
+**Difficulty:** ★★★ · **Topic:** commercial / strategic
+
+A: Merck acquired Acceleron in November 2021 for ~\\$11.5 billion, and
+sotatercept was the lead asset of that deal. The BMPR2 / activin
+biology was Acceleron's. The Phase 3 STELLAR trial was conducted under
+joint development. The FDA approval in March 2024 came under Merck's
+sponsorship. From a Clinical Pharmacology perspective, the program
+ran through Merck's modeling and biostatistics capabilities through
+the registrational phase. The acquisition is part of the public record
+and doesn't change my point — Merck has the only first-in-class PAH
+approval of the past decade.
+
+> **If pressed:** The acquisition is a strategic-portfolio fact, not a methodological one. The Clin Pharm package was Merck's responsibility through approval.
+
+## Q3: Why is supportive-care-only labeled "pre-1995" — wasn't there earlier work on calcium-channel blockers and anticoagulation?
+**From:** clinical / academic panelist
+**Difficulty:** ★★ · **Topic:** medical history
+
+A: Yes — high-dose calcium-channel blockers were trialed in
+vasoreactive subsets through the 1980s based on Rich's NEJM 1992
+paper, and warfarin anticoagulation was standard supportive care
+based on registry data. Neither received an FDA approval *for PAH*.
+The "pre-1995" framing on the slide reflects the absence of a
+PAH-indicated targeted therapy. Epoprostenol's 1995 approval was
+the first time the disease had a drug labeled for it. The supportive
+era is real history, but it's not pathway-targeted history.
+
+> **If pressed:** The dichotomy is "PAH-labeled drug exists" vs "doesn't exist." 1995 is the bright line.
+
+## Q4: You skipped some approvals — treprostinil, iloprost, ralinepag. Why?
+**From:** detail-oriented / completist panelist
+**Difficulty:** ★★ · **Topic:** completeness
+
+A: The slide shows the first-in-class entrant per pathway plus the
+key expansion drugs. The pathway-card row at the bottom counts all
+prostacyclin agents — five total, including treprostinil (2002 SC,
+2009 inhaled, 2013 oral), iloprost (2005 inhaled), and beraprost
+(approved in Japan and Korea, never in the US). Ralinepag is in
+Phase 3 — not yet approved, so not on a historical timeline. I made
+the editorial call to keep the timeline rows readable rather than
+exhaustive. The numbers in the card row preserve the count.
+
+> **If pressed:** Backup slide B10 (PAH endpoint history) has the full approval list with dates.
+
+## Q5: How does this slide help your case for a Merck QP2 role?
+**From:** strategic / interview panelist
+**Difficulty:** ★★★★ · **Topic:** fit
+
+A: Two ways. First, it shows I read the field, not just my own asset.
+A senior Clin Pharm leader has to know the modeling package behind the
+competitor classes — bosentan's INH, macitentan's tissue-targeting,
+selexipag's IP-receptor selectivity, sotatercept's BMPR2 axis. Each
+generates different modeling questions. Second, it gives the panel a
+clean handoff into "what does the QP2-CMD organization need next?" —
+the next first-in-class PAH approval will require a Clin Pharm
+package that the precedent generation didn't need: digital biomarkers,
+ML-aided covariate selection, integrated PBPK-PopPK platforms. That's
+the conversation I want to have.
+
+> **If pressed:** "I am familiar with the field, and I've thought about what the next case study after sotatercept will need." Don't oversell — let the panel dig.`,
+
   'cs1-trial': `## Q1: Why is FUTURE-1 (bosentan, 2009) the inflection — not just one of several precedents?
 **From:** field-history panelist
 **Difficulty:** ★★★ · **Topic:** regulatory

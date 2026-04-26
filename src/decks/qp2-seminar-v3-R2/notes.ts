@@ -224,6 +224,36 @@ The visual on the right is the same arteriole with ambrisentan on board. Ambrise
 ## Bridge
 → Field context next — where ambrisentan sits in the pediatric PAH timeline.`,
 
+  'cs1-history': `## Spoken
+Step back from ambrisentan for a beat. ==This is the whole PAH treatment landscape — three decades, four pathways.== ⏸
+
+Before 1995, pulmonary hypertension had ==no targeted therapy==. Oxygen, anticoagulation, and calcium-channel blockers for the small vasoreactive subset. That was it. ⏸
+
+==1995== — epoprostenol IV, the prostacyclin pathway. The first PAH-specific therapy. Continuous infusion through a Hickman line. It worked, but the delivery was brutal. ⏸
+
+==2001== — bosentan. The first oral PAH therapy. Endothelin pathway. Dual ETA-ETB blocker. That's when PAH became a manageable outpatient disease. ⏸
+
+==2005== — sildenafil. The third pathway opens — NO·cGMP. The first PDE5-inhibitor for PAH. ⏸
+
+Then the expansion era. ==2007== — ambrisentan. ==The case I just walked you through.== Selective ETA, oral once-daily. 2013 — macitentan and riociguat. 2015 — selexipag. By the mid-2010s the field had three pathways, multiple oral options, and combination protocols. ⏸
+
+And then — ==March 2024==. Sotatercept. Winrevair. ==Merck.== ==The fourth pathway== — activin signaling, BMPR2 axis. The first new mechanism in PAH in nearly two decades. The STELLAR trial showed it worked. ⏸
+
+The point of this slide. ==Three decades of pathway expansion. Four columns. The fourth is Merck's.== I am interviewing for a Senior Director role at the company that owns the only first-in-class PAH approval of the modern era. That is not an accident — it is why this conversation is happening.
+
+## Cues
+- ⏱ 75 sec — pace it. Each era gets its own beat.
+- 🎚 Quiet on supportive era; lift on each pathway opening; ==land hard on "Merck owns the fourth column."==
+- 📍 Use the timeline as the visual spine. The pathway cards at the bottom are the structural takeaway — point to the sage card on "MERCK ERA."
+- 🎯 On "the first new mechanism in PAH in nearly two decades" — pause. Eye contact with the chair.
+- ⚠ Do NOT enumerate every drug — the slide does that. Speak to the ARC of expansion.
+- ⚠ Do NOT claim familiarity with sotatercept's clinical-pharm package; speak to it as the public-record story (FDA approval, STELLAR trial). Read the Winrevair PI before the talk.
+- ⚠ Do NOT inflate the Merck framing past the public record — the role posting and the PAH portfolio are sufficient context.
+- ✅ Land cleanly on "that is why this conversation is happening" — full stop. Then advance.
+
+## Bridge
+→ AMB112529 trial design + LTE. Now that you know where ambrisentan sits in the field, here is the trial that built the dossier.`,
+
   // Slide 08 — CS1 field-level timeline (adult + pediatric tracks)
   'cs1-trial': `## Spoken
 Pediatric PAH moves slowly. ⏸ Adult drugs above the axis: ==bosentan 2001, sildenafil 2005, ambrisentan 2007, macitentan 2013, selexipag 2015, sotatercept 2024==. Six adult approvals across two decades.
