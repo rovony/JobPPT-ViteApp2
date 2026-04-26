@@ -1339,7 +1339,16 @@ A: Honest answer: PharmAgent is v1.0 as of February 2026 — pre-publication. Co
 
 > **Anchor:** "v1.0; validation in flight"
 > **Hostile:** "Right — no peer-reviewed validation yet. The architecture is published-adjacent (Apollo-AI is the closest concept), and the deterministic-tool layer uses libraries that ARE validated. Full-platform benchmark is the next 12 months."
-> **Backup:** cs3-B3-trial-status`,
+> **Backup:** cs3-B3-trial-status
+
+## Q5: What about Prompt-to-Pill — Vichentijevikj 2026 published a full-pipeline multi-agent system. Doesn't that already cover the row?
+**From:** literature-current panelist
+**Difficulty:** ★★★★ · **Topic:** competitive
+
+A: Prompt-to-Pill (Bioinformatics Advances, January 2026) is the closest published peer to PharmAgent — central orchestrator plus specialized agents for molecular generation, toxicity screening, and trial simulation. The scope difference is decisive: ==Prompt-to-Pill targets drug discovery + early trial sim==; PharmAgent targets ==pharmacometric submission readiness==. Prompt-to-Pill agents generate molecules; PharmAgent agents fit population PK models. Different stage of the pipeline, different deterministic tool layer, different regulatory framework. They're complements, not competitors — Prompt-to-Pill ships the candidate, PharmAgent ships the dossier.
+
+> **Anchor:** "Discovery vs. dossier"
+> **If pressed:** Both systems share the agents-decide-tools-execute pattern that the FDA-EMA Jan 2026 principles call out as the responsible-use baseline.`,
 
   'cs3-decisive-move': `## Q1: "By construction, not by promise" — can you actually guarantee that patient data never reaches the LLM?
 **From:** privacy-focused panelist
@@ -1351,7 +1360,16 @@ A: The architecture enforces it at the data-flow level. Patient-level data is pr
 **From:** regulatory-process panelist
 **Difficulty:** ★★★ · **Topic:** regulatory
 
-A: Current audit trails are typically document-level — version control on reports, sign-off workflows, electronic submissions. The hash-chain adds analysis-step-level provenance: every data transformation, model run, parameter estimate, and report generation step is individually hashed and chained. A regulator can replay the entire analysis from raw data to final report and verify that every intermediate step produced the same output. That's ICH M15-level auditability applied to the workflow itself, not just the documents.`,
+A: Current audit trails are typically document-level — version control on reports, sign-off workflows, electronic submissions. The hash-chain adds analysis-step-level provenance: every data transformation, model run, parameter estimate, and report generation step is individually hashed and chained. A regulator can replay the entire analysis from raw data to final report and verify that every intermediate step produced the same output. That's ICH M15-level auditability applied to the workflow itself, not just the documents.
+
+## Q3: ICH M15 reached Step 4 in November 2025 and the FDA-EMA Guiding Principles dropped January 14, 2026. Does PharmAgent map to those frameworks?
+**From:** regulatory-current panelist
+**Difficulty:** ★★★★★ · **Topic:** regulatory
+
+A: Yes — explicitly, by design. M15 emphasizes ==validation, interpretability, and data provenance== for AI/ML in MIDD. PharmAgent's deterministic-tool layer answers validation (every tool is independently validated, the LLM doesn't compute). The schema-only privacy boundary plus typed state bus answers data provenance. The hash-chain audit answers traceability. The FDA-EMA Jan 2026 principles add ==human-in-the-loop oversight, algorithm transparency, and continuous monitoring== — PharmAgent's review gates and QC Agent are the human-in-the-loop layer; the deterministic tool layer IS algorithm transparency (no opaque inference path). Continuous monitoring is the gap I'd flag honestly: PharmAgent has logging but not yet a production drift-detection layer. That's roadmap.
+
+> **Anchor:** "M15 + Jan 2026 principles, mapped"
+> **If pressed:** I can walk the eight regulatory provisions in the FDA-EMA Jan 14, 2026 document and the corresponding PharmAgent architectural feature for each. Continuous monitoring is item 7; that's the open item, not items 1–6 or item 8.`,
 
   'cs3-pilot': `## Q1: These are pilot metrics — are they reproducible at production scale?
 **From:** scalability-skeptic panelist
@@ -1363,7 +1381,16 @@ A: That's the honest caveat. The pilot metrics are from controlled project runs 
 **From:** quality-focused panelist
 **Difficulty:** ★★★★ · **Topic:** quality
 
-A: Two safeguards. First, every tool output is deterministic — given the same input, it produces the same output, and that output is the same as the manual tool would produce. The AI orchestrates; it doesn't compute. Second, the review gates are human-in-the-loop: a pharmacometrician reviews the model diagnostics, a regulatory writer reviews the report, a QC reviewer validates the tables. The platform shortens the path to the review gate but doesn't remove the gate itself.`,
+A: Two safeguards. First, every tool output is deterministic — given the same input, it produces the same output, and that output is the same as the manual tool would produce. The AI orchestrates; it doesn't compute. Second, the review gates are human-in-the-loop: a pharmacometrician reviews the model diagnostics, a regulatory writer reviews the report, a QC reviewer validates the tables. The platform shortens the path to the review gate but doesn't remove the gate itself.
+
+## Q3: R Shiny got FDA Pilot 2 acceptance in December 2022. What's PharmAgent's path to a comparable regulatory precedent?
+**From:** regulatory-strategy panelist
+**Difficulty:** ★★★★ · **Topic:** regulatory
+
+A: Two-stage. ==Stage one== — submit a CPT:PSP paper documenting full-pipeline analysis on a published Phase II dataset, with the hash-chain provenance log included as supplementary material. That establishes the methodology in peer-reviewed literature. ==Stage two== — submit an FDA Pre-IND or Type C meeting briefing package where PharmAgent generated some of the analytical artifacts, with the agency given full access to the deterministic-tool layer and audit trail. The R Shiny precedent is the right analogue: the FDA accepted a tool that produced reproducible, auditable outputs alongside the same documentation a manual workflow would produce. PharmAgent's path is the same — show, don't argue, that the artifacts pass the same review criteria.
+
+> **Anchor:** "Show, don't argue"
+> **If pressed:** Posit's R Shiny Pilot 2 acceptance (Dec 2022) is the public-record proof that an open-source orchestration tool can land an FDA-accepted submission package. The agency accepted Pilot 2 because the tool's outputs were validatable, not because it was R Shiny per se. Same standard applies.`,
 
   'cs3-bracket': `## Q1: You designed the platform — what happens when you leave? Is it portable or personal?
 **From:** organizational-sustainability panelist
@@ -1375,7 +1402,16 @@ A: The platform is documented, version-controlled, and built on published framew
 **From:** organizational-impact panelist
 **Difficulty:** ★★★★★ · **Topic:** career
 
-A: The framing of the portable principle is deliberate: workflow infrastructure, not model substitution. The platform doesn't replace pharmacometricians — it removes the scaffolding that prevents pharmacometricians from doing pharmacometrics. The function grows in capability, not in headcount efficiency. If the next decade asks for a hundred more CS1- and CS2-shaped decisions, the answer isn't a hundred more FTEs — it's the same team, with better infrastructure, making better decisions faster.`,
+A: The framing of the portable principle is deliberate: workflow infrastructure, not model substitution. The platform doesn't replace pharmacometricians — it removes the scaffolding that prevents pharmacometricians from doing pharmacometrics. The function grows in capability, not in headcount efficiency. If the next decade asks for a hundred more CS1- and CS2-shaped decisions, the answer isn't a hundred more FTEs — it's the same team, with better infrastructure, making better decisions faster.
+
+## Q3: Neural ODEs are a hotter modeling paradigm than agent orchestration. Why didn't you build a hybrid Neural-ODE platform like DeepPumas instead?
+**From:** modeling-purist panelist
+**Difficulty:** ★★★★ · **Topic:** methodology
+
+A: Different jobs. ==Neural ODEs are a model class== — you reach for them when the structural ODE doesn't fit the data, like complex multi-phase absorption or unknown distribution kinetics. Losada and Terranova 2024, Cui's Uni-PK in 2025, and the ACoP2025 NONMEM-vs-NODE benchmark all show Neural ODEs are the right tool for those specific structural problems. ==PharmAgent is workflow infrastructure== — it sits a layer above the model. The PopPK Expert agent could call DeepPumas as a tool when a Neural-ODE structure is the right answer, and call NONMEM as a tool when classical compartmental is the right answer. The platform doesn't pick the modeling paradigm; it picks the right deterministic tool for the question. Neural ODE adoption is constrained today by interpretability — the FDA discussion paper and the FDA-EMA Jan 2026 principles flag the black-box concern. Until that constraint relaxes, classical compartmental tools dominate regulatory submissions, and the orchestration platform is the higher-leverage build.
+
+> **Anchor:** "Model class vs. workflow layer"
+> **If pressed:** DeepPumas itself could be a tool inside the PopPK Expert agent. The two architectures are complementary, not alternative — the right NODE platform plus the right orchestration platform is the M15-ready stack.`,
 
   'cs3-portable': `## Q1: "Workflow infrastructure, not model substitution" — but isn't the platform using LLMs to substitute for human work?
 **From:** precise-language panelist
