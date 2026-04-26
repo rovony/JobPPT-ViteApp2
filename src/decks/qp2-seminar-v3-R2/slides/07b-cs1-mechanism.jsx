@@ -17,11 +17,10 @@ import Lungs from '../components/Lungs';
  * **Merck angle (deliberate):** the 4th pathway (Activin / TGF-β) is
  * codified by Merck's WINREVAIR (sotatercept) — first-in-class, FDA
  * Mar 26, 2024, from the $11.5B Acceleron acquisition (closed Nov 2021).
- * Ambrisentan opened pathway 1 in 2007; Merck opened pathway 4 in 2024.
- * Same disease, two decades apart, same intellectual move (target a
- * specific receptor in the dysregulated cascade).
+ * Same disease as ambrisentan, ~two decades apart, same intellectual
+ * move (target a specific receptor in the dysregulated cascade).
  *
- * Verified facts (per web research 2026-04-26):
+ * Verified facts (web research 2026-04-26):
  *   - 2022 ESC/ERS PAH guideline codifies 3 pathways (ET, NO/cGMP,
  *     PGI2). The activin/TGF-β pathway became clinically actionable
  *     post-guideline with sotatercept's 2024 approval.
@@ -33,12 +32,24 @@ import Lungs from '../components/Lungs';
  *   - Riociguat (Adempas, 2013): sGC stimulator (also CTEPH).
  *   - Epoprostenol (Flolan, 1995): IV prostacyclin, t½ ~6 min.
  *   - Treprostinil (Remodulin, 2002): SC/IV/inh/oral.
+ *   - Iloprost (Ventavis, FDA 2004): inhaled prostacyclin.
+ *   - Beraprost (Dorner/Procylin, 1992): oral prostacyclin, PMDA-only
+ *     (Japan/Korea) — relevant precedent for CS1's PMDA pediatric story.
  *   - Selexipag (Uptravi, 2015): non-prostanoid IP agonist.
- *   - Sotatercept (WINREVAIR, Merck, FDA Mar 26, 2024): activin trap;
+ *   - Sotatercept (WINREVAIR, Merck, FDA Mar 26, 2024): activin-trap;
  *     STELLAR trial +41 m 6MWD, 84% RRR death/clinical worsening.
  *
- * Sources: ESC/ERS 2022 PAH guideline · Letairis prescribing
- * information · Hoeper STELLAR NEJM 2023 · Merck press releases.
+ * Disease-biology context (added 2026-04-26 web research):
+ *   - Vascular remodeling: PASMC proliferation, plexiform lesions,
+ *     IL-6 / mast-cell-driven inflammation.
+ *   - In-situ thrombosis in pulmonary arterioles (PAH histology).
+ *   - RV maladaptation cascade: hypertrophy → dilation → uncoupling
+ *     → failure (the actual cause of death in PAH).
+ *   - 12-gene heritable panel beyond BMPR2: ALK1, ENG, CAV1, KCNK3,
+ *     SMAD9, EIF2AK4, TBX4, GDF2, ATP13A3, KDR, AQP1, SOX17.
+ *
+ * Sources: ESC/ERS 2022 PAH guideline · Humbert NEJM 2023 review ·
+ * Tuder Compr Physiol 2011 · Letairis PI · Hoeper STELLAR NEJM 2023.
  */
 
 const EASE = [0.2, 0.7, 0.3, 1];
@@ -127,46 +138,44 @@ export default function Cs1Mechanism() {
           <PathwayCard
             n="01"
             name="Endothelin"
-            arrow="↑"
-            arrowColor="var(--coral)"
-            arrowLabel="overactive"
-            mech="ET-1 → ETA receptor → vasoconstriction + smooth-muscle proliferation. ETB on endothelium drives NO release + ET-1 clearance."
-            drugClass="Endothelin Receptor Antagonists (ERAs)"
-            drugDetail={<><strong style={{ color: 'var(--coral)' }}>Ambrisentan</strong> (Letairis · Gilead · 2007 — selective ETA, &gt;4000:1) · Bosentan (Tracleer · Actelion · 2001 — dual) · Macitentan (Opsumit · 2013 — dual)</>}
+            year="2007"
+            status="↑ ET-1 OVERACTIVE"
+            statusColor="var(--coral)"
+            mech="ET-1 → ETA → vasoconstriction + SMC proliferation. ETB preserved (NO release · ET-1 clearance)."
+            drugClass="ERAs"
+            drugDetail={<><strong style={{ color: 'var(--coral)' }}>Ambrisentan</strong> (selective ETA) · Bosentan · Macitentan (dual ETA/ETB)</>}
             isThisCase
             delay={D.card1}
           />
           <PathwayCard
             n="02"
             name="NO / cGMP"
-            arrow="↓"
-            arrowColor="var(--cream-muted)"
-            arrowLabel="underactive"
-            mech="eNOS → NO → sGC → cGMP → vasodilation + anti-proliferation. PDE5 degrades cGMP."
-            drugClass="PDE5 inhibitors · sGC stimulators"
-            drugDetail={<>Sildenafil (Revatio · 2005) · Tadalafil (Adcirca · 2009) · Riociguat (Adempas · Bayer · 2013 — also CTEPH)</>}
+            year="2005"
+            status="↓ NO UNDERACTIVE"
+            mech="NO → sGC → cGMP → vasodilation. PDE5 degrades cGMP; PDE5i + sGC stimulator restore signal."
+            drugClass="PDE5i · sGC stimulator"
+            drugDetail={<>Sildenafil · Tadalafil · Riociguat (also CTEPH)</>}
             delay={D.card2}
           />
           <PathwayCard
             n="03"
             name="Prostacyclin"
-            arrow="↓"
-            arrowColor="var(--cream-muted)"
-            arrowLabel="underactive"
-            mech="PGI2 → IP receptor → cAMP → vasodilation, anti-proliferation, anti-thrombotic."
-            drugClass="Prostanoids · IP-receptor agonist"
-            drugDetail={<>Epoprostenol (Flolan · 1995 — IV, t½ ~6 min) · Treprostinil (Remodulin · 2002) · Selexipag (Uptravi · 2015 — oral, non-prostanoid)</>}
+            year="1995"
+            status="↓ PGI2 UNDERACTIVE"
+            mech="PGI2 → IP → cAMP → vasodilation + anti-proliferation. IV/SC/inhaled/oral routes."
+            drugClass="Prostanoids · IP agonist"
+            drugDetail={<>Epoprostenol · Treprostinil · Iloprost · <em>Beraprost</em> (PMDA only) · Selexipag</>}
             delay={D.card3}
           />
           <PathwayCard
             n="04"
             name="Activin / TGF-β"
-            arrow="—"
-            arrowColor="var(--amber)"
-            arrowLabel="dysregulated"
-            mech="BMPR2-Smad1/5/8 (anti-proliferative) ↓ · ActRIIA-Smad2/3 (pro-proliferative) ↑. BMPR2 LoF in 70–80% heritable PAH."
-            drugClass="Activin signaling inhibitor · NEW IN 2024"
-            drugDetail={<><strong style={{ color: 'var(--amber)' }}>Sotatercept (WINREVAIR — Merck — FDA Mar 26, 2024)</strong>. First-in-class ActRIIA-Fc ligand trap. STELLAR: +41 m 6MWD wk 24 · 84% RRR death/clinical worsening. Acceleron acquisition $11.5 B, 2021.</>}
+            year="2024"
+            status="BMPR2 ↓ · ActRIIA ↑"
+            statusColor="var(--amber)"
+            mech="Ligand-trap rebalances pro- vs anti-proliferative SMAD signaling — first disease-modifying class."
+            drugClass="Activin signaling inhibitor"
+            drugDetail={<><strong style={{ color: 'var(--amber)' }}>Sotatercept</strong> · WINREVAIR · STELLAR +41 m 6MWD · 84% RRR death/worsening</>}
             isMerck
             delay={D.card4}
           />
@@ -208,16 +217,16 @@ function MOAPanel() {
       <PathwayFlowchart reduced={reduced} />
 
       <div
+        className="deck-body"
         style={{
-          fontFamily: 'var(--font-body)',
-          fontSize: 'clamp(0.75rem, min(1vw, 1.5vh), 0.92rem)',
+          fontSize: 'var(--fs-card-body)',
           color: 'var(--cream-muted)',
           lineHeight: 1.5,
         }}
       >
         Ambrisentan blocks ETA selectively (Ki = 0.011 nM, &gt;4000:1 vs ETB).
-        ETB-mediated NO release and ET-1 clearance are preserved — that's
-        the selectivity argument vs the dual antagonists bosentan and macitentan.
+        ETB-mediated NO release + ET-1 clearance preserved — the selectivity
+        argument vs dual antagonists bosentan and macitentan.
       </div>
 
       <motion.div
@@ -227,35 +236,63 @@ function MOAPanel() {
         style={{
           borderTop: '1px solid var(--cream-hairline)',
           paddingTop: 'var(--space-3)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 'var(--space-2)',
         }}
       >
-        <p
-          className="deck-display"
+        <div
+          className="deck-mono uppercase"
           style={{
-            margin: 0,
-            fontSize: 'clamp(0.9rem, min(1.3vw, 2vh), 1.15rem)',
-            fontStyle: 'italic',
-            lineHeight: 1.4,
-            color: 'var(--cream)',
-            fontWeight: 500,
+            fontSize: 'var(--fs-slide-eyebrow)',
+            letterSpacing: 'var(--ls-mono-wide)',
+            color: 'var(--cream-faint)',
+            fontWeight: 700,
           }}
         >
-          Ambrisentan opened pathway 1 in 2007.{' '}
-          <span style={{ color: 'var(--amber)', fontStyle: 'normal', fontWeight: 700 }}>
-            Merck opened pathway 4 in 2024.
-          </span>
-        </p>
+          Disease biology · beyond the 4 pathways
+        </div>
+        <ul
+          className="deck-body"
+          style={{
+            margin: 0,
+            paddingLeft: 'var(--space-4)',
+            fontSize: 'var(--fs-card-body)',
+            color: 'var(--cream-muted)',
+            lineHeight: 1.5,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--space-1)',
+          }}
+        >
+          <li>
+            <strong style={{ color: 'var(--cream)' }}>Vascular remodeling</strong>{' '}
+            — PASMC proliferation · plexiform lesions · IL-6 / mast cell inflammation
+          </li>
+          <li>
+            <strong style={{ color: 'var(--cream)' }}>In-situ thrombosis</strong>{' '}
+            in pulmonary arterioles (PAH histology hallmark)
+          </li>
+          <li>
+            <strong style={{ color: 'var(--cream)' }}>RV maladaptation</strong>{' '}
+            — hypertrophy → dilation → uncoupling → failure
+          </li>
+          <li>
+            <strong style={{ color: 'var(--cream)' }}>Genetic drivers</strong>{' '}
+            — BMPR2, ALK1, ENG, CAV1, KCNK3 · 12-gene heritable panel
+          </li>
+        </ul>
         <span
           className="deck-mono"
           style={{
             display: 'block',
             marginTop: 'var(--space-1)',
-            fontSize: 'clamp(0.6rem, min(0.8vw, 1.2vh), 0.75rem)',
+            fontSize: 'var(--fs-slide-pageno)',
             letterSpacing: '0.04em',
             color: 'var(--cream-faint)',
           }}
         >
-          Yanagisawa Nature 1988 · Galiè ARIES NEJM 2008 · Hoeper STELLAR NEJM 2023
+          ESC/ERS 2022 · Humbert NEJM 2023 review · Tuder Compr Physiol 2011 · Hoeper STELLAR NEJM 2023
         </span>
       </motion.div>
     </motion.div>
@@ -267,7 +304,7 @@ function PanelKicker({ color, children }) {
     <div
       className="deck-mono uppercase"
       style={{
-        fontSize: 'clamp(0.65rem, min(1vw, 1.5vh), 0.9rem)',
+        fontSize: 'var(--fs-slide-eyebrow)',
         letterSpacing: 'var(--ls-mono-wide)',
         color,
         fontWeight: 700,
@@ -544,7 +581,7 @@ function PathwaySVG({ reduced }) {
    ══════════════════════════════════════════════════════════════════ */
 
 function PathwayCard({
-  n, name, arrow, arrowColor, arrowLabel, mech,
+  n, name, year, status, statusColor, mech,
   drugClass, drugDetail, isThisCase, isMerck, delay,
 }) {
   const reduced = useReducedMotion();
@@ -564,57 +601,67 @@ function PathwayCard({
         background: tintColor
           ? `color-mix(in srgb, ${tintColor} 10%, var(--bg))`
           : 'color-mix(in srgb, var(--panel) 75%, var(--bg))',
-        padding: 'clamp(var(--space-2), 1vw, var(--space-3))',
+        padding: 'var(--space-3)',
         display: 'flex',
         flexDirection: 'column',
-        gap: 'var(--space-1)',
+        gap: 'var(--space-2)',
         overflow: 'hidden',
       }}
     >
-      {/* Header row: number · name · ↑/↓ arrow */}
-      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 'var(--space-2)' }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-2)' }}>
-          <span className="deck-mono" style={{
-            fontSize: 'clamp(0.7rem, min(0.95vw, 1.4vh), 0.85rem)',
+      {/* Header row: pathway label + name on left, year-hero on right */}
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 'var(--space-2)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 0, flex: 1 }}>
+          <span className="deck-mono uppercase" style={{
+            fontSize: 'var(--fs-slide-eyebrow)',
             color: accent,
             letterSpacing: 'var(--ls-mono-wide)',
             fontWeight: 700,
             fontVariantNumeric: 'tabular-nums',
           }}>
-            {n}
+            Pathway {n}
           </span>
           <span className="deck-display" style={{
-            fontSize: 'clamp(1.15rem, min(2vw, 2.8vh), 1.55rem)',
+            fontSize: 'var(--fs-card-title)',
             color: 'var(--cream)',
             fontWeight: 700,
             lineHeight: 1.1,
           }}>
             {name}
           </span>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, flexShrink: 0 }}>
-          <span className="deck-display" style={{
-            fontSize: 'clamp(1.3rem, min(2.2vw, 2.8vh), 1.7rem)',
-            color: arrowColor,
-            fontWeight: 800,
-            lineHeight: 1,
-          }}>
-            {arrow}
-          </span>
           <span className="deck-mono" style={{
-            fontSize: 'clamp(0.65rem, min(0.85vw, 1.25vh), 0.78rem)',
-            color: 'var(--cream-faint)',
+            fontSize: 'var(--fs-slide-pageno)',
+            color: statusColor || 'var(--cream-faint)',
             letterSpacing: 'var(--ls-mono)',
-            opacity: 0.88,
+            fontWeight: 600,
+            marginTop: 2,
           }}>
-            {arrowLabel}
+            {status}
           </span>
+        </div>
+        <div style={{ flexShrink: 0, textAlign: 'right' }}>
+          <div className="deck-display" style={{
+            fontSize: 'var(--fs-card-numeral)',
+            color: accent,
+            fontWeight: 700,
+            lineHeight: 1,
+            fontVariantNumeric: 'tabular-nums',
+          }}>
+            {year}
+          </div>
+          <div className="deck-mono uppercase" style={{
+            fontSize: 'var(--fs-slide-pageno)',
+            color: 'var(--cream-faint)',
+            letterSpacing: 'var(--ls-mono-wide)',
+            marginTop: 2,
+          }}>
+            1st FDA approval
+          </div>
         </div>
       </div>
 
       {/* Mechanism line */}
       <div className="deck-body" style={{
-        fontSize: 'clamp(0.88rem, min(1.15vw, 1.7vh), 1.05rem)',
+        fontSize: 'var(--fs-card-body)',
         color: 'var(--cream)',
         opacity: 0.92,
         lineHeight: 1.4,
@@ -622,23 +669,23 @@ function PathwayCard({
         {mech}
       </div>
 
-      {/* Drug class + detail (pinned to bottom) */}
+      {/* Drug class + drug list (pinned to bottom) */}
       <div style={{
         marginTop: 'auto',
-        paddingTop: 'var(--space-1)',
+        paddingTop: 'var(--space-2)',
         borderTop: '1px dashed var(--cream-hairline)',
       }}>
         <div className="deck-mono uppercase" style={{
-          fontSize: 'clamp(0.7rem, min(0.95vw, 1.4vh), 0.85rem)',
+          fontSize: 'var(--fs-slide-eyebrow)',
           color: accent,
           letterSpacing: 'var(--ls-mono-wide)',
           fontWeight: 700,
-          marginBottom: 2,
+          marginBottom: 4,
         }}>
           {isThisCase ? '★ THIS CASE · ' : isMerck ? '★ MERCK · ' : ''}{drugClass}
         </div>
         <div className="deck-body" style={{
-          fontSize: 'clamp(0.82rem, min(1.05vw, 1.55vh), 0.96rem)',
+          fontSize: 'var(--fs-card-body)',
           color: 'var(--cream-muted)',
           opacity: 0.92,
           lineHeight: 1.4,
