@@ -64,6 +64,8 @@ export default function Cs1Mechanism() {
             transform: 'translateX(-50%)',
             zIndex: 0,
             pointerEvents: 'none',
+            opacity: 0.12, // Dimmed significantly so it doesn't obscure the mechanism text
+            mixBlendMode: 'screen', // Blends smoothly into the dark background
           }}>
             <Lungs layoutId="cs1-lung" variant="ambient" />
           </div>
