@@ -73,33 +73,31 @@ Three cases — three trials that couldn't be run — and *three answers anyway*
   //   The graphic does the visual work; the speaker names each stop
   //   with ONE concrete fact that earns the panel's trust.
   'career-arc': `## Spoken
-I'll start where I started — at a bedside in Jordan, asking what the right dose was for the person in front of me. ⏸ Twenty years on, I'm asking the same question — but for whole populations, in front of regulators. That's the lens this whole talk runs through.
+Quick background before we get into the cases.
 
-So — five stops, ==one question==. *What dose, for whom, and why?*
+I started as a dentist in Jordan. ⏸ Then PhD in Minnesota with Dr. Brundage — population PK, exposure-response. ⏸
 
-I started as a dentist in Jordan — that's where the question started. ⏸
+Summer of 2014 I came **here**, to Merck — QP2, as an intern. First time I saw nonlinear-mixed-effects simulation actually ship a drug. *Honestly, that summer is part of why we're sitting here today.* ⏸
 
-Then Minnesota — PhD with Dr. Brundage. That's where modeling stopped being a tool I picked up and became how I think. ⏸
+Seven years at GSK after that — Clin Pharm modeling and simulation, five therapeutic areas, four approvals during my tenure. The ambrisentan pediatric work happened there — that's case one. ⏸
 
-Summer of 2014 — I came **here**, to Merck. QP2, as an intern. First time I saw nonlinear-mixed-effects simulation actually ship a drug. *Honestly, that summer is part of why we're sitting here today.* ⏸
+And since 2022, Director at Servier on the oncology side. Three approvals on my watch — Onivyde, Oncaspar, Tibsovo lifecycle. The India ivosidenib waiver — that's case two.
 
-Then seven years at GSK — Clin Pharm modeling and simulation, five therapeutic areas, four approvals during my tenure. That's where the ambrisentan pediatric story happened — case one. ⏸
-
-And since 2022 — Director at Servier, leading oncology Clin Pharm. Three approvals on my watch — Onivyde, Oncaspar, Tibsovo lifecycle. The India ivosidenib waiver — that's case two.
-
-Different drugs, different agencies, four countries. ==The question hasn't changed.==
+That's the background. Let me get into the cases.
 
 ## Cues
-- ⏱ ~90 sec — ~200 words at conversational pace; the graphic carries the visual, don't read every satellite
-- 🎚 Conversational throughout; small warm lift on "I came **here**, to Merck" — earn it, don't perform it
+- ⏱ ~80 sec — ~160 words at relaxed conversational pace; the graphic carries the visual, don't read every satellite
+- 🎚 Plain, factual register throughout — this is bio, not narrative; resist the urge to make it poetic
+- 🎚 Small warm lift on "I came **here**, to Merck" — earn it, don't perform it
 - 🎚 Drop the voice slightly on "honestly, that summer is part of why we're sitting here today" — said quietly, not as a punchline
 - 🎯 Sweep gesture left-to-right across the five hubs as you name each; the spine ascends — your hand should too
 - 🎯 Eye contact: panel chair on Jordan → modeling-leaning panelist on Minnesota → most senior panelist on "I came here, to Merck" → regulatory-leaning panelist on GSK → chair again on Servier
+- ⚠ Do NOT recite the slide — the headline already says "Five stops, one question" and the footer already says "what dose, for whom, why?" Saying either out loud is double-spending the emphasis
 - ⚠ Do NOT name compounds beyond ambrisentan, ivosidenib, and the public Servier portfolio (Onivyde, Oncaspar, Tibsovo). No CS3 compounds yet.
 - ⚠ Do NOT linger on awards or numbers; name once and move
 - ⚠ Do NOT preview the AI/ML work — that's CS3
-- ✅ Land cleanly on "The question hasn't changed."
-- 🛟 If you blank — fallback: "Five stops. One question — what dose, for whom, and why? Let me show you the cases."
+- ✅ Land cleanly on "Let me get into the cases" — that's the working transition, not a poetic landing
+- 🛟 If you blank — fallback: "Quick background — dentist in Jordan, PhD in Minnesota, Merck QP2, GSK, now Director at Servier. Onto the cases."
 
 ## Bridge
 → Now the agenda — three cases, three impossibilities, one discipline.`,

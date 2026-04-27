@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import TitleLayout from '@/components/deck/layouts/TitleLayout';
 import CASES from '../_shared/cases';
+import CaseCard from '../_shared/CaseCard';
 
 /**
  * 02-hook-A — "When the trial isn't the answer."  (~75 sec)
@@ -192,16 +193,18 @@ export default function HookATrialNotAnswer({ deck }) {
             for chrome only on this slide. See Stewardship rule in
             merck-deck/CLAUDE.md. */}
 
-        {/* ─── Zone 3 — Persistent cards + connector lines + badges + right-side headline
-             2026-04-26 cinematic-persist pass per user direction:
-             The 3 case cards from slide 01 PERSIST visually onto slide 02
-             via shared layoutId="hook-mark-csN" — as if they never left
-             when the speaker advanced from slide 01 to slide 02. Below
-             each card sits an amber U-badge that fades in at 16s/37s/55s
-             (when the speaker says "untrialable / unavailable / unbuilt"),
-             and a connector line draws between each card and its badge
-             at the same time. Headline + subtitle live to the right and
-             are visible from frame 0 (before the first badge appears).
+        {/* ─── Zone 3 — vertical stack matching slide 01's card position
+             Row 1: 3 case cards (full-width 3-col grid, IDENTICAL to slide
+                    01 — same component, same gap, same width, same vertical
+                    position via the outer flex column). Cards persist via
+                    shared layoutId — they never leave when slide 01 → 02.
+             Row 2: 3 badges (full-width 3-col grid, each badge below its
+                    matching card). Each badge fades in at 16/37/55s.
+             Connectors: SVG layer overlaying rows 1+2. One L-shaped path
+                    per case (90° elbow) draws from card-bottom to badge-
+                    top at the same time the badge fades in.
+             Row 3: headline + subtitle (right-aligned, centered, BELOW
+                    the badges). Visible from frame 0 (before first badge).
         ─── */}
         <div
           style={{
@@ -209,96 +212,92 @@ export default function HookATrialNotAnswer({ deck }) {
             top: 'clamp(var(--space-6), 14%, 18%)',
             left: 'clamp(var(--space-4), 6%, 8%)',
             right: 'clamp(var(--space-4), 6%, 8%)',
-            bottom: 'clamp(var(--space-6), 12%, 14%)',
-            display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1.45fr) minmax(0, 1fr)',
-            gap: 'clamp(var(--space-5), 4vw, var(--space-9))',
-            alignItems: 'start',
+            bottom: 'clamp(var(--space-6), 10%, 12%)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'clamp(var(--space-4), 4vh, var(--space-8))',
           }}
         >
-          {/* ── LEFT — 3 persistent cards on top, connector lines, 3 badges below ── */}
-          <div style={{
-            position: 'relative',
-            minWidth: 0,
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-            gap: 'clamp(var(--space-3), 1.6vw, var(--space-5))',
-          }}>
-            {CASES.map((c, i) => {
-              const markDelay = [16, 37, 55][i];
-              return (
-                <div
-                  key={c.id}
-                  style={{
-                    minWidth: 0,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 0,
-                  }}
-                >
-                  {/* Card — persists visually from slide 01 via shared layoutId */}
-                  <motion.div
-                    layoutId={`hook-mark-cs${c.id}`}
-                    layout
-                    style={{
-                      position: 'relative',
-                      padding: 'var(--space-3) var(--space-3) var(--space-3) var(--space-4)',
-                      borderRadius: 'var(--radius-md)',
-                      border: '1px solid color-mix(in srgb, var(--cream) 10%, transparent)',
-                      background: 'color-mix(in srgb, var(--panel) 38%, transparent)',
-                      overflow: 'hidden',
-                      minHeight: 0,
-                    }}
-                  >
-                    <div
-                      aria-hidden
-                      style={{
-                        position: 'absolute',
-                        left: 0,
-                        top: 'var(--space-3)',
-                        bottom: 'var(--space-3)',
-                        width: 2,
-                        borderRadius: '1px',
-                        background: c.color,
-                      }}
-                    />
-                    <div className="deck-mono uppercase" style={{
-                      fontSize: 'var(--fs-slide-eyebrow)',
-                      letterSpacing: 'var(--ls-mono)',
-                      fontWeight: 600,
-                      color: c.color,
-                      marginBottom: 'var(--space-1)',
-                    }}>
-                      {c.label}
-                    </div>
-                    <div className="deck-display" style={{
-                      fontSize: 'var(--fs-slide-subhead)',
-                      color: 'var(--cream)',
-                      fontWeight: 600,
-                      lineHeight: 1.3,
-                    }}>
-                      {c.title}
-                    </div>
-                  </motion.div>
+          {/* ROW 1 — 3 persistent cards (matches slide 01's grid 1:1) */}
+          <div
+            className="grid grid-cols-1 md:grid-cols-3"
+            style={{ gap: 'var(--space-8)' }}
+          >
+            {CASES.map((c, i) => (
+              <CaseCard key={c.id} c={c} index={i} go={go} idleAtRest={false} />
+            ))}
+          </div>
 
-                  {/* Connector — vertical line drawn at the time-locked beat */}
-                  <motion.div
-                    aria-hidden
-                    initial={{ scaleY: 0, opacity: 0 }}
-                    animate={go ? { scaleY: 1, opacity: 1 } : { scaleY: 1, opacity: 1 }}
-                    transition={{ duration: 0.5, delay: markDelay - 0.2, ease: [0.2, 0.7, 0.3, 1] }}
-                    style={{
-                      width: 2,
-                      height: 'clamp(var(--space-6), 6vh, var(--space-9))',
-                      background: `linear-gradient(180deg, ${c.color} 0%, var(--amber) 100%)`,
-                      margin: 'var(--space-3) auto var(--space-3) auto',
-                      transformOrigin: 'top',
-                      borderRadius: 1,
+          {/* ROW 2 — connectors (SVG, 90° elbow) + 3 amber badges below cards.
+              Wrapped in relative container so the SVG can absolutely overlay
+              the gap between cards (above) and badges (below). */}
+          <div style={{ position: 'relative' }}>
+            {/* Connector SVG — full-width overlay; one L-path per column.
+                Each path draws (strokeDashoffset 0→full) at the time-locked
+                beat 16/37/55s, same speed as the badge fade (0.6s). 90°
+                corner: starts at card-bottom-center, runs vertically down
+                ~60% of available height, turns 90° toward the badge top
+                (the slight horizontal offset is intentional editorial
+                detail — the audience reads "the line LANDS on the badge").
+                Strokes use the case color → amber gradient via stroke ref. */}
+            <svg
+              aria-hidden
+              viewBox="0 0 300 80"
+              preserveAspectRatio="none"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: 'clamp(var(--space-7), 8vh, var(--space-10))',
+                pointerEvents: 'none',
+                top: `calc(-1 * clamp(var(--space-4), 4vh, var(--space-8)))`,
+              }}
+            >
+              {CASES.map((c, i) => {
+                /* Each column owns 100/3 = 33.33 viewBox units of x-space.
+                   center of each column: 16.67 / 50 / 83.33 (approx 50/150/250
+                   in 300-wide viewBox). Ending x is offset by +6 units to
+                   land on the badge with a clean 90° corner. */
+                const colCenter = (i + 0.5) * (300 / 3);
+                const endX = colCenter + 6;
+                /* L-path: down 50, right 6, down 28 — enters badge top */
+                const d = `M ${colCenter} 0 L ${colCenter} 50 L ${endX} 50 L ${endX} 78`;
+                const markDelay = [16, 37, 55][i];
+                return (
+                  <motion.path
+                    key={c.id}
+                    d={d}
+                    stroke={c.color}
+                    strokeWidth={1.6}
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={go ? { pathLength: 1, opacity: 1 } : { pathLength: 1, opacity: 1 }}
+                    transition={{
+                      pathLength: { duration: 0.6, delay: markDelay, ease: [0.2, 0.7, 0.3, 1] },
+                      opacity: { duration: 0.3, delay: markDelay, ease: [0.2, 0.7, 0.3, 1] },
                     }}
+                    vectorEffect="non-scaling-stroke"
                   />
+                );
+              })}
+            </svg>
 
-                  {/* Amber U-badge — fades in at the time-locked beat */}
+            {/* 3-col badge grid — same column structure as cards above so
+                each badge sits directly below its matching card */}
+            <div
+              className="grid grid-cols-1 md:grid-cols-3"
+              style={{
+                gap: 'var(--space-8)',
+                marginTop: 'clamp(var(--space-7), 8vh, var(--space-10))',
+              }}
+            >
+              {CASES.map((c, i) => {
+                const markDelay = [16, 37, 55][i];
+                return (
                   <motion.div
+                    key={c.id}
                     {...fade(markDelay)}
                     style={{
                       minWidth: 0,
@@ -349,18 +348,24 @@ export default function HookATrialNotAnswer({ deck }) {
                       {MARKS[i].label}
                     </div>
                   </motion.div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
 
-          {/* ── RIGHT — Headline + subtitle (visible from frame 0) ── */}
+          {/* ROW 3 — Headline + subtitle (right-side, visible from frame 0) */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            marginTop: 'auto',
+          }}>
           <div style={{
             minWidth: 0,
             display: 'flex',
             flexDirection: 'column',
-            gap: 'var(--space-5)',
-            paddingTop: 'var(--space-2)',
+            gap: 'var(--space-3)',
+            textAlign: 'right',
+            maxWidth: 'min(48ch, 56%)',
           }}>
             <h1
               className="deck-display"
@@ -408,6 +413,7 @@ export default function HookATrialNotAnswer({ deck }) {
               </span>
               {' '}had to.
             </motion.p>
+          </div>
           </div>
         </div>
 
