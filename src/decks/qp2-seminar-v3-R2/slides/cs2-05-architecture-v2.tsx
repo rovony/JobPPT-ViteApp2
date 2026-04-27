@@ -65,7 +65,7 @@ export default function CS2ArchitectureV2() {
     <SlideFrame
       dataCase="cyan"
       eyebrowColor="var(--cyan)"
-      eyebrow="Case 02 · Architecture v2 — one frame, full mechanism"
+      eyebrow="Case 02 · Architecture — one frame, full mechanism"
       headline={
         <>
           The mutation is{' '}
@@ -79,7 +79,7 @@ export default function CS2ArchitectureV2() {
       headlineMaxChars={70}
       subhead="Three claims, one canvas — and four IDH-inhibitor competitors for context."
       subheadMaxChars={110}
-      footerKicker="Case 02 · MOA v2 — one frame"
+      footerKicker="Case 02 · MOA — one frame"
       footerSource="Dang Cancer Cell 2009 · Figueroa Cancer Cell 2010 · FDA Drugs@FDA · ICH E5(R1)"
     >
       {/* Outer wrapper: position absolute fills the viz cell exactly,
@@ -161,7 +161,7 @@ function CellLandscapeCard({ go, reduced, delay }) {
 
       {/* Subtitle — italic mono, dense detail */}
       <div className="deck-mono" style={{
-        fontSize: 'var(--fs-slide-pageno)',
+        fontSize: 'var(--fs-slide-body)',
         letterSpacing: '0.06em',
         color: C.creamFaint,
         fontStyle: 'italic',
@@ -183,7 +183,7 @@ function CellLandscapeCard({ go, reduced, delay }) {
 
       {/* Counterfactual line */}
       <div className="deck-mono" style={{
-        fontSize: 'var(--fs-slide-pageno)',
+        fontSize: 'var(--fs-slide-body)',
         letterSpacing: '0.06em',
         color: C.creamFaint,
         lineHeight: 1.4,
@@ -227,7 +227,7 @@ function CellGlyph({ idx }) {
         {isTumor && <circle cx={25} cy={25} r={3} style={{ fill: C.cyan }} />}
       </svg>
       <span className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-pageno)',
+        fontSize: 'var(--fs-slide-body)',
         letterSpacing: '0.1em',
         color: isTumor ? C.cyan : C.creamFaint,
         fontWeight: 600,
@@ -279,7 +279,7 @@ function CompetitorCard({ go, reduced, delay }) {
 
       {/* Subtitle — public-source receipt */}
       <div className="deck-mono" style={{
-        fontSize: 'var(--fs-slide-pageno)',
+        fontSize: 'var(--fs-slide-body)',
         letterSpacing: '0.06em',
         color: C.creamFaint,
         fontStyle: 'italic',
@@ -319,7 +319,7 @@ function CompetitorCard({ go, reduced, delay }) {
                   {c.drug}
                 </span>
                 <span className="deck-mono uppercase" style={{
-                  fontSize: 'var(--fs-slide-pageno)',
+                  fontSize: 'var(--fs-slide-body)',
                   letterSpacing: '0.06em',
                   color: accent,
                   fontWeight: 600,
@@ -330,7 +330,7 @@ function CompetitorCard({ go, reduced, delay }) {
               </div>
               <div style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: 'var(--fs-slide-pageno)',
+                fontSize: 'var(--fs-slide-body)',
                 color: C.creamMuted,
                 lineHeight: 1.3,
               }}>
@@ -392,7 +392,7 @@ function CascadeCard({ go, reduced, delay, diseaseStart, interventionAt, drugFli
 
       {/* Subtitle — receipt-style mono */}
       <div className="deck-mono" style={{
-        fontSize: 'var(--fs-slide-pageno)',
+        fontSize: 'var(--fs-slide-body)',
         letterSpacing: '0.06em',
         color: C.creamFaint,
         fontStyle: 'italic',
@@ -405,14 +405,14 @@ function CascadeCard({ go, reduced, delay, diseaseStart, interventionAt, drugFli
         </span>
       </div>
 
-      {/* Cascade body — fills card via absolute-inset containment */}
-      <div style={{ flex: 1, minHeight: 0, minWidth: 0, position: 'relative', overflow: 'hidden' }}>
-        <div style={{
-          position: 'absolute', inset: 0,
-          display: 'flex', flexDirection: 'column',
-          justifyContent: 'space-around',
-          gap: 'var(--space-3)',
-        }}>
+      {/* Cascade body — intrinsically sized flex layout */}
+      <div style={{ 
+        flex: 1, minHeight: 0, minWidth: 0, 
+        display: 'flex', flexDirection: 'column',
+        justifyContent: 'space-evenly',
+        gap: 'clamp(var(--space-4), 3vh, var(--space-6))',
+        paddingTop: 'var(--space-4)',
+      }}>
           {/* DISEASE row */}
           <CascadeRow
             stateLabel="Disease state"
@@ -433,12 +433,11 @@ function CascadeCard({ go, reduced, delay, diseaseStart, interventionAt, drugFli
             baseDelay={drugFlipAt + 0.2}
             flipAt={drugFlipAt}
           />
-        </div>
       </div>
 
       {/* Card footer mono — public-source receipt */}
       <div className="deck-mono" style={{
-        fontSize: 'var(--fs-slide-pageno)',
+        fontSize: 'var(--fs-slide-body)',
         letterSpacing: '0.06em',
         color: C.creamFaint,
         lineHeight: 1.3,
@@ -483,7 +482,7 @@ function CascadeRow({ stateLabel, phase, go, reduced, baseDelay, flipAt }) {
     >
       {/* Row label */}
       <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-pageno)',
+        fontSize: 'var(--fs-slide-subhead)',
         letterSpacing: '0.14em',
         color: accent,
         fontWeight: 700,
@@ -518,7 +517,7 @@ function CascadeRow({ stateLabel, phase, go, reduced, baseDelay, flipAt }) {
                 gap: '2px',
               }}>
                 <div className="deck-mono uppercase" style={{
-                  fontSize: 'var(--fs-slide-pageno)',
+                  fontSize: 'var(--fs-slide-body)',
                   letterSpacing: '0.1em',
                   color: accent,
                   fontWeight: 600,
@@ -526,7 +525,7 @@ function CascadeRow({ stateLabel, phase, go, reduced, baseDelay, flipAt }) {
                   {top}
                 </div>
                 <div className="deck-display" style={{
-                  fontSize: 'var(--fs-slide-pageno)',
+                  fontSize: 'var(--fs-slide-subhead)',
                   fontStyle: isTerminal ? 'italic' : 'normal',
                   color: isTerminal && isDrug ? C.cyan : C.cream,
                   lineHeight: 1.25,
@@ -584,7 +583,7 @@ function DrugInterventionBar({ go, reduced, delay }) {
 
       <div style={{ flex: 1, minWidth: 0 }}>
         <div className="deck-mono uppercase" style={{
-          fontSize: 'var(--fs-slide-pageno)',
+          fontSize: 'var(--fs-slide-subhead)',
           letterSpacing: '0.14em',
           color: C.cyan,
           fontWeight: 700,
@@ -593,7 +592,7 @@ function DrugInterventionBar({ go, reduced, delay }) {
         </div>
         <div style={{
           fontFamily: 'var(--font-body)',
-          fontSize: 'var(--fs-slide-pageno)',
+          fontSize: 'var(--fs-slide-body)',
           color: C.creamMuted,
           lineHeight: 1.3,
         }}>

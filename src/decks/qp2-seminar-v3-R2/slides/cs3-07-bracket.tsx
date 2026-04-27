@@ -5,8 +5,8 @@ import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 
 /**
- * CS3 Act 6 · Bracket Method — I designed the architecture;
- * the field supplied the discipline that makes it credible.
+ * CS3 Act 6 · Bracket Method — architecture choices grounded
+ * in the literature and regulated-science standards.
  */
 export default function CS3Bracket() {
   const ref = useRef(null);
@@ -19,15 +19,15 @@ export default function CS3Bracket() {
       <Eyebrow delay={0.10}>Case 03 · Bracket</Eyebrow>
 
       <Headline delay={0.25} maxChars={52}>
-        Clinical pharmacology designed this.{' '}
+        The architecture followed the research.{' '}
         <span style={{ color: 'var(--sage)' }}>
-          The field supplied the discipline.
+          The credibility bar came from regulated science.
         </span>
       </Headline>
 
       <Subhead delay={0.55} maxChars={100} size="lead">
-        Credibility comes from peer-reviewed frameworks, not internal
-        claims. The platform stands on published science.
+        Agent-systems literature shaped the topology; MIDD and AI
+        guidance defined the standard the workflow had to meet.
       </Subhead>
 
       <Viz>
@@ -45,7 +45,7 @@ export default function CS3Bracket() {
             gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
             gap: 'clamp(var(--space-4), 3vw, var(--space-8))',
           }}>
-            {/* LEFT — I designed */}
+            {/* LEFT — Architecture choices */}
             <motion.div
               style={{
                 border: '1.5px solid var(--sage)',
@@ -63,11 +63,11 @@ export default function CS3Bracket() {
               <div className="deck-mono uppercase" style={{
                 fontSize: 'var(--fs-slide-eyebrow)', color: 'var(--sage)',
                 letterSpacing: '0.1em', fontWeight: 700,
-              }}>Clin Pharm Designed</div>
+              }}>Architecture Choices</div>
 
               {[
-                'Centralized agent topology (Kim et al. 2026)',
-                'Three-level hierarchy (supervisor → specialist → worker)',
+                'Centralized agent topology (Kim et al. 2025)',
+                'Three-level hierarchy (supervisor → domain → specialist)',
                 'Deterministic tool discipline — no hallucinated math',
                 'Typed state bus (34 fields, strict write access)',
                 'SHA-256 hash-chain audit trail',
@@ -83,7 +83,7 @@ export default function CS3Bracket() {
               ))}
             </motion.div>
 
-            {/* RIGHT — Field's discipline */}
+            {/* RIGHT — Research and standards basis */}
             <motion.div
               style={{
                 border: '1px solid var(--cream-hairline)',
@@ -99,12 +99,13 @@ export default function CS3Bracket() {
               <div className="deck-mono uppercase" style={{
                 fontSize: 'var(--fs-slide-eyebrow)', color: 'var(--cream-faint)',
                 letterSpacing: '0.1em', fontWeight: 700,
-              }}>The Field's Discipline</div>
+              }}>Research + Standards Basis</div>
 
               {[
                 { who: 'ICH M15', what: 'Model-informed drug development framework' },
-                { who: 'Kim et al. 2026', what: '260-experiment scaling laws for agent systems' },
-                { who: 'MIDD literature', what: 'Context-of-use, consequence-of-wrong-decision' },
+                { who: 'FDA AI draft guidance', what: 'Context of use, model risk, credibility plan' },
+                { who: 'Kim et al. 2025', what: 'Scaling laws and error containment for agent systems' },
+                { who: 'MIDD literature', what: 'Question of interest, consequence of wrong decision' },
                 { who: 'Agentic-systems research', what: 'Tool-use > free-text generation' },
                 { who: 'FDA/EMA PBPK guidance', what: 'Qualification-not-validation paradigm' },
               ].map((item) => (
@@ -130,8 +131,8 @@ export default function CS3Bracket() {
 
       <Footer
         delay={reduced ? 0 : 1.8}
-        kicker="Act 6 · Credit outward"
-        tagline="Credit outward to the field that formalized how a model becomes regulatory evidence."
+        kicker="Act 6 · Research-grounded architecture"
+        tagline="Senior signal: show design judgment without selling the tool."
       />
     </SlideGrid>
   );

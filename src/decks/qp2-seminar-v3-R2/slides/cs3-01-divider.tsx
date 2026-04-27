@@ -3,7 +3,7 @@ import CaseHeroDivider from '@/components/deck/patterns/CaseHeroDivider';
 import AiBrain from '../components/AiBrain';
 
 /**
- * CS3 Divider — PharmAgent · AI/ML workflow infrastructure.
+ * CS3 Divider — PharmAgent · workflow infrastructure.
  *
  * Sage case-color cascade. The register shifts from retrospective
  * regulatory wins (CS1/CS2) to forward-looking infrastructure.
@@ -17,12 +17,12 @@ export default function CS3Divider() {
       totalCases={3}
       kicker="CASE STUDY 03"
       title="PharmAgent"
-      subtitle="When the Trial Isn't the Answer for the Next Decade"
-      tagline="Decision 3: The next decade of clinical pharmacology will need infrastructure, audit, and decision tools that don't exist on any shelf today."
+      subtitle="Workflow Infrastructure for Model-Informed Decisions"
+      tagline="Decision 3: move pharmacometric scaffolding from individual analysts into privacy-first, audit-ready infrastructure."
       meta={[
-        ['Platform', 'Multi-agent AI/ML'],
-        ['Domain', 'Pharmacometric workflows'],
-        ['Status', 'Active development'],
+        ['Architecture', 'Supervisor + specialist agents'],
+        ['Computation', 'Deterministic tools'],
+        ['Governance', 'Privacy + audit by construction'],
       ]}
       verdict="BUILDING"
       illustration={
@@ -30,7 +30,7 @@ export default function CS3Divider() {
           <AiBrain layoutId="cs3-ai-brain" variant="hero" />
         </div>
       }
-      source="Personal research project · Kim et al. arXiv:2512.08296 (Google Research & DeepMind, 2026) · ICH M15"
+      source="Personal research project · Kim et al. arXiv:2512.08296 (2025) · ICH M15 Step 4, 29 Jan 2026"
     />
   );
 }

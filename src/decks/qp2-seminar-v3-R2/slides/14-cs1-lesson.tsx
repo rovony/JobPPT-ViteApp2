@@ -15,8 +15,8 @@ import Lungs from '../components/Lungs';
  * with the three takeaways moved to slide 15 (cs1-bridge).
  *
  * v2-final amendments:
- *   - A1.5 PMDA approval = March 23, 2021 (specific date verified via
- *     GSK Japan press release; Japanese label cites AMB112529
+ *   - A1.5 GSK Japan announced pediatric approval on March 23, 2021;
+ *     Japanese label cites AMB112529
  *     hemodynamic substudy).
  *   - A2.5 FDA honesty caveat moved on-slide (was Q&A only). Letairis
  *     label states verbatim: "safety and effectiveness in pediatric
@@ -39,15 +39,15 @@ const PINS = [
   {
     n: '02',
     agency: 'PMDA',
-    date: 'March 23, 2021',
-    body: 'Same exposure-matching framework · Japanese label cites AMB112529 hemodynamic substudy',
+    date: '2021',
+    body: 'Same exposure-matching framework · GSK Japan announced Mar 23 · Japanese label cites AMB112529 hemodynamic substudy',
     accent: 'var(--case)',
   },
   {
     n: '03',
     agency: 'ICH E11A',
     date: 'December 2024',
-    body: 'Extrapolation continuum codified · where similarity is high → exposure matching alone is sufficient',
+    body: 'Extrapolation continuum codified · where similarity is high → exposure matching can carry more of the inference',
     accent: 'var(--amber)',
   },
 ];

@@ -36,7 +36,7 @@ const INTERSECTIONS = [
     color: 'var(--sage)',
     label: 'Platform · AI/ML in QSP / PopPK',
     headline: 'I build the infrastructure, not just the analyses.',
-    body: 'PharmAgent is a 13-agent platform: ICH M15 audit-by-construction, schema-only privacy, deterministic tool execution. Merck\'s QP2 organization has stated AI/ML as a strategic priority. I bring a working architecture and a record of regulatory-grade outputs.',
+    body: 'PharmAgent is a 13-agent research platform: ICH M15-aligned audit by construction, schema-only privacy, deterministic tool execution. Merck\'s QP2 organization has stated AI/ML as a strategic priority. I bring the architecture judgment to build this infrastructure around existing scientific workflows.',
   },
 ];
 

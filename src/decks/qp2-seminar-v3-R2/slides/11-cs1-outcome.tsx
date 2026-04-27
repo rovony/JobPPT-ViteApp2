@@ -15,14 +15,6 @@ import Lungs from '../components/Lungs';
  * outcome numbers (7/38 LTE deaths etc.) folded into slide 14
  * (cs1-lesson) outcome+E11A and surfaced via Q&A backup B7.
  *
- * v2-final amendments:
- *   - A3.3 Trial dates precision: First patient enrolled Jan 4, 2011.
- *     Last patient visit Nov 12, 2013. Hold lifted 2017. CHMP submission
- *     Nov 2017. Trial formally terminated Feb 11, 2019.
- *   - A3.4 Two deaths characterization: both PAH-disease-related,
- *     neither attributed to ambrisentan. (1) fatal pneumonia low-dose;
- *     (2) acute decompensated cardiac failure during LTE high-dose.
- *
  * The three disruptions card pattern mirrors the panel-card recipe in
  * merck-deck CLAUDE.md "Best-in-Class Slide Design" §1153.
  */
@@ -33,26 +25,26 @@ const DISRUPTIONS = [
   {
     n: '01',
     label: 'TRIAL',
-    headline: 'A juvenile rat finding halted enrollment.',
-    timestamps: 'First patient · Jan 4, 2011 → last visit · Nov 12, 2013 → hold 2013–2017 → CHMP submission Nov 2017 → formal termination · Feb 11, 2019',
-    body: 'Brain-weight reduction (3–8%) in postnatal-day-7 rats · mechanism-specific to early-postnatal laryngeal anatomy · exposure margin 1.8–7× human pediatric AUC at 10 mg.',
-    outcome: '39 patients evaluable (planned: 66). Two deaths across trial + LTE — fatal pneumonia (low-dose) and acute decompensated cardiac failure (high-dose, LTE). Both PAH-disease-related. Neither attributed to ambrisentan.',
+    headline: 'Enrollment stopped before a clean efficacy answer.',
+    timestamps: <>Hold 2013–2017 · formal termination 2019 · <span style={{ color: 'var(--coral)', fontWeight: 600 }}>39 / 66</span> evaluable</>,
+    body: <>A nonclinical signal paused enrollment; the pediatric dataset became confirmatory.</>,
+    outcome: <>Dose rationale: <span style={{ color: 'var(--coral)', fontWeight: 600 }}>adult anchor + pediatric PK</span>.</>,
   },
   {
     n: '02',
     label: 'REGULATORY',
-    headline: 'The pediatric PAH regulatory bar was elevated.',
-    timestamps: '2014 STARTS-2 publication · review window 2017–2021 · resolved by AFFILIATE 2024',
-    body: 'Sildenafil pediatric mortality association · HR 3.95 (since attributed to confounding per AFFILIATE 2024 — 80 mg non-inferior to 5 mg adult survival).',
-    outcome: 'Field operating under maximum caution on pediatric dose selection during the review window.',
+    headline: 'Pediatric dosing was under caution.',
+    timestamps: <>Review window 2017–2021</>,
+    body: <>Prior PAH experience made empirical dose escalation hard to defend.</>,
+    outcome: <>Exposure matching was the <span style={{ color: 'var(--coral)', fontWeight: 600 }}>cleaner lane</span>.</>,
   },
   {
     n: '03',
-    label: 'COMMERCIAL',
-    headline: 'Split commercial rights constrained the submission geography.',
-    timestamps: 'Day-One split — separate sponsors, separate filing decisions',
-    body: 'GSK held EU/ROW (Volibris) · Gilead held US (Letairis) — different sponsors. Letairis went generic 2022.',
-    outcome: 'EMA + PMDA filings proceeded. The US commercial decision was Gilead\'s.',
+    label: 'FILING',
+    headline: 'Label outcomes followed filing geography.',
+    timestamps: <>EMA + PMDA proceeded</>,
+    body: <>Different submissions produced different labels.</>,
+    outcome: <>Public outcome: <span style={{ color: 'var(--coral)', fontWeight: 600 }}>EMA + PMDA pediatric approvals</span>.</>,
   },
 ];
 
@@ -61,14 +53,17 @@ function DisruptionCard({ d, delay, reduced }) {
     <motion.div
       initial={reduced ? false : { opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
+      whileHover={reduced ? {} : { y: -4, boxShadow: '0 12px 32px color-mix(in srgb, var(--coral) 12%, transparent)' }}
       transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : delay, ease: EASE }}
       style={{
         position: 'relative',
         minWidth: 0,
-        border: '1px solid var(--cream-hairline)',
+        border: '1px solid color-mix(in srgb, var(--coral) 30%, transparent)',
         borderLeft: '4px solid var(--case)',
         borderRadius: 'var(--radius-lg)',
-        background: 'color-mix(in srgb, var(--panel) 65%, transparent)',
+        background: 'color-mix(in srgb, var(--coral) 5%, transparent)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
         padding: 'clamp(var(--space-3), 1.6vw, var(--space-5))',
         display: 'flex',
         flexDirection: 'column',
@@ -105,8 +100,7 @@ function DisruptionCard({ d, delay, reduced }) {
       </div>
       <div className="deck-mono" style={{
         fontSize: 'var(--fs-slide-pageno)',
-        color: 'var(--case)',
-        opacity: 0.85,
+        color: 'color-mix(in srgb, var(--case) 85%, transparent)',
         letterSpacing: 'var(--ls-mono)',
         lineHeight: 1.45,
         fontVariantNumeric: 'tabular-nums',
@@ -116,7 +110,7 @@ function DisruptionCard({ d, delay, reduced }) {
       <div className="deck-body" style={{
         fontSize: 'var(--fs-slide-subhead)',
         color: 'var(--cream)',
-        opacity: 0.84,
+        opacity: 0.9,
         lineHeight: 1.5,
       }}>
         {d.body}
@@ -126,7 +120,8 @@ function DisruptionCard({ d, delay, reduced }) {
         width: 'clamp(40px, 6vw, 64px)',
         background: 'var(--case)',
         opacity: 0.5,
-        marginTop: 'var(--space-1)',
+        marginTop: 'var(--space-2)',
+        marginBottom: 'var(--space-1)',
       }} />
       <div className="deck-mono uppercase" style={{
         fontSize: 'var(--fs-slide-pageno)',
@@ -139,7 +134,7 @@ function DisruptionCard({ d, delay, reduced }) {
       <div className="deck-body" style={{
         fontSize: 'var(--fs-slide-subhead)',
         color: 'var(--cream)',
-        opacity: 0.92,
+        opacity: 0.96,
         lineHeight: 1.5,
       }}>
         {d.outcome}
@@ -183,15 +178,15 @@ export default function Cs1Outcome() {
       </Eyebrow>
 
       <Headline delay={0.25} maxChars={62}>
-        AMB112529 absorbed three simultaneous disruptions —{' '}
+        AMB112529 survived three disruptions —{' '}
         <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 600 }}>
-          and the framework had to hold.
+          the dose bridge still held.
         </span>
       </Headline>
 
       <Subhead delay={0.55} maxChars={92} size="lead">
-        Any one of these would have killed a traditional efficacy trial. The
-        framework absorbed all three.
+        Trial interruption, regulatory caution, and filing geography all pointed
+        away from a conventional pediatric efficacy trial.
       </Subhead>
 
       <Viz>
@@ -211,8 +206,8 @@ export default function Cs1Outcome() {
       <Footer
         delay={reduced ? 0 : 1.95}
         kicker="11 · CS1 · DISRUPTIONS"
-        tagline="Any one would have killed a traditional efficacy trial. The framework absorbed all three."
-        source="Source · Ivy DD et al. J Pediatr X 2020 · Okour M et al. J Clin Pharmacol 2023 · Hoeper M et al. Circulation 2024 (AFFILIATE)"
+        tagline="The slide is the constraint set; the next slide is the bridge."
+        source="Source · Ivy DD et al. J Pediatr 2021 · Okour M et al. J Clin Pharmacol 2023 · Hoeper M et al. Circulation 2024 (AFFILIATE)"
       />
     </SlideGrid>
   );

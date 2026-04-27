@@ -5,23 +5,23 @@ import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 
 /**
- * CS2 Act 6 · Leadership — Bracket Method ownership.
+ * CS2 Act 6 · Leadership — function-level bracket.
  *
- * Two-column bracket: MY SCOPE vs THE TEAM, plus SEC timeline.
+ * Two-column bracket: Quantitative Pharmacology vs partner functions.
  */
 
-const MY_SCOPE = [
-  'Mechanism-first reframe (Jan 2025)',
-  'Six-pillar dossier scientific argumentation',
-  'Phase 4 PK/PD study design commitment',
-  'SEC in-person presentation (Apr 2025)',
+const QUANT_PHARM_SCOPE = [
+  'Translate the ICH E5 question into testable evidence',
+  'Mechanism-first ethnic-sensitivity rationale',
+  'Integrate PopPK · E-R · PBPK · intrinsic/extrinsic factors',
+  'Define Phase 4 PK/PD as the residual-uncertainty plan',
 ];
 
-const TEAM_SCOPE = [
-  { who: 'Regulatory affairs', what: 'SEC interaction & Rule 101 waiver filing' },
-  { who: 'Medical affairs', what: 'Post-marketing surveillance & PV protocol' },
-  { who: 'Global Clin Pharm', what: 'Bayesian covariate re-estimation' },
-  { who: 'Servier India affiliate', what: 'In-country SEC logistics' },
+const PARTNER_SCOPE = [
+  { who: 'Regulatory affairs', what: 'Agency pathway, filing mechanics, and formal responses' },
+  { who: 'Medical / PV', what: 'Post-marketing surveillance and local follow-up plan' },
+  { who: 'Regulatory writing', what: 'Submission narrative, response package, and traceable record' },
+  { who: 'India affiliate', what: 'In-country execution, meeting logistics, and access launch plan' },
 ];
 
 export default function CS2Leadership() {
@@ -35,13 +35,12 @@ export default function CS2Leadership() {
       <Eyebrow delay={0.10}>Case 02 · Leadership</Eyebrow>
 
       <Headline delay={0.25} maxChars={48}>
-        The scientific defense was{' '}
-        <span style={{ color: 'var(--cyan)' }}>mine to build.</span>
+        Quantitative pharmacology built the bridge —{' '}
+        <span style={{ color: 'var(--cyan)' }}>partners carried it through.</span>
       </Headline>
 
       <Subhead delay={0.55} maxChars={100} size="lead">
-        My scope was the scientific bridge. Everything else — regulatory
-        strategy, surveillance, in-country logistics — belonged to the team.
+        The waiver worked because evidence ownership and execution ownership were separated clearly.
       </Subhead>
 
       <Viz>
@@ -60,7 +59,7 @@ export default function CS2Leadership() {
             gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
             gap: 'clamp(var(--space-4), 3vw, var(--space-8))',
           }}>
-            {/* LEFT — My Scope */}
+            {/* LEFT — Quantitative Pharmacology */}
             <motion.div
               style={{
                 border: '1.5px solid var(--cyan)',
@@ -78,9 +77,9 @@ export default function CS2Leadership() {
               <div className="deck-mono uppercase" style={{
                 fontSize: 'var(--fs-slide-eyebrow)', color: 'var(--cyan)',
                 letterSpacing: '0.1em', fontWeight: 700,
-              }}>My Scope</div>
+              }}>Quantitative Pharmacology</div>
 
-              {MY_SCOPE.map((item) => (
+              {QUANT_PHARM_SCOPE.map((item) => (
                 <div key={item} className="deck-body" style={{
                   fontSize: 'var(--fs-slide-subhead)', color: 'var(--cream)',
                   lineHeight: 1.4, paddingLeft: 'var(--space-3)',
@@ -91,7 +90,7 @@ export default function CS2Leadership() {
               ))}
             </motion.div>
 
-            {/* RIGHT — Team Scope */}
+            {/* RIGHT — Partner functions */}
             <motion.div
               style={{
                 border: '1px solid var(--cream-hairline)',
@@ -107,9 +106,9 @@ export default function CS2Leadership() {
               <div className="deck-mono uppercase" style={{
                 fontSize: 'var(--fs-slide-eyebrow)', color: 'var(--cream-faint)',
                 letterSpacing: '0.1em', fontWeight: 700,
-              }}>The Team</div>
+              }}>Partner Functions</div>
 
-              {TEAM_SCOPE.map((item) => (
+              {PARTNER_SCOPE.map((item) => (
                 <div key={item.who} style={{
                   display: 'flex', flexDirection: 'column', gap: '2px',
                   paddingLeft: 'var(--space-3)',
@@ -144,9 +143,9 @@ export default function CS2Leadership() {
             <span className="deck-display italic" style={{
               fontSize: 'var(--fs-slide-tagline)', color: 'var(--cream-muted)',
             }}>
-              SEC queries Aug 2024 → 36-page response Oct → mechanism-first reframe Jan 2025 → Phase 4 commitment →{' '}
+              Quant Pharm answered: can global evidence extrapolate? Partners answered:{' '}
               <span style={{ color: 'var(--amber)', fontWeight: 600 }}>
-                first IDH1 inhibitor available in India · launched 5 Jun 2025.
+                can the pathway, commitments, and execution hold?
               </span>
             </span>
           </motion.div>
@@ -155,8 +154,8 @@ export default function CS2Leadership() {
 
       <Footer
         delay={reduced ? 0 : 2.0}
-        kicker="Act 6 · Ownership"
-        tagline="Both sides of the bracket had to hold for the agencies to act."
+        kicker="Act 6 · FUNCTIONAL OWNERSHIP"
+        tagline="Evidence bridge on one side; agency execution on the other."
       />
     </SlideGrid>
   );

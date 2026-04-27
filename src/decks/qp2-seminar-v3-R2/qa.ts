@@ -306,84 +306,6 @@ framework staying fashionable.
 > is real, not fashion-driven.`,
 
   // ══════════════════════════════════════════════════════════════
-  // CS1 — Ambrisentan · Pediatric PAH · CORAL
-  // ══════════════════════════════════════════════════════════════
-
-  // cs1-question — opener defenses for the 380 vs 39 asymmetry and three disruptions
-  'cs1-question': `## Q1: You said the pediatric trial was ==terminated==. Was it really terminated, or just ==interrupted==?
-**From:** detail-oriented clinical panelist
-**Difficulty:** ★★★ · **Topic:** clinical-design
-
-A: The precise chronology is ==enrollment hold first, formal termination later==. The juvenile-rat finding led to a global enrollment hold in March 2013 after forty-one patients had been recruited. Existing patients could remain on treatment after EMA and national-agency review. The study was formally terminated in February 2019, with ==thirty-nine PK-evaluable patients==. So "terminated" is accurate, but if I need the cleaner technical phrase, I would say "a disrupted pediatric program with an enrollment hold and later formal termination."
-
-> **If pressed:** I would not say "failed trial." The trial generated the ==PK and safety dataset== that supported the exposure-matching package.
-
-## Q2: How can ==thirty-nine pediatric patients== support a ==pediatric label==?
-**From:** skeptical clinical pharmacologist
-**Difficulty:** ★★★★ · **Topic:** methodology
-
-A: The model was ==not built from thirty-nine patients alone==. The structural model was anchored in the adult program: about three hundred eighty adults and more than three thousand PK observations. The pediatric study confirmed that the adult-informed, allometrically scaled model predicted pediatric exposure adequately. The regulatory question was not "does ambrisentan work from scratch in children?" It was "can weight-banded pediatric dosing match the ==adult therapeutic exposure range== with acceptable pediatric safety?" For that question, thirty-nine PK-evaluable patients can be enough.
-
-> **If pressed:** STARTS-1 enrolled 235 children and still missed its primary endpoint. In pediatric PAH, ==sample size is not the only constraint==; endpoint validity and ethics are binding constraints too.
-
-## Q3: Without a ==placebo comparator==, how do you know this was not weak evidence?
-**From:** trial-design panelist
-**Difficulty:** ★★★★ · **Topic:** clinical-design
-
-A: A placebo-controlled pediatric efficacy trial was ==not feasible or ethical== by that point. Children with PAH were already receiving background PAH therapy, and AMB112529 was designed as a ==PK and safety study==, not as a stand-alone efficacy trial. The evidence package was a totality-of-evidence argument: adult efficacy, conserved disease and pharmacology, pediatric exposure matching, pediatric safety, and long-term extension follow-up.
-
-> **If pressed:** I would not overclaim pediatric efficacy from this study. The claim is ==dose justification by exposure matching==, not a new placebo-controlled efficacy demonstration.
-
-## Q4: Was ==STARTS-2== the reason you used ==exposure matching==?
-**From:** regulatory-safety panelist
-**Difficulty:** ★★★ · **Topic:** regulatory-safety
-
-A: Not the whole reason. The architectural precedent was ==bosentan FUTURE-1 in 2009==: PK matching as the regulatory bridge when a pediatric efficacy trial is not viable. STARTS-2 added the cautionary lesson — empirical pediatric dose escalation can look attractive short-term and still create long-term safety concern. So there are two precedents: ==FUTURE-1 for the architecture==, STARTS-2 for dose-selection caution.
-
-> **If pressed:** The ambrisentan program was not a reaction to STARTS-2; it was an application of the ==established ERA pediatric bridging architecture== under a more conservative safety climate.
-
-## Q5: If the package was strong, why did ==FDA not approve== pediatric ambrisentan?
-**From:** regulatory-strategy panelist
-**Difficulty:** ★★★★ · **Topic:** regulatory
-
-A: ==FDA never received the pediatric package==. Ambrisentan had split commercial rights: GSK held Volibris outside the United States and filed with EMA and PMDA; Gilead held Letairis in the United States and did not submit a pediatric sNDA. The current Letairis label says safety and effectiveness in pediatric patients have not been established. That is the language of ==not evaluated== for a pediatric label, not evaluated and rejected.
-
-> **If pressed:** I cannot say FDA would have approved a package it never reviewed. I can say ==EMA and PMDA accepted== the exposure-matching totality of evidence, and the FDA gap is ==commercial-geographic, not a scientific rejection==.`,
-
-  // cs1-outcome — three disruptions: rat finding, sildenafil mortality, commercial split
-  'cs1-outcome': `## Q1: Walk me through the juvenile-rat brain-weight finding. What was the mechanism, and why didn't it stop the program permanently?
-**From:** toxicology-aware panelist
-**Difficulty:** ★★★★ · **Topic:** preclinical-safety
-
-A: The finding was a three-to-eight percent reduction in brain weight in postnatal-day-7 rats. The mechanism was specific to early-postnatal laryngeal anatomy — endothelin-A receptor signaling is involved in neonatal airway development in rats at a developmental stage with no human-equivalent window in children aged eight to eighteen. The exposure margins were one-point-eight to seven times human pediatric AUC at the 10 mg dose. Two key points: first, the finding was mechanism-specific and species-stage-specific — it maps to a rat developmental window that doesn't exist in the enrolled age range. Second, the trial was held, not cancelled — the program paused enrollment in March 2013, the hold ran through 2017, and the CHMP submission proceeded in November 2017 with the full toxicology context disclosed. Formal termination came in February 2019 at forty-one of sixty-six enrolled, but the PK dataset from those thirty-nine evaluable patients was sufficient for the exposure-matching framework.
-
-> **If pressed on deaths:** Two deaths across the trial and LTE — one fatal pneumonia in the low-dose arm, one acute decompensated cardiac failure in the high-dose LTE. Both PAH-disease-related. Neither attributed to ambrisentan by the investigators or by EMA/PMDA review.
-
-> **If pressed on why EMA accepted:** EMA's assessment acknowledged the preclinical signal, evaluated the exposure margins, and concluded that the developmental window was not relevant to the enrolled age group (8–<18 years). The benefit-risk was favorable given the unmet need in pediatric PAH.
-
-> **Anchor:** Species-stage-specific, exposure margins 1.8–7×, no human-equivalent window in 8–18 yr
-
-## Q2: The sildenafil mortality signal — HR 3.95 — wasn't that a reason to be more cautious about pediatric PAH dose selection in general? How did that affect your program?
-**From:** regulatory-safety panelist
-**Difficulty:** ★★★★ · **Topic:** regulatory-safety
-
-A: It was. STARTS-2, published in 2014, reported a dose-dependent mortality association with sildenafil in pediatric PAH — hazard ratio 3.95 at the high dose versus the low dose. The entire field moved to maximum caution on pediatric PAH dose selection. That caution was operationally active during the AMB112529 review window from 2017 to 2021. Two things to note. First, the signal has since been reinterpreted — AFFILIATE, published 2024 by Hoeper and colleagues in Circulation, showed that sildenafil 80 mg was non-inferior to 5 mg on adult survival, attributing the original mortality signal to confounding rather than a true dose-toxicity relationship. Second, ambrisentan's case was strengthened, not weakened, by the STARTS-2 context — our exposure-matching framework showed pediatric AUC within three percent of adult target on a plateau region of the exposure-response curve. We were not dose-escalating into an uncertain efficacy space; we were matching to a known effective adult exposure. The caution the field was exercising actually favored a PK-anchored approach over a dose-finding approach.
-
-> **If pressed on AFFILIATE timing:** AFFILIATE published in 2024 — three years after our approvals. EMA and PMDA evaluated ambrisentan under the pre-AFFILIATE maximum-caution posture. The framework held under the more conservative assumption.
-
-> **Anchor:** STARTS-2 HR 3.95 → field caution → AFFILIATE 2024 resolved to confounding → our PK-match approach was the right posture
-
-## Q3: The commercial split — GSK and Gilead — why didn't FDA receive the package? Was there a scientific reason or purely commercial?
-**From:** regulatory-strategy panelist
-**Difficulty:** ★★★ · **Topic:** commercial-regulatory
-
-A: Purely commercial. Ambrisentan was marketed as Volibris by GSK in Europe and rest-of-world, and as Letairis by Gilead in the US. Day-one split commercial rights — separate sponsors, separate filing decisions. The clinical pharmacology package — the PopPK model, the exposure match, the allometric framework — was the same for all three agencies. EMA and PMDA filed and approved. The US filing was Gilead's decision, and Gilead chose not to submit a pediatric sNDA for Letairis. Letairis went generic in 2022, which removed the commercial incentive entirely. The Letairis label as of 2026 states verbatim that "safety and effectiveness in pediatric patients have not been established." That's a commercial outcome, not a regulatory rejection — FDA never reviewed the package because it was never submitted.
-
-> **If pressed on whether FDA would have approved:** I can't speculate on a review that didn't happen. What I can say is that the methodology EMA accepted — PK-matching with allometric scaling on an adult structural model — is consistent with what FDA's own Garnett-Florian framework endorses as one branch of pediatric ERA bridging. The hemodynamic substudy was N=5 paired patients — too small for a standalone Garnett-Florian analysis, which is why the EMA/PMDA path (PK-matching alone) was the natural route for this dataset.
-
-> **Anchor:** Same Clin Pharm package, different commercial owners, different filing decisions — not a regulatory failure`,
-
-  // ══════════════════════════════════════════════════════════════
   // CS2 — Ivosidenib · India CDSCO regulatory waiver · CYAN
   // ══════════════════════════════════════════════════════════════
 
@@ -653,10 +575,29 @@ DDI package fully characterizes that pathway.
 > primary pathway. I'm happy to walk through the USPI section 12.3
 > if that would help.`,
 
-  // cs2-architecture-v2 — A/B variant of cs2-architecture. Q&A coverage at
-  // the architecture level is shared via cs2-architecture (above). The
-  // mechanism / cell-strip / competitor probes apply equally to either layout;
-  // pick which slide to walk in rehearsal — do not present both.
+  'cs2-architecture-v2': `## Q1: Why does ==somatic IDH1== matter for ethnic sensitivity?
+**From:** mechanism-focused panelist
+**Difficulty:** ★★★★ · **Topic:** MOA / ICH E5
+
+A: ==Somatic means tumor-acquired, not inherited.== That makes the drug-target biology less likely to depend on ancestry. It does not remove PK or DDI questions, which is why the dossier still needs PopPK, exposure-response, PBPK, and Phase 4.
+
+> **If pressed:** ==Somatic biology is the foundation, not the whole case.== The six-pillar dossier is what makes the waiver defensible.
+
+## Q2: Does this slide overstate ==ethnic insensitivity==?
+**From:** skeptical clinical pharmacologist
+**Difficulty:** ★★★★★ · **Topic:** extrapolation
+
+A: The safe claim is not "ethnicity cannot matter." The safe claim is ==the target mechanism is not germline ancestry-driven==, and the rest of the Clin Pharm package did not show a signal requiring an Indian pre-approval study.
+
+> **If pressed:** Ethnic sensitivity can still enter through CYP3A4 comedications, diet, access, adherence, and care pathways. That is why the Phase 4 commitment matters.
+
+## Q3: Why include ==competitors== on the MOA slide if the class-history slide already exists?
+**From:** design / story panelist
+**Difficulty:** ★★ · **Topic:** visual purpose
+
+A: The separate history slide orients the field. This slide uses the competitor column only as ==context while explaining the mechanism==, so the panel does not confuse IDH1, IDH2, and pan-IDH drugs.
+
+> **If pressed:** ==History slide teaches chronology; MOA slide prevents target confusion.==`,
 
   'cs2-pillars': `## Q1: Six pillars looks complete on the page. Why six and not three, or twelve? How was the package scoped?
 **From:** methodology-skeptic panelist
@@ -672,25 +613,13 @@ defensible on its own. Three would have left categories unaddressed;
 twelve would have been padding. The discipline was: one pillar per
 E5 category, no more.
 
-## Q2: The PBPK story — what specifically is in the label? Is the midazolam AUC ratio just a number, or is it doing regulatory work?
-**From:** PBPK-aware panelist
-**Difficulty:** ★★★★ · **Topic:** PBPK
+## Q2: Why did you remove the ==0.18 midazolam AUC ratio== from Pillar 05?
+**From:** clinical pharmacology / DDI panelist
+**Difficulty:** ★★★★ · **Topic:** PBPK / extrinsic factors
 
-A: The Tibsovo USPI section 12.3 includes a PBPK-supported DDI
-characterization with a midazolam AUC-ratio prediction for ivosidenib
-co-administration. That number is in the label. It's doing work two
-ways: first, it lets prescribers manage CYP3A4-substrate co-medications
-without a separate clinical DDI study for every pair. Second, it
-served as evidence to CDSCO that the DDI package was complete enough
-to extrapolate to the Indian co-medication landscape — including the
-OTC-azole concern, where ketoconazole is widely available without
-prescription and could co-occur with ivosidenib. PBPK predicted that
-interaction; we didn't need a local DDI trial to characterize it.
+A: Because the slide is an ==ethnic-sensitivity argument==, not a DDI-labeling slide. The midazolam ratio is useful backup for the CYP3A4 perpetrator/victim story, but it is too narrow as the visible Pillar 05 claim. The visible claim should be: extrinsic factors were characterized, labeled, and managed, with no India-specific dose change required.
 
-> **If pressed:** Public source for the AUC ratio is the Tibsovo USPI,
-> section 12.3 (Drug Interactions / In Vitro and Clinical Studies).
-> The internal Servier PBPK report is not public; I can only cite what
-> the FDA-approved label discloses.
+> **If pressed:** ==DDI detail supports the pillar; it is not the pillar.== The Tibsovo USPI section 12.3 includes PBPK-supported DDI characterization, but I would keep that as backup rather than making it the on-slide headline.
 
 ## Q3: Wouldn't a small Phase 1 in Indian volunteers have been more rigorous than relying on ICH E5 invariance?
 **From:** clinical-trial-traditionalist panelist
@@ -721,7 +650,23 @@ argument — the drug-target interaction is biologically ethnicity-
 independent. The PK and ER pillars confirm the population-level
 behavior. The covariate pillar adds support but doesn't carry the
 case. That's the design: convergent evidence, not single-pillar
-proof.`,
+proof.
+
+## Q5: What do you mean by ==extrinsic factors== here?
+**From:** regulatory panelist
+**Difficulty:** ★★★ · **Topic:** ICH E5
+
+A: In ICH E5 language, extrinsic factors include diet, medical practice, concomitant medications, adherence patterns, and environmental factors. For ivosidenib, the clinically relevant extrinsic scenarios were characterized through food-effect and DDI labeling logic rather than population-specific dosing.
+
+> **If pressed:** ==Intrinsic factors ask who the patient is; extrinsic factors ask what surrounds treatment.== Neither layer pointed to an India-specific dose requirement.
+
+## Q6: Are you saying DDIs do not matter for ivosidenib?
+**From:** safety-focused panelist
+**Difficulty:** ★★★★ · **Topic:** DDI
+
+A: No. DDIs matter and are managed in labeling. The point is narrower: the DDI liabilities are not evidence that Indian patients need a different dose. They are known treatment-management scenarios.
+
+> **If pressed:** ==Manage DDIs clinically; do not convert them into an ethnicity-specific bridging requirement.==`,
 
   'cs2-reversal': `## Q1: April 2025 SEC opinion was favorable. May 14 was the approval. What happened in those six weeks?
 **From:** regulatory-process panelist
@@ -750,10 +695,9 @@ clinical plan — running it in Indian patients post-approval was the
 strategic answer to "we don't have local data," not a side payment
 to CDSCO.
 
-> **If pressed:** I can speak to the study design parameters but not
-> to current enrollment status — that sits with the Servier India
-> affiliate team's operations, not with the global Clin Pharm function
-> I led.
+> **If pressed:** The study design parameters sit within the global
+> clinical pharmacology evidence bridge. Current enrollment status sits
+> with the Servier India affiliate team's operations.
 
 ## Q3: This was a Servier asset, not a Merck one. What carries to QP2-CMD?
 **From:** Merck-relevance panelist
@@ -769,7 +713,23 @@ invariance. That's a sizeable fraction of QP2-CMD's pipeline. Third,
 the ==scoping discipline== — knowing when to run a local trial versus
 when to defend with a model-based bridging argument. That judgment
 call sits in the Senior-Director scope across every program, not just
-oncology.`,
+oncology.
+
+## Q4: Why did you merge the velocity timeline into this slide?
+**From:** story-structure panelist
+**Difficulty:** ★★ · **Topic:** slide flow
+
+A: Because the two slides were making the same point: accumulated public regulatory evidence led to the 14 May 2025 India reversal. Keeping them separate slowed the story. Merging gives one slide with the public record on the timeline and the approval date as the payoff.
+
+> **If pressed:** ==Timeline is setup; date is payoff.== They belong on one canvas.
+
+## Q5: What did you intentionally keep off the public timeline?
+**From:** confidentiality-aware panelist
+**Difficulty:** ★★★ · **Topic:** disclosure boundary
+
+A: I kept the slide face to ==public regulatory milestones==: FDA labels/reviews, EMA EPAR, the public DCGI Rule 101 order, and the India marketing authorization. I did not put internal response sequencing, team ownership, launch logistics, file size, or document-level details on the timeline because those are not needed for the public story.
+
+> **If pressed:** The backup answer is: ==public timeline on the slide; internal operating details only if appropriate in closed Q&A.== If I cannot cite it to a public source or describe it at a high level, I do not volunteer it.`,
 
   'cs2-velocity': `## Q1: Why did it take from 2018 to 2025 to reach India if the drug was already approved by FDA?
 **From:** timeline-curious panelist
@@ -798,7 +758,15 @@ first reframe with the six-pillar ICH E5 package. April 2, 2025 — in-
 person SEC presentation; favorable opinion with Phase 4 condition.
 May 14, 2025 — CDSCO marketing authorization. That's fourteen months
 from MAA to authorization — fast by India standards for a new molecular
-entity, but not unprecedentedly fast.`,
+entity, but not unprecedentedly fast.
+
+## Q3: What did you intentionally keep off the public timeline?
+**From:** confidentiality-aware panelist
+**Difficulty:** ★★★ · **Topic:** disclosure boundary
+
+A: I kept the slide face to ==public regulatory milestones==: FDA labels/reviews, EMA EPAR, the public DCGI Rule 101 order, and the India marketing authorization. I did not put internal response sequencing, team ownership, launch logistics, or document-level details on the timeline because those are not needed for the public story.
+
+> **If pressed:** The backup answer is: ==public timeline on the slide; internal operating details only if appropriate in closed Q&A.== If I cannot cite it to a public source or describe it at a high level, I do not volunteer it.`,
 
   'cs2-reckoning': `## Q1: You list "no pre-approval Indian PK/PD data" as a not-shipped item. Wasn't avoiding that local trial the entire point of the case?
 **From:** framing-probing panelist
@@ -867,27 +835,23 @@ Naming the not-shipped items honestly is what makes the shipped list
 credible. A list with no gaps reads as polished; a list with calibrated
 gaps reads as honest.`,
 
-  'cs2-leadership': `## Q1: You say the scientific defense was yours — but this was a team effort. What did you personally decide?
+  'cs2-leadership': `## Q1: Why frame this as ==quantitative pharmacology vs partner functions== instead of personal ownership?
 **From:** leadership-probing panelist
 **Difficulty:** ★★★★ · **Topic:** career
 
-A: Three personal decisions. First, the decision to reframe from
-subgroup-PK defense to mechanism-first defense after the December
-SEC. That was a judgment call: more subgroup data wasn't going to
-materialize, and defending with N=8 Asian patients was the weakest
-possible position. Second, the decision to lead with the somatic-
-target argument in the January resubmission rather than positioning
-it as supplementary. Third, the decision to commit to the Phase 4
-PK/PD study design parameters early — before the SEC asked — so
-the waiver request came with a concrete post-approval plan attached.
-Those decisions sat in my scope; the execution was the team's.
+A: Because the leadership lesson is bigger than an individual contribution. Quantitative pharmacology owned the ==evidence bridge==: mechanism, PopPK, exposure-response, PBPK, intrinsic and extrinsic factors, and the Phase 4 residual-uncertainty plan. Partner functions owned the agency pathway, submission mechanics, surveillance, and local execution. The case worked because those ownership lines were clear.
 
-> **If pressed:** The reframe from Option A (defend with subgroup data)
-> to Option B (mechanism-first argument) was the strategic pivot. The
-> team built both options; I chose B. The SEC's April 2025 acceptance
-> validated that choice.
+> **If pressed:** My contribution sat inside the quantitative pharmacology evidence bridge. I would describe the work by function first, and only then specify personal contribution if asked.
 
-## Q2: The SEC required a Phase 4 study — isn't that evidence your argument wasn't convincing enough?
+## Q2: What did quantitative pharmacology specifically contribute?
+**From:** clinical pharmacology panelist
+**Difficulty:** ★★★ · **Topic:** discipline role
+
+A: Quantitative pharmacology converted the regulatory concern into testable evidence. The concern was: can global data be extrapolated to Indian patients without pre-approval local data? The answer came from convergent evidence: PopPK covariates, exposure-response, PBPK/DDI characterization, intrinsic/extrinsic-factor assessment, mechanism, and a Phase 4 PK/PD commitment to close residual uncertainty.
+
+> **If pressed:** ==Quant Pharm did not run the agency process; it made the scientific bridge defensible.==
+
+## Q3: The SEC required a Phase 4 study — isn't that evidence your argument wasn't convincing enough?
 **From:** regulatory-skeptic panelist
 **Difficulty:** ★★★★ · **Topic:** regulatory
 
@@ -899,7 +863,7 @@ didn't reject the dossier; it accepted the dossier and attached a
 condition. That condition — a PK/PD study, not a Phase III — is
 precisely the outcome the Clin Pharm strategy was designed to achieve.
 
-## Q3: What's the status of the Phase 4 PK/PD study now?
+## Q4: What's the status of the Phase 4 PK/PD study now?
 **From:** follow-up panelist
 **Difficulty:** ★★ · **Topic:** regulatory
 
@@ -1117,17 +1081,107 @@ at scope.
 > **Hostile:** Title is factual, not aspirational — the cases are where
 > I show I'm already working at the level you're hiring for.`,
 
+  'career-arc': `## Q1: Why spend time on your ==career arc== before the science?
+**From:** senior panelist / chair
+**Difficulty:** ★★ · **Topic:** structure
+
+A: I keep it short because the cases need context. The point is not biography; it is ==why these three cases belong to one speaker==. Jordan gives the clinical starting point, Minnesota gives the population PK foundation, Merck QP2 gives drug-development simulation, GSK gives pediatric PAH execution, and Servier gives regulatory-strategy execution.
+
+> **If pressed:** The shortest answer is: ==the arc explains the judgment==. The science starts immediately after this slide.
+
+## Q2: You mention ==Merck QP2== early. Is this tailored too much to this audience?
+**From:** Merck-aware panelist
+**Difficulty:** ★★ · **Topic:** fit
+
+A: It is factual career context, not flattery. That Merck QP2 internship was an early signal that mixed-effects modeling and clinical pharmacology could shape actual development decisions. I mention it because it explains why the talk is framed around ==quantitative pharmacology driving decisions==, not because the audience is Merck.
+
+> **If pressed:** If I gave this talk elsewhere, the sentence would stay. The experience is part of the trajectory, not a customized compliment.
+
+## Q3: How much of this work was ==your contribution== versus team execution?
+**From:** hiring-manager panelist
+**Difficulty:** ★★★★ · **Topic:** leadership
+
+A: The honest answer differs by case. In CS1, my contribution was the ==population PK and exposure-response work== supporting pediatric extrapolation. In CS2, it was clinical pharmacology regulatory strategy and the evidence architecture. In CS3, it is my own research direction. I will separate my role from team execution case by case.
+
+> **If pressed:** I will not claim sole ownership of cross-functional outcomes. My claim is ==scientific ownership of the clinical-pharmacology contribution==.
+
+## Q4: Does the career path look too broad — dentistry, PK, regulatory, AI?
+**From:** skeptical senior panelist
+**Difficulty:** ★★★ · **Topic:** career
+
+A: The through-line is narrower than it looks: ==dose, population, evidence, decision==. Dentistry gave the patient-facing starting point; PhD work gave quantitative methods; industry roles put those methods into labels and regulatory decisions; AI/ML is the next infrastructure layer for the same discipline.
+
+> **If pressed:** Breadth is a risk only if the center is unclear. The center here is ==clinical pharmacology as a decision function==.`,
+
+  'roadmap': `## Q1: These cases are very different. What is the ==common thread==?
+**From:** structural panelist
+**Difficulty:** ★★ · **Topic:** structure
+
+A: The common thread is that ==a conventional trial could not carry the decision by itself==. CS1 is pediatric extrapolation when the pediatric efficacy trial is not viable. CS2 is regional approval when a local Phase 3 would delay access. CS3 is infrastructure for decisions where the tools themselves are not yet built.
+
+> **If pressed:** The cases differ by setting; they share the same job: ==quantitative pharmacology becomes the load-bearing evidence==.
+
+## Q2: Why lead with ==ambrisentan== instead of the India approval or AI/ML?
+**From:** chair / sequencing panelist
+**Difficulty:** ★★ · **Topic:** structure
+
+A: Ambrisentan is the cleanest first case because it is the most classical clinical-pharmacology problem: pediatric extrapolation, exposure matching, and dose justification. It establishes the evidence logic before the talk moves to a more regulatory case and then to forward-looking infrastructure.
+
+> **If pressed:** The order is intentional: ==established bridge → regional bridge → future bridge==.
+
+## Q3: Is ==AI/ML== really comparable to two approved-drug regulatory cases?
+**From:** skeptical scientific panelist
+**Difficulty:** ★★★★ · **Topic:** scope
+
+A: It is not comparable as a regulatory outcome, and I do not present it that way. CS1 and CS2 are completed decision cases. CS3 is a ==forward-looking research direction==: what clinical pharmacology needs when model-informed decisions become more complex, more auditable, and more agent-assisted.
+
+> **If pressed:** I would not call CS3 a label-enabling success story. I call it ==infrastructure research for the next class of decisions==.
+
+## Q4: What exactly do you mean by ==quantitative pharmacology==?
+**From:** broad panelist
+**Difficulty:** ★★ · **Topic:** discipline
+
+A: I mean clinical pharmacology decisions that depend on quantitative evidence: PopPK, exposure-response, PBPK, extrapolation, bridging, and model-informed decision infrastructure. It is not only modeling; it is ==using models to answer dose, population, label, and access questions==.
+
+> **If pressed:** Pharmacometrics is the engine; clinical pharmacology owns the ==decision context==.
+
+## Q5: How will you keep this roadmap from becoming a ==laundry list==?
+**From:** chair / logistics
+**Difficulty:** ★ · **Topic:** logistics
+
+A: Each case has one job. CS1 answers whether exposure matching can carry a pediatric label after disruption. CS2 answers whether a clinical-pharmacology dossier can replace a local trial. CS3 answers what infrastructure is needed when the next decisions are too complex for manual workflows.
+
+> **If pressed:** The roadmap compresses to three words: ==pediatric, geographic, methodological==.`,
+
   // ══════════════════════════════════════════════════════════════
   // CS1 — Ambrisentan in pediatric PAH (coral cascade)
   // ══════════════════════════════════════════════════════════════
 
-  'cs1-divider': `## Q1: Why ambrisentan and not bosentan or macitentan for the pediatric case?
+  'cs1-divider': `## Q1: Why ==ambrisentan== and not bosentan or macitentan for the pediatric case?
 **From:** class-aware panelist
 **Difficulty:** ★★ · **Topic:** drug-class
 
-A: Three reasons. Bosentan already had a pediatric label (FUTURE-1, EMA 2009) — its case is the *precedent*, not the case study. It also carries a hepatotoxicity black box that ambrisentan does not. Macitentan's pediatric program (TOMORROW) was still enrolling. Ambrisentan was the ERA with the cleanest hepatic profile and an open EMA PIP commitment from 2008 — and the case is about what happens when exposure-matching carries the dose in a class where empirical dose-escalation is ethically closed.`,
+A: Three reasons. Bosentan already had a pediatric label (FUTURE-1, EMA 2009) — its case is the ==precedent, not the case study==. It also carries a hepatotoxicity black box that ambrisentan does not. Macitentan's pediatric program (TOMORROW) was still enrolling. Ambrisentan was the ERA with the cleaner hepatic profile and an open EMA PIP commitment from 2008 — and the case is about what happens when ==exposure matching carries the dose== in a class where empirical dose-escalation is ethically closed.
 
-  'cs1-question': `## Q1: What is the "pharmacokinetic bridge"?
+> **If pressed:** I am not claiming ambrisentan is categorically superior to every ERA. I am saying it was the right case for the ==pediatric bridging question==.
+
+## Q2: Why start CS1 with the ==drug== instead of the disease?
+**From:** presentation-structure panelist
+**Difficulty:** ★ · **Topic:** structure
+
+A: This divider only names the case. The next two slides do the work: first the clinical pharmacology question, then the PAH disease context. I avoid a long disease primer on the divider because it would dilute the clean case entry.
+
+> **If pressed:** The divider is a label; ==cs1-question and cs1-context carry the explanation==.
+
+## Q3: The slide says ==EMA and PMDA approved==. Why not FDA?
+**From:** regulatory panelist
+**Difficulty:** ★★★ · **Topic:** regulatory
+
+A: FDA did not reject the package; ==FDA did not receive the pediatric package==. Commercial rights were split. GSK filed outside the United States and EMA/PMDA approved; Gilead held Letairis in the United States and did not submit a pediatric sNDA.
+
+> **If pressed:** The key distinction is ==not filed, not rejected==. I keep that caveat explicit later in the case.`,
+
+  'cs1-question': `## Q1: What is the ==pharmacokinetic bridge==?
 **From:** anyone · **Difficulty:** ★ · **Topic:** methodology
 
 A: ==Adult PopPK model== predicts pediatric dose. ==39 patients confirm== the model, not build it.
@@ -1135,7 +1189,7 @@ A: ==Adult PopPK model== predicts pediatric dose. ==39 patients confirm== the mo
 > **If pressed:** Model built on 380 adults, 3,126 observations. Pediatric data (211 sparse obs) tested allometric predictions. Regulatory claim: same exposure → same effect — not "best dose for kids."
 > **Anchor:** "Confirm, not build"
 
-## Q2: Why no placebo-controlled trial?
+## Q2: Why no ==placebo-controlled trial==?
 **From:** clinical-design · **Difficulty:** ★★★ · **Topic:** ethics
 
 A: ==Active therapies are standard of care.== Can't ethically withhold from children with a fatal disease. Population ==2–16 per million==, 80% already on therapy.
@@ -1143,7 +1197,7 @@ A: ==Active therapies are standard of care.== Can't ethically withhold from chil
 > **If pressed:** ICH E11A (Dec 2024) codified this — where similarity in disease and mechanism is high and efficacy trial isn't feasible, exposure matching alone supports the dose.
 > **Anchor:** "Helsinki + rarity"
 
-## Q3: 380 vs 39 — how is that enough?
+## Q3: ==380 vs 39== — how is that enough?
 **From:** sample-size · **Difficulty:** ★★★ · **Topic:** methodology
 
 A: ==39 confirmed the model, didn't build it.== pcVPC: no systematic bias. Match ==within 3%== of adult AUC.
@@ -1151,7 +1205,7 @@ A: ==39 confirmed the model, didn't build it.== pcVPC: no systematic bias. Match
 > **If pressed:** Structural model from 380 adults. Allometric exponents (CL ∝ WT⁰·⁷⁵, V ∝ WT¹·⁰) were ==prespecified, not estimated== — pediatric data tested a prior, not a free parameter. N=39 is small for building; sufficient for confirming.
 > **Anchor:** "Confirm, not build"
 
-## Q4: What was the juvenile-rat finding?
+## Q4: What was the ==juvenile-rat finding==?
 **From:** tox-aware · **Difficulty:** ★★★ · **Topic:** safety
 
 A: ==3–8% decreased brain weight== in postnatal-day-7 rats at high dose. Mechanism: ==laryngeal-edema → apnea → hypoxemia==. Fully reversible. Human analogue ==ages 0–3== — below trial population (8–<18).
@@ -1159,7 +1213,7 @@ A: ==3–8% decreased brain weight== in postnatal-day-7 rats at high dose. Mecha
 > **If pressed:** Initial juvenile-rat package was EMA-PIP-cleared *before* first patient (2011). The 2013 finding was a *subsequent* study — new signal, not missing data. Mechanism published: Laffan et al. 2019 Teratology Society. CHMP accepted November 2017.
 > **Anchor:** "New signal, not missing data"
 
-## Q5: What was the sildenafil mortality signal?
+## Q5: What was the ==sildenafil mortality signal==?
 **From:** safety-aware · **Difficulty:** ★★★ · **Topic:** regulatory
 
 A: STARTS-2 (2014): ==HR 3.95== high-vs-low dose mortality in pediatric sildenafil. Field operated under ==maximum caution 2014–2021==.
@@ -1167,7 +1221,7 @@ A: STARTS-2 (2014): ==HR 3.95== high-vs-low dose mortality in pediatric sildenaf
 > **If pressed:** AFFILIATE (2024) attributed the signal to confounding — 80 mg non-inferior to 5 mg in adult survival. But the ambrisentan review window (2017–2021) sat inside the cautious period. The bar was raised for all pediatric PAH dose decisions, not just sildenafil.
 > **Anchor:** "STARTS-2 raised the bar; AFFILIATE lowered it — our window was in between"
 
-## Q6: How did the Gilead/GSK split affect things?
+## Q6: How did the ==Gilead/GSK split== affect things?
 **From:** commercial-aware · **Difficulty:** ★★★ · **Topic:** commercial
 
 A: ==GSK== filed EMA + PMDA → approved 2021. ==Gilead== did not file FDA. The FDA gap is a ==commercial decision, not a regulatory rejection==.
@@ -1175,7 +1229,7 @@ A: ==GSK== filed EMA + PMDA → approved 2021. ==Gilead== did not file FDA. The 
 > **If pressed:** Day-one split commercial rights. GSK held EU/ROW as Volibris; Gilead held US as Letairis. Letairis went generic 2022 — no commercial incentive to file pediatric. FDA label still says "safety and effectiveness in pediatric patients have not been established."
 > **Anchor:** "Commercial decision, not regulatory rejection"
 
-## Q7: Why wasn't the trial restarted?
+## Q7: Why wasn't the ==trial restarted==?
 **From:** program-design · **Difficulty:** ★★★ · **Topic:** clinical-design
 
 A: By 2017 all 41 patients had ==completed or withdrawn==. Sites moved on, population churned. Reopening to 66 was not feasible.
@@ -1223,215 +1277,909 @@ A: Yes. ==Right-heart failure== and ==right-sided heart failure== are both accep
 
 > **If pressed:** The more anatomical phrase is ==right-ventricular failure==; "right-heart failure" is the stage-friendly clinical shorthand.`,
 
-  'cs1-mechanism': `## Q1: Why does ETA selectivity matter — why not block both ETA and ETB?
+  'cs1-mechanism': `## Q1: Why does ==ETA selectivity== matter — why not block both ETA and ETB?
 **From:** mechanism-aware panelist
 **Difficulty:** ★★★★ · **Topic:** mechanism
 
-A: ETB does two things you want: it clears endothelin-1 from circulation and it releases nitric oxide from the endothelium. Block ETB and you get more ET-1 circulating *and* less NO-mediated vasodilation. Selective ETA antagonism (ambrisentan, >4000:1) blocks the constrictor pathway while preserving the dilator pathway. Bosentan (~20:1) and macitentan (~50:1) are dual antagonists — clinically effective, but they don't have the same theoretical advantage on ETB-mediated vasodilation. Whether that translates to a clinical difference in outcomes is a separate question; it's the mechanism rationale, not a head-to-head trial result.
+A: ETA is the receptor I want to block: it drives ==vasoconstriction and smooth-muscle proliferation==. ETB has protective endothelial functions: ==ET-1 clearance and nitric-oxide-mediated vasodilation==. So the rationale for ambrisentan is to block the constrictor/proliferative ETA arm while preserving the useful ETB biology.
 
-## Q2: Bosentan vs ambrisentan — clinically, does selectivity matter?
+> **If pressed:** ETB biology is not perfectly one-dimensional; smooth-muscle ETB can constrict in some contexts. The slide is the ==clinical pharmacology rationale==, not a full receptor-biology map.
+
+## Q2: Are you overclaiming ==ETB is protective==?
+**From:** receptor-biology panelist
+**Difficulty:** ★★★★ · **Topic:** mechanism
+
+A: I would phrase it carefully: ==endothelial ETB is protective== because it supports ET-1 clearance and NO/prostacyclin release. There are ETB receptors on smooth muscle that can contribute to vasoconstriction. The stage-level claim is not "all ETB is good"; it is that ambrisentan's ETA selectivity preserves endothelial ETB functions that dual blockade may reduce.
+
+> **If pressed:** The precise phrase I would use is ==preserves endothelial ETB-mediated clearance and vasodilation==.
+
+## Q3: Bosentan vs ambrisentan — clinically, does ==selectivity== matter?
 **From:** clinical-pharmacology panelist
 **Difficulty:** ★★★ · **Topic:** drug-class
 
-A: The clearest clinical difference is hepatotoxicity. Bosentan carries a black-box warning for hepatic injury; ambrisentan's hepatic black box was *removed* in 2011. That's the load-bearing differentiator on the safety side. On efficacy in adult PAH, head-to-head data are limited — both are first-line ERAs in the 2022 ESC/ERS guideline. The case for ambrisentan in pediatric PAH rests on its safety profile and the cleaner allometric PK, not on a claim of superior efficacy.`,
+A: Mechanistically, yes; clinically, I would not overstate it. The clearest practical difference is ==hepatic safety and monitoring burden==: bosentan has a stronger hepatic transaminase concern, while ambrisentan has a cleaner hepatic profile. On adult efficacy, head-to-head evidence is limited. I use selectivity to explain the drug's pharmacology, ==not to claim superiority==.
 
-  'cs1-history': `## Q1: Why frame Merck as "owning the fourth column" — isn't sotatercept just one drug?
+> **If pressed:** The pediatric case rests on ==ambrisentan's available program, safety profile, and exposure-matching package==, not on proving it is clinically better than bosentan.
+
+## Q4: If bosentan already had a ==pediatric label==, why not make bosentan the case?
+**From:** pediatric-PAH panelist
+**Difficulty:** ★★★ · **Topic:** case-selection
+
+A: Bosentan is the precedent, not this case. FUTURE-1 in 2009 established the pediatric ERA architecture: ==PK matching as the bridge== when pediatric efficacy trials are not viable. Ambrisentan is the disrupted program that applied that architecture after a juvenile-rat hold, trial termination, and split commercial filing geography.
+
+> **If pressed:** The clean framing is: ==bosentan set the template; ambrisentan stress-tested it==.
+
+## Q5: What about ==macitentan== — isn't it the more modern ERA?
+**From:** PAH-treatment panelist
+**Difficulty:** ★★★ · **Topic:** drug-class
+
+A: Macitentan is clinically important and more modern in adult PAH, but it is not the historical pediatric case I worked on. Mechanistically it is ETA-preferring with tissue-targeting and long receptor occupancy; it is not the same selectivity story as ambrisentan. The slide includes macitentan as field context, not as the comparator that decides this case.
+
+> **If pressed:** I would not rank ERAs from this slide. The point is ==where ambrisentan sits pharmacologically==.
+
+## Q6: Does ==>4000:1 selectivity== translate into better outcomes?
+**From:** skeptical pharmacologist
+**Difficulty:** ★★★★ · **Topic:** evidence
+
+A: Not directly, and I would not claim that. The >4000:1 number is a ==receptor-binding selectivity== statement. It supports a mechanistic rationale: block ETA while sparing ETB. Clinical outcomes depend on dose, exposure, disease severity, background therapy, and trial design. The adult data support ambrisentan efficacy; the selectivity number explains plausibility and safety differentiation, not comparative superiority.
+
+> **If pressed:** ==Selectivity is mechanism, not an outcomes endpoint.==
+
+## Q7: The slide says "three pathways drive PAH." What about ==BMPR2 / activin / sotatercept==?
+**From:** Merck / PAH expert
+**Difficulty:** ★★★★ · **Topic:** completeness
+
+A: Good point. "Three pathways" here means the three classic vasodilator pathways that defined PAH therapy for two decades: ==endothelin, NO/cGMP, prostacyclin==. BMPR2/activin is the newer anti-remodeling axis, and I address that on the next field-context slide with sotatercept. This slide is about where ambrisentan sits, not the full modern PAH ontology.
+
+> **If pressed:** I would revise the spoken phrase to ==three classic druggable pathways== if the panel wants maximum precision.
+
+## Q8: Why not target the ==NO/cGMP== or ==prostacyclin== pathway instead?
+**From:** clinical-treatment panelist
+**Difficulty:** ★★★ · **Topic:** treatment
+
+A: Those pathways are valid and often used in combination therapy. But this case is about ambrisentan, an ERA, so the dose and label question sits in the ==endothelin pathway==. In pediatric PAH, many patients were already on background therapy, including PDE-5 inhibitors. The clinical pharmacology question was whether ambrisentan exposure could be matched safely on top of that treatment reality.
+
+> **If pressed:** The slide is not saying endothelin is the only pathway; it says ==this case's drug acts on endothelin==.
+
+## Q9: Does the cartoon imply ambrisentan ==opens the lumen== or reverses remodeling?
+**From:** cautious clinical panelist
+**Difficulty:** ★★★ · **Topic:** visual-claim
+
+A: It is a mechanism cartoon, not a histologic claim. Ambrisentan blocks ETA-mediated vasoconstrictive and proliferative signaling; clinically, ERAs improve hemodynamics and outcomes in PAH. I would not claim from this slide that ambrisentan literally reverses vascular remodeling or anatomically restores a normal lumen.
+
+> **If pressed:** The defensible wording is ==reduces pathologic signaling and pulmonary vascular resistance==, not "cures the vessel."
+
+## Q10: You show ==vasodilation via NO== under ETB. Is that mixing pathways?
+**From:** mechanistic-detail panelist
+**Difficulty:** ★★★ · **Topic:** mechanism
+
+A: It is connected biology, not a separate drug pathway claim. Endothelial ETB activation can promote nitric oxide release, which then signals through the NO/cGMP pathway to relax smooth muscle. The pathway cards separate drug classes; the receptor cartoon shows one cross-talk mechanism.
+
+> **If pressed:** I would say ==ETB preserves endogenous NO signaling==; PDE-5 inhibitors and sGC stimulators pharmacologically target the downstream NO/cGMP pathway.
+
+## Q11: Why mention ==hepatotoxicity== when the slide is receptor mechanism?
+**From:** safety-aware panelist
+**Difficulty:** ★★★ · **Topic:** safety
+
+A: Because the receptor mechanism is why the class comparison matters clinically. Bosentan's hepatic monitoring burden is a practical differentiator, especially in chronic pediatric disease. Ambrisentan's cleaner hepatic profile made it a more attractive pediatric bridging case. But I keep that as a safety-context point, not as proof that ETA selectivity alone explains every liver-safety difference.
+
+> **If pressed:** ==Selectivity may contribute to differentiation, but molecule-specific safety matters too.==
+
+## Q12: Sitaxentan was also ==selective ETA== and was withdrawn. Doesn't that undermine the selectivity story?
+**From:** hostile safety panelist
+**Difficulty:** ★★★★ · **Topic:** safety
+
+A: It is exactly why I avoid saying selectivity guarantees safety. Sitaxentan was a selective ETA antagonist withdrawn for serious idiosyncratic liver injury. That means selectivity is not a class-wide safety shield. Ambrisentan's case depends on its own clinical and post-marketing safety record, not on selectivity alone.
+
+> **If pressed:** The safe sentence is: ==ambrisentan is selective ETA and has a cleaner hepatic profile; those are related pharmacology facts, not a universal rule.==
+
+## Q13: What is the source for the ==selectivity ratios==?
+**From:** fact-checking panelist
+**Difficulty:** ★★ · **Topic:** data-integrity
+
+A: The ratios are from public product/pharmacology sources and are used as rounded class-orientation numbers: ambrisentan >4000:1 for ETA over ETB, macitentan roughly ETA-preferring around 50:1, bosentan roughly dual around 20:1. I would defend the ordering and magnitude, not pretend the exact ratio is the regulatory decision.
+
+> **If pressed:** The regulatory package does not rest on the exact ratio. It rests on ==adult efficacy, pediatric PK, safety, and exposure matching==.
+
+## Q14: Was ambrisentan used as ==monotherapy== in pediatric PAH?
+**From:** clinical-practice panelist
+**Difficulty:** ★★★ · **Topic:** concomitant-therapy
+
+A: Not necessarily. Pediatric PAH care often includes background therapy, especially PDE-5 inhibitors. The PopPK analysis evaluated concomitant PDE-5 inhibitor use and did not find a meaningful effect on ambrisentan PK. That matters because the pediatric dose has to work in the real treatment environment, not in a clean monotherapy-only world.
+
+> **If pressed:** The dose argument is robust because ==background PDE-5 therapy did not materially change ambrisentan exposure==.
+
+## Q15: Does ambrisentan have meaningful ==DDI advantages== over bosentan?
+**From:** DDI-focused clinical pharmacologist
+**Difficulty:** ★★★ · **Topic:** DDI
+
+A: Yes, practically. Bosentan is a CYP inducer and can lower exposure to PDE-5 inhibitors such as sildenafil; that is a real issue in combination PAH therapy. Ambrisentan does not have the same CYP induction profile, and ambrisentan plus tadalafil became a clinically important adult combination in AMBITION.
+
+> **If pressed:** For the pediatric PopPK case, the relevant point is narrower: ==PDE-5 inhibitor background therapy was tested as a covariate and was not significant==.
+
+## Q16: Is the phrase "==selectively blocks the endothelin arm==" too broad?
+**From:** wording-sensitive panelist
+**Difficulty:** ★★ · **Topic:** precision
+
+A: The precise pharmacology is: ambrisentan selectively blocks ==ETA receptors== within the endothelin pathway. It does not eliminate endothelin biology, and it does not block ETB. On stage, "endothelin arm" is shorthand; if challenged, I narrow it immediately to ETA receptor blockade.
+
+> **If pressed:** Exact phrase: ==ambrisentan selectively blocks ETA, the pathologic endothelin receptor signal I care about here==.`,
+
+  'cs1-history': `## Q1: Why say sotatercept ==opened the fourth pathway== — isn't it just one drug?
 **From:** scientific / commercial panelist
 **Difficulty:** ★★★ · **Topic:** market positioning
 
-A: Sotatercept is one drug, but it's the only first-in-class PAH
-approval since selexipag in 2015 and the only mechanism since the
-NO·cGMP and ETA classes opened in the early 2000s. The BMPR2 / activin
-axis was a research target for over a decade — the STELLAR trial in
-NEJM 2023 was the first positive Phase 3 in that pathway. So when I
-say Merck owns the fourth column, I mean Merck owns the fourth
-*pathway*. That's a structural difference from being the third
-prostacyclin or the second PDE5i.
+A: Sotatercept is one drug, but it is the first approved PAH therapy in a new mechanistic lane after the prostacyclin, endothelin, and NO/cGMP eras. The public-record claim is ==first-in-class activin-signaling inhibition==, supported by STELLAR and the Winrevair approval. So I use "opened" deliberately: it means a new approved therapeutic pathway entered PAH, not that the biology is closed to future drugs.
 
-> **If pressed:** The next new mechanism — whatever that turns out to be — will get measured against the BMPR2 / activin precedent. Merck is the prior.
+> **If pressed:** The precise phrasing is ==sotatercept opened the fourth approved PAH pathway==. I would not say any company permanently "owns" the biology.
 
-## Q2: Sotatercept was an Acceleron asset — Merck acquired it. Does that change the framing?
+## Q2: Sotatercept was an ==Acceleron asset== — does that change the Merck framing?
 **From:** commercial panelist
 **Difficulty:** ★★★ · **Topic:** commercial / strategic
 
-A: Merck acquired Acceleron in November 2021 for ~\\$11.5 billion, and
-sotatercept was the lead asset of that deal. The BMPR2 / activin
-biology was Acceleron's. The Phase 3 STELLAR trial was conducted under
-joint development. The FDA approval in March 2024 came under Merck's
-sponsorship. From a Clinical Pharmacology perspective, the program
-ran through Merck's modeling and biostatistics capabilities through
-the registrational phase. The acquisition is part of the public record
-and doesn't change my point — Merck has the only first-in-class PAH
-approval of the past decade.
+A: It is fair context. Merck acquired Acceleron in 2021; the underlying biology and asset history did not originate inside Merck. I would not overclaim origin. The interview-relevant point is narrower: ==sotatercept makes PAH extrapolation current again==, because a new adult PAH mechanism raises familiar pediatric-development questions.
 
-> **If pressed:** The acquisition is a strategic-portfolio fact, not a methodological one. The Clin Pharm package was Merck's responsibility through approval.
+> **If pressed:** I would separate ==asset origin== from ==current development context==. The slide is about the PAH pathway landscape, not credit allocation for discovery.
 
-## Q3: Why is supportive-care-only labeled "pre-1995" — wasn't there earlier work on calcium-channel blockers and anticoagulation?
+## Q3: Why is ==supportive care== labeled pre-1995 — weren't CCBs and anticoagulation used?
 **From:** clinical / academic panelist
 **Difficulty:** ★★ · **Topic:** medical history
 
-A: Yes — high-dose calcium-channel blockers were trialed in
-vasoreactive subsets through the 1980s based on Rich's NEJM 1992
-paper, and warfarin anticoagulation was standard supportive care
-based on registry data. Neither received an FDA approval *for PAH*.
-The "pre-1995" framing on the slide reflects the absence of a
-PAH-indicated targeted therapy. Epoprostenol's 1995 approval was
-the first time the disease had a drug labeled for it. The supportive
-era is real history, but it's not pathway-targeted history.
+A: Yes. Calcium-channel blockers were used for the small vasoreactive subset, and anticoagulation and oxygen were part of supportive management. The bright line on the slide is the absence of a ==PAH-specific targeted therapy== before epoprostenol. Epoprostenol marks the first pathway-targeted era; it does not mean clinicians had no tools before 1995.
 
-> **If pressed:** The dichotomy is "PAH-labeled drug exists" vs "doesn't exist." 1995 is the bright line.
+> **If pressed:** The exact distinction is ==supportive / vasoreactivity-selected therapy== versus ==PAH-specific pathway therapy==.
 
-## Q4: You skipped some approvals — treprostinil, iloprost, ralinepag. Why?
+## Q4: You skipped ==treprostinil / iloprost / tadalafil== — why?
 **From:** detail-oriented / completist panelist
 **Difficulty:** ★★ · **Topic:** completeness
 
-A: The slide shows the first-in-class entrant per pathway plus the
-key expansion drugs. The pathway-card row at the bottom counts all
-prostacyclin agents — five total, including treprostinil (2002 SC,
-2009 inhaled, 2013 oral), iloprost (2005 inhaled), and beraprost
-(approved in Japan and Korea, never in the US). Ralinepag is in
-Phase 3 — not yet approved, so not on a historical timeline. I made
-the editorial call to keep the timeline rows readable rather than
-exhaustive. The numbers in the card row preserve the count.
+A: This is an orientation slide, not an exhaustive label-history slide. I kept the first pathway openers and the drugs that matter for this case's logic: endothelin, NO/cGMP, prostacyclin, and activin signaling. Treprostinil, iloprost, tadalafil, and other formulations are real, but listing every approval would bury the point: ==ambrisentan sits inside the endothelin era, and sotatercept opens a newer PAH era==.
 
-> **If pressed:** Backup slide B10 (PAH endpoint history) has the full approval list with dates.
+> **If pressed:** I would say ==the full list belongs in backup or source notes==. The main slide is pathway architecture.
 
-## Q5: How does this slide help your case for a Merck QP2 role?
+## Q5: How does this slide help your case for a ==Merck QP2== role?
 **From:** strategic / interview panelist
 **Difficulty:** ★★★★ · **Topic:** fit
 
-A: Two ways. First, it shows I read the field, not just my own asset.
-A senior Clin Pharm leader has to know the modeling package behind the
-competitor classes — bosentan's INH, macitentan's tissue-targeting,
-selexipag's IP-receptor selectivity, sotatercept's BMPR2 axis. Each
-generates different modeling questions. Second, it gives the panel a
-clean handoff into "what does the QP2-CMD organization need next?" —
-the next first-in-class PAH approval will require a Clin Pharm
-package that the precedent generation didn't need: digital biomarkers,
-ML-aided covariate selection, integrated PBPK-PopPK platforms. That's
-the conversation I want to have.
+A: Two ways. First, it shows I know the field around my own asset, not just the PopPK analysis. A senior Clin Pharm leader has to understand why each pathway creates a different evidence problem: endothelin receptor selectivity, prostacyclin delivery burden, NO/cGMP interaction risk, and activin/TGF-β biology. Second, it keeps the case current: ==ambrisentan is a pediatric extrapolation precedent in the same disease ecosystem where new adult PAH mechanisms are emerging==.
 
-> **If pressed:** "I am familiar with the field, and I've thought about what the next case study after sotatercept will need." Don't oversell — let the panel dig.`,
+> **If pressed:** "The point is not that ambrisentan predicts sotatercept directly. The point is that ==pediatric PAH development keeps returning to extrapolation, safety, and exposure bridging==."
 
-  'cs1-trial': `## Q1: Why is FUTURE-1 (bosentan, 2009) the inflection — not just one of several precedents?
+## Q6: Are these really ==four pathways==, or are you oversimplifying PAH biology?
+**From:** mechanistic-detail panelist
+**Difficulty:** ★★★ · **Topic:** mechanism
+
+A: It is a therapeutic-pathway framing, not a full pathobiology map. PAH biology includes inflammation, metabolism, genetics, right-ventricular adaptation, and vascular remodeling. For a treatment-history slide, the four clinically approved therapeutic lanes are ==prostacyclin/IP, endothelin/ERA, NO-cGMP, and activin/TGF-β signaling==. That is the level of compression the slide needs.
+
+> **If pressed:** I would say ==four approved treatment pathways==, not "four causes of PAH."
+
+## Q7: Why label sotatercept ==Activin / TGF-β== instead of BMPR2?
+**From:** biology-focused panelist
+**Difficulty:** ★★★★ · **Topic:** mechanism precision
+
+A: Sotatercept is an activin-signaling inhibitor: it traps ligands in the TGF-β superfamily, including activin-class ligands, and rebalances signaling toward BMPR-II-mediated antiproliferative biology. So ==Activin / TGF-β== is the more direct drug-mechanism label, while BMPR-II is the downstream disease-biology axis the therapy helps restore.
+
+> **If pressed:** The safe wording is ==activin/TGF-β ligand trapping that rebalances BMPR-II signaling==.
+
+## Q8: Does sotatercept ==reverse remodeling==, or is that too strong?
+**From:** cautious clinical pharmacologist
+**Difficulty:** ★★★ · **Topic:** clinical claim
+
+A: I would be careful. Compared with vasodilator pathways, sotatercept is framed as targeting vascular remodeling biology, and STELLAR showed clinical efficacy in adults with PAH. But I would not overstate it as "reversal" in an individual patient from this slide alone. The defensible live phrase is ==anti-remodeling mechanism== or ==remodeling-directed pathway==.
+
+> **If pressed:** The slide's claim is ==new therapeutic mechanism in PAH==, not a histologic proof of vessel reversal.
+
+## Q9: What exactly is the ==Hoeper NEJM 2023== source here?
+**From:** fact-checking panelist
+**Difficulty:** ★★ · **Topic:** citation
+
+A: Hoeper et al. in NEJM 2023 is the STELLAR Phase 3 trial publication for sotatercept in adults with PAH. It supports the clinical efficacy story for the new pathway. The regulatory source for approval is the Winrevair prescribing information and FDA approval record; the trial source is ==Hoeper NEJM 2023==.
+
+> **If pressed:** If I don't remember the exact citation details live, I would say ==STELLAR, Hoeper NEJM 2023== and offer to pull the reference after the discussion.
+
+## Q10: Why is ==ambrisentan== highlighted if bosentan opened the endothelin class?
+**From:** field-history panelist
+**Difficulty:** ★★★ · **Topic:** history
+
+A: Bosentan opened the oral endothelin era in 2001; ambrisentan is highlighted because it is the case-study molecule. The slide is deliberately doing two jobs: it places the case in the field and then narrows attention to the molecule whose pediatric extrapolation package we are about to discuss. I would never claim ambrisentan was first-in-class; it was ==selective ETA and once-daily== within an established ERA class.
+
+> **If pressed:** The class opener is ==bosentan==. The case anchor is ==ambrisentan==.
+
+## Q11: Is this slide too ==Merck-specific== for a company-agnostic deck?
+**From:** hiring-manager / presentation-fit panelist
+**Difficulty:** ★★★ · **Topic:** audience fit
+
+A: The deck is modular. The sotatercept bridge is useful because it makes the ambrisentan case current and relevant. For a different company, I would keep the line as "the fourth pathway opened in 2024" and avoid company-specific emphasis. The scientific structure still holds.
+
+> **If pressed:** ==The science is company-agnostic; the final bridge is audience-specific.==
+
+## Q12: Do you risk distracting from CS1 by bringing in ==sotatercept== this early?
+**From:** story-structure panelist
+**Difficulty:** ★★★ · **Topic:** narrative
+
+A: It is a bridge, not a second case. I use sotatercept for one reason: to show why PAH pediatric extrapolation remains a live strategic question. Then I immediately return to ambrisentan. If the panel wants sotatercept details, I keep the answer brief and move back to the case.
+
+> **If pressed:** The slide's job is ==field context → Merck relevance → back to ambrisentan==. It is not a sotatercept deep dive.`,
+
+  'cs1-trial': `## Q1: Why is ==FUTURE-1 2009== the inflection?
 **From:** field-history panelist
 **Difficulty:** ★★★ · **Topic:** regulatory
 
-A: Because it was the first time EMA accepted PK-matching alone as the bridge to a pediatric ERA label — even though FUTURE-1's pediatric AUC came in at only 54% of the adult target. EMA endorsed the *methodology*, not just the execution. Every pediatric ERA program since uses that template. Without FUTURE-1, ambrisentan's framework would be untested in regulatory precedent. The 8-year hold-to-approval rebound was the case that re-applied the framework under disruption — but the framework itself is bosentan's legacy.
+A: Because it was the first time EMA accepted ==PK matching as the pediatric ERA bridge==. FUTURE-1 missed the adult exposure target, but EMA still approved the pediatric bosentan formulation. That established the method. Ambrisentan later executed the same architecture more tightly.
 
-## Q2: Why did ambrisentan's pediatric path take 8 years from hold to approval?
+> **If pressed:** ==FUTURE-1 set the architecture; STARTS-2 raised dose-selection caution.== They are two different precedents.
+
+## Q2: Why did ambrisentan take ==eight years==?
 **From:** timeline-focused panelist
 **Difficulty:** ★★★ · **Topic:** regulatory
 
-A: The juvenile-rat brain-weight finding (March 2013) triggered a clinical hold while the mechanism was investigated. The finding was at 20 mg/kg/day — well above human pediatric exposure (1.8–7× margins) — and was attributed to early-postnatal laryngeal anatomy. Mechanism investigation completed November 2017 (CHMP submission). Trial formally terminated February 2019 at 41/66 enrolled; no further enrollment was justifiable given the program's age. The Okour PopPK package then carried the EMA + PMDA filings to approval in 2021. Eight years is unfortunately typical when a preclinical signal interrupts a rare-disease pediatric program.`,
+A: The clock starts with the ==March 2013 juvenile-rat finding==. Enrollment stopped, nonclinical mechanism work continued, CHMP received the package in 2017, and the study was formally terminated in 2019. The Okour PopPK package then supported EMA and PMDA approvals in 2021.
 
-  'cs1-architecture': `## Q1: Why these specific 5 constraints, not 4 or 6?
+> **If pressed:** The delay was not a modeling delay. It was ==nonclinical signal → hold → mechanism investigation → terminated enrollment → regulatory submission==.
+
+## Q3: What were the ==three simultaneous program disruptions==?
+**From:** detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** program history
+
+A: The trial faced three hurdles at once: ==Trial== (the 2013 juvenile-rat hold and subsequent termination at N=39), ==Regulatory== (the STARTS-2 sildenafil mortality signal in 2014 that raised the bar for pediatric dose selection), and ==Commercial== (split global rights where GSK filed in Europe/Japan but Gilead chose not to file in the US).
+
+> **If pressed:** ==The modeling framework absorbed all three.== It provided a rigorous PK bridge when empirical escalation was too dangerous (STARTS-2) and the trial couldn't finish (rat hold).
+
+## Q4: Why show ==adult landmarks== instead of every adult PAH approval?
+**From:** completeness-focused panelist
+**Difficulty:** ★★ · **Topic:** completeness
+
+A: This slide is not a complete approval chronology. It shows landmark adult entries that frame the pediatric lag: bosentan, sildenafil, ambrisentan, macitentan, selexipag, and sotatercept. Full class history is on the previous field-history slide; this one is about ==adult speed versus pediatric delay==.
+
+> **If pressed:** I would say ==landmarks, not exhaustive approvals==. Treprostinil, tadalafil, riociguat, iloprost, and formulations are real but not the slide's job.
+
+## Q5: Why include ==sotatercept== on an ambrisentan timeline?
+**From:** Merck / story-fit panelist
+**Difficulty:** ★★★ · **Topic:** relevance
+
+A: It anchors why the ==pediatric PAH extrapolation problem is still current==. Sotatercept is not part of the ambrisentan evidence package. It tells the panel that the same disease ecosystem now has a new first-in-class mechanism where pediatric development and extrapolation will matter again.
+
+> **If pressed:** ==Sotatercept is field relevance, not ambrisentan evidence.==
+
+## Q6: Was the ambrisentan trial ==terminated== or did it fail?
+**From:** wording-sensitive panelist
+**Difficulty:** ★★★ · **Topic:** trial conduct
+
+A: ==Terminated, not failed.== AMB112529 was stopped after the juvenile-rat signal and the long delay made further enrollment unjustifiable. The clinical pharmacology package still produced the dose rationale and supported EMA/PMDA approvals.
+
+> **If pressed:** The right sentence is ==the study was disrupted and terminated; the extrapolation package still carried the label==.
+
+## Q7: Why is ==39== used if the study randomized 41?
+**From:** data-sufficiency panelist
+**Difficulty:** ★★ · **Topic:** dataset
+
+A: Forty-one patients were randomized; ==39 were PK-evaluable== for the PopPK analysis. I use 41 when discussing trial enrollment and 39 when discussing the modeling dataset.
+
+> **If pressed:** ==41 randomized; 39 PK-evaluable==. The distinction matters.
+
+## Q8: Does ==ICH E11A 2024== retroactively justify a 2021 decision?
+**From:** regulatory panelist
+**Difficulty:** ★★★ · **Topic:** extrapolation
+
+A: ==Not retroactively.== It codifies a framework that regulators had already been using: disease similarity, exposure matching, pediatric safety, and totality of evidence. The ambrisentan case is an example of that logic before formal harmonization.
+
+> **If pressed:** ==E11A codified the continuum; it did not invent the approach.==
+
+## Q9: Why show ==sildenafil EMA 2011 / FDA 2023==?
+**From:** regulatory-history panelist
+**Difficulty:** ★★★ · **Topic:** sildenafil
+
+A: It shows that ==pediatric PAH labels moved unevenly across agencies==. Sildenafil was accepted in Europe earlier, then the FDA position changed after years of mortality concern and additional evidence. That contrast helps explain why ambrisentan needed a conservative exposure-matching argument.
+
+> **If pressed:** The sildenafil story is ==dose-selection caution==, not the architectural precedent. FUTURE-1 is the architecture.
+
+## Q10: Why did it take the FDA ==eight more years than EMA== to approve pediatric bosentan?
+**From:** regulatory-differences panelist
+**Difficulty:** ★★★★ · **Topic:** regulatory
+
+A: EMA approved the pediatric formulation in 2009 under FUTURE-1. FDA took until 2017 to approve the pediatric indication, largely due to differing standards of evidence and the FDA's heavier reliance on the ==Garnett-Florian hemodynamic bridge framework== for ERAs, which took time to mature. This divergence highlights the challenge of global pediatric development.
+
+> **If pressed:** ==EMA accepted PK-matching earlier; FDA required a firmer hemodynamic extrapolation anchor.==
+
+## Q11: What exactly does ==ICH E11A== say?
+**From:** specific-framework panelist
+**Difficulty:** ★★★★ · **Topic:** regulatory
+
+A: ICH E11A provides a harmonized framework for pediatric extrapolation based on a continuum of similarity. It says that when disease progression and response to intervention are ==highly similar== between adults and children, ==exposure matching alone== can support a pediatric dose, bypassing the need for a powered efficacy trial.
+
+> **If pressed:** E11A formally sanctions the exact architecture we used: ==adult anchor → pediatric PK bridge → totality of evidence==.
+
+## Q12: Why are the adult events pointing ==up== and pediatric events pointing ==down==?
+**From:** visual-design panelist
+**Difficulty:** ★ · **Topic:** presentation
+
+A: It's a visual separation of the two regulatory tracks on a unified timeline. Adult approvals (pointing up) show a steady, dense cadence of progress. The pediatric milestones (pointing down) are sparser and more interrupted. It visually enforces the slide's headline: ==pediatric PAH moves slowly==.
+
+> **If pressed:** ==It avoids visual clutter while emphasizing the disparity in pace.==`,
+
+  'cs1-architecture': `## Q1: Why simplify this slide to ==five constraints==?
 **From:** structure-questioning panelist
 **Difficulty:** ★★ · **Topic:** framing
 
-A: Each constraint corresponds to a *necessary* condition for an efficacy trial — and each fails independently in pediatric PAH. Rarity (you can't enroll), heterogeneity (you can't pool), ethics (you can't randomize to placebo), endpoint (you can't measure 6MWD reliably below age 7-8), and empirical record (STARTS-1 with 235 patients still couldn't get efficacy at p<0.05). Drop any one and the slide doesn't make the case; add a sixth and you're padding. Five is the minimum sufficient set.
+A: Because this slide has one job: explain why the adult efficacy-trial route could not simply be repeated in children. Each constraint breaks a different requirement for a classical pediatric efficacy trial: ==enrollment, pooling, control arm, endpoint validity, and empirical precedent==.
 
-## Q2: STARTS-1 had 235 patients and primary endpoint p=0.056 — was the trial design wrong?
+> **If pressed:** The five are ==rarity, heterogeneity, baseline therapy / placebo ethics, pediatric endpoint validity, and STARTS-1 precedent==. That is the minimum sufficient set.
+
+## Q2: Are you saying the pediatric efficacy trial was ==impossible==?
+**From:** skeptical clinical panelist
+**Difficulty:** ★★★ · **Topic:** feasibility
+
+A: I would not use "impossible" as the scientific claim. The careful claim is that a classical placebo-controlled pediatric efficacy trial was ==not a reliable or ethical path to a dosing decision== in this setting. Rare disease, baseline therapy, endpoint noise, and the sildenafil precedent all point the same direction.
+
+> **If pressed:** ==Not impossible in theory; not viable as the load-bearing evidence path.==
+
+## Q3: Was ==STARTS-1 p=0.056== a design failure?
 **From:** statistics-focused panelist
 **Difficulty:** ★★★★ · **Topic:** statistics
 
-A: The trial design was per-protocol correct — combined sildenafil dose groups vs placebo, prespecified CPET peak VO₂ primary. The p=0.056 came in just above the conventional threshold; the FDA label aligns with that result (no 6MWD primary on the basis of STARTS-1 alone). The takeaway isn't "the design was wrong" — it's that even at N=235, you couldn't get pediatric PAH efficacy across the line. That's the *empirical* basis for moving to exposure-matching. STARTS-1 is the constraint that closes the door; FUTURE-1 is the precedent that opens the alternative.`,
+A: No. The study was a serious pediatric efficacy trial with N=235 and a prespecified CPET peak VO2 primary. The p=0.056 result shows how hard the endpoint problem is. The takeaway is not "bad trial"; it is ==even a large pediatric PAH trial barely missed==.
 
-  'cs1-poppk': `## Q1: Why fix the allometric exponents at 0.75 / 1.0 instead of estimating them?
+> **If pressed:** ==STARTS-1 closes the empirical door; FUTURE-1 opens the PK-matching door.==
+
+## Q4: Why say mechanism is ==shared== in children?
+**From:** mechanistic panelist
+**Difficulty:** ★★★ · **Topic:** extrapolation
+
+A: The core PAH biology and drug targets are shared: ==endothelin, prostacyclin, and NO/cGMP pathways== exist across adults and children. The challenge is not whether ETA blockade has a plausible mechanism; it is whether we can select a pediatric dose safely and defend exposure matching.
+
+> **If pressed:** ==Mechanistic similarity supports extrapolation; it does not eliminate pediatric safety evidence.==
+
+## Q5: Are ==placebo arms== truly untenable?
+**From:** clinical-trial panelist
+**Difficulty:** ★★★ · **Topic:** ethics
+
+A: In this setting, ==yes, practically==. Pediatric PAH is serious, active therapies were already used in children, and AMB112529 had 80% of patients on baseline therapy at entry. A placebo-controlled efficacy trial would be hard to justify ethically and operationally.
+
+> **If pressed:** The key fact is ==80% on baseline PAH therapy== and 66% continuing therapy. It was not a clean untreated population.
+
+## Q6: Why is ==6MWD== weak in children?
+**From:** endpoint-focused panelist
+**Difficulty:** ★★★ · **Topic:** endpoint
+
+A: Six-minute walk distance depends on ==cooperation, growth, motivation, and developmental stage==. It works better in older children and adults than in younger children. That makes it a noisy pediatric endpoint, especially in a rare disease where N is already small.
+
+> **If pressed:** ==Growth and developmental performance contaminate 6MWD==. The endpoint is clinically useful, but weak as a registrational pediatric efficacy anchor.
+
+## Q7: The etiology mix shows ==66% idiopathic== — why call heterogeneity a problem?
+**From:** clinical panelist
+**Difficulty:** ★★★ · **Topic:** heterogeneity
+
+A: Even with idiopathic patients as the largest group, the cohort includes ==post-repair CHD, connective tissue disease, and familial disease==. Those mechanisms, background therapies, and prognosis differ. In a 41-patient trial, heterogeneity makes endpoint interpretation fragile.
+
+> **If pressed:** ==Small N plus multiple etiologies== is the problem. Heterogeneity matters more when the dataset is tiny.
+
+## Q8: What exactly is the ==adult foundation==?
+**From:** clinical pharmacology panelist
+**Difficulty:** ★★★ · **Topic:** adult-evidence
+
+A: The adult foundation is the approved adult PAH program: ARIES-1 and ARIES-2, adult PAH efficacy on 6MWD, and the adult exposure experience. It gives the anchor for what exposure range had already been associated with efficacy and tolerability.
+
+> **If pressed:** ==Adult efficacy anchors the target; pediatric PK shows whether children can be dosed into that target.==
+
+## Q9: Does ==ambrisentan adult efficacy== really anchor pediatric efficacy?
+**From:** regulatory scientist
+**Difficulty:** ★★★★ · **Topic:** extrapolation
+
+A: It anchors efficacy only if ==disease similarity, mechanism, and exposure matching== are credible. ARIES established adult efficacy; pediatric PK then shows children can reach adult-like exposure. Safety and LTE follow-up complete the bridge.
+
+> **If pressed:** The bridge is ==adult efficacy + pediatric exposure + pediatric safety==, not adult efficacy alone.
+
+## Q10: Why did you remove the detailed ==drug profile== from the slide face?
+**From:** chair / story-structure panelist
+**Difficulty:** ★★ · **Topic:** slide-design
+
+A: Because this slide is the pivot into PopPK. The drug profile was already established by the mechanism and PAH history slides. Here, the highest-value point is why the pediatric efficacy-trial path closes and why a quantitative bridge becomes the right tool.
+
+> **If pressed:** ==The details are still defensible; they just do not need to occupy the live slide.==
+
+## Q11: What should I know about ==ETA selectivity== if I drill into the drug?
+**From:** pharmacology panelist
+**Difficulty:** ★★★ · **Topic:** mechanism
+
+A: Ambrisentan is a selective ETA receptor antagonist. The clinical-pharmacology relevance is that ETA blockade targets endothelin-mediated vasoconstriction and proliferation while leaving ETB biology relatively less blocked than dual ERAs. I would use that as mechanism support, not as the approval argument.
+
+> **If pressed:** ==Mechanism supports plausibility; exposure matching and safety make the pediatric dose defensible.==
+
+## Q12: Why mention ==hepatotox black-box removed== if it is no longer on the slide?
+**From:** safety panelist
+**Difficulty:** ★★ · **Topic:** differentiation
+
+A: It distinguishes ambrisentan from bosentan in a ==chronic pediatric context==. The slide does not claim hepatotoxicity disappeared as a class issue; it says ambrisentan's label and postmarketing profile made it a cleaner ERA candidate for pediatric bridging.
+
+> **If pressed:** ==Cleaner hepatic profile supports plausibility; it is not the approval argument by itself.==
+
+## Q13: So is ==exposure matching== enough by itself?
+**From:** hostile regulator / pharmacometrician
+**Difficulty:** ★★★★★ · **Topic:** evidentiary-standard
+
+A: No. Exposure matching is necessary but not sufficient. The defensible package is ==adult efficacy, shared disease biology, pediatric PK match, pediatric safety, and regulatory precedent==. The quantitative bridge carries the dose argument; it does not erase the need for clinical judgment.
+
+> **If pressed:** ==The exposure bridge makes the dose defensible, not magically proven.==
+
+## Q14: Why not run a ==single-arm pediatric efficacy study==?
+**From:** trial-design panelist
+**Difficulty:** ★★★ · **Topic:** alternatives
+
+A: A single-arm study can support safety, tolerability, and descriptive clinical course, but it does not solve the counterfactual efficacy problem. In rare pediatric PAH, without a valid control and with noisy endpoints, the cleaner inference is to bridge from adult efficacy through matched exposure.
+
+> **If pressed:** ==Single-arm evidence supports the bridge; it does not replace the bridge.==`,
+
+  'cs1-poppk': `## Q1: Why fix ==allometric exponents== at 0.75 / 1.0 instead of estimating them?
 **From:** modeling-leaning panelist
 **Difficulty:** ★★★★ · **Topic:** methodology
 
-A: Three reasons. First, n=39 cannot identify the exponent — the body-weight range in AMB112529 (≈18–86 kg) is too narrow to estimate it without confounding with structural CL/F. Second, the Holford 1996 convention (0.75 for clearance, 1.0 for volume) is what FDA and EMA expect for pediatric PopPK; deviating from it draws review-team scrutiny that the data can't support. Third, Okour 2023 sensitivity-tested exponents in the range 0.6–0.9 — point estimates of CL/F shifted ≤8%, exposure-match conclusions unchanged. Robust to the assumption.
+A: Three reasons. First, ==n=39 cannot identify the exponent== cleanly. Second, 0.75 for clearance and 1.0 for volume is the standard physiologic prior. Third, fixing exponents is conservative: pediatric data confirm the adult model rather than rediscover body-size biology.
 
-## Q2: The pcVPC shows scatter — how do you defend "no systematic bias" quantitatively?
+> **If pressed:** The source phrase is not "the exponent was proven." It is that allometric scaling was applied to CL/F, Q/F, Vc/F, and Vp/F, and final diagnostics showed no obvious systematic bias.
+
+## Q2: The ==pcVPC== shows scatter — how do you defend "no systematic bias" quantitatively?
 **From:** statistics-focused panelist
 **Difficulty:** ★★★ · **Topic:** model evaluation
 
-A: The defense is the proportion of observations inside the 80% prediction interval — should be ≈80% if the model is unbiased. AMB112529's pcVPC came in at 78–82% across the 24-h interval (Okour 2023, Figure S5). That's the formal answer. Visually, the scatter is symmetric around the median line, and the median tracks observation across early absorption, peak, and elimination phases. No systematic over- or under-prediction at any time region.
+A: The defense is graphical and fit-for-purpose. Okour reports ==good agreement for the median and 5th/95th percentiles==, with observations inside the ==90% prediction intervals==. Sparse pediatric PK is never perfect; the key is no consistent over- or under-prediction.
 
-## Q3: %RSE on Vp/F is 12.4 — isn't that high? Does the peripheral compartment really exist?
+> **If pressed:** I would say "Figure 2 supports adequacy of fit," not "it proves the model." The inference is adequacy for exposure matching, not mechanistic certainty.
+
+## Q3: %RSE on ==Vp/F== is 24.5 — isn't that high? Does the peripheral compartment really exist?
 **From:** parsimony-leaning panelist
 **Difficulty:** ★★★ · **Topic:** model structure
 
-A: Vp/F precision is naturally lower than Vc/F because the peripheral compartment is informed by terminal-phase samples — the sparsest part of the AMB112529 design (4-point profile, no late terminal). 12% RSE is acceptable for a peripheral volume; FDA's PopPK guidance flags >50% as concerning. The structural model's existence is anchored from the 380-patient adult dataset where rich sampling characterized the terminal phase definitively. The pediatric data confirm consistency, not re-derive structure.`,
+A: Vp/F precision is naturally lower than Vc/F because the peripheral compartment is informed by later-distribution information, and AMB112529 used sparse pediatric sampling. ==24.5% RSE== is not a fatal precision problem for a peripheral volume in this setting. The structural model's existence is anchored from the 380-participant adult dataset with much richer sampling; the pediatric data confirm consistency, not re-derive the two-compartment structure.
 
-  'cs1-results': `## Q1: Why didn't you use the Garnett-Florian framework? Wasn't it more rigorous?
+> **If pressed:** This is why the talk frames the model as ==inherited from the adult anchor and confirmed in pediatrics==. I would not claim 39 children independently established every structural parameter.
+
+## Q4: Why include ==t-lag== on a senior-level slide?
+**From:** modeling-detail panelist
+**Difficulty:** ★★ · **Topic:** model structure
+
+A: Because it is part of the actual final structural model: ==two-compartment, first-order absorption, with lag time==. Naming it prevents the slide from looking like a generic PopPK cartoon.
+
+> **If pressed:** I would not dwell on t-lag live; I include it so the model spec is accurate if asked.
+
+## Q5: Why use ==Beal M3== for BLQ?
+**From:** pharmacometrician
+**Difficulty:** ★★★ · **Topic:** BLQ handling
+
+A: Around ==3% of concentrations were below quantification==. M3 uses the likelihood contribution of those censored observations instead of dropping them or imputing zero. It is the cleaner sparse-PK approach.
+
+> **If pressed:** ==M3 matters because sparse pediatric PK should not throw away censored data==, even when BLQ is low.
+
+## Q6: Is ==211 observations from 39 children== enough?
+**From:** data-sufficiency panelist
+**Difficulty:** ★★★ · **Topic:** sample size
+
+A: Enough for confirmation, not de novo discovery. The adult model came from ==380 adults and 3,126 observations==. The pediatric dataset tests whether that model holds in children and whether simulated weight-band doses match adult exposure.
+
+> **If pressed:** ==Thirty-nine children can confirm a mature model; they cannot build the entire model alone.==
+
+## Q7: Why is ==body weight== the only retained covariate?
+**From:** covariate-analysis panelist
+**Difficulty:** ★★★ · **Topic:** covariates
+
+A: ==Body weight is the dominant pediatric PK driver== and was prespecified through allometry. Age was screened but not retained. For ages 8 to <18, once weight is handled, there was no independent age signal strong enough to justify adding complexity.
+
+> **If pressed:** ==No independent age effect== is not "age ignored." It means age did not add explanatory value beyond weight.
+
+## Q8: The slide shows band-level AUCs; why do notes say ==4.82 / 9.15==?
+**From:** detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** exposure
+
+A: They are two levels of the same result. The strip shows pediatric weight-band AUCss values against adult comparators. The spoken 4.82 and 9.15 are dose-group geometric means versus adult 4.98 and 9.12. The message is consistent: ==dose-group match and weight-band range match==.
+
+> **If pressed:** I would distinguish ==dose-group means== from ==weight-band simulations== before quoting numbers.
+
+## Q9: Did the model target ==AUC or Cmax==?
+**From:** safety panelist
+**Difficulty:** ★★★ · **Topic:** exposure metrics
+
+A: The primary bridging metric was ==AUCss== because adult exposure-response was plateaued and efficacy was exposure-matched by systemic exposure. Cmax,ss was checked for safety and was modestly higher, but within adult safety experience.
+
+> **If pressed:** ==AUC carried efficacy; Cmax informed safety.==`,
+
+  'cs1-results': `## Q1: Why not use ==Garnett-Florian==?
 **From:** methodology-leaning panelist
 **Difficulty:** ★★★★ · **Topic:** methodology
 
-A: Two reasons. First, AMB112529's hemodynamic substudy was N=5 paired patients — too few to anchor a Garnett-Florian-style PVR-6MWD analysis on its own. The substudy data were cited supportively by PMDA and disclosed in the EMA submission. Second, the EMA PIP was structured around the PK-matching framework from FUTURE-1 — and EMA accepts PK-matching alone when adult-pediatric similarity is high. The Garnett-Florian path is FDA's preferred bridge; this case was filed at EMA + PMDA, where the architecture is the FUTURE-1 precedent. Different evidence weights, same intellectual move.
+A: AMB112529's hemodynamic substudy was only ==N=5 paired patients==, too small to anchor a PVR-6MWD bridge. The EMA PIP used the FUTURE-1 PK-matching architecture. Garnett-Florian is legitimate; it just was not the load-bearing branch for this case.
 
-## Q2: FUTURE-1 came in at 54% of adult AUC — that's a *miss*. How does that count as a precedent?
+> **If pressed:** ==Same intellectual move, different evidence weights.== EMA accepted PK matching; FDA often wants the hemodynamic surrogate too.
+
+## Q2: FUTURE-1 was only ==54%== of adult AUC. Why is that a precedent?
 **From:** detail-oriented panelist
 **Difficulty:** ★★★★ · **Topic:** regulatory
 
-A: That's the precedent's significance. FUTURE-1 missed the PK target — the pediatric AUC was about half the adult range — and EMA *still* approved the pediatric formulation, because the methodology was correct even when the execution didn't hit. EMA endorsed the framework: PK-matching is a legitimate bridge for an ERA, and you don't need a powered efficacy trial to establish a pediatric label. AMB112529 then applied the same framework with much tighter execution — 97% of adult AUC at the low dose, vs FUTURE-1's 54%. The methodology had already cleared regulatory; the execution was the case's contribution.`,
+A: That is exactly why it matters. FUTURE-1 missed the exposure target, but EMA still approved the pediatric formulation. The agency endorsed the ==PK-matching method== even when execution was imperfect. AMB112529 then applied the same method with much tighter exposure match.
 
-  'cs1-outcome': `## Q1: The juvenile-rat brain-weight signal — does it cast doubt on safety in human children?
+> **If pressed:** ==FUTURE-1 validated the door; ambrisentan walked through it better.==
+
+## Q3: Are the scatter dots in the ==PVR chart== real?
+**From:** data-visualization panelist
+**Difficulty:** ★★★ · **Topic:** visual integrity
+
+A: The ==slope and BREATHE-3 prediction== are the load-bearing facts from the FDA framework. The individual dots are illustrative positions to show the relationship, and the slide caption/notes say that clearly.
+
+> **If pressed:** ==I would never claim the dot coordinates are extracted trial-level data.== The slope, N, classes, and prediction are the real facts.
+
+## Q4: Why compare ==EMA and FDA== if FDA did not review ambrisentan?
+**From:** regulatory panelist
+**Difficulty:** ★★★ · **Topic:** agency strategy
+
+A: Because the case is about ==pediatric extrapolation architecture==, not just one label. EMA/PMDA used the PK-matching path; FDA had a parallel quantitative bridge in PAH through Garnett-Florian. Showing both proves I understand the regulatory design space.
+
+> **If pressed:** ==The FDA path is context, not ambrisentan adjudication.==
+
+## Q5: Why say ==both established for bosentan==?
+**From:** field-history panelist
+**Difficulty:** ★★★ · **Topic:** precedent
+
+A: Bosentan anchors both branches in different ways. ==FUTURE-1 establishes the EMA pediatric PK-matching route.== BREATHE-3 is the pediatric dataset to which the FDA Garnett-Florian PVR-6MWD framework was applied.
+
+> **If pressed:** ==FUTURE-1 is the EMA branch; BREATHE-3/Garnett-Florian is the FDA branch.==
+
+## Q6: Does ==97% of adult AUC== refer to low dose only?
+**From:** detail-oriented panelist
+**Difficulty:** ★★ · **Topic:** exposure
+
+A: ==Yes.== It is the low-dose group comparison: 4.82 versus 4.98 microgram-hour/mL. The high-dose group was even closer numerically: 9.15 versus 9.12, about +0.3%.
+
+> **If pressed:** ==97% low dose; +0.3% high dose.== I separate those numbers live if asked.
+
+## Q7: Was ==PMDA== relying on hemodynamics instead of PK?
+**From:** Japan-regulatory panelist
+**Difficulty:** ★★★ · **Topic:** evidence weighting
+
+A: ==No. The hemodynamic substudy was supportive.== The core dose rationale was still exposure matching through the PopPK model. The Japan label's hemodynamic reference strengthens totality of evidence, but it does not replace PK matching.
+
+> **If pressed:** ==Supportive hemodynamics, load-bearing PK matching.==
+
+## Q8: Why does this slide say ==two doors==?
+**From:** story-structure panelist
+**Difficulty:** ★★ · **Topic:** narrative
+
+A: It prevents the common mistake of collapsing pediatric PAH precedent into one story. There are two regulatory doors: EMA's PK-matching precedent and FDA's PVR-6MWD quantitative bridge. This case used one door but understands both.
+
+> **If pressed:** The senior-level signal is ==knowing which bridge fits which agency and dataset==.`,
+
+  'cs1-outcome': `## Q1: Does the ==juvenile-rat brain-weight== signal cast doubt on children?
 **From:** safety-focused panelist
 **Difficulty:** ★★★★ · **Topic:** safety
 
-A: No, but I contextualize it carefully. The signal was at 20 mg/kg/day — exposure margins of 1.8–7× human pediatric AUC at the 10 mg dose. Mechanism was attributed to early-postnatal laryngeal anatomy in rats, not a class effect. Most importantly, the LTE ran 3.5 years of median exposure with no corresponding clinical signal in humans, and pubertal development data were normal. The termination was precautionary per standard GLP practice when a preclinical signal can't be definitively ruled in or out. The 41 randomized patients and the LTE safety database are the human evidence.
+A: It required caution, but it does not translate directly to the enrolled children. The proposed mechanism was ==early-postnatal rat laryngeal anatomy causing hypoxemia==; AMB112529 enrolled ages 8 to <18. Human LTE follow-up did not show a corresponding neurodevelopmental signal.
 
-## Q2: Why did GSK and Gilead split commercial rights? Wasn't that a portfolio decision that hurt patients?
+> **If pressed:** I would not dismiss it. I would say ==serious nonclinical signal, age-window-specific mechanism, no matching human signal in the studied age group==.
+
+## Q2: Why did ==GSK/Gilead rights== split the FDA path?
 **From:** structural-question panelist
 **Difficulty:** ★★★ · **Topic:** commercial
 
-A: The split predates the pediatric program — Gilead held US rights as Letairis from launch in 2007; GSK held EU and rest-of-world as Volibris. Both companies built their adult franchises in parallel. When the pediatric question arose, each company made an independent filing decision based on its own US vs ex-US economics. EMA + PMDA proceeded; FDA didn't. That's not a portfolio decision against patients — it's a structural consequence of how the rights were originally split. The Clin Pharm package was identical; the geography wasn't.`,
+A: Gilead held US rights as Letairis; GSK held EU/ROW as Volibris. The pediatric package proceeded through EMA and PMDA under GSK's geography. FDA did not reject the package; the US rights holder did not file it.
 
-  'cs1-bracket': `## Q1: Why prespecified allometric exponents instead of estimating from data?
+> **If pressed:** ==No FDA pediatric rejection. No US filing.== That distinction protects the case.
+
+## Q3: Were the ==two deaths== drug-related?
+**From:** safety panelist
+**Difficulty:** ★★★★ · **Topic:** safety
+
+A: No. The deaths across the trial/LTE were adjudicated as PAH-disease-related and not attributed to ambrisentan. They still belong on the slide because hiding deaths in pediatric PAH would invite distrust.
+
+> **If pressed:** ==Name them once, contextualize, do not dwell.== Fatal pneumonia and acute decompensated cardiac failure occurred in a severe disease population.
+
+## Q4: Is ==1.8–7x exposure margin== reassuring enough?
+**From:** toxicology panelist
+**Difficulty:** ★★★★ · **Topic:** nonclinical
+
+A: It is context, not a complete dismissal. Margins help interpret distance from human exposure, but the stronger argument is mechanism plausibility and age relevance. The rat mechanism centered on early postnatal anatomy; the clinical study enrolled older children.
+
+> **If pressed:** ==Margin + mechanism + enrolled age range + human LTE== is the full safety answer.
+
+## Q5: Why bring in ==STARTS-2== on an ambrisentan slide?
+**From:** regulatory history panelist
+**Difficulty:** ★★★ · **Topic:** context
+
+A: Because it shaped the pediatric PAH review climate. STARTS-2 made empirical pediatric dose escalation look risky, especially when short-term endpoints and long-term mortality pointed in different directions. That supports the conservative exposure-matching strategy.
+
+> **If pressed:** ==STARTS-2 is caution, not the ambrisentan precedent.== FUTURE-1 is the precedent.
+
+## Q6: What does ==AFFILIATE 2024== change?
+**From:** evidence-update panelist
+**Difficulty:** ★★★ · **Topic:** sildenafil
+
+A: It helps reinterpret the older sildenafil mortality concern as confounding rather than a clean dose-toxicity signal. But during the 2017-2021 ambrisentan review window, the field was still operating under the shadow of STARTS-2.
+
+> **If pressed:** ==Review climate matters at the time of review.== Later evidence can clarify but cannot change what regulators were managing then.
+
+## Q7: Did the commercial split ==hurt patients==?
+**From:** values-focused panelist
+**Difficulty:** ★★★ · **Topic:** commercial ethics
+
+A: I would avoid moralizing. The split created different incentives and filing decisions by geography. The practical lesson is that clinical pharmacology can produce a defendable package, but portfolio structure determines where that package is submitted.
+
+> **If pressed:** ==Science can be portable; submissions are not automatically portable.==
+
+## Q8: Why say the ==dose bridge still held==?
+**From:** story-structure panelist
+**Difficulty:** ★★ · **Topic:** narrative
+
+A: Because the trial could not deliver a classic efficacy answer, the regulatory climate discouraged empirical dosing, and filing geography limited the label outcome. The PopPK/extrapolation framework still produced a dose rationale accepted by EMA and PMDA.
+
+> **If pressed:** ==Trial disruption, regulatory caution, filing geography: one quantitative bridge survived all three.==
+
+## Q9: Is ==traditional efficacy path hard to justify== too strong?
+**From:** tone-sensitive panelist
+**Difficulty:** ★★★ · **Topic:** wording
+
+A: The live wording is deliberately restrained: the slide says the facts pointed away from a conventional pediatric efficacy trial. The precise scientific claim is ==traditional efficacy was not viable or not justifiable== in this setting.
+
+> **If pressed:** I would soften to ==not viable or not justifiable==, rather than overstate.
+
+## Q10: What details did you intentionally keep off the slide?
+**From:** detail-oriented safety / regulatory panelist
+**Difficulty:** ★★★ · **Topic:** slide-framing
+
+A: I kept the slide face at the decision level. The backup details are: ==3–8% brain-weight reduction== in postnatal-day-7 rats, exposure margin ==1.8–7x== human pediatric AUC at 10 mg, CHMP submission in November 2017, formal termination on February 11, 2019, and two PAH-disease-related deaths not attributed to ambrisentan.
+
+> **If pressed:** ==Those details matter for defense, but putting all of them on the main slide creates cans of worms.==`,
+
+  'cs1-bracket': `## Q1: Why ==prespecified allometry==?
 **From:** pharmacometrics panelist
 **Difficulty:** ★★★★ · **Topic:** methodology
 
-A: Deliberate. Prespecifying 0.75 for clearance and 1.0 for volume reflects the physiological expectation for body-weight scaling and avoids over-fitting to a 39-patient dataset. When N is small, estimating exponents risks capturing noise rather than biology. The prespecified approach is conservative and defensible — and it's what EMA expects in a PIP submission where the adult anchor provides the mature exposure-response. The data ended up consistent with the prespecified values; if they hadn't, that would have been a signal worth investigating.
+A: Because the pediatric dataset was too small to estimate exponents cleanly. Prespecifying ==0.75 for clearance and 1.0 for volume== uses a physiologic prior and avoids overfitting 39 children.
 
-## Q2: 211 PK observations from 39 subjects — is that enough for a PopPK model?
+> **If pressed:** ==Prespecified allometry is a strength here, not a shortcut==, because the adult anchor carries the structural model.
+
+## Q2: Is ==211 PK observations / 39 subjects== enough?
 **From:** data-sufficiency panelist
 **Difficulty:** ★★★ · **Topic:** methodology
 
-A: For a 2-compartment model with prespecified allometry and one retained covariate (body weight), 211 observations from 39 subjects across 3 weight bands is adequate. The framework's strength is *inheritance* — the model wasn't being asked to discover new biology. The structural model came from N=380 adults with rich sampling (3,126 observations across 6 studies). The pediatric data confirmed the model holds in children. **The framework's claim is that 39 patients can confirm a model that 380 patients built.** Confirmation requires less than de novo construction.`,
+A: Enough for model confirmation, not model discovery. The structural anchor was ==380 adults and 3,126 PK observations==. The pediatric dataset tested whether the adult model transferred and whether weight-band simulations matched adult exposure.
 
-  'cs1-verdict': `## Q1: "Within 3% of adult" — is that AUC or Cmax?
+> **If pressed:** ==39 can confirm what 380 built.== That is the core architecture.
+
+## Q3: Why call this a ==five-step chain==?
+**From:** structure panelist
+**Difficulty:** ★★ · **Topic:** framework
+
+A: It makes the method reproducible: ==adult anchor, structural model, dose simulation, pediatric confirmation, adult exposure comparison==. Each step has one job and one evidentiary output.
+
+> **If pressed:** ==Anchor → model → simulate → confirm → match== is the full chain.
+
+## Q4: Why use ==adult AUCss range== as target?
+**From:** exposure-response panelist
+**Difficulty:** ★★★ · **Topic:** target
+
+A: The adult program established the ==exposure range associated with efficacy and tolerability==. Pediatric dosing aimed to put children inside that adult exposure experience rather than invent a new pediatric efficacy threshold from an underpowered trial.
+
+> **If pressed:** ==Adult exposure-response mature; pediatric efficacy trial infeasible; match exposure.==
+
+## Q5: What if the pediatric data had not ==matched==?
+**From:** skeptical modeler
+**Difficulty:** ★★★ · **Topic:** decision rule
+
+A: Then the ==dose schema would need revision or the extrapolation argument would weaken==. The framework is not automatic approval; it is a testable bridge. The case works because the observed/simulated pediatric exposures aligned with the adult reference.
+
+> **If pressed:** ==Exposure matching is a pass/fail claim, not decoration.==
+
+## Q6: Why say the model was not ==built== on 39 patients?
+**From:** precision panelist
+**Difficulty:** ★★ · **Topic:** wording
+
+A: Because saying "built on 39" makes the analysis sound fragile. The ==adult dataset supplied the model structure==; the pediatric dataset confirmed transferability and supported dose selection.
+
+> **If pressed:** The precise wording is ==adult-built, pediatric-confirmed==.
+
+## Q7: Does the framework ignore ==safety==?
+**From:** safety panelist
+**Difficulty:** ★★★ · **Topic:** totality
+
+A: ==No.== The five-step slide is the PK architecture; safety is covered on the disruption/outcome slides. The label decision used totality of evidence: adult efficacy, pediatric exposure, pediatric safety/LTE, and nonclinical context.
+
+> **If pressed:** ==PK delivers the dose; totality delivers the label.==`,
+
+  'cs1-verdict': `## Q1: "Within ==3%== of adult" — AUC or Cmax?
 **From:** detail-oriented panelist
 **Difficulty:** ★★ · **Topic:** PK
 
-A: AUCss at the low dose, weight-adjusted. The numerals are 4.82 vs 4.98 μg·h/mL pediatric vs adult. Cmax,ss ran 11–18% higher than adult — within the range supported by adult safety data. The −3% is the slide's headline because AUC is the exposure metric that drives the efficacy bridge in an ERA. Cmax matters for safety; it was within acceptable bounds.
+A: AUCss at the low dose: ==4.82 versus 4.98 μg·h/mL==. Cmax,ss was 11-18% higher than adult and was interpreted through safety, not as the primary efficacy bridge.
 
-## Q2: No independent age effect — isn't that suspicious with children as young as 8?
+> **If pressed:** ==AUC carried efficacy; Cmax informed safety.==
+
+## Q2: Is ==no independent age effect== suspicious?
 **From:** skeptical methodologist
 **Difficulty:** ★★★★ · **Topic:** methodology
 
-A: It's a legitimate question. The covariate analysis screened age explicitly; it was not retained as a predictor of clearance or volume. Given that body weight is the dominant driver of PK in children 8–17, and that allometric scaling captures the weight effect, an independent age effect would imply a developmental pathway not captured by weight alone. Ambrisentan is metabolized primarily by glucuronidation — there's no strong prior for age-dependent UGT maturation in the 8–17 range. The data were consistent with that prior.`,
+A: It is a fair question, but ==age was screened==. Once body weight was handled through allometry, age did not add explanatory value in children 8 to <18. That is plausible because major maturation effects are less expected in this age range.
 
-  'cs1-lesson': `## Q1: What about FDA? You don't show an FDA approval — why?
+> **If pressed:** ==Age was tested, not ignored.== Body weight was the retained pediatric driver.
+
+## Q3: Are the ==density curves== real from Okour?
+**From:** visual-integrity panelist
+**Difficulty:** ★★★ · **Topic:** visualization
+
+A: ==The means are real; the curves are illustrative== Gaussians to make overlap visible. The notes and caption should make that explicit. The evidence is the numeric AUC comparison, not the curve shape.
+
+> **If pressed:** ==Real means, illustrative distribution.== I would not claim extracted individual density data.
+
+## Q4: Does ==+0.3% high dose== mean essentially perfect matching?
+**From:** detail-oriented panelist
+**Difficulty:** ★★ · **Topic:** exposure
+
+A: Numerically yes at the dose-group mean level: ==9.15 versus 9.12==. I still avoid saying "perfect" because model-based exposure estimates carry uncertainty and individual variability. "Essentially identical" is safer.
+
+> **If pressed:** ==Dose-group mean nearly identical; individual exposure varies.==
+
+## Q5: Why emphasize ==AUCss== over trough or concentration-time shape?
+**From:** PK panelist
+**Difficulty:** ★★★ · **Topic:** exposure metric
+
+A: ==AUCss summarizes systemic exposure at steady state== and links most directly to adult exposure-response for dose bridging. Concentration-time shape still matters and was checked by pcVPC, but AUCss is the regulatory bridge metric.
+
+> **If pressed:** ==pcVPC checks shape; AUCss carries the dose bridge.==
+
+## Q6: How do you defend ==adult range across bands==?
+**From:** dosing panelist
+**Difficulty:** ★★★ · **Topic:** dosing
+
+A: The ==weight-banded dose schema== puts pediatric AUCss within adult model-derived exposure experience across the three bands. That is why the label uses weight bands and two dose levels rather than a flat pediatric dose.
+
+> **If pressed:** ==Weight bands are the dosing solution to pediatric size variability.==
+
+## Q7: Could higher ==Cmax== create safety risk?
+**From:** safety panelist
+**Difficulty:** ★★★ · **Topic:** Cmax
+
+A: It is a ==safety check, not ignored==. The reported Cmax,ss was modestly higher than adult but within the broader adult safety experience. The LTE safety data did not reveal a corresponding clinical signal.
+
+> **If pressed:** ==Cmax was not the efficacy bridge, but it was safety-contextualized.==
+
+## Q8: What did regulators actually accept: ==model or label==?
+**From:** regulatory panelist
+**Difficulty:** ★★★ · **Topic:** evidence
+
+A: Regulators accepted the ==totality of evidence==, with the PopPK bridge justifying the labeled dose schema. The practical outcome was dose labeling, not the analysis as an end in itself.
+
+> **If pressed:** ==The exposure bridge supported a dosing label.==`,
+
+  'cs1-lesson': `## Q1: What about ==FDA==? Why no US approval?
 **From:** panelist who noticed the gap
 **Difficulty:** ★★★★★ · **Topic:** regulatory
 
-A: The FDA application was never filed. Gilead held the US commercial rights; GSK held EU + rest-of-world and filed with EMA. The Clin Pharm package was identical — same PopPK, same exposure-matching analysis. The gap was commercial-rights structure, not science. The Letairis label states verbatim that "safety and effectiveness in pediatric patients have not been established." As of 2026, ambrisentan has no formal FDA pediatric indication. I name that on the slide as a proactive disclosure — the regulatory outcome (EMA + PMDA) validates the Clin Pharm methodology; the FDA gap is a portfolio-management consequence.
+A: The FDA package was not filed. Gilead held US rights; GSK held EU/ROW and filed through EMA/PMDA. The Letairis label still says ==safety and effectiveness in pediatric patients have not been established==. This is a filing/geography gap, not an FDA rejection.
 
-## Q2: ICH E11A came out in 2024 — but you applied the framework in 2021. Wasn't that risky?
+> **If pressed:** ==No US filing; no FDA rejection.== EMA/PMDA validate the Clin Pharm method; FDA absence reflects commercial rights.
+
+## Q2: Did ==E11A 2024== come too late to support the case?
 **From:** regulatory-process panelist
 **Difficulty:** ★★★ · **Topic:** regulatory
 
-A: It was *anticipatory*, not risky. The extrapolation continuum that E11A codified had been developing in regulatory thinking for years — FUTURE-1 (2009), the FDA's PK-matching draft guidance (2014, since superseded), the 2017 EMA reflection paper on extrapolation. The framework was state-of-the-art when applied; E11A's contribution was harmonization and codification across ICH regions. The case demonstrated what E11A would later make standard. That's why the slide says the framework prefigured the standard by four years.
+A: E11A codified a direction regulators were already moving toward. FUTURE-1, EMA extrapolation thinking, and pediatric PK matching all predated 2024. The case did not rely on E11A prospectively; it ==prefigured the E11A logic==.
 
-## Q3: "The principle outlives the molecule" — what principle, specifically?
+> **If pressed:** ==E11A harmonized the continuum; it did not invent extrapolation.==
+
+## Q3: What exactly did regulators approve: ==dose, indication, or model==?
+**From:** regulatory panelist
+**Difficulty:** ★★★ · **Topic:** label
+
+A: They approved a ==pediatric indication/dose schema==, with the PopPK bridge supporting the dose rationale. The regulatory outcome was dose labeling: 8 to 17 years, three weight bands, two dose levels.
+
+> **If pressed:** ==The PopPK bridge supported dose labeling; the label is the regulatory product.==
+
+## Q4: Why cite ==Japanese label hemodynamics== if PK was central?
+**From:** Japan-regulatory panelist
+**Difficulty:** ★★★ · **Topic:** PMDA
+
+A: Because it was part of the ==totality of evidence==. The hemodynamic substudy was supportive; it does not replace the exposure-matching argument. PMDA acceptance was still consistent with the PopPK bridge.
+
+> **If pressed:** ==Supportive hemodynamics, load-bearing PopPK.==
+
+## Q5: Are the ==three weight bands== exactly label language?
+**From:** dosing panelist
+**Difficulty:** ★★ · **Topic:** dosing
+
+A: ==Yes: >=20 to <35 kg, >=35 to <50 kg, and >=50 kg==, with low/high dose options from 2.5 to 10 mg once daily. The slide compresses it as three bands and two dose levels.
+
+> **If pressed:** ==2.5 -> 5 mg; 5 -> 7.5 mg; 5 -> 10 mg== across the three bands.
+
+## Q6: Does ==exposure matching alone== always work under E11A?
+**From:** regulatory skeptic
+**Difficulty:** ★★★★ · **Topic:** extrapolation
+
+A: ==No.== It works when similarity is high and adult exposure-response is mature enough to carry the inference. If disease biology, endpoint response, or safety differs materially, exposure matching alone would be insufficient.
+
+> **If pressed:** ==E11A is a continuum, not a shortcut.== Similarity determines how much evidence can be extrapolated.
+
+## Q7: Why say the methodology ==travels==?
+**From:** leadership panelist
+**Difficulty:** ★★ · **Topic:** portability
+
+A: Because the case teaches a ==reusable decision pattern==: adult anchor, pediatric PK bridge, totality of evidence, proactive caveats. That pattern applies beyond ambrisentan even when the molecule changes.
+
+> **If pressed:** ==The molecule is ambrisentan; the portable asset is the framework.==
+
+## Q8: Is the FDA caveat too damaging to include?
+**From:** presentation-strategy panelist
+**Difficulty:** ★★★ · **Topic:** story risk
+
+A: ==It is safer to disclose it.== A panelist will notice the missing FDA label. Naming it first shows control and prevents a geography/commercial issue from looking like a hidden scientific failure.
+
+> **If pressed:** ==Disclose the caveat before the panel weaponizes it.==
+
+## Q9: "The principle outlives the molecule" — what principle?
 **From:** summary-seeking panelist
 **Difficulty:** ★★ · **Topic:** career
 
-A: Three principles. First: exposure-matching is a legitimate regulatory strategy when the alternative is an underpowered efficacy trial. Second: allometric PopPK is the bridge, but it works only when the adult exposure-response is mature *and* the pediatric PK is honestly modeled. Third: name the structural constraint (split commercial rights, FDA gap) before the panel does — Director-level work surfaces the hard number first.`,
+A: Three principles: ==exposure matching when trials are infeasible==, allometric PopPK as a bridge from adult anchor to pediatric dose, and proactive disclosure of structural caveats like the FDA gap.
 
-  'cs1-bridge': `## Q1: Three takeaways — methodology, architecture, deliverable. Why this order?
+> **If pressed:** ==Methodology, architecture, caveat management== are the durable lessons.`,
+
+  'cs1-bridge': `## Q1: Why this order: ==methodology → architecture → regulatory outcome==?
 **From:** structure-aware panelist
 **Difficulty:** ★★★ · **Topic:** framing
 
-A: From abstract to concrete. *Methodology* is the framework name (PK-matching as primary, codified by ICH E11A). *Architecture* is the structural mechanic (inheritance from adult anchor, confirmation by pediatric N=39). *Deliverable* is the case's actual output (a labeled dose schema — 8–17 yr, 3 weight bands, 2 dose levels — that EMA and PMDA accepted). Each takeaway is one level more concrete than the last. The audience leaves remembering the deliverable; the methodology and architecture are how to reproduce it.
+A: It moves ==from abstract to concrete==. Methodology names the framework, architecture explains how it worked, and regulatory outcome names what changed in the real world: a pediatric dose schema accepted by EMA and PMDA.
 
-## Q2: What does this case teach for CS2 in oncology?
+> **If pressed:** ==Framework → mechanism → label.== That is the memory structure.
+
+## Q2: What does CS1 teach for ==CS2 oncology==?
 **From:** bridge-question panelist
 **Difficulty:** ★★ · **Topic:** structure
 
-A: The same intellectual move — extrapolate adult efficacy through a quantitative bridge — applies in CS2's regulatory waiver context. CS1's bridge was PK-matching to adult exposure-response; CS2's bridge will be a global Clin Pharm dossier (PopPK + DDI + race covariate analysis) anchoring an Indian regulatory waiver under Rule 101. Same architectural move, different population constraint, different therapeutic area. The case-to-case progression is "untrialable" → "unavailable" — both solved by a quantitative pharmacology framework that earns regulatory credibility outside a powered efficacy trial.`,
+A: ==Same intellectual move==: use a quantitative bridge when a local or pediatric efficacy trial is not the answer. CS1 bridges adult efficacy to pediatric dose; CS2 bridges global evidence to an Indian regulatory waiver.
+
+> **If pressed:** ==CS1 is untrialable; CS2 is unavailable locally.== Both need quantitative pharmacology to carry the inference.
+
+## Q3: Is "the quantitative bridge makes the dose defensible" still an ==overclaim==?
+**From:** skeptical panelist
+**Difficulty:** ★★★ · **Topic:** wording
+
+A: ==It is the safer version.== The PopPK bridge delivered the dosing rationale that made the label defensible within the totality of evidence. The label was not based on one analysis alone.
+
+> **If pressed:** ==Exposure bridge delivers dose rationale; totality delivers label.==
+
+## Q4: Why say ==EMA accepts PK matching; FDA pairs it with Garnett-Florian==?
+**From:** regulatory panelist
+**Difficulty:** ★★★ · **Topic:** agency differences
+
+A: It is a simplification of the ==PAH precedent landscape==. EMA accepted the FUTURE-1-style PK-matching branch for ERAs. FDA's PAH pediatric bridge also used the PVR-6MWD quantitative framework. The point is to show agency-specific evidence weights.
+
+> **If pressed:** ==Not universal agency doctrine; this is the PAH precedent pattern.==
+
+## Q5: Could someone challenge ==39 patients cannot build a model==?
+**From:** pharmacometrician
+**Difficulty:** ★★★ · **Topic:** wording
+
+A: ==Yes, and I would clarify.== Thirty-nine patients can contribute to a model, but not robustly identify a full adult-to-pediatric structural model from scratch. Here, the mature adult model was inherited and confirmed.
+
+> **If pressed:** ==Cannot build from scratch; can confirm transferability.==
+
+## Q6: Why call the output ==dose labeling, not a paper==?
+**From:** leadership panelist
+**Difficulty:** ★★ · **Topic:** impact
+
+A: Because the practical outcome was a ==labeled pediatric dosing schema==. The paper documents the method; the regulatory outcome changed available dosing information for children.
+
+> **If pressed:** ==Publication records the work; label operationalizes it.==
+
+## Q7: Is the CS2 handoff too abrupt?
+**From:** story-structure panelist
+**Difficulty:** ★★ · **Topic:** transition
+
+A: ==It is intentionally brief.== CS1 has delivered its lesson; the bridge gives one connective tissue line and moves on. The next divider resets the audience for ivosidenib.
+
+> **If pressed:** ==Do not re-teach CS1 on the bridge slide. Hand off and advance.==
+
+## Q8: What is the one sentence the panel should remember?
+**From:** closing panelist
+**Difficulty:** ★★ · **Topic:** memory
+
+A: ==When a trial cannot answer the question, quantitative pharmacology can make the dose defensible.== That is the portable CS1 lesson.
+
+> **If pressed:** CS1 proves the sentence in pediatric PAH; CS2 will prove it in regulatory reliance.`,
 
   // ══════════════════════════════════════════════════════════════
   // CS3 — PharmAgent · AI/ML workflow infrastructure · SAGE
@@ -1441,25 +2189,33 @@ A: The same intellectual move — extrapolate adult efficacy through a quantitat
 **From:** structural panelist
 **Difficulty:** ★★★ · **Topic:** framing
 
-A: Because the same discipline that answered CS1 and CS2 — clinical pharmacology — is what the platform is designed to scale. The case study isn't "I built an AI tool." The case study is "the next decade of pharmacometric decisions will need infrastructure that doesn't exist yet, and building it is the same kind of Director-level judgment as the dossier and the exposure-matching." The contribution is the infrastructure, framed as a workflow capability.`,
+A: Because the same discipline that answered CS1 and CS2 — clinical pharmacology using quantitative evidence — is what PharmAgent is designed to scale. The case is not "I built an AI product." The case is ==workflow infrastructure for model-informed decisions==: privacy, audit, deterministic tools, and human review around pharmacometric workflows.
+
+> **If pressed:** I am not presenting CS3 as a regulatory success like CS1 or CS2. I am presenting it as a forward-looking research direction that demonstrates architecture judgment for where MIDD is going.`,
 
   'cs3-question': `## Q1: Aren't you overstating the volume? How many CS1/CS2-shaped decisions will there actually be?
 **From:** skeptical panelist
 **Difficulty:** ★★★ · **Topic:** scale
 
-A: Every new ICH E11A pediatric extrapolation, every Rule 101 waiver, every M15-governed MIDD submission, every Project Optimus dose-optimization program. The individual events are already accelerating — India's Rule 101 operationalization alone opens the pathway for dozens of orphan oncology drugs. Each one needs the same kind of dossier CS2 required. The volume is driven by the frameworks, not by my claim.`,
+A: I would not defend a literal count. The point is direction: ==E11A, ICH M15, Rule 101, and Project Optimus all increase the number of places where quantitative pharmacology has to produce structured, reviewable evidence.== The volume is driven by regulatory frameworks and portfolio complexity, not by an AI claim.
+
+> **If pressed:** The safer wording is "more CS1/CS2-shaped decisions," not "exactly a hundred." I would rather underclaim the number and defend the architecture.`,
 
   'cs3-problem': `## Q1: 80/20 sounds arbitrary — do you have data on how pharmacometrics teams spend their time?
 **From:** evidence-demanding panelist
 **Difficulty:** ★★★★ · **Topic:** methodology
 
-A: The 80/20 is a directional estimate from my own workflow audits and from published time-motion studies in pharmaceutical R&D. Kim et al. 2025 documents the scaffolding overhead in pharmacometric workflows. The specific ratio varies by organization, but the qualitative finding — that integration dominates analysis — is consistent across the literature and across my experience at GSK, Jazz, and Servier.
+A: The 80/20 is an ==illustrative operating estimate==, not a universal time-motion measurement. I use it to name a familiar workflow pattern: the mature science often sits inside fragmented scaffolding — data formatting, tool handoffs, report assembly, QC tracking, and version control. If a panelist wants precision, I would state the ratio as directional and defend the pattern, not the exact number.
+
+> **If pressed:** I should not attribute 80/20 to Kim et al.; Kim et al. is about agent-system scaling, not pharmacometric time use. The defensible claim is the structural one: integration overhead is real and recurring.
 
 ## Q2: Isn't this just a pitch for automation? What's the clinical pharmacology insight?
 **From:** discipline-purist panelist
 **Difficulty:** ★★★★ · **Topic:** methodology
 
-A: The insight is that the bottleneck to regulatory pharmacology decisions has shifted. In the 2010s, the bottleneck was methodology — we didn't have mature PBPK, adequate PopPK, or accepted exposure-response frameworks. In the 2020s, the methodology is mature (M15 wouldn't exist otherwise). The new bottleneck is assembly — how fast the function can package mature methodology into a defensible deliverable. That's a Clin Pharm organizational insight, not just an IT one.`,
+A: The clinical pharmacology insight is that the bottleneck has shifted from "can we build the model?" to "can we produce ==traceable, reviewable, context-of-use-specific evidence== fast enough for the decision?" PharmAgent does not replace pharmacology. It standardizes the scaffolding around pharmacology so the human scientist spends more time on dose, population, evidence, and decision.
+
+> **If pressed:** Automation is the mechanism; clinical pharmacology judgment is still the authority. That distinction is the whole case.`,
 
   'cs3-architecture': `## Q1: Why three levels and 13 agents specifically — what makes that the right decomposition?
 **From:** systems-architect panelist
@@ -1470,7 +2226,15 @@ A: The hierarchy mirrors how a pharmacometrics department actually decomposes wo
 > **Anchor:** "Mirrors a department"
 > **If pressed:** Apollo-AI uses ~5 agents at the conceptual level, DruGagent uses 5 for drug-target prediction. Those work for narrow scopes. Full-pipeline MIDD has more analytical roles, so the agent count is higher. The Level 2 split (PopPK / PKPD / E-R) exists because those three modeling families have different structural assumptions and different tool sets.
 
-## Q2: 151 deterministic tools and 76 templates — isn't this over-engineered?
+## Q2: What exactly is an agent here? How is it different from a chatbot?
+**From:** junior pharmacometrician / AI-skeptical panelist
+**Difficulty:** ★★ · **Topic:** agent architecture
+
+A: A chatbot produces text. An agent is an LLM connected to ==tools, typed state, a planning loop, and structured outputs==. In PharmAgent, the LLM decides which validated tool to call, with what parameters, and where the result writes back. The tool computes; the LLM orchestrates.
+
+> **If pressed:** The simplest line is: ==agents decide; tools execute; humans approve==. That is the architecture.
+
+## Q3: 151 deterministic tools and 76 templates — isn't this over-engineered?
 **From:** simplicity-advocating panelist
 **Difficulty:** ★★★ · **Topic:** architecture
 
@@ -1478,7 +2242,7 @@ A: Each tool corresponds to a specific, named step in a pharmacometric workflow 
 
 > **Anchor:** "One tool per named step"
 
-## Q3: What stops the LLM from hallucinating an analytical decision that bypasses your tools?
+## Q4: What stops the LLM from hallucinating an analytical decision that bypasses your tools?
 **From:** safety-critical panelist
 **Difficulty:** ★★★★ · **Topic:** safety
 
@@ -1487,27 +2251,27 @@ A: Two structural defenses. First, agents-decide-tools-execute is enforced at th
 > **Anchor:** "Tools validate; QC verifies"
 > **Verbatim:** "agents-decide, tools-execute"`,
 
-  'cs3-landscape': `## Q1: How is PharmAgent different from Apollo-AI?
-**From:** literature-aware panelist
-**Difficulty:** ★★★ · **Topic:** competitive
+  'cs3-landscape': `## Q1: Are you positioning PharmAgent against validated pharmacometric platforms?
+**From:** skeptical senior panelist
+**Difficulty:** ★★★★★ · **Topic:** positioning
 
-A: Apollo-AI is the conceptual framework Shahin and colleagues at Pfizer published in CTS in 2025 — a vision for multi-agent quantitative clinical pharmacology. It's an architectural sketch, not a working platform. PharmAgent is the implementation: 13 agents wired together, 151 tools running, 76 templates executing, with privacy and audit boundaries enforced at the code level. Ideas overlap; running code is the difference.
+A: No. Existing validated tools and platforms are the ==computation layer==, and the point is to keep them. PharmAgent is a personal research architecture for orchestration around those tools: routing, typed state, audit trail, privacy boundary, and report assembly. It is not a replacement claim.
 
-> **Anchor:** "Theory vs. running code"
+> **If pressed:** The safe sentence is: ==keep validated computation; organize the workflow around it.==
 
-## Q2: pyDarwin already does PopPK structural search. Why build something else?
-**From:** open-source-aware panelist
-**Difficulty:** ★★★ · **Topic:** competitive
+## Q2: Why show this slide at all if you are not making a competitive claim?
+**From:** strategic panelist
+**Difficulty:** ★★★ · **Topic:** presentation strategy
 
-A: pyDarwin solves one cell — structural model search via genetic algorithms, and excellent at it. But pharmacometric submission readiness is data ingestion plus NCA plus PopPK plus QC plus simulation plus report plus audit — pyDarwin covers one column. PharmAgent doesn't replace pyDarwin; the PopPK Expert agent could call pyDarwin as a tool. The gap pyDarwin doesn't address is integration and M15-compliant documentation.
+A: Because the panel needs to know where the idea sits. Without this slide, PharmAgent can sound like a standalone AI product. The layered view makes the opposite point: human authority above, validated tools below, PharmAgent as a research orchestration layer in the middle, with privacy and audit across the path.
 
-> **Anchor:** "Cell vs. row"
+> **Anchor:** "Ecosystem position, not competitor comparison"
 
 ## Q3: Couldn't you just chain existing tools yourself?
 **From:** skeptical panelist
 **Difficulty:** ★★★★ · **Topic:** value
 
-A: Yes — and that's exactly what pharmacometricians do today. The pharmacometrician IS the integration layer. The cost is four-to-eight weeks per analysis, manual documentation that drifts from what was actually run, and no tamper-evident audit trail. PharmAgent eliminates the manual integration layer, auto-generates Methods sections from the actual analytical steps, and provides hash-chain provenance. The existing-tools approach works; it just doesn't scale to the volume of decisions ICH M15, E11A, Project Optimus, and Rule 101 will generate.
+A: Yes — and that is exactly the current operating model. The pharmacometrician is the integration layer. PharmAgent's claim is not that existing tools fail; it is that the handoffs between them are not structured, replayable, or audit-native by default. The research question is whether a workflow layer can capture state, provenance, and review gates without disturbing validated computation.
 
 > **Anchor:** "We are the integration layer"
 > **Hostile:** "If PharmAgent breaks, the function does the analysis manually — same as today. We'd lose throughput, not capability."
@@ -1519,71 +2283,77 @@ A: Yes — and that's exactly what pharmacometricians do today. The pharmacometr
 A: Honest answer: PharmAgent is v1.0 as of February 2026 — pre-publication. Components have been validated against the same benchmark datasets the published systems use. Next 12 months I'm planning two things: a CPT:PSP submission demonstrating full-pipeline analysis on a published Phase II dataset, and an open benchmark against pyDarwin for PopPK and against PEARL for regulatory search. I'm not asking the panel to take this on faith — I'm asking for the chance to ship the validation.
 
 > **Anchor:** "v1.0; validation in flight"
-> **Hostile:** "Right — no peer-reviewed validation yet. The architecture is published-adjacent (Apollo-AI is the closest concept), and the deterministic-tool layer uses libraries that ARE validated. Full-platform benchmark is the next 12 months."
+> **Hostile:** "Right — no peer-reviewed validation yet. That is why I frame it as research architecture, not a deployable validated platform. The deterministic-tool layer can call validated tools; the orchestration layer still needs formal benchmarking."
 > **Backup:** cs3-B3-trial-status
 
 ## Q5: What about Prompt-to-Pill — Vichentijevikj 2026 published a full-pipeline multi-agent system. Doesn't that already cover the row?
 **From:** literature-current panelist
 **Difficulty:** ★★★★ · **Topic:** competitive
 
-A: Prompt-to-Pill (Bioinformatics Advances, January 2026) is the closest published peer to PharmAgent — central orchestrator plus specialized agents for molecular generation, toxicity screening, and trial simulation. The scope difference is decisive: ==Prompt-to-Pill targets drug discovery + early trial sim==; PharmAgent targets ==pharmacometric submission readiness==. Prompt-to-Pill agents generate molecules; PharmAgent agents fit population PK models. Different stage of the pipeline, different deterministic tool layer, different regulatory framework. They're complements, not competitors — Prompt-to-Pill ships the candidate, PharmAgent ships the dossier.
+A: I would not frame that as a row-by-row comparison. Prompt-to-Pill is a different stage and a different scientific objective: drug discovery and early trial simulation. PharmAgent is a personal research architecture for pharmacometric workflow orchestration. The common lesson is that agent systems need specialized tools and auditability; the applications are different.
 
-> **Anchor:** "Discovery vs. dossier"
-> **If pressed:** Both systems share the agents-decide-tools-execute pattern that the FDA-EMA Jan 2026 principles call out as the responsible-use baseline.`,
+> **Anchor:** "Different application, shared pattern"
+> **If pressed:** The more senior answer is: "I should learn from those systems, not compete with them."`,
 
   'cs3-decisive-move': `## Q1: "By construction, not by promise" — can you actually guarantee that patient data never reaches the LLM?
 **From:** privacy-focused panelist
 **Difficulty:** ★★★★★ · **Topic:** privacy
 
-A: The architecture enforces it at the data-flow level. Patient-level data is processed by local computation agents that never send raw PII to the inference layer. The LLM receives typed summaries, model parameters, and structural metadata — never individual patient records. The state bus is encrypted and the audit trail records every data movement. "By construction" means the data path physically doesn't include a PII → LLM channel. If someone wants to circumvent it, they'd have to redesign the architecture, not just change a policy setting.
+A: The privacy claim is about the data path. SchemaExtractor and local computation tools sit between raw patient rows and the LLM. The LLM receives ==metadata, summaries, and typed state==, not individual patient records. "By construction" means the normal workflow has no raw-row-to-LLM channel.
+
+> **If pressed:** I would avoid saying "impossible under all conceivable attacks." The precise claim is stronger and safer: the intended architecture has no code path that sends patient-level rows to the LLM; violating that would require changing the architecture, not changing a prompt.
 
 ## Q2: How does the hash-chain audit compare to existing regulatory submission audit trails?
 **From:** regulatory-process panelist
 **Difficulty:** ★★★ · **Topic:** regulatory
 
-A: Current audit trails are typically document-level — version control on reports, sign-off workflows, electronic submissions. The hash-chain adds analysis-step-level provenance: every data transformation, model run, parameter estimate, and report generation step is individually hashed and chained. A regulator can replay the entire analysis from raw data to final report and verify that every intermediate step produced the same output. That's ICH M15-level auditability applied to the workflow itself, not just the documents.
+A: Current audit trails are often document-level: versioned reports, sign-offs, electronic records. The hash chain adds ==analysis-step-level provenance==. Each tool call records timestamp, agent, tool, input hash, output hash, and previous hash. If a past record is modified, the downstream chain no longer verifies.
 
-## Q3: ICH M15 reached Step 4 in November 2025 and the FDA-EMA Guiding Principles dropped January 14, 2026. Does PharmAgent map to those frameworks?
+> **If pressed:** Hash chains are tamper-evident, not tamper-proof. Operational compliance still needs access control, external checkpointing, validation, and SOPs.
+
+## Q3: Does PharmAgent map to ICH M15 and FDA's AI draft guidance?
 **From:** regulatory-current panelist
 **Difficulty:** ★★★★★ · **Topic:** regulatory
 
-A: Yes — explicitly, by design. M15 emphasizes ==validation, interpretability, and data provenance== for AI/ML in MIDD. PharmAgent's deterministic-tool layer answers validation (every tool is independently validated, the LLM doesn't compute). The schema-only privacy boundary plus typed state bus answers data provenance. The hash-chain audit answers traceability. The FDA-EMA Jan 2026 principles add ==human-in-the-loop oversight, algorithm transparency, and continuous monitoring== — PharmAgent's review gates and QC Agent are the human-in-the-loop layer; the deterministic tool layer IS algorithm transparency (no opaque inference path). Continuous monitoring is the gap I'd flag honestly: PharmAgent has logging but not yet a production drift-detection layer. That's roadmap.
+A: Yes, with careful wording. ICH M15 Step 4 was adopted ==29 January 2026== and emphasizes planning, model evaluation, reporting, and submission of MIDD evidence. FDA's January 2025 AI draft guidance emphasizes question of interest, context of use, model risk, credibility plan, documentation, and adequacy. PharmAgent maps to that posture through deterministic tools, typed state, human review gates, and hash-chain audit.
 
-> **Anchor:** "M15 + Jan 2026 principles, mapped"
-> **If pressed:** I can walk the eight regulatory provisions in the FDA-EMA Jan 14, 2026 document and the corresponding PharmAgent architectural feature for each. Continuous monitoring is item 7; that's the open item, not items 1–6 or item 8.`,
+> **If pressed:** I would not claim regulatory acceptance. I would claim architectural alignment with the documentation and credibility logic those frameworks require.`,
 
-  'cs3-pilot': `## Q1: These are pilot metrics — are they reproducible at production scale?
-**From:** scalability-skeptic panelist
-**Difficulty:** ★★★★ · **Topic:** methodology
+  'cs3-pilot': `## Q1: Why did you show a trace instead of speed metrics?
+**From:** skeptical senior panelist
+**Difficulty:** ★★★ · **Topic:** evidence
 
-A: That's the honest caveat. The pilot metrics are from controlled project runs on representative but not production-scale datasets. The speed improvements are driven by automation of the scaffolding steps — formatting, QC checklist execution, report assembly — which scale linearly. The science steps — model specification, covariate selection, regulatory judgment — still require human review and don't accelerate proportionally. Production validation would require running the platform alongside a manual workflow on a live regulatory submission and comparing outcomes.
+A: Because traceability is the more defensible claim. Internal speed metrics are useful for development, but they are easy to overread in a public interview. The trace shows the architecture's core behavior: user request, supervisor routing, deterministic tool execution, human QC gate, and report generated from the audit trail.
 
-## Q2: "Same QC checklists" — how do you verify that the AI didn't introduce errors the checklist doesn't catch?
+> **If pressed:** Speed can be tested later in a benchmark. Traceability has to be designed in from day one.
+
+## Q2: How do you verify that the agent didn't introduce errors the checklist doesn't catch?
 **From:** quality-focused panelist
 **Difficulty:** ★★★★ · **Topic:** quality
 
-A: Two safeguards. First, every tool output is deterministic — given the same input, it produces the same output, and that output is the same as the manual tool would produce. The AI orchestrates; it doesn't compute. Second, the review gates are human-in-the-loop: a pharmacometrician reviews the model diagnostics, a regulatory writer reviews the report, a QC reviewer validates the tables. The platform shortens the path to the review gate but doesn't remove the gate itself.
+A: Two safeguards. First, the analytical outputs are deterministic tool outputs, not free-text LLM calculations. Second, the review gates remain human: model diagnostics, parameter plausibility, QC tables, report text. The platform shortens the path to review; it does not remove the review.
 
-## Q3: R Shiny got FDA Pilot 2 acceptance in December 2022. What's PharmAgent's path to a comparable regulatory precedent?
+## Q3: What would a real validation path look like?
 **From:** regulatory-strategy panelist
 **Difficulty:** ★★★★ · **Topic:** regulatory
 
-A: Two-stage. ==Stage one== — submit a CPT:PSP paper documenting full-pipeline analysis on a published Phase II dataset, with the hash-chain provenance log included as supplementary material. That establishes the methodology in peer-reviewed literature. ==Stage two== — submit an FDA Pre-IND or Type C meeting briefing package where PharmAgent generated some of the analytical artifacts, with the agency given full access to the deterministic-tool layer and audit trail. The R Shiny precedent is the right analogue: the FDA accepted a tool that produced reproducible, auditable outputs alongside the same documentation a manual workflow would produce. PharmAgent's path is the same — show, don't argue, that the artifacts pass the same review criteria.
+A: First, run against public datasets where the manual answer is known. Second, compare tool outputs against validated scripts and accepted pharmacometric packages. Third, publish the workflow, audit trace, and failure modes. Fourth, use it in parallel with a manual workflow before any sponsor relies on it. That is a validation path, not a shortcut.
 
-> **Anchor:** "Show, don't argue"
-> **If pressed:** Posit's R Shiny Pilot 2 acceptance (Dec 2022) is the public-record proof that an open-source orchestration tool can land an FDA-accepted submission package. The agency accepted Pilot 2 because the tool's outputs were validatable, not because it was R Shiny per se. Same standard applies.`,
+> **Anchor:** "Parallel run before reliance"`,
 
-  'cs3-bracket': `## Q1: You designed the platform — what happens when you leave? Is it portable or personal?
+  'cs3-bracket': `## Q1: If the architecture is research-grounded, what is the actual contribution?
 **From:** organizational-sustainability panelist
 **Difficulty:** ★★★★ · **Topic:** career
 
-A: The platform is documented, version-controlled, and built on published frameworks. The typed state bus, the deterministic tool specifications, and the template library are all transferable. What's personal is the judgment that assembled these specific choices into a coherent system — the same kind of judgment that assembled the CS1 exposure-matching strategy or the CS2 mechanism-first reframe. Director-level work produces systems that outlive the Director. If I do this right, the platform transfers.
+A: The contribution is design judgment: selecting and assembling the right patterns for a regulated clinical-pharmacology workflow. The building blocks are not invented from scratch — supervisor routing, deterministic tools, typed state, privacy boundary, audit chain, and human review all come from agent-system, MIDD, and regulatory-credibility logic. The value is knowing which patterns belong together and where the boundaries have to be.
+
+> **If pressed:** ==Research provides the patterns; clinical pharmacology determines the constraints.== That is the portable contribution.
 
 ## Q2: How do you respond to the concern that AI in clinical pharmacology could reduce headcount rather than capability?
 **From:** organizational-impact panelist
 **Difficulty:** ★★★★★ · **Topic:** career
 
-A: The framing of the portable principle is deliberate: workflow infrastructure, not model substitution. The platform doesn't replace pharmacometricians — it removes the scaffolding that prevents pharmacometricians from doing pharmacometrics. The function grows in capability, not in headcount efficiency. If the next decade asks for a hundred more CS1- and CS2-shaped decisions, the answer isn't a hundred more FTEs — it's the same team, with better infrastructure, making better decisions faster.
+A: The framing is deliberate: ==infrastructure, not substitution==. The platform removes scaffolding; it does not remove judgment. If the function has more MIDD, pediatric extrapolation, and regional-bridging work to do, the answer cannot only be more manual handoffs. The answer is better infrastructure around the same human authority.
 
 ## Q3: Neural ODEs are a hotter modeling paradigm than agent orchestration. Why didn't you build a hybrid Neural-ODE platform like DeepPumas instead?
 **From:** modeling-purist panelist
@@ -1598,13 +2368,15 @@ A: Different jobs. ==Neural ODEs are a model class== — you reach for them when
 **From:** precise-language panelist
 **Difficulty:** ★★★★ · **Topic:** methodology
 
-A: The LLMs in the platform do two things: orchestration (deciding which deterministic tool to run next) and templating (assembling outputs into regulatory format). They do NOT do pharmacometrics — they don't fit models, estimate parameters, interpret diagnostics, or make regulatory judgment calls. The human pharmacometrician does all of those. The substitution is in the scaffolding — the 80% — not in the science — the 20%. That distinction is what "workflow infrastructure" means.
+A: The LLM substitutes for some scaffolding work: routing, templating, report assembly, and retrieval. It does not substitute for pharmacometric authority. It does not fit models as a black box, approve diagnostics, select labels, or own regulatory judgment. That is why I use the phrase ==infrastructure, not substitution==.
 
 ## Q2: How do you see this connecting to Merck's clinical pharmacology function?
 **From:** career-question panelist
 **Difficulty:** ★★★ · **Topic:** career
 
-A: The platform demonstrates a capability — the ability to design and build regulatory-grade AI infrastructure for clinical pharmacology. The specific platform is a research project. The capability it demonstrates is what I'd bring to any organization. Merck's scale — the volume of MIDD submissions, the global regulatory footprint, the therapeutic diversity — is exactly the environment where this kind of infrastructure creates leverage. I'm not offering to install PharmAgent at Merck. I'm offering the judgment and architectural vision that built it.`,
+A: The specific platform is a personal research project. The transferable value is the architecture judgment: privacy by structure, deterministic tool execution, MIDD documentation, human review gates, and auditability. I would not walk into Merck and say "install PharmAgent." I would ask what infrastructure already exists and apply the pattern where it fits.
+
+> **If pressed:** The offer is judgment and architecture, not a product sale.`,
 
   // Closing slides — added 2026-04-26
   'closing-thread': `## Q1: The "trial isn't the answer" framing risks sounding anti-trial. How do you avoid that?

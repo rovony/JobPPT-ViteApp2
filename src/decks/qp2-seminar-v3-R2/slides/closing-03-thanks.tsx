@@ -21,11 +21,8 @@ export default function ClosingThanks() {
     <SlideGrid dataCase="amber" areas={STANDARD_AREAS}>
       <Eyebrow delay={0.10}>Thank you · Open for discussion</Eyebrow>
 
-      <Headline delay={0.25} maxChars={48}>
-        I would be glad to{' '}
-        <span style={{ color: 'var(--amber)', fontStyle: 'italic', fontWeight: 600 }}>
-          take your questions.
-        </span>
+      <Headline delay={0.25} maxChars={60}>
+        I would be glad to take your questions.
       </Headline>
 
       <Subhead delay={0.45} size="lead" maxChars={120}>
@@ -43,6 +40,24 @@ export default function ClosingThanks() {
           gap: 'clamp(var(--space-5), 4vh, var(--space-8))',
           textAlign: 'center',
         }}>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={go ? { opacity: 1, scale: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.4, ease: EASE }}
+            className="deck-display"
+            style={{
+              fontSize: 'clamp(5rem, 12vw, 10rem)',
+              fontWeight: 800,
+              color: 'var(--amber)',
+              lineHeight: 0.9,
+              letterSpacing: '-0.03em',
+              textShadow: '0 12px 40px color-mix(in srgb, var(--amber) 25%, transparent)',
+              marginBottom: 'var(--space-2)',
+            }}
+          >
+            Thank you.
+          </motion.div>
+
           {/* Three discussion-prompt chips — invites the panel to a chosen depth */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}

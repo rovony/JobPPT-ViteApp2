@@ -60,7 +60,7 @@ export default function CompartmentSchematic({ tk }) {
 
   return (
     <svg
-      viewBox="0 0 600 480"
+      viewBox="0 90 600 390"
       preserveAspectRatio="xMidYMid meet"
       style={{ width: '100%', height: '100%', display: 'block' }}
       aria-hidden

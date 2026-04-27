@@ -68,11 +68,24 @@ export default function MechanismVisual({ delay = 0 }) {
           <Receptor type="ETA" x={160} y={280} tone="var(--case)" active={true} blocked={false} />
           <Receptor type="ETB" x={320} y={280} tone="var(--cyan)" active={true} blocked={false} />
 
+          {/* Load-bearing biology cue: ET-1 is docked to ETA, so constriction is ON. */}
+          <Molecule
+            type="ET-1"
+            tone="var(--case)"
+            cx={160}
+            cy={263}
+            delay={delay}
+            reduced={reduced}
+            customInitial={{ opacity: 1, x: 160, y: 263 }}
+            customAnimate={{ opacity: 1, x: 160, y: 263 }}
+            customTransition={{ duration: 0 }}
+          />
+
           {/* Vasoconstriction Arrows */}
           <g transform="translate(160, 330)">
             <line x1="0" y1="20" x2="0" y2="-10" stroke="var(--case)" strokeWidth="2" />
             <polygon points="-6,0 6,0 0,-10" fill="var(--case)" />
-            <text x="0" y="35" textAnchor="middle" fill="var(--case)" fontSize="14" fontWeight="bold" fontFamily="var(--font-mono)">VASOCONSTRICTION</text>
+            <text x="0" y="35" textAnchor="middle" fill="var(--case)" fontSize="14" fontWeight="bold" fontFamily="var(--font-mono)">CONSTRICTION ON</text>
           </g>
           <g transform="translate(320, 330)">
             <line x1="0" y1="20" x2="0" y2="-10" stroke="var(--case)" strokeWidth="2" />
@@ -92,18 +105,44 @@ export default function MechanismVisual({ delay = 0 }) {
 
         {/* RIGHT SIDE: TREATED (Open Lumen) */}
         <g id="right-treated">
-          {/* Top Wall */}
-          <rect x="520" y="-40" width="480" height="100" fill="url(#topWallGradientSage)" />
-          <line x1="520" y1="60" x2="1000" y2="60" stroke="var(--sage)" strokeWidth="3" />
+          {/* Top Wall (Starts narrow at y=80, opens to y=-40) */}
+          <motion.rect 
+            x="520" width="480" height="100" fill="url(#topWallGradientSage)"
+            initial={reduced ? { y: -40 } : { y: 80 }}
+            animate={{ y: -40 }}
+            transition={{ delay: delay + 4.5, duration: 2.0, ease: EASE }}
+          />
+          <motion.line 
+            x1="520" x2="1000" stroke="var(--sage)" strokeWidth="3"
+            initial={reduced ? { y1: 60, y2: 60 } : { y1: 180, y2: 180 }}
+            animate={{ y1: 60, y2: 60 }}
+            transition={{ delay: delay + 4.5, duration: 2.0, ease: EASE }}
+          />
           
           {/* Bottom Endothelium Wall */}
           <rect x="520" y="280" width="480" height="100" fill="url(#wallGradientSage)" />
           <line x1="520" y1="280" x2="1000" y2="280" stroke="var(--sage)" strokeWidth="3" />
 
-          {/* Lumen Label */}
-          <text x="760" y="170" dominantBaseline="middle" textAnchor="middle" fill="var(--sage)" opacity="0.35" fontSize="24" fontWeight="bold" letterSpacing="4" fontFamily="var(--font-mono)">
+          {/* Lumen Labels */}
+          {/* Fades out when lumen opens */}
+          <motion.text 
+            x="760" y="235" dominantBaseline="middle" textAnchor="middle" fill="var(--sage)" opacity="0.35" fontSize="24" fontWeight="bold" letterSpacing="4" fontFamily="var(--font-mono)"
+            initial={reduced ? { opacity: 0 } : { opacity: 0.35 }}
+            animate={{ opacity: 0 }}
+            transition={{ delay: delay + 4.5, duration: 0.5 }}
+          >
+            NARROW LUMEN
+          </motion.text>
+          
+          {/* Fades in when lumen opens */}
+          <motion.text 
+            x="760" dominantBaseline="middle" textAnchor="middle" fill="var(--sage)" fontSize="24" fontWeight="bold" letterSpacing="4" fontFamily="var(--font-mono)"
+            initial={reduced ? { opacity: 0.35, y: 170 } : { opacity: 0, y: 235 }}
+            animate={{ opacity: 0.35, y: 170 }}
+            transition={{ delay: delay + 4.5, duration: 1.0, ease: EASE }}
+          >
             OPEN LUMEN
-          </text>
+          </motion.text>
 
           {/* Right Title */}
           <text x="760" y="-30" dominantBaseline="middle" textAnchor="middle" fill="var(--sage)" fontSize="18" fontWeight="bold" letterSpacing="2" fontFamily="var(--font-mono)">
@@ -121,19 +160,76 @@ export default function MechanismVisual({ delay = 0 }) {
           <Receptor type="ETA" x={680} y={280} tone="var(--case)" active={false} blocked={true} />
           <Receptor type="ETB" x={840} y={280} tone="var(--cyan)" active={true} blocked={false} />
 
-          {/* Ambrisentan Blockers Flowing / Docked */}
-          <Molecule type="AMB" tone="var(--amber)" cx={680} cy={265} isDocked={true} delay={delay + 1.2} reduced={reduced} />
-          
-          <g transform="translate(680, 310)">
-            <text x="0" y="0" textAnchor="middle" fill="var(--case)" opacity="0.5" fontSize="12" fontWeight="bold" fontFamily="var(--font-mono)">BLOCKED</text>
-          </g>
+          {/* AMBRISENTAN DOCKING SEQUENCE */}
+          {/* Starts near center, slowly moves down and occupies ETA before ET-1 can bind. */}
+          <Molecule 
+            type="AMB" tone="var(--amber)" cx={680} cy={263} 
+            isDocked={true} delay={delay + 1.0} reduced={reduced}
+            customInitial={{ opacity: 0, x: 680, y: 100 }}
+            customAnimate={{ opacity: 1, x: 680, y: 263 }}
+            customTransition={{ 
+              opacity: { duration: 0.5, delay: delay + 1.0 }, 
+              y: { duration: 1.8, delay: delay + 1.0, ease: EASE }
+            }}
+          />
 
-          {/* Vasodilation Arrows */}
-          <g transform="translate(680, 350)">
+          {/* ET-1 BOUNCE SEQUENCE */}
+          {/* Approaches docked AMB, hits the occupied ETA site, then bounces off. */}
+          <Molecule 
+            type="ET-1" tone="var(--case)" cx={680} cy={150} reduced={reduced}
+            customInitial={{ opacity: 0, x: 760, y: 150 }}
+            customAnimate={{ 
+              opacity: [0, 1, 1, 0], 
+              x: [760, 692, 735, 760], 
+              y: [150, 244, 200, 175] 
+            }}
+            customTransition={{ duration: 1.8, delay: delay + 3.0, times: [0, 0.55, 0.78, 1], ease: 'easeInOut' }}
+          />
+          
+          <motion.g 
+            transform="translate(680, 310)"
+            initial={reduced ? { opacity: 1 } : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: delay + 2.5, duration: 0.5 }}
+          >
+            <text x="0" y="0" textAnchor="middle" fill="var(--case)" opacity="0.5" fontSize="12" fontWeight="bold" fontFamily="var(--font-mono)">BLOCKED</text>
+          </motion.g>
+
+          {/* Vasoconstriction cue is visibly stopped after AMB blocks ETA. */}
+          <motion.g 
+            transform="translate(680, 330)"
+            initial={reduced ? { opacity: 0 } : { opacity: 1 }}
+            animate={{ opacity: 0 }}
+            transition={{ delay: delay + 3.9, duration: 0.35 }}
+          >
+            <line x1="0" y1="20" x2="0" y2="-10" stroke="var(--case)" strokeWidth="2" />
+            <polygon points="-6,0 6,0 0,-10" fill="var(--case)" />
+            <text x="0" y="35" textAnchor="middle" fill="var(--case)" fontSize="14" fontWeight="bold" fontFamily="var(--font-mono)">CONSTRICTION ON</text>
+          </motion.g>
+
+          <motion.g
+            transform="translate(680, 330)"
+            initial={reduced ? { opacity: 1 } : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: delay + 4.05, duration: 0.45 }}
+          >
+            <line x1="-48" y1="6" x2="48" y2="6" stroke="var(--amber)" strokeWidth="4" strokeLinecap="round" />
+            <line x1="-48" y1="-18" x2="48" y2="-18" stroke="var(--amber)" strokeWidth="4" strokeLinecap="round" />
+            <text x="0" y="35" textAnchor="middle" fill="var(--amber)" fontSize="14" fontWeight="bold" fontFamily="var(--font-mono)">CONSTRICTION OFF</text>
+          </motion.g>
+
+          {/* Vasodilation Arrows (Fades in when lumen opens) */}
+          <motion.g 
+            transform="translate(680, 350)"
+            initial={reduced ? { opacity: 1 } : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: delay + 5.0, duration: 0.5 }}
+          >
             <line x1="0" y1="-10" x2="0" y2="20" stroke="var(--sage)" strokeWidth="2" />
             <polygon points="-6,10 6,10 0,20" fill="var(--sage)" />
-            <text x="0" y="35" textAnchor="middle" fill="var(--sage)" fontSize="14" fontWeight="bold" fontFamily="var(--font-mono)">VASODILATION</text>
-          </g>
+            <text x="0" y="35" textAnchor="middle" fill="var(--sage)" fontSize="14" fontWeight="bold" fontFamily="var(--font-mono)">RELAXATION</text>
+          </motion.g>
+
           <g transform="translate(840, 350)">
             <line x1="0" y1="-10" x2="0" y2="20" stroke="var(--sage)" strokeWidth="2" />
             <polygon points="-6,10 6,10 0,20" fill="var(--sage)" />
@@ -174,23 +270,26 @@ function Receptor({ type, x, y, tone, active, blocked }) {
   );
 }
 
-function Molecule({ type, tone, cx, cy, isDocked = false, delay, reduced }) {
+function Molecule({ type, tone, cx, cy, isDocked = false, delay, reduced, customInitial, customAnimate, customTransition }) {
   const width = 48;
   const height = 24;
   const isAmb = type === 'AMB';
 
+  const defaultInitial = reduced ? false : { opacity: 0, x: cx, y: isDocked ? cy - 20 : cy };
+  const defaultAnimate = reduced ? false : (
+    isDocked 
+      ? { opacity: 1, x: cx, y: cy } 
+      : { opacity: [0.2, 1, 0.2], x: cx, y: [cy, cy - 10, cy] }
+  );
+  const defaultTransition = isDocked
+    ? { duration: 0.6, delay, ease: EASE }
+    : { duration: 4, delay, repeat: Infinity, ease: 'easeInOut' };
+
   return (
     <motion.g
-      initial={reduced ? false : { opacity: 0, x: cx, y: isDocked ? cy - 20 : cy }}
-      animate={reduced ? false : (
-        isDocked 
-          ? { opacity: 1, x: cx, y: cy } 
-          : { opacity: [0.2, 1, 0.2], x: cx, y: [cy, cy - 10, cy] }
-      )}
-      transition={isDocked
-        ? { duration: 0.6, delay, ease: EASE }
-        : { duration: 4, delay, repeat: Infinity, ease: 'easeInOut' }
-      }
+      initial={customInitial || defaultInitial}
+      animate={customAnimate || defaultAnimate}
+      transition={customTransition || defaultTransition}
     >
       <rect
         x={-width/2} y={-height/2}

@@ -5,7 +5,7 @@ import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 import CS2MoaCard from './cs2-shared/CS2MoaCard';
 import {
-  Pillar, PillarHeroNumber, PillarHeroItalic, PillarSub,
+  PillarTextCard, PillarVizCard, PillarHeroNumber, PillarHeroItalic, PillarSub,
   PillarVizWrap, PillarBody, PillarCite,
   PkSimilarityViz, ErSimilarityViz, IntrinsicViz, ExtrinsicViz, GlobalRegViz,
 } from './cs2-shared/CS2Pillars';
@@ -75,64 +75,84 @@ export default function CS2Pillars() {
             </div>
 
             {/* Pillar 02 · PK Similarity */}
-            <Pillar delay={go ? D.p2 : 0} eyebrow="Pillar 02" name="PK Similarity">
-              <PillarHeroNumber>n = 253</PillarHeroNumber>
-              <PillarSub>race not significant</PillarSub>
-              <PillarVizWrap><PkSimilarityViz /></PillarVizWrap>
-              <PillarBody>
-                Pooled phase 1 + AGILE PK data, n=253. Linear PK confirmed across ethnic groups.
-              </PillarBody>
-              <PillarCite>Jiang et al.<br />CTS 2021</PillarCite>
-            </Pillar>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+              <PillarTextCard delay={go ? D.p2 : 0} eyebrow="Pillar 02" name="PK Similarity">
+                <PillarHeroNumber>n = 253</PillarHeroNumber>
+                <PillarSub>race not significant</PillarSub>
+                <PillarBody>
+                  Pooled phase 1 + AGILE PK data, n=253. Linear PK confirmed across ethnic groups.
+                </PillarBody>
+                <PillarCite>Jiang et al.<br />CTS 2021</PillarCite>
+              </PillarTextCard>
+              <PillarVizCard delay={go ? D.p2 + 0.1 : 0}>
+                <PillarVizWrap><PkSimilarityViz /></PillarVizWrap>
+              </PillarVizCard>
+            </div>
 
             {/* Pillar 03 · ER Similarity */}
-            <Pillar delay={go ? D.p3 : 0} eyebrow="Pillar 03" name="ER Similarity">
-              <PillarHeroItalic>
-                Flat<br />
-                <span style={{
-                  fontSize: 'var(--fs-slide-subhead)', fontStyle: 'italic',
-                  color: C.creamMuted, fontWeight: 400,
-                }}>across range</span>
-              </PillarHeroItalic>
-              <PillarVizWrap><ErSimilarityViz /></PillarVizWrap>
-              <PillarBody>
-                No exposure-AE or exposure-efficacy relationship. Wide TI · 500 mg QD covers range.
-              </PillarBody>
-              <PillarCite>Phase 1 + AGILE pivotal</PillarCite>
-            </Pillar>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+              <PillarTextCard delay={go ? D.p3 : 0} eyebrow="Pillar 03" name="ER Similarity">
+                <PillarHeroItalic>
+                  Flat<br />
+                  <span style={{
+                    fontSize: 'var(--fs-slide-subhead)', fontStyle: 'italic',
+                    color: C.creamMuted, fontWeight: 400,
+                  }}>across range</span>
+                </PillarHeroItalic>
+                <PillarBody>
+                  No exposure-AE or exposure-efficacy relationship. Wide TI · 500 mg QD covers range.
+                </PillarBody>
+                <PillarCite>Phase 1 + AGILE pivotal</PillarCite>
+              </PillarTextCard>
+              <PillarVizCard delay={go ? D.p3 + 0.1 : 0}>
+                <PillarVizWrap><ErSimilarityViz /></PillarVizWrap>
+              </PillarVizCard>
+            </div>
 
             {/* Pillar 04 · Intrinsic */}
-            <Pillar delay={go ? D.p4 : 0} eyebrow="Pillar 04" name="Intrinsic">
-              <PillarHeroItalic size="tag">No impact</PillarHeroItalic>
-              <PillarSub>organ fn · age · sex</PillarSub>
-              <PillarVizWrap><IntrinsicViz /></PillarVizWrap>
-              <PillarBody>
-                No demographic dose adjustment. CYP polymorphism characterized in DDI program.
-              </PillarBody>
-              <PillarCite>Tibsovo USPI · EMA EPAR</PillarCite>
-            </Pillar>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+              <PillarTextCard delay={go ? D.p4 : 0} eyebrow="Pillar 04" name="Intrinsic">
+                <PillarHeroItalic size="tag">No impact</PillarHeroItalic>
+                <PillarSub>organ fn · age · sex</PillarSub>
+                <PillarBody>
+                  No demographic dose adjustment. CYP polymorphism characterized in DDI program.
+                </PillarBody>
+                <PillarCite>Tibsovo USPI · EMA EPAR</PillarCite>
+              </PillarTextCard>
+              <PillarVizCard delay={go ? D.p4 + 0.1 : 0}>
+                <PillarVizWrap><IntrinsicViz /></PillarVizWrap>
+              </PillarVizCard>
+            </div>
 
             {/* Pillar 05 · Extrinsic */}
-            <Pillar delay={go ? D.p5 : 0} eyebrow="Pillar 05" name="Extrinsic">
-              <PillarHeroNumber>0.18</PillarHeroNumber>
-              <PillarSub>midazolam AUC ratio</PillarSub>
-              <PillarVizWrap><ExtrinsicViz /></PillarVizWrap>
-              <PillarBody>
-                PBPK-supported DDI label. CYP3A4 perpetrator + victim · all scenarios labeled.
-              </PillarBody>
-              <PillarCite>Xu et al.<br />CPT:PSP 2021</PillarCite>
-            </Pillar>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+              <PillarTextCard delay={go ? D.p5 : 0} eyebrow="Pillar 05" name="Extrinsic">
+                <PillarHeroItalic size="tag">No impact</PillarHeroItalic>
+                <PillarSub>food · DDIs · comeds</PillarSub>
+                <PillarBody>
+                  Extrinsic factors were characterized and managed; none required India-specific dose changes.
+                </PillarBody>
+                <PillarCite>Tibsovo USPI<br />EMA EPAR</PillarCite>
+              </PillarTextCard>
+              <PillarVizCard delay={go ? D.p5 + 0.1 : 0}>
+                <PillarVizWrap><ExtrinsicViz /></PillarVizWrap>
+              </PillarVizCard>
+            </div>
 
             {/* Pillar 06 · Global Reg */}
-            <Pillar delay={go ? D.p6 : 0} eyebrow="Pillar 06" name="Global Reg">
-              <PillarHeroNumber>30+</PillarHeroNumber>
-              <PillarSub>jurisdictions · 8 yrs</PillarSub>
-              <PillarVizWrap><GlobalRegViz /></PillarVizWrap>
-              <PillarBody>
-                Multi-agency PV · 8 yrs surveillance · no ethnicity-specific signals.
-              </PillarBody>
-              <PillarCite>FDA Orange Book<br />EMA EPAR · multi-agency</PillarCite>
-            </Pillar>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+              <PillarTextCard delay={go ? D.p6 : 0} eyebrow="Pillar 06" name="Global Reg">
+                <PillarHeroNumber>30+</PillarHeroNumber>
+                <PillarSub>jurisdictions · 8 yrs</PillarSub>
+                <PillarBody>
+                  Multi-agency PV · 8 yrs surveillance · no ethnicity-specific signals.
+                </PillarBody>
+                <PillarCite>FDA Orange Book<br />EMA EPAR · multi-agency</PillarCite>
+              </PillarTextCard>
+              <PillarVizCard delay={go ? D.p6 + 0.1 : 0}>
+                <PillarVizWrap><GlobalRegViz /></PillarVizWrap>
+              </PillarVizCard>
+            </div>
           </div>
 
           {/* Amber message band */}

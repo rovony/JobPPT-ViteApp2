@@ -297,10 +297,10 @@ function LeadContent() {
       </div>
 
       <div style={{
-        flex: '0 0 auto',
-        height: 'clamp(56px, 11vh, 88px)',
+        flex: 1,
+        minHeight: 0,
         margin: 'var(--space-3) 0',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
       }}>
         <LeadSchematic />
       </div>
@@ -331,26 +331,26 @@ function LeadContent() {
 
 function LeadSchematic() {
   return (
-    <svg viewBox="0 0 140 60" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style={{ display: 'block' }}>
+    <svg viewBox="0 0 60 140" width="100%" height="100%" preserveAspectRatio="xMinYMid meet" style={{ display: 'block' }}>
       <defs>
-        <marker id="arr-c-lead" viewBox="0 0 5 5" refX="4" refY="2.5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+        <marker id="arr-c-lead" viewBox="0 0 5 5" refX="4" refY="2.5" markerWidth="5" markerHeight="5" orient="auto">
           <path d="M 0 0 L 5 2.5 L 0 5 z" style={{ fill: C.cyan }} />
         </marker>
       </defs>
-      <circle cx="14" cy="20" r="8" style={{ fill: 'color-mix(in srgb, var(--cyan) 12%, transparent)', stroke: C.cyan, strokeWidth: 1 }} />
-      <text x="14" y="42" textAnchor="middle" fontSize="7.5" letterSpacing="0.5" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>MUT</text>
+      <circle cx="20" cy="14" r="8" style={{ fill: 'color-mix(in srgb, var(--cyan) 12%, transparent)', stroke: C.cyan, strokeWidth: 1 }} />
+      <text x="34" y="16.5" textAnchor="start" fontSize="8" letterSpacing="0.5" fontWeight="600" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>MUT</text>
 
-      <line x1="22" y1="20" x2="58" y2="20" markerEnd="url(#arr-c-lead)" style={{ stroke: C.cyan, strokeWidth: 1 }} />
+      <line x1="20" y1="22" x2="20" y2="58" markerEnd="url(#arr-c-lead)" style={{ stroke: C.cyan, strokeWidth: 1 }} />
 
-      <circle cx="68" cy="20" r="8" style={{ fill: 'color-mix(in srgb, var(--cyan) 12%, transparent)', stroke: C.cyan, strokeWidth: 1 }} />
-      <text x="68" y="23" textAnchor="middle" fontSize="7" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>2HG</text>
-      <text x="68" y="42" textAnchor="middle" fontSize="7.5" letterSpacing="0.5" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>↑ 2-HG</text>
+      <circle cx="20" cy="68" r="8" style={{ fill: 'color-mix(in srgb, var(--cyan) 12%, transparent)', stroke: C.cyan, strokeWidth: 1 }} />
+      <text x="20" y="71" textAnchor="middle" fontSize="7.5" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>2HG</text>
+      <text x="34" y="70.5" textAnchor="start" fontSize="8" letterSpacing="0.5" fontWeight="600" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>↑ 2-HG</text>
 
-      <line x1="76" y1="20" x2="112" y2="20" markerEnd="url(#arr-c-lead)" style={{ stroke: C.cyan, strokeWidth: 1 }} />
+      <line x1="20" y1="76" x2="20" y2="112" markerEnd="url(#arr-c-lead)" style={{ stroke: C.cyan, strokeWidth: 1 }} />
 
-      <circle cx="122" cy="20" r="8" style={{ fill: C.cyan }} />
-      <text x="122" y="23" textAnchor="middle" fontSize="8" fontWeight="600" style={{ fill: 'var(--bg)', fontFamily: 'var(--font-mono)' }}>Rx</text>
-      <text x="122" y="42" textAnchor="middle" fontSize="7.5" letterSpacing="0.5" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>DRUG</text>
+      <circle cx="20" cy="122" r="8" style={{ fill: C.cyan }} />
+      <text x="20" y="125" textAnchor="middle" fontSize="8.5" fontWeight="700" style={{ fill: 'var(--bg)', fontFamily: 'var(--font-mono)' }}>Rx</text>
+      <text x="34" y="124.5" textAnchor="start" fontSize="8" letterSpacing="0.5" fontWeight="600" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>DRUG</text>
     </svg>
   );
 }

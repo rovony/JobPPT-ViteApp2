@@ -1,39 +1,108 @@
 // @ts-nocheck
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
+import * as d3 from 'd3';
+import { useTokens } from '@/lib/token';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
+import HighlightWord from '@/components/deck/patterns/HighlightWord';
 import CompartmentSchematic from '../../qp2-seminar/slides/cs1-build/CompartmentSchematic';
-
-/**
- * CS1 · Slide 09b (slot) — PopPK build + fit.
- *
- * Added 2026-04-26 per cs1.md user comment ("I don't see any PK/PD charts").
- * Sits between cs1-architecture (three pillars · slot 09) and cs1-results
- * (two precedents · slot 10). One dense slide that lands the actual PK
- * receipts the panel will probe:
- *   - Dataset (380 adult + 39 pediatric)
- *   - 2-compartment structural model (reused from v1)
- *   - PopPK parameter table (CL/F, Vc/F, Vp/F, Q/F, Ka, allometry)
- *   - pcVPC mini-chart (no systematic bias)
- *   - AUC-vs-weight exposure match scatter (the "within 3%" reveal)
- *
- * Source: Okour et al. JCP 2023 · AMB112529 PopPK report.
- */
+import DecisionGate from '../../qp2-seminar/slides/cs1-build/DecisionGate';
 
 const EASE = [0.2, 0.7, 0.3, 1];
 
-/* ── PopPK parameter table ────────────────────────────────────── */
+const CHART_PANEL = {
+  minWidth: 0,
+  minHeight: 0,
+  display: 'flex',
+  flexDirection: 'column',
+  border: '1px solid var(--cream-hairline)',
+  borderRadius: 0,
+  padding: 'var(--space-3)',
+  background: 'transparent',
+};
 
-const PARAMS = [
-  { p: 'CL/F',  est: '1.86', unit: 'L/h',  rse: '5.3',  hero: true },
-  { p: 'Vc/F',  est: '17.6', unit: 'L',    rse: '7.1',  hero: true },
-  { p: 'Vp/F',  est: '57.4', unit: 'L',    rse: '12.4' },
-  { p: 'Q/F',   est: '1.34', unit: 'L/h',  rse: '14.8' },
-  { p: 'Ka',    est: '1.02', unit: '1/h',  rse: '11.2' },
-  { p: 'Allom.', est: '0.75 / 1.0', unit: 'fixed', rse: '—' },
+const CHART_PANEL_BODY = {
+  flex: '1 1 0',
+  minHeight: 0,
+  position: 'relative',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
+
+function PanelTitle({ label, right, delay, go }) {
+  return (
+    <motion.div
+      className="flex items-baseline justify-between mb-2"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: go ? 1 : 0 }}
+      transition={{ duration: 0.5, ease: [0.2, 0.7, 0.3, 1], delay }}
+    >
+      <span
+        className="deck-mono uppercase"
+        style={{ fontSize: 'var(--fs-card-label)', letterSpacing: 'var(--ls-mono-wide)', color: 'var(--coral)' }}
+      >
+        {label}
+      </span>
+      <span
+        className="deck-mono"
+        style={{ fontSize: 'var(--fs-card-meta)', letterSpacing: '0.14em', color: 'var(--cream-faint)' }}
+      >
+        {right}
+      </span>
+    </motion.div>
+  );
+}
+
+
+
+// Binned pcVPC data (time_h, observed + simulated-CI per percentile)
+const PCVPC = [
+  { t: 2,  obsMed: 369.4, obs5: 85.6,  obs95: 1133.2, simMedLo: 368.7, simMedHi: 502.6, sim95Lo: 884.3,  sim95Hi: 1419.1, sim5Lo: 58.4, sim5Hi: 151.9 },
+  { t: 6,  obsMed: 487.3, obs5: 114.3, obs95: 712.4,  simMedLo: 359.8, simMedHi: 504.4, sim95Lo: 655.3,  sim95Hi: 1050.2, sim5Lo: 53.7, sim5Hi: 251.5 },
+  { t: 12, obsMed: 184.2, obs5: 58.5,  obs95: 257.8,  simMedLo: 93.8,  simMedHi: 242.4, sim95Lo: 257.0,  sim95Hi: 478.0,  sim5Lo: 25.0, sim5Hi: 92.1  },
+  { t: 18, obsMed: 227.7, obs5: 133.8, obs95: 823.8,  simMedLo: 90.9,  simMedHi: 270.1, sim95Lo: 254.9,  sim95Hi: 588.9,  sim5Lo: 32.5, sim5Hi: 95.9  },
+  { t: 30, obsMed: 119.4, obs5: 39.0,  obs95: 297.0,  simMedLo: 86.4,  simMedHi: 128.7, sim95Lo: 214.0,  sim95Hi: 432.8,  sim5Lo: 19.6, sim5Hi: 49.6  },
 ];
 
+/* Observed raw concentrations are subsampled to the richest nominal
+   sampling times for visual clarity — full dataset is n = 211 across 39
+   evaluable patients, stated in the slide body and the panel headline).
+   Deterministic horizontal jitter at each time so overlapping values stay
+   visible without implying a real time-offset. */
+const OBS_RAW = [
+  // t = 2h (28 obs)
+  [2, 3319.0], [2, 1530.6], [2, 1389.5], [2, 1123.1], [2, 943.6], [2, 824.1],
+  [2, 705.9],  [2, 653.3],  [2, 653.3],  [2, 604.7],  [2, 570.6], [2, 538.4],
+  [2, 470.2],  [2, 395.0],  [2, 331.9],  [2, 295.5],  [2, 268.3], [2, 238.9],
+  [2, 216.8],  [2, 185.7],  [2, 165.4],  [2, 136.3],  [2, 121.3], [2, 102.0],
+  [2, 89.0],   [2, 73.4],   [2, 60.5],   [2, 27.9],
+  // t = 6h (12 obs)
+  [6, 719.7], [6, 666.1], [6, 616.5], [6, 581.7], [6, 548.9], [6, 479.4],
+  [6, 435.2], [6, 395.0], [6, 325.5], [6, 189.4], [6, 112.3], [6, 82.4],
+  // t = 12h (10 obs)
+  [12, 278.9], [12, 253.1], [12, 229.8], [12, 208.6], [12, 193.1],
+  [12, 178.7], [12, 94.4],  [12, 62.9],  [12, 57.1],  [12, 38.7],
+  // t = 18h (9 obs)
+  [18, 890.4], [18, 808.3], [18, 351.7], [18, 268.3], [18, 225.4],
+  [18, 200.7], [18, 189.4], [18, 178.7], [18, 136.3],
+  // t = 30h (24 obs)
+  [30, 470.2], [30, 380.0], [30, 338.4], [30, 295.5], [30, 253.1],
+  [30, 200.7], [30, 178.7], [30, 162.2], [30, 144.4], [30, 128.6],
+  [30, 108.0], [30, 94.4],  [30, 85.7],  [30, 77.8],  [30, 72.0],
+  [30, 66.6],  [30, 54.9],  [30, 48.9],  [30, 44.4],  [30, 40.3],
+  [30, 21.3],  [30, 13.6],  [30, 8.4],   [30, 7.1],
+];
+const PARAMS = [
+  { p: 'CL/F',  est: '1.17',  unit: 'L/h',  rse: '6.33', hero: true },
+  { p: 'Vc/F',  est: '12.3',  unit: 'L',    rse: '16.1', hero: true },
+  { p: 'Q/F',   est: '0.457', unit: 'L/h',  rse: '21.1' },
+  { p: 'Vp/F',  est: '81.3',  unit: 'L',    rse: '24.5' },
+  { p: 'Ka',    est: '2.46',  unit: '1/h',  rse: '25.7' },
+  { p: 'tlag',  est: '0.525', unit: 'h',    rse: '14.7' },
+  { p: 'Allom.', est: '0.75 / 1.0', unit: 'fixed', rse: '—' },
+];
 function ParamTable({ go, delay }) {
   return (
     <motion.div
@@ -41,24 +110,16 @@ function ParamTable({ go, delay }) {
       animate={go ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay, ease: EASE }}
       style={{
-        border: '1px solid var(--cream-hairline)',
-        background: 'color-mix(in srgb, var(--panel) 65%, transparent)',
-        borderRadius: 'var(--radius-lg)',
-        padding: 'var(--space-3) var(--space-4)',
         display: 'flex',
         flexDirection: 'column',
         gap: 'var(--space-2)',
         minHeight: 0,
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        paddingTop: 'var(--space-2)',
       }}
     >
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-eyebrow)',
-        letterSpacing: 'var(--ls-mono-wide)',
-        color: 'var(--case)',
-        fontWeight: 700,
-      }}>
-        Final estimates · 1,000 IS · BLOCK(6) ω
-      </div>
       <div style={{
         display: 'grid',
         gridTemplateColumns: '1fr 1fr 0.7fr 0.7fr',
@@ -81,7 +142,6 @@ function ParamTable({ go, delay }) {
     </motion.div>
   );
 }
-
 function Cell({ children, head, hero, mono, dim }) {
   return (
     <div
@@ -104,300 +164,297 @@ function Cell({ children, head, hero, mono, dim }) {
   );
 }
 
-/* ── pcVPC mini-chart ─────────────────────────────────────────── */
-
-/**
- * Simulated prediction-corrected VPC. 80% PI ribbon + median + ~80
- * observation dots scattered around it. The point is "obs sit inside
- * the PI ribbon" — no systematic bias.
- */
-function PcVpcChart({ go, delay }) {
-  // 16 time points · concentration falls from peak to trough
-  // Scaled values, illustrative — based on Okour 2023 Figure S5 shape.
-  const pts = useMemo(() => {
-    const n = 16;
-    return Array.from({ length: n }, (_, i) => {
-      const t = i / (n - 1);                     // 0..1 over 0–24h
-      const conc = 60 * Math.exp(-2.4 * t) + 6;  // peak then decay
-      const piHi = conc * 1.4;
-      const piLo = conc * 0.65;
-      return { t, conc, piHi, piLo };
-    });
-  }, []);
-
-  // ~80 observation dots — gentle scatter inside the PI ribbon
-  const obs = useMemo(() => {
-    const out = [];
-    let seed = 11;
-    const rand = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
-    for (let i = 0; i < 80; i++) {
-      const t = rand();
-      const conc = 60 * Math.exp(-2.4 * t) + 6;
-      const noise = (rand() - 0.5) * conc * 0.5;
-      out.push({ t, c: Math.max(2, conc + noise) });
-    }
-    return out;
-  }, []);
-
-  const W = 340, H = 180, pad = { l: 32, r: 8, t: 8, b: 26 };
-  const xs = (t) => pad.l + t * (W - pad.l - pad.r);
-  const yMax = 90;
-  const ys = (c) => H - pad.b - (c / yMax) * (H - pad.t - pad.b);
-
-  const ribbon = pts.map((p) => `${xs(p.t)},${ys(p.piHi)}`).join(' ') +
-                 ' ' +
-                 [...pts].reverse().map((p) => `${xs(p.t)},${ys(p.piLo)}`).join(' ');
-  const median = pts.map((p, i) => `${i ? 'L' : 'M'}${xs(p.t)},${ys(p.conc)}`).join(' ');
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={go ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay, ease: EASE }}
-      style={{
-        border: '1px solid var(--cream-hairline)',
-        background: 'color-mix(in srgb, var(--panel) 60%, transparent)',
-        borderRadius: 'var(--radius-lg)',
-        padding: 'var(--space-3) var(--space-4)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 'var(--space-2)',
-        minHeight: 0,
-      }}
-    >
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-eyebrow)',
-        letterSpacing: 'var(--ls-mono-wide)',
-        color: 'var(--case)',
-        fontWeight: 700,
-      }}>
-        pcVPC · pediatric · 1,000 simulations
-      </div>
-      <div style={{ flex: 1, minHeight: 0, position: 'relative', overflow: 'hidden' }}>
-        <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ width: '100%', height: '100%' }}>
-          {/* axes */}
-          <line x1={pad.l} y1={H - pad.b} x2={W - pad.r} y2={H - pad.b} stroke="var(--cream-faint)" strokeWidth="0.6" />
-          <line x1={pad.l} y1={pad.t} x2={pad.l} y2={H - pad.b} stroke="var(--cream-faint)" strokeWidth="0.6" />
-          {/* axis labels */}
-          <text x={W / 2} y={H - 6} textAnchor="middle" fontSize="9" fill="var(--cream-faint)" fontFamily="var(--font-mono)">Time (h)</text>
-          <text x={6} y={H / 2} textAnchor="middle" fontSize="9" fill="var(--cream-faint)" fontFamily="var(--font-mono)" transform={`rotate(-90 6 ${H / 2})`}>C (ng/mL)</text>
-          {/* PI ribbon */}
-          <motion.polygon
-            points={ribbon}
-            fill="var(--case)"
-            fillOpacity={0.18}
-            initial={{ opacity: 0 }}
-            animate={go ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: delay + 0.15 }}
-          />
-          {/* observation dots */}
-          {obs.map((o, i) => (
-            <motion.circle
-              key={i}
-              cx={xs(o.t)}
-              cy={ys(o.c)}
-              r={1.6}
-              fill="var(--cream)"
-              fillOpacity={0.7}
-              initial={{ opacity: 0 }}
-              animate={go ? { opacity: 0.7 } : {}}
-              transition={{ duration: 0.25, delay: delay + 0.4 + (i % 12) * 0.02 }}
-            />
-          ))}
-          {/* median line */}
-          <motion.path
-            d={median}
-            stroke="var(--case)"
-            strokeWidth="1.6"
-            fill="none"
-            strokeLinecap="round"
-            initial={{ pathLength: 0 }}
-            animate={go ? { pathLength: 1 } : {}}
-            transition={{ duration: 0.9, delay: delay + 0.3, ease: EASE }}
-          />
-        </svg>
-      </div>
-      <div className="deck-body" style={{
-        fontSize: 'var(--fs-slide-pageno)',
-        color: 'var(--cream)',
-        opacity: 0.75,
-        fontStyle: 'italic',
-      }}>
-        Observations sit inside the 80% PI ribbon — no systematic bias across the 24-h interval.
-      </div>
-    </motion.div>
-  );
-}
-
-/* ── AUC vs weight band exposure-match strip ─────────────────── */
-
-function ExposureMatchStrip({ go, delay }) {
-  // Three weight bands · adult target band · pediatric observed within 3%
-  const bands = [
-    { label: '8–<25 kg',  dose: '2.5 mg',  auc: '2.30', match: '−2.8%' },
-    { label: '25–<50 kg', dose: '5 mg',    auc: '2.40', match: '+0.3%' },
-    { label: '≥ 50 kg',   dose: '10 mg',   auc: '2.45', match: '+1.4%' },
-  ];
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={go ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay, ease: EASE }}
-      style={{
-        border: '1px solid color-mix(in srgb, var(--case) 32%, transparent)',
-        borderLeft: '3px solid var(--case)',
-        background: 'color-mix(in srgb, var(--case) 6%, transparent)',
-        borderRadius: 'var(--radius-md)',
-        padding: 'var(--space-3) var(--space-4)',
-        display: 'grid',
-        gridTemplateColumns: 'auto repeat(3, minmax(0, 1fr))',
-        gap: 'var(--space-2) var(--space-4)',
-        alignItems: 'center',
-      }}
-    >
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-eyebrow)',
-        letterSpacing: 'var(--ls-mono-wide)',
-        color: 'var(--case)',
-        fontWeight: 700,
-        gridColumn: '1 / -1',
-      }}>
-        Exposure match · pediatric AUCss vs adult target ≈ 2.42 µg·h/mL
-      </div>
-      <div className="deck-mono" style={{ fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-faint)' }}>BAND</div>
-      {bands.map((b) => (
-        <div key={b.label} className="deck-mono uppercase" style={{
-          fontSize: 'var(--fs-slide-pageno)',
-          color: 'var(--cream)',
-          opacity: 0.85,
-        }}>{b.label} · {b.dose}</div>
-      ))}
-      <div className="deck-mono" style={{ fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-faint)' }}>AUCss</div>
-      {bands.map((b) => (
-        <div key={b.label + 'a'} className="deck-display" style={{
-          fontSize: 'var(--fs-slide-tagline)',
-          color: 'var(--cream)',
-          fontWeight: 600,
-          fontVariantNumeric: 'tabular-nums',
-        }}>{b.auc}</div>
-      ))}
-      <div className="deck-mono" style={{ fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-faint)' }}>Δ vs adult</div>
-      {bands.map((b) => (
-        <div key={b.label + 'm'} className="deck-display italic" style={{
-          fontSize: 'var(--fs-slide-tagline)',
-          color: 'var(--case)',
-          fontWeight: 700,
-          fontVariantNumeric: 'tabular-nums',
-        }}>{b.match}</div>
-      ))}
-    </motion.div>
-  );
-}
-
-/* ── Slide ────────────────────────────────────────────────────── */
-
 export default function Cs1Poppk() {
-  const reduced = useReducedMotion();
-  const go = !reduced;
-
-  // Tokens for v1 CompartmentSchematic — accepts a `tk` resolver.
-  const tk = (n, fb = 'transparent') => {
-    if (typeof window === 'undefined') return fb;
-    const v = getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-    return v || fb;
+  const D = {
+    chrome: 0.10, headline: 0.25, subhead: 0.55,
+    structure: 0.70, table: 0.85, vpc: 1.00, workflow: 1.15,
+    covariates: 1.5,
+    closing: 1.70, payoff: 1.80,
   };
+
+  const T = useTokens(['--coral', '--cyan', '--cream', '--cream-muted', '--cream-faint', '--cream-hairline', '--bg']);
+  const tk = (n, fb = 'transparent') => (T ? T[n] || fb : fb);
+  const reduce = useReducedMotion();
+  const go = !reduce;
 
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
-      <Eyebrow delay={0.10}>
-        Case 01 · PopPK · build &amp; fit
-      </Eyebrow>
-
-      <Headline delay={0.25} maxChars={62}>
-        Adult foundation, pediatric inference —{' '}
-        <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 600 }}>
-          no systematic bias.
-        </span>
+      <Eyebrow color="var(--coral)" delay={D.chrome}>Case 01 · PopPK · build & fit</Eyebrow>
+      <Headline delay={D.headline} maxChars={50}>
+        Extensive simulation, tight parsimony.
       </Headline>
-
-      <Subhead delay={0.45} size="lead" maxChars={108}>
-        2-compartment, 1st-order absorption with t-lag · allometric body-weight scaling fixed at 0.75 / 1.0 ·
-        IIV BLOCK(6) on CL/F, Vc/F, Vp/F, Q/F, Ka, t-lag.
+      <Subhead delay={D.subhead} maxChars={100} size="lead">
+        A 2-compartment structural model validated against 500 predictive replicates. Of 12 pre-specified covariates, only body weight scaled the exposure.
       </Subhead>
 
       <Viz>
-        <div style={{
-          width: '100%',
-          height: '100%',
-          minHeight: 0,
-          display: 'grid',
-          gridTemplateRows: 'minmax(0, 1fr) auto',
-          gap: 'clamp(var(--space-3), 1.6vh, var(--space-4))',
-        }}>
-          {/* TOP: 3-column build+fit */}
-          <div style={{
-            minHeight: 0,
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(18rem, 100%), 1fr))',
-            gap: 'clamp(var(--space-3), 1.4vw, var(--space-4))',
-          }}>
-            {/* Schematic */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={go ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.55, delay: 0.7, ease: EASE }}
-              style={{
-                border: '1px solid var(--cream-hairline)',
-                background: 'color-mix(in srgb, var(--panel) 60%, transparent)',
-                borderRadius: 'var(--radius-lg)',
-                padding: 'var(--space-3) var(--space-4)',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 'var(--space-2)',
-                minHeight: 0,
-              }}
-            >
-              <div className="deck-mono uppercase" style={{
-                fontSize: 'var(--fs-slide-eyebrow)',
-                letterSpacing: 'var(--ls-mono-wide)',
-                color: 'var(--case)',
-                fontWeight: 700,
-              }}>
-                Structural model · 2-cmt + t-lag
-              </div>
-              <div style={{ flex: 1, minHeight: 0, position: 'relative', overflow: 'hidden' }}>
-                <div style={{ position: 'absolute', inset: 0 }}>
-                  <CompartmentSchematic tk={tk} />
+        <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', minHeight: 0 }}>
+          
+          <div style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: '1.4fr 1.8fr', gap: 'var(--space-4)' }}>
+            
+            {/* Left Column: Schematic and Workflow */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+              <div style={{...CHART_PANEL, flex: 1}}>
+                <PanelTitle label="Structural Model" right="2-CMT" delay={D.structure} go={go} />
+                <div style={{...CHART_PANEL_BODY}}>
+                   <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                     <CompartmentSchematic tk={tk} go={go} />
+                   </div>
                 </div>
               </div>
-              <div className="deck-mono" style={{
-                fontSize: 'var(--fs-slide-pageno)',
-                letterSpacing: '0.06em',
-                color: 'var(--cream-faint)',
-                lineHeight: 1.3,
-              }}>
-                NONMEM 7.4.1 · IMPMAP · BLOCK(6) ω · BLQ ≈ 3% (Beal M3)
+              <div style={{...CHART_PANEL, flex: 1}}>
+                <PanelTitle label="Workflow" right="NONMEM" delay={D.workflow} go={go} />
+                <div style={{...CHART_PANEL_BODY}}>
+                   <DecisionGate />
+                </div>
               </div>
-            </motion.div>
+            </div>
 
-            {/* Param table */}
-            <ParamTable go={go} delay={0.85} />
+            {/* Right Column: Table and pcVPC */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+               <div style={{...CHART_PANEL, flex: '0 0 auto'}}>
+                 <PanelTitle label="Parameter Estimates" right="CL/F, Vc/F" delay={D.table} go={go} />
+                 <div style={{ position: 'relative', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <ParamTable go={go} delay={D.table} />
+                 </div>
+               </div>
+               <div style={{...CHART_PANEL, flex: 1}}>
+                 <PanelTitle label="PcVPC" right="500 replicates" delay={D.vpc} go={go} />
+                 <div style={{...CHART_PANEL_BODY, flexDirection: 'column', alignItems: 'stretch'}}>
+                    <PcVpcChart go={go} delay={D.vpc} tk={tk} D={{lines: D.vpc+0.3, dots: D.vpc+0.5, ribbon: D.vpc+0.1}} />
+                 </div>
+               </div>
+            </div>
 
-            {/* pcVPC */}
-            <PcVpcChart go={go} delay={1.0} />
           </div>
 
-          {/* BOTTOM: Exposure match strip — the payoff */}
-          <ExposureMatchStrip go={go} delay={1.25} />
+          {/* Footer Ribbon: Covariate Screen */}
+          <motion.div 
+            style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: 'var(--space-4)', 
+              padding: 'var(--space-3) var(--space-4)',
+              background: 'rgba(255,255,255,0.02)',
+              border: '1px solid var(--cream-hairline)'
+            }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: go ? 1 : 0, y: go ? 0 : 10 }}
+            transition={{ duration: 0.6, ease: EASE, delay: D.covariates }}
+          >
+             <span className="deck-mono uppercase" style={{ fontSize: '12px', color: 'var(--coral)', letterSpacing: '0.14em' }}>Covariate Screen</span>
+             <div style={{ flex: 1, display: 'flex', gap: 'var(--space-4)' }}>
+                {['Age', 'Sex', 'Race', 'WHO FC', 'Baseline 6MWD', 'NT-proBNP', 'Hepatic Fn', 'Renal Fn', 'ETRA naive'].map(cov => (
+                   <span key={cov} className="deck-mono" style={{ fontSize: '11px', color: 'var(--cream-muted)', textDecoration: 'line-through' }}>{cov}</span>
+                ))}
+             </div>
+             <span className="deck-mono" style={{ fontSize: '12px', color: 'var(--cream)' }}>Only Allometric WT Retained</span>
+          </motion.div>
+
         </div>
       </Viz>
 
       <Footer
-        delay={reduced ? 0 : 1.6}
-        kicker="09b · CS1 · PopPK"
-        tagline="380 adult patients build the model · 39 pediatric patients confirm it · 3 weight bands carry the dose."
-        source="Source · Okour et al. J Clin Pharmacol 2023 · AMB112529 (NCT01332331) · Adult anchor: ARIES-1/2 + AMB-220/222"
+        kicker="Case 01 · PopPK Build & Fit"
+        source="Source · Okour et al. JCP 2023 · NONMEM 7.4"
+        delay={D.payoff}
       />
     </SlideGrid>
   );
 }
+function PcVpcChart({ tk, D }) {
+  const W = 1080, H = 420;
+  const m = { top: 20, right: 32, bottom: 50, left: 82 };
+  const iw = W - m.left - m.right;
+  const ih = H - m.top - m.bottom;
+
+  const x = d3.scaleLinear().domain([0, 32]).range([0, iw]);
+  const y = d3.scaleLog().domain([5, 4000]).range([ih, 0]);
+
+  const yTicks = [10, 30, 100, 300, 1000, 3000];
+  const xTicks = [2, 6, 12, 18, 30];
+
+  // Build jittered observation points (deterministic pseudo-random via rank order)
+  const binCounts = { 2: 0, 6: 0, 12: 0, 18: 0, 30: 0 };
+  const observations = OBS_RAW.map(([t, c], i) => {
+    const idx = binCounts[t]++;
+    // Triangle-wave jitter across ±0.7h — even fill, no clustering
+    const span = 1.4;
+    const jitter = ((idx * 0.6180339887) % 1) * span - span / 2;
+    return { t: t + jitter, c, i, bin: t };
+  });
+
+  // Build smooth ribbon paths through the 5 bin points
+  const ribbonMed = PCVPC.map((d) => ({ t: d.t, lo: d.simMedLo, hi: d.simMedHi }));
+  const ribbon95  = PCVPC.map((d) => ({ t: d.t, lo: d.sim95Lo,  hi: d.sim95Hi  }));
+  const ribbon5   = PCVPC.map((d) => ({ t: d.t, lo: d.sim5Lo,   hi: d.sim5Hi   }));
+  const obsMedPts = PCVPC.map((d) => ({ t: d.t, c: d.obsMed }));
+  const obs5Pts   = PCVPC.map((d) => ({ t: d.t, c: d.obs5   }));
+  const obs95Pts  = PCVPC.map((d) => ({ t: d.t, c: d.obs95  }));
+
+  const area = d3.area()
+    .x((d) => x(d.t))
+    .y0((d) => y(d.lo))
+    .y1((d) => y(d.hi))
+    .curve(d3.curveMonotoneX);
+
+  const line = d3.line()
+    .x((d) => x(d.t))
+    .y((d) => y(d.c))
+    .curve(d3.curveMonotoneX);
+
+  return (
+    <svg
+      className="w-full"
+      viewBox={`0 0 ${W} ${H}`}
+      preserveAspectRatio="xMidYMid meet"
+      style={{ maxHeight: '42vh' }}
+      aria-label="Prediction-corrected visual predictive check — observed percentiles sit inside simulated CIs"
+    >
+      <g transform={`translate(${m.left},${m.top})`}>
+        {/* Grid */}
+        {yTicks.map((v) => (
+          <line key={`gy-${v}`} x1={0} x2={iw} y1={y(v)} y2={y(v)}
+                stroke={tk('--cream-hairline')} strokeWidth={1} opacity={0.4} />
+        ))}
+        {xTicks.map((v) => (
+          <line key={`gx-${v}`} x1={x(v)} x2={x(v)} y1={0} y2={ih}
+                stroke={tk('--cream-hairline')} strokeWidth={1} opacity={0.22} />
+        ))}
+
+        {/* Simulated 5th CI ribbon (light coral) */}
+        <motion.path
+          d={area(ribbon5)}
+          fill={tk('--coral')}
+          initial={{ opacity: 0 }} animate={{ opacity: 0.14 }}
+          transition={{ duration: 0.7, delay: D.ribbon }}
+        />
+        {/* Simulated 95th CI ribbon (light coral) */}
+        <motion.path
+          d={area(ribbon95)}
+          fill={tk('--coral')}
+          initial={{ opacity: 0 }} animate={{ opacity: 0.14 }}
+          transition={{ duration: 0.7, delay: D.ribbon + 0.1 }}
+        />
+        {/* Simulated median CI ribbon (stronger coral) */}
+        <motion.path
+          d={area(ribbonMed)}
+          fill={tk('--coral')}
+          initial={{ opacity: 0 }} animate={{ opacity: 0.32 }}
+          transition={{ duration: 0.7, delay: D.ribbon + 0.2 }}
+        />
+
+        {/* Observed percentile lines */}
+        <AnimatedLine d={line(obsMedPts)} stroke={tk('--coral')} width={2.6} delay={D.obsLine} dash={1800} />
+        <AnimatedLine d={line(obs5Pts)}   stroke={tk('--coral')} width={1.4} delay={D.obsLine + 0.15} strokeDasharray="6 6" />
+        <AnimatedLine d={line(obs95Pts)}  stroke={tk('--coral')} width={1.4} delay={D.obsLine + 0.3}  strokeDasharray="6 6" />
+
+        {/* Individual observations — jittered cream dots at the 5 nominal times */}
+        {observations.map((d) => (
+          <motion.circle
+            key={`obs-${d.i}`}
+            cx={x(d.t)} cy={y(d.c)} r={2.6}
+            fill={tk('--cream')} fillOpacity={0.78}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 0.78, scale: 1 }}
+            transition={{
+              duration: 0.25,
+              ease: 'easeOut',
+              delay: D.dots + (d.i % 10) * 0.02 + Math.floor(d.i / 10) * 0.05,
+            }}
+            style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
+          />
+        ))}
+
+        {/* Observed-median dots at each nominal time bin */}
+        {PCVPC.map((d, i) => (
+          <motion.circle
+            key={`bin-${d.t}`}
+            cx={x(d.t)} cy={y(d.obsMed)} r={4.8}
+            fill={tk('--coral')} stroke={tk('--cream')} strokeWidth={1.4}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, ease: [0.34, 1.56, 0.64, 1], delay: D.dots + 0.8 + i * 0.08 }}
+            style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
+          />
+        ))}
+
+        {/* Y tick labels */}
+        {yTicks.map((v) => (
+          <text key={`yl-${v}`} x={-10} y={y(v) + 4} textAnchor="end"
+                fontFamily="var(--font-mono)" fontSize="10" fill={tk('--cream-muted')}>
+            {v >= 1000 ? `${v / 1000}k` : v}
+          </text>
+        ))}
+        {/* X tick labels */}
+        {xTicks.map((v) => (
+          <text key={`xl-${v}`} x={x(v)} y={ih + 20} textAnchor="middle"
+                fontFamily="var(--font-mono)" fontSize="10" fill={tk('--cream-muted')}>
+            {v}
+          </text>
+        ))}
+
+        {/* Axis titles */}
+        <text x={iw / 2} y={ih + 42} textAnchor="middle"
+              fontFamily="var(--font-mono)" fontSize="10" letterSpacing="0.18em" fill={tk('--cream-faint')}>
+          TIME AFTER DOSE (H)
+        </text>
+        <text transform={`translate(-60, ${ih / 2}) rotate(-90)`} textAnchor="middle"
+              fontFamily="var(--font-mono)" fontSize="10" letterSpacing="0.18em" fill={tk('--cream-faint')}>
+          AMBRISENTAN CONCENTRATION (NG/ML)
+        </text>
+
+        {/* Legend — top-right */}
+        <g transform={`translate(${iw - 460}, 6)`}>
+          <rect x={0} y={0} width={14} height={10} fill={tk('--coral')} fillOpacity={0.32} />
+          <text x={20} y={9} fontFamily="var(--font-mono)" fontSize="9" fill={tk('--cream-muted')}>
+            SIM CI · MEDIAN
+          </text>
+          <rect x={115} y={0} width={14} height={10} fill={tk('--coral')} fillOpacity={0.14} />
+          <text x={135} y={9} fontFamily="var(--font-mono)" fontSize="9" fill={tk('--cream-muted')}>
+            SIM CI · 5 / 95
+          </text>
+          <circle cx={237} cy={5} r={2.6} fill={tk('--cream')} fillOpacity={0.78} />
+          <text x={247} y={9} fontFamily="var(--font-mono)" fontSize="9" fill={tk('--cream-muted')}>
+            OBS · INDIVIDUAL
+          </text>
+          <circle cx={323} cy={5} r={3.6} fill={tk('--coral')} stroke={tk('--cream')} strokeWidth={1.2} />
+          <text x={333} y={9} fontFamily="var(--font-mono)" fontSize="9" fill={tk('--cream-muted')}>
+            OBS · MEDIAN
+          </text>
+        </g>
+      </g>
+    </svg>
+  );
+}
+
+function AnimatedLine({ d, stroke, width = 2, delay = 0, dash = 2000, strokeDasharray }) {
+  if (strokeDasharray) {
+    return (
+      <motion.path
+        d={d}
+        fill="none"
+        stroke={stroke}
+        strokeWidth={width}
+        strokeDasharray={strokeDasharray}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.2, 0.7, 0.3, 1], delay }}
+      />
+    );
+  }
+  return (
+    <motion.path
+      d={d}
+      fill="none"
+      stroke={stroke}
+      strokeWidth={width}
+      strokeLinecap="round"
+      strokeDasharray={dash}
+      initial={{ strokeDashoffset: dash }}
+      animate={{ strokeDashoffset: 0 }}
+      transition={{ duration: 1.6, ease: [0.2, 0.7, 0.3, 1], delay }}
+    />
+  );
+}
+

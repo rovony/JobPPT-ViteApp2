@@ -18,11 +18,13 @@ import { motion } from 'framer-motion';
  *                  On slide 02 we typically pass false so the card
  *                  sits quietly while the badges below do the work.
  */
-export default function CaseCard({ c, index, go, idleAtRest }) {
+export default function CaseCard({ c, index, go, idleAtRest, persistent = false }) {
   // Stagger after the title slide's headline lands. On slide 02 the
   // cards are morphed in via layoutId so this entrance only fires
   // once on slide 01.
   const base = 1.6 + index * 0.18;
+  const startOpacity = persistent ? 1 : 0;
+  const startY = persistent ? 0 : 8;
 
   const cardIdle = go && idleAtRest;
   const baseInset = 'inset 0 1px 0 color-mix(in srgb, var(--cream) 6%, transparent)';
@@ -42,7 +44,7 @@ export default function CaseCard({ c, index, go, idleAtRest }) {
         background: 'color-mix(in srgb, var(--panel) 38%, transparent)',
         overflow: 'hidden',
       }}
-      initial={{ opacity: 0, boxShadow: cardGlowOff }}
+      initial={{ opacity: startOpacity, boxShadow: cardGlowOff }}
       animate={
         cardIdle
           ? {
@@ -88,7 +90,7 @@ export default function CaseCard({ c, index, go, idleAtRest }) {
           backgroundColor: c.color,
           transformOrigin: 'top center',
         }}
-        initial={{ scaleY: 0 }}
+        initial={{ scaleY: persistent ? 1 : 0 }}
         animate={go ? { scaleY: 1 } : { scaleY: 1 }}
         transition={{ duration: 0.3, delay: base }}
       />
@@ -102,7 +104,7 @@ export default function CaseCard({ c, index, go, idleAtRest }) {
           color: c.color,
           marginBottom: 'var(--space-1)',
         }}
-        initial={{ opacity: 0, y: 8 }}
+        initial={{ opacity: startOpacity, y: startY }}
         animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
         transition={{ duration: 0.25, delay: base + 0.08 }}
       >
@@ -118,7 +120,7 @@ export default function CaseCard({ c, index, go, idleAtRest }) {
           color: 'var(--cream)',
           marginBottom: 'var(--space-1)',
         }}
-        initial={{ opacity: 0, y: 8 }}
+        initial={{ opacity: startOpacity, y: startY }}
         animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
         transition={{ duration: 0.25, delay: base + 0.16 }}
       >
@@ -131,7 +133,7 @@ export default function CaseCard({ c, index, go, idleAtRest }) {
           color: 'var(--cream-muted)',
           lineHeight: 1.45,
         }}
-        initial={{ opacity: 0, y: 8 }}
+        initial={{ opacity: startOpacity, y: startY }}
         animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
         transition={{ duration: 0.25, delay: base + 0.24 }}
       >

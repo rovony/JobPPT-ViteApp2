@@ -3,6 +3,7 @@ import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
+import { Target } from 'lucide-react';
 
 const EASE = [0.2, 0.7, 0.3, 1];
 
@@ -14,7 +15,7 @@ const EASE = [0.2, 0.7, 0.3, 1];
  * class horizon: IDH1 discovery → first-in-class approval → competitive
  * landscape today.
  *
- * Memory hook: "discovery → first → competition" — three eras on one timeline.
+ * Redesigned 2026-04-27 to mirror the 2-column dossier layout from cs1-history.
  *
  * Sources verified:
  *  - IDH1/IDH2 mutation discovery — Mardis et al. NEJM 2009; Yan NEJM 2009
@@ -45,7 +46,7 @@ const TIMELINE_EVENTS = [
   { year: 'May 2022', era: 'comp', label: 'ivosidenib + AZA · ND AML IDH1',
     detail: 'Front-line combination (AGILE trial)', tone: 'var(--cyan)', badge: 'FDA' },
   { year: 'Dec 2022', era: 'comp', label: 'olutasidenib · IDH1 R/R AML',
-    detail: 'Second IDH1 entrant (Rezlidhia, Rigel)', tone: 'var(--coral)', badge: 'FDA' },
+    detail: 'Second IDH1 entrant (Rezlidhia, Rigel)', tone: 'var(--cyan)', badge: 'FDA' },
   { year: 'Aug 2024', era: 'comp', label: 'vorasidenib · IDH-mutant glioma',
     detail: 'CNS-penetrant pan-IDH (Voranigo, Servier · INDIGO)', tone: 'var(--violet)', badge: 'FDA' },
   { year: 'Dec 2024', era: 'comp', label: 'ivosidenib · CDSCO India',
@@ -55,7 +56,7 @@ const TIMELINE_EVENTS = [
 const COMPETITORS = [
   { drug: 'enasidenib', target: 'IDH2', sponsor: 'Bristol-Myers Squibb', area: 'AML', tone: 'var(--coral)' },
   { drug: 'ivosidenib', target: 'IDH1', sponsor: 'Servier', area: 'AML · CCA', tone: 'var(--cyan)', hero: true },
-  { drug: 'olutasidenib', target: 'IDH1', sponsor: 'Rigel', area: 'AML', tone: 'var(--coral)' },
+  { drug: 'olutasidenib', target: 'IDH1', sponsor: 'Rigel', area: 'AML', tone: 'var(--cyan)' },
   { drug: 'vorasidenib', target: 'IDH1/2', sponsor: 'Servier', area: 'Glioma', tone: 'var(--violet)' },
 ];
 
@@ -78,96 +79,142 @@ export default function CS2Competitors() {
 
       <Viz>
         <div style={{
-          width: '100%', height: '100%',
-          display: 'flex', flexDirection: 'column',
-          gap: 'var(--space-3)', minHeight: 0,
+          display: 'grid',
+          gridTemplateColumns: '1.2fr 1.1fr',
+          gap: 'var(--space-10)',
+          width: '100%',
+          height: '100%',
+          alignItems: 'center',
         }}>
-          {/* ── TIMELINE ── */}
+          
+          {/* LEFT COLUMN: Timeline Dossier */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={go ? { opacity: 1 } : {}}
-            transition={{ duration: 0.4, ease: EASE, delay: 0.6 }}
+            initial={{ opacity: 0, y: 15 }}
+            animate={go ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease: EASE, delay: 0.6 }}
             style={{
-              flex: '1 1 0%',
-              minHeight: 0,
-              display: 'grid',
-              gridTemplateColumns: '120px 1fr',
-              gap: 'var(--space-3)',
-              padding: 'var(--space-3) var(--space-4)',
+              display: 'flex',
+              flexDirection: 'column',
+              background: 'color-mix(in srgb, var(--panel) 40%, transparent)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
               border: '1px solid var(--cream-hairline)',
               borderRadius: 'var(--radius-lg)',
-              background: 'color-mix(in srgb, var(--panel) 60%, transparent)',
-              overflow: 'hidden',
+              padding: 'var(--space-4) var(--space-5)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+              gap: 'var(--space-2)',
+              height: 'fit-content',
             }}
           >
-            {/* Era column */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)', justifyContent: 'space-around' }}>
-              <EraLabel era="DISCOVERY" detail="2008–2010" tone="var(--cream-faint)" />
-              <EraLabel era="FIRSTS" detail="2017–2021" tone="var(--cream)" />
-              <EraLabel era="LANDSCAPE" detail="2022–2024" tone="var(--cyan)" />
-            </div>
-
-            {/* Events column */}
+            {/* Timeline Events */}
             <div style={{
-              display: 'grid',
-              gridTemplateRows: 'repeat(9, 1fr)',
-              gap: 4,
-              minHeight: 0,
-              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'var(--space-1)',
+              marginTop: 'var(--space-2)',
             }}>
               {TIMELINE_EVENTS.map((e, i) => (
                 <TimelineRow key={e.year + e.label} e={e} delay={0.75 + i * 0.06} go={go} />
               ))}
             </div>
+
+            {/* Color Legend Footer */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: 'var(--space-8)',
+              alignItems: 'center',
+              marginTop: 'var(--space-2)',
+              paddingTop: 'var(--space-4)',
+              borderTop: '1px solid color-mix(in srgb, var(--cream-hairline) 20%, transparent)',
+            }}>
+              {[
+                { label: 'IDH2', subLabel: 'Target', Icon: Target, tone: 'var(--coral)' },
+                { label: 'IDH1', subLabel: 'Target', Icon: Target, tone: 'var(--cyan)' },
+                { label: 'IDH1/2', subLabel: 'Pan-mutant', Icon: Target, tone: 'var(--violet)' },
+              ].map(({ label, subLabel, Icon, tone }, i) => (
+                <motion.div
+                  key={label}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={go ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ duration: 0.4, delay: 1.2 + i * 0.1 }}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}
+                >
+                  <Icon size={16} color={tone} strokeWidth={2} />
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
+                    <span className="deck-mono" style={{ fontSize: '11px', color: tone, fontWeight: 700 }}>{label}</span>
+                    <span className="deck-body" style={{ fontSize: '11px', color: 'var(--cream-muted)' }}>{subLabel}</span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
 
-          {/* ── COMPETITOR CARD ROW ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 6 }}
-            animate={go ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, ease: EASE, delay: 1.5 }}
-            style={{
-              flexShrink: 0,
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(min(11rem, 100%), 1fr))',
-              gap: 'var(--space-2)',
-            }}
-          >
-            {COMPETITORS.map((c) => (
-              <div key={c.drug} style={{
-                padding: 'var(--space-2) var(--space-3)',
-                border: c.hero
-                  ? `1.5px solid ${c.tone}`
-                  : `1px solid color-mix(in srgb, ${c.tone} 32%, transparent)`,
-                borderLeft: `3px solid ${c.tone}`,
-                background: c.hero
-                  ? `color-mix(in srgb, ${c.tone} 12%, var(--panel))`
-                  : `color-mix(in srgb, ${c.tone} 5%, var(--panel))`,
-                borderRadius: 'var(--radius-md)',
-                minWidth: 0,
-              }}>
-                <div className="deck-mono uppercase" style={{
-                  fontSize: 'var(--fs-slide-pageno)',
-                  letterSpacing: 'var(--ls-mono-wide)',
-                  color: c.tone,
-                  fontWeight: 700,
-                }}>{c.target}</div>
-                <div className="deck-display" style={{
-                  fontSize: 'var(--fs-slide-tagline)',
-                  fontWeight: c.hero ? 700 : 600,
-                  color: c.hero ? c.tone : 'var(--cream)',
-                  marginTop: 2,
-                }}>{c.drug}</div>
-                <div className="deck-body" style={{
-                  fontSize: 'var(--fs-slide-pageno)',
-                  color: 'var(--cream)',
-                  opacity: 0.7,
-                  marginTop: 2,
-                  lineHeight: 1.35,
-                }}>{c.sponsor} · {c.area}</div>
-              </div>
-            ))}
-          </motion.div>
+          {/* RIGHT COLUMN: Competitors (2x2 Grid) */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={go ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.6, ease: EASE, delay: 1.0 }}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: 'var(--space-6)',
+                width: '100%',
+              }}
+            >
+              {COMPETITORS.map((c, i) => (
+                <motion.div 
+                  key={c.drug}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={go ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ duration: 0.5, ease: EASE, delay: 1.2 + (i * 0.1) }}
+                  style={{
+                    padding: 'var(--space-6)',
+                    border: c.hero
+                      ? `1.5px solid ${c.tone}`
+                      : `1px solid color-mix(in srgb, ${c.tone} 30%, transparent)`,
+                    borderLeft: `5px solid ${c.tone}`,
+                    background: c.hero
+                      ? `color-mix(in srgb, ${c.tone} 15%, var(--bg))`
+                      : `color-mix(in srgb, ${c.tone} 5%, var(--panel))`,
+                    borderRadius: 'var(--radius-lg)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 'var(--space-3)',
+                    boxShadow: c.hero ? '0 4px 24px rgba(0,0,0,0.15)' : 'none',
+                  }}
+                >
+                  <div className="deck-mono uppercase" style={{
+                    fontSize: 'var(--fs-slide-pageno)',
+                    letterSpacing: 'var(--ls-mono-wide)',
+                    color: c.tone,
+                    fontWeight: 700,
+                  }}>{c.target}</div>
+                  
+                  <div className="deck-display" style={{
+                    fontSize: 'clamp(1.5rem, 2vw, 2.2rem)',
+                    fontWeight: c.hero ? 700 : 600,
+                    color: c.hero ? c.tone : 'var(--cream)',
+                    lineHeight: 1.2,
+                  }}>{c.drug}</div>
+                  
+                  <div className="deck-body" style={{
+                    fontSize: 'var(--fs-slide-subhead)',
+                    color: 'var(--cream)',
+                    opacity: 0.7,
+                    lineHeight: 1.5,
+                    marginTop: 'auto',
+                  }}>{c.sponsor} · {c.area}</div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+
         </div>
       </Viz>
 
@@ -181,27 +228,6 @@ export default function CS2Competitors() {
   );
 }
 
-function EraLabel({ era, detail, tone }) {
-  return (
-    <div style={{
-      padding: 'var(--space-1) var(--space-2)',
-      borderLeft: `2px solid ${tone}`,
-    }}>
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-pageno)',
-        letterSpacing: 'var(--ls-mono-wide)',
-        color: tone,
-        fontWeight: 700,
-      }}>{era}</div>
-      <div className="deck-mono" style={{
-        fontSize: 'calc(var(--fs-slide-pageno) * 0.85)',
-        color: 'var(--cream)',
-        opacity: 0.6,
-      }}>{detail}</div>
-    </div>
-  );
-}
-
 function TimelineRow({ e, delay, go }) {
   return (
     <motion.div
@@ -210,57 +236,64 @@ function TimelineRow({ e, delay, go }) {
       transition={{ duration: 0.4, ease: EASE, delay }}
       style={{
         display: 'grid',
-        gridTemplateColumns: '76px 14px 1fr auto',
-        gap: 'var(--space-2)',
-        alignItems: 'center',
-        padding: '2px var(--space-2)',
-        background: e.highlight
-          ? `color-mix(in srgb, ${e.tone} 8%, transparent)`
-          : 'transparent',
-        borderRadius: 'var(--radius-sm)',
-        borderLeft: e.highlight ? `2px solid ${e.tone}` : '2px solid transparent',
+        gridTemplateColumns: '6rem 12px 1fr auto',
+        gap: 'var(--space-4)',
+        alignItems: 'start',
+        padding: 'var(--space-3) var(--space-4)',
+        margin: '0 calc(-1 * var(--space-4))',
+        borderRadius: 'var(--radius-md)',
+        background: `linear-gradient(90deg, color-mix(in srgb, ${e.tone} 12%, transparent) 0%, transparent 100%)`,
+        borderBottom: '1px solid color-mix(in srgb, var(--cream-hairline) 20%, transparent)',
       }}
     >
       <span className="deck-mono" style={{
         fontSize: 'var(--fs-slide-pageno)',
         color: e.tone,
         fontWeight: e.highlight ? 700 : 500,
-        whiteSpace: 'nowrap',
+        paddingTop: 4,
       }}>{e.year}</span>
-      <span style={{
-        width: 8, height: 8, borderRadius: '50%',
-        background: e.tone,
-        opacity: e.highlight ? 1 : 0.6,
-        margin: '0 auto',
-      }} />
-      <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
-        <span className="deck-display" style={{
-          fontSize: 'var(--fs-slide-tagline)',
-          color: e.highlight ? e.tone : 'var(--cream)',
-          fontWeight: e.highlight ? 700 : 600,
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-        }}>{e.label}</span>
+      
+      <div style={{ display: 'flex', justifyContent: 'center', height: '100%', paddingTop: 8 }}>
+        <span style={{
+          width: 10, height: 10, borderRadius: '50%',
+          background: e.tone,
+          opacity: e.highlight ? 1 : 0.6,
+        }} />
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <motion.span 
+          layoutId={`history-row-${e.label.split(' ')[0].toLowerCase()}`}
+          transition={{ layout: { duration: 1.2, ease: "easeInOut" } }}
+          className="deck-display" 
+          style={{
+            fontSize: 'var(--fs-slide-subhead)',
+            color: e.highlight ? e.tone : 'var(--cream)',
+            fontWeight: e.highlight ? 700 : 500,
+            lineHeight: 1.2,
+            display: 'inline-block',
+          }}
+        >
+          {e.label}
+        </motion.span>
         <span className="deck-body" style={{
           fontSize: 'var(--fs-slide-pageno)',
-          color: 'var(--cream)',
-          opacity: 0.6,
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
+          color: 'var(--cream-muted)',
+          lineHeight: 1.4,
+          marginTop: 4,
         }}>{e.detail}</span>
       </div>
+      
       {e.badge && (
         <span className="deck-mono uppercase" style={{
           fontSize: 'calc(var(--fs-slide-pageno) * 0.85)',
           letterSpacing: 'var(--ls-mono-wide)',
           color: e.tone,
-          padding: '2px 6px',
+          padding: '4px 8px',
           border: `1px solid color-mix(in srgb, ${e.tone} 35%, transparent)`,
-          borderRadius: 999,
-          whiteSpace: 'nowrap',
+          borderRadius: 4,
           fontWeight: 700,
+          marginTop: 2,
         }}>{e.badge}</span>
       )}
     </motion.div>

@@ -105,6 +105,7 @@ export default function Roadmap({ deck }) {
               return (
                 <motion.div
                   key={c.n}
+                  layoutId={`case-card-${c.token}`}
                   /* Per CLAUDE.md card vocabulary "B. HeroTile":
                      1.5px border in case color, 4px left accent rail,
                      gradient case-tint background, color-mix in srgb. */

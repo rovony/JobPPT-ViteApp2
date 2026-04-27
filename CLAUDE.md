@@ -680,6 +680,24 @@ that's element-level entrance, separate from the section fade.
 with `amount: 0.3` so animations replay only when the slide is
 meaningfully on-screen, not on micro-scrolls.
 
+### Cross-Slide Layout Morphing (Persistent Components)
+
+When morphing components across slides (e.g., from `01-title.tsx` to `02-hook-A.tsx`, or table rows into a timeline), use `framer-motion`'s `layoutId` property. However, to prevent the component from re-animating its entrance fade on the new slide, you MUST bypass its initial entrance animations using a `persistent` prop.
+
+1. **Shared Component (`CaseCard.tsx`)**:
+   Pass a `persistent` boolean. If true, start `opacity` at 1 and `y` at 0.
+   ```jsx
+   const startOpacity = persistent ? 1 : 0;
+   const startY = persistent ? 0 : 8;
+   <motion.div initial={{ opacity: startOpacity, y: startY }} layoutId="shared-id" layout>
+   ```
+2. **Slide 1 (Mounting)**:
+   `<CaseCard persistent={false} />` (Will fade in normally).
+3. **Slide 2 (Morphing)**:
+   `<CaseCard persistent={true} />` (Will bypass fade-in; framer-motion will hold it perfectly still or glide it to its new layout position seamlessly).
+
+> **Important**: Do NOT place morphing `layoutId` components inside a parent container that animates its own `opacity` from 0 (e.g., `initial={{ opacity: 0 }}`). If the parent is hidden, the cross-slide morph will be invisible during the transition!
+
 ### Color & token discipline (beyond fonts)
 
 - **NO hex literals in slide JSX.** Even amber, even cream. Always

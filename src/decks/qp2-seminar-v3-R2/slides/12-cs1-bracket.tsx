@@ -1,219 +1,394 @@
 // @ts-nocheck
-import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
-import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
-
-/**
- * CS1 · Slide 12 (slot) — V2-S8 · The framework · 5-node flow diagram.
- *
- * Redesigned per user spec: five architecture nodes connected by arrows,
- * showing the reasoning chain from adult data → exposure match.
- * Diagnostics (pcVPC, GOF, covariate plots) deferred to backup slides.
- *
- * Source: Okour M et al. J Clin Pharmacol 2023;63(5):593–603.
- */
+import { Headline } from '@/components/deck/SlideParts';
+import { useDeck } from '@/lib/deck-store';
+import React from 'react';
 
 const EASE = [0.2, 0.7, 0.3, 1];
 
-const NODES = [
-  {
-    id: '01',
-    kicker: 'Adult PK dataset',
-    hero: '380',
-    heroUnit: 'participants',
-    lines: ['6 studies pooled', '3,126 PK observations', 'Rich sampling → structural anchor'],
-    isHero: true,
-  },
-  {
-    id: '02',
-    kicker: 'PopPK model',
-    hero: '2-cmt',
-    heroUnit: 'oral',
-    lines: ['1st-order absorption + lag', 'CL ∝ WT⁰·⁷⁵  ·  V ∝ WT¹·⁰', 'Allometric exponents fixed'],
-    isHero: false,
-  },
-  {
-    id: '03',
-    kicker: 'Pediatric simulation',
-    hero: 'AUC',
-    heroUnit: 'by weight band',
-    lines: ['Model-predicted exposure', 'Dose selection for trial', 'Target: adult AUCss range'],
-    isHero: false,
-  },
-  {
-    id: '04',
-    kicker: 'Trial PK confirmation',
-    hero: '39',
-    heroUnit: 'patients',
-    lines: ['AMB112529 sparse PK', '211 observations', 'Ages 8 to <18 yr'],
-    isHero: false,
-  },
-  {
-    id: '05',
-    kicker: 'Exposure match',
-    hero: '−3%',
-    heroUnit: 'low dose',
-    lines: ['+0.3% high dose', 'AUCss vs adult target', 'Plateau E-R confirmed'],
-    isHero: true,
-  },
+const RECEIPTS = [
+  { id: '01', kicker: 'Adult anchor', hero: '380', unit: 'adults', lines: ['6 studies', '3,126 PK observations'] },
+  { id: '02', kicker: 'PopPK bridge', hero: '2-cmt', unit: 'oral', lines: ['absorption + lag', 'CL ∝ WT^0.75 · V ∝ WT^1.0'] },
+  { id: '03', kicker: 'Simulation', hero: 'AUC', unit: 'by weight', lines: ['Predict pediatric exposure', 'Target: adult AUCss range'] },
+  { id: '04', kicker: 'Trial PK', hero: '39', unit: 'children', lines: ['211 sparse PK observations', 'ages 8 to <18 years'] },
+  { id: '05', kicker: 'Exposure match', hero: '−3%', unit: 'low dose', lines: ['+0.3% high dose', 'within adult AUCss range'], isHero: true },
 ];
-
-function FlowArrow({ reduced, delay }) {
-  return (
-    <motion.div
-      aria-hidden
-      className="cs1-bracket-arrow"
-      initial={reduced ? false : { opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: reduced ? 0 : 0.3, delay: reduced ? 0 : delay, ease: EASE }}
-      style={{
-        flex: '0 0 auto',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: 'var(--case)',
-        fontSize: 'var(--fs-slide-name)',
-        fontWeight: 300,
-        opacity: 0.5,
-        padding: '0 var(--space-1)',
-      }}
-    >
-      →
-    </motion.div>
-  );
-}
-
-function FlowNode({ node, delay, reduced }) {
-  return (
-    <motion.div
-      initial={reduced ? false : { opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : delay, ease: EASE }}
-      style={{
-        position: 'relative',
-        flex: 1,
-        width: '100%',
-        border: node.isHero
-          ? '1px solid color-mix(in srgb, var(--case) 40%, transparent)'
-          : '1px solid var(--cream-hairline)',
-        borderLeft: node.isHero ? '4px solid var(--case)' : undefined,
-        borderRadius: 'var(--radius-lg)',
-        background: node.isHero
-          ? 'color-mix(in srgb, var(--case) 6%, transparent)'
-          : 'color-mix(in srgb, var(--panel) 65%, transparent)',
-        padding: 'clamp(var(--space-3), 1.4vw, var(--space-4))',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 'var(--space-2)',
-        minWidth: 0,
-      }}
-    >
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-eyebrow)',
-        letterSpacing: 'var(--ls-mono-wide)',
-        color: node.isHero ? 'var(--case)' : 'var(--cream-faint)',
-        fontWeight: 700,
-      }}>
-        {node.id} · {node.kicker}
-      </div>
-
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-2)' }}>
-        <span className="deck-display" style={{
-          fontSize: 'var(--fs-card-numeral)',
-          color: node.isHero ? 'var(--case)' : 'var(--cream)',
-          fontWeight: 700,
-          lineHeight: 1,
-          fontVariantNumeric: 'tabular-nums',
-        }}>
-          {node.hero}
-        </span>
-        <span className="deck-body" style={{
-          fontSize: 'var(--fs-slide-subhead)',
-          color: 'var(--cream-muted)',
-        }}>
-          {node.heroUnit}
-        </span>
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
-        {node.lines.map((line, i) => (
-          <div key={i} className="deck-body" style={{
-            fontSize: 'var(--fs-slide-subhead)',
-            color: 'var(--cream)',
-            opacity: 0.82,
-            lineHeight: 1.35,
-          }}>
-            {line}
-          </div>
-        ))}
-      </div>
-    </motion.div>
-  );
-}
 
 export default function Cs1Bracket() {
   const reduced = useReducedMotion();
 
   return (
-    <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
-      <Eyebrow delay={0.10}>
-        Case 01 · The framework
-      </Eyebrow>
+    <SlideGrid
+      dataCase="coral"
+      areas={STANDARD_AREAS}
+      rowSizes="auto auto auto auto minmax(31rem, 1fr) auto"
+    >
+      <StaticEyebrow>Case 01 · Framework and exposure match</StaticEyebrow>
 
-      <Headline delay={0.25} maxChars={64}>
-        Five steps from adult anchor to pediatric dose —{' '}
+      <Headline delay={0.25} maxChars={62}>
+        The dose was defended by{' '}
         <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 600 }}>
-          the architecture, not the diagnostics.
+          exposure matching, not a repeat efficacy trial.
         </span>
       </Headline>
 
-      <Subhead delay={0.55} maxChars={94} size="lead">
-        Each node feeds the next. The model wasn&rsquo;t built on N=39 —
-        it was confirmed by it.
-      </Subhead>
+      <StaticSubhead>
+        Adult anchor → prespecified PopPK bridge → pediatric exposure confirmation.
+      </StaticSubhead>
 
-      <Viz>
-        {/* Single horizontal flow: 01 → 02 → 03 → 04 → 05.
-            Cards flex 1 1 11rem so 5 fit on widescreen and wrap to
-            2-3 rows on narrower viewports. Arrows are flex items
-            between cards; on wrap they may sit at row breaks (the
-            number prefix on each card carries the order as backup). */}
+      <div style={{ gridArea: 'viz', width: '100%', height: '100%', minHeight: 0, minWidth: 0 }}>
         <div
-          className="cs1-bracket-flow"
           style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'stretch',
-            gap: 'clamp(var(--space-2), 0.8vw, var(--space-3))',
-            paddingTop: 'clamp(var(--space-2), 2vh, var(--space-4))',
+            display: 'grid',
+            gridTemplateRows: 'auto minmax(0, 1fr)',
+            height: '100%',
+            gap: 'var(--space-4)',
+            paddingTop: 'var(--space-1)',
+            minHeight: 0,
           }}
         >
-          {NODES.map((node, i) => (
-            <React.Fragment key={node.id}>
-              <div style={{ flex: '1 1 11rem', minWidth: '11rem', display: 'flex' }}>
-                <FlowNode node={node} delay={0.80 + i * 0.16} reduced={reduced} />
-              </div>
-              {i < NODES.length - 1 && (
-                <FlowArrow reduced={reduced} delay={0.92 + i * 0.16} />
-              )}
-            </React.Fragment>
-          ))}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(11rem, 100%), 1fr))',
+              gap: 'var(--space-3)',
+            }}
+          >
+            {RECEIPTS.map((item) => (
+              <ReceiptCard key={item.id} item={item} />
+            ))}
+          </div>
+
+          <div
+            style={{
+              minHeight: 0,
+              overflow: 'hidden',
+              border: '1px solid var(--cream-hairline)',
+              borderRadius: 'var(--radius-lg)',
+              background: 'color-mix(in srgb, var(--panel) 56%, transparent)',
+              padding: 'var(--space-4)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 'var(--space-4)',
+            }}
+          >
+            <div style={{
+              display: 'flex',
+              gap: 'clamp(var(--space-8), 8vw, var(--space-12, 6rem))',
+              alignItems: 'baseline',
+            }}>
+              <motion.div
+                initial={reduced ? false : { opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: reduced ? 0 : 0.7, delay: reduced ? 0 : 0.85, ease: EASE }}
+                style={{ textAlign: 'center' }}
+              >
+                <div className="deck-display" style={{
+                  fontSize: 'clamp(3rem, 6vw, 4.5rem)',
+                  color: 'var(--case)',
+                  fontWeight: 700,
+                  lineHeight: 1,
+                  fontVariantNumeric: 'tabular-nums',
+                  letterSpacing: '-0.02em',
+                }}>
+                  −3%
+                </div>
+                <div className="deck-mono uppercase" style={{
+                  fontSize: 'var(--fs-slide-eyebrow)',
+                  color: 'var(--cream-faint)',
+                  letterSpacing: 'var(--ls-mono-wide)',
+                  marginTop: 'var(--space-2)',
+                  fontWeight: 700,
+                }}>
+                  Low dose
+                </div>
+                <div className="deck-mono" style={{
+                  fontSize: 'var(--fs-slide-eyebrow)',
+                  color: 'var(--cream-muted)',
+                  letterSpacing: 'var(--ls-mono)',
+                  marginTop: 'var(--space-1)',
+                }}>
+                  AUCss 4.82 vs 4.98 μg·h/mL
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={reduced ? false : { opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: reduced ? 0 : 0.7, delay: reduced ? 0 : 1.10, ease: EASE }}
+                style={{ textAlign: 'center' }}
+              >
+                <div className="deck-display" style={{
+                  fontSize: 'clamp(3rem, 6vw, 4.5rem)',
+                  color: 'var(--case)',
+                  fontWeight: 700,
+                  lineHeight: 1,
+                  fontVariantNumeric: 'tabular-nums',
+                  letterSpacing: '-0.02em',
+                }}>
+                  +0.3%
+                </div>
+                <div className="deck-mono uppercase" style={{
+                  fontSize: 'var(--fs-slide-eyebrow)',
+                  color: 'var(--cream-faint)',
+                  letterSpacing: 'var(--ls-mono-wide)',
+                  marginTop: 'var(--space-2)',
+                  fontWeight: 700,
+                }}>
+                  High dose
+                </div>
+                <div className="deck-mono" style={{
+                  fontSize: 'var(--fs-slide-eyebrow)',
+                  color: 'var(--cream-muted)',
+                  letterSpacing: 'var(--ls-mono)',
+                  marginTop: 'var(--space-1)',
+                }}>
+                  AUCss 9.15 vs 9.12 μg·h/mL
+                </div>
+              </motion.div>
+            </div>
+
+            <DensityCurve reduced={reduced} />
+
+            <div className="deck-mono" style={{
+              fontSize: 'var(--fs-slide-pageno)',
+              color: 'var(--cream-faint)',
+              letterSpacing: 'var(--ls-mono)',
+              textAlign: 'center',
+              opacity: 0.75,
+            }}>
+              Illustrative AUCss densities · means per Okour 2023 · not extracted figure
+            </div>
+          </div>
         </div>
+      </div>
 
-        <style>{`
-          @media (max-width: 720px) {
-            .cs1-bracket-flow .cs1-bracket-arrow { display: none; }
-          }
-        `}</style>
-      </Viz>
-
-      <Footer
-        delay={reduced ? 0 : 2.00}
-        kicker="12 · CS1 · FRAMEWORK"
-        tagline="The architecture: anchor → model → simulate → confirm → match."
+      <StaticFooter
+        kicker="12 · CS1 · FRAMEWORK & MATCH"
+        tagline="Adult anchor → PopPK bridge → pediatric exposure match."
         source="Source · Okour M et al. J Clin Pharmacol 2023;63(5):593–603 · PMID 36579617"
       />
     </SlideGrid>
+  );
+}
+
+function DensityCurve({ reduced }) {
+  const w = 500;
+  const h = 160;
+  const cx = w / 2;
+
+  const adultPath = buildDensityPath(cx - 4, 72, w, h);
+  const pedPath = buildDensityPath(cx + 2, 68, w, h);
+
+  return (
+    <motion.svg
+      viewBox={`0 0 ${w} ${h}`}
+      style={{ width: '100%', maxWidth: '36rem', height: 'auto', minHeight: 0 }}
+      initial={reduced ? false : { opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: reduced ? 0 : 0.8, delay: reduced ? 0 : 1.60, ease: EASE }}
+    >
+      <motion.path
+        d={adultPath}
+        fill="none"
+        stroke="var(--cream-faint, #6b6560)"
+        strokeWidth="2"
+        opacity="0.5"
+        initial={reduced ? false : { pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: reduced ? 0 : 1.2, delay: reduced ? 0 : 1.70, ease: EASE }}
+      />
+      <motion.path
+        d={adultPath}
+        fill="color-mix(in srgb, var(--cream-faint, #6b6560) 8%, transparent)"
+        stroke="none"
+        opacity="0.3"
+        initial={reduced ? false : { opacity: 0 }}
+        animate={{ opacity: 0.3 }}
+        transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : 2.20, ease: EASE }}
+      />
+
+      <motion.path
+        d={pedPath}
+        fill="none"
+        stroke="var(--case, #e07a5f)"
+        strokeWidth="2.5"
+        opacity="0.85"
+        initial={reduced ? false : { pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: reduced ? 0 : 1.2, delay: reduced ? 0 : 1.90, ease: EASE }}
+      />
+      <motion.path
+        d={pedPath}
+        fill="color-mix(in srgb, var(--case, #e07a5f) 12%, transparent)"
+        stroke="none"
+        opacity="0.4"
+        initial={reduced ? false : { opacity: 0 }}
+        animate={{ opacity: 0.4 }}
+        transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : 2.40, ease: EASE }}
+      />
+
+      <motion.g
+        initial={reduced ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 2.60, ease: EASE }}
+      >
+        <line x1="20" y1={h - 18} x2="40" y2={h - 18} stroke="var(--cream-faint, #6b6560)" strokeWidth="2" opacity="0.5" />
+        <text x="46" y={h - 14} fill="var(--cream-faint, #6b6560)" style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.06em' }}>ADULT</text>
+        <line x1="110" y1={h - 18} x2="130" y2={h - 18} stroke="var(--case, #e07a5f)" strokeWidth="2.5" opacity="0.85" />
+        <text x="136" y={h - 14} fill="var(--case, #e07a5f)" style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.06em' }}>PEDIATRIC</text>
+      </motion.g>
+    </motion.svg>
+  );
+}
+
+function buildDensityPath(center, spread, w, h) {
+  const pts = [];
+  const steps = 80;
+  const baseline = h - 30;
+  const peakH = h * 0.72;
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps;
+    const x = 30 + t * (w - 60);
+    const dx = (x - center) / spread;
+    const y = baseline - peakH * Math.exp(-0.5 * dx * dx);
+    pts.push(`${i === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`);
+  }
+  return pts.join(' ');
+}
+
+function StaticEyebrow({ children }) {
+  return (
+    <div
+      className="deck-mono uppercase"
+      style={{
+        gridArea: 'eyebrow',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 'var(--space-4)',
+        alignSelf: 'end',
+        fontSize: 'var(--fs-slide-eyebrow)',
+        letterSpacing: 'var(--ls-mono-wide)',
+        color: 'var(--case)',
+      }}
+    >
+      <span style={{ width: 'clamp(1.5rem, 4vw, 2.5rem)', height: '1px', background: 'var(--case)' }} />
+      {children}
+    </div>
+  );
+}
+
+function StaticSubhead({ children }) {
+  return (
+    <p
+      className="deck-display italic"
+      style={{
+        gridArea: 'subhead',
+        fontSize: 'clamp(1rem, min(1.5vw, 2.5vh), 1.5rem)',
+        lineHeight: 'var(--lh-snug)',
+        color: 'var(--cream-muted)',
+        fontWeight: 400,
+        maxWidth: '96ch',
+        margin: 0,
+      }}
+    >
+      {children}
+    </p>
+  );
+}
+
+function StaticFooter({ kicker, tagline, source }) {
+  const { index, total } = useDeck();
+  return (
+    <div
+      style={{
+        gridArea: 'footer',
+        alignSelf: 'end',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 'var(--space-1)',
+        paddingTop: 'var(--space-3)',
+        borderTop: '1px solid var(--cream-hairline)',
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-6)' }}>
+        <span className="deck-mono uppercase" style={{ fontSize: 'var(--fs-slide-kicker)', letterSpacing: 'var(--ls-mono-wide)', color: 'var(--cream-faint)' }}>
+          {kicker}
+        </span>
+        <span className="deck-display italic" style={{ flex: 1, textAlign: 'right', fontSize: 'var(--fs-slide-tagline)', color: 'var(--cream-muted)', fontWeight: 500 }}>
+          {tagline}
+        </span>
+        <span className="deck-mono uppercase" style={{ fontSize: 'var(--fs-slide-pageno)', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}>
+          {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+        </span>
+      </div>
+      <span className="deck-mono" style={{ fontSize: 'var(--fs-card-meta, 0.62rem)', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)', lineHeight: 1.45 }}>
+        {source}
+      </span>
+    </div>
+  );
+}
+
+function ReceiptCard({ item }) {
+  return (
+    <div
+      style={{
+        position: 'relative',
+        minWidth: 0,
+        overflow: 'hidden',
+        border: item.isHero ? '1px solid color-mix(in srgb, var(--case) 40%, transparent)' : '1px solid var(--cream-hairline)',
+        borderTop: item.isHero ? '3px solid var(--case)' : '1px solid var(--cream-hairline)',
+        borderRadius: 'var(--radius-lg)',
+        background: item.isHero
+          ? 'linear-gradient(180deg, color-mix(in srgb, var(--case) 10%, transparent), color-mix(in srgb, var(--panel) 48%, transparent))'
+          : 'color-mix(in srgb, var(--panel) 65%, transparent)',
+        padding: 'var(--space-3) var(--space-4)',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        gap: 'var(--space-2)',
+      }}
+    >
+      <div className="deck-mono uppercase" style={{
+        fontSize: 'var(--fs-slide-pageno)',
+        letterSpacing: 'var(--ls-mono-wide)',
+        color: item.isHero ? 'var(--case)' : 'var(--cream-faint)',
+        fontWeight: 700,
+        whiteSpace: 'nowrap',
+      }}>
+        {item.id} · {item.kicker}
+      </div>
+
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-1)' }}>
+        <span className="deck-display" style={{
+          fontSize: item.isHero ? 'var(--fs-slide-display)' : 'var(--fs-slide-headline)',
+          color: item.isHero ? 'var(--case)' : 'var(--cream)',
+          fontWeight: 700,
+          lineHeight: 1,
+          fontVariantNumeric: 'tabular-nums',
+        }}>
+          {item.hero}
+        </span>
+        <span className="deck-body" style={{ fontSize: 'var(--fs-slide-subhead)', color: 'var(--cream-muted)' }}>
+          {item.unit}
+        </span>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+        {item.lines.map((line) => (
+          <div key={line} className="deck-body" style={{
+            fontSize: 'var(--fs-slide-subhead)',
+            color: 'var(--cream)',
+            opacity: 0.82,
+            lineHeight: 1.3,
+          }}>
+            {line}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

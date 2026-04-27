@@ -12,8 +12,8 @@
  *   17 → 27       CS2 · ivosidenib        — 11 slides — cyan  cascade
  *                  (was 13 · cs2-decisive-move + cs2-outcome archived 2026-04-26
  *                   for dedup; backups in slides/_backup/)
- *   28 → 35       CS3 · PharmAgent        —  8 slides — sage  cascade
- *   36 → 38       Closing                 —  3 slides — amber default
+ *   28 → 34       CS3 · PharmAgent        —  7 slides — sage  cascade
+ *   35 → 37       Closing                 —  3 slides — amber default
  *                  (synthesis · Merck fit · thanks/Q&A — added 2026-04-26
  *                   per Phase 0 audit "no closer slide currently registered")
  *
@@ -53,6 +53,7 @@ import Cs1History from './slides/cs1-history';
 import Cs1Trial from './slides/08-cs1-trial';
 import Cs1Architecture from './slides/09-cs1-architecture';
 import Cs1Poppk from './slides/09b-cs1-poppk';
+import Cs1Pkpd from './slides/09c-cs1-pkpd';
 import Cs1Results from './slides/10-cs1-results';
 import Cs1Outcome from './slides/11-cs1-outcome';
 import Cs1Bracket from './slides/12-cs1-bracket';
@@ -64,11 +65,9 @@ import CS2BackgroundDisease from './slides/cs2-02-background-disease';
 import CS2DiseaseBackground from './slides/cs2-disease-background';
 import CS2BackgroundRegulatory from './slides/cs2-03-background-regulatory';
 import CS2Setup from './slides/cs2-04-setup';
-import CS2Architecture from './slides/cs2-05-architecture';
 import CS2ArchitectureV2 from './slides/cs2-05-architecture-v2';
 import CS2Pillars from './slides/cs2-05b-pillars';
 import CS2Reversal from './slides/cs2-06-reversal';
-import CS2Velocity from './slides/cs2-07-velocity';
 import CS2Reckoning from './slides/cs2-07b-reckoning';
 // cs2-08-outcome ARCHIVED 2026-04-26 — dedup: duplicated cs2-reversal's date
 // + cs2-pillars 0.18 hero. "First IDH1 inhibitor in India" beat folded into
@@ -80,7 +79,6 @@ import CS3Divider from './slides/cs3-01-divider';
 import CS3Question from './slides/cs3-02-question';
 import CS3Problem from './slides/cs3-03-problem';
 import CS3Architecture from './slides/cs3-04-architecture';
-import CS3Landscape from './slides/cs3-04b-landscape';
 import CS3DecisiveMove from './slides/cs3-05-decisive-move';
 import CS3Pilot from './slides/cs3-06-pilot';
 import CS3Bracket from './slides/cs3-07-bracket';
@@ -288,20 +286,23 @@ const manifest = {
     //       2-cmt schematic · param table · pcVPC · exposure-match strip
     { id: 'cs1-poppk', title: 'CS1 · PopPK · build + fit', component: Cs1Poppk, isTitle: false, transition: 'fade', time: 75 },
 
+    // 09c — CS1 PKPD + Bridging
+    { id: 'cs1-pkpd', title: 'CS1 · PopPK · build + fit PART 2', component: Cs1Pkpd, isTitle: false, transition: 'fade', time: 75 },
+
     // 10 — CS1 results (the 3% match · two precedents · EMA branch chosen)
     { id: 'cs1-results', title: 'CS1 · within 3% of adult', component: Cs1Results, isTitle: false, transition: 'fade', time: 60 },
 
-    // 11 — CS1 clinical outcome (3 disruptions absorbed)
-    { id: 'cs1-outcome', title: 'CS1 · the numbers', component: Cs1Outcome, isTitle: false, transition: 'fade', time: 75 },
-
-    // 12 — CS1 Bracket Method (leadership ownership before the verdict)
+    // 11 — CS1 Bracket Method (leadership ownership before the verdict)
     { id: 'cs1-bracket', title: 'CS1 · ownership', component: Cs1Bracket, isTitle: false, transition: 'fade', time: 60 },
 
-    // 13 — CS1 regulatory verdicts
-    { id: 'cs1-verdict', title: 'CS1 · regulatory verdicts', component: Cs1Verdict, isTitle: false, transition: 'fade', time: 60 },
-
-    // 14 — CS1 what this case proves (portable Director-level lessons)
+    // 12 — CS1 what this case proves (portable Director-level lessons)
     { id: 'cs1-lesson', title: 'CS1 · what this case proves', component: Cs1Lesson, isTitle: false, transition: 'fade', time: 75 },
+
+    // 13 — CS1 clinical outcome (3 disruptions absorbed)
+    { id: 'cs1-outcome', title: 'CS1 · the numbers', component: Cs1Outcome, isTitle: false, transition: 'fade', time: 75 },
+
+    // 14 — CS1 regulatory verdicts (HIDDEN: Merged into cs1-bracket)
+    // { id: 'cs1-verdict', title: 'CS1 · regulatory verdicts', component: Cs1Verdict, isTitle: false, transition: 'fade', time: 60 },
 
     // 15 — CS1 → CS2 bridge (hook-aware tagline)
     { id: 'cs1-bridge', title: 'CS1 → CS2 bridge', component: Cs1Bridge, isTitle: false, transition: 'fade', time: 45 },
@@ -313,18 +314,17 @@ const manifest = {
     { id: 'cs2-divider', title: 'Case 02 · Ivosidenib', component: CS2Divider, isTitle: true },
     { id: 'cs2-bg-disease', title: 'CS2 · 42 countries · India empty', component: CS2BackgroundDisease, isTitle: false },
     { id: 'cs2-disease', title: 'CS2 · Disease — IDH1 mechanism & epidemiology', component: CS2DiseaseBackground, isTitle: false },
+    { id: 'cs2-competitors', title: 'CS2 · IDH inhibitor landscape · history + competitors', component: CS2Competitors, isTitle: false },
     { id: 'cs2-bg-regulatory', title: 'CS2 · Rule 101 reform', component: CS2BackgroundRegulatory, isTitle: false },
     { id: 'cs2-setup', title: 'CS2 · Can the dossier replace a local trial?', component: CS2Setup, isTitle: false },
-    { id: 'cs2-architecture', title: 'CS2 · MOA is the foundation', component: CS2Architecture, isTitle: false },
-    // v2 comparison slide — combined animated cell-strip + cascade + competitor column.
-    // User-facing comparison; one will be promoted, the other archived after preview.
-    { id: 'cs2-architecture-v2', title: 'CS2 · MOA v2 — one frame, full mechanism', component: CS2ArchitectureV2, isTitle: false },
+    // Promoted 2026-04-26: single-canvas MOA slide replaces the earlier
+    // duplicate architecture slide. Do not present both mechanism variants live.
+    { id: 'cs2-architecture-v2', title: 'CS2 · MOA — one frame, full mechanism', component: CS2ArchitectureV2, isTitle: false },
     { id: 'cs2-pillars', title: 'CS2 · Six convergent pillars', component: CS2Pillars, isTitle: false },
     { id: 'cs2-reversal', title: 'CS2 · CDSCO approved 14 May 2025', component: CS2Reversal, isTitle: false },
-    { id: 'cs2-velocity', title: 'CS2 · Seven years → one pivot', component: CS2Velocity, isTitle: false },
+    // cs2-velocity archived from live flow 2026-04-27 — public timeline merged into cs2-reversal.
     { id: 'cs2-reckoning', title: 'CS2 · What we shipped, what we did not', component: CS2Reckoning, isTitle: false },
     { id: 'cs2-leadership', title: 'CS2 · Bracket Method ownership', component: CS2Leadership, isTitle: false },
-    { id: 'cs2-competitors', title: 'CS2 · IDH inhibitor landscape · history + competitors', component: CS2Competitors, isTitle: false },
     { id: 'cs2-bridge-recap', title: 'CS2 · The science was the bridge', component: CS2BridgeRecap, isTitle: false },
 
     // ══════════════════════════════════════════════════════════════
@@ -337,7 +337,6 @@ const manifest = {
     { id: 'cs3-question', title: 'CS3 · The question', component: CS3Question, isTitle: false },
     { id: 'cs3-problem', title: 'CS3 · 80% scaffolding', component: CS3Problem, isTitle: false },
     { id: 'cs3-architecture', title: 'CS3 · PharmAgent platform', component: CS3Architecture, isTitle: false },
-    { id: 'cs3-landscape', title: 'CS3 · Competitive landscape', component: CS3Landscape, isTitle: false },
     { id: 'cs3-decisive-move', title: 'CS3 · Privacy & audit by construction', component: CS3DecisiveMove, isTitle: false },
     { id: 'cs3-pilot', title: 'CS3 · Pilot evidence', component: CS3Pilot, isTitle: false },
     { id: 'cs3-bracket', title: 'CS3 · Bracket Method', component: CS3Bracket, isTitle: false },

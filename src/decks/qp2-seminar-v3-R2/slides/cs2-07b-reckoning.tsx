@@ -144,7 +144,7 @@ export default function CS2Reckoning() {
       >
         {/* ── TWO-COLUMN CONTRAST ── */}
         <div style={{
-          flex: 1, minHeight: 0,
+          flex: '0 1 auto', minHeight: 0,
           display: 'flex', flexWrap: 'wrap',
           gap: 'clamp(var(--space-4), 3vw, var(--space-6))',
         }}>
@@ -212,7 +212,7 @@ export default function CS2Reckoning() {
                   <motion.span
                     className="deck-mono"
                     style={{
-                      fontSize: 'var(--fs-slide-subhead)',
+                      fontSize: 'var(--fs-slide-body)',
                       color: 'var(--cyan)',
                       fontWeight: 500,
                       flexShrink: 0,
@@ -291,7 +291,7 @@ export default function CS2Reckoning() {
             </div>
 
             {/* Rows */}
-            <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               {NOT_SHIPPED.map((row, i) => (
                 <motion.div
                   key={row.title}
@@ -310,7 +310,7 @@ export default function CS2Reckoning() {
                   transition={{ duration: 0.4, delay: D.notRows[i], ease: EASE }}
                 >
                   <span className="deck-mono" style={{
-                    fontSize: 'var(--fs-slide-subhead)',
+                    fontSize: 'var(--fs-slide-body)',
                     color: 'var(--cream-muted)',
                     flexShrink: 0,
                     width: '1.2em',
@@ -366,7 +366,7 @@ export default function CS2Reckoning() {
                   borderRadius: '0 var(--radius-sm) var(--radius-sm) 0',
                 }}>
                   <span className="deck-body" style={{
-                    fontSize: 'var(--fs-slide-pageno)',
+                    fontSize: 'var(--fs-slide-subhead)',
                     color: 'var(--cream)',
                     lineHeight: 1.4,
                   }}>

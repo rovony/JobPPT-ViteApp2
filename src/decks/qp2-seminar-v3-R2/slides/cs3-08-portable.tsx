@@ -19,16 +19,16 @@ export default function CS3Portable() {
       <Eyebrow delay={0.10}>Case 03 · Portable principle</Eyebrow>
 
       <Headline delay={0.25} maxChars={52}>
-        AI in clinical pharmacology is most useful as{' '}
+        AI in clinical pharmacology is useful when it becomes{' '}
         <span style={{ color: 'var(--sage)' }}>
-          workflow infrastructure, not model substitution.
+          infrastructure, not a substitute for judgment.
         </span>
       </Headline>
 
       <Subhead delay={0.55} maxChars={100} size="lead">
         The function keeps owning the science. The platform carries the
-        scaffolding. The trial is still not the answer — and now the
-        model can keep up.
+        integration. The result is not less human judgment; it is more
+        time for the judgment that matters.
       </Subhead>
 
       <Viz>
@@ -46,21 +46,25 @@ export default function CS3Portable() {
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-            gap: 'clamp(var(--space-3), 2vw, var(--space-5))',
+            gap: 'clamp(var(--space-4), 3vw, var(--space-6))',
+            alignItems: 'stretch',
           }}>
             {[
               { cs: '01', color: 'var(--coral)', line: 'Exposure-matching carried the dose.' },
               { cs: '02', color: 'var(--cyan)', line: 'The dossier replaced the trial.' },
-              { cs: '03', color: 'var(--sage)', line: 'The platform carries the scaffolding.' },
+              { cs: '03', color: 'var(--sage)', line: 'The platform carries the integration.' },
             ].map((c, i) => (
               <motion.div
                 key={c.cs}
                 style={{
-                  padding: 'clamp(var(--space-3), 1.5vw, var(--space-4))',
-                  borderTop: `3px solid ${c.color}`,
-                  borderRadius: 'var(--radius-md)',
-                  background: 'color-mix(in srgb, var(--panel) 65%, transparent)',
-                  display: 'flex', flexDirection: 'column', gap: 'var(--space-2)',
+                  padding: 'clamp(var(--space-4), 2vw, var(--space-5))',
+                  border: `1px solid color-mix(in srgb, ${c.color} 30%, transparent)`,
+                  borderTop: `4px solid ${c.color}`,
+                  borderRadius: 'var(--radius-lg)',
+                  background: `linear-gradient(135deg, color-mix(in srgb, ${c.color} 12%, transparent) 0%, color-mix(in srgb, var(--panel) 80%, transparent) 100%)`,
+                  backdropFilter: 'blur(12px)',
+                  boxShadow: `0 12px 32px color-mix(in srgb, ${c.color} 8%, transparent)`,
+                  display: 'flex', flexDirection: 'column', gap: 'var(--space-3)',
                 }}
                 initial={{ opacity: 0, y: 12 }}
                 animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
@@ -82,13 +86,16 @@ export default function CS3Portable() {
           <motion.div
             style={{
               textAlign: 'center',
-              padding: 'var(--space-3) var(--space-5)',
+              padding: 'var(--space-5) var(--space-6)',
+              marginTop: 'var(--space-4)',
               background: `linear-gradient(90deg,
-                color-mix(in srgb, var(--coral) 6%, transparent),
-                color-mix(in srgb, var(--cyan) 6%, transparent),
-                color-mix(in srgb, var(--sage) 6%, transparent))`,
+                color-mix(in srgb, var(--coral) 12%, transparent) 0%,
+                color-mix(in srgb, var(--cyan) 8%, transparent) 50%,
+                color-mix(in srgb, var(--sage) 12%, transparent) 100%)`,
               border: '1px solid color-mix(in srgb, var(--cream-hairline) 60%, transparent)',
               borderRadius: 'var(--radius-lg)',
+              backdropFilter: 'blur(8px)',
+              boxShadow: '0 8px 32px color-mix(in srgb, var(--bg) 40%, transparent)',
             }}
             initial={{ opacity: 0 }}
             animate={go ? { opacity: 1 } : { opacity: 1 }}
@@ -98,7 +105,7 @@ export default function CS3Portable() {
               fontSize: 'var(--fs-slide-name)', color: 'var(--cream)',
               fontWeight: 600, lineHeight: 1.5,
             }}>
-              Three decisions. Three trials that weren't there.{' '}
+              Three decisions. Three trials that could not carry the full answer.{' '}
               <span style={{ color: 'var(--sage)' }}>
                 Three answers from the same discipline.
               </span>
@@ -110,7 +117,7 @@ export default function CS3Portable() {
       <Footer
         delay={reduced ? 0 : 2.0}
         kicker="Act 7 · Close"
-        tagline="The model is still the answer. The platform is the substrate that lets it keep up."
+        tagline="The science gets the time; the infrastructure carries the scaffolding."
       />
     </SlideGrid>
   );

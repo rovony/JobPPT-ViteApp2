@@ -109,10 +109,10 @@ function PathColumn({ headerKicker, headerColor, title, body, bars, chart, foote
       {chart}
       {footer && (
         <div className="deck-body" style={{
-          fontSize: 'var(--fs-slide-pageno)',
+          fontSize: 'clamp(10px, 1.2vh, 12px)',
           color: 'var(--cream)',
           opacity: 0.78,
-          lineHeight: 1.45,
+          lineHeight: 1.3,
           marginTop: 'auto',
           paddingTop: 'var(--space-2)',
           borderTop: '1px solid var(--cream-hairline)',
@@ -138,35 +138,61 @@ function PathColumn({ headerKicker, headerColor, title, body, bars, chart, foote
      · BREATHE-3 prediction point at ΔPVR=−389 → predicted Δ6MWD=+14 m
        (95% CI 3–31 m), rendered as amber star with CI whisker
    ─────────────────────────────────────────────────────────────── */
+import { useMemo } from 'react';
+
 function PvrChart({ reduced, delay }) {
-  // Coordinate space: x ∈ [-700, +150], y ∈ [-15, +60]. Map to viewBox.
-  const VB_W = 320;
-  const VB_H = 180;
-  const PAD = { top: 16, right: 14, bottom: 28, left: 36 };
-  const X_MIN = -700;
-  const X_MAX = 150;
-  const Y_MIN = -15;
-  const Y_MAX = 60;
+  // Coordinate space: matches Garnett-Florian 2017 Fig 1 (Individual Patients)
+  const VB_W = 540;
+  const VB_H = 260;
+  const PAD = { top: 16, right: 16, bottom: 28, left: 36 };
+  const X_MIN = -2200;
+  const X_MAX = 2200;
+  const Y_MIN = -550;
+  const Y_MAX = 350;
   const xScale = (x) => PAD.left + ((x - X_MIN) / (X_MAX - X_MIN)) * (VB_W - PAD.left - PAD.right);
   const yScale = (y) => VB_H - PAD.bottom - ((y - Y_MIN) / (Y_MAX - Y_MIN)) * (VB_H - PAD.top - PAD.bottom);
   const SLOPE = -0.055;
   const lineY = (x) => SLOPE * x;
 
-  // Illustrative trial-level scatter (positions consistent with slope ± noise)
-  const POINTS = [
-    { x: -560, y: 38,  cls: 'PROST' },
-    { x: -480, y: 24,  cls: 'PROST' },
-    { x: -390, y: 18,  cls: 'ERA' },
-    { x: -340, y: 22,  cls: 'ERA' },
-    { x: -280, y: 12,  cls: 'PDE5i' },
-    { x: -210, y: 16,  cls: 'PDE5i' },
-    { x: -150, y:  4,  cls: 'sGCs' },
-    { x:  -80, y: -2,  cls: 'IP-AG' },
-    { x:   30, y:  6,  cls: 'plac' },
-    { x:   80, y: -4,  cls: 'plac' },
-  ];
-
   const breathe3 = { x: -389, y: 14, lo: 3, hi: 31 };
+
+  const { dots, deciles } = useMemo(() => {
+    let s = 12345;
+    const r = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+    const nrand = () => Math.sqrt(-2 * Math.log(r() || 0.001)) * Math.cos(2 * Math.PI * (r() || 0.001));
+
+    const dotsArr = [];
+    const pvrVals = [];
+    // Generate 800 dots to simulate the N=2,028 density without tanking browser framerates
+    for (let i = 0; i < 800; i++) {
+      const isPlac = r() > 0.55;
+      const pvr = isPlac ? nrand() * 500 : -350 + nrand() * 600;
+      pvrVals.push({ pvr, isPlac, i });
+    }
+    
+    pvrVals.sort((a,b) => a.pvr - b.pvr);
+    const nDecile = Math.floor(pvrVals.length / 10);
+    
+    for (let i = 0; i < pvrVals.length; i++) {
+      const { pvr, isPlac, i: origId } = pvrVals[i];
+      const baseWalk = -0.055 * pvr;
+      const walk = baseWalk + nrand() * 110;
+      dotsArr.push({ pvr, walk, isPlac, i: origId });
+    }
+    
+    const decileArr = [];
+    for (let d = 0; d < 10; d++) {
+      const start = d * nDecile;
+      const end = d === 9 ? dotsArr.length - 1 : (d + 1) * nDecile - 1;
+      const slice = dotsArr.slice(start, end + 1);
+      
+      const meanPvr = slice.reduce((sum, dot) => sum + dot.pvr, 0) / slice.length;
+      const meanWalk = slice.reduce((sum, dot) => sum + dot.walk, 0) / slice.length;
+      const sdWalk = Math.sqrt(slice.reduce((sum, dot) => sum + Math.pow(dot.walk - meanWalk, 2), 0) / slice.length);
+      decileArr.push({ pvr: meanPvr, mean: meanWalk, sd: sdWalk });
+    }
+    return { dots: dotsArr, deciles: decileArr };
+  }, []);
 
   return (
     <motion.div
@@ -180,20 +206,30 @@ function PvrChart({ reduced, delay }) {
         padding: 'var(--space-2) var(--space-3)',
       }}
     >
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-pageno)',
-        letterSpacing: 'var(--ls-mono-wide)',
-        color: 'var(--cream-muted)',
-        fontWeight: 700,
-        marginBottom: 4,
-      }}>
-        Garnett-Florian · ΔPVR ↔ Δ6MWD · 12 trials · n=2,028
+      <div className="flex items-center justify-between" style={{ marginBottom: 4 }}>
+        <div className="deck-mono uppercase" style={{
+          fontSize: 'var(--fs-slide-pageno)',
+          letterSpacing: 'var(--ls-mono-wide)',
+          color: 'var(--cream-muted)',
+          fontWeight: 700,
+        }}>
+          Garnett-Florian · ΔPVR ↔ Δ6MWD
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1 deck-mono" style={{ fontSize: '7px', color: 'var(--cream-muted)' }}>
+            <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--coral)' }} /> ACTIVE TREATMENT
+          </div>
+          <div className="flex items-center gap-1 deck-mono" style={{ fontSize: '7px', color: 'var(--cream-muted)' }}>
+            <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--cyan)' }} /> PLACEBO
+          </div>
+        </div>
       </div>
+
       <svg
         viewBox={`0 0 ${VB_W} ${VB_H}`}
         preserveAspectRatio="xMidYMid meet"
         aria-hidden
-        style={{ width: '100%', height: 'auto', display: 'block' }}
+        style={{ width: '100%', height: 'auto', maxHeight: '30vh', display: 'block' }}
       >
         {/* Axes */}
         <line x1={PAD.left} y1={VB_H - PAD.bottom} x2={VB_W - PAD.right} y2={VB_H - PAD.bottom}
@@ -201,141 +237,161 @@ function PvrChart({ reduced, delay }) {
         <line x1={PAD.left} y1={PAD.top} x2={PAD.left} y2={VB_H - PAD.bottom}
               stroke="var(--cream-faint)" strokeWidth="0.6" />
 
+        {/* Origin gridlines (zero ref) */}
+        <line x1={xScale(0)} y1={PAD.top} x2={xScale(0)} y2={VB_H - PAD.bottom}
+              stroke="var(--cream-muted)" strokeWidth="0.6" strokeDasharray="3 4" opacity="0.6" />
+        <line x1={PAD.left} y1={yScale(0)} x2={VB_W - PAD.right} y2={yScale(0)}
+              stroke="var(--cream-muted)" strokeWidth="0.6" strokeDasharray="3 4" opacity="0.6" />
+
         {/* X-axis ticks + label */}
-        {[-600, -400, -200, 0].map((tx) => (
+        {[-2000, 0, 2000].map((tx) => (
           <g key={`xt-${tx}`}>
             <line x1={xScale(tx)} y1={VB_H - PAD.bottom} x2={xScale(tx)} y2={VB_H - PAD.bottom + 3}
                   stroke="var(--cream-faint)" strokeWidth="0.5" />
-            <text x={xScale(tx)} y={VB_H - PAD.bottom + 11}
-                  fontFamily="var(--font-mono)" fontSize="6.5"
-                  fill="var(--cream-faint)" textAnchor="middle"
+            <text x={xScale(tx)} y={VB_H - PAD.bottom + 12}
+                  fontFamily="var(--font-mono)" fontSize="7.5"
+                  fill="var(--cream-muted)" textAnchor="middle"
                   fontVariantNumeric="tabular-nums" letterSpacing="0.04em">
               {tx}
             </text>
           </g>
         ))}
-        <text x={(PAD.left + VB_W - PAD.right) / 2} y={VB_H - 4}
-              fontFamily="var(--font-mono)" fontSize="6.5" letterSpacing="0.08em"
+        <text x={(PAD.left + VB_W - PAD.right) / 2} y={VB_H - 2}
+              fontFamily="var(--font-mono)" fontSize="7" letterSpacing="0.08em"
               fill="var(--cream-muted)" textAnchor="middle" fontWeight="700">
-          ΔPVR (dyne·sec/cm⁵) — lower is better →
+          PVR change (dyn·sec/cm⁵)
         </text>
 
         {/* Y-axis ticks + label */}
-        {[0, 20, 40, 60].map((ty) => (
+        {[-500, -250, 0, 250].map((ty) => (
           <g key={`yt-${ty}`}>
             <line x1={PAD.left - 3} y1={yScale(ty)} x2={PAD.left} y2={yScale(ty)}
                   stroke="var(--cream-faint)" strokeWidth="0.5" />
-            <text x={PAD.left - 5} y={yScale(ty) + 2}
-                  fontFamily="var(--font-mono)" fontSize="6.5"
-                  fill="var(--cream-faint)" textAnchor="end"
+            <text x={PAD.left - 6} y={yScale(ty) + 2.5}
+                  fontFamily="var(--font-mono)" fontSize="7.5"
+                  fill="var(--cream-muted)" textAnchor="end"
                   fontVariantNumeric="tabular-nums">
-              {ty > 0 ? `+${ty}` : ty}
+              {ty}
             </text>
           </g>
         ))}
-        <text x={PAD.left - 30} y={(PAD.top + VB_H - PAD.bottom) / 2}
-              fontFamily="var(--font-mono)" fontSize="6.5" letterSpacing="0.08em"
+        <text x={PAD.left - 26} y={(PAD.top + VB_H - PAD.bottom) / 2}
+              fontFamily="var(--font-mono)" fontSize="7" letterSpacing="0.08em"
               fill="var(--cream-muted)" textAnchor="middle" fontWeight="700"
-              transform={`rotate(-90, ${PAD.left - 30}, ${(PAD.top + VB_H - PAD.bottom) / 2})`}>
-          Δ6MWD (m)
+              transform={`rotate(-90, ${PAD.left - 26}, ${(PAD.top + VB_H - PAD.bottom) / 2})`}>
+          Walk Distance change (m)
         </text>
 
-        {/* Origin gridlines (zero ref) */}
-        <line x1={xScale(0)} y1={PAD.top} x2={xScale(0)} y2={VB_H - PAD.bottom}
-              stroke="var(--cream-faint)" strokeWidth="0.4" strokeDasharray="2 3" opacity="0.4" />
-        <line x1={PAD.left} y1={yScale(0)} x2={VB_W - PAD.right} y2={yScale(0)}
-              stroke="var(--cream-faint)" strokeWidth="0.4" strokeDasharray="2 3" opacity="0.4" />
+        {/* Patient scatter points */}
+        {dots.map((d) => (
+          <motion.circle
+            key={d.i}
+            cx={xScale(d.pvr)} cy={yScale(d.walk)} r={1.5}
+            fill={d.isPlac ? 'var(--cyan)' : 'var(--coral)'}
+            opacity={0.65}
+            initial={reduced ? false : { opacity: 0, scale: 0 }}
+            animate={{ opacity: 0.65, scale: 1 }}
+            transition={{ duration: 0.2, delay: delay + 0.2 + (d.i % 20) * 0.02, ease: 'easeOut' }}
+          />
+        ))}
 
-        {/* Confidence band (illustrative ±10m around regression) */}
+        {/* Confidence band (illustrative 95% CI around regression) */}
         <motion.path
           d={`
-            M ${xScale(X_MIN)} ${yScale(lineY(X_MIN) + 10)}
-            L ${xScale(X_MAX)} ${yScale(lineY(X_MAX) + 10)}
-            L ${xScale(X_MAX)} ${yScale(lineY(X_MAX) - 10)}
-            L ${xScale(X_MIN)} ${yScale(lineY(X_MIN) - 10)}
+            M ${xScale(X_MIN)} ${yScale(lineY(X_MIN) + 25)}
+            L ${xScale(X_MAX)} ${yScale(lineY(X_MAX) + 25)}
+            L ${xScale(X_MAX)} ${yScale(lineY(X_MAX) - 25)}
+            L ${xScale(X_MIN)} ${yScale(lineY(X_MIN) - 25)}
             Z
           `}
           fill="var(--case)"
-          fillOpacity={0.08}
+          fillOpacity={0.12}
           stroke="none"
           initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: delay + 0.4, ease: EASE }}
+          transition={{ duration: 0.6, delay: delay + 1.0, ease: EASE }}
         />
 
         {/* Regression line */}
         <motion.line
           x1={xScale(X_MIN)} y1={yScale(lineY(X_MIN))}
           x2={xScale(X_MAX)} y2={yScale(lineY(X_MAX))}
-          stroke="var(--case)" strokeWidth="1.4" opacity="0.85"
+          stroke="var(--case)" strokeWidth="1.8"
           initial={reduced ? false : { pathLength: 0 }}
           animate={{ pathLength: 1 }}
-          transition={{ duration: reduced ? 0 : 0.9, delay: delay + 0.5, ease: EASE }}
+          transition={{ duration: reduced ? 0 : 0.9, delay: delay + 1.1, ease: EASE }}
         />
 
-        {/* Slope label */}
-        <text x={xScale(-280)} y={yScale(lineY(-280)) - 5}
-              fontFamily="var(--font-mono)" fontSize="6.5" fontWeight="700"
-              fill="var(--case)" textAnchor="middle" letterSpacing="0.04em">
-          slope = −0.055 m/(dyne·sec/cm⁵)
-        </text>
-
-        {/* Trial scatter points */}
-        {POINTS.map((p, i) => (
-          <motion.circle
-            key={`p-${i}`}
-            cx={xScale(p.x)} cy={yScale(p.y)} r={2.4}
-            fill="none"
-            stroke="var(--cream-muted)"
-            strokeWidth="0.8"
-            opacity={0.75}
-            initial={reduced ? false : { opacity: 0, scale: 0 }}
-            animate={{ opacity: 0.75, scale: 1 }}
-            transition={{ duration: 0.4, delay: delay + 0.7 + i * 0.04, ease: EASE }}
-          />
+        {/* Decile Error Bars (black error bars representing mean/sd) */}
+        {deciles.map((d, i) => (
+          <motion.g
+            key={`decile-${i}`}
+            initial={reduced ? false : { opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: delay + 1.5 + i * 0.05, ease: EASE }}
+          >
+            <line
+              x1={xScale(d.pvr)} y1={yScale(d.mean - d.sd)}
+              x2={xScale(d.pvr)} y2={yScale(d.mean + d.sd)}
+              stroke="#111"
+              strokeWidth="2"
+            />
+            <circle
+              cx={xScale(d.pvr)} cy={yScale(d.mean)}
+              r={2.5}
+              fill="#111"
+            />
+          </motion.g>
         ))}
+
+        {/* Slope label */}
+        <text x={xScale(1000)} y={yScale(200)}
+              fontFamily="var(--font-mono)" fontSize="7" fontWeight="700"
+              fill="var(--case)" textAnchor="middle" letterSpacing="0.04em">
+          Slope (95% CI): -0.055 (-0.062, -0.047)
+        </text>
 
         {/* BREATHE-3 prediction — amber star with CI whisker */}
         <motion.g
           initial={reduced ? false : { opacity: 0, scale: 0.4 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.55, delay: delay + 1.15, ease: [0.34, 1.56, 0.64, 1] }}
+          transition={{ duration: 0.55, delay: delay + 2.2, ease: [0.34, 1.56, 0.64, 1] }}
           style={{ transformOrigin: `${xScale(breathe3.x)}px ${yScale(breathe3.y)}px` }}
         >
           {/* CI whisker */}
           <line
             x1={xScale(breathe3.x)} y1={yScale(breathe3.lo)}
             x2={xScale(breathe3.x)} y2={yScale(breathe3.hi)}
-            stroke="var(--amber)" strokeWidth="0.8" opacity="0.7"
+            stroke="var(--amber)" strokeWidth="1.2"
           />
           <line
-            x1={xScale(breathe3.x) - 3} y1={yScale(breathe3.lo)}
-            x2={xScale(breathe3.x) + 3} y2={yScale(breathe3.lo)}
-            stroke="var(--amber)" strokeWidth="0.8" opacity="0.7"
+            x1={xScale(breathe3.x) - 4} y1={yScale(breathe3.lo)}
+            x2={xScale(breathe3.x) + 4} y2={yScale(breathe3.lo)}
+            stroke="var(--amber)" strokeWidth="1.2"
           />
           <line
-            x1={xScale(breathe3.x) - 3} y1={yScale(breathe3.hi)}
-            x2={xScale(breathe3.x) + 3} y2={yScale(breathe3.hi)}
-            stroke="var(--amber)" strokeWidth="0.8" opacity="0.7"
+            x1={xScale(breathe3.x) - 4} y1={yScale(breathe3.hi)}
+            x2={xScale(breathe3.x) + 4} y2={yScale(breathe3.hi)}
+            stroke="var(--amber)" strokeWidth="1.2"
           />
           {/* Star marker */}
           <circle
-            cx={xScale(breathe3.x)} cy={yScale(breathe3.y)} r={4}
+            cx={xScale(breathe3.x)} cy={yScale(breathe3.y)} r={4.5}
             fill="var(--amber)"
             stroke="var(--bg)"
             strokeWidth="1"
           />
-          {/* Label */}
+          {/* Label moved to top right to avoid overlap */}
           <text
-            x={xScale(breathe3.x) + 8} y={yScale(breathe3.y) - 4}
-            fontFamily="var(--font-mono)" fontSize="7" fontWeight="700"
+            x={xScale(breathe3.x) + 8} y={yScale(breathe3.hi) - 6}
+            fontFamily="var(--font-mono)" fontSize="8" fontWeight="700"
             fill="var(--amber)" letterSpacing="0.04em"
           >
             BREATHE-3 · N=19
           </text>
           <text
-            x={xScale(breathe3.x) + 8} y={yScale(breathe3.y) + 4}
-            fontFamily="var(--font-mono)" fontSize="6.5"
+            x={xScale(breathe3.x) + 8} y={yScale(breathe3.hi) + 4}
+            fontFamily="var(--font-mono)" fontSize="7.5"
             fill="var(--amber)" opacity="0.85" letterSpacing="0.04em"
           >
             +14 m (95% CI 3–31)
@@ -345,6 +401,7 @@ function PvrChart({ reduced, delay }) {
     </motion.div>
   );
 }
+
 
 export default function Cs1Results() {
   const reduced = useReducedMotion();
@@ -374,13 +431,14 @@ export default function Cs1Results() {
           flexDirection: 'column',
           gap: 'clamp(var(--space-3), 2.5vh, var(--space-5))',
           paddingTop: 'clamp(var(--space-2), 2vh, var(--space-4))',
-          height: '100%',
         }}>
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(min(20rem, 100%), 1fr))',
             gap: 'clamp(var(--space-3), 2vw, var(--space-5))',
             alignItems: 'stretch',
+            flex: 1,
+            minHeight: 0,
           }}>
             <PathColumn
               delay={0.85}
@@ -428,6 +486,7 @@ export default function Cs1Results() {
               alignSelf: 'flex-start',
               borderLeft: '3px solid var(--case)',
               paddingLeft: 'var(--space-3)',
+              marginBottom: 0,
             }}
           >
             Same intellectual move &mdash; extrapolate adult efficacy through a quantitative pediatric bridge. Different evidence weights. EMA accepts PK-matching alone when similarity is high; FDA wants the hemodynamic surrogate too. <strong style={{ color: 'var(--case)', fontWeight: 600 }}>This case is the EMA branch.</strong>

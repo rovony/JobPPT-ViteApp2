@@ -8,7 +8,7 @@ const EASE = [0.2, 0.7, 0.3, 1];
 
 const PATH_NODES = [
   { tone: 'case',  label: 'HELD',         detail: 'Juvenile rat brain-weight finding', when: 'Mar 2013' },
-  { tone: 'case',  label: 'REFRAMED',     detail: 'STARTS-2 mortality signal',          when: '2017' },
+  { tone: 'case',  label: 'REFRAMED',     detail: 'STARTS-2 mortality signal',          when: '2014' },
   { tone: 'case',  label: 'CONSTRAINED',  detail: 'Gilead / GSK · split commercial rights', when: 'Day 1' },
   { tone: 'amber', label: 'APPROVED',     detail: 'EMA + PMDA · pediatric PAH',         when: '2021' },
 ];
@@ -170,10 +170,10 @@ export default function Cs1Question() {
         aria-hidden
         style={{
           position: 'absolute',
-          right: '5%',
-          top: '10%',
-          bottom: '10%',
-          width: '45%',
+          right: 'clamp(2rem, 5vw, 7rem)',
+          top: '12vh',
+          bottom: '18vh',
+          width: 'clamp(320px, 34%, 620px)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -240,7 +240,7 @@ export default function Cs1Question() {
               boxShadow: 'inset 1px 1px 0 color-mix(in srgb, var(--cream) 5%, transparent)',
             }}>
               <DataDossierRow label="Adult Data" accent="var(--case)" delay={1.2} reduced={reduced}>
-                <strong style={{ fontWeight: 600 }}>380 patients</strong> across 6 placebo-controlled studies — a mature exposure-response model.
+                <strong style={{ fontWeight: 600 }}>380 adults</strong> across 6 studies — the mature adult PK anchor.
               </DataDossierRow>
               <DataDossierRow label="Peds Data" accent="var(--amber)" delay={1.4} reduced={reduced}>
                 <strong style={{ fontWeight: 600 }}>39 patients</strong>, <em style={{ fontStyle: 'italic', opacity: 0.85 }}>open-label, PK-anchored</em>, no placebo comparator.

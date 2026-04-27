@@ -28,8 +28,8 @@ const C = {
 
 const EASE = [0.2, 0.7, 0.3, 1];
 
-/* Pillar card shell — matches StatCard chrome + spacing exactly. */
-export function Pillar({ delay = 0, eyebrow, name, children }) {
+/* Pillar text card shell — isolates typography */
+export function PillarTextCard({ delay = 0, eyebrow, name, children }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -41,14 +41,15 @@ export function Pillar({ delay = 0, eyebrow, name, children }) {
         borderRadius: 'var(--radius-lg)',
         padding: 'var(--space-4)',
         display: 'flex', flexDirection: 'column',
-        minWidth: 0, minHeight: 0,
+        minWidth: 0, flex: 1.1,
       }}
     >
-      {/* Pillar number — small, cream-faint */}
+      {/* Pillar number — high-contrast against the active theme. */}
       <div className="deck-mono uppercase" style={{
         fontSize: 'var(--fs-slide-pageno)',
         letterSpacing: 'var(--ls-mono-wide)',
-        color: C.creamFaint,
+        color: 'color-mix(in srgb, var(--cream) 78%, var(--cyan) 22%)',
+        fontWeight: 800,
       }}>{eyebrow}</div>
 
       {/* Pillar name — the cyan section label, matches StatCard's `label` */}
@@ -61,6 +62,27 @@ export function Pillar({ delay = 0, eyebrow, name, children }) {
         lineHeight: 1.3,
       }}>{name}</div>
 
+      {children}
+    </motion.div>
+  );
+}
+
+/* Pillar viz card shell — isolates SVG graphics */
+export function PillarVizCard({ delay = 0, children }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: EASE, delay }}
+      style={{
+        border: `1px solid ${C.hairline}`,
+        background: 'color-mix(in srgb, var(--panel) 35%, transparent)',
+        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--space-3) var(--space-4)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        minWidth: 0, flex: 1, minHeight: 0,
+      }}
+    >
       {children}
     </motion.div>
   );
@@ -109,13 +131,11 @@ export function PillarSub({ children }) {
   );
 }
 
-/* Mini-viz wrapper — fixed-ish height proportional to viewport. */
+/* Mini-viz wrapper — adjusted for isolated card rendering */
 export function PillarVizWrap({ children }) {
   return (
     <div style={{
-      flex: '0 0 auto',
-      height: 'clamp(56px, 11vh, 88px)',
-      margin: 'var(--space-3) 0',
+      width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
     }}>{children}</div>
   );
@@ -221,27 +241,29 @@ export function IntrinsicViz() {
   );
 }
 
-/* Pillar 05 · Extrinsic — 3-bar AUC waterfall. */
+/* Pillar 05 · Extrinsic — handled-factor checklist. */
 export function ExtrinsicViz() {
+  const factors = [
+    { label: 'FOOD', x: 10, y: 10 },
+    { label: 'DDI', x: 76, y: 10 },
+    { label: 'COMED', x: 10, y: 36 },
+    { label: 'LIFE', x: 76, y: 36 },
+  ];
+
   return (
     <svg viewBox="0 0 140 64" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
-      <line x1="6" y1="32" x2="134" y2="32" strokeDasharray="2 2" style={{ stroke: C.creamFaint, strokeWidth: 0.5 }} />
-      <text x="0" y="29" fontSize="6" letterSpacing="0.4" style={{ fill: C.creamFaint, fontFamily: 'var(--font-mono)' }}>1.0×</text>
-
-      <rect x="14" y="14" width="32" height="18"
-        style={{ fill: 'color-mix(in srgb, var(--amber) 55%, transparent)', stroke: C.amber, strokeWidth: 0.7 }} />
-      <text x="30" y="11" textAnchor="middle" fontSize="6.5" letterSpacing="0.4" style={{ fill: C.amber, fontFamily: 'var(--font-mono)' }}>+56%</text>
-      <text x="30" y="46" textAnchor="middle" fontSize="6" style={{ fill: C.creamMuted, fontFamily: 'var(--font-mono)' }}>INHIB</text>
-
-      <rect x="56" y="32" width="32" height="22"
-        style={{ fill: 'color-mix(in srgb, var(--cyan) 55%, transparent)', stroke: C.cyan, strokeWidth: 0.7 }} />
-      <text x="72" y="60" textAnchor="middle" fontSize="6.5" letterSpacing="0.4" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>−82%</text>
-      <text x="72" y="46" textAnchor="middle" fontSize="6" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>MDZ</text>
-
-      <rect x="98" y="32" width="32" height="14"
-        style={{ fill: 'color-mix(in srgb, var(--cream) 22%, transparent)', stroke: C.creamMuted, strokeWidth: 0.7 }} />
-      <text x="114" y="50" textAnchor="middle" fontSize="6.5" letterSpacing="0.4" style={{ fill: C.creamMuted, fontFamily: 'var(--font-mono)' }}>−65%</text>
-      <text x="114" y="60" textAnchor="middle" fontSize="6" style={{ fill: C.creamMuted, fontFamily: 'var(--font-mono)' }}>INDUC</text>
+      {factors.map((factor) => (
+        <g key={factor.label}>
+          <rect x={factor.x} y={factor.y} width="54" height="18" rx="3"
+            style={{ fill: 'color-mix(in srgb, var(--cyan) 9%, transparent)', stroke: 'color-mix(in srgb, var(--cyan) 28%, transparent)', strokeWidth: 0.7 }} />
+          <circle cx={factor.x + 9} cy={factor.y + 9} r="3.3" style={{ fill: C.cyan }} />
+          <path d={`M ${factor.x + 7.3} ${factor.y + 8.9} L ${factor.x + 8.8} ${factor.y + 10.6} L ${factor.x + 12.0} ${factor.y + 6.9}`}
+            fill="none" stroke="var(--panel)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+          <text x={factor.x + 18} y={factor.y + 12} fontSize="7.2" letterSpacing="0.55" style={{ fill: C.cream, fontFamily: 'var(--font-mono)' }}>{factor.label}</text>
+        </g>
+      ))}
+      <line x1="10" y1="32" x2="130" y2="32" strokeDasharray="2 3" style={{ stroke: C.creamFaint, strokeWidth: 0.5 }} />
+      <text x="70" y="60" textAnchor="middle" fontSize="6.8" letterSpacing="0.5" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>CHARACTERIZED · MANAGED</text>
     </svg>
   );
 }

@@ -1,222 +1,291 @@
 // @ts-nocheck
-import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
-import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
-import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
-import Lungs from '../components/Lungs';
+import React, { useRef } from 'react';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
+import SlideFrame from '@/components/deck/SlideFrame';
 
 /**
- * CS1 · Slide 15 (slot) — V2-S11 · Three takeaways + bridge to CS2.
+ * CS1 Slide 15 · Closing — "The quantitative bridge makes the dose defensible."
  *
- * 2026-04-25 v2-final pass — content replaced wholesale per
- * 2-Slides_Dev/2-Slides-Plan-V2/_Results/2-SlidesPlan/V2/2B-Slides-CS1-Slides07-11-v2.md.
- * V2 spec consolidates "what this case teaches" (was slide 14) + the
- * CS2 bridge (was slide 15) into a single closing slot. The previous
- * three-lessons content has been retained but reframed per V2 takeaway
- * structure (methodology · architecture · robustness).
+ * Sparse typographic stack — three portable principles, no cards, no
+ * panels. Redesigned to match CS2's closing slide energy.
  *
- * v2-final amendment in takeaway 02: dual-architecture call-out
- * (FUTURE-1 EMA vs Garnett-Florian FDA) — surfacing both branches in
- * the closing summary signals regulatory literacy.
+ * Principles synthesize the narrative arc:
+ *   01 Methodology  ← exposure matching
+ *   02 Architecture ← inheritance
+ *   03 Regulatory outcome ← dose labeling
  */
 
 const EASE = [0.2, 0.7, 0.3, 1];
 
-const TAKEAWAYS = [
-  {
-    n: '01',
-    label: 'METHODOLOGY',
-    headline: 'Exposure matching is the methodology.',
-    body: <>Where similarity is high, PK matching alone supports the dose. ICH E11A (Dec 2024) codified this as the extrapolation continuum &mdash; <strong>the framework prefigured the standard by four years.</strong></>,
-  },
-  {
-    n: '02',
-    label: 'ARCHITECTURE',
-    headline: 'Inheritance is the framework\'s strength.',
-    body: <>Structural model from the adult anchor; pediatric data confirms adequacy. <strong>39 patients cannot build a model — 39 patients can confirm one.</strong> EMA accepts PK-matching alone; FDA pairs it with a PVR-6MWD bridge (Garnett-Florian).</>,
-  },
-  {
-    n: '03',
-    label: 'DELIVERABLE',
-    headline: 'Weight-banded dosing — not just a model.',
-    body: <>The framework\'s output was a <strong>label</strong>, not a paper: 8–17 years, three weight bands, two dose levels (2.5–10 mg QD). EMA + PMDA accepted; the model became evidence.</>,
-  },
+const PRINCIPLES = [
+  { n: '01', em: 'Methodology', rest: 'is exposure matching.' },
+  { n: '02', em: 'Architecture', rest: 'relies on inheritance.' },
+  { n: '03', em: 'Regulatory outcome', rest: 'is dose labeling.' },
 ];
 
-function TakeawayCard({ t, delay, reduced }) {
+const D = {
+  divider: 0.6,
+  p: [
+    { num: 1.1, rule: 1.3, words: 1.6 },
+    { num: 2.4, rule: 2.6, words: 2.9 },
+    { num: 3.7, rule: 3.9, words: 4.2 },
+  ],
+  endMark: 5.1,
+  amber: 5.5,
+  footer: 6.0,
+};
+
+function WordReveal({ em, rest, baseDelay, go }) {
+  const allWords = [em, ...rest.split(' ').filter(Boolean)];
   return (
-    <motion.div
-      initial={reduced ? false : { opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : delay, ease: EASE }}
-      style={{
-        position: 'relative',
-        minWidth: 0,
-        border: '1px solid var(--cream-hairline)',
-        borderLeft: '4px solid var(--case)',
-        borderRadius: 'var(--radius-lg)',
-        background: 'color-mix(in srgb, var(--panel) 65%, transparent)',
-        padding: 'clamp(var(--space-3), 1.6vw, var(--space-5))',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 'var(--space-2)',
-        height: '100%',
-      }}
-    >
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-kicker)',
-        letterSpacing: 'var(--ls-mono-wide)',
-        color: 'var(--case)',
-        fontWeight: 700,
-        fontVariantNumeric: 'tabular-nums',
-      }}>
-        {t.n} · {t.label}
-      </div>
-      <div className="deck-display" style={{
-        fontSize: 'var(--fs-card-quote)',
-        color: 'var(--cream)',
-        fontWeight: 700,
-        lineHeight: 1.2,
-        letterSpacing: '-0.005em',
-      }}>
-        {t.headline}
-      </div>
-      <div className="deck-body" style={{
-        fontSize: 'var(--fs-slide-subhead)',
-        color: 'var(--cream)',
-        opacity: 0.86,
-        lineHeight: 1.5,
-        marginTop: 'var(--space-1)',
-      }}>
-        {t.body}
-      </div>
-    </motion.div>
+    <>
+      {allWords.map((word, i) => (
+        <motion.span
+          key={i}
+          style={i === 0 ? {
+            color: 'var(--case)', fontWeight: 500,
+          } : undefined}
+          initial={{ opacity: 0 }}
+          animate={go ? { opacity: 1 } : { opacity: 1 }}
+          transition={{ duration: 0.06, delay: baseDelay + i * 0.08 }}
+        >
+          {word}{i < allWords.length - 1 ? ' ' : ''}
+        </motion.span>
+      ))}
+    </>
   );
 }
 
 export default function Cs1Bridge() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
   const reduced = useReducedMotion();
+  const go = inView && !reduced;
+
   return (
-    <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
-      {/* V2-S11 lung-anchor treatment · exit · opening size, parked
-          to the right, ready to leave. The CS1 visual subject takes
-          its bow on the right side — closing the coral chapter as
-          the bridge ribbon hands off to CS2 (cyan/oncology). The
-          shared layoutId chain ends here for CS1. */}
+    <SlideFrame
+      dataCase="coral"
+      eyebrow="Case 01 · Close"
+      headline={
+        <>
+          When the trial cannot deliver the dose,{' '}
+          <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 500 }}>
+            the quantitative bridge makes it defensible.
+          </span>
+        </>
+      }
+      subhead="What this case teaches — beyond ambrisentan, beyond pediatric PAH."
+    >
       <div
-        aria-hidden
+        ref={ref}
         style={{
-          position: 'absolute',
-          right: 'clamp(var(--space-4), 5vw, var(--space-7))',
-          top: '52%',
-          transform: 'translateY(-50%)',
-          width: 'clamp(220px, 22vw, 380px)',
-          opacity: 0.28,
-          pointerEvents: 'none',
-          zIndex: 0,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          width: '100%', height: '100%',
+          display: 'flex', flexDirection: 'column',
+          minHeight: 0,
         }}
       >
-        <Lungs
-          layoutId="cs1-lung"
-          variant="exit"
+        {/* Header divider — draws left-to-right */}
+        <motion.div
+          style={{
+            height: 1, background: 'var(--cream-hairline)',
+            transformOrigin: 'left',
+            marginBottom: 'var(--space-4)',
+            flexShrink: 0,
+          }}
+          initial={{ scaleX: 0 }}
+          animate={go ? { scaleX: 1 } : { scaleX: 1 }}
+          transition={{ duration: 0.4, delay: D.divider, ease: EASE }}
         />
-      </div>
 
-      <Eyebrow delay={0.10}>
-        Case 01 · What the case teaches
-      </Eyebrow>
-
-      <Headline delay={0.25} maxChars={68}>
-        When the trial cannot deliver the dose,{' '}
-        <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 600 }}>
-          the model delivers the label.
-        </span>
-      </Headline>
-
-      <Subhead delay={0.55} maxChars={92} size="lead">
-        Three takeaways that travel beyond ambrisentan and beyond pediatric PAH.
-      </Subhead>
-
-      <Viz>
+        {/* ── PRINCIPLES — centered, sparse vertical stack ── */}
         <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 'clamp(var(--space-3), 2.5vh, var(--space-5))',
-          paddingTop: 'clamp(var(--space-2), 2vh, var(--space-4))',
-          height: '100%',
+          flex: 1, minHeight: 0,
+          display: 'flex', alignItems: 'center',
+          justifyContent: 'center',
         }}>
-          {/* Three takeaway cards */}
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(17rem, 100%), 1fr))',
-            gap: 'clamp(var(--space-3), 2vw, var(--space-5))',
-            alignItems: 'stretch',
+            display: 'flex', flexDirection: 'column',
+            gap: 'clamp(var(--space-6), 6vh, 3.75rem)',
+            maxWidth: '55rem',
+            width: '100%',
           }}>
-            {TAKEAWAYS.map((t, i) => (
-              <TakeawayCard key={t.n} t={t} delay={0.85 + i * 0.15} reduced={reduced} />
-            ))}
-          </div>
-
-          {/* Bridge ribbon to CS2 — amber rotate-45 + pointer */}
-          <motion.div
-            initial={reduced ? false : { opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : 1.55, ease: EASE }}
-            style={{
-              alignSelf: 'center',
-              maxWidth: 'clamp(28rem, 80vw, 64rem)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 'clamp(var(--space-3), 2vw, var(--space-5))',
-              padding: 'var(--space-3) var(--space-5)',
-              background: 'color-mix(in srgb, var(--amber) 8%, transparent)',
-              border: '1px solid color-mix(in srgb, var(--amber) 28%, transparent)',
-              borderRadius: 'var(--radius-md)',
-            }}
-          >
-            <motion.div
-              aria-hidden
-              style={{
-                flexShrink: 0,
-                transform: 'rotate(45deg)',
-                width: 'clamp(0.875rem, 1.4vw, 1.25rem)',
-                height: 'clamp(0.875rem, 1.4vw, 1.25rem)',
-                background: 'var(--amber)',
-              }}
-              initial={reduced ? false : { opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 1.75, ease: [0.34, 1.56, 0.64, 1] }}
-            />
-            <div className="deck-display italic" style={{
-              fontSize: 'var(--fs-slide-tagline)',
-              color: 'var(--cream)',
-              opacity: 0.92,
-              lineHeight: 1.5,
-              fontWeight: 500,
-              flex: 1,
-            }}>
-              From a <strong style={{ color: 'var(--case)', fontStyle: 'normal' }}>rare pediatric pulmonary disease</strong> to a{' '}
-              <motion.span
-                initial={reduced ? false : { color: 'var(--cream)' }}
-                animate={{ color: 'var(--cyan)' }}
-                transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : 2.55 }}
-                style={{ fontWeight: 600, fontStyle: 'normal' }}
+            {PRINCIPLES.map((p, i) => (
+              <div
+                key={p.n}
+                style={{
+                  display: 'flex', alignItems: 'baseline',
+                  gap: 'clamp(var(--space-3), 2vw, var(--space-5))',
+                }}
               >
-                regulatory bridging waiver in oncology
-              </motion.span>{' '}— the next case takes the same intellectual move into a different therapeutic area.
-            </div>
-          </motion.div>
-        </div>
-      </Viz>
+                {/* Number */}
+                <motion.span
+                  className="deck-mono"
+                  style={{
+                    fontSize: 'var(--fs-slide-eyebrow)',
+                    letterSpacing: '0.18em',
+                    color: 'var(--case)',
+                    fontWeight: 500,
+                    width: '1.75rem',
+                    flexShrink: 0,
+                  }}
+                  initial={{ opacity: 0 }}
+                  animate={go ? { opacity: 1 } : { opacity: 1 }}
+                  transition={{ duration: 0.2, delay: D.p[i].num }}
+                >
+                  {p.n}
+                </motion.span>
 
-      <Footer
-        delay={reduced ? 0 : 2.20}
-        kicker="15 · CS1 CLOSES · CS2 OPENS"
-        tagline="The framework absorbed all three. Case 02 — the regulatory bridge."
-      />
-    </SlideGrid>
+                {/* Hairline rule */}
+                <motion.div
+                  style={{
+                    width: 'clamp(48px, 8vw, 80px)',
+                    height: 1,
+                    flexShrink: 0,
+                    alignSelf: 'center',
+                    marginTop: -2,
+                    transformOrigin: 'left',
+                  }}
+                  initial={{ scaleX: 0, background: 'color-mix(in srgb, var(--case) 28%, transparent)' }}
+                  animate={go
+                    ? {
+                        scaleX: 1,
+                        background: 'color-mix(in srgb, var(--case) 28%, transparent)',
+                      }
+                    : {
+                        scaleX: 1,
+                        background: 'color-mix(in srgb, var(--case) 28%, transparent)',
+                      }}
+                  transition={{ duration: 0.3, delay: D.p[i].rule, ease: EASE }}
+                />
+
+                {/* Principle text — word-by-word */}
+                <span
+                  className="deck-display"
+                  style={{
+                    fontSize: 'var(--fs-slide-headline)',
+                    fontStyle: 'italic',
+                    fontWeight: 400,
+                    lineHeight: 1.15,
+                    letterSpacing: '-0.012em',
+                    color: 'var(--cream)',
+                    flex: 1, minWidth: 0,
+                  }}
+                >
+                  <WordReveal
+                    em={p.em}
+                    rest={p.rest}
+                    baseDelay={D.p[i].words}
+                    go={go}
+                  />
+                </span>
+              </div>
+            ))}
+
+            {/* End-mark hairline */}
+            <motion.div
+              style={{
+                height: 1,
+                width: 'clamp(48px, 6vw, 60px)',
+                marginLeft: 'calc(1.75rem + clamp(var(--space-3), 2vw, var(--space-5)) + clamp(48px, 8vw, 80px) + clamp(var(--space-3), 2vw, var(--space-5)))',
+                transformOrigin: 'left',
+              }}
+              initial={{
+                scaleX: 0,
+                background: 'color-mix(in srgb, var(--case) 28%, transparent)',
+              }}
+              animate={go
+                ? {
+                    scaleX: 1,
+                    background: 'color-mix(in srgb, var(--case) 28%, transparent)',
+                  }
+                : {
+                    scaleX: 1,
+                    background: 'color-mix(in srgb, var(--case) 28%, transparent)',
+                  }}
+              transition={{ duration: 0.3, delay: D.endMark, ease: EASE }}
+            />
+          </div>
+        </div>
+
+        {/* ── AMBER MESSAGE BAND (CS1 -> CS2 Handoff) ── */}
+        <motion.div
+          style={{
+            flexShrink: 0,
+            background: 'color-mix(in srgb, var(--amber) 12%, transparent)',
+            borderTop: '1px solid color-mix(in srgb, var(--amber) 42%, transparent)',
+            borderBottom: '1px solid color-mix(in srgb, var(--amber) 42%, transparent)',
+            padding: 'var(--space-3) var(--space-5)',
+            borderRadius: 'var(--radius-sm)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-3)',
+          }}
+          initial={{ opacity: 0, y: 8 }}
+          animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: D.amber, ease: EASE }}
+        >
+          <motion.div
+            aria-hidden
+            style={{
+              flexShrink: 0,
+              transform: 'rotate(45deg)',
+              width: 12, height: 12,
+              background: 'var(--amber)',
+            }}
+          />
+          <div className="deck-display" style={{
+            fontSize: 'var(--fs-slide-tagline)',
+            lineHeight: 1.4,
+          }}>
+            From a rare pediatric pulmonary disease to a{' '}
+            <span style={{ color: 'var(--cyan)', fontWeight: 500, fontStyle: 'italic' }}>
+              regulatory bridging waiver in oncology
+            </span>
+            {' '}— the next case takes the same intellectual move into a different area.
+          </div>
+        </motion.div>
+
+        {/* ── CUSTOM FOOTER — "CASE 01 · END" + dots ── */}
+        <div style={{
+          flexShrink: 0,
+          display: 'flex', alignItems: 'baseline',
+          justifyContent: 'space-between',
+          paddingTop: 'var(--space-3)',
+          marginTop: 'var(--space-2)',
+        }}>
+          <motion.span
+            className="deck-mono uppercase"
+            style={{
+              fontSize: 'var(--fs-slide-pageno)',
+              letterSpacing: '0.14em',
+              color: 'var(--cream-faint)',
+            }}
+            initial={{ opacity: 0 }}
+            animate={go ? { opacity: 1 } : { opacity: 1 }}
+            transition={{ duration: 0.3, delay: D.footer }}
+          >
+            Case 01 · End
+          </motion.span>
+
+          <span style={{ display: 'flex', gap: 'var(--space-3)' }}>
+            {['·', '·', '·'].map((dot, i) => (
+              <motion.span
+                key={i}
+                className="deck-mono"
+                style={{
+                  fontSize: 'var(--fs-slide-pageno)',
+                  color: 'var(--cream-faint)',
+                }}
+                initial={{ opacity: 0 }}
+                animate={go ? { opacity: 1 } : { opacity: 1 }}
+                transition={{ duration: 0.2, delay: D.footer + 0.2 + i * 0.2 }}
+              >
+                {dot}
+              </motion.span>
+            ))}
+          </span>
+        </div>
+      </div>
+    </SlideFrame>
   );
 }

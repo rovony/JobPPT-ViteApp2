@@ -37,9 +37,9 @@ const LANES = [
     color: 'var(--sage)',
     cs: 'Case 03',
     drug: 'PharmAgent',
-    obstacle: 'Trial unbuilt.',
-    move: '13 agents · 151 tools · ICH M15 by construction.',
-    verdict: 'Pilot evidence · 80% scaffolding cut',
+    obstacle: 'Workflow unbuilt.',
+    move: '13 agents · 151 tools · privacy + audit by construction.',
+    verdict: 'Replayable evidence trail · M15-aligned documentation',
   },
 ];
 
@@ -59,7 +59,7 @@ export default function ClosingThread() {
       </Headline>
 
       <Subhead delay={0.45} size="lead" maxChars={108}>
-        Three cases, three obstacles, one structural move — adult evidence + quantitative bridge + regulatory acceptance.
+        Three cases, three obstacles, one discipline — quantitative evidence when the trial alone cannot carry the answer.
       </Subhead>
 
       <Viz>
@@ -154,9 +154,9 @@ export default function ClosingThread() {
               lineHeight: 1.5,
               fontWeight: 500,
             }}>
-              In each case, the model produced what the trial could not —{' '}
+              In each case, quantitative pharmacology supplies what the trial alone cannot —{' '}
               <strong style={{ color: 'var(--amber)', fontWeight: 700 }}>a defensible dose,
-              accepted by a regulator.</strong> That is what quantitative pharmacology is for.
+              a defensible dossier, or defensible infrastructure.</strong>
             </div>
           </motion.div>
         </div>
@@ -165,7 +165,7 @@ export default function ClosingThread() {
       <Footer
         delay={reduced ? 0 : 1.7}
         kicker="Closing · Synthesis"
-        tagline="Trial untrialable. Trial unavailable. Trial unbuilt. Three frameworks. Three approvals."
+        tagline="Trial untrialable. Trial unavailable. Workflow unbuilt. One discipline."
       />
     </SlideGrid>
   );

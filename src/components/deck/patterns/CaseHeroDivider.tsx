@@ -86,7 +86,8 @@ export default function CaseHeroDivider({
           below corner chrome). The previous clamp(96, 18vh, 220) was
           ineffective because 18vh stays within range at every common
           viewport size. */}
-      <div
+      <motion.div
+        layoutId={`case-card-${caseToken}`}
         className="absolute"
         style={{
           top: 'clamp(96px, 14vh, 200px)',
@@ -189,7 +190,7 @@ export default function CaseHeroDivider({
             {tagline}
           </motion.p>
         )}
-      </div>
+      </motion.div>
 
       {/* ═══════════ RIGHT · Illustration column ═══════════
           The bottom anchor uses a clamp with a 160px floor (instead of a

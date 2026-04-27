@@ -2,268 +2,229 @@
 import React, { useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
-import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
+import { Eyebrow, Headline, Subhead, Viz } from '@/components/deck/SlideParts';
+import { SmallCoffee, TallCoffee, Thermos, EspressoMachine, IVBag } from './03-career-arc/CaffeineIcons';
 
 /**
- * Slide 03 · Career arc — "Three-card half-page" design.
+ * Slide 03 · Career arc — "A Career in Caffeine"
  *
- * Redesigned 2026-04-26 per user direction: replace the SVG spine-and-
- * satellite network with 3 elegant half-page cards inspired by the
- * components-showcase html-to-image slide's card layout.
- *
- * Prior version (SVG network) backed up at:
- *   _backup/03-career-arc.pre-card-redesign-2026-04-26.tsx
- *
- * Card grouping rationale — 5 career hubs compressed to 3 narrative arcs:
- *   Card 1 · CLINICAL FOUNDATION — Jordan BDS + clinical license
- *   Card 2 · QUANTITATIVE FORMATION — Minnesota PhD + Merck QP2 intern
- *   Card 3 · INDUSTRY LEADERSHIP — GSK 7yr (Manager) + Servier (Director)
- *
- * Cards fill the Viz area and end at the footer line. Each card follows
- * the deck's HeroTile-pattern: left accent rail, subtle gradient bg,
- * hairline border, case-color tint. The third card is the "hero" (coral
- * accent, slightly brighter) to draw the eye to current role.
+ * Redesigned to feature a dose-escalation timeline spanning 15 years,
+ * from dental surgery (small coffee) to clinical pharmacology director (IV PK drip).
+ * Layout optimized to prevent bottom card overflow and fix text sizing.
  */
 
 const EASE = [0.2, 0.7, 0.3, 1];
 
-const CARDS = [
+const STOPS = [
   {
-    number: '01',
-    kicker: 'CLINICAL FOUNDATION',
-    title: 'Jordan',
-    years: '2004 – 2010',
-    color: 'var(--amber)',
+    years: '2004–2010',
+    title: 'Dental Surgery (BDS) · JUST',
     items: [
-      'Doctor of Dental Surgery (BDS)',
-      'Clinical license — bedside dosing decisions',
-      'Patient-facing pharmacology instinct',
+      'Practicing clinician · Jordan License',
+      'PhD Scholarship',
+      'Patient-level intuition',
     ],
-  },
-  {
-    number: '02',
-    kicker: 'QUANTITATIVE FORMATION',
-    title: 'Minnesota + Merck',
-    years: '2012 – 2015',
-    color: 'var(--amber)',
-    items: [
-      'PhD — Experimental & Clinical Pharmacology',
-      'NLME · population modeling · EHC dissertation',
-      'Merck QP2 intern — NLME simulation for trial design',
-      '3 research awards · ECP Fellowship',
-    ],
-  },
-  {
-    number: '03',
-    kicker: 'INDUSTRY LEADERSHIP',
-    title: 'GSK → Servier',
-    years: '2015 – present',
     color: 'var(--coral)',
-    hero: true,
+    Icon: SmallCoffee,
+  },
+  {
+    years: '2012–2015',
+    title: 'PhD Clin Pharm · U. Minnesota',
     items: [
-      'GSK · 5 TAs · 4 approvals during tenure',
-      'Ambrisentan pediatric — 5 agencies',
-      'Servier · Director · Oncology solid + heme',
-      '3 approvals · Ivosidenib India CDSCO',
-      'PharmAgent — AI/ML workflow platform',
+      'EHC modeling dissertation',
+      'ECP Fellowship',
+      '3 research awards',
     ],
+    color: 'var(--cyan)',
+    Icon: TallCoffee,
+  },
+  {
+    years: 'Summer 2014',
+    title: 'Merck · QP2 · Intern',
+    items: [
+      'NLME simulation under uncertainty',
+      'Trial design inputs (sample size, dose range, endpoints)',
+    ],
+    color: 'var(--violet)',
+    Icon: Thermos,
+  },
+  {
+    years: '2015–2022',
+    title: 'GlaxoSmithKline · CPMS',
+    items: [
+      'TA: Respiratory · PAH · HIV · Metabolic',
+      'Approvals: Trelegy · Anoro · Dectova · Ambrisentan',
+      'Top 10% GSK Award · 10+ Awards · HBV patent',
+    ],
+    color: 'var(--cyan)',
+    Icon: EspressoMachine,
+  },
+  {
+    years: '2022–Present',
+    title: 'Servier Pharmaceuticals · Director',
+    items: [
+      'TA: Oncology (solid + hematologic)',
+      'Approvals: Onivyde · Oncaspar · Tibsovo LCM',
+      'CP lead · Cross-functional influence',
+    ],
+    color: 'var(--amber)',
+    Icon: IVBag,
   },
 ];
 
 export default function CareerArc() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
-  const prefersReduced = useReducedMotion();
-  const go = isInView && !prefersReduced;
-
-  const fade = (delay) => ({
-    initial: { opacity: 0, y: 12 },
-    animate: go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 },
-    transition: { duration: 0.6, ease: EASE, delay },
-  });
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const reduced = useReducedMotion();
+  const go = isInView && !reduced;
 
   return (
     <SlideGrid dataCase="amber" areas={STANDARD_AREAS}>
       <Eyebrow color="var(--amber)" delay={0.10}>
-        The lens I bring to the cases
+        A Career in Caffeine
       </Eyebrow>
 
-      <Headline delay={0.25} maxChars={34}>
-        Five stops,{' '}
-        <span style={{ color: 'var(--cream)', fontStyle: 'normal', fontWeight: 700 }}>
-          one question.
-        </span>
+      <Headline delay={0.25} maxChars={60}>
+        Fifteen-Year <span style={{ color: 'var(--amber)', fontWeight: 700 }}>Dose-Escalation</span> Study
       </Headline>
 
       <Subhead delay={0.45} maxChars={100} size="lead">
-        Clinic to leadership, through quantitative pharmacology.
+        n = 1 · self-administered · no ethics committee approval
       </Subhead>
 
-      <Viz ref={ref}>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(18rem, 100%), 1fr))',
-            gap: 'var(--space-5)',
-            height: '100%',
-            alignContent: 'stretch',
-            alignItems: 'stretch',
-          }}
-        >
-          {CARDS.map((card, i) => (
-            <motion.div
-              key={card.number}
-              {...fade(0.7 + i * 0.18)}
-              style={{
-                position: 'relative',
-                border: `1.5px solid ${card.hero
-                  ? 'color-mix(in srgb, var(--coral) 50%, transparent)'
-                  : 'var(--cream-hairline)'}`,
-                borderLeft: `4px solid ${card.color}`,
-                borderRadius: 'var(--radius-lg)',
-                background: card.hero
-                  ? `linear-gradient(180deg,
-                      color-mix(in srgb, var(--coral) 10%, transparent),
-                      color-mix(in srgb, var(--panel) 75%, transparent) 60%)`
-                  : 'color-mix(in srgb, var(--panel) 60%, transparent)',
-                padding: 'clamp(var(--space-4), 3vh, var(--space-6)) var(--space-5)',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 'var(--space-3)',
-                overflow: 'hidden',
-                minHeight: 0,
-                minWidth: 0,
-              }}
-            >
-              {/* Number + kicker row */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
-                <div
-                  className="deck-display"
-                  style={{
-                    fontSize: 'var(--fs-slide-headline)',
-                    fontWeight: 700,
-                    lineHeight: 1,
-                    color: card.color,
-                    opacity: 0.22,
-                    fontVariantNumeric: 'tabular-nums',
-                  }}
-                >
-                  {card.number}
-                </div>
-                <div
-                  className="deck-mono uppercase"
-                  style={{
-                    fontSize: 'var(--fs-slide-eyebrow)',
-                    letterSpacing: 'var(--ls-mono-wide)',
-                    color: card.color,
-                  }}
-                >
-                  {card.kicker}
-                </div>
-              </div>
+      <Viz>
+        <div ref={ref} style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+          {/* Main Timeline Area */}
+          <div style={{ flex: 1, position: 'relative', marginTop: 'var(--space-2)', minHeight: 0, display: 'flex' }}>
+            
+            {/* The 5 Stops positioned in an alignment-bottom flex grid for staircase effect */}
+            <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(5, 1fr)', 
+              gap: 'clamp(var(--space-2), 1vw, var(--space-3))', 
+              height: '100%', 
+              width: '100%', 
+              alignItems: 'end',
+              paddingBottom: '1rem',
+            }}>
+              {STOPS.map((stop, i) => {
+                // Staircase effect goes UP from left to right
+                const mb = `${i * 3}vh`;
 
-              {/* Title + years */}
-              <div>
-                <div
-                  className="deck-display"
-                  style={{
-                    fontSize: 'var(--fs-slide-lead)',
-                    fontWeight: 600,
-                    color: card.hero ? 'var(--coral)' : 'var(--cream)',
-                    lineHeight: 1.2,
+                return (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.8 + (i * 0.2), ease: EASE }}
+                  style={{ 
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'stretch',
+                    marginBottom: mb,
+                    gap: 'var(--space-3)',
                   }}
                 >
-                  {card.title}
-                </div>
-                <div
-                  className="deck-mono"
-                  style={{
-                    fontSize: 'var(--fs-slide-pageno)',
-                    color: 'var(--cream-faint)',
-                    letterSpacing: '0.06em',
-                    marginTop: 'var(--space-1)',
-                  }}
-                >
-                  {card.years}
-                </div>
-              </div>
+                  {/* Icon on top of the card */}
+                  <div style={{ filter: 'drop-shadow(0 6px 10px rgba(0,0,0,0.3))', display: 'flex', justifyContent: 'center' }}>
+                    <stop.Icon reduced={reduced} />
+                  </div>
 
-              {/* Hairline separator */}
-              <div
-                aria-hidden
-                style={{
-                  width: 'clamp(48px, 40%, 80px)',
-                  height: 'var(--stroke-hair)',
-                  background: card.hero
-                    ? 'color-mix(in srgb, var(--coral) 40%, transparent)'
-                    : 'var(--cream-hairline)',
-                }}
-              />
-
-              {/* Achievement items */}
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 'clamp(6px, 1.2vh, 12px)',
-                  flex: 1,
-                  minHeight: 0,
-                  justifyContent: 'flex-start',
-                }}
-              >
-                {card.items.map((item, j) => (
-                  <motion.div
-                    key={j}
-                    initial={{ opacity: 0, x: -6 }}
-                    animate={go ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
-                    transition={{ duration: 0.4, ease: EASE, delay: 0.9 + i * 0.18 + j * 0.06 }}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: 'var(--space-2)',
-                    }}
-                  >
-                    <div
-                      aria-hidden
-                      style={{
-                        width: 6,
-                        height: 1,
-                        background: card.color,
-                        opacity: card.hero ? 0.6 : 0.35,
-                        marginTop: '0.65em',
-                        flexShrink: 0,
-                      }}
-                    />
-                    <div
-                      className="deck-body"
-                      style={{
-                        fontSize: 'var(--fs-slide-subhead)',
-                        color: card.hero ? 'var(--cream)' : 'var(--cream-muted)',
-                        lineHeight: 1.5,
-                      }}
-                    >
-                      {item}
+                  {/* Info Card underneath the cup */}
+                  <div style={{
+                    background: 'color-mix(in srgb, var(--panel) 60%, transparent)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    border: '1px solid var(--cream-hairline)',
+                    borderTop: `3px solid ${stop.color}`,
+                    borderRadius: 'var(--radius-md)',
+                    padding: 'clamp(0.5rem, 1vw, 1rem)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 'var(--space-2)',
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
+                  }}>
+                    <div style={{ borderBottom: '1px solid var(--cream-hairline)', paddingBottom: 'var(--space-2)' }}>
+                      <div className="deck-display" style={{ fontSize: 'var(--fs-slide-tagline)', color: stop.color, fontWeight: 700, lineHeight: 1.2 }}>
+                        {stop.years}
+                      </div>
+                      <div className="deck-body" style={{ fontSize: 'clamp(12px, 1.2vw, 14px)', color: 'var(--cream)', fontWeight: 600, lineHeight: 1.3, marginTop: 4 }}>
+                        {stop.title}
+                      </div>
                     </div>
-                  </motion.div>
+                    <ul style={{ 
+                      margin: 0, 
+                      padding: 0, 
+                      paddingLeft: '1rem', 
+                      color: 'var(--cream-muted)', 
+                      fontSize: 'clamp(11px, 1.1vw, 13px)', 
+                      lineHeight: 1.4, 
+                      fontFamily: 'var(--font-body)' 
+                    }}>
+                      {stop.items.map((item, j) => {
+                        const parts = item.split(': ');
+                        if (parts.length > 1) {
+                          return (
+                            <li key={j} style={{ marginBottom: 4 }}>
+                              <span style={{ color: stop.color, fontWeight: 600 }}>{parts[0]}: </span>
+                              {parts[1]}
+                            </li>
+                          );
+                        }
+                        return <li key={j} style={{ marginBottom: 4 }}>{item}</li>;
+                      })}
+                    </ul>
+                  </div>
+                </motion.div>
+              )})}
+            </div>
+          </div>
+
+          {/* Footer Impact Row */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 2.0, ease: EASE }}
+            style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'flex-start', 
+              borderTop: '1px solid var(--cream-hairline)', 
+              paddingTop: 'clamp(var(--space-2), 2vh, var(--space-4))',
+              flexShrink: 0,
+            }}
+          >
+            {/* Impact Metrics */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', maxWidth: '35%' }}>
+              <div className="deck-mono uppercase" style={{ fontSize: '10px', color: 'var(--cream-faint)', letterSpacing: '0.1em' }}>
+                — IMPACT
+              </div>
+              <div className="deck-display" style={{ fontSize: 'clamp(13px, 1.4vw, 16px)', color: 'var(--cream)', fontWeight: 500, lineHeight: 1.4 }}>
+                15+ programs · 8 submissions · 6 global health authorities · 20+ peer-reviewed publications · 3 invited international talks
+              </div>
+            </div>
+
+            {/* Open Source Tools */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', alignItems: 'flex-end', flex: 1 }}>
+              <div className="deck-mono uppercase" style={{ fontSize: '10px', color: 'var(--cream-faint)', letterSpacing: '0.1em' }}>
+                INDEPENDENT INNOVATION — OPEN-SOURCE TOOLS
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-2)', width: '100%', maxWidth: '36rem' }}>
+                {[
+                  { name: 'PharmAgent', desc: '13 agents · 151 tools\nend-to-end QP', color: 'var(--amber)' },
+                  { name: 'DeepPK', desc: 'Neural ODE + compartmental PK\nhybrid ML', color: 'var(--violet)' },
+                  { name: 'DosePredict', desc: 'PK dose prediction\nJ Clin Pharmacol, 2020', color: 'var(--cyan)' }
+                ].map(tool => (
+                  <div key={tool.name} style={{ textAlign: 'left', border: `1px solid ${tool.color}`, borderRadius: 'var(--radius-sm)', padding: 'var(--space-2)', background: `color-mix(in srgb, ${tool.color} 8%, transparent)`, boxShadow: `0 4px 12px color-mix(in srgb, ${tool.color} 15%, transparent)` }}>
+                    <div className="deck-display" style={{ fontSize: 'clamp(12px, 1.2vw, 14px)', color: tool.color, fontWeight: 700 }}>{tool.name}</div>
+                    <div className="deck-mono" style={{ fontSize: '9px', color: 'var(--cream)', marginTop: 4, lineHeight: 1.3, letterSpacing: '0.02em', whiteSpace: 'pre-wrap' }}>{tool.desc}</div>
+                  </div>
                 ))}
               </div>
-            </motion.div>
-          ))}
+            </div>
+          </motion.div>
         </div>
       </Viz>
-
-      <Footer
-        delay={2.0}
-        kicker="Four countries · three sponsors · one discipline"
-        tagline={
-          <>
-            The question hasn&apos;t changed —{' '}
-            <em style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 700 }}>
-              what dose, for whom, why?
-            </em>
-          </>
-        }
-      />
     </SlideGrid>
   );
 }

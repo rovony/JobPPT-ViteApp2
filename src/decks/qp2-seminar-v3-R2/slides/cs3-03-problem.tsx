@@ -37,13 +37,13 @@ export default function CS3Problem() {
       <Eyebrow delay={0.10}>Case 03 · The constraint</Eyebrow>
 
       <Headline delay={0.25} maxChars={48}>
-        Pharmacometric workflows are{' '}
-        <span style={{ color: 'var(--sage)' }}>80% scaffolding, 20% science.</span>
+        The science is not the slowest part.{' '}
+        <span style={{ color: 'var(--sage)' }}>The handoffs are.</span>
       </Headline>
 
       <Subhead delay={0.55} maxChars={100} size="lead">
-        The pharmacometrician is the integration layer. Every handoff
-        is manual. No tool shares state with any other.
+        An illustrative workflow audit says the quiet part out loud:
+        mature methods still move through fragmented, manual scaffolding.
       </Subhead>
 
       <Viz>
@@ -54,18 +54,21 @@ export default function CS3Problem() {
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gridTemplateRows: 'auto 1fr auto',
-            gap: 'var(--space-3)',
+            gap: 'var(--space-4)',
             paddingTop: 'var(--space-2)',
           }}
         >
           {/* ── TOP LEFT: 80% Scaffolding card ── */}
           <motion.div
             style={{
-              border: '1px solid var(--cream-hairline)',
+              border: '1px solid color-mix(in srgb, var(--cream-faint) 20%, transparent)',
               borderLeft: '4px solid var(--cream-faint)',
-              background: 'color-mix(in srgb, var(--panel) 65%, transparent)',
-              padding: 'var(--space-3) var(--space-4)',
-              display: 'flex', flexDirection: 'column', gap: 'var(--space-1)',
+              background: 'linear-gradient(135deg, color-mix(in srgb, var(--panel) 85%, transparent) 0%, color-mix(in srgb, var(--cream-faint) 8%, transparent) 100%)',
+              backdropFilter: 'blur(10px)',
+              borderRadius: '0 var(--radius-lg) var(--radius-lg) 0',
+              padding: 'var(--space-4) var(--space-5)',
+              display: 'flex', flexDirection: 'column', gap: 'var(--space-2)',
+              boxShadow: '0 12px 32px color-mix(in srgb, var(--bg) 50%, transparent)',
             }}
             initial={{ opacity: 0, y: 14 }}
             animate={go ? { opacity: 1, y: 0 } : {}}
@@ -73,17 +76,17 @@ export default function CS3Problem() {
           >
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-2)' }}>
               <span className="deck-display" style={{
-                fontSize: 'var(--fs-card-numeral)', fontWeight: 700,
+                fontSize: 'var(--fs-slide-display)', fontWeight: 700,
                 color: 'var(--cream-faint)', lineHeight: 1,
                 fontVariantNumeric: 'tabular-nums',
               }}>80%</span>
               <span className="deck-mono uppercase" style={{
-                fontSize: 'var(--fs-card-label)', color: 'var(--cream-faint)',
+                fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-faint)',
                 letterSpacing: 'var(--ls-mono-wide)', fontWeight: 700,
               }}>Scaffolding</span>
             </div>
             <div className="deck-body" style={{
-              fontSize: 'var(--fs-card-body)',
+              fontSize: 'var(--fs-slide-subhead)',
               color: 'var(--cream-muted)', lineHeight: 1.4,
             }}>
               Data wrangling, format conversion, report templating, cross-team
@@ -94,13 +97,16 @@ export default function CS3Problem() {
           {/* ── TOP RIGHT: 20% Science card ── */}
           <motion.div
             style={{
-              border: '1.5px solid var(--sage)',
+              border: '1px solid color-mix(in srgb, var(--sage) 30%, transparent)',
               borderLeft: '4px solid var(--sage)',
-              background: `linear-gradient(180deg,
-                color-mix(in srgb, var(--sage) 12%, transparent),
-                color-mix(in srgb, var(--panel) 75%, transparent) 70%)`,
-              padding: 'var(--space-3) var(--space-4)',
-              display: 'flex', flexDirection: 'column', gap: 'var(--space-1)',
+              background: `linear-gradient(135deg,
+                color-mix(in srgb, var(--sage) 15%, transparent) 0%,
+                color-mix(in srgb, var(--panel) 75%, transparent) 100%)`,
+              backdropFilter: 'blur(10px)',
+              borderRadius: '0 var(--radius-lg) var(--radius-lg) 0',
+              padding: 'var(--space-4) var(--space-5)',
+              display: 'flex', flexDirection: 'column', gap: 'var(--space-2)',
+              boxShadow: '0 12px 32px color-mix(in srgb, var(--sage) 8%, transparent)',
             }}
             initial={{ opacity: 0, y: 14 }}
             animate={go ? { opacity: 1, y: 0 } : {}}
@@ -108,17 +114,17 @@ export default function CS3Problem() {
           >
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-2)' }}>
               <span className="deck-display" style={{
-                fontSize: 'var(--fs-card-numeral)', fontWeight: 700,
+                fontSize: 'var(--fs-slide-display)', fontWeight: 700,
                 color: 'var(--sage)', lineHeight: 1,
                 fontVariantNumeric: 'tabular-nums',
               }}>20%</span>
               <span className="deck-mono uppercase" style={{
-                fontSize: 'var(--fs-card-label)', color: 'var(--sage)',
+                fontSize: 'var(--fs-slide-pageno)', color: 'var(--sage)',
                 letterSpacing: 'var(--ls-mono-wide)', fontWeight: 700,
               }}>Science</span>
             </div>
             <div className="deck-body" style={{
-              fontSize: 'var(--fs-card-body)',
+              fontSize: 'var(--fs-slide-subhead)',
               color: 'var(--cream)', lineHeight: 1.4,
             }}>
               Model specification, covariate selection, simulation design,
@@ -128,31 +134,31 @@ export default function CS3Problem() {
 
           {/* ── MIDDLE LEFT: Workflow pipeline with scaffolding bars ── */}
           <motion.div
-            style={{ gridColumn: '1 / 2' }}
+            style={{ gridColumn: '1 / 2', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
             initial={{ opacity: 0, y: 10 }}
             animate={go ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, delay: 1.15, ease: EASE }}
           >
             <div className="deck-mono uppercase" style={{
-              fontSize: 'var(--fs-card-meta)',
+              fontSize: 'var(--fs-slide-pageno)',
               letterSpacing: 'var(--ls-mono-wide)',
               color: 'var(--cream-faint)', fontWeight: 700,
               marginBottom: 'var(--space-2)',
             }}>
-              Workflow timeline · scaffolding ratio per stage
+              Illustrative workflow audit · scaffolding ratio by stage
             </div>
             <WorkflowTimeline go={go} reduced={reduced} />
           </motion.div>
 
           {/* ── MIDDLE RIGHT: Tool silo diagram ── */}
           <motion.div
-            style={{ gridColumn: '2 / 3' }}
+            style={{ gridColumn: '2 / 3', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
             initial={{ opacity: 0, y: 10 }}
             animate={go ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, delay: 1.3, ease: EASE }}
           >
             <div className="deck-mono uppercase" style={{
-              fontSize: 'var(--fs-card-meta)',
+              fontSize: 'var(--fs-slide-pageno)',
               letterSpacing: 'var(--ls-mono-wide)',
               color: 'var(--cream-faint)', fontWeight: 700,
               marginBottom: 'var(--space-2)',
@@ -167,9 +173,9 @@ export default function CS3Problem() {
             style={{
               gridColumn: '1 / -1',
               display: 'flex', justifyContent: 'center',
-              gap: 'clamp(var(--space-6), 5vw, var(--space-12))',
-              padding: 'var(--space-3) 0',
-              borderTop: '1px solid var(--cream-hairline)',
+              gap: 'clamp(var(--space-8), 8vw, var(--space-16))',
+              padding: 'var(--space-4) 0',
+              borderTop: '1px solid color-mix(in srgb, var(--cream-hairline) 50%, transparent)',
             }}
             initial={{ opacity: 0 }}
             animate={go ? { opacity: 1 } : {}}
@@ -185,14 +191,16 @@ export default function CS3Problem() {
                 alignItems: 'center', gap: 2,
               }}>
                 <span className="deck-display" style={{
-                  fontSize: 'var(--fs-card-numeral)',
+                  fontSize: 'calc(var(--fs-slide-headline) * 1.5)',
                   fontWeight: 700, color: p.color,
                   fontVariantNumeric: 'tabular-nums', lineHeight: 1,
+                  textShadow: `0 4px 16px color-mix(in srgb, ${p.color} 20%, transparent)`,
                 }}>{p.n}</span>
                 <span className="deck-mono uppercase" style={{
-                  fontSize: 'var(--fs-card-meta)',
+                  fontSize: 'var(--fs-slide-eyebrow)',
                   color: 'var(--cream-muted)',
-                  letterSpacing: 'var(--ls-mono)', fontWeight: 600,
+                  letterSpacing: 'var(--ls-mono-wide)', fontWeight: 600,
+                  marginTop: 'var(--space-2)',
                 }}>{p.l}</span>
               </div>
             ))}
@@ -203,7 +211,7 @@ export default function CS3Problem() {
       <Footer
         delay={reduced ? 0 : 1.8}
         kicker="Act 2 · Problem naming"
-        tagline="The analyst is the integration layer — the science was right, the scaffolding was the bottleneck."
+        tagline="The analyst is the integration layer today; PharmAgent moves that layer into the platform."
       />
     </SlideGrid>
   );
@@ -215,28 +223,28 @@ export default function CS3Problem() {
    ================================================================ */
 function WorkflowTimeline({ go, reduced }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
       {STAGES.map((s, i) => {
         const scaffoldPct = Math.round(s.pct * 100);
         const sciencePct = 100 - scaffoldPct;
         return (
           <motion.div
             key={s.step}
-            style={{ display: 'grid', gridTemplateColumns: '90px 1fr 50px', alignItems: 'center', gap: 8 }}
+            style={{ display: 'grid', gridTemplateColumns: '120px 1fr 60px', alignItems: 'center', gap: 12 }}
             initial={{ opacity: 0, x: -8 }}
             animate={go ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.4, delay: 1.2 + i * 0.08, ease: EASE }}
           >
             <span className="deck-mono" style={{
-              fontSize: 'var(--fs-card-meta)', color: 'var(--cream)',
+              fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream)',
               fontWeight: 600, textAlign: 'right',
             }}>{s.step}</span>
 
             <div style={{
-              height: 14, display: 'flex',
-              overflow: 'hidden',
+              height: 20, display: 'flex',
+              overflow: 'hidden', borderRadius: '4px',
               background: 'color-mix(in srgb, var(--panel) 80%, transparent)',
-              border: '1px solid var(--cream-hairline)',
+              border: '1px solid color-mix(in srgb, var(--cream-hairline) 50%, transparent)',
             }}>
               <motion.div
                 style={{
@@ -259,7 +267,7 @@ function WorkflowTimeline({ go, reduced }) {
             </div>
 
             <span className="deck-mono" style={{
-              fontSize: 'var(--fs-card-meta)', color: 'var(--cream-faint)',
+              fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-faint)',
               fontWeight: 500,
             }}>{s.time}</span>
           </motion.div>
@@ -283,7 +291,7 @@ function LegendDot({ color, label }) {
     <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
       <span style={{ width: 8, height: 8, background: color, display: 'inline-block' }} />
       <span className="deck-mono" style={{
-        fontSize: 'var(--fs-card-meta)', color: 'var(--cream-faint)', fontWeight: 500,
+        fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-faint)', fontWeight: 500,
       }}>{label}</span>
     </div>
   );
@@ -387,11 +395,11 @@ function ToolSiloDiagram({ go, reduced }) {
             transition={{ duration: 0.4, delay: 1.4 + i * 0.06, ease: EASE }}
           >
             <span className="deck-mono" style={{
-              fontSize: 'var(--fs-card-meta)', color: 'var(--cream)',
+              fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream)',
               fontWeight: 700, textAlign: 'center',
             }}>{t.name}</span>
             <span className="deck-mono" style={{
-              fontSize: '0.5rem', color: 'var(--cream-faint)',
+              fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-faint)',
               fontWeight: 500, textAlign: 'center',
             }}>{t.cat}</span>
           </motion.div>
@@ -414,7 +422,7 @@ function ToolSiloDiagram({ go, reduced }) {
         transition={{ duration: 0.5, delay: 2.0, ease: EASE }}
       >
         <span className="deck-mono uppercase" style={{
-          fontSize: 'var(--fs-card-meta)',
+          fontSize: 'var(--fs-slide-pageno)',
           letterSpacing: 'var(--ls-mono-wide)',
           color: 'var(--coral)',
           fontWeight: 700,

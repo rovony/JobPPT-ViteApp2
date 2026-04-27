@@ -21,8 +21,8 @@ const MILESTONES = [
   { year: '2021', label: 'FDA',   detail: 'CCA',             anchor: 'ClarIDHy Phase 3 (n=187)' },
   { year: '2022', label: 'FDA',   detail: 'AML + Aza',       anchor: 'AGILE · combination cohort' },
   { year: '2023', label: 'EMA',   detail: 'Conditional MA',  anchor: 'AML + CCA · multi-jurisdictional' },
-  { year: 'Aug 2024', label: 'DCGI',  detail: 'Rule 101 order',  anchor: 'Clin Pharm-led waiver pathway · operational',  highlight: true },
-  { year: 'May 2025', label: 'CDSCO', detail: 'India approval',  anchor: 'First IDH1 inhibitor in India · launched 5 Jun', highlight: true },
+  { year: 'Aug 2024', label: 'DCGI',  detail: 'Rule 101 order',  anchor: 'Public waiver categories operationalized',  highlight: true },
+  { year: 'May 2025', label: 'CDSCO', detail: 'India approval',  anchor: 'Marketing authorization granted', highlight: true },
 ];
 
 export default function CS2Velocity() {
@@ -41,8 +41,8 @@ export default function CS2Velocity() {
       </Headline>
 
       <Subhead delay={0.55} maxChars={88} size="lead">
-        India's approval sits on top of a global package that grew through four FDA
-        labels, an EMA conditional MA, and the August 2024 Rule 101 reform.
+        The public record shows four FDA labels, an EMA conditional MA,
+        the August 2024 Rule 101 order, and India authorization in 2025.
       </Subhead>
 
       <Viz>
@@ -125,7 +125,8 @@ export default function CS2Velocity() {
       <Footer
         delay={reduced ? 0 : 1.8}
         kicker="Act 4 · Timeline"
-        tagline="Seven years of global registration — Rule 101 was the unlock."
+        tagline="Public regulatory milestones only — internal engagement details stay in Q&A."
+        source="Sources · FDA Tibsovo labels/reviews · EMA EPAR · DCGI Rule 101 order · CDSCO/Servier public record"
       />
     </SlideGrid>
   );

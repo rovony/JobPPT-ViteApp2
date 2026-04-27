@@ -7,29 +7,21 @@ import AiBrain from '../components/AiBrain';
 
 const EASE = [0.2, 0.7, 0.3, 1];
 
-const CASES = [
-  {
-    tag: 'CS1', label: 'Ambrisentan',
-    detail: 'Pediatric PopPK',
-    time: '~3 yrs', timeLabel: 'to defend',
-    accent: 'var(--coral)',
-  },
-  {
-    tag: 'CS2', label: 'Ivosidenib',
-    detail: 'Six-pillar dossier',
-    time: '18 mo', timeLabel: 'cross-functional',
-    accent: 'var(--cyan)',
-  },
-  {
-    tag: 'Next decade', label: '100+ decisions',
-    detail: 'E11A · M15 · Rule 101 · Optimus',
-    time: '?', timeLabel: 'same cadence?',
-    accent: 'var(--sage)', highlighted: true,
-  },
+const THREADS = [
+  { tag: 'CS1', label: 'Dose', detail: 'Exposure matching carried a pediatric dose.', accent: 'var(--coral)' },
+  { tag: 'CS2', label: 'Dossier', detail: 'Clinical pharmacology replaced local trial evidence.', accent: 'var(--cyan)' },
+  { tag: 'CS3', label: 'Infrastructure', detail: 'Now the function has to scale that judgment.', accent: 'var(--sage)' },
+];
+
+const DEMANDS = [
+  'E11A pediatric extrapolation',
+  'ICH M15 MIDD evidence',
+  'Rule 101 waivers',
+  'Project Optimus dose work',
 ];
 
 /**
- * CS3 Act 1 · The Question — the next decade needs more.
+ * CS3 Act 1 · The Question — the integration layer has to move.
  *
  * Refactored to use SlideGrid + standard layout parts so it
  * sits inside DeckLayout/BodyLayout correctly, matching every
@@ -55,14 +47,13 @@ export default function CS3Question() {
       <Eyebrow delay={0.10}>Case 03 · The question</Eyebrow>
 
       <Headline delay={0.25} maxChars={48}>
-        The next decade will ask for a hundred more{' '}
-        <span style={{ color: 'var(--sage)' }}>CS1s and CS2s.</span>
+        The pharmacometrician became{' '}
+        <span style={{ color: 'var(--sage)' }}>the integration layer.</span>
       </Headline>
 
       <Subhead delay={0.45} maxChars={72} size="lead">
-        Pediatric extrapolation. Regional bridging. Dose optimization under
-        ICH M15. The function that answered two cases cannot keep assembling
-        the evidence case-by-case.
+        CS1 and CS2 showed models can carry decisions when trials cannot.
+        CS3 asks what infrastructure lets the function do that repeatedly.
       </Subhead>
 
       <Viz>
@@ -87,7 +78,7 @@ export default function CS3Question() {
               gap: 'var(--space-2)',
             }}
           >
-            {CASES.map((c, i) => (
+            {THREADS.map((c, i) => (
               <React.Fragment key={c.tag}>
                 {i > 0 && (
                   <div style={{
@@ -95,7 +86,7 @@ export default function CS3Question() {
                     margin: '0 calc(-1 * var(--space-3))',
                   }}>
                     <span className="deck-mono" style={{
-                      fontSize: 'var(--fs-card-label)',
+                      fontSize: 'var(--fs-slide-pageno)',
                       color: 'var(--cream-faint)', opacity: 0.5,
                     }}>→</span>
                   </div>
@@ -111,10 +102,12 @@ export default function CS3Question() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: EASE, delay: 1.3 }}
             style={{
-              padding: 'var(--space-3) var(--space-5)',
-              background: 'color-mix(in srgb, var(--sage) 8%, transparent)',
-              borderLeft: '3px solid var(--sage)',
-              maxWidth: '64ch',
+              padding: 'var(--space-4) var(--space-5)',
+              background: 'linear-gradient(90deg, color-mix(in srgb, var(--sage) 15%, transparent) 0%, transparent 100%)',
+              borderLeft: '4px solid var(--sage)',
+              borderRadius: '0 var(--radius-lg) var(--radius-lg) 0',
+              maxWidth: '72ch',
+              marginTop: 'var(--space-2)',
             }}
           >
             <p className="deck-display" style={{
@@ -124,9 +117,9 @@ export default function CS3Question() {
               lineHeight: 'var(--lh-snug)',
               color: 'var(--cream)',
             }}>
-              The science was right both times — the scaffolding was the constraint.{' '}
+              The science was right both times.{' '}
               <span style={{ color: 'var(--sage)', fontWeight: 700 }}>
-                The next decade cannot afford that cadence.
+                The scaffolding became the constraint.
               </span>
             </p>
           </motion.div>
@@ -138,15 +131,17 @@ export default function CS3Question() {
             transition={{ duration: 0.4, ease: EASE, delay: 1.5 }}
             style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap' }}
           >
-            {['E11A Pediatric', 'ICH M15 MIDD', 'Rule 101 Waivers', 'Project Optimus'].map((fw) => (
+            {DEMANDS.map((fw) => (
               <span key={fw} className="deck-mono uppercase" style={{
-                fontSize: 'var(--fs-card-meta)',
+                fontSize: 'var(--fs-slide-pageno)',
                 letterSpacing: 'var(--ls-mono-wide)',
                 color: 'var(--sage)',
                 fontWeight: 600,
-                padding: 'var(--space-1) var(--space-2)',
-                border: '1px solid color-mix(in srgb, var(--sage) 30%, transparent)',
-                background: 'color-mix(in srgb, var(--sage) 6%, transparent)',
+                padding: 'var(--space-2) var(--space-3)',
+                borderRadius: '999px',
+                border: '1px solid color-mix(in srgb, var(--sage) 40%, transparent)',
+                background: 'color-mix(in srgb, var(--sage) 12%, transparent)',
+                boxShadow: '0 4px 12px color-mix(in srgb, var(--sage) 8%, transparent)',
               }}>{fw}</span>
             ))}
           </motion.div>
@@ -155,7 +150,7 @@ export default function CS3Question() {
 
       <Footer
         kicker="Act 1 · The question"
-        tagline="Same function, same pattern — but the volume of decisions is about to scale."
+        tagline="Same discipline, higher cadence — the function needs infrastructure, not another manual workaround."
         delay={1.7}
       />
     </SlideGrid>
@@ -171,53 +166,36 @@ function CaseCard({ c, delay }) {
       style={{
         display: 'flex', flexDirection: 'column',
         padding: 'var(--space-4) var(--space-5)',
-        border: `1px solid color-mix(in srgb, ${c.accent} ${c.highlighted ? '50%' : '30%'}, transparent)`,
-        borderTop: `3px solid ${c.accent}`,
-        background: c.highlighted
-          ? `color-mix(in srgb, ${c.accent} 10%, var(--panel))`
-          : 'var(--panel)',
+        border: `1px solid color-mix(in srgb, ${c.accent} 30%, transparent)`,
+        borderTop: `4px solid ${c.accent}`,
+        borderRadius: 'var(--radius-lg)',
+        background: `linear-gradient(145deg, color-mix(in srgb, ${c.accent} 12%, transparent) 0%, color-mix(in srgb, ${c.accent} 2%, transparent) 100%)`,
+        backdropFilter: 'blur(8px)',
+        boxShadow: `0 12px 32px color-mix(in srgb, ${c.accent} 8%, transparent)`,
         gap: 'var(--space-3)',
+        flex: 1,
         position: 'relative',
         overflow: 'hidden',
       }}
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
         <span className="deck-mono uppercase" style={{
-          fontSize: 'var(--fs-card-label)',
+          fontSize: 'var(--fs-slide-pageno)',
           letterSpacing: 'var(--ls-mono-wide)',
           color: c.accent, fontWeight: 700,
         }}>{c.tag}</span>
         <span className="deck-display" style={{
-          fontSize: 'var(--fs-card-title)',
+          fontSize: 'var(--fs-slide-tagline)',
           color: 'var(--cream)', fontWeight: 600,
           lineHeight: 'var(--lh-tight)',
         }}>{c.label}</span>
         <span className="deck-body" style={{
-          fontSize: 'var(--fs-card-body)',
+          fontSize: 'var(--fs-slide-subhead)',
           color: 'var(--cream-muted)', fontWeight: 400,
           lineHeight: 'var(--lh-snug)',
         }}>{c.detail}</span>
       </div>
 
-      <div style={{
-        marginTop: 'auto',
-        borderTop: `1px solid color-mix(in srgb, ${c.accent} 20%, transparent)`,
-        paddingTop: 'var(--space-3)',
-        display: 'flex', alignItems: 'baseline', gap: 'var(--space-2)',
-      }}>
-        <span className="deck-display" style={{
-          fontSize: 'var(--fs-card-numeral)',
-          fontWeight: 700, color: c.accent,
-          lineHeight: 1,
-          fontVariantNumeric: 'tabular-nums',
-        }}>{c.time}</span>
-        <span className="deck-mono" style={{
-          fontSize: 'var(--fs-card-meta)',
-          color: 'var(--cream-faint)',
-          textTransform: 'uppercase',
-          letterSpacing: 'var(--ls-mono)',
-        }}>{c.timeLabel}</span>
-      </div>
     </motion.div>
   );
 }
