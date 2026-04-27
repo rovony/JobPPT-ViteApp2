@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 import MechanismVisual from '../components/MechanismVisual';
+import Lungs from '../components/Lungs';
 
 /**
  * CS1 · Slide 07b — Mechanism · endothelin pathway · ambrisentan MOA.
@@ -55,6 +56,18 @@ export default function Cs1Mechanism() {
           gap: 'var(--space-5)',
           minHeight: 0, minWidth: 0,
         }}>
+          {/* Background Ambient Lung for cinematic FLIP-morph from previous slide */}
+          <div style={{
+            position: 'absolute',
+            top: '10%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 0,
+            pointerEvents: 'none',
+          }}>
+            <Lungs layoutId="cs1-lung" variant="ambient" />
+          </div>
+
           {/* Main SVG Visual Zone */}
           <div style={{
             flex: 1, minHeight: 0, minWidth: 0,
