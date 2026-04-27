@@ -296,6 +296,84 @@ framework staying fashionable.
 > is real, not fashion-driven.`,
 
   // ══════════════════════════════════════════════════════════════
+  // CS1 — Ambrisentan · Pediatric PAH · CORAL
+  // ══════════════════════════════════════════════════════════════
+
+  // cs1-question — opener defenses for the 380 vs 39 asymmetry and three disruptions
+  'cs1-question': `## Q1: You said the pediatric trial was terminated. Was it really terminated, or just interrupted?
+**From:** detail-oriented clinical panelist
+**Difficulty:** ★★★ · **Topic:** clinical-design
+
+A: The precise chronology is enrollment hold first, formal termination later. The juvenile-rat finding led to a global enrollment hold in March 2013 after forty-one patients had been recruited. Existing patients could remain on treatment after EMA and national-agency review. The study was formally terminated in February 2019, with thirty-nine PK-evaluable patients. So "terminated" is accurate, but if I need the cleaner technical phrase, I would say "a disrupted pediatric program with an enrollment hold and later formal termination."
+
+> **If pressed:** I would not say "failed trial." The trial generated the PK and safety dataset that supported the exposure-matching package.
+
+## Q2: How can thirty-nine pediatric patients support a pediatric label?
+**From:** skeptical clinical pharmacologist
+**Difficulty:** ★★★★ · **Topic:** methodology
+
+A: The model was not built from thirty-nine patients alone. The structural model was anchored in the adult program: about three hundred eighty adults and more than three thousand PK observations. The pediatric study confirmed that the adult-informed, allometrically scaled model predicted pediatric exposure adequately. The regulatory question was not "does ambrisentan work from scratch in children?" It was "can weight-banded pediatric dosing match the adult therapeutic exposure range with acceptable pediatric safety?" For that question, thirty-nine PK-evaluable patients can be enough.
+
+> **If pressed:** STARTS-1 enrolled 235 children and still missed its primary endpoint. In pediatric PAH, sample size is not the only constraint; endpoint validity and ethics are binding constraints too.
+
+## Q3: Without a placebo comparator, how do you know this was not just weak evidence?
+**From:** trial-design panelist
+**Difficulty:** ★★★★ · **Topic:** clinical-design
+
+A: A placebo-controlled pediatric efficacy trial was not the feasible or ethical design by that point. Children with PAH were already receiving background PAH therapy, and AMB112529 was designed as a PK and safety study, not as a stand-alone efficacy trial. The evidence package was a totality-of-evidence argument: adult efficacy, conserved disease and pharmacology, pediatric exposure matching, pediatric safety, and long-term extension follow-up.
+
+> **If pressed:** I would not overclaim pediatric efficacy from this study. The claim is dose justification by exposure matching, not a new placebo-controlled efficacy demonstration.
+
+## Q4: Was STARTS-2 the reason you used exposure matching?
+**From:** regulatory-safety panelist
+**Difficulty:** ★★★ · **Topic:** regulatory-safety
+
+A: Not the whole reason. The architectural precedent was bosentan FUTURE-1 in 2009: PK matching as the regulatory bridge when a pediatric efficacy trial is not viable. STARTS-2 added the cautionary lesson — empirical pediatric dose escalation can look attractive short-term and still create long-term safety concern. So there are two precedents: FUTURE-1 for the architecture, STARTS-2 for dose-selection caution.
+
+> **If pressed:** The ambrisentan program was not a reaction to STARTS-2; it was an application of the established ERA pediatric bridging architecture under a more conservative safety climate.
+
+## Q5: If the package was strong, why did FDA not approve pediatric ambrisentan?
+**From:** regulatory-strategy panelist
+**Difficulty:** ★★★★ · **Topic:** regulatory
+
+A: FDA never received the pediatric package. Ambrisentan had split commercial rights: GSK held Volibris outside the United States and filed with EMA and PMDA; Gilead held Letairis in the United States and did not submit a pediatric sNDA. The current Letairis label says safety and effectiveness in pediatric patients have not been established. That is the language of not evaluated for a pediatric label, not evaluated and rejected.
+
+> **If pressed:** I cannot say FDA would have approved a package it never reviewed. I can say EMA and PMDA accepted the exposure-matching totality of evidence, and the FDA gap is commercial-geographic, not a scientific rejection.`,
+
+  // cs1-outcome — three disruptions: rat finding, sildenafil mortality, commercial split
+  'cs1-outcome': `## Q1: Walk me through the juvenile-rat brain-weight finding. What was the mechanism, and why didn't it stop the program permanently?
+**From:** toxicology-aware panelist
+**Difficulty:** ★★★★ · **Topic:** preclinical-safety
+
+A: The finding was a three-to-eight percent reduction in brain weight in postnatal-day-7 rats. The mechanism was specific to early-postnatal laryngeal anatomy — endothelin-A receptor signaling is involved in neonatal airway development in rats at a developmental stage with no human-equivalent window in children aged eight to eighteen. The exposure margins were one-point-eight to seven times human pediatric AUC at the 10 mg dose. Two key points: first, the finding was mechanism-specific and species-stage-specific — it maps to a rat developmental window that doesn't exist in the enrolled age range. Second, the trial was held, not cancelled — the program paused enrollment in March 2013, the hold ran through 2017, and the CHMP submission proceeded in November 2017 with the full toxicology context disclosed. Formal termination came in February 2019 at forty-one of sixty-six enrolled, but the PK dataset from those thirty-nine evaluable patients was sufficient for the exposure-matching framework.
+
+> **If pressed on deaths:** Two deaths across the trial and LTE — one fatal pneumonia in the low-dose arm, one acute decompensated cardiac failure in the high-dose LTE. Both PAH-disease-related. Neither attributed to ambrisentan by the investigators or by EMA/PMDA review.
+
+> **If pressed on why EMA accepted:** EMA's assessment acknowledged the preclinical signal, evaluated the exposure margins, and concluded that the developmental window was not relevant to the enrolled age group (8–<18 years). The benefit-risk was favorable given the unmet need in pediatric PAH.
+
+> **Anchor:** Species-stage-specific, exposure margins 1.8–7×, no human-equivalent window in 8–18 yr
+
+## Q2: The sildenafil mortality signal — HR 3.95 — wasn't that a reason to be more cautious about pediatric PAH dose selection in general? How did that affect your program?
+**From:** regulatory-safety panelist
+**Difficulty:** ★★★★ · **Topic:** regulatory-safety
+
+A: It was. STARTS-2, published in 2014, reported a dose-dependent mortality association with sildenafil in pediatric PAH — hazard ratio 3.95 at the high dose versus the low dose. The entire field moved to maximum caution on pediatric PAH dose selection. That caution was operationally active during the AMB112529 review window from 2017 to 2021. Two things to note. First, the signal has since been reinterpreted — AFFILIATE, published 2024 by Hoeper and colleagues in Circulation, showed that sildenafil 80 mg was non-inferior to 5 mg on adult survival, attributing the original mortality signal to confounding rather than a true dose-toxicity relationship. Second, ambrisentan's case was strengthened, not weakened, by the STARTS-2 context — our exposure-matching framework showed pediatric AUC within three percent of adult target on a plateau region of the exposure-response curve. We were not dose-escalating into an uncertain efficacy space; we were matching to a known effective adult exposure. The caution the field was exercising actually favored a PK-anchored approach over a dose-finding approach.
+
+> **If pressed on AFFILIATE timing:** AFFILIATE published in 2024 — three years after our approvals. EMA and PMDA evaluated ambrisentan under the pre-AFFILIATE maximum-caution posture. The framework held under the more conservative assumption.
+
+> **Anchor:** STARTS-2 HR 3.95 → field caution → AFFILIATE 2024 resolved to confounding → our PK-match approach was the right posture
+
+## Q3: The commercial split — GSK and Gilead — why didn't FDA receive the package? Was there a scientific reason or purely commercial?
+**From:** regulatory-strategy panelist
+**Difficulty:** ★★★ · **Topic:** commercial-regulatory
+
+A: Purely commercial. Ambrisentan was marketed as Volibris by GSK in Europe and rest-of-world, and as Letairis by Gilead in the US. Day-one split commercial rights — separate sponsors, separate filing decisions. The clinical pharmacology package — the PopPK model, the exposure match, the allometric framework — was the same for all three agencies. EMA and PMDA filed and approved. The US filing was Gilead's decision, and Gilead chose not to submit a pediatric sNDA for Letairis. Letairis went generic in 2022, which removed the commercial incentive entirely. The Letairis label as of 2026 states verbatim that "safety and effectiveness in pediatric patients have not been established." That's a commercial outcome, not a regulatory rejection — FDA never reviewed the package because it was never submitted.
+
+> **If pressed on whether FDA would have approved:** I can't speculate on a review that didn't happen. What I can say is that the methodology EMA accepted — PK-matching with allometric scaling on an adult structural model — is consistent with what FDA's own Garnett-Florian framework endorses as one branch of pediatric ERA bridging. The hemodynamic substudy was N=5 paired patients — too small for a standalone Garnett-Florian analysis, which is why the EMA/PMDA path (PK-matching alone) was the natural route for this dataset.
+
+> **Anchor:** Same Clin Pharm package, different commercial owners, different filing decisions — not a regulatory failure`,
+
+  // ══════════════════════════════════════════════════════════════
   // CS2 — Ivosidenib · India CDSCO regulatory waiver · CYAN
   // ══════════════════════════════════════════════════════════════
 
@@ -1039,17 +1117,61 @@ at scope.
 
 A: Three reasons. Bosentan already had a pediatric label (FUTURE-1, EMA 2009) — its case is the *precedent*, not the case study. It also carries a hepatotoxicity black box that ambrisentan does not. Macitentan's pediatric program (TOMORROW) was still enrolling. Ambrisentan was the ERA with the cleanest hepatic profile and an open EMA PIP commitment from 2008 — and the case is about what happens when exposure-matching carries the dose in a class where empirical dose-escalation is ethically closed.`,
 
-  'cs1-question': `## Q1: Isn't exposure-matching just dose-finding by another name?
-**From:** methodology-leaning panelist
-**Difficulty:** ★★★ · **Topic:** methodology
+  'cs1-question': `## Q1: What is the "pharmacokinetic bridge"?
+**From:** anyone · **Difficulty:** ★ · **Topic:** methodology
 
-A: No. Dose-finding asks "what dose gives the best risk-benefit?" Exposure-matching asks "what pediatric dose achieves the same systemic exposure that was safe and effective in adults?" We're not *optimizing* in the pediatric population — we're *bridging*. The adult exposure-response is the anchor; the pediatric PopPK is the bridge. The regulatory claim is "same exposure, therefore same effect" — not "best dose for kids."
+A: ==Adult PopPK model== predicts pediatric dose. ==39 patients confirm== the model, not build it.
 
-## Q2: Why can't you run a placebo-controlled trial in pediatric PAH?
-**From:** clinical-design panelist
-**Difficulty:** ★★★ · **Topic:** ethics
+> **If pressed:** Model built on 380 adults, 3,126 observations. Pediatric data (211 sparse obs) tested allometric predictions. Regulatory claim: same exposure → same effect — not "best dose for kids."
+> **Anchor:** "Confirm, not build"
 
-A: Active therapies are standard of care — bosentan, sildenafil, prostacyclins are approved or used off-label in pediatric PAH. Withholding active treatment in a placebo arm is not ethical per Helsinki when alternatives exist. Plus the population is ~2-16 per million children and 80% are already on baseline therapy at trial entry. The trial that would give a clean efficacy answer can't be run — that's the constraint, not a workaround.`,
+## Q2: Why no placebo-controlled trial?
+**From:** clinical-design · **Difficulty:** ★★★ · **Topic:** ethics
+
+A: ==Active therapies are standard of care.== Can't ethically withhold from children with a fatal disease. Population ==2–16 per million==, 80% already on therapy.
+
+> **If pressed:** ICH E11A (Dec 2024) codified this — where similarity in disease and mechanism is high and efficacy trial isn't feasible, exposure matching alone supports the dose.
+> **Anchor:** "Helsinki + rarity"
+
+## Q3: 380 vs 39 — how is that enough?
+**From:** sample-size · **Difficulty:** ★★★ · **Topic:** methodology
+
+A: ==39 confirmed the model, didn't build it.== pcVPC: no systematic bias. Match ==within 3%== of adult AUC.
+
+> **If pressed:** Structural model from 380 adults. Allometric exponents (CL ∝ WT⁰·⁷⁵, V ∝ WT¹·⁰) were ==prespecified, not estimated== — pediatric data tested a prior, not a free parameter. N=39 is small for building; sufficient for confirming.
+> **Anchor:** "Confirm, not build"
+
+## Q4: What was the juvenile-rat finding?
+**From:** tox-aware · **Difficulty:** ★★★ · **Topic:** safety
+
+A: ==3–8% decreased brain weight== in postnatal-day-7 rats at high dose. Mechanism: ==laryngeal-edema → apnea → hypoxemia==. Fully reversible. Human analogue ==ages 0–3== — below trial population (8–<18).
+
+> **If pressed:** Initial juvenile-rat package was EMA-PIP-cleared *before* first patient (2011). The 2013 finding was a *subsequent* study — new signal, not missing data. Mechanism published: Laffan et al. 2019 Teratology Society. CHMP accepted November 2017.
+> **Anchor:** "New signal, not missing data"
+
+## Q5: What was the sildenafil mortality signal?
+**From:** safety-aware · **Difficulty:** ★★★ · **Topic:** regulatory
+
+A: STARTS-2 (2014): ==HR 3.95== high-vs-low dose mortality in pediatric sildenafil. Field operated under ==maximum caution 2014–2021==.
+
+> **If pressed:** AFFILIATE (2024) attributed the signal to confounding — 80 mg non-inferior to 5 mg in adult survival. But the ambrisentan review window (2017–2021) sat inside the cautious period. The bar was raised for all pediatric PAH dose decisions, not just sildenafil.
+> **Anchor:** "STARTS-2 raised the bar; AFFILIATE lowered it — our window was in between"
+
+## Q6: How did the Gilead/GSK split affect things?
+**From:** commercial-aware · **Difficulty:** ★★★ · **Topic:** commercial
+
+A: ==GSK== filed EMA + PMDA → approved 2021. ==Gilead== did not file FDA. The FDA gap is a ==commercial decision, not a regulatory rejection==.
+
+> **If pressed:** Day-one split commercial rights. GSK held EU/ROW as Volibris; Gilead held US as Letairis. Letairis went generic 2022 — no commercial incentive to file pediatric. FDA label still says "safety and effectiveness in pediatric patients have not been established."
+> **Anchor:** "Commercial decision, not regulatory rejection"
+
+## Q7: Why wasn't the trial restarted?
+**From:** program-design · **Difficulty:** ★★★ · **Topic:** clinical-design
+
+A: By 2017 all 41 patients had ==completed or withdrawn==. Sites moved on, population churned. Reopening to 66 was not feasible.
+
+> **If pressed:** Better to formally terminate at 39 evaluable (Feb 2019) and proceed with the dataset. The unplanned interim analysis became the final analysis — that 39-patient dataset was the basis for EMA + PMDA labels.
+> **Anchor:** "Proceed with what you have"`,
 
   'cs1-context': `## Q1: STARTS-2 showed a sildenafil mortality signal — but ambrisentan isn't sildenafil. Why is STARTS-2 relevant?
 **From:** safety-aware panelist
