@@ -149,12 +149,12 @@ const ArchCanvas = ({ activeStep, useCase: _useCase, onAgentHover }: { activeSte
       ))}
 
       {/* labels for tier rows */}
-      <div className="absolute left-2 font-mono text-[9px] tracking-widest text-stone-600 uppercase" style={{ top: '5%' }}>tier 0 · human</div>
-      <div className="absolute left-2 font-mono text-[9px] tracking-widest text-stone-600 uppercase" style={{ top: '20%' }}>tier 1 · privacy</div>
-      <div className="absolute left-2 font-mono text-[9px] tracking-widest text-stone-600 uppercase" style={{ top: '36%' }}>tier 2 · L0</div>
-      <div className="absolute left-2 font-mono text-[9px] tracking-widest text-stone-600 uppercase" style={{ top: '54%' }}>tier 3 · L1</div>
-      <div className="absolute left-2 font-mono text-[9px] tracking-widest text-stone-600 uppercase" style={{ top: '74%' }}>tier 4 · L2</div>
-      <div className="absolute left-2 right-2 font-mono text-[9px] tracking-widest text-emerald-600 uppercase flex items-center gap-2" style={{ top: '93%' }}>
+      <div className="absolute left-2 font-mono text-[24px] tracking-widest text-stone-600 uppercase" style={{ top: '5%' }}>tier 0 · human</div>
+      <div className="absolute left-2 font-mono text-[24px] tracking-widest text-stone-600 uppercase" style={{ top: '20%' }}>tier 1 · privacy</div>
+      <div className="absolute left-2 font-mono text-[24px] tracking-widest text-stone-600 uppercase" style={{ top: '36%' }}>tier 2 · L0</div>
+      <div className="absolute left-2 font-mono text-[24px] tracking-widest text-stone-600 uppercase" style={{ top: '54%' }}>tier 3 · L1</div>
+      <div className="absolute left-2 font-mono text-[24px] tracking-widest text-stone-600 uppercase" style={{ top: '74%' }}>tier 4 · L2</div>
+      <div className="absolute left-2 right-2 font-mono text-[24px] tracking-widest text-emerald-600 uppercase flex items-center gap-2" style={{ top: '93%' }}>
         <span>tier 5 · pharmstate ↓</span>
         <span className="flex-1 h-px bg-emerald-700/30"></span>
         <span className="text-stone-600">all agents read · write</span>
@@ -193,8 +193,8 @@ const AnalystCard = ({ mood, active }) => {
         <I size={16} color="#fb7185" />
       </div>
       <div className="leading-tight">
-        <div className="text-[11px] font-medium text-rose-200">Analyst</div>
-        <div className="text-[9px] font-mono text-stone-500 uppercase tracking-wider">human · authority</div>
+        <div className="text-[18px] font-medium text-rose-200">Analyst</div>
+        <div className="text-[24px] font-mono text-stone-500 uppercase tracking-wider">human · authority</div>
       </div>
     </div>
   );
@@ -212,8 +212,8 @@ const L0Card = ({ active }) => {
         <I size={16} color="#34d399" />
       </motion.div>
       <div className="leading-tight">
-        <div className="text-[11px] font-medium text-emerald-200">L0 Supervisor</div>
-        <div className="text-[9px] font-mono text-stone-500 uppercase tracking-wider">classifies · routes</div>
+        <div className="text-[18px] font-medium text-emerald-200">L0 Supervisor</div>
+        <div className="text-[24px] font-mono text-stone-500 uppercase tracking-wider">classifies · routes</div>
       </div>
     </div>
   );
@@ -234,8 +234,8 @@ const AgentCard = ({ agent, tier, active, onHover }) => {
           <I size={12} color="#34d399" />
         </div>
         <div className="leading-tight min-w-0 flex-1">
-          <div className="text-[10px] font-medium text-stone-100 truncate">{agent.name}</div>
-          <div className="text-[8px] font-mono text-stone-500 uppercase tracking-wider">{agent.tools} tools · {tierBadge}</div>
+          <div className="text-[16px] font-medium text-stone-100 truncate">{agent.name}</div>
+          <div className="text-[20px] font-mono text-stone-500 uppercase tracking-wider">{agent.tools} tools · {tierBadge}</div>
         </div>
       </div>
     </div>
@@ -252,17 +252,17 @@ const PrivacyBoundary = ({ pos, active }) => {
     >
       <div className={`rounded-md bg-stone-900/80 border ${active ? 'border-emerald-400/70 emerald-glow' : 'border-stone-800'} transition-all duration-500 px-3 py-2`}>
         <div className="flex items-center justify-between mb-1.5">
-          <div className="text-[10px] font-mono uppercase tracking-widest text-stone-400">SchemaExtractor · privacy firewall</div>
+          <div className="text-[16px] font-mono uppercase tracking-widest text-stone-400">SchemaExtractor · privacy firewall</div>
           <div className="flex items-center gap-1.5">
             <Icon.Lock size={11} color="#22d3ee" />
-            <span className="text-[9px] font-mono text-cyan-300">0 patient rows cross this boundary</span>
+            <span className="text-[24px] font-mono text-cyan-300">0 patient rows cross this boundary</span>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-3 relative">
           {/* LEFT: raw dataset */}
           <div className="border border-stone-700 rounded p-1.5 opacity-30">
-            <div className="text-[8px] font-mono uppercase text-stone-400 mb-1">RAW DATASET (local only)</div>
-            <table className="text-[8px] font-mono w-full tabular text-stone-400">
+            <div className="text-[20px] font-mono uppercase text-stone-400 mb-1">RAW DATASET (local only)</div>
+            <table className="text-[20px] font-mono w-full tabular text-stone-400">
               <thead><tr className="text-stone-500"><th className="text-left font-normal">SUBJID</th><th className="text-left font-normal">TIME</th><th className="text-left font-normal">DV</th><th className="text-left font-normal">AMT</th><th className="text-left font-normal">WT</th><th className="text-left font-normal">AGE</th></tr></thead>
               <tbody>
                 <tr><td>1001</td><td>0.5</td><td>184.3</td><td>200</td><td>78.4</td><td>54</td></tr>
@@ -288,8 +288,8 @@ const PrivacyBoundary = ({ pos, active }) => {
           </div>
           {/* RIGHT: metadata to LLM */}
           <div className="border border-emerald-500/60 rounded p-1.5 bg-emerald-950/10">
-            <div className="text-[8px] font-mono uppercase text-emerald-300 mb-1">METADATA TO LLM</div>
-            <div className="text-[9px] font-mono leading-snug text-stone-200 space-y-0.5 tabular">
+            <div className="text-[20px] font-mono uppercase text-emerald-300 mb-1">METADATA TO LLM</div>
+            <div className="text-[24px] font-mono leading-snug text-stone-200 space-y-0.5 tabular">
               <div>247 subjects · 4,812 obs · BLQ 8.3%</div>
               <div>doses [100 / 200 / 400] mg</div>
               <div>WT mean 72.4 (SD 15.2) kg</div>

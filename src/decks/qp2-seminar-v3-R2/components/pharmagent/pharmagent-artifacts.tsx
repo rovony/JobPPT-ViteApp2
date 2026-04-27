@@ -23,7 +23,7 @@ import {
 
 /* NCA parameter table */
 const ArtifactNCATable = () => (
-  <div className="font-mono text-[10px] tabular w-full">
+  <div className="font-mono text-[16px] tabular w-full">
     <table className="w-full">
       <thead className="text-stone-400 border-b border-stone-700">
         <tr>
@@ -41,7 +41,7 @@ const ArtifactNCATable = () => (
         <tr><td className="py-1">400 mg</td><td className="text-right">82</td><td className="text-right">1,487 (32%)</td><td className="text-right">12,847</td><td className="text-right">8.4</td><td className="text-right">0.93</td></tr>
       </tbody>
     </table>
-    <div className="text-[9px] text-stone-500 mt-1">linear-up / log-down trapezoidal · dose-prop slope 1.04 [0.96–1.12]</div>
+    <div className="text-[24px] text-stone-500 mt-1">linear-up / log-down trapezoidal · dose-prop slope 1.04 [0.96–1.12]</div>
   </div>
 );
 
@@ -54,8 +54,8 @@ const ArtifactPopPKOFV = () => {
   return (
     <div className="w-full">
       <div className="flex items-center justify-between mb-1">
-        <div className="text-[10px] font-mono text-stone-400">structural model selection</div>
-        <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-950/60 text-emerald-300 border border-emerald-700/40">2-CMT wins · ΔOFV = 149</span>
+        <div className="text-[16px] font-mono text-stone-400">structural model selection</div>
+        <span className="text-[24px] font-mono px-1.5 py-0.5 rounded bg-emerald-950/60 text-emerald-300 border border-emerald-700/40">2-CMT wins · ΔOFV = 149</span>
       </div>
       <div style={{ width: '100%', height: 90 }}>
         <ResponsiveContainer>
@@ -70,7 +70,7 @@ const ArtifactPopPKOFV = () => {
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <div className="flex justify-between text-[9px] font-mono tabular text-stone-300 px-1">
+      <div className="flex justify-between text-[24px] font-mono tabular text-stone-300 px-1">
         <span>1-CMT · OFV 4,821</span>
         <span className="text-emerald-300">2-CMT · OFV 4,672</span>
       </div>
@@ -81,7 +81,7 @@ const ArtifactPopPKOFV = () => {
 /* QC GOF: 2x2 mini panels */
 const MiniPanel = ({ title, children }) => (
   <div className="border border-stone-700/60 rounded p-1 bg-stone-950/40">
-    <div className="text-[8px] font-mono uppercase text-stone-400 mb-0.5 tracking-wider">{title}</div>
+    <div className="text-[20px] font-mono uppercase text-stone-400 mb-0.5 tracking-wider">{title}</div>
     <div style={{ height: 56 }}>{children}</div>
   </div>
 );
@@ -154,8 +154,8 @@ const ArtifactForest = () => {
   return (
     <div className="w-full">
       <div className="flex items-center justify-between mb-1">
-        <div className="text-[10px] font-mono text-stone-400">90% CI vs 80–125% bounds</div>
-        <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-950/60 text-emerald-300 border border-emerald-700/40">PASS · equivalent</span>
+        <div className="text-[16px] font-mono text-stone-400">90% CI vs 80–125% bounds</div>
+        <span className="text-[24px] font-mono px-1.5 py-0.5 rounded bg-emerald-950/60 text-emerald-300 border border-emerald-700/40">PASS · equivalent</span>
       </div>
       <div className="relative bg-stone-950/40 border border-stone-700/60 rounded p-2">
         {/* axis bg with bounds shading */}
@@ -172,10 +172,10 @@ const ArtifactForest = () => {
           ))}
         </div>
         {/* axis labels */}
-        <div className="flex justify-between text-[8px] font-mono tabular text-stone-500 mt-1">
+        <div className="flex justify-between text-[20px] font-mono tabular text-stone-500 mt-1">
           <span>70</span><span>80</span><span>100</span><span>125</span><span>135</span>
         </div>
-        <div className="text-[9px] font-mono tabular text-stone-200 mt-1.5 space-y-0.5">
+        <div className="text-[24px] font-mono tabular text-stone-200 mt-1.5 space-y-0.5">
           {rows.map((r,i) => <div key={i}>{r.label} · {r.est.toFixed(1)} [{r.lo.toFixed(1)} – {r.hi.toFixed(1)}]</div>)}
         </div>
       </div>
@@ -207,21 +207,21 @@ const ArtifactDDIHeatmap = () => {
   };
   return (
     <div className="w-full">
-      <div className="text-[10px] font-mono text-stone-400 mb-1">AUC ratios · 8 perpetrators × 3 mechanisms</div>
+      <div className="text-[16px] font-mono text-stone-400 mb-1">AUC ratios · 8 perpetrators × 3 mechanisms</div>
       <div className="bg-stone-950/40 border border-stone-700/60 rounded p-1.5">
         <div className="grid" style={{ gridTemplateColumns: '64px repeat(3, 1fr)', gap: '2px' }}>
           <div></div>
-          {mechs.map(m => <div key={m} className="text-[8px] font-mono uppercase text-stone-400 text-center">{m}</div>)}
+          {mechs.map(m => <div key={m} className="text-[20px] font-mono uppercase text-stone-400 text-center">{m}</div>)}
           {perps.map((p,i) => (
             <React.Fragment key={p}>
-              <div className="text-[9px] font-mono text-stone-300 truncate">{p}</div>
+              <div className="text-[24px] font-mono text-stone-300 truncate">{p}</div>
               {grid[i].map((v,j) => (
-                <div key={j} className="h-5 flex items-center justify-center text-[8px] font-mono tabular rounded-sm text-stone-100" style={{ background: colorFor(v) }} title={`${perps[i]} · ${mechs[j]} · ratio ${v}`}>{v}</div>
+                <div key={j} className="h-5 flex items-center justify-center text-[20px] font-mono tabular rounded-sm text-stone-100" style={{ background: colorFor(v) }} title={`${perps[i]} · ${mechs[j]} · ratio ${v}`}>{v}</div>
               ))}
             </React.Fragment>
           ))}
         </div>
-        <div className="text-[8px] font-mono text-stone-500 mt-1.5">midaz AUC ratio 1.42 · weak inhibitor</div>
+        <div className="text-[20px] font-mono text-stone-500 mt-1.5">midaz AUC ratio 1.42 · weak inhibitor</div>
       </div>
     </div>
   );
@@ -242,7 +242,7 @@ const ArtifactPediatricRibbon = () => {
   });
   return (
     <div className="w-full">
-      <div className="text-[10px] font-mono text-stone-400 mb-1">simulated AUCss · age bands vs adult ref</div>
+      <div className="text-[16px] font-mono text-stone-400 mb-1">simulated AUCss · age bands vs adult ref</div>
       <div className="bg-stone-950/40 border border-stone-700/60 rounded p-1.5 relative" style={{ height: 110 }}>
         <svg viewBox="0 0 200 100" preserveAspectRatio="none" className="w-full h-full">
           {/* adult ref dashed */}
@@ -260,7 +260,7 @@ const ArtifactPediatricRibbon = () => {
           })}
         </svg>
       </div>
-      <div className="text-[8px] font-mono text-stone-500 mt-1">neonate exposure ribbon ↑ vs adult · maturation flagged</div>
+      <div className="text-[20px] font-mono text-stone-500 mt-1">neonate exposure ribbon ↑ vs adult · maturation flagged</div>
     </div>
   );
 };
@@ -270,22 +270,22 @@ const ArtifactReviewGate = () => (
   <div className="border border-amber-500/50 bg-amber-950/30 rounded p-2 space-y-1.5">
     <div className="flex items-center gap-1.5">
       <Icon.AlertTriangle size={12} color="#fbbf24" />
-      <span className="text-[10px] font-mono uppercase tracking-wider text-amber-200">Human approval required</span>
+      <span className="text-[16px] font-mono uppercase tracking-wider text-amber-200">Human approval required</span>
     </div>
-    <div className="text-[10px] text-stone-200 leading-snug">QC verdict: CONDITIONAL_PASS. ΔOFV (1-CMT → 2-CMT) = 149. Confirm structural choice before covariate finalisation.</div>
+    <div className="text-[16px] text-stone-200 leading-snug">QC verdict: CONDITIONAL_PASS. ΔOFV (1-CMT → 2-CMT) = 149. Confirm structural choice before covariate finalisation.</div>
     <div className="grid grid-cols-2 gap-1.5 mt-1">
-      <button className="text-[9px] font-mono py-1 rounded bg-emerald-950/40 border border-emerald-700/40 text-emerald-200/80 cursor-default" disabled>Approve 2-CMT</button>
-      <button className="text-[9px] font-mono py-1 rounded bg-stone-800/60 border border-stone-700 text-stone-400 cursor-default" disabled>Request 3-CMT</button>
+      <button className="text-[24px] font-mono py-1 rounded bg-emerald-950/40 border border-emerald-700/40 text-emerald-200/80 cursor-default" disabled>Approve 2-CMT</button>
+      <button className="text-[24px] font-mono py-1 rounded bg-stone-800/60 border border-stone-700 text-stone-400 cursor-default" disabled>Request 3-CMT</button>
     </div>
-    <div className="text-[8px] font-mono text-stone-500">attached: GOF gallery · VPC · η-shrinkage 18% · cond. number 87</div>
+    <div className="text-[20px] font-mono text-stone-500">attached: GOF gallery · VPC · η-shrinkage 18% · cond. number 87</div>
   </div>
 );
 
 /* Report agent CSR Methods preview */
 const ArtifactReport = () => (
   <div className="bg-stone-950/60 border border-stone-700/60 rounded p-2">
-    <div className="text-[10px] font-mono text-stone-400 mb-1.5">2.7.2 Methods · preview</div>
-    <div className="font-mono text-[9px] leading-relaxed text-stone-200 space-y-1 tabular">
+    <div className="text-[16px] font-mono text-stone-400 mb-1.5">2.7.2 Methods · preview</div>
+    <div className="font-mono text-[24px] leading-relaxed text-stone-200 space-y-1 tabular">
       <div>2.7.2.1  Population pharmacokinetic analysis was conducted</div>
       <div>using NONMEM 7.5 with the FOCE-I estimation method on a</div>
       <div>pooled dataset of 247 subjects (4,812 observations). A two-</div>
@@ -301,9 +301,9 @@ const ArtifactAuditSummary = ({ chainHead, nEntries }) => (
   <div className="bg-emerald-950/20 border border-emerald-700/50 rounded p-2 space-y-1">
     <div className="flex items-center gap-1.5">
       <Icon.CheckCircle size={12} color="#34d399" />
-      <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-200">workflow complete</span>
+      <span className="text-[16px] font-mono uppercase tracking-wider text-emerald-200">workflow complete</span>
     </div>
-    <div className="font-mono text-[9px] tabular text-stone-200 space-y-0.5">
+    <div className="font-mono text-[24px] tabular text-stone-200 space-y-0.5">
       <div>{nEntries || '47'} tool calls · 0 patient rows leaked</div>
       <div>SHA-256 chain head <span className="text-emerald-300">{chainHead || '0xa7f3…c891'}</span></div>
       <div>ICH M15-aligned · DOCX exported</div>
