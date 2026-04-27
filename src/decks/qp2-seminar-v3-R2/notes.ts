@@ -116,7 +116,7 @@ So here's the agenda — three cases, each with a different problem, but all com
 
 **==Case two — ivosidenib, India==** — approved in the US and Europe, but still unavailable to Indian patients because CDSCO expected local clinical evidence. The answer was a ==six-pillar regulatory dossier under Rule 101==. CDSCO approved it in May 2025. ⏸
 
-**==Case three — AI and machine learning for clinical pharmacology workflows==** — this is the infrastructure question: privacy boundaries, deterministic tools, audit trail, and ICH M15-aligned documentation. This is ==research and architecture judgment==, not a product pitch. ⏸
+**==Case three — AI and machine learning for clinical pharmacology workflows==** — this is the infrastructure question, including privacy boundaries, deterministic tools, audit trail, and the ICH M15-aligned documentation. This is ==my own research and architecture judgment==, not a product pitch. ⏸
 
 ==Three challenges — pediatric, geographic, methodological.== One discipline carrying the decision in each case. About ten minutes per case, then a brief synthesis and questions at the end.
 
@@ -210,24 +210,22 @@ First case: **==ambrisentan==** — an oral selective endothelin-A antagonist fo
 
 This is pediatrics: ==eight to under eighteen years==. The Phase IIb program was terminated mid-program, but EMA and PMDA still approved the pediatric label in 2021.
 
-So the clinical pharmacology question is simple: ==when the pediatric trial is terminated==, can the **==pharmacokinetic bridge==** still support a pediatric label?
-
 ## Cues
 - ⏱ 25 sec — quick case opener
 - 🎚 Plain and factual; do not make this sound dramatic
 - ⚠ Do NOT mention FDA yet — save the caveat for the outcome slide
-- ✅ Land on "can the pharmacokinetic bridge still support a pediatric label?"
+- ✅ Keep slide 5 as a clean case entry; let slide 6 own the clinical pharmacology question
 
 ## Bridge
 → Let me put the question in front of you first.`,
 
   // V2-S2 · Hook + question — 60 sec
   // (manifest order places cs1-question at slot 06, immediately after cs1-divider)
-  // 2026-04-26 r4: headline asks whether the PK bridge can still carry
+  // 2026-04-26 r4: headline asks whether the PK bridge can still support
   // a label; subtitle frames this as exposure matching under program
   // disruption. Notes walk the 380/39 asymmetry + three disruptions.
   'cs1-question': `## Spoken
-Here is the question for the case: ==when the pediatric trial is terminated, can the pharmacokinetic bridge still carry a pediatric label?==
+So the clinical pharmacology question was simple: ==when the pediatric trial is terminated==, can the **==pharmacokinetic bridge==** still support a pediatric label?
 
 The adult side was strong: **==380 adult patients==** across six studies, with a mature adult PK anchor.
 
@@ -256,7 +254,7 @@ Three things happen together: ==vasoconstriction==, ==smooth-muscle and endothel
 
 Over time, the right ventricle hypertrophies, dilates, and then fails. Patients do not really die from the pressure number. They die from right-heart failure.
 
-The current *2022 ESC/ERS* hemodynamic definition is **mean pulmonary arterial pressure ≥ 20 millimeters of mercury, pulmonary vascular resistance ≥ 2 Wood units, and wedge pressure ≤ 15**. That last part tells you this is pre-capillary disease.
+The current hemodynamic definition is **mean pulmonary arterial pressure ≥ 20 millimeters of mercury, pulmonary vascular resistance ≥ 2 Wood units, and wedge pressure ≤ 15**. That last part tells you this is pre-capillary disease.
 
 For this case, the relevant pathway is endothelin. Endothelin is the over-active vasoconstrictor and proliferative signal, and ambrisentan blocks ETA.
 
@@ -295,9 +293,9 @@ The other two PAH pathways — nitric oxide / cGMP and prostacyclin — are here
 → Field context next — where ambrisentan sits in the pediatric PAH timeline.`,
 
   'cs1-history': `## Spoken
-Step back from ambrisentan for a minute. This is the PAH treatment landscape: three decades, four pathway columns.
+A step back from ambrisentan for a minute: this is the PAH treatment landscape — three decades, four pathway columns.
 
-Before targeted therapy, care was mostly supportive: oxygen, anticoagulation, and calcium-channel blockers for the small vasoreactive subset. No targeted PAH therapy yet.
+Before targeted therapy, care was mostly supportive: oxygen, anticoagulation, and calcium-channel blockers for the small group of patients who responded. No targeted PAH therapy yet.
 
 The first pathway opened in ==1995 with IV epoprostenol==, through prostacyclin biology. It was the first PAH-specific therapy, but the delivery burden was high: continuous infusion, central line, and serious interruption risk.
 
@@ -316,6 +314,7 @@ The point is: ==PAH treatment evolved by pathway expansion==. Ambrisentan sits i
 ## Cues
 - ⏱ 75 sec — timeline, not encyclopedia
 - 🎚 Use the years as skim anchors: 1995 / 2001 / 2005 / 2007 / 2024
+- 🗣 Pronunciation cues: macitentan (Machatentin); riociguat (rio-cigua); sotatercept (So-Tater-Cept)
 - ⚠ Do NOT enumerate every drug beyond what is needed
 - ✅ Land on "pathway expansion"
 
@@ -326,19 +325,20 @@ The point is: ==PAH treatment evolved by pathway expansion==. Ambrisentan sits i
   'cs1-trial': `## Spoken
 Pediatric PAH moved more slowly than adult PAH.
 
-Above the axis are adult landmarks: ==bosentan 2001, sildenafil 2005, ambrisentan 2007, macitentan 2013, selexipag 2015, sotatercept 2024==. Not exhaustive, but enough to show the pace.
+Above the axis are adult approval landmarks: ==bosentan 2001, sildenafil 2005, ambrisentan 2007, macitentan 2013, selexipag 2015, sotatercept 2024==. These are approval years, not an exhaustive drug-history list, but enough to show the pace.
 
 Below the axis are the pediatric steps. The key early precedent is ==bosentan 2009 EMA== with FUTURE-1: the first PK-matching framework approved in pediatric PAH.
 
 Ambrisentan took **==eight years==**. Enrollment was ==held== in March 2013 because of the juvenile rat brain-weight finding. The study was ==terminated== in February 2019 at **41 of 66 enrolled**. Then in ==2021==, EMA and PMDA approved the pediatric label on the Okour PopPK package.
 
-So the dashed coral arc is the story: held, terminated, then approved.
+So the dashed coral arc is the story: ==held, terminated, then approved==.
 
-And ICH E11A in 2024 codified the framework four years after this case had already used it.
+And ICH E11A in 2024 later formalized this kind of logic: use adult evidence, disease similarity, pediatric PK, and uncertainty management to support pediatric extrapolation. In other words, this case used the framework before the guidance gave it a formal name.
 
 ## Cues
 - ⏱ ~70 sec — keep the timeline clean
 - 🎚 Calm on "eight years"; no melodrama
+- 🗣 Pronunciation cues: macitentan (Machatentin); sotatercept (So-Tater-Cept)
 - ⚠ Do NOT say "the trial failed"
 - ✅ End on "E11A codified the framework four years later"
 
@@ -349,7 +349,7 @@ And ICH E11A in 2024 codified the framework four years after this case had alrea
   'cs1-architecture': `## Spoken
 This is the pivot.
 
-Adult evidence existed. The pediatric efficacy-trial path did not.
+Adult evidence existed. The pediatric efficacy-trial path ==did not==.
 
 ARIES established adult PAH efficacy. ETA blockade was mechanistically plausible in pediatric PAH. So the clinical task became dose selection.
 
@@ -365,7 +365,7 @@ Five constraints made that clear.
 
 **==Four — endpoint.==** Six-minute walk distance does not transfer cleanly to young children. Growth, cooperation, and performance all affect the signal.
 
-**==Five — precedent.==** STARTS-1 enrolled **235 children** and still narrowly missed its prespecified CPET peak VO₂ primary endpoint, **p=0.056**.
+**==Five — precedent.==** STARTS-1 enrolled **235 children** and still narrowly missed its primary endpoint.
 
 So the question was not, "Can we repeat ARIES in children?" The question was: ==how do we defend a pediatric dose under these constraints?==
 
@@ -386,15 +386,13 @@ Allometric scaling was fixed *a priori*: body weight on clearance with exponent 
 
 The basic structure was: **==380 adult patients build the model. 39 pediatric patients confirm it.==**
 
-The parameter table is the receipt. Clearance over F was **==1.17 liters per hour, %RSE 6.33==**. Central volume over F was **==12.3 liters, %RSE 16.1==**. Peripheral volume was **==81.3 liters, %RSE 24.5==**. BLOCK(6) omega converged, and BLQ was about **3%**, handled with Beal's M3.
+The workflow was straightforward. We built the adult PopPK foundation, then used the pcVPC to ask: does the adult model predict the pediatric data? If yes, we inherited the structure and fit the pediatric data with sparse sampling. Then we compared steady-state exposure — AUCss and Cmax — evaluated exposure-response for 6MWD and adverse events, and packaged that evidence for submission.
 
-The pcVPC is the model-check receipt. The paper uses a **90% prediction interval** ribbon, and the observed pediatric concentrations sit inside it over 24 hours, with no systematic bias.
+The parameter table is the receipt. The two things to point to are **==clearance over F==** and **==volume==**. The estimates are precise enough for the bridge, and the allometric weight scaling is fixed rather than estimated given the small pediatric dataset.
 
-Then the payoff is exposure match. Pediatric low-dose AUCss was **==4.82 versus 4.98==** in adults, about **minus 3%**. Pediatric high-dose AUCss was **==9.15 versus 9.12==**, essentially identical.
+For covariates, we used a full covariate model rather than forward inclusion: all **==12 prespecified covariates==** went in together. To be extra careful, we also used backward elimination. The result was clean — only allometric body weight stayed.
 
-The three pediatric weight bands were **≥20 to <35, ≥35 to <50, and ≥50 kg**, and each stayed within the adult model-derived range.
-
-==Within 3% at the dose-group level. Within adult range across weight bands. With 39 patients.==
+The pcVPC is the model check. The pediatric observations overlap the model-predicted ribbon across the dosing interval, so the pediatric fit is behaving well.
 
 ## Cues
 - ⏱ 75 sec — numbers need air
@@ -406,7 +404,7 @@ The three pediatric weight bands were **≥20 to <35, ≥35 to <50, and ≥50 kg
 → The next slide adds the PK/PD context: did the exposure match sit in a clinically safe and interpretable range?`,
 
   'cs1-pkpd': `## Spoken
-The previous slide answered the first question: can pediatric patients get into the adult exposure range? ==Yes — the AUC match held.==
+This slide answers the first question: can pediatric patients get into the adult exposure range? ==Yes — the AUC match held.==
 
 This slide asks the next question: once exposures match, do we see any warning signal across exposure?
 
@@ -592,9 +590,9 @@ Second case.
 
 This is ivosidenib — a first-in-class IDH1 inhibitor. By early 2025 it was already approved in more than forty-two countries: FDA, EMA, PMDA, NMPA, MFDS, Health Canada, and many others.
 
-But ==India was still missing.==
+But even with that global record, ==Indian patients still did not have access==.
 
-The issue was not whether the drug worked. The pivotal evidence existed. The problem was that India expected local clinical evidence, and ==no Indian patient had been enrolled in a pivotal ivosidenib trial==.
+The issue was not whether the drug worked. The pivotal evidence existed. The problem was that CDSCO expected local clinical evidence, and ==no Indian patient had been enrolled in a pivotal ivosidenib trial==.
 
 So the question became simple: could the ==global clinical pharmacology dossier== do the job that a local trial normally does?
 
@@ -602,7 +600,8 @@ That is the case.
 
 ## Cues
 - ⏱ ~40 sec — reset after CS1; do not oversell
-- 🎚 Plain contrast: 42+ countries, but not India
+- 🎚 Plain contrast: 42+ countries globally, but Indian patients still did not have access
+- 🎚 Say CDSCO as letters: C-D-S-C-O. Full name if needed: Central Drugs Standard Control Organization.
 - ⚠ Do not add internal filing details or launch timing
 - ✅ Land on "could the global clinical pharmacology dossier do the job?"
 
@@ -694,24 +693,24 @@ That answer came from the ==clinical pharmacology dossier==.
 → Next slide frames the case question: can the dossier replace the trial?`,
 
   'cs2-setup': `## Spoken
-So here is the case question.
+This is the moment the abstract waiver question became operational.
 
-Can a global clinical pharmacology package register a drug in India without a local trial?
+In December 2024, the SEC asked for a ==PK/PD study in the Indian population==.
 
-The operational fact was ==zero Indian patients in the pivotal trials==. Not a small subgroup — zero.
+That request is reasonable in the old framework. It asks: do you have local Indian PK/PD data before approval?
 
-That meant the dossier had to answer the questions a local bridging study would usually answer: DDI, food effect, special populations, exposure-response, QTc, intrinsic and extrinsic factors.
+But the evidence to answer the underlying scientific question was already in hand: PopPK with **253 patients** where race was not significant, PBPK-supported DDI labeling, and flat exposure-response across the studied range.
 
-And the timing mattered. A local Phase III, or even a bridging PK/PD study, could add ==twelve to eighteen months==. In IDH1-mutant AML, especially the older unfit population where median survival has historically been under a year, that delay is not academic.
+The issue was timing. A local PK/PD study could add ==twelve to eighteen months==. For IDH1-mutant AML, especially older unfit patients, that delay is not academic.
 
-So the strategy was to build the dossier so it could ==stand on its own==.
+So the strategy was to show that the ==existing clinical pharmacology package could answer the local-data question==.
 
 ## Cues
 - ⏱ ~35 sec — thesis slide
 - 🎚 Plain and deliberate
 - ⚠ Do not introduce the six pillars yet
 - ⚠ If challenged, qualify the survival point as the older/unfit AML context
-- ✅ Land on: "stand on its own"
+- ✅ Land on: "existing clinical pharmacology package could answer the local-data question"
 
 ## Bridge
 → Next: mechanism first — why somatic IDH1 biology matters before statistics.`,
@@ -1074,6 +1073,26 @@ One request becomes a ==replayable evidence trail==.
 - ✅ Land on ==what actually ran==
 
 ## Bridge
+→ The next slide shows that trace as an interactive dossier interface.`,
+
+  'cs3-interactive-dossier': `## Spoken
+This is the interface version of the same point.
+
+The important thing is ==not the visual polish== and not a product demo. The important thing is that the workflow state, tool calls, artifacts, review gate, and audit chain are visible in one place.
+
+On the bottom strip, the tool-call log and SHA-256 audit chain show the receipt: what ran, when it ran, which agent called it, and how the chain can be verified.
+
+The center canvas is the orchestration view: supervisor, domain agents, specialist agents, and PharmState. The system is designed so deterministic tools do the computation, typed state carries the evidence, and the human review gate stays explicit.
+
+So this is the practical translation of the architecture: ==not autonomous submission, but replayable, inspectable analysis work==.
+
+## Cues
+- ⏱ ~40 sec — describe the interface, do not demo every widget
+- 🎚 Keep it grounded: trace, state, review gate, audit chain
+- ⚠ Do not call this validated, deployed, or regulatory-ready
+- ✅ Land on ==replayable, inspectable analysis work==
+
+## Bridge
 → Bracket Method next — credit outward to the field.`,
 
   'cs3-bracket': `## Spoken
@@ -1144,19 +1163,19 @@ That is what the discipline is for.
 → Now the fit — why this work, this team, this moment.`,
 
   'closing-merck': `## Spoken
-Let me close by connecting this to Merck.
+Let me close with the three foundations this talk is meant to show.
 
-First, PAH. The ambrisentan case gave me years inside pediatric PAH, exposure matching, and regulatory bridging. Sotatercept and Winrevair opened a new pathway in PAH. That is not the same case, but it is very much the same ==clinical pharmacology neighborhood==.
+First, pediatric extrapolation. The ambrisentan case shows a regulator-tested framework for moving from adult anchors to pediatric PK and a defensible dose.
 
-Second, oncology and rare populations. The ivosidenib India case was about ==making global evidence usable== when a local trial was not feasible. That problem shows up across oncology: small populations, fast timelines, fragmented regulatory expectations.
+Second, global-to-local bridging. The ivosidenib case shows how disease mechanism, PK/PD, covariates, and regional reliance can become a defensible dossier when a local trial is infeasible.
 
-Third, AI and infrastructure. PharmAgent is my ==personal research architecture== for how agent-assisted workflows might support model-informed work without bypassing privacy, audit, deterministic tools, or human review.
+Third, AI infrastructure. PharmAgent is my ==personal research architecture== for keeping agent-assisted workflows anchored to deterministic tools, human review, and an audit trail.
 
-The through-line is clinical pharmacology judgment: ==methods, regulatory discipline, and infrastructure== that keep the science usable.
+The through-line is the same: ==methods, regulatory discipline, and infrastructure== that turn complex science into evidence people can trust.
 
 ## Cues
-- ⏱ 75 sec — fit, not flattery
-- 🎚 Avoid "perfect fit," "uniquely positioned," or competitor names
+- ⏱ 60–75 sec — conclusion, not a new case
+- 🎚 Objective summary voice; no company-specific tailoring
 - ⚠ Keep PharmAgent as personal research architecture
 - ✅ Land on ==methods, regulatory discipline, infrastructure==
 

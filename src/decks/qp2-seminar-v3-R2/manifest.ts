@@ -81,6 +81,7 @@ import CS3Problem from './slides/cs3-03-problem';
 import CS3Architecture from './slides/cs3-04-architecture';
 import CS3DecisiveMove from './slides/cs3-05-decisive-move';
 import CS3Pilot from './slides/cs3-06-pilot';
+import CS3InteractiveDossier from './slides/cs3-06b-interactive-dossier';
 import CS3Bracket from './slides/cs3-07-bracket';
 import CS3Portable from './slides/cs3-08-portable';
 // Closing slides — added 2026-04-26 per Phase 0 audit (manifest flagged
@@ -338,6 +339,7 @@ const manifest = {
     { id: 'cs3-architecture', title: 'CS3 · PharmAgent platform', component: CS3Architecture, isTitle: false },
     { id: 'cs3-decisive-move', title: 'CS3 · Privacy & audit by construction', component: CS3DecisiveMove, isTitle: false },
     { id: 'cs3-pilot', title: 'CS3 · Pilot evidence', component: CS3Pilot, isTitle: false },
+    { id: 'cs3-interactive-dossier', title: 'CS3 · Interactive Dossier', component: CS3InteractiveDossier, isTitle: false },
     { id: 'cs3-bracket', title: 'CS3 · Bracket Method', component: CS3Bracket, isTitle: false },
     { id: 'cs3-portable', title: 'CS3 · Portable principle', component: CS3Portable, isTitle: false },
 

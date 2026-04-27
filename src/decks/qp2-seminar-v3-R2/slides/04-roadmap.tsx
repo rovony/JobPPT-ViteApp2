@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
-import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
+import SlideGrid, { GridSlot } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 
 /**
@@ -54,6 +54,57 @@ const CASES = [
   },
 ];
 
+const CHALLENGES = [
+  { label: 'Pediatric', color: 'var(--coral)' },
+  { label: 'Geographic', color: 'var(--cyan)' },
+  { label: 'Methodological', color: 'var(--sage)' },
+];
+
+const ROADMAP_AREAS = [
+  'chrome-l chrome-l chrome-l chrome-l chrome-l chrome-l chrome-r chrome-r chrome-r chrome-r chrome-r chrome-r',
+  'eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow',
+  'headline headline headline headline headline headline headline headline headline headline headline headline',
+  'subhead  subhead  subhead  subhead  subhead  subhead  subhead  subhead  subhead  subhead  subhead  subhead',
+  'viz      viz      viz      viz      viz      viz      viz      viz      viz      viz      viz      viz',
+  'conclusion conclusion conclusion conclusion conclusion conclusion conclusion conclusion conclusion conclusion conclusion conclusion',
+  'footer   footer   footer   footer   footer   footer   footer   footer   footer   footer   footer   footer',
+];
+
+const CONCLUSION_RIBBON_STYLE = {
+  width: '100%',
+  border: '1px solid color-mix(in srgb, var(--amber) 42%, transparent)',
+  borderRadius: 'var(--radius-md)',
+  background:
+    'linear-gradient(90deg, color-mix(in srgb, var(--amber) 18%, transparent), color-mix(in srgb, var(--amber) 7%, transparent))',
+  padding: 'var(--space-3) var(--space-5)',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  gap: 'var(--space-4)',
+  flexWrap: 'wrap',
+};
+
+const CHALLENGE_ROW_STYLE = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: 'var(--space-2)',
+  flexWrap: 'wrap',
+};
+
+const CHALLENGE_LABEL_STYLE = {
+  fontSize: 'var(--fs-slide-eyebrow)',
+  color: 'var(--cream-faint)',
+  letterSpacing: '0.1em',
+};
+
+const CONCLUSION_TEXT_STYLE = {
+  fontSize: 'var(--fs-slide-tagline)',
+  color: 'var(--cream)',
+  lineHeight: 1.25,
+  flex: '1 1 16rem',
+  minWidth: 0,
+};
+
 export default function Roadmap({ deck }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.3 });
@@ -61,7 +112,11 @@ export default function Roadmap({ deck }) {
   const go = inView && !reduced;
 
   return (
-    <SlideGrid dataCase="amber" areas={STANDARD_AREAS}>
+    <SlideGrid
+      dataCase="amber"
+      areas={ROADMAP_AREAS}
+      rowSizes="auto auto auto auto minmax(0, 1fr) auto auto"
+    >
       <Eyebrow color="var(--amber)" delay={0.10}>
         Roadmap · the next 35 minutes
       </Eyebrow>
@@ -86,6 +141,7 @@ export default function Roadmap({ deck }) {
             height: '100%',
             display: 'flex',
             alignItems: 'center',
+            justifyContent: 'center',
             paddingTop: 'clamp(var(--space-4), 3vh, var(--space-8))',
           }}
         >
@@ -216,10 +272,52 @@ export default function Roadmap({ deck }) {
         </div>
       </Viz>
 
+      <GridSlot
+        area="conclusion"
+        motion={{
+          initial: { opacity: 0, y: 10 },
+          animate: go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 },
+          delay: reduced ? 0 : 1.45,
+        }}
+        style={CONCLUSION_RIBBON_STYLE}
+      >
+        <div style={CHALLENGE_ROW_STYLE}>
+          <span
+            className="deck-mono uppercase"
+            style={CHALLENGE_LABEL_STYLE}
+          >
+            Three challenges
+          </span>
+          {CHALLENGES.map((challenge) => (
+            <span
+              key={challenge.label}
+              className="deck-body"
+              style={{
+                fontSize: 'var(--fs-slide-subhead)',
+                color: challenge.color,
+                fontWeight: 700,
+                padding: 'var(--space-1) var(--space-3)',
+                borderRadius: '999px',
+                border: `1px solid color-mix(in srgb, ${challenge.color} 44%, transparent)`,
+                background: `color-mix(in srgb, ${challenge.color} 12%, transparent)`,
+              }}
+            >
+              {challenge.label}
+            </span>
+          ))}
+        </div>
+        <div
+          className="deck-display"
+          style={CONCLUSION_TEXT_STYLE}
+        >
+          One discipline carrying the decision in each case.
+        </div>
+      </GridSlot>
+
       <Footer
         delay={reduced ? 0 : 1.8}
-        kicker="Roadmap · ~10 min per case · ~5 min cross-case + Q&A"
-        tagline="Pediatric · geographic · methodological — three challenges, one Clin Pharm answer."
+        kicker="Roadmap · ~10-12 min per case · ~5 min cross-case + Q&A"
+        tagline="About ten minutes per case, then synthesis and questions."
       />
     </SlideGrid>
   );

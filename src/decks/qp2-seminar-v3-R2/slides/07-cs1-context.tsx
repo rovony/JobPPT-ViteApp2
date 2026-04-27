@@ -21,7 +21,7 @@ const FACTS = [
   {
     n: '02',
     label: 'The hemodynamic',
-    body: <>mPAP ≥ 20 mmHg · PVR ≥ 2 WU · PAWP ≤ 15 mmHg — pre-capillary, WHO Group 1. <em style={{ opacity: 0.7 }}>(2022 ESC/ERS update; AMB112529 trial used 2008 Dana Point: mPAP ≥25, PVR ≥3 WU·m².)</em></>,
+    body: <>mPAP ≥ 20 mmHg · PVR ≥ 2 WU · PAWP ≤ 15 mmHg — pre-capillary, WHO Group 1.</>,
   },
   {
     n: '03',

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import * as d3 from 'd3';
 import { useTokens } from '@/lib/token';
@@ -223,7 +223,46 @@ export default function Cs1Pkpd() {
   const T = useTokens(['--coral', '--cyan', '--cream', '--cream-muted', '--cream-faint', '--cream-hairline', '--bg']);
   const tk = (n, fb = 'transparent') => (T ? T[n] || fb : fb);
 
+  const [zoomed, setZoomed] = useState(null);
+
+  useEffect(() => {
+    if (!zoomed) return;
+    const handler = (e) => { if (e.key === 'Escape') setZoomed(null); };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [zoomed]);
+
+  const PANELS = {
+    auc: { label: <>AUC<sub>ss</sub> vs Body Weight (Target Attainment)</>, right: <ConclusionPill>PK MATCHED</ConclusionPill>, delay: D.adultBand, render: () => <AUCPanel tk={tk} D={D} /> },
+    cmax: { label: <>C<sub>max,ss</sub> Match</>, right: <ConclusionPill>PK MATCHED</ConclusionPill>, delay: D.boxAdult, render: () => <CmaxPanel tk={tk} D={D} /> },
+    efficacy: { label: <>Efficacy E-R: AUC<sub>ss</sub> vs 6MWD</>, right: <ConclusionPill color="var(--cyan)">NO CLEAR EFFICACY GRADIENT</ConclusionPill>, delay: D.axisA, render: () => <EfficacyPanel tk={tk} D={D} /> },
+    safety: { label: <>Safety E-R: AE vs Exposure</>, right: <ConclusionPill color="var(--cyan)">NO CLEAR SAFETY GRADIENT</ConclusionPill>, delay: D.axisB, render: () => (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: '100%', height: '100%' }}>
+        <div style={{ flex: 1, minHeight: 0, width: '100%', position: 'relative' }}>
+          <BoxPanel tk={tk} letter="" title="" unit={DATA.auc.unit} data={DATA.auc} axisDelay={0} boxDelay={0} guideDelay={0.5} deltaLabel="Δ ≈ -12%" />
+          <div style={{ position: 'absolute', top: 8, left: 8, fontSize: '13px', fontWeight: 700, color: 'var(--cream)', opacity: 0.8 }} className="deck-mono">AUCss</div>
+        </div>
+        <div style={{ flex: 1, minHeight: 0, width: '100%', position: 'relative' }}>
+          <BoxPanel tk={tk} letter="" title="" unit={DATA.cmax.unit} data={DATA.cmax} axisDelay={0} boxDelay={0} guideDelay={0.5} deltaLabel="Δ ≈ +1%" />
+          <div style={{ position: 'absolute', top: 8, left: 8, fontSize: '13px', fontWeight: 700, color: 'var(--cream)', opacity: 0.8 }} className="deck-mono">Cmax,ss</div>
+        </div>
+      </div>
+    )},
+  };
+
+  const zoomablePanel = (key, children) => (
+    <div
+      style={{ ...CHART_PANEL, cursor: 'zoom-in', transition: 'box-shadow 0.2s ease' }}
+      onClick={(e) => { e.stopPropagation(); setZoomed(key); }}
+      onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 0 0 2px var(--coral)'; }}
+      onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'none'; }}
+    >
+      {children}
+    </div>
+  );
+
   return (
+    <div style={{ position: 'relative', width: '100%', height: '100dvh', overflow: 'hidden' }}>
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
       <Eyebrow color="var(--coral)" delay={D.chrome}>Case 01 · PopPK · build & fit PART 2</Eyebrow>
       <Headline delay={D.headline} maxChars={50}>
@@ -240,28 +279,28 @@ export default function Cs1Pkpd() {
 
           {/* Top Row: Exposure Match (AUC and Cmax) */}
           <div style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 'var(--space-3)' }}>
-            <div style={CHART_PANEL}>
-              <PanelTitle label={<>AUC<sub>ss</sub> vs Body Weight (Target Attainment)</>} right={<ConclusionPill>PK MATCHED</ConclusionPill>} delay={D.adultBand} />
+            {zoomablePanel('auc', <>
+              <PanelTitle label={PANELS.auc.label} right={PANELS.auc.right} delay={D.adultBand} />
               <div style={CHART_PANEL_BODY}><AUCPanel tk={tk} D={D} /></div>
-            </div>
-            <div style={CHART_PANEL}>
-              <PanelTitle label={<>C<sub>max,ss</sub> Match</>} right={<ConclusionPill>PK MATCHED</ConclusionPill>} delay={D.boxAdult} />
+            </>)}
+            {zoomablePanel('cmax', <>
+              <PanelTitle label={PANELS.cmax.label} right={PANELS.cmax.right} delay={D.boxAdult} />
               <div style={CHART_PANEL_BODY}><CmaxPanel tk={tk} D={D} /></div>
-            </div>
+            </>)}
           </div>
 
           <div className="deck-mono uppercase" style={{ background: 'color-mix(in srgb, var(--coral) 12%, transparent)', border: '1px solid color-mix(in srgb, var(--coral) 40%, transparent)', borderRadius: 'var(--radius-sm)', color: 'var(--coral)', padding: 'var(--space-2) var(--space-4)', fontSize: 'var(--fs-slide-pageno)', letterSpacing: '0.2em', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', marginTop: 'var(--space-1)' }}>PK-PD CONTEXT</div>
 
           {/* Bottom Row: Efficacy & Safety E-R */}
           <div style={{ flex: 1.3, minHeight: 0, display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: 'var(--space-3)' }}>
-            <div style={CHART_PANEL}>
-              <PanelTitle label={<>Efficacy E-R: AUC<sub>ss</sub> vs 6MWD</>} right={<ConclusionPill color="var(--cyan)">NO CLEAR EFFICACY GRADIENT</ConclusionPill>} delay={D.axisA} />
+            {zoomablePanel('efficacy', <>
+              <PanelTitle label={PANELS.efficacy.label} right={PANELS.efficacy.right} delay={D.axisA} />
               <div style={CHART_PANEL_BODY}>
                 <EfficacyPanel tk={tk} D={D} />
               </div>
-            </div>
-            <div style={{ ...CHART_PANEL, padding: 'clamp(8px, 1vh, 16px)' }}>
-              <PanelTitle label={<>Safety E-R: AE vs Exposure</>} right={<ConclusionPill color="var(--cyan)">NO CLEAR SAFETY GRADIENT</ConclusionPill>} delay={D.axisB} />
+            </>)}
+            {zoomablePanel('safety', <>
+              <PanelTitle label={PANELS.safety.label} right={PANELS.safety.right} delay={D.axisB} />
               <div style={{ ...CHART_PANEL_BODY, flexDirection: 'column', gap: 'var(--space-2)' }}>
                 <div style={{ flex: 1, minHeight: 0, width: '100%', position: 'relative' }}>
                   <BoxPanel tk={tk} letter="" title="" unit={DATA.auc.unit} data={DATA.auc} axisDelay={D.axisA} boxDelay={D.boxA} guideDelay={D.guideA} deltaLabel="Δ ≈ -12%" />
@@ -272,7 +311,7 @@ export default function Cs1Pkpd() {
                   <div style={{ position: 'absolute', top: 4, left: 4, fontSize: '9px', fontWeight: 700, color: 'var(--cream)', opacity: 0.8 }} className="deck-mono">Cmax,ss</div>
                 </div>
               </div>
-            </div>
+            </>)}
           </div>
 
           {/* Summary Conclusion Card */}
@@ -283,6 +322,7 @@ export default function Cs1Pkpd() {
           </div>
 
         </div>
+
       </Viz>
 
       <Footer
@@ -291,6 +331,59 @@ export default function Cs1Pkpd() {
         delay={D.payoff}
       />
     </SlideGrid>
+
+    {zoomed && PANELS[zoomed] && (
+      <div
+        onClick={() => setZoomed(null)}
+        style={{
+          position: 'absolute', inset: 0, zIndex: 100,
+          background: 'rgba(0,0,0,0.78)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          cursor: 'zoom-out',
+          padding: '3vh 3vw',
+        }}
+      >
+        <motion.div
+          key={zoomed}
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.2, ease: [0.2, 0.7, 0.3, 1] }}
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            width: '90%', maxWidth: '88vw', maxHeight: '85%',
+            background: 'var(--bg)',
+            border: '1px solid var(--cream-hairline)',
+            borderRadius: 'var(--radius-md)',
+            padding: 'clamp(1rem, 2.5vw, 2rem)',
+            display: 'flex', flexDirection: 'column',
+            boxShadow: '0 24px 80px rgba(0,0,0,0.5)',
+            cursor: 'default',
+            overflow: 'hidden',
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-3)', flexShrink: 0 }}>
+            <span className="deck-mono uppercase" style={{ fontSize: 'var(--fs-slide-kicker)', letterSpacing: 'var(--ls-mono-wide)', color: 'var(--coral)' }}>
+              {PANELS[zoomed].label}
+            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+              {PANELS[zoomed].right}
+              <button
+                onClick={() => setZoomed(null)}
+                style={{ background: 'none', border: '1px solid var(--cream-hairline)', borderRadius: 'var(--radius-sm)', padding: '4px 12px', cursor: 'pointer', color: 'var(--cream-muted)', fontSize: '12px', fontFamily: 'var(--font-mono)' }}
+              >
+                ESC
+              </button>
+            </div>
+          </div>
+          <div style={{ flex: 1, minHeight: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {PANELS[zoomed].render()}
+          </div>
+        </motion.div>
+      </div>
+    )}
+    </div>
   );
 }
 function AUCPanel({ tk, D }) {

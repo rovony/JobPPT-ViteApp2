@@ -51,10 +51,12 @@ function PathColumn({ headerKicker, headerColor, title, body, bars, chart, foote
       }}
     >
       <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-eyebrow)',
+        fontSize: 'var(--fs-slide-kicker)',
         letterSpacing: 'var(--ls-mono-wide)',
         color: headerColor,
-        fontWeight: 700,
+        fontWeight: 800,
+        textAlign: 'center',
+        padding: 'var(--space-2) 0',
       }}>
         {headerKicker}
       </div>

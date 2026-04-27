@@ -192,7 +192,7 @@ export default function Cs1Question() {
       <Headline delay={0.35} maxChars={80}>
         When the pediatric trial is terminated &mdash;{' '}
         <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 500 }}>
-          can the pharmacokinetic bridge still carry a pediatric label?
+          can the pharmacokinetic bridge still support a pediatric label?
         </span>
       </Headline>
 

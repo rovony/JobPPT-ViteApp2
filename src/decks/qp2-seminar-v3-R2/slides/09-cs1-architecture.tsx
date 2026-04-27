@@ -143,7 +143,7 @@ function FoundationStrip({ go }) {
     >
       <div className="deck-mono uppercase" style={{
         gridColumn: '1 / -1',
-        fontSize: 'var(--fs-slide-pageno)',
+        fontSize: 'var(--fs-slide-kicker)',
         letterSpacing: 'var(--ls-mono-wide)',
         color: 'var(--case)',
         fontWeight: 700,
@@ -153,7 +153,7 @@ function FoundationStrip({ go }) {
       {ADULT_FOUNDATION.map((it) => (
         <div key={it.label} style={{ minWidth: 0 }}>
           <div className="deck-mono uppercase" style={{
-            fontSize: 'var(--fs-slide-pageno)',
+            fontSize: 'var(--fs-slide-kicker)',
             letterSpacing: 'var(--ls-mono)',
             color: 'var(--cream-muted)',
             fontWeight: 700,
@@ -162,7 +162,7 @@ function FoundationStrip({ go }) {
             {it.label}
           </div>
           <div className="deck-body" style={{
-            fontSize: 'var(--fs-slide-subhead)',
+            fontSize: 'var(--fs-slide-tagline)',
             color: 'var(--cream)',
             lineHeight: 1.35,
           }}>
@@ -210,7 +210,7 @@ function ConstraintCard({ item, index, go }) {
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 'var(--space-2)' }}>
         <span className="deck-mono uppercase" style={{
-          fontSize: 'var(--fs-slide-pageno)',
+          fontSize: 'var(--fs-slide-kicker)',
           letterSpacing: 'var(--ls-mono-wide)',
           color: 'var(--case)',
           fontWeight: 700,

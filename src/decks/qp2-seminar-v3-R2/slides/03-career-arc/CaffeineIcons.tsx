@@ -37,9 +37,8 @@ export function SmallCoffee({ reduced }) {
         <ellipse cx="50" cy="20" rx="32" ry="4" fill="color-mix(in srgb, var(--bg) 80%, var(--coral))" />
         {/* Handle */}
         <path d="M18,30 C5,30 0,45 12,55" fill="none" stroke="var(--coral)" strokeWidth="6" strokeLinecap="round" />
-        {/* Coffee Bean Logo */}
-        <ellipse cx="50" cy="45" rx="5" ry="8" fill="var(--bg)" opacity="0.5" transform="rotate(15 50 45)" />
-        <path d="M48,38 Q52,45 48,52" fill="none" stroke="var(--coral)" strokeWidth="1.5" />
+        {/* JUST logo — monogram */}
+        <text x="50" y="50" textAnchor="middle" fontFamily="var(--font-display)" fontSize="13" fontWeight="800" fill="var(--bg)" opacity="0.7" letterSpacing="0.5">JUST</text>
         
         <defs>
           <linearGradient id="cup-grad" x1="0" y1="0" x2="1" y2="0">
@@ -65,9 +64,8 @@ export function TallCoffee({ reduced }) {
         {/* Lid */}
         <rect x="15" y="10" width="70" height="10" rx="5" fill="var(--cream-muted)" />
         <rect x="25" y="0" width="50" height="10" rx="3" fill="var(--cream-muted)" />
-        {/* Coffee Bean Logo on Sleeve */}
-        <ellipse cx="50" cy="80" rx="8" ry="12" fill="var(--bg)" opacity="0.7" transform="rotate(-15 50 80)" />
-        <path d="M47,69 Q54,80 49,90" fill="none" stroke="var(--amber)" strokeWidth="2" />
+        {/* University of Minnesota — Block M */}
+        <text x="50" y="86" textAnchor="middle" fontFamily="var(--font-display)" fontSize="22" fontWeight="900" fill="var(--bg)" opacity="0.6" letterSpacing="-1">M</text>
 
         <defs>
           <linearGradient id="tall-grad" x1="0" y1="0" x2="1" y2="0">
@@ -139,6 +137,9 @@ export function EspressoMachine({ reduced }) {
         <path d="M90,165 L110,165 L105,180 Q100,185 95,180 Z" fill="var(--cream)" />
         <path d="M110,170 C115,170 115,175 110,175" fill="none" stroke="var(--cream)" strokeWidth="2" strokeLinecap="round" />
         
+        {/* GSK logo */}
+        <text x="100" y="155" textAnchor="middle" fontFamily="var(--font-display)" fontSize="20" fontWeight="800" fill="var(--cyan)" opacity="0.5" letterSpacing="2">GSK</text>
+        
         {/* Drip Animation */}
         {!reduced && (
           <motion.circle cx="100" cy="130" r="1.5" fill="var(--amber)"
@@ -171,7 +172,9 @@ export function IVBag({ reduced }) {
         <rect x="70" y="45" width="60" height="80" rx="10" fill="color-mix(in srgb, var(--amber) 40%, var(--bg))" stroke="var(--amber)" strokeWidth="2" />
         {/* Liquid level */}
         <path d="M70,65 L130,65 L130,115 Q130,125 120,125 L80,125 Q70,125 70,115 Z" fill="color-mix(in srgb, var(--amber) 80%, var(--bg))" opacity="0.7" />
-        {/* Formula Label */}
+        {/* Servier + Formula Label */}
+        <rect x="75" y="55" width="50" height="14" rx="2" fill="var(--bg)" opacity="0.9" />
+        <text x="100" y="65" textAnchor="middle" fontFamily="var(--font-display)" fontSize="9" fontWeight="800" fill="var(--amber)" letterSpacing="0.5">SERVIER</text>
         <rect x="75" y="75" width="50" height="20" rx="2" fill="var(--bg)" opacity="0.9" />
         <text x="100" y="89" textAnchor="middle" fontFamily="var(--font-mono)" fontSize="10" fontWeight="700" fill="var(--cream)">C₈H₁₀N₄O₂</text>
         

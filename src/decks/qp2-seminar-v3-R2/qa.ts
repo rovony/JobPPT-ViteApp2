@@ -1229,7 +1229,15 @@ A: ETA is the receptor I want to block: it drives ==vasoconstriction and smooth-
 
 > **If pressed:** ETB biology is not perfectly one-dimensional; smooth-muscle ETB can constrict in some contexts. The slide is the ==clinical pharmacology rationale==, not a full receptor-biology map.
 
-## Q2: Are you overclaiming ==ETB is protective==?
+## Q2: Is ==ETA== the same as ==endothelin==?
+**From:** non-specialist / clarifying panelist
+**Difficulty:** ★ · **Topic:** mechanism
+
+A: Not exactly. ==Endothelin== is the signaling peptide, especially endothelin-1 in PAH. ==ETA== is one of the receptors that endothelin binds. The practical sentence is: endothelin is the signal; ETA is the receptor arm ambrisentan selectively blocks.
+
+> **If pressed:** Ambrisentan does not remove endothelin biology. It selectively blocks ==ETA receptor signaling== while sparing ETB.
+
+## Q3: Are you overclaiming ==ETB is protective==?
 **From:** receptor-biology panelist
 **Difficulty:** ★★★★ · **Topic:** mechanism
 
@@ -1237,7 +1245,7 @@ A: I would phrase it carefully: ==endothelial ETB is protective== because it sup
 
 > **If pressed:** The precise phrase I would use is ==preserves endothelial ETB-mediated clearance and vasodilation==.
 
-## Q3: Bosentan vs ambrisentan — clinically, does ==selectivity== matter?
+## Q4: Bosentan vs ambrisentan — clinically, does ==selectivity== matter?
 **From:** clinical-pharmacology panelist
 **Difficulty:** ★★★ · **Topic:** drug-class
 
@@ -1245,7 +1253,7 @@ A: Mechanistically, yes; clinically, I would not overstate it. The clearest prac
 
 > **If pressed:** The pediatric case rests on ==ambrisentan's available program, safety profile, and exposure-matching package==, not on proving it is clinically better than bosentan.
 
-## Q4: If bosentan already had a ==pediatric label==, why not make bosentan the case?
+## Q5: If bosentan already had a ==pediatric label==, why not make bosentan the case?
 **From:** pediatric-PAH panelist
 **Difficulty:** ★★★ · **Topic:** case-selection
 
@@ -1253,7 +1261,7 @@ A: Bosentan is the precedent, not this case. FUTURE-1 in 2009 established the pe
 
 > **If pressed:** The clean framing is: ==bosentan set the template; ambrisentan stress-tested it==.
 
-## Q5: What about ==macitentan== — isn't it the more modern ERA?
+## Q6: What about ==macitentan== — isn't it the more modern ERA?
 **From:** PAH-treatment panelist
 **Difficulty:** ★★★ · **Topic:** drug-class
 
@@ -1261,7 +1269,7 @@ A: Macitentan is clinically important and more modern in adult PAH, but it is no
 
 > **If pressed:** I would not rank ERAs from this slide. The point is ==where ambrisentan sits pharmacologically==.
 
-## Q6: Does ==>4000:1 selectivity== translate into better outcomes?
+## Q7: Does ==>4000:1 selectivity== translate into better outcomes?
 **From:** skeptical pharmacologist
 **Difficulty:** ★★★★ · **Topic:** evidence
 
@@ -1269,7 +1277,7 @@ A: Not directly, and I would not claim that. The >4000:1 number is a ==receptor-
 
 > **If pressed:** ==Selectivity is mechanism, not an outcomes endpoint.==
 
-## Q7: The slide says "three pathways drive PAH." What about ==BMPR2 / activin / sotatercept==?
+## Q8: The slide says "three pathways drive PAH." What about ==BMPR2 / activin / sotatercept==?
 **From:** Merck / PAH expert
 **Difficulty:** ★★★★ · **Topic:** completeness
 
@@ -1277,7 +1285,7 @@ A: Good point. "Three pathways" here means the three classic vasodilator pathway
 
 > **If pressed:** I would revise the spoken phrase to ==three classic druggable pathways== if the panel wants maximum precision.
 
-## Q8: Why not target the ==NO/cGMP== or ==prostacyclin== pathway instead?
+## Q9: Why not target the ==NO/cGMP== or ==prostacyclin== pathway instead?
 **From:** clinical-treatment panelist
 **Difficulty:** ★★★ · **Topic:** treatment
 
@@ -1285,7 +1293,7 @@ A: Those pathways are valid and often used in combination therapy. But this case
 
 > **If pressed:** The slide is not saying endothelin is the only pathway; it says ==this case's drug acts on endothelin==.
 
-## Q9: Does the cartoon imply ambrisentan ==opens the lumen== or reverses remodeling?
+## Q10: Does the cartoon imply ambrisentan ==opens the lumen== or reverses remodeling?
 **From:** cautious clinical panelist
 **Difficulty:** ★★★ · **Topic:** visual-claim
 
@@ -1293,7 +1301,7 @@ A: It is a mechanism cartoon, not a histologic claim. Ambrisentan blocks ETA-med
 
 > **If pressed:** The defensible wording is ==reduces pathologic signaling and pulmonary vascular resistance==, not "cures the vessel."
 
-## Q10: You show ==vasodilation via NO== under ETB. Is that mixing pathways?
+## Q11: You show ==vasodilation via NO== under ETB. Is that mixing pathways?
 **From:** mechanistic-detail panelist
 **Difficulty:** ★★★ · **Topic:** mechanism
 
@@ -1301,7 +1309,7 @@ A: It is connected biology, not a separate drug pathway claim. Endothelial ETB a
 
 > **If pressed:** I would say ==ETB preserves endogenous NO signaling==; PDE-5 inhibitors and sGC stimulators pharmacologically target the downstream NO/cGMP pathway.
 
-## Q11: Why mention ==hepatotoxicity== when the slide is receptor mechanism?
+## Q12: Why mention ==hepatotoxicity== when the slide is receptor mechanism?
 **From:** safety-aware panelist
 **Difficulty:** ★★★ · **Topic:** safety
 
@@ -1309,7 +1317,7 @@ A: Because the receptor mechanism is why the class comparison matters clinically
 
 > **If pressed:** ==Selectivity may contribute to differentiation, but molecule-specific safety matters too.==
 
-## Q12: Sitaxentan was also ==selective ETA== and was withdrawn. Doesn't that undermine the selectivity story?
+## Q13: Sitaxentan was also ==selective ETA== and was withdrawn. Doesn't that undermine the selectivity story?
 **From:** hostile safety panelist
 **Difficulty:** ★★★★ · **Topic:** safety
 
@@ -1317,7 +1325,7 @@ A: It is exactly why I avoid saying selectivity guarantees safety. Sitaxentan wa
 
 > **If pressed:** The safe sentence is: ==ambrisentan is selective ETA and has a cleaner hepatic profile; those are related pharmacology facts, not a universal rule.==
 
-## Q13: What is the source for the ==selectivity ratios==?
+## Q14: What is the source for the ==selectivity ratios==?
 **From:** fact-checking panelist
 **Difficulty:** ★★ · **Topic:** data-integrity
 
@@ -1325,7 +1333,7 @@ A: The ratios are from public product/pharmacology sources and are used as round
 
 > **If pressed:** The regulatory package does not rest on the exact ratio. It rests on ==adult efficacy, pediatric PK, safety, and exposure matching==.
 
-## Q14: Was ambrisentan used as ==monotherapy== in pediatric PAH?
+## Q15: Was ambrisentan used as ==monotherapy== in pediatric PAH?
 **From:** clinical-practice panelist
 **Difficulty:** ★★★ · **Topic:** concomitant-therapy
 
@@ -1333,7 +1341,7 @@ A: Not necessarily. Pediatric PAH care often includes background therapy, especi
 
 > **If pressed:** The dose argument is robust because ==background PDE-5 therapy did not materially change ambrisentan exposure==.
 
-## Q15: Does ambrisentan have meaningful ==DDI advantages== over bosentan?
+## Q16: Does ambrisentan have meaningful ==DDI advantages== over bosentan?
 **From:** DDI-focused clinical pharmacologist
 **Difficulty:** ★★★ · **Topic:** DDI
 
@@ -1341,7 +1349,7 @@ A: Yes, practically. Bosentan is a CYP inducer and can lower exposure to PDE-5 i
 
 > **If pressed:** For the pediatric PopPK case, the relevant point is narrower: ==PDE-5 inhibitor background therapy was tested as a covariate and was not significant==.
 
-## Q16: Is the phrase "==selectively blocks the endothelin arm==" too broad?
+## Q17: Is the phrase "==selectively blocks the endothelin arm==" too broad?
 **From:** wording-sensitive panelist
 **Difficulty:** ★★ · **Topic:** precision
 
