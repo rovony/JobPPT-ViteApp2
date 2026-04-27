@@ -123,7 +123,7 @@ export default function ClosingThanks() {
         delay={reduced ? 0 : 1.5}
         kicker="Thank you"
         tagline="Malek Okour · Quantitative Pharmacology · Spring 2026"
-        source="Sources: Okour 2023 JCP · ESC/ERS 2022 · ICH E11A 2024 · ICH M15 2024 · Garnett-Florian FDA 2017 · CDSCO Rule 101 (2019)"
+        source="Sources: Okour 2023 JCP · ESC/ERS 2022 · ICH E11A 2024 · ICH M15 2026 · Garnett-Florian FDA 2017 · CDSCO Rule 101 (2019; operationalized 2024)"
       />
     </SlideGrid>
   );

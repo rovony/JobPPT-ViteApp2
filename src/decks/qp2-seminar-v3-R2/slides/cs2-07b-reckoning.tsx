@@ -31,9 +31,9 @@ const SHIPPED = [
     cite: 'Convergent evidence package · 36-page justification',
   },
   {
-    title: 'PBPK in the label',
-    date: 'midazolam AUC ratio 0.18',
-    cite: 'Predicted · clinically qualified · regulatory text',
+    title: 'Extrinsic factors characterized',
+    date: 'food · DDIs · concomitant meds',
+    cite: 'Managed in labeling · no India-specific dose change',
   },
   {
     title: 'Waiver granted with Phase 4',

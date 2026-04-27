@@ -17,8 +17,8 @@ import TitleLayout from '@/components/deck/layouts/TitleLayout';
  * label + case-color foreshadow hairline) under subtitle.
  *
  * Variant note (preserved for future Pharmacometrics fork):
- *   Original subtitle phrasing was "the evidence had to come from the
- *   model, not the clinic." That framing leans pharmacometrics and
+ *   Original subtitle phrasing leaned heavily on model-vs-clinic language.
+ *   That framing leans pharmacometrics and
  *   was softened (see Phase A audit 2026-04-26) for the ClinPharm
  *   variant. When forking to the Pharmacometrics variant, restore
  *   "the model" vocabulary for methodology-first voice.
@@ -55,12 +55,8 @@ import TitleLayout from '@/components/deck/layouts/TitleLayout';
  * corresponding case color (coral CS1 / cyan CS2 / sage CS3) so the
  * audience subliminally meets the case-color cascade three slides early.
  *
- * Speaker-paced reveal: marks fade in at 16s / 37s / 55s — math-locked
- * to when the spoken script lands "untrialable" / "unavailable" /
- * "unbuilt" at 130 wpm with 1.5-sec ⏸ pauses (75-sec slide budget).
- * Math: word position × 0.462 sec/word + accumulated pauses. Slide
- * builds *with* the voice, not before it. Notes 🧷 cues give the
- * speaker target seconds for each word.
+ * Reveal: marks fade in progressively at 1.2s / 1.6s / 2.0s.
+ * (Originally speaker-paced at 16s/37s/55s, but sped up for normal viewing).
  *
  * Case color: unset (open segment). --case defaults to --amber so the
  * footer line uses amber tint. Override on case dividers via data-case.
@@ -149,7 +145,7 @@ export default function HookATrialNotAnswer({ deck }) {
 
   return (
     <TitleLayout deck={deck}>
-      {/* slide purpose: thesis hook · duration: 35 sec · prev: title · next: agenda or case map */}
+      {/* slide purpose: thesis hook · duration: 75 sec · prev: title · next: career arc */}
       <div
         ref={ref}
         className="relative h-full w-full"
@@ -248,12 +244,11 @@ export default function HookATrialNotAnswer({ deck }) {
             }}
             {...fade(0.8)}
           >
-            Three decisions where the trial that would have answered
-            them couldn't be run — and{' '}
+            Three cases. Three trial limits. Three{' '}
             <span style={{ color: 'var(--amber)', fontWeight: 600 }}>
               clinical pharmacology
             </span>
-            {' '}had to.
+            {' '}answers.
           </motion.p>
 
           {/* ─── Zone 4 — STRUCTURAL PROMISE (three marks) ─── */}
@@ -266,14 +261,8 @@ export default function HookATrialNotAnswer({ deck }) {
             }}
           >
             {MARKS.map((m, i) => {
-              /* Speaker-paced reveal — each mark lands when the speaker
-                 says its word. Math-locked to spoken script at 130 wpm
-                 with 1.5-sec ⏸ pauses:
-                   16s "It can't be run because it's [untrialable]" → UNTRIALABLE
-                   37s "It can't be run because it's [unavailable]" → UNAVAILABLE
-                   55s "It can't be run because it's [unbuilt]"     → UNBUILT
-                 Notes 🧷 cues give the speaker target seconds. */
-              const markDelay = [16, 37, 55][i];
+              /* Sped up from speaker-paced reveal (16s/37s/55s) for better viewing */
+              const markDelay = [1.2, 1.6, 2.0][i];
               return (
                 <motion.div
                   key={m.label}

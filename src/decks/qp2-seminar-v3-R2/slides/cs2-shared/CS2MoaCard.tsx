@@ -300,9 +300,11 @@ function LeadContent() {
         flex: 1,
         minHeight: 0,
         margin: 'var(--space-3) 0',
-        display: 'flex', alignItems: 'center', justifyContent: 'flex-start',
+        position: 'relative',
       }}>
-        <LeadSchematic />
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
+          <LeadSchematic />
+        </div>
       </div>
 
       <div style={{

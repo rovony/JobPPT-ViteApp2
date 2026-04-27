@@ -70,12 +70,12 @@ export default function CS2Pillars() {
             alignItems: 'stretch',
           }}>
             {/* Pillar 01 · MOA — the morphing card from slide 6 */}
-            <div style={{ display: 'flex', minWidth: 0 }}>
+            <div style={{ display: 'flex', minWidth: 0, minHeight: 0 }}>
               <CS2MoaCard variant="lead" style={{ flex: 1 }} />
             </div>
 
             {/* Pillar 02 · PK Similarity */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', minHeight: 0 }}>
               <PillarTextCard delay={go ? D.p2 : 0} eyebrow="Pillar 02" name="PK Similarity">
                 <PillarHeroNumber>n = 253</PillarHeroNumber>
                 <PillarSub>race not significant</PillarSub>
@@ -90,7 +90,7 @@ export default function CS2Pillars() {
             </div>
 
             {/* Pillar 03 · ER Similarity */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', minHeight: 0 }}>
               <PillarTextCard delay={go ? D.p3 : 0} eyebrow="Pillar 03" name="ER Similarity">
                 <PillarHeroItalic>
                   Flat<br />
@@ -110,7 +110,7 @@ export default function CS2Pillars() {
             </div>
 
             {/* Pillar 04 · Intrinsic */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', minHeight: 0 }}>
               <PillarTextCard delay={go ? D.p4 : 0} eyebrow="Pillar 04" name="Intrinsic">
                 <PillarHeroItalic size="tag">No impact</PillarHeroItalic>
                 <PillarSub>organ fn · age · sex</PillarSub>
@@ -125,7 +125,7 @@ export default function CS2Pillars() {
             </div>
 
             {/* Pillar 05 · Extrinsic */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', minHeight: 0 }}>
               <PillarTextCard delay={go ? D.p5 : 0} eyebrow="Pillar 05" name="Extrinsic">
                 <PillarHeroItalic size="tag">No impact</PillarHeroItalic>
                 <PillarSub>food · DDIs · comeds</PillarSub>
@@ -140,7 +140,7 @@ export default function CS2Pillars() {
             </div>
 
             {/* Pillar 06 · Global Reg */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', minHeight: 0 }}>
               <PillarTextCard delay={go ? D.p6 : 0} eyebrow="Pillar 06" name="Global Reg">
                 <PillarHeroNumber>30+</PillarHeroNumber>
                 <PillarSub>jurisdictions · 8 yrs</PillarSub>

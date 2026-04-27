@@ -14,10 +14,10 @@ import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/Slide
  * v3-R2 case set (REVISED 2026-04-25):
  *   CS1 — Ambrisentan · pediatric PAH                    · coral
  *   CS2 — Ivosidenib · India CDSCO regulatory waiver      · cyan
- *   CS3 — AI/ML pharmacometric tools (PharmAgent et al.)  · violet
+ *   CS3 — AI/ML pharmacometric tools (PharmAgent et al.)  · sage
  *
  * Note: CS3 was Calaspargase in v1/v2; replaced for v3-R2 with the
- * personal AI/ML research projects (PharmAgent / DeepPK / DosePredict).
+ * personal AI/ML research projects (PharmAgent / DeepPK / reproducible tooling).
  * Per zaj-slides confidentiality rule: AI tools framed as personal
  * research projects demonstrating capability — NOT as products for
  * transfer to a new employer.
@@ -46,11 +46,11 @@ const CASES = [
   },
   {
     n: '03',
-    token: 'violet',
+    token: 'sage',
     drug: 'AI / ML',
     indication: 'Pharmacometric tools',
     setting: 'Personal research · 2024 –',
-    proves: 'Where the next decade of dose-finding judgment scales: agent-assisted pharmacometrics.',
+    proves: 'Architecture judgment for privacy-safe, audit-ready clinical pharmacology workflows.',
   },
 ];
 

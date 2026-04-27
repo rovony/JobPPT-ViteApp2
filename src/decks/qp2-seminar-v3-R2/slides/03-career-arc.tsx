@@ -6,10 +6,10 @@ import { Eyebrow, Headline, Subhead, Viz } from '@/components/deck/SlideParts';
 import { SmallCoffee, TallCoffee, Thermos, EspressoMachine, IVBag } from './03-career-arc/CaffeineIcons';
 
 /**
- * Slide 03 · Career arc — "A Career in Caffeine"
+ * Slide 03 · Career arc — "Five stops, one operating question"
  *
- * Redesigned to feature a dose-escalation timeline spanning 15 years,
- * from dental surgery (small coffee) to clinical pharmacology director (IV PK drip).
+ * Professional timeline spanning 15+ years, from practicing clinician to
+ * clinical pharmacology director.
  * Layout optimized to prevent bottom card overflow and fix text sizing.
  */
 
@@ -81,23 +81,52 @@ export default function CareerArc() {
   return (
     <SlideGrid dataCase="amber" areas={STANDARD_AREAS}>
       <Eyebrow color="var(--amber)" delay={0.10}>
-        A Career in Caffeine
+        Career arc · five stops · five cups
       </Eyebrow>
 
       <Headline delay={0.25} maxChars={60}>
-        Fifteen-Year <span style={{ color: 'var(--amber)', fontWeight: 700 }}>Dose-Escalation</span> Study
+        From espresso to IV drip,{' '}
+        <span style={{ color: 'var(--amber)', fontWeight: 700 }}>one question.</span>
       </Headline>
 
       <Subhead delay={0.45} maxChars={100} size="lead">
-        n = 1 · self-administered · no ethics committee approval
+        How do we turn incomplete evidence into a defensible clinical pharmacology decision?
       </Subhead>
 
       <Viz>
-        <div ref={ref} style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
+        <div ref={ref} style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
           {/* Main Timeline Area */}
-          <div style={{ flex: 1, position: 'relative', marginTop: 'var(--space-2)', minHeight: 0, display: 'flex' }}>
-            
-            {/* The 5 Stops positioned in an alignment-bottom flex grid for staircase effect */}
+          <div style={{ flex: 1, position: 'relative', marginTop: 'var(--space-2)', minHeight: 0 }}>
+
+            {/* Ascending amber spine SVG behind the cards */}
+            <svg
+              viewBox="0 0 1000 500"
+              preserveAspectRatio="none"
+              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }}
+            >
+              <motion.path
+                d="M 30 460 C 150 440, 250 380, 350 340 C 450 300, 550 240, 650 180 C 750 120, 850 50, 970 20"
+                fill="none"
+                stroke="var(--amber)"
+                strokeWidth={2}
+                strokeLinecap="round"
+                opacity={0.2}
+                strokeDasharray={1600}
+                initial={{ strokeDashoffset: 1600 }}
+                animate={go ? { strokeDashoffset: 0 } : {}}
+                transition={{ duration: 1.4, ease: EASE, delay: 0.5 }}
+              />
+              <path
+                d="M 30 460 C 150 440, 250 380, 350 340 C 450 300, 550 240, 650 180 C 750 120, 850 50, 970 20"
+                fill="none"
+                stroke="var(--amber)"
+                strokeWidth={8}
+                strokeLinecap="round"
+                opacity={0.05}
+              />
+            </svg>
+
+            {/* Cards along an ascending curve */}
             <div style={{ 
               display: 'grid', 
               gridTemplateColumns: 'repeat(5, 1fr)', 
@@ -105,16 +134,17 @@ export default function CareerArc() {
               height: '100%', 
               width: '100%', 
               alignItems: 'end',
-              paddingBottom: '1rem',
+              position: 'relative',
+              zIndex: 1,
             }}>
               {STOPS.map((stop, i) => {
-                // Staircase effect goes UP from left to right
-                const mb = `${i * 3}vh`;
+                const curve = [0, 4, 10, 20, 32];
+                const mb = reduced ? 0 : `${curve[i]}vh`;
 
                 return (
                 <motion.div 
                   key={i}
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.8 + (i * 0.2), ease: EASE }}
                   style={{ 
@@ -122,15 +152,15 @@ export default function CareerArc() {
                     flexDirection: 'column',
                     alignItems: 'stretch',
                     marginBottom: mb,
-                    gap: 'var(--space-3)',
+                    gap: 'var(--space-2)',
                   }}
                 >
-                  {/* Icon on top of the card */}
-                  <div style={{ filter: 'drop-shadow(0 6px 10px rgba(0,0,0,0.3))', display: 'flex', justifyContent: 'center' }}>
+                  {/* Icon */}
+                  <div style={{ filter: 'drop-shadow(0 6px 10px color-mix(in srgb, var(--bg) 35%, transparent))', display: 'flex', justifyContent: 'center', transform: 'scale(0.85)', transformOrigin: 'bottom center' }}>
                     <stop.Icon reduced={reduced} />
                   </div>
 
-                  {/* Info Card underneath the cup */}
+                  {/* Info Card */}
                   <div style={{
                     background: 'color-mix(in srgb, var(--panel) 60%, transparent)',
                     backdropFilter: 'blur(12px)',
@@ -138,7 +168,7 @@ export default function CareerArc() {
                     border: '1px solid var(--cream-hairline)',
                     borderTop: `3px solid ${stop.color}`,
                     borderRadius: 'var(--radius-md)',
-                    padding: 'clamp(0.5rem, 1vw, 1rem)',
+                    padding: 'clamp(0.6rem, 1.2vw, 1.1rem)',
                     display: 'flex',
                     flexDirection: 'column',
                     gap: 'var(--space-2)',
@@ -148,7 +178,7 @@ export default function CareerArc() {
                       <div className="deck-display" style={{ fontSize: 'var(--fs-slide-tagline)', color: stop.color, fontWeight: 700, lineHeight: 1.2 }}>
                         {stop.years}
                       </div>
-                      <div className="deck-body" style={{ fontSize: 'clamp(12px, 1.2vw, 14px)', color: 'var(--cream)', fontWeight: 600, lineHeight: 1.3, marginTop: 4 }}>
+                      <div className="deck-body" style={{ fontSize: 'var(--fs-slide-kicker)', color: 'var(--cream)', fontWeight: 600, lineHeight: 1.3, marginTop: 'var(--space-1)' }}>
                         {stop.title}
                       </div>
                     </div>
@@ -157,7 +187,7 @@ export default function CareerArc() {
                       padding: 0, 
                       paddingLeft: '1rem', 
                       color: 'var(--cream-muted)', 
-                      fontSize: 'clamp(11px, 1.1vw, 13px)', 
+                      fontSize: 'var(--fs-slide-eyebrow)', 
                       lineHeight: 1.4, 
                       fontFamily: 'var(--font-body)' 
                     }}>
@@ -196,28 +226,36 @@ export default function CareerArc() {
           >
             {/* Impact Metrics */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', maxWidth: '35%' }}>
-              <div className="deck-mono uppercase" style={{ fontSize: '10px', color: 'var(--cream-faint)', letterSpacing: '0.1em' }}>
-                — IMPACT
+              <div className="deck-mono uppercase" style={{ fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-faint)', letterSpacing: '0.1em' }}>
+                IMPACT
               </div>
-              <div className="deck-display" style={{ fontSize: 'clamp(13px, 1.4vw, 16px)', color: 'var(--cream)', fontWeight: 500, lineHeight: 1.4 }}>
+              <div className="deck-display" style={{ fontSize: 'var(--fs-slide-subhead)', color: 'var(--cream)', fontWeight: 500, lineHeight: 1.4 }}>
                 15+ programs · 8 submissions · 6 global health authorities · 20+ peer-reviewed publications · 3 invited international talks
               </div>
             </div>
 
-            {/* Open Source Tools */}
+            {/* Independent innovation */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', alignItems: 'flex-end', flex: 1 }}>
-              <div className="deck-mono uppercase" style={{ fontSize: '10px', color: 'var(--cream-faint)', letterSpacing: '0.1em' }}>
-                INDEPENDENT INNOVATION — OPEN-SOURCE TOOLS
+              <div className="deck-mono uppercase" style={{ fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-faint)', letterSpacing: '0.1em' }}>
+                INDEPENDENT INNOVATION — RESEARCH SYSTEMS
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-2)', width: '100%', maxWidth: '36rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(12rem, 100%), 1fr))', gap: 'var(--space-2)', width: '100%', maxWidth: '44rem' }}>
                 {[
-                  { name: 'PharmAgent', desc: '13 agents · 151 tools\nend-to-end QP', color: 'var(--amber)' },
-                  { name: 'DeepPK', desc: 'Neural ODE + compartmental PK\nhybrid ML', color: 'var(--violet)' },
-                  { name: 'DosePredict', desc: 'PK dose prediction\nJ Clin Pharmacol, 2020', color: 'var(--cyan)' }
+                  { name: 'PharmAgent', desc: '13 agents · 151 tools\nmanuscript in prep · Case 3', color: 'var(--amber)', github: null },
+                  { name: 'DeepPK', desc: 'Neural ODE + compartmental PK\nhybrid ML', color: 'var(--violet)', github: 'malekokour/DeepPK' },
+                  { name: 'DosePredict', desc: 'Shiny app · PK-based dosing\nJ Clin Pharmacol', color: 'var(--cyan)', github: 'malekokour/DosePredict' }
                 ].map(tool => (
-                  <div key={tool.name} style={{ textAlign: 'left', border: `1px solid ${tool.color}`, borderRadius: 'var(--radius-sm)', padding: 'var(--space-2)', background: `color-mix(in srgb, ${tool.color} 8%, transparent)`, boxShadow: `0 4px 12px color-mix(in srgb, ${tool.color} 15%, transparent)` }}>
-                    <div className="deck-display" style={{ fontSize: 'clamp(12px, 1.2vw, 14px)', color: tool.color, fontWeight: 700 }}>{tool.name}</div>
-                    <div className="deck-mono" style={{ fontSize: '9px', color: 'var(--cream)', marginTop: 4, lineHeight: 1.3, letterSpacing: '0.02em', whiteSpace: 'pre-wrap' }}>{tool.desc}</div>
+                  <div key={tool.name} style={{ textAlign: 'left', border: `1px solid ${tool.color}`, borderRadius: 'var(--radius-sm)', padding: 'var(--space-3)', background: `color-mix(in srgb, ${tool.color} 8%, transparent)`, boxShadow: `0 4px 12px color-mix(in srgb, ${tool.color} 15%, transparent)` }}>
+                    <div className="deck-display" style={{ fontSize: 'var(--fs-slide-eyebrow)', color: tool.color, fontWeight: 700 }}>{tool.name}</div>
+                    <div className="deck-mono" style={{ fontSize: 'var(--fs-slide-eyebrow)', color: 'var(--cream)', marginTop: 'var(--space-1)', lineHeight: 1.3, letterSpacing: '0.02em', whiteSpace: 'pre-wrap' }}>{tool.desc}</div>
+                    {tool.github && (
+                      <div style={{ marginTop: 'var(--space-1)', display: 'flex', alignItems: 'center', gap: '0.35em' }}>
+                        <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" style={{ color: 'var(--cream-muted)', flexShrink: 0 }}>
+                          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z" />
+                        </svg>
+                        <span className="deck-mono" style={{ fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-muted)', letterSpacing: '0.02em' }}>{tool.github.split('/')[1]}</span>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

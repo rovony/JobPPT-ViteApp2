@@ -34,9 +34,9 @@ That last sentence — *let's start with the main question* — is the cue to ad
   // Slide 02-A — Hook: "When the trial isn't the answer." (~75 sec)
   // Phase A audit 2026-04-26: Spoken locked to UNTRIALABLE/UNAVAILABLE/UNBUILT
   // vocabulary so the on-slide marks and the spoken word arrive in lockstep.
-  // Mark stagger 16s/37s/55s in the JSX is math-locked to when each bucket
-  // word is spoken at 130 wpm with 1.5-sec ⏸ pauses; the 🧷 cues below are
-  // the verbatim time-locks the speaker rehearses against. Dropped the tutorial-voice close and
+  // The three mark cards now reveal early for normal viewing; the speaker
+  // still lands them as verbal beats, but no longer has to sync to animation
+  // timestamps. Dropped the tutorial-voice close and
   // the ghost-line "What clinical pharmacology does next." reference (not on
   // the slide; was an unauthorized linter add reverted 2026-04-25).
   'hook-A-trial-not-answer': `## Spoken
@@ -50,54 +50,57 @@ It can't be run because it's **unavailable** — ==a regulator asks for a local 
 
 It can't be run because it's **unbuilt** — the next decade of clinical pharmacology will need ==infrastructure, audit, and decision tools no vendor can give you off the shelf==. ⏸
 
-Three cases — three conventional trials that couldn't be run — and *three answers anyway*. ⏸ That's the function.
+Three cases. Three trial limits. Three ==clinical pharmacology answers==. ⏸ That's the structure for this talk.
 
 ## Cues
 - ⏱ 75 sec total — the slide is a stage. The pauses do the work.
 - 🎚 Lower register on the three "it can't be run" beats. Each one lands separately. Resist the urge to chain them into a single breath.
-- 🧷 Time-lock the three beats: say **"untrialable"** at ~16 sec · **"unavailable"** at ~37 sec · **"unbuilt"** at ~55 sec. Each mark fades onto the slide AS you say its word — visual + voice in lockstep. (Math-locked at 130 wpm; if you naturally run faster or slower, anchor to landing each word on the second mark, not the clock.)
-- 📍 Stand still through the three reasons. Step forward on "Three cases — three conventional trials that couldn't be run — and three answers anyway."
+- 🧷 Verbal-lock the three beats: **"untrialable"** · **"unavailable"** · **"unbuilt."** The cards are already visible; your job is to make each word feel like a chapter, not an animation cue.
+- 📍 Stand still through the three reasons. Step forward on "Three cases. Three trial limits. Three clinical pharmacology answers."
 - 🎯 Eye contact rotates: first beat to the panel chair, second to a regulatory-leaning panelist if you can identify one, third to the most senior pharmacometrics panelist.
 - ⚠ Do NOT name drugs here. Drugs come at S04. Naming a drug now collapses the rhetorical weight of the open.
 - ⚠ Do NOT say "today's topic is" or "I'm going to walk you through" or any other tutorial-voice phrase. The hook IS the framing; do not narrate that you are framing.
-- ✅ The most quotable line is "Three answers anyway." Land it cleanly.
-- ✅ Closing — "Three cases — three conventional trials that couldn't be run — and three answers anyway. ⏸ That's the function." — em-dashes give you the rhythm; the ⏸ before "That's the function" is the load-bearing pause. Hard cut after; do NOT extend.
-- 🛟 If you blank, the recovery line is: "Three conventional trials that couldn't be run. Three answers anyway. That's the function."
+- ✅ The most useful line is "Three clinical pharmacology answers." Land it clearly, not dramatically.
+- ✅ Closing — "Three cases. Three trial limits. Three clinical pharmacology answers. ⏸ That's the structure for this talk." — keep it plain and readable. Hard cut after; do NOT extend.
+- 🛟 If you blank, the recovery line is: "Three cases. Three trial limits. Three clinical pharmacology answers."
 
 ## Bridge
-→ Next slide names the three cases as decision-classes — pediatric extrapolation, regional bridging, forward-looking infrastructure — without yet naming the drugs.`,
+→ Quick background next, then the roadmap names the three cases as decision-classes — pediatric extrapolation, regional bridging, forward-looking infrastructure.`,
 
-  // Slide 03 — Career arc · five stops, one question (~90 sec)
-  // Visual: 5 hubs along an ascending amber spine — Jordan → Minnesota
-  //   → Merck (intern) → GSK → Servier. Don't read every satellite.
+  // Slide 03 — Career arc · five stops, one operating question (~90 sec)
+  // Visual: five-stop professional arc — Jordan → Minnesota → Merck intern
+  //   → GSK → Servier. Don't read every satellite.
   //   The graphic does the visual work; the speaker names each stop
   //   with ONE concrete fact that earns the panel's trust.
   'career-arc': `## Spoken
 Quick background before we get into the cases.
 
-I started as a dentist in Jordan. ⏸ Then PhD in Minnesota with Dr. Brundage — population PK, exposure-response. ⏸
+I started as a dentist in Jordan. ⏸ Then PhD in Minnesota with Dr. Brundage — in Clin Pharm and Pharmacometrics. ⏸
 
-Summer of 2014 I came **here**, to Merck — QP2, as an intern. First time I saw nonlinear-mixed-effects simulation actually ship a drug. *Honestly, that summer is part of why we're sitting here today.* ⏸
+Summer of 2014 ==I came here, to Merck== — QP2, as an intern. I worked on simulation with uncertainty and clinical trial simulations. Honestly, that summer is part of why we are sitting here today. ⏸
 
-Seven years at GSK after that — Clin Pharm modeling and simulation, five therapeutic areas, four approvals during my tenure. The ambrisentan pediatric work happened there — that's case one. ⏸
+Then seven years at GSK after that — in Clin Pharm modeling and simulation, across five therapeutic areas and ==four approvals== during my tenure. The ambrisentan pediatric work happened there — that's case one. ⏸
 
-And since 2022, Director at Servier on the oncology side. Three approvals on my watch — Onivyde, Oncaspar, Tibsovo lifecycle. The India ivosidenib waiver — that's case two.
+Since 2022, Director at Servier on the oncology side. Onivyde, Oncaspar, Tibsovo lifecycle. The India ivosidenib waiver — that's case two.
 
-That's the background. Let me get into the cases.
+Alongside that, I also kept building independent research tools. DosePredict was a Shiny application for PK-based dose prediction, published in the *Journal of Clinical Pharmacology*. DeepPK was my work on classical compartmental models combined with hybrid Neural Ordinary Differential Equations — Neural ODEs. And PharmAgent is the current work in progress, manuscript in preparation. That becomes case three.
+
+That's the background. ==Now the three cases.==
 
 ## Cues
-- ⏱ ~80 sec — ~160 words at relaxed conversational pace; the graphic carries the visual, don't read every satellite
-- 🎚 Plain, factual register throughout — this is bio, not narrative; resist the urge to make it poetic
-- 🎚 Small warm lift on "I came **here**, to Merck" — earn it, don't perform it
-- 🎚 Drop the voice slightly on "honestly, that summer is part of why we're sitting here today" — said quietly, not as a punchline
-- 🎯 Sweep gesture left-to-right across the five hubs as you name each; the spine ascends — your hand should too
+- ⏱ ~80 sec — relaxed pace; the graphic carries the visual
+- 🎚 Plain and factual — this is background, not a performance
+- 🎚 Natural emphasis on "came here, to Merck"
+- 🎚 Say the summer-2014 line warmly, then move on
+- 🎚 Keep the independent-tools paragraph as a bridge, not a product pitch
+- 🎯 Sweep left-to-right across the five hubs as you name them
 - 🎯 Eye contact: panel chair on Jordan → modeling-leaning panelist on Minnesota → most senior panelist on "I came here, to Merck" → regulatory-leaning panelist on GSK → chair again on Servier
 - ⚠ Do NOT recite the slide — the headline already says "Five stops, one question" and the footer already says "what dose, for whom, why?" Saying either out loud is double-spending the emphasis
 - ⚠ Do NOT name compounds beyond ambrisentan, ivosidenib, and the public Servier portfolio (Onivyde, Oncaspar, Tibsovo). No CS3 compounds yet.
 - ⚠ Do NOT linger on awards or numbers; name once and move
-- ⚠ Do NOT preview the AI/ML work — that's CS3
-- ✅ Land cleanly on "Let me get into the cases" — that's the working transition, not a poetic landing
-- 🛟 If you blank — fallback: "Quick background — dentist in Jordan, PhD in Minnesota, Merck QP2, GSK, now Director at Servier. Onto the cases."
+- ⚠ Do NOT over-explain DosePredict, DeepPK, or PharmAgent here — one line each, then move
+- ✅ Land cleanly on "Now the three cases"
+- 🛟 If you blank — fallback: "Dentist in Jordan, PhD in Minnesota, Merck QP2, GSK, now Director at Servier. Now the cases."
 
 ## Bridge
 → Now the agenda — three cases, three challenges, one discipline.`,
@@ -107,23 +110,23 @@ That's the background. Let me get into the cases.
   //   each case's drug, indication, regulator, and what it proves.
   //   This slide sets the timing expectations for the panel.
   'roadmap': `## Spoken
-So here's the agenda — three case studies, and each one is a different kind of challenge, but they all come back to one discipline at the center: ==quantitative pharmacology driving the decision==.
+So here's the agenda — three cases, each with a different problem, but all coming back to one thing: ==quantitative pharmacology driving the decision==.
 
-**==Case one — ambrisentan, pediatric PAH==** — the only pediatric trial was terminated mid-program at thirty-nine of sixty-six patients. The question became whether the ==pharmacokinetic bridge== could still carry a pediatric label. EMA and PMDA said yes in 2021 — and the framework that made that possible was ==exposure matching==. ⏸
+**==Case one — ambrisentan, pediatric PAH==** — the pediatric trial stopped at thirty-nine of sixty-six planned patients. The question became whether the ==pharmacokinetic bridge== could still support a pediatric label. EMA and PMDA said yes in 2021. The key was ==exposure matching==. ⏸
 
-**==Case two — ivosidenib, India==** — a drug that was approved in the US and Europe but unavailable to Indian patients because CDSCO required a local Phase 3 the program had no time to run. We replaced the local trial with a ==six-pillar regulatory dossier under Rule 101==, and CDSCO approved it May 2025. ⏸
+**==Case two — ivosidenib, India==** — approved in the US and Europe, but still unavailable to Indian patients because CDSCO expected local clinical evidence. The answer was a ==six-pillar regulatory dossier under Rule 101==. CDSCO approved it in May 2025. ⏸
 
-**==Case three — AI and machine learning in pharmacometrics==** — the infrastructure that the next decade of clinical pharmacology will need, from agent-assisted analysis to audit-by-construction to ICH M15-aligned platforms. This is my own research, designed to be ==published==. ⏸
+**==Case three — AI and machine learning for clinical pharmacology workflows==** — this is the infrastructure question: privacy boundaries, deterministic tools, audit trail, and ICH M15-aligned documentation. This is ==research and architecture judgment==, not a product pitch. ⏸
 
-==Three challenges — pediatric, geographic, methodological.== One discipline doing the work that carried each one across the line. About ten minutes per case, then a brief synthesis and questions at the end.
+==Three challenges — pediatric, geographic, methodological.== One discipline carrying the decision in each case. About ten minutes per case, then a brief synthesis and questions at the end.
 
 ## Cues
 - ⏱ ~75 sec — three card-beats + one synthesis line + timing expectations
 - 🎚 Even energy across the three cards — don't oversell any single case
 - 🎯 Gesture toward each card as you name it — left, center, right
 - ⚠ Do NOT preview case-level numbers (39 patients, May 14 2025, etc.) — those land inside the case
-- ⚠ Do NOT apologize for CS3 being "personal research" — say "my own research" and move on neutrally
-- ✅ Land cleanly on "ten minutes per case, then a brief synthesis and questions at the end" — sets the panel's clock
+- ⚠ Do NOT pitch PharmAgent as a deployable product. Say "research and architecture judgment," then move on.
+- ✅ Land cleanly on "ten minutes per case, then a brief synthesis and questions at the end"
 - ✅ The opening "So here's the agenda" picks up from career-arc bridge ("Now the agenda")
 - 🛟 If you blank — fallback: "Three cases. Pediatric, geographic, methodological. About ten minutes each. Let's start with case one."
 
@@ -203,17 +206,17 @@ The cases I'm going to walk you through are not abstractions. *They are the work
 
   // V2-S1 · Divider · "Ambrisentan" — 30 sec
   'cs1-divider': `## Spoken
-The first case study is **==ambrisentan==** ⏸ — an oral selective endothelin-A antagonist for pulmonary arterial hypertension. ==Eight to under eighteen years==. Phase IIb terminated mid-program. EMA and PMDA approved the pediatric label in 2021.
+First case: **==ambrisentan==** — an oral selective endothelin-A antagonist for pulmonary arterial hypertension.
 
-⏸ The clinical pharmacology question: ==when the pediatric trial is terminated== — can the **==pharmacokinetic bridge==** still carry a pediatric label?
+This is pediatrics: ==eight to under eighteen years==. The Phase IIb program was terminated mid-program, but EMA and PMDA still approved the pediatric label in 2021.
+
+So the clinical pharmacology question is simple: ==when the pediatric trial is terminated==, can the **==pharmacokinetic bridge==** still support a pediatric label?
 
 ## Cues
-- ⏱ Land in 25 sec — case opener, no overrun
-- 🎯 Eye contact across the panel; don't read the slide
-- 🎚 Measured authority — set the tone; the case has eight years of detail behind it
-- 📍 Stand center-stage; let the lung illustration land visually
-- ⚠ Do NOT mention FDA on this opener — the FDA caveat is on slide 14
-- ✅ Land cleanly on "still carry a pediatric label?" — advance
+- ⏱ 25 sec — quick case opener
+- 🎚 Plain and factual; do not make this sound dramatic
+- ⚠ Do NOT mention FDA yet — save the caveat for the outcome slide
+- ✅ Land on "can the pharmacokinetic bridge still support a pediatric label?"
 
 ## Bridge
 → Let me put the question in front of you first.`,
@@ -224,361 +227,354 @@ The first case study is **==ambrisentan==** ⏸ — an oral selective endothelin
   // a label; subtitle frames this as exposure matching under program
   // disruption. Notes walk the 380/39 asymmetry + three disruptions.
   'cs1-question': `## Spoken
-Here is the question for this case. ⏸ ==When the pediatric trial is terminated — can the pharmacokinetic bridge still carry a pediatric label?==
+Here is the question for the case: ==when the pediatric trial is terminated, can the pharmacokinetic bridge still carry a pediatric label?==
 
-In other words, this is a disrupted pediatric program testing whether ==exposure matching== can still support **a defensible pediatric dose**.
+The adult side was strong: **==380 adult patients==** across six studies, with a mature adult PK anchor.
 
-Let me show you the scale of the problem. **==Three hundred eighty adult patients==** across six studies. A mature adult PK anchor. The standard playbook.
+The pediatric side was much smaller: **==39 patients==**, open-label, PK-anchored, and no placebo comparator.
 
-⏸ The pediatric dataset: **==thirty-nine patients==**. Open-label. PK-anchored. No placebo comparator.
+And the program had three things happening at the same time: a ==juvenile-rat finding== that held enrollment, a ==sildenafil mortality signal== that changed how regulators thought about pediatric dose selection, and ==split commercial rights== between Gilead and GSK.
 
-And three disruptions running in parallel — a ==juvenile-rat finding== that held enrollment, a ==sildenafil mortality signal== that raised the field's dose-selection bar, and ==split commercial rights== between Gilead and GSK from day one.
-
-⏸ **A defensible pediatric dose came out anyway.** This case is how.
+So this was not a clean pediatric efficacy-trial story. It was a question of whether ==exposure matching== could still support **a defensible pediatric dose**.
 
 ## Cues
-- ⏱ ~60 sec — six clean beats; don't add detail
-- 🎯 Slow on "thirty-nine patients" — let the contrast with 380 land
-- 🧷 Say "exposure matching" exactly — matches the subtitle and avoids overclaiming efficacy
-- 🎚 Matter-of-fact on the three disruptions — name them, don't dramatize
-- ⚠ Do NOT say "the trial failed" — it was disrupted by a preclinical signal and formally terminated later
-- ⚠ Do NOT over-explain the subtitle — use it as the frame, then move to the evidence
-- ⚠ Do NOT preview the model or the framework — that's slide 12's job
-- ✅ Walk the right-panel timeline: HELD → REFRAMED → CONSTRAINED → APPROVED
-- ✅ Land on "this case is how" — match the payoff card on screen
+- ⏱ ~60 sec — keep the contrast clear: 380 adults vs 39 pediatric patients
+- 🎚 Conversational; say "here is the question" like you are orienting the room
+- ⚠ Do NOT say "the trial failed"
+- ✅ Use the exact phrase "exposure matching"
 
 ## Bridge
 → Disease context first — the panel needs PAH 101 before the framework lands.`,
 
   // V2-S3 · PAH 101 · disease foundation — 60 sec
   'cs1-context': `## Spoken
+Quick PAH 101.
+
 Pulmonary arterial hypertension is **==a small-vessel disease of the lungs that kills through right-heart failure==**.
 
-Three things happen at once — ==vasoconstriction==, ==smooth-muscle and endothelial proliferation==, and ==in-situ thrombosis==. The lumen narrows. Pulmonary vascular resistance — PVR — rises. The right ventricle has to push blood through a narrower, higher-resistance bed; it becomes hypertrophic, then dilates, then **fails**.
+Three things happen together: ==vasoconstriction==, ==smooth-muscle and endothelial proliferation==, and ==in-situ thrombosis==. The lumen narrows, pulmonary vascular resistance rises, and the right ventricle has to push against a higher-resistance circuit.
 
-⏸ Patients don't die of pulmonary hypertension. They die of right-heart failure.
+Over time, the right ventricle hypertrophies, dilates, and then fails. Patients do not really die from the pressure number. They die from right-heart failure.
 
-The hemodynamic definition — *2022 ESC/ERS* — is **mean pulmonary arterial pressure ≥ 20 millimeters of mercury, pulmonary vascular resistance ≥ 2 Wood units, with a wedge pressure ≤ 15**. That last criterion is what makes it pre-capillary disease — the pathology is in the arterioles themselves.
+The current *2022 ESC/ERS* hemodynamic definition is **mean pulmonary arterial pressure ≥ 20 millimeters of mercury, pulmonary vascular resistance ≥ 2 Wood units, and wedge pressure ≤ 15**. That last part tells you this is pre-capillary disease.
 
-For this case, the target is the **==endothelin pathway==**. Endothelin is the over-active vasoconstrictor and proliferative arm, and ambrisentan blocks ETA.
+For this case, the relevant pathway is endothelin. Endothelin is the over-active vasoconstrictor and proliferative signal, and ambrisentan blocks ETA.
 
-Untreated median survival is **==2.8 years==** — that's the *D'Alonzo NIH registry from 1991*, the benchmark every PAH therapy has been measured against.
+The historical benchmark is still striking: untreated median survival was **==2.8 years==** in the *D'Alonzo NIH registry from 1991*.
 
 ## Cues
-- ⏱ ~60 sec; this slide carries the disease-onboarding load — don't rush
-- 🎯 Make eye contact at "they die of right-heart failure" — that's the moment the panel registers severity
-- 🎚 Lower volume slightly at "Patients don't die of pulmonary hypertension" — adds weight
-- 📍 Gesture toward the lung at "small-vessel disease of the lungs"
-- ⚠ Don't dive deeper into ETA selectivity — that is the next slide
-- ⚠ The slide shows BOTH the 2022 ESC/ERS definition (mPAP ≥20) AND the 2008 Dana Point criteria the trial actually used (mPAP ≥25). You cite the 2022 definition in spoken text — if asked, clarify that AMB112529 enrolled under the older threshold
+- ⏱ ~60 sec — disease setup, not a lecture
+- 🎚 Plain explanation first, definitions second
+- ⚠ The trial used older Dana Point criteria with mPAP ≥25; only explain if asked
+- ✅ Make "right-heart failure" the simple takeaway
 
 ## Bridge
 → That's the disease. Mechanism next — what makes ambrisentan the right tool.`,
 
   // V2-S3b · Mechanism — endothelin pathway · ambrisentan MOA — 60 sec
   'cs1-mechanism': `## Spoken
-Three pathways drive PAH. Ambrisentan blocks one — **==selectively==**.
+PAH treatment is organized around pathways. Ambrisentan works on the endothelin pathway, and the important word is **==selective==**.
 
-⏸ The visual on the left is the disease state — endothelin-1 binding ETA, the receptor on vascular smooth muscle. Result: vasoconstriction and proliferation. The pulmonary arteriole narrows.
+On the disease side, endothelin-1 binds ETA on vascular smooth muscle. That drives vasoconstriction and proliferation, so the arteriole narrows.
 
-The visual on the right is the same arteriole with ambrisentan on board. Ambrisentan sits on **==ETA==** — over four-thousand-to-one selectivity — leaving **==ETB==** intact. ETB clears endothelin-1 from circulation and releases nitric oxide. So you block the constrictor without taking out the dilator.
+With ambrisentan on board, the drug sits mainly on **==ETA==** — over **==4000:1 selectivity==** — while leaving **==ETB==** relatively intact. ETB matters because it helps clear endothelin-1 and releases nitric oxide.
 
-⏸ Bosentan binds both — about twenty-to-one. Macitentan, fifty-to-one. **Ambrisentan, four thousand.** That's the selectivity story.
+So the idea is straightforward: block the constrictor arm without removing the dilator and clearance arm.
 
-⏸ The other two pathways — nitric oxide / cGMP, prostacyclin — have their own drugs, their own approval years. They sit on the slide as field context. The case is the endothelin pathway.
+For context, bosentan is about **20:1** selective, macitentan about **50:1**, and ambrisentan is over **4000:1**. That is the selectivity story.
+
+The other two PAH pathways — nitric oxide / cGMP and prostacyclin — are here for context. This case is the endothelin pathway.
 
 ## Cues
-- ⏱ 45 sec — mechanism + competitor frame; don't dwell on disease detail
-- 🎚 Slow on "ETA" / "ETB" — the panel needs to register the receptor distinction
-- 🎯 Walk the panel left → right across the dual vessel
-- ⚠ Do NOT explain endothelin-1 biosynthesis — out of scope, will get probed if you open it
-- ⚠ Do NOT inflate selectivity ("massive", "extreme") — the >4000:1 number speaks for itself
-- ✅ Land on "that's the selectivity story" — advance
+- ⏱ 45 sec — mechanism only
+- 🎚 Slow down on ETA vs ETB
+- ⚠ Do NOT inflate the selectivity; the number is enough
+- ✅ Land on "that is the selectivity story"
 
 ## Bridge
 → Field context next — where ambrisentan sits in the pediatric PAH timeline.`,
 
   'cs1-history': `## Spoken
-Step back from ambrisentan for a beat. ==This slide is the PAH treatment landscape: three decades, four pathway columns.== ⏸
+Step back from ambrisentan for a minute. This is the PAH treatment landscape: three decades, four pathway columns.
 
-Before targeted therapy, PAH care was mostly supportive: oxygen, anticoagulation, and calcium-channel blockers for the small vasoreactive subset. ==No targeted PAH therapy yet.== ⏸
+Before targeted therapy, care was mostly supportive: oxygen, anticoagulation, and calcium-channel blockers for the small vasoreactive subset. No targeted PAH therapy yet.
 
-The first pathway opened in ==1995 with IV epoprostenol== — prostacyclin biology. It was the first PAH-specific therapy. It worked, but the delivery burden was high: continuous infusion, central line, serious interruption risk. ⏸
+The first pathway opened in ==1995 with IV epoprostenol==, through prostacyclin biology. It was the first PAH-specific therapy, but the delivery burden was high: continuous infusion, central line, and serious interruption risk.
 
-The second pathway opened in ==2001 with bosentan== — endothelin receptor antagonism. First oral PAH therapy. Dual ETA/ETB blockade. This is the point where outpatient chronic treatment became much more realistic. ⏸
+The second pathway opened in ==2001 with bosentan==: endothelin receptor antagonism, and the first oral PAH therapy.
 
-The third pathway opened in ==2005 with sildenafil== — NO / cGMP biology through PDE5 inhibition. That gave the field a second oral axis, not just another endothelin drug. ⏸
+The third pathway opened in ==2005 with sildenafil==: NO / cGMP biology through PDE5 inhibition.
 
-Then the field expanded inside those pathways. ==Ambrisentan enters in 2007== — the drug at the center of this case: selective ETA, oral once daily. In ==2013==, macitentan and riociguat broadened the oral landscape. In ==2015==, selexipag added an oral prostacyclin-pathway option. By the mid-2010s, PAH had ==three pathways, multiple oral options, and combination protocols==. ⏸
+Then ambrisentan enters in ==2007==: selective ETA, oral once daily. In ==2013==, macitentan and riociguat broadened the oral landscape. In ==2015==, selexipag added an oral prostacyclin-pathway option.
 
-Then the fourth pathway appears in ==March 2024 with sotatercept== — activin / TGF-beta signaling, rebalancing the BMPR-II axis. This is not an ERA, PDE5 inhibitor, or prostacyclin-pathway drug. It is a new mechanism entering a field that had been organized around the same three pillars for years. ⏸
+By the mid-2010s, PAH had ==three pathways, multiple oral options, and combination protocols==.
 
-The point of the slide is simple: ==PAH treatment evolved by pathway expansion.== Ambrisentan sits in the endothelin column. Sotatercept shows why the same pediatric-extrapolation problem is still live in PAH today. That is the bridge back to the case.
+Then in ==March 2024==, sotatercept added a fourth pathway: activin / TGF-beta signaling, rebalancing the BMPR-II axis.
+
+The point is: ==PAH treatment evolved by pathway expansion==. Ambrisentan sits in the endothelin column, and the pediatric extrapolation question is still relevant today.
 
 ## Cues
-- ⏱ 75 sec — pace it. Each era gets its own beat.
-- 🎚 Quiet on supportive era; lift on each pathway opening; ==the skim anchors are 1995 / 2001 / 2005 / 2007 / 2024==
-- 📍 Use the timeline as the visual spine. The pathway cards at the bottom are the structural takeaway.
-- 🎯 On "PAH treatment evolved by pathway expansion" — pause. That is the takeaway.
-- ⚠ Do NOT enumerate every drug — the slide does that. Speak to the ARC of expansion.
-- ⚠ Do NOT claim familiarity with sotatercept's clinical-pharm package; keep it to public-record mechanism and approval context.
-- ⚠ Do NOT make this a company-praise slide. It is a pathway-history slide.
-- ✅ Land cleanly on "the pediatric-extrapolation problem is still live" — then advance.
+- ⏱ 75 sec — timeline, not encyclopedia
+- 🎚 Use the years as skim anchors: 1995 / 2001 / 2005 / 2007 / 2024
+- ⚠ Do NOT enumerate every drug beyond what is needed
+- ✅ Land on "pathway expansion"
 
 ## Bridge
-→ AMB112529 trial design + LTE. Now that you know where ambrisentan sits in the field, here is the trial that built the dossier.
-
-## Hard Words
-- PAH (say letters: P-A-H)
-- ambrisentan (am-BRI-sen-tan)
-- Letairis (luh-TAIR-iss)
-- Volibris (voh-LIB-ris)
-- epoprostenol (eh-po-PROS-teh-nol)
-- prostacyclin (pros-ta-SY-klin)
-- bosentan (bo-SEN-tan)
-- endothelin (en-doh-THEE-lin)
-- sildenafil (sil-DEN-a-fil)
-- macitentan (ma-si-TEN-tan)
-- riociguat (rye-oh-SIG-you-at)
-- selexipag (seh-LEX-ih-pag)
-- sotatercept (so-ta-TER-sept)
-- activin (AK-tih-vin)
-- TGF-beta (T-G-F beta)
-- BMPR-II (B-M-P-R two)
-- cGMP (C-G-M-P)`,
+→ AMB112529 trial design + LTE. Now that you know where ambrisentan sits in the field, here is the trial that built the dossier.`,
 
   // Slide 08 — CS1 field-level timeline (adult + pediatric tracks)
   'cs1-trial': `## Spoken
-Pediatric PAH moves slowly. ⏸ Adult landmarks above the axis: ==bosentan 2001, sildenafil 2005, ambrisentan 2007, macitentan 2013, selexipag 2015, sotatercept 2024==. Six landmarks across two decades — not exhaustive, but enough to show how much faster adult PAH moved.
+Pediatric PAH moved more slowly than adult PAH.
 
-Pediatric arms below — sparser, slower. ==Bosentan 2009 EMA== was the inflection: FUTURE-1, the first PK-matching framework approved in pediatric PAH. Every pediatric ERA program since has used that template.
+Above the axis are adult landmarks: ==bosentan 2001, sildenafil 2005, ambrisentan 2007, macitentan 2013, selexipag 2015, sotatercept 2024==. Not exhaustive, but enough to show the pace.
 
-⏸ Ambrisentan's pediatric path took **==eight years==**. ==Held== — March 2013, juvenile rat brain-weight finding. ==Terminated== — February 2019, at forty-one of sixty-six enrolled. ==Approved== — 2021, EMA and PMDA, on the Okour PopPK package. **The dashed coral arc on the slide is that hold-to-approval rebound.**
+Below the axis are the pediatric steps. The key early precedent is ==bosentan 2009 EMA== with FUTURE-1: the first PK-matching framework approved in pediatric PAH.
 
-⏸ ICH E11A in 2024 codified the framework — four years after this case applied it.
+Ambrisentan took **==eight years==**. Enrollment was ==held== in March 2013 because of the juvenile rat brain-weight finding. The study was ==terminated== in February 2019 at **41 of 66 enrolled**. Then in ==2021==, EMA and PMDA approved the pediatric label on the Okour PopPK package.
+
+So the dashed coral arc is the story: held, terminated, then approved.
+
+And ICH E11A in 2024 codified the framework four years after this case had already used it.
 
 ## Cues
-- ⏱ 70 sec — timeline-heavy, deliver crisply
-- 🎚 Tabular on the years — let the panel see you holding 2001–2024 as a structured field
-- 🎯 The eye-contact moment is "eight years" — that's the case's emotional weight
-- ⚠ Do NOT linger on individual competitor approvals — name them, move on
-- ⚠ Do NOT say "the trial failed" — formal termination on a preclinical signal isn't a Clin Pharm failure
-- ✅ Land on "ICH E11A codified the framework — four years after this case applied it"
+- ⏱ ~70 sec — keep the timeline clean
+- 🎚 Calm on "eight years"; no melodrama
+- ⚠ Do NOT say "the trial failed"
+- ✅ End on "E11A codified the framework four years later"
 
 ## Bridge
 → Why no pediatric efficacy trial — five constraints — next.`,
 
   // Slide 09 — CS1 adult foundation + why pediatric efficacy trial path closes
   'cs1-architecture': `## Spoken
-This is the pivot slide. ==Adult evidence existed. The pediatric efficacy-trial path did not.== ⏸
+This is the pivot.
 
-The adult foundation is enough to anchor the question: ARIES established adult PAH efficacy, ETA blockade is mechanistically plausible in pediatric PAH, and the clinical task becomes dose selection. But it is **not** enough to simply repeat the adult trial in children. ⏸
+Adult evidence existed. The pediatric efficacy-trial path did not.
 
-Five things break the classical efficacy-trial logic.
+ARIES established adult PAH efficacy. ETA blockade was mechanistically plausible in pediatric PAH. So the clinical task became dose selection.
 
-**==One — enrollment.==** Pediatric PAH is rare: roughly two to sixteen per million children. The patient pool barely exists.
+But repeating the adult efficacy trial in children was not realistic.
 
-**==Two — pooling.==** The AMB112529 population was not one clean phenotype: idiopathic, post-repair congenital heart disease, connective tissue disease, and familial disease.
+Five constraints made that clear.
 
-**==Three — control arm.==** Eighty percent entered on baseline PAH therapy. Sixty-six percent continued it. A clean placebo-controlled pediatric efficacy trial is practically and ethically hard.
+**==One — enrollment.==** Pediatric PAH is rare: roughly **2 to 16 per million children**.
 
-**==Four — endpoint.==** Six-minute walk distance does not transfer cleanly to young children. Performance, cooperation, and growth contaminate the signal.
+**==Two — pooling.==** AMB112529 was not one clean phenotype: idiopathic disease, post-repair congenital heart disease, connective tissue disease, and familial disease.
 
-**==Five — precedent.==** STARTS-1 enrolled two hundred thirty-five children and still narrowly missed its prespecified CPET peak VO₂ primary, p=0.056. That is not a throwaway fact. It shows the field had already stress-tested the pediatric efficacy-trial route.
+**==Three — control arm.==** **80%** entered on baseline PAH therapy, and **66%** continued it. A clean placebo-controlled pediatric efficacy trial is hard clinically and ethically.
 
-⏸ So the clinical question was not: can we repeat ARIES in children? **The question was: ==how do you defend a pediatric dose under these constraints?==**
+**==Four — endpoint.==** Six-minute walk distance does not transfer cleanly to young children. Growth, cooperation, and performance all affect the signal.
+
+**==Five — precedent.==** STARTS-1 enrolled **235 children** and still narrowly missed its prespecified CPET peak VO₂ primary endpoint, **p=0.056**.
+
+So the question was not, "Can we repeat ARIES in children?" The question was: ==how do we defend a pediatric dose under these constraints?==
 
 ## Cues
-- ⏱ 65–75 sec — simpler slide face; let the five constraints breathe
-- 🎚 Numbered delivery — "one, two, three, four, five" — gives the panel the structure to follow
-- 🎯 STARTS-1 p=0.056 is the strongest drill-down fact — pause briefly
-- ⚠ Do NOT over-explain the drug profile live — it is now Q&A backup
-- ⚠ Do NOT say "the trial failed"; say the traditional efficacy-trial path could not carry the decision
-- ✅ Land on "how do you defend a pediatric dose under these constraints?" — that's the pivot
+- ⏱ 65–75 sec — five numbered beats
+- 🎚 Say the constraints plainly; this is senior judgment, not drama
+- ⚠ Do NOT say "trial failed"
+- ✅ Land on the dose-defense question
 
 ## Bridge
 → Now the PopPK build itself — what model, what fit, what exposure match.`,
 
   // Slide 09b — CS1 PopPK build + fit (added 2026-04-26 per cs1.md "no PK/PD charts")
   'cs1-poppk': `## Spoken
-The model: **==two-compartment, first-order absorption with t-lag==**. Allometric scaling — body weight on clearance with exponent zero point seven five, on volume with exponent one — fixed *a priori*, not estimated, because n=39 cannot identify the exponent and because the Holford convention is what regulators expect.
+The model was **==two-compartment, first-order absorption with t-lag==**.
 
-**==Three hundred eighty adult patients build the model. Thirty-nine pediatric patients confirm it.==**
+Allometric scaling was fixed *a priori*: body weight on clearance with exponent **0.75**, and on volume with exponent **1.0**. We did not estimate those exponents from 39 pediatric patients. That was deliberate, and it is the standard Holford convention regulators expect.
 
-⏸ The final pediatric parameter table is the receipt. Clearance over F: **==one point one seven liters per hour, %RSE 6.33==**. Central volume over F: **==12.3 liters, %RSE 16.1==**. Peripheral volume: **==81.3 liters, %RSE 24.5==**. Inter-individual variability — BLOCK(6) omega — converged. BLQ around 3% handled with Beal's M3.
+The basic structure was: **==380 adult patients build the model. 39 pediatric patients confirm it.==**
 
-⏸ The **==pcVPC==** is the model-check receipt. The paper uses a 90% prediction interval ribbon, and the observed pediatric concentrations sit inside it across the 24-hour interval — *no systematic bias*. The pediatric data sit where the model says they should.
+The parameter table is the receipt. Clearance over F was **==1.17 liters per hour, %RSE 6.33==**. Central volume over F was **==12.3 liters, %RSE 16.1==**. Peripheral volume was **==81.3 liters, %RSE 24.5==**. BLOCK(6) omega converged, and BLQ was about **3%**, handled with Beal's M3.
 
-⏸ Then the payoff — **==exposure match==**. At the dose-group level, pediatric low-dose AUCss is **==4.82 versus 4.98==** in adults — about minus three percent. Pediatric high-dose AUCss is **==9.15 versus 9.12==** in adults — essentially identical. The three pediatric weight bands are ≥20 to <35, ≥35 to <50, and ≥50 kg; each sits within the adult model-derived range.
+The pcVPC is the model-check receipt. The paper uses a **90% prediction interval** ribbon, and the observed pediatric concentrations sit inside it over 24 hours, with no systematic bias.
 
-**==Within three percent at the dose-group level. Within adult range across weight bands. With 39 patients.==**
+Then the payoff is exposure match. Pediatric low-dose AUCss was **==4.82 versus 4.98==** in adults, about **minus 3%**. Pediatric high-dose AUCss was **==9.15 versus 9.12==**, essentially identical.
+
+The three pediatric weight bands were **≥20 to <35, ≥35 to <50, and ≥50 kg**, and each stayed within the adult model-derived range.
+
+==Within 3% at the dose-group level. Within adult range across weight bands. With 39 patients.==
 
 ## Cues
-- ⏱ 75 sec — receipts-heavy; PI defenders mode, slow on the numbers
-- 🎚 Tabular cadence on parameter row — "one point one seven … 12.3 … 81.3"
-- 🎯 The pcVPC ribbon is the *no systematic bias* line — gesture to it on that phrase
-- 🎯 The amber AUC values are the payoff — slow on "4.82 versus 4.98 … 9.15 versus 9.12"
-- ⚠ Do NOT promise a covariate-free answer — body weight IS the covariate (allometry); cite Okour 2023 if asked
-- ⚠ Do NOT estimate the allometric exponent — it was prespecified at 0.75/1.0 (Holford 1996, FDA-anchored)
-- ✅ Land on "within three percent at dose-group level; within adult range across bands"
+- ⏱ 75 sec — numbers need air
+- 🎚 Speak the parameter row like a receipt, not a proof of cleverness
+- ⚠ Do NOT imply 39 patients built the model
+- ✅ Land on "380 build; 39 confirm"
 
 ## Bridge
-→ Now what that match means in the regulatory record — the EMA path versus the FDA path.`,
+→ The next slide adds the PK/PD context: did the exposure match sit in a clinically safe and interpretable range?`,
+
+  'cs1-pkpd': `## Spoken
+The previous slide answered the first question: can pediatric patients get into the adult exposure range? ==Yes — the AUC match held.==
+
+This slide asks the next question: once exposures match, do we see any warning signal across exposure?
+
+The careful answer is: ==no clear exposure-response gradient in the observed range.==
+
+Top row first. AUCss by weight and Cmax by dose tell the same basic story: pediatric exposures sit inside the adult target envelope. AUC is the bridge. Cmax is the safety check.
+
+Cmax is higher in children, but still interpretable against adult safety experience.
+
+Bottom row. The efficacy panel plots AUCss against change in six-minute walk distance. I would not overclaim this. Six-minute walk is noisy in children, and the dataset is small. The defensible statement is that ==there is no clear exposure-response gradient suggesting we chose the wrong exposure range.==
+
+The safety boxplots are similar. Related adverse events did not cluster at clearly higher AUC or Cmax.
+
+So the case has two receipts: ==exposure matched the adult target==, and ==the observed PK/PD did not contradict the bridge==.
+
+## Cues
+- ⏱ 75 sec — distinguish AUC bridge from Cmax safety check
+- 🎚 Use cautious verbs: "no clear gradient," "observed range," "did not contradict"
+- ⚠ Do NOT call 6MWD a strong pediatric endpoint
+- ✅ Recovery line: "AUC carried the dose. Cmax checked safety."
+
+## Bridge
+→ Now the regulatory architecture — which branch did this evidence fit: EMA PK matching or the FDA hemodynamic bridge?`,
 
   // Slide 10 — CS1 two architectural precedents (FUTURE-1 + Garnett-Florian)
   'cs1-results': `## Spoken
-Pediatric ERA bridging has **two recognized architectures**. Both established for bosentan. This case is the EMA branch. ⏸
+Pediatric ERA bridging has two recognized architectures. Both came through bosentan. ==This case follows the EMA branch.==
 
-The **EMA path is PK-matching**. ==FUTURE-1== — Beghetti, *British Journal of Clinical Pharmacology*, 2009 — N=36 children, ages 3 to 17. The pediatric AUC came in at ==fifty-four percent of adult target==. The PK match *missed*. **EMA approved the pediatric formulation anyway** — they endorsed the methodology even when execution didn't hit. That's the precedent. The bars on the slide show why this case is tighter: AMB112529 hit ==97% of adult AUC at low dose==, much closer than FUTURE-1.
+The **==EMA path is PK matching==**. FUTURE-1 — Beghetti, *British Journal of Clinical Pharmacology*, 2009 — had **N=36 children**, ages **3 to 17**. Pediatric AUC came in at **54% of the adult target**. The PK match missed, but EMA approved the pediatric formulation anyway. The precedent was the method.
 
-⏸ The **FDA path is the Garnett-Florian framework**. NDA 209279, 2017. Pooled twelve placebo-controlled adult trials, **two thousand twenty-eight patients**, nine drugs across five classes. Slope on the scatter plot — **==minus zero point oh five five meters per dyne-second per cm⁵==**. Apply it to BREATHE-3 — N=19, change in PVR around minus 389 — and the framework predicts a pediatric six-minute-walk improvement of ==fourteen meters, 95% confidence interval three to thirty-one==. Bridging accepted.
+AMB112529 was tighter: **97% of adult AUC at low dose**.
 
-The amber star on the chart is that BREATHE-3 prediction. The whisker is the confidence interval.
+The **FDA path is the Garnett-Florian framework**, NDA 209279, 2017. It pooled **12 placebo-controlled adult trials**, **2,028 patients**, **9 drugs**, and **5 classes**. The slope was **minus 0.055 meters per dyne-second per cm⁵**.
 
-⏸ Same intellectual move — extrapolate adult efficacy through a quantitative pediatric bridge. Different evidence weights. **EMA accepts PK-matching alone when similarity is high; FDA pairs it with the hemodynamic surrogate.** This case is the EMA branch.
+Apply that to BREATHE-3 — **N=19**, change in PVR around **minus 389** — and it predicts a pediatric six-minute-walk improvement of **14 meters**, with **95% CI 3 to 31**.
 
-⏸ One reason: the AMB112529 hemodynamic substudy was N=5 paired patients — too few to anchor a Garnett-Florian-style analysis. The substudy data were cited supportively by PMDA, disclosed in the EMA submission. Not used as the bridge.
+Same intellectual move: extrapolate adult efficacy through a quantitative pediatric bridge. Different evidence weights.
+
+EMA accepts PK matching alone when similarity is high. FDA pairs it with the hemodynamic surrogate.
+
+For AMB112529, the hemodynamic substudy was only **N=5 paired patients**. PMDA cited it supportively; EMA disclosed it. But it was ==not the bridge==.
+
+==This case is the EMA branch.==
 
 ## Cues
-- ⏱ 60 sec — two architectures, keep each tight
-- 🎚 Slow on the slope — "minus zero point oh five five meters per dyne-second per cm⁵" — let the units land
-- 🎯 The amber star is the chart's payoff — gesture to it on "fourteen meters, 95% CI 3 to 31"
-- ⚠ Do NOT pretend the chart's individual scatter dots are real trial data — caption says "illustrative"; if asked, say "the slope and BREATHE-3 prediction are verbatim from the FDA framework; the dot positions illustrate the relationship"
-- ⚠ Do NOT critique the FDA path — both paths are legitimate; this case is the EMA branch by design
-- ✅ Land on "this case is the EMA branch" — that frames the next slide
+- ⏱ 60 sec — two branches, keep them balanced
+- 🎚 Neutral on EMA and FDA; both are legitimate paths
+- ⚠ The illustrative scatter dots are not real trial-level dots
+- ✅ Land on "this case is the EMA branch"
 
 ## Bridge
 → But the case ran under three simultaneous disruptions — let me show you what AMB112529 absorbed.`,
 
   // Slide 11 — CS1 three disruptions (TRIAL / REGULATORY / COMMERCIAL)
   'cs1-outcome': `## Spoken
-AMB112529 absorbed three simultaneous disruptions. ⏸
+AMB112529 had three disruptions happening at the same time.
 
-**==One — TRIAL.==** Enrollment stopped before a clean efficacy answer. The program was held from 2013 to 2017, formally terminated in 2019, and ended with ==thirty-nine of sixty-six== planned patients evaluable. The important point for the story is not the toxicology detail; it is that the pediatric dataset became confirmatory, not a standalone efficacy trial.
+**==One — trial.==** Enrollment stopped before a clean efficacy answer. The program was held from **2013 to 2017**, formally terminated in **2019**, and ended with **39 of 66** planned patients evaluable. The pediatric dataset became confirmatory, not a standalone efficacy trial.
 
-⏸ **==Two — REGULATORY.==** Pediatric PAH dose selection was under scrutiny. The sildenafil history meant regulators were cautious about empirical pediatric dose escalation. That made exposure matching the safer lane.
+**==Two — regulatory.==** Pediatric PAH dose selection was under scrutiny. The sildenafil history made regulators cautious about empirical pediatric dose escalation. That pushed the program toward exposure matching.
 
-⏸ **==Three — FILING.==** Label outcomes followed filing geography. EMA and PMDA proceeded. The filing-details answer is in Q&A if asked; it does not need to be volunteered here.
+**==Three — filing.==** Label outcomes followed filing geography. EMA and PMDA proceeded. The filing-details answer is Q&A material if asked; I would not volunteer it here.
 
-⏸ Trial interruption, regulatory caution, filing geography. All three pointed away from a conventional pediatric efficacy trial. ==The next slide is how the dose bridge held.==
+Trial interruption, regulatory caution, filing geography. All three pointed away from a conventional pediatric efficacy trial.
+
+The next slide is how the dose bridge held.
 
 ## Cues
-- ⏱ 55–65 sec — reduced slide face; keep it high-level
-- 🎚 Say each card as a constraint, not as a mini-case
-- 🎯 The key phrase is "the next slide is how the dose bridge held"
-- ⚠ Do NOT volunteer HR 3.95, exposure margins, two-death detail, GSK/Gilead rights, or FDA non-filing unless asked
-- ⚠ Do NOT defend the rat finding live — it is Q&A material
-- ✅ Land on "the next slide is how the dose bridge held"
+- ⏱ 55–65 sec — three constraints only
+- 🎚 Say each card plainly; no mini-lecture
+- ⚠ Do NOT volunteer HR 3.95, exposure margins, two deaths, GSK/Gilead rights, or FDA non-filing unless asked
+- ✅ End with "how the dose bridge held"
 
 ## Bridge
-→ The framework, in five steps.
-
-## Hard Words
-- ambrisentan (am-BRI-sen-tan)
-- Letairis (luh-TAIR-iss)
-- Volibris (voh-LIB-ris)
-- sildenafil (sil-DEN-a-fil)
-- AFFILIATE (uh-FILL-ee-ate)`,
+→ The framework, in five steps.`,
 
   // Slide 12 — CS1 5-node framework (380 → 2-cmt → AUC → 39 → −3%)
   'cs1-bracket': `## Spoken
-Five steps from adult anchor to pediatric dose. The architecture, not the diagnostics. ⏸
+Here is the five-step chain from adult anchor to pediatric dose.
 
-**==Step 01.==** ==Three hundred and eighty== adult patients. Six studies pooled. Three thousand one hundred twenty-six PK observations. Rich sampling — that's the structural anchor.
+**==Step 01.==** **380 adult patients**, six studies pooled, **3,126 PK observations**. That is the anchor.
 
-**==Step 02.==** A **==two-compartment==** PopPK model. First-order absorption with lag. Allometric exponents *prespecified, not estimated* — clearance scales to weight to the 0.75; volume to the 1.0. That's the bridge.
+**==Step 02.==** A **two-compartment** PopPK model with first-order absorption and lag. Allometric exponents were prespecified: clearance to weight **0.75**, volume to weight **1.0**.
 
-**==Step 03.==** Simulate AUC by weight band — adult AUCss range as the target. Use that to set pediatric doses for the trial.
+**==Step 03.==** Simulate AUC by weight band, using the adult AUCss range as the target.
 
-**==Step 04.==** ==Thirty-nine== evaluable patients in AMB112529. Two hundred eleven sparse PK observations. Eight to under eighteen. **The pediatric data did not create the framework — they confirmed the exposure bridge.**
+**==Step 04.==** **39 evaluable pediatric patients** in AMB112529, with **211 sparse PK observations**, ages **8 to under 18**. The pediatric data did not create the framework. They confirmed the exposure bridge.
 
-**==Step 05.==** ==Minus three percent== at the low dose, plus zero-point-three percent at the high dose. Pediatric AUCss versus adult target. Adult exposure target matched. ==Match==.
+**==Step 05.==** **Minus 3%** at the low dose and **plus 0.3%** at the high dose, pediatric AUCss versus adult target.
 
-⏸ Anchor → model → simulate → confirm → match. Five steps, one chain, one defensible dose.
+Anchor, model, simulate, confirm, match. Five steps, one defensible dose.
 
 ## Cues
-- ⏱ 60 sec — make every step land separately
-- 🎚 Number tone on "0.75 for clearance, 1.0 for volume" — matter-of-factly, allometric is standard
-- 🎯 Walk the panel through the five cards left-to-right; pause briefly on each numeral
-- ⚠ Do NOT cite M3 method or one-compartment — the PopPK bridge used 2-cmt with absorption lag
-- ⚠ Do NOT say "we built the answer on 39 patients" — the framework's strength is *inheritance* from N=380
-- ✅ Land on "the pediatric data confirmed the exposure bridge" — that's the architecture line
+- ⏱ 60 sec — one breath per step
+- 🎚 Make this sound like a workflow you can defend, not a slogan
+- ⚠ Do NOT say the model was built on 39 patients
+- ✅ Land on "pediatric data confirmed the exposure bridge"
 
 ## Bridge
 → The match itself — the result.`,
 
   // Slide 13 — CS1 exposure match (-3% / +0.3% + density overlay)
   'cs1-verdict': `## Spoken
-This is where the framework earns the case. ⏸
+This is the result.
 
-**==Minus three percent.==** Pediatric AUCss versus adult target — at the low dose. Numeric: 4.82 versus 4.98 microgram-hours per mL.
+**==Minus 3%.==** Pediatric AUCss versus adult target at the low dose: **4.82 versus 4.98 microgram-hours per mL**.
 
-⏸ **==Plus zero-point-three percent.==** High dose. 9.15 versus 9.12.
+**==Plus 0.3%.==** High dose: **9.15 versus 9.12**.
 
-⏸ The density curves on the slide overlap. **The pediatric distribution sits inside the adult distribution.** Geometric means per Okour 2023 — the curves themselves are illustrative Gaussians, not extracted from the paper. The means are real. The visual overlap is the argument.
+The density curves on the slide are illustrative, but the means are real. The message is that the pediatric distribution sits inside the adult exposure target.
 
-⏸ Cmax,ss ran eleven to eighteen percent higher than adult — within the safety range we had data for. Body weight was the only retained covariate. No independent age effect.
+Cmax,ss ran **11 to 18% higher** than adult. That is important to say plainly. It stayed interpretable against adult safety experience, and body weight was the only retained covariate. No independent age effect.
 
-⏸ **Exposure matching.** That's what cleared the EMA and the PMDA.
+So the result is not complicated: ==exposure matching==. That is what cleared EMA and PMDA.
 
 ## Cues
-- ⏱ 60 sec — rhetorical climax of the case
-- 🎚 Slow on "minus three percent" and "plus zero-point-three percent" — those are the case's signature numbers
-- 🎯 Say "exposure matching" twice — once per dose level
-- 📍 Step toward the slide on "pediatric distribution sits inside the adult distribution"
-- ⚠ Do NOT claim the curves are reproduced from the paper — caption says illustrative
-- ⚠ Do NOT show off the model spec verbally — the result is what landed the approval
-- ✅ The phrases the panel will quote: "minus three percent" and "exposure matching"
+- ⏱ 60 sec — let the two numbers land
+- 🎚 Plain result voice, not a climax
+- ⚠ Say the curves are illustrative; do not imply they are extracted from the paper
+- ✅ Land on "exposure matching"
 
 ## Bridge
 → Outcome and codification next — what the agencies did, and what ICH did four years later.`,
 
   // Slide 14 — CS1 outcome + codification (EMA/PMDA/ICH E11A pins + FDA caveat)
   'cs1-lesson': `## Spoken
-EMA and PMDA approved pediatric ambrisentan in 2021. ICH E11A codified the framework in 2024. ⏸
+EMA and PMDA approved pediatric ambrisentan in 2021. ICH E11A codified the extrapolation framework in 2024.
 
-**==Pin one — EMA, 2021.==** Pediatric Volibris. Eight to seventeen years. Three weight bands. Two dose levels — 2.5 to 10 mg once daily.
+**==EMA, 2021.==** Pediatric Volibris, ages **8 to 17**, three weight bands, two dose levels: **2.5 to 10 mg once daily**.
 
-**==Pin two — PMDA, 2021.==** Same exposure-matching framework. GSK Japan announced the pediatric Volibris approval on March 23; the Japanese label cites the AMB112529 hemodynamic substudy.
+**==PMDA, 2021.==** Same exposure-matching framework. GSK Japan announced the pediatric Volibris approval on **March 23, 2021**, and the Japanese label cites the AMB112529 hemodynamic substudy.
 
-⏸ **==Pin three — ICH E11A, December 2024.==** Extrapolation continuum codified. Where similarity is high, exposure matching can carry more of the inference. **The framework prefigured the standard by four years.**
+**==ICH E11A, December 2024.==** The extrapolation continuum was codified. Where similarity is high, exposure matching can carry more of the inference.
 
-⏸ Same architecture is the working template for current pediatric PAH programs — adult efficacy as anchor, pediatric PK as bridge, totality of evidence for submission. The methodological insight travels.
+So the framework prefigured the standard by four years.
 
-⏸ A **proactive note on FDA**. Never received the package — that's a split-rights commercial outcome, not a regulatory rejection. The Letairis label states verbatim that *safety and effectiveness in pediatric patients have not been established*. As of 2026, ambrisentan still has no formal FDA pediatric indication.
+The same architecture is now the working template for pediatric PAH programs: adult efficacy as anchor, pediatric PK as bridge, totality of evidence for submission.
+
+One proactive note on FDA. FDA never received the package. That is a split-rights commercial outcome, not a regulatory rejection. The Letairis label says safety and effectiveness in pediatric patients have not been established. As of 2026, ambrisentan still has no formal FDA pediatric indication.
 
 ## Cues
-- ⏱ 75 sec — outcome + codification + caveat
-- 🎚 Confident on the pins; lower-key on the FDA caveat — proactive disclosure, not apology
-- 🎯 Eye contact on "the framework prefigured the standard by four years"
-- 📍 The FDA caveat is on the slide as a dashed-border box — gesture to it when you say "proactive note"
-- ⚠ Do NOT defend against the FDA gap — name the structure (split rights), state the label language, advance
-- ⚠ Do NOT bridge to MOONBEAM, sotatercept, or Merck pipeline on this slide — hold for Q&A
-- ✅ Land cleanly on "no formal FDA pediatric indication" — own it; the next slide is the takeaways
+- ⏱ 75 sec — outcome, codification, FDA caveat
+- 🎚 Calm on FDA; state it once and move on
+- ⚠ Do NOT make this defensive
+- ✅ Land on "no formal FDA pediatric indication"
 
 ## Bridge
 → Three takeaways that travel beyond ambrisentan, then we hand off to Case 02.`,
 
   // Slide 15 — CS1 → CS2 bridge (three takeaways: methodology / architecture / regulatory outcome)
   'cs1-bridge': `## Spoken
-When the trial cannot deliver the dose, the quantitative bridge makes the dose defensible. ⏸ Three takeaways.
+So what travels beyond ambrisentan?
 
-**==One — Methodology.==** Where similarity is high, PK matching alone supports the dose. ICH E11A codified this as the extrapolation continuum. The framework prefigured the standard by four years.
+First, **==methodology==**. Where similarity is high, PK matching can support the dose. ICH E11A later codified that as part of the extrapolation continuum.
 
-⏸ **==Two — Architecture.==** Inheritance is the framework's strength. Structural model from the adult anchor; pediatric data confirms adequacy. **Thirty-nine patients cannot build a model — thirty-nine patients can confirm one.** EMA accepts PK-matching alone; FDA pairs it with the Garnett-Florian bridge.
+Second, **==architecture==**. Inheritance is the strength. The adult data build the model; pediatric data confirm whether the bridge is adequate. **39 patients cannot build the whole answer, but 39 patients can confirm one.**
 
-⏸ **==Three — Regulatory outcome.==** The practical endpoint was dose labeling. Eight to seventeen years, three weight bands, two dose levels. EMA and PMDA accepted; ==the exposure bridge supported the dose.==
+Third, **==regulatory outcome==**. The practical endpoint was dose labeling: **8 to 17 years**, three weight bands, two dose levels. EMA and PMDA accepted the exposure bridge.
 
-⏸ From a ==rare pediatric pulmonary disease== to a ==regulatory bridging waiver in oncology==. **Case two — the regulatory bridge.**
+So case one is a rare pediatric pulmonary disease where the model made the dose defensible.
+
+Case two is a different problem: oncology, India, and a regulatory waiver where the clinical pharmacology package had to replace a local trial.
 
 ## Cues
-- ⏱ 45 sec — three takeaways + one-line CS2 handoff
-- 🎚 Confident, declarative — these are takeaways, not proposals
-- 🎯 Eye contact on "the exposure bridge supported the dose" — that's the case's portable line
-- 📍 The bridge ribbon at the bottom carries the CS2 handoff visually — the inline "regulatory bridging waiver in oncology" turns amber on screen
-- ⚠ Do NOT add a fourth takeaway live — three is the package
-- ⚠ Do NOT preview ivosidenib's substance — the next divider does that
-- ✅ Land on "Case two — the regulatory bridge" and advance immediately
+- ⏱ 45 sec — three takeaways and move
+- 🎚 Conversational summary; this should sound like you closing the loop
+- ⚠ Do NOT add a fourth takeaway
+- ✅ Land on "clinical pharmacology package had to replace a local trial"
 
 ## Bridge
 → Case 02 divider — Ivosidenib · India CDSCO regulatory waiver.`,
@@ -592,138 +588,130 @@ When the trial cannot deliver the dose, the quantitative bridge makes the dose d
   // ══════════════════════════════════════════════════════════════
 
   'cs2-divider': `## Spoken
-Second case. ⏸
+Second case.
 
-Ivosidenib — first-in-class IDH1 inhibitor. Approved in more than forty-two countries by early 2025. ==FDA, EMA, PMDA, NMPA, MFDS, Health Canada, and thirty-plus others.== ⏸
+This is ivosidenib — a first-in-class IDH1 inhibitor. By early 2025 it was already approved in more than forty-two countries: FDA, EMA, PMDA, NMPA, MFDS, Health Canada, and many others.
 
-And yet — India's border was still closed.
+But ==India was still missing.==
 
-Not because the drug didn't work. The pivotals were done. The efficacy was settled. The problem was regulatory: India required local clinical data before market authorization, and ==no Indian patient had ever been enrolled in a pivotal ivosidenib trial.== ⏸
+The issue was not whether the drug worked. The pivotal evidence existed. The problem was that India expected local clinical evidence, and ==no Indian patient had been enrolled in a pivotal ivosidenib trial==.
 
-So the question was — could a global clinical pharmacology dossier do the work that a local trial would have done? Could the dossier *be* the regulatory bridge?
+So the question became simple: could the ==global clinical pharmacology dossier== do the job that a local trial normally does?
 
-That's what this case is about.
+That is the case.
 
 ## Cues
-- ⏱ 40 sec — case transition. Let the title card breathe.
-- 🎚 Lower energy after CS1 recap. Reset the room before building again.
-- 📍 Pause after "India's border was still closed" — let the contrast between 42 countries and zero Indian patients register.
-- 🎯 Eye contact with any India-regulatory-aware panelist on "no Indian patient had ever been enrolled."
-- ⚠ Do NOT say "bridging study" yet — save that language for the architecture slide.
-- ⚠ The "42+ countries" is verified from Servier press data; do not inflate further.
-- ✅ Land on "could the dossier *be* the regulatory bridge?" — the thesis question.
+- ⏱ ~40 sec — reset after CS1; do not oversell
+- 🎚 Plain contrast: 42+ countries, but not India
+- ⚠ Do not add internal filing details or launch timing
+- ✅ Land on "could the global clinical pharmacology dossier do the job?"
 
 ## Bridge
 → Next two slides set the disease and regulatory background before the case question lands.`,
 
   'cs2-bg-disease': `## Spoken
-By August 2024, ivosidenib had been approved in ==forty-two countries== — FDA, EMA, NMPA, TGA, and dozens of national agencies on top of that. ⏸
+By August 2024, ivosidenib had been approved in forty-two countries — including major reference regulators and many national agencies.
 
-India was not one of them.
+==India was not one of them.==
 
-Not because the science was incomplete. Not because the drug was new. By 2024 it had six years of post-approval safety data in the U.S. and a multi-jurisdictional dossier. The reason was structural: India still required pre-approval local clinical data — typically a Phase 3 or a bridging PK/PD study — before a foreign-approved drug could be registered. ⏸
+That was ==not because the science was immature==. By then, the drug had years of post-approval experience in the U.S. and a broad global dossier.
 
-So the question this case answers is the one on the screen: ==can a global Clin Pharm package register a drug in India — without a local trial?== ⏸
+The issue was structural. India still generally required pre-approval local clinical data — often a Phase 3 study or a bridging PK/PD study — before registering a foreign-approved drug.
 
-Let the question hang.
+So this slide asks the question for the case: can a global clinical pharmacology package register a drug in India ==without a local trial==?
 
 ## Cues
-- ⏱ 45 sec — the question hangs; do not answer it here.
-- 🎚 Drop into conversational. This is "let me set the scene" energy, not assertion.
-- 📍 Trace the world map left-to-right when you say "forty-two countries." Land on India when you say "India was not one of them."
-- 🎯 Land on "without a local trial?" and HOLD the pause for two beats.
-- ⚠ Do NOT preview Rule 101. That's the next slide's job.
-- ⚠ "Forty-two countries" — verified from FDA Orange Book + EMA EPAR + Servier public record cross-walk. The number fluctuates as new filings clear; "42+" reads as accurate for Aug 2024.
-- ✅ Land on the question without answering it.
+- ⏱ ~45 sec — setup only; do not answer the question yet
+- 📍 Map cue: global approvals first, then India
+- ⚠ Do not preview Rule 101 here
+- ✅ Keep the question clean: "without a local trial?"
 
 ## Bridge
-→ Next: disease background (IDH1 mechanism, epidemiology) before the regulatory pivot.`,
+→ Next: disease background — IDH1 mechanism and epidemiology before the regulatory pivot.`,
 
   'cs2-disease': `## Spoken
-Quick orientation on the biology. ⏸
+Quick biology orientation.
 
-IDH1 mutations show up in about ==six to ten percent of AML== and roughly ==thirteen percent of intrahepatic cholangiocarcinoma==. Both are rare. Both are biologically distinct within their cancers.
+IDH1 mutations occur in about ==six to ten percent of AML== and about ==thirteen percent of intrahepatic cholangiocarcinoma==. So both populations are small, and both sit inside broader cancers.
 
-The mechanism is clean. Mutant IDH1 produces 2-hydroxyglutarate — an oncometabolite — which drives epigenetic dysfunction and blocks myeloid differentiation. Ivosidenib reverses that: reduces 2-HG, restores differentiation. ⏸
+The mechanism is straightforward. Mutant IDH1 produces 2-hydroxyglutarate, an oncometabolite. That disrupts epigenetic regulation and blocks differentiation. Ivosidenib inhibits mutant IDH1, lowers 2-HG, and helps restore differentiation.
 
-Before 2018, there was no targeted option for these patients. Ivosidenib changed that — first FDA label July 2018 in relapsed/refractory AML.
+Before 2018, these patients did not have a targeted IDH1 option. Ivosidenib changed that, starting with the FDA label in relapsed or refractory AML in July 2018.
 
-One thing to note for later: this mutation is ==somatic==, not germline. It's acquired in tumor cells, not inherited. That distinction becomes the intellectual core of the regulatory argument in this case.
+One detail matters later: this is a ==somatic tumor mutation, not a germline inherited variant==. That becomes important when we talk about ethnic sensitivity.
 
 ## Cues
-- ⏱ ~50 sec — context, not the case. Move through it.
-- 🎚 Conversational. This is "let me orient you" energy, not assertion energy.
-- 📍 The somatic vs. germline foreshadow is deliberate — plant it here, pay it off in the architecture slide.
-- ⚠ Do NOT say "UGT1A1" here. That is Q&A-only material. The public metabolism story is CYP3A4.
-- ⚠ "~13% intrahepatic CCA" — say "intrahepatic" to be precise; extrahepatic CCA has different IDH1 prevalence.
-- ✅ The line the audience should retain is "somatic, not germline."
+- ⏱ ~50 sec — orient, then move
+- 🎚 "Let me orient you" tone
+- ⚠ Say "intrahepatic cholangiocarcinoma" for the 13% figure
+- ⚠ Do not bring in UGT1A1; keep metabolism for Q&A if needed
+- ✅ Land on: "somatic, not germline"
 
 ## Bridge
 → Next: IDH inhibitor history and competitor context — why ivosidenib is the molecule in this case.`,
 
   'cs2-competitors': `## Spoken
-Before the India decision, there is one class-history point worth anchoring. ⏸
+One class-history point before the India decision.
 
-IDH biology moved quickly once the mutation was named. ==IDH1 and IDH2 mutations were identified in 2008 and 2009==. By 2010, 2-HG was established as an oncometabolite. That gave the field a clean drug-development hypothesis: block mutant IDH, lower 2-HG, restore differentiation.
+IDH1 and IDH2 mutations were identified in 2008 and 2009. By 2010, 2-HG was established as an oncometabolite. That gave the field a very clear hypothesis: inhibit mutant IDH, lower 2-HG, and restore differentiation.
 
-The first approved IDH inhibitor was ==enasidenib== for IDH2-mutant AML in 2017. Then ==ivosidenib== followed in 2018 as the first IDH1 inhibitor, with later labels in cholangiocarcinoma and frontline AML. Olutasidenib and vorasidenib show the field kept expanding, but they are not the India registration story. ⏸
+The first approved IDH inhibitor was enasidenib for IDH2-mutant AML in 2017. Ivosidenib followed in 2018 as the ==first IDH1 inhibitor==, with later labels in cholangiocarcinoma and frontline AML.
 
-So this slide prevents a common confusion. This case is not "any IDH inhibitor." It is ==ivosidenib: IDH1, AML plus cholangiocarcinoma, globally approved before India==.
+Olutasidenib and vorasidenib are part of the broader field, but they are ==not the India registration story==.
+
+So the molecule here is specific: ivosidenib, IDH1, AML and cholangiocarcinoma, ==globally approved before India==.
 
 ## Cues
-- ⏱ 35 sec — class orientation, not a full history lecture.
-- 🎚 Keep it crisp. The job is to prevent MOA and competitor questions later.
-- 📍 Read left-to-right through discovery → first approvals → competitive landscape.
-- ⚠ Do NOT overclaim "first-in-class IDH" for ivosidenib; enasidenib was the first IDH inhibitor. Ivosidenib is the first IDH1 inhibitor.
-- ✅ Land on "IDH1, AML plus cholangiocarcinoma, globally approved before India."
+- ⏱ ~35 sec — this is context, not a competitor lecture
+- ⚠ Do not call ivosidenib the first IDH inhibitor; it is the first IDH1 inhibitor
+- ✅ Land on: "IDH1, AML and cholangiocarcinoma, globally approved before India"
 
 ## Bridge
 → Next: the Indian regulatory pathway — why global approval still was not enough.`,
 
   'cs2-bg-regulatory': `## Spoken
-Now the regulatory side. ⏸
+Now the India regulatory context.
 
-Until August 2024, India's New Drugs and Clinical Trials Rules — the NDCTR 2019 — required local Phase III data for most new drugs. For orphan oncology drugs, that meant ==eighteen to thirty-six months of delay== waiting for local efficacy data that India's small disease populations could not realistically generate. ⏸
+Under NDCTR 2019, local Phase III data were generally expected for many new drugs. For orphan oncology drugs, that could mean eighteen to thirty-six months of delay for local efficacy data that small populations may not realistically generate.
 
-Then, on ==August 7, 2024==, the Drug Controller General issued an order under Rule 101.
+Then on ==August 7, 2024==, DCGI issued an order under Rule 101.
 
-Six reference agencies — ==FDA, EMA, PMDA, MHRA, TGA, Health Canada==. Five eligible drug categories — orphan, gene/cell therapy, pandemic, defense, and significant therapeutic advancement.
+It named six reference agencies: FDA, EMA, PMDA, MHRA, TGA, and Health Canada. It also named five eligible categories: orphan drugs, gene and cell therapies, pandemic-related products, defense-related products, and drugs with significant therapeutic advancement.
 
-Ivosidenib qualifies on two of those five categories: orphan designation and significant therapeutic advancement. ⏸
+Ivosidenib fit two of those categories: orphan designation and significant therapeutic advancement.
 
-But — and this is important — ==the pathway opened the door; it did not push the drug through it.== The Subject Expert Committee still required a scientific justification that the global data could be safely extrapolated to the Indian population. That justification was the clinical pharmacology dossier.
+But the order ==did not create an automatic approval==. ==It opened the pathway.== The scientific question still had to be answered: can the global evidence be extrapolated safely to Indian patients?
+
+That answer came from the ==clinical pharmacology dossier==.
 
 ## Cues
-- ⏱ 50 sec — slightly longer; the regulatory context must be precise.
-- 🎚 Build from factual to the "but" turn. The energy shift happens on "the pathway opened the door."
-- 📍 Tick off the six reference agencies with a small gesture — the audience needs the institutional list to register, not to memorize.
-- ⚠ Say "August 7, 2024" precisely. A panelist may test whether you know the date.
-- ⚠ Do NOT say "blanket waiver." The pathway is discretionary, not automatic.
-- ⚠ Rule 101 was on the books since 2019 — the Aug 2024 order *operationalized* it. If a panelist corrects you, concede gracefully: "You're right — the rule has been on the books since 2019; the August order specified the reference jurisdictions and categories for the first time."
-- ✅ The landing line: "the clinical pharmacology dossier."
+- ⏱ ~50 sec — precise, but not legalistic
+- ⚠ Say "August 7, 2024" exactly
+- ⚠ Do not say "blanket waiver" or "automatic waiver"
+- ✅ Land on: "the clinical pharmacology dossier"
 
 ## Bridge
 → Next slide frames the case question: can the dossier replace the trial?`,
 
   'cs2-setup': `## Spoken
-So here's the question this case answers. ⏸
+So here is the case question.
 
-==Can a global clinical pharmacology package register a drug in India without a local trial?== ⏸
+Can a global clinical pharmacology package register a drug in India without a local trial?
 
-The operational reality: zero Indian patients in the pivotal trials. Not "a small number" — zero. The dossier — DDI, food effect, special populations, exposure-response, QTc — had to do the work a dedicated bridging study would have done.
+The operational fact was ==zero Indian patients in the pivotal trials==. Not a small subgroup — zero.
 
-And the timeline pressure was real. If we defaulted to a local Phase III or even a bridging PK/PD study, that's twelve to eighteen months of delay. For patients with IDH1-mutant AML — median survival under a year in the unfit population — that delay is the difference between access and no access. ⏸
+That meant the dossier had to answer the questions a local bridging study would usually answer: DDI, food effect, special populations, exposure-response, QTc, intrinsic and extrinsic factors.
 
-The answer was to build the dossier so it could stand alone.
+And the timing mattered. A local Phase III, or even a bridging PK/PD study, could add ==twelve to eighteen months==. In IDH1-mutant AML, especially the older unfit population where median survival has historically been under a year, that delay is not academic.
+
+So the strategy was to build the dossier so it could ==stand on its own==.
 
 ## Cues
-- ⏱ 35 sec — thesis slide. This is the center of gravity for the entire case.
-- 🎚 Slow, deliberate. Every sentence earns its place.
-- 📍 Hold still on "zero." Let the number register.
-- 🎯 Eye contact with the most senior panelist on "twelve to eighteen months of delay."
-- ⚠ Do NOT introduce the pillars yet. The architecture slide owns the scaffold.
-- ⚠ "Median survival under a year" — this is for the ND AML ≥75y population. If challenged on the specific number, cite the pre-ivosidenib historical data, not the ivosidenib trial arms.
-- ✅ Land on "build the dossier so it could stand alone."
+- ⏱ ~35 sec — thesis slide
+- 🎚 Plain and deliberate
+- ⚠ Do not introduce the six pillars yet
+- ⚠ If challenged, qualify the survival point as the older/unfit AML context
+- ✅ Land on: "stand on its own"
 
 ## Bridge
 → Next: mechanism first — why somatic IDH1 biology matters before statistics.`,
@@ -754,80 +742,72 @@ Mechanism does specific work in the regulatory argument here — because the dru
   // cs2-architecture-v2 — promoted live as the single CS2 mechanism slide.
   // It replaces the earlier duplicate cs2-architecture variant in the manifest.
   'cs2-architecture-v2': `## Spoken
-Three claims, one canvas. ⏸
+This slide makes three points.
 
-The mutation is ==somatic== — only the tumor cell carries it. Watch the cell strip on the left: middle cell mutant, neighbors clean. Germline would mean every cell. It doesn't. ⏸
+First, ==the mutation is somatic==. Only the tumor cell carries it. In the cell strip on the left, the middle cell is mutant and the neighboring cells are not. If this were germline, every cell would carry it. It is not.
 
-The drug ==binds== the mutant enzyme directly — that's the cascade in the middle. Ivosidenib hits mutant IDH1, 2-HG drops, TET2 and the JmjC dioxygenases come back online, differentiation resumes. ⏸
+Second, ivosidenib binds the mutant IDH1 enzyme directly. That is the middle cascade: mutant IDH1 drives 2-HG, TET2 and JmjC dioxygenases are inhibited, and differentiation is blocked.
 
-The cascade ==reverses==. ⏸
+Third, when you inhibit mutant IDH1, ==the cascade reverses==. 2-HG goes down, the epigenetic block is relieved, and differentiation can resume.
 
-For context, four IDH inhibitors are approved across the field — different targets, different indications. Ivosidenib is the IDH1 entrant for AML and cholangiocarcinoma. That's the molecule in this case.
+The competitor strip is just context. Four IDH inhibitors are approved across the field, with different targets and indications. The one in this case is ivosidenib: IDH1, AML, and cholangiocarcinoma.
 
-Why this matters for the regulatory argument: ==the drug-target lives only in the tumor==. That biology is what lets the dossier argue ICH E5 ethnic insensitivity from mechanism, not just statistics.
+Why this matters for regulation is this: the drug target is ==in the tumor, not inherited across the patient==. That is what supports the ethnic-sensitivity argument ==from mechanism, not statistics alone==.
 
 ## Cues
-- ⏱ 40 sec — the canvas does the work, the speaker narrates over it.
-- 🎚 Calm. Three claims, three beats. Don't rush.
-- 📍 Point to the cell strip on "only the tumor cell." Point to the cascade midpoint on "binds." Point to the post-flip color on "reverses."
-- 🎯 The three italic words on the headline (somatic / binds / reverses) are the only words that need emphasis in the voice.
-- ⚠ This is the only live mechanism slide. Do not re-explain the competitor history here.
-- ⚠ Do NOT preview the six pillars here. That's the next slide's job.
-- ✅ Land on "from mechanism, not just statistics." That's the bridge.
+- ⏱ ~40 sec — three beats: somatic, binds, reverses
+- 📍 Point only when useful: cell strip, cascade, reversal
+- ⚠ Do not re-teach competitor history
+- ⚠ Do not preview all six pillars here
+- ✅ Land on: "from mechanism, not statistics alone"
 
 ## Bridge
 → Six convergent pillars — the dossier that made the waiver defensible.`,
 
   'cs2-pillars': `## Spoken
-Six lines of evidence — and they all converge.
+The dossier had ==six lines of evidence==, and the point is that ==they converged==.
 
-Pillar one is mechanism — the foundation slide we just walked. Somatic IDH1 R132. ⏸
+First, mechanism: somatic IDH1 R132, which we just walked through.
 
-Pillar two is ==PK similarity==. Pooled phase one and AGILE PK across two hundred fifty-three patients — race not a significant covariate. Linear PK across ethnic groups.
+Second, PK similarity. Pooled phase one and AGILE PK across two hundred fifty-three patients showed race was not a significant covariate, with linear PK across ethnic groups.
 
-Pillar three is ==exposure-response==. Flat across the studied range. No exposure-AE relationship, no exposure-efficacy cliff. Wide therapeutic index. Five hundred milligrams once daily covers the population.
+Third, exposure-response. Across the studied range, there was no exposure-efficacy cliff and no exposure-adverse-event relationship that would suggest a different dose. ==Five hundred milligrams once daily== covered the population.
 
-Pillar four — ==intrinsic factors==. No demographic dose adjustment. Organ function, age, sex, and CYP polymorphism were characterized.
+Fourth, intrinsic factors. Age, sex, organ function, and relevant polymorphism questions were characterized, with no demographic dose adjustment.
 
-Pillar five — ==extrinsic factors==. Food effect, DDIs, and concomitant-medication scenarios were characterized and managed. The important point is not a midazolam number; it is that there was no India-specific extrinsic factor requiring a different dose.
+Fifth, extrinsic factors. Food effect, DDIs, and concomitant-medication scenarios were characterized and managed. The key point is that we did not identify an India-specific extrinsic factor requiring a different dose.
 
-Pillar six — ==global regulatory==. Thirty-plus jurisdictions, eight years of post-marketing surveillance, no ethnicity-specific signals. ⏸
+Sixth, global regulatory experience: thirty-plus jurisdictions, years of post-marketing experience, and no ethnicity-specific signal.
 
-==No single pillar is sufficient.== The convergence is the case. ICH E5(R1) — fully populated.
+No one pillar would have been enough. ==The convergence was the case.==
 
 ## Cues
-- ⏱ 60 sec — the heart of the dossier. Slow on each pillar, fast through the convergence.
-- 🎚 Build energy across pillars — pillar one is conversational, pillar six is assertion.
-- 📍 Stack a visible "pillar 1 / 2 / 3 / 4 / 5 / 6" mental count by lifting fingers if it helps the rhythm.
-- 🎯 Eye contact on "the convergence is the case."
-- ⚠ Do NOT recite every number — pick three: 253, no dose adjustment, eight years. Audience holds maybe three anchors.
-- ⚠ "No single pillar is sufficient" — that line lands the ICH E5(R1) framework. Do not skip it.
-- ✅ Landing line: "the convergence is the case."
+- ⏱ ~60 sec — name all six, but do not over-explain
+- 🎚 Count naturally; do not sound like a checklist
+- ⚠ Keep anchors to 253, 500 mg once daily, no demographic dose adjustment, thirty-plus jurisdictions
+- ✅ Land on: "the convergence was the case"
 
 ## Bridge
 → Next: the reversal — CDSCO approves on 14 May 2025.`,
 
   'cs2-reversal': `## Spoken
-Public record, then the reversal. ⏸
+Here is the public timeline.
 
-First, the accumulated regulatory record. FDA AML in 2018. Newly diagnosed AML in 2019. CCA in 2021. AML plus azacitidine in 2022. EMA conditional marketing authorization in 2023. ⏸
+FDA relapsed or refractory AML in 2018. Newly diagnosed AML in 2019. Cholangiocarcinoma in 2021. AML with azacitidine in 2022. EMA conditional marketing authorization in 2023.
 
-Then the policy door opened: ==August 2024 — the DCGI Rule 101 order==. Public waiver categories operationalized.
+Then August 2024: the DCGI Rule 101 order operationalized the waiver pathway.
 
-And then the reversal: ==14 May 2025== — CDSCO marketing authorization in India. ⏸
+And then ==May 14, 2025==: CDSCO granted marketing authorization in India.
 
-This is the cleaner way to tell the timeline: public FDA and EMA evidence, public Rule 101 pathway, public India authorization. The internal engagement sequence belongs in Q&A, not on the slide.
+That is the clean version of the story: public FDA and EMA evidence, a public Rule 101 pathway, and a ==public India authorization==.
 
-The point is not just the date. The point is that India authorization followed a public Rule 101 pathway built on accumulated FDA and EMA regulatory evidence.
+The point is not just the date. The point is that the India authorization followed from accumulated regulatory evidence plus a clinical pharmacology package that ==made extrapolation defensible==.
 
 ## Cues
-- ⏱ 50 sec — merged slide; do not re-teach every prior CS2 slide.
-- 🎚 Slow and assertive on "fourteen May twenty twenty-five." That's the date the case turns on.
-- 📍 Track the four public timeline beats left-to-right, then land on the hero date.
-- 🎯 Hold eye contact across the panel during the date — every face should land it.
-- ⚠ Do NOT volunteer launch timing, internal response sequence, file size, presenter names, or team-specific pathway ownership.
-- ⚠ "Public record" is deliberate — slide face stays source-safe.
-- ✅ Landing line: "public Rule 101 pathway built on accumulated FDA and EMA regulatory evidence."
+- ⏱ ~50 sec — public-record timeline only
+- 🎚 Slow on "May 14, 2025"; do not dramatize it
+- ⚠ Do not volunteer launch timing, response sequence, presenter names, or internal pathway ownership
+- ✅ Land on: "made extrapolation defensible"
 
 ## Bridge
 → Next: the reckoning — what we shipped, what we did not.`,
@@ -856,7 +836,7 @@ The Indian approval doesn't stand on its own. It sits on top of seven years of a
 - 📍 Track the timeline on screen with a slow left-to-right gesture through the milestones.
 - ⚠ "Conditional MA" for EMA — be precise about the regulatory category.
 - ⚠ The 2019 ND AML approval is for adults ≥75 years or unfit for intensive chemo. If a panelist asks about the 2019 label scope, that's the answer.
-- ⚠ Do NOT volunteer launch timing, internal response sequence, or team-specific pathway ownership on the slide face.
+- ⚠ Do NOT volunteer launch timing, response sequence, or team-specific pathway ownership on the slide face.
 - ✅ Land on "the clinical pharmacology evidence made the bridge defensible."
 
 ## Bridge
@@ -867,80 +847,80 @@ The Indian approval doesn't stand on its own. It sits on top of seven years of a
   // Slide file at _backup/cs2-08-outcome.pre-dedup-2026-04-26.tsx.
 
   'cs2-reckoning': `## Spoken
-Honest reckoning. ⏸
+This is the ==honest accounting==.
 
-What we shipped — left side, four items.
+On the left is ==what the team shipped==.
 
-==Mechanism-first defense== — the somatic IDH1 R132 argument under ICH E5.
-==Six-pillar dossier== — convergent evidence, thirty-six-page justification.
-==PBPK in the label== — midazolam AUC ratio zero point one eight, predicted, qualified, regulatory text.
-==Waiver granted with Phase 4== — CDSCO 14 May 2025, conditional on the post-marketing cohort. ⏸
+A mechanism-first defense: somatic IDH1 R132 under the ICH E5 logic.
 
-What we did not ship — right side. Three honest gaps.
+A six-pillar dossier: convergent evidence in a thirty-six-page justification.
 
-==No pre-approval Indian PK/PD==. Zero Indian sites in AG120-C-001, ClarIDHy, AGILE — Phase 4 closes that gap, but on a delay.
-==No Indian-specific peer-reviewed PK==. The PopPK n=253 with race not significant is the inference, not a published Indian-cohort paper.
-==PV maturation at approval==. The Indian pharmacovigilance system continues to scale — Phase 4 plus RWE plan address residual risk. ⏸
+Extrinsic factors characterized: food, DDIs, concomitant medications, and labeling controls, with no India-specific dose change.
 
-The dossier carried what evidence it could. We named what it could not.
+And the waiver itself: CDSCO approval on May 14, 2025, with a Phase 4 commitment.
+
+On the right is ==what we did not have==.
+
+No pre-approval Indian PK/PD. Zero Indian sites in AG120-C-001, ClarIDHy, or AGILE. Phase 4 addresses that, but later.
+
+No Indian-specific peer-reviewed PK paper. The inference came from the PopPK analysis with two hundred fifty-three patients and race not significant.
+
+And pharmacovigilance still had to mature locally after approval. That is why the Phase 4 and RWE plan matter.
+
+So the dossier carried the evidence it could carry, and it was ==explicit about what remained uncertain==.
 
 ## Cues
-- ⏱ 55 sec — name the credit AND the gaps. The credibility move is the gap-naming.
-- 🎚 Calm and even. Do not dramatize either column.
-- 🎯 Hold eye contact on the gap side longer than the credit side. The room reads honesty.
-- ⚠ Do NOT call the gaps "minor" or "negligible." That's hedging. Name them straight.
-- ⚠ Do NOT inflate the credits. "Mechanism-first defense" is the thing; "groundbreaking strategy" overclaims.
-- ✅ Landing line: "we named what it could not."
+- ⏱ ~55 sec — equal weight to credit and gaps
+- 🎚 Calm; no apology, no spin
+- ⚠ Do not call the gaps minor
+- ⚠ Do not add internal document/process details
+- ✅ Land on: "explicit about what remained uncertain"
 
 ## Bridge
 → Next: functional ownership — what quantitative pharmacology owned, and what partner functions carried.`,
 
   'cs2-leadership':`## Spoken
-Function-level ownership. ⏸
+This slide is about the operating model.
 
-This slide is deliberately not a hero slide about one person. It is the operating model. Quantitative pharmacology owned the ==evidence bridge==: translate the ICH E5 question into testable evidence, integrate PopPK, exposure-response, PBPK, intrinsic and extrinsic factors, and define the Phase 4 PK/PD commitment as the residual-uncertainty plan. ⏸
+Quantitative pharmacology owned the ==evidence bridge==: translate the ICH E5 question into testable evidence, integrate PopPK, exposure-response, PBPK, intrinsic and extrinsic factors, and define the Phase 4 PK/PD commitment as the residual-uncertainty plan.
 
-==Regulatory affairs== owned the agency pathway — filing mechanics, formal responses, and the Rule 101 process.
+Regulatory affairs owned the agency pathway: filing mechanics, formal responses, and the Rule 101 process.
 
-==Medical and PV== owned the post-marketing layer — surveillance, local follow-up, and safety commitments.
+Medical and PV owned the post-marketing layer: surveillance, local follow-up, and safety commitments.
 
-==Regulatory writing== owned the response package and traceable submission record. ==The India affiliate== owned in-country execution and meeting logistics. ⏸
+Regulatory writing owned the response package and traceable submission record. The India affiliate owned in-country execution and meeting logistics.
 
-The leadership point is the handoff: quantitative pharmacology answers, ==can the global evidence extrapolate?== Partner functions answer, ==can the pathway, commitments, and execution hold?==
+So ==the handoff was clear==. Quantitative pharmacology answered: can the global evidence extrapolate? Partner functions answered: can the pathway, commitments, and execution hold?
 
-Both sides had to hold for CDSCO to act.
+==Both had to be true== for CDSCO to act.
 
 ## Cues
-- ⏱ 45–50 sec — this is a role-clarity slide, not a diary of internal events.
-- 🎚 Function-level language throughout. Avoid "mine," "I chose," or "my scope" unless directly asked.
-- 📍 Point left for evidence ownership, right for execution ownership.
-- 🎯 Eye contact on "can the global evidence extrapolate?" — that is the quantitative pharmacology role.
-- ⚠ Do NOT volunteer internal response chronology, document size, presenter names, or launch timing.
-- ⚠ If asked about personal role, answer in Q&A using bounded language: "my contribution sat inside the quantitative pharmacology evidence bridge."
-- ✅ Landing line: "both sides had to hold."
+- ⏱ ~45 sec — role clarity, not a personal diary
+- 🎚 Function-level language
+- ⚠ Do not volunteer response chronology, document size, presenter names, or launch timing
+- ✅ Land on: "both had to be true"
 
 ## Bridge
 → Next slide closes CS2 — what this case proves about regulatory bridging.`,
 
   'cs2-bridge-recap': `## Spoken
-The science was the bridge. ⏸
+So ==the science was the bridge==.
 
-Three lessons from this case.
+Three lessons from the case.
 
-==Mechanism is the foundation.== The target was somatic IDH1 R132 — tumor-acquired, not germline. That made the ethnic-sensitivity question scientifically narrower.
+First: ==mechanism matters==. The target was somatic IDH1 R132 — tumor-acquired, not germline. That narrowed the ethnic-sensitivity question.
 
-==Convergence is the case.== PopPK, exposure-response, PBPK-supported DDI labeling, intrinsic and extrinsic factors, global regulatory experience, and Phase 4 commitment all had to point the same way. No single pillar would have carried the waiver alone. ⏸
+Second: ==convergence matters==. PopPK, exposure-response, PBPK-supported DDI labeling, intrinsic and extrinsic factors, global regulatory experience, and the Phase 4 commitment all had to point in the same direction. No single pillar carried the waiver by itself.
 
-==Transparency earns trust.== There were no pre-approval Indian PK/PD data. The team named that gap and moved the residual uncertainty into a Phase 4 commitment.
+Third: transparency matters. There were no pre-approval Indian PK/PD data. The team named that gap and moved the residual uncertainty into a Phase 4 commitment.
 
-That is the portable point: when a local trial is not feasible, ==the Clin Pharm dossier becomes the bridge==.
+That is the portable point: when a local trial is not feasible, the ==clinical pharmacology dossier can become the bridge==.
 
 ## Cues
-- ⏱ 45 sec — close the case; do not reopen details.
-- 🎚 Calm, senior, synthesis voice. This is the lesson, not the evidence dump.
-- 📍 Three beats only: mechanism, convergence, transparency.
-- ⚠ Do NOT repeat the full timeline. It has already landed.
-- ✅ Land on "the Clin Pharm dossier becomes the bridge."
+- ⏱ ~45 sec — close CS2; do not reopen details
+- 🎚 Synthesis voice, simple and steady
+- ⚠ Do not repeat the full timeline
+- ✅ Land on: "the clinical pharmacology dossier can become the bridge"
 
 ## Bridge
 → Case 03 — from one regulatory bridge to infrastructure for many future bridges.`,
@@ -951,272 +931,1117 @@ That is the portable point: when a local trial is not feasible, ==the Clin Pharm
   // ══════════════════════════════════════════════════════════════
 
   'cs3-divider': `## Spoken
-Case three. ⏸ This one changes register.
+Case three is a ==different kind of case==.
 
-The first two cases were completed decision stories. Case one: exposure matching carried a pediatric dose. Case two: a clinical pharmacology dossier replaced local trial evidence. ⏸
+The first two were completed decision stories. Case one: exposure matching supported a pediatric dose. Case two: a clinical pharmacology dossier supported a local-trial waiver.
 
-Case three is forward-looking. It is not a regulatory outcome case. It is a ==workflow-infrastructure== case.
+Case three is forward-looking. It is ==not a regulatory outcome case==, and it is ==not a product pitch==. It is a ==personal research architecture== for a question I think clinical pharmacology will face more often.
 
-The question is: if model-informed decisions become more frequent, more auditable, and more agent-assisted under ICH M15, what does the clinical pharmacology function need to build?
+If model-informed decisions become more frequent, more auditable, and more agent-assisted, what does the function need to build around the science?
 
 ## Cues
 - ⏱ 25 sec — clean register shift
-- 🎚 Calm, senior, no product-pitch energy
-- 🎯 Key skim phrase: ==workflow-infrastructure case==
-- ⚠ Do NOT call this a deployed regulatory success story
-- ✅ Land on "what does the function need to build?"
+- 🎚 Keep this plain: "different kind of case," not a dramatic pivot
+- ⚠ Say clearly: not regulatory outcome, not product pitch
+- ✅ Land on ==personal research architecture==
 
 ## Bridge
 → The question next — the integration layer has to move.`,
 
   'cs3-question': `## Spoken
-Here is the question behind the whole third case. ⏸
+Here is the question behind the third case.
 
-In the first two cases, the scientific logic worked. The model carried the dose. The dossier carried the waiver. But both cases also show the same operating reality: the pharmacometrician becomes the ==integration layer==.
+In the first two cases, the scientific logic worked. The quantitative bridge carried the dose. The dossier carried the waiver.
 
-The analyst moves data between tools, rebuilds tables, reconciles outputs, writes methods text, chases version history, and turns mature methodology into a defensible artifact. ⏸
+But both cases also show the same operating reality: the ==pharmacometrician often becomes the integration layer==.
 
-Now add the next decade: ==E11A pediatric extrapolation, ICH M15 MIDD evidence, Rule 101 waivers, Project Optimus dose optimization.== The question is not whether the science exists. The question is whether the infrastructure lets the function apply it repeatedly.
+Data moves between tools. Tables get rebuilt. Outputs get reconciled. Methods text is written from folders, scripts, comments, and memory.
 
-The science was right both times. ==The scaffolding became the constraint.==
+Now add E11A, ICH M15, Rule 101, Project Optimus. The question is not whether the science exists. The question is ==whether the infrastructure lets us apply it repeatedly==.
+
+The science was strong. The ==scaffolding became the constraint==.
 
 ## Cues
-- ⏱ 45 sec — hook slide
-- 🎚 Conversational; this is the lived-experience entry point
-- 📍 Gesture back to CS1/CS2 on "model carried" and "dossier carried"
-- 🎯 Key skim phrase: ==the pharmacometrician becomes the integration layer==
-- ⚠ Do NOT say "AI solves this" yet
-- ✅ Land on "the scaffolding became the constraint"
+- ⏱ 45 sec — lived-experience entry point
+- 🎚 Conversational, not a product setup
+- ⚠ Do not say "AI solves this"
+- ✅ Land on ==pharmacometrician becomes the integration layer==
 
 ## Bridge
 → The constraint next — what the fragmented workflow looks like.`,
 
   'cs3-problem': `## Spoken
-Here is the problem in operational terms. ⏸
+Here is the problem in operational terms.
 
-The slide uses an illustrative 80/20 split. I would not defend the exact ratio as a universal measurement. The point is directional and familiar: in many real pharmacometric workflows, ==the science is not the slowest part. The handoffs are.==
+The 80/20 split on the slide is ==illustrative==. I would not defend it as a universal measurement. The point is simpler: in many workflows, the science is not always the slowest part. ==The handoffs are.==
 
-Data assembly, EDA, NCA, PopPK, diagnostics, simulations, and reporting all use different tools. NONMEM, R, SAS, Phoenix, Word, Excel, QC systems. Each is useful. None shares state by default. ⏸
+Data assembly, EDA, NCA, PopPK, diagnostics, simulation, reporting — each step has useful tools. NONMEM, R, SAS, Phoenix, Word, Excel, QC systems.
 
-So the analyst becomes middleware. They carry results manually from one place to the next, and the methods section is written after the fact from memory, folders, and review comments.
+The problem is not that these tools are bad. The problem is that they ==do not share state by default==.
 
-That is the constraint PharmAgent is designed around: not replacing the scientific judgment, but moving the ==integration layer== into a platform.
+So the ==analyst becomes middleware==.
+
+That is the problem PharmAgent is designed around: not replacing scientific judgment, but moving the integration layer into a more traceable architecture.
 
 ## Cues
 - ⏱ 50 sec — problem-naming slide
-- 🎚 Diagnostic, not dramatic
-- 📍 Call the 80/20 split "illustrative" out loud
-- 🎯 Key skim phrase: ==the analyst becomes middleware==
-- ⚠ Do NOT blame NONMEM, R, SAS, Phoenix, or any vendor
-- ✅ Land on "moving the integration layer into a platform"
+- 🎚 Say "illustrative" out loud
+- ⚠ Do not blame any vendor or platform
+- ✅ Land on ==analyst becomes middleware==
 
 ## Bridge
 → The architecture next — first, what an agent actually is.`,
 
   'cs3-architecture': `## Spoken
-This is the architectural answer, but first define the word. ⏸
+First, define the word agent.
 
-An agent is not a chatbot. A chatbot produces text. An agent is a reasoning policy connected to ==tools, typed state, a planning loop, and structured outputs==.
+An agent is ==not just a chatbot==. A chatbot produces text. An agent is a reasoning loop connected to tools, typed state, structured outputs, and review gates.
 
-In PharmAgent, the LLM decides what to do next. The math is done by deterministic tools — scipy, numpy, NONMEM, XGBoost, plotting libraries. The LLM does not compute AUC. It decides which validated function should compute AUC, with what inputs, and where the result should write back. ⏸
+In PharmAgent, the LLM decides what step to take next. The math is done by ==deterministic tools==: scipy, numpy, NONMEM, XGBoost, plotting libraries. The LLM does not compute AUC. It chooses the right function, passes the right inputs, and writes the result back to typed state.
 
-The architecture has three levels. Level zero: Supervisor. Level one: domain agents. Level two: modeling specialists. The important design rule is single responsibility. Data loading does not live inside the NCA agent. NCA and PopPK consume shared typed state. That avoids a god-agent and makes the system extensible.
+The architecture has three levels: supervisor, domain agents, and modeling specialists. The design rule is ==single responsibility==. Data loading does not live inside the NCA agent. NCA and PopPK consume shared typed state.
 
-The platform scale is thirteen specialized agents, one hundred fifty-one deterministic tools, seventy-six workflow templates, thirty-four typed state fields, and twenty-four regulatory guidances in the RAG corpus. ⏸
+The current implementation scale on the slide is thirteen specialized agents, one hundred fifty-one deterministic tools, seventy-six workflow templates, thirty-four typed state fields, and twenty-four regulatory guidances in the RAG corpus.
 
-The headline is simple: ==agents decide; tools execute; humans approve.==
+The simple version is: ==agents decide, tools execute, humans approve==.
 
 ## Cues
 - ⏱ 70 sec — densest CS3 slide
-- 🎚 Teach first, then assert. Do not assume everyone knows "agent."
-- 📍 Left side: hierarchy. Right side: definition and design commitments.
-- 🎯 Key skim phrase: ==agents decide; tools execute; humans approve==
-- ⚠ Do NOT say "AI does pharmacometrics"
-- ✅ Land on the single-responsibility boundary — no god-agent
+- 🎚 Teach the definition first
+- ⚠ Do not say "AI does pharmacometrics"
+- ✅ Land on ==agents decide; tools execute; humans approve==
 
 ## Bridge
 → Privacy and audit next — the part that makes the architecture credible.`,
 
   'cs3-landscape': `## Spoken
-Before privacy and audit, position this carefully. ⏸
+I want to position this carefully.
 
-I am not comparing PharmAgent against validated platforms and saying it is better. That would be the wrong claim. Existing tools are the computation layer. The point is to keep them.
+I am ==not comparing PharmAgent against validated platforms== and saying it is better. That would be the wrong claim. ==Existing tools are the computation layer==. The point is to keep them.
 
-The slide shows the ecosystem as layers. At the top, the human scientist owns the question and interpretation. Below that, PharmAgent is a ==personal research orchestration layer==: supervisor, domain agents, typed state, and workflow trace. Below that are validated computation tools — NONMEM, R, SAS, Phoenix, Pumas, pyDarwin-style search, PBPK and ML libraries. ⏸
+The slide shows the ecosystem as layers. At the top, the human scientist owns the question and interpretation. PharmAgent sits below that as a ==personal research orchestration layer==: supervisor, domain agents, typed state, workflow trace. Below that are the validated computation tools and libraries.
 
-Governance and privacy run across the path. ICH M15 and FDA's AI draft guidance set expectations for documentation and credibility. SchemaExtractor keeps patient rows out of the reasoning context.
+Governance and privacy run across the workflow. ICH M15 and FDA's AI draft guidance frame the documentation and credibility expectations. SchemaExtractor keeps patient rows out of the reasoning context.
 
-So the claim is not superiority. The claim is ==regulated orchestration==: keep validated computation, add state, audit, privacy, and review gates.
+The claim is not superiority. The claim is ==regulated orchestration==: keep validated computation, add state, audit, privacy, and review gates.
 
 ## Cues
 - ⏱ 45 sec — positioning slide
-- 🎚 Very careful tone; explicitly reject superiority framing
-- 📍 Say "existing tools are the computation layer — the point is to keep them"
-- 🎯 Key skim phrase: ==personal research orchestration layer==
-- ⚠ Avoid "better," "first," "none," "full pipeline," or "validated platform"
-- ✅ Land on "keep validated computation"
+- 🎚 Explicitly reject the "better than validated platforms" framing
+- ⚠ Avoid "deployed," "validated platform," "first," or "superior"
+- ✅ Land on ==personal research orchestration layer==
 
 ## Bridge
-→ The turn next — privacy and audit are not add-ons.`,
+→ The next design choice is privacy and audit from the beginning.`,
 
   'cs3-decisive-move': `## Spoken
-Here is the decisive move. ⏸
+The main design choice was this:
 
-The decision was not "use AI." The decision was: if this system is going anywhere near regulated clinical pharmacology, ==privacy and audit have to be architectural facts before scale.==
+If a system is going anywhere near regulated clinical pharmacology, ==privacy and audit cannot be added later==. They have to be part of the architecture from the beginning.
 
-First: privacy by architecture. SchemaExtractor separates raw rows from reasoning context. Local tools compute on the dataset. The LLM receives metadata, summaries, and typed state — not patient records. ⏸
+First, privacy. SchemaExtractor separates raw rows from reasoning context. Local tools compute on the dataset. The LLM receives metadata, summaries, and typed state — ==not patient records==.
 
-Second: audit by construction. Every tool call records timestamp, agent, tool, input hash, output hash, and previous hash. If a past entry changes, the downstream chain breaks.
+Second, audit. Every tool call records timestamp, agent, tool, input hash, output hash, and previous hash. If a past entry changes, the downstream chain no longer matches.
 
-That is the difference between a policy promise and a system property. ==Privacy is a boundary. Audit is a chain.==
+That is the difference between a ==policy promise and a system property==. ==Privacy is a boundary. Audit is a chain.==
 
 ## Cues
-- ⏱ 55 sec — the TURN slide
-- 🎚 Slow and certain
-- 📍 Point left for privacy boundary, right for audit chain
-- 🎯 Key skim phrase: ==privacy is a boundary; audit is a chain==
+- ⏱ 55 sec — privacy, then audit
+- 🎚 Plain and careful; no "breakthrough" language
 - ⚠ Say "tamper-evident," not "tamper-proof"
-- ✅ Land on "system property"
+- ✅ Land on ==privacy is a boundary; audit is a chain==
 
 ## Bridge
 → Workflow trace next — what actually happens when the system runs.`,
 
   'cs3-pilot': `## Spoken
-Now make it concrete. ⏸
+Now make it concrete.
 
-The most persuasive evidence here is not a speed claim. It is the trace.
+The most useful evidence here is ==not a speed claim==. It is the trace.
 
-A user asks for an NCA or PopPK workflow. The Supervisor classifies the intent. A specialist agent plans the tool sequence from typed state. Deterministic tools compute the pharmacometric quantities. A QC gate requires human review. The report artifact is generated from the audit trail. ⏸
+A user asks for an NCA or PopPK workflow. The supervisor classifies the request. A specialist agent plans the tool sequence from typed state. Deterministic tools compute the pharmacometric quantities. ==A QC gate requires human review==. The report artifact is generated from the audit trail.
 
-The audit entry records timestamp, agent, tool, input hash, output hash, and previous hash. So the methods section is not reconstructed later from memory. It is generated from what actually ran.
+The audit entry records timestamp, agent, tool, input hash, output hash, and previous hash.
 
-That is the practical difference: ==one request becomes a replayable evidence trail.==
+So the methods section is not reconstructed later from memory. It comes from ==what actually ran==.
+
+One request becomes a ==replayable evidence trail==.
 
 ## Cues
-- ⏱ 50 sec — concrete behavior slide
-- 🎚 Trace delivery. One step, one breath.
-- 📍 Move down the left trace; then glance to the audit schema on the right.
-- 🎯 Key skim phrase: ==replayable evidence trail==
-- ⚠ Do NOT mention internal time savings on this slide
-- ✅ Land on "what actually ran"
+- ⏱ 50 sec — one step, one breath
+- 🎚 No time-savings claim
+- ⚠ Do not imply autonomous regulatory submission
+- ✅ Land on ==what actually ran==
 
 ## Bridge
 → Bracket Method next — credit outward to the field.`,
 
   'cs3-bracket': `## Spoken
-Now scope the architecture carefully. ⏸
+This is also where I want to ==credit the field==, ==not overclaim the platform==.
 
-The point is not "trust my platform." The point is that the architecture follows the research. Agent-systems literature shaped the topology: centralized supervisor, domain agents, specialist agents, deterministic tool use, and typed state instead of free-text handoffs. ⏸
+The architecture follows existing research patterns: centralized supervisor, domain agents, specialist agents, deterministic tool use, and typed state instead of free-text handoffs.
 
-Then regulated science sets the credibility bar. ⏸
+Then regulated science sets the bar.
 
-ICH M15 defines how MIDD evidence is planned, evaluated, documented, and submitted. The FDA AI draft guidance gives the context-of-use and credibility-assessment frame for AI model outputs. Kim et al. 2025 gives the scaling and error-containment frame for agent systems. The agentic-systems literature teaches tool-use over free-text generation for high-stakes outputs.
+ICH M15 frames how MIDD evidence is planned, evaluated, documented, and submitted. FDA's AI draft guidance gives the context-of-use and credibility-assessment frame. Kim et al. gives a scaling and error-containment frame for agent systems.
 
-So the claim is not ownership or superiority. The claim is: ==the architecture was built from research patterns and constrained by standards the field already recognizes.==
+So the claim is ==not that any agency or paper endorses PharmAgent==. The claim is narrower: the architecture was ==built from research patterns and constrained by standards the field already recognizes==.
 
 ## Cues
 - ⏱ 50 sec — research-grounded architecture, then standards
-- 🎚 Deliberately disciplined; do not sound like a product founder
-- 📍 Left column: design choices. Right column: research and standards basis.
-- 🎯 Key skim phrase: ==research patterns constrained by recognized standards==
-- ⚠ Do NOT imply FDA, EMA, ICH, or Kim et al. endorse PharmAgent
-- ⚠ Do NOT say "the architecture was mine" or "what I designed" on this slide
-- ✅ Land on standards, not self-praise
+- 🎚 Do not sound like a founder demo
+- ⚠ Do not imply FDA, ICH, or Kim et al. endorse PharmAgent
+- ✅ Land on ==built from research patterns, constrained by recognized standards==
 
 ## Bridge
 → The portable principle closes the seminar.`,
 
   'cs3-portable': `## Spoken
-The portable principle. ⏸
+The portable point is simple.
 
-==AI in clinical pharmacology is useful when it becomes infrastructure, not a substitute for judgment.==
+AI in clinical pharmacology is useful when it becomes ==infrastructure, not a substitute for judgment==.
 
-⏸ Three cases. Three decisions. One discipline.
+Three cases. Three trial limits. Three clinical pharmacology answers.
 
-In case one, ==exposure-matching carried the dose.== In case two, ==the dossier replaced the trial.== In case three, ==the platform carries the integration.== ⏸
+In case one, exposure matching carried the dose. In case two, the dossier replaced the local trial. In case three, the platform carries the integration.
 
-The function keeps owning the science. The platform carries the integration. The result is not less human judgment — it is more time for the judgment that matters.
+==The function still owns the science==. The tools should carry more of the ==trace, the handoff, and the documentation==.
 
-⏸ ==Three decisions. Three trials that could not carry the full answer. Three answers from the same discipline.==
-
-That's the function. That's clinical pharmacology. Thank you.
+That is the clinical pharmacology thread: when the trial cannot carry the full answer, the discipline has to ==build the framework around it==.
 
 ## Cues
-- ⏱ 50 sec — the closer. Land the three-case recap cleanly.
-- 🎚 Build from quiet to confident. Each case recap gets one beat.
-- 📍 The three recap cards on screen carry the visual summary. Gesture across them.
-- 🎯 Key skim phrase: ==infrastructure, not a substitute for judgment==
-- 🎯 Eye contact with the panel chair on "thank you."
-- ⚠ Do NOT add new content. The closer recaps — it doesn't introduce.
-- ⚠ Do NOT rush. Every sentence has been rehearsed. Deliver at the pace you've earned over 45 minutes.
-- ✅ Landing line: "Three answers from the same discipline." Full stop. Then "thank you." Full stop.
+- ⏱ 50 sec — keep it simple; no performance close
+- 🎚 Simple and steady
+- ⚠ Do not add new content
+- ✅ Land on ==infrastructure, not a substitute for judgment==
 
 ## Bridge
 → Now the common thread — what these three cases share.`,
 
   // Closing slides — added 2026-04-26 per Phase 0 audit
   'closing-thread': `## Spoken
-The common thread.
+Here is the common thread.
 
-==When the trial isn't the answer, the framework is.== ⏸
+When the trial is not the answer, the framework matters.
 
-Case one — ambrisentan. ==Trial untrialable.== Adult anchor, pediatric PopPK, exposure match within three percent. EMA and PMDA, 2021.
+Case one: ambrisentan. ==The trial was untrialable==. Adult anchor, pediatric PopPK, exposure matching, EMA and PMDA approval.
 
-Case two — ivosidenib. ==Trial unavailable.== Six-pillar regulatory dossier, MOA-anchored, regulator-aligned. CDSCO India, May 14, 2025.
+Case two: ivosidenib. ==The local trial was unavailable==. Six-pillar dossier, mechanism anchored, regulator aligned, CDSCO approval with Phase 4 commitment.
 
-Case three — PharmAgent. ==Workflow unbuilt.== Thirteen agents, one hundred fifty-one tools, privacy boundary, hash-chain audit, ICH M15-aligned documentation. ⏸
+Case three: PharmAgent. ==The workflow was unbuilt==. Personal research architecture, privacy boundary, audit chain, ICH M15-aligned documentation logic.
 
-In each case, quantitative pharmacology supplies what the trial alone cannot — ==a defensible dose, a defensible dossier, or defensible infrastructure.== That is what the discipline is for.
+In each case, quantitative pharmacology supplied what the trial alone could not: ==a defensible dose, a defensible dossier, or defensible infrastructure==.
+
+That is what the discipline is for.
 
 ## Cues
-- ⏱ 60 sec — synthesis · slow on the three obstacle words ("untrialable / unavailable / unbuilt")
-- 🎯 The amber synthesis ribbon at bottom is the thesis — gesture to it on "what quantitative pharmacology is for"
-- ⚠ Do NOT add a fourth case or a fourth example — three is the package
-- ✅ Land on "what quantitative pharmacology is for"
+- ⏱ 60 sec — slow only on the three obstacle words
+- 🎚 Keep PharmAgent framed as research architecture
+- ⚠ Do not add a fourth example
+- ✅ Land on ==defensible dose, defensible dossier, defensible infrastructure==
 
 ## Bridge
 → Now the fit — why this work, this team, this moment.`,
 
   'closing-merck': `## Spoken
-Three intersections — this work, this team, this moment.
+Let me close by connecting this to Merck.
 
-==One. PAH and sotatercept.== Eight years inside pediatric PAH PopPK and regulatory bridging. Sotatercept, Winrevair, opened the BMPR2 / activin pathway in March 2024 — the fourth column on the history slide. I read that label as a continuation of the work that brought me here. ⏸
+First, PAH. The ambrisentan case gave me years inside pediatric PAH, exposure matching, and regulatory bridging. Sotatercept and Winrevair opened a new pathway in PAH. That is not the same case, but it is very much the same ==clinical pharmacology neighborhood==.
 
-==Two. Oncology and rare populations.== The ivosidenib India case was a six-pillar dossier replacing a local trial — MOA-anchored, regulator-aligned. Merck's oncology pipeline has the same structural problem at scale: small populations, fast-moving competitors, regulatory geography that fragments trials. I have run that dossier. ⏸
+Second, oncology and rare populations. The ivosidenib India case was about ==making global evidence usable== when a local trial was not feasible. That problem shows up across oncology: small populations, fast timelines, fragmented regulatory expectations.
 
-==Three. Platforms and AI / ML.== PharmAgent is a thirteen-agent research platform. ICH M15-aligned audit by construction. Schema-only privacy. Deterministic tool execution. Merck's QP2 organization has stated AI / ML as a strategic priority. I bring the architecture judgment to build this kind of infrastructure around existing scientific workflows. ⏸
+Third, AI and infrastructure. PharmAgent is my ==personal research architecture== for how agent-assisted workflows might support model-informed work without bypassing privacy, audit, deterministic tools, or human review.
 
-The function keeps owning the science. ==I bring the methods, the regulator-tested judgment, and the platform mindset.==
+The through-line is clinical pharmacology judgment: ==methods, regulatory discipline, and infrastructure== that keep the science usable.
 
 ## Cues
-- ⏱ 75 sec — the personal pivot · this is the only place in the deck where "I" carries weight
-- 🎚 Slow and deliberate on each intersection — let each card breathe
-- 🎯 The three numerals 01 / 02 / 03 read as a structured argument; gesture per number
-- ⚠ Do NOT inflate ("uniquely positioned", "perfect fit") — the audience will recoil
-- ⚠ Do NOT name a Merck competitor by name — pipeline references stay generic
-- ✅ Land on "the methods, the regulator-tested judgment, and the platform mindset"
+- ⏱ 75 sec — fit, not flattery
+- 🎚 Avoid "perfect fit," "uniquely positioned," or competitor names
+- ⚠ Keep PharmAgent as personal research architecture
+- ✅ Land on ==methods, regulatory discipline, infrastructure==
 
 ## Bridge
 → Open the floor.`,
 
   'closing-thanks': `## Spoken
-Thank you. ⏸
+Thank you.
 
-I would be glad to take your questions. Three cases — pediatric PAH, India CDSCO, PharmAgent — I'm here to discuss any of them in more depth, or to talk about how that translates to Merck's QP2 / CMD priorities.
+I would be glad to ==take your questions==.
 
-The trial is not the only answer.
+We can go deeper on any of the three cases: pediatric PAH, the India ivosidenib waiver, or the ==PharmAgent research architecture==. Or we can talk about how this translates to ==QP2 and CMD priorities==.
+
+==Three cases. Three trial limits. Three clinical pharmacology answers.==
 
 ## Cues
-- ⏱ 30 sec — minimal · let the silence after "questions" do the work
+- ⏱ 30 sec — minimal; let the silence after "questions" do the work
 - 📍 Stand still. Hands at your sides or on the lectern. Do NOT pace.
 - 🎯 Eye contact with the panel chair first; then the rest of the panel.
-- ⚠ Do NOT keep talking after "the trial is not the only answer" — that's the close
-- ⚠ Do NOT preview your answers ("happy to talk about X") — let them ask
-- ✅ Wait for the chair to invite questions. Stand quiet.
+- ⚠ Do NOT preview answers before they ask
+- ✅ Stop after the final line and let the chair open Q&A
 
 ## Bridge
 → First question.`,
 
+  // ══════════════════════════════════════════════════════════════
+  // BACKUP SLIDES — conservative presenter-mode notes generated 2026-04-27.
+  // These prevent empty presenter panes; live-deck notes above remain primary.
+  // ══════════════════════════════════════════════════════════════
+
+  'cs1-backup-master': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==CS1 backup library overview==:
+- ==Main point==: Opens the ambrisentan defense library across history, methodology, data cuts, risk mitigation, and regulatory precedent.
+- ==Use when asked==: Use as a navigation map when Q&A moves into backup territory.
+- ==Boundary==: Do not explain the divider as content; jump to the exact receipt the panel asked for.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-backup-type-1-historical': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==CS1 historical-context lane==:
+- ==Main point==: Covers the broader PAH history, ambrisentan chronology, program detail, endpoint evolution, and full-story backup.
+- ==Use when asked==: Use when asked why pediatric PAH extrapolation was difficult before this case.
+- ==Boundary==: Keep it historical; do not drift into PopPK methods unless asked.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-backup-timeline-context': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==CS1 timeline 1995-2026==:
+- ==Main point==: Places ambrisentan inside the broader PAH therapy arc and the persistent lag in pediatric evidence.
+- ==Use when asked==: Use if asked why this was a clinical pharmacology problem rather than only a modeling problem.
+- ==Boundary==: Avoid comparing products competitively; the point is evidence context and pathway evolution.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-backup-timeline-amb-only': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==Ambrisentan-only timeline 2004-2024==:
+- ==Main point==: Narrows the chronology to ambrisentan adult development, pediatric work, and regional regulatory milestones.
+- ==Use when asked==: Use if asked for dates or why agency outcomes were not identical across regions.
+- ==Boundary==: Read dates exactly from the slide; do not add unverified timing from memory.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-backup-timeline-program-detail': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==CS1 program-detail timeline==:
+- ==Main point==: Links adult evidence, AMB112529 pediatric study details, and program events that shaped the bridge.
+- ==Use when asked==: Use if asked how the pediatric evidence package was built.
+- ==Boundary==: Keep the answer at program-architecture level unless a specific event is requested.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B10-endpoints': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==Endpoint evolution timeline==:
+- ==Main point==: Explains why 6MWD was informative but not a clean single pediatric efficacy anchor.
+- ==Use when asked==: Use if asked why the case did not rest on one clinical endpoint.
+- ==Boundary==: Respect 6MWD but name its pediatric limitations: growth, cooperation, baseline function, and endpoint noise.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B20-full-story': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==Full CS1 story backup==:
+- ==Main point==: Compresses the whole CS1 logic chain: clinical problem, evidence gap, exposure bridge, decision, and lesson.
+- ==Use when asked==: Use if Q&A becomes fragmented or the panel asks for the whole case again.
+- ==Boundary==: Do not read the whole slide; use only the segment that answers the question.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-backup-type-2-methodology': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==CS1 methodology lane==:
+- ==Main point==: Collects dose matrix, allometry, 6MWD handling, Bayesian context, parameters, diagnostics, covariates, and exposure matching.
+- ==Use when asked==: Use when asked how the quantitative bridge was technically defended.
+- ==Boundary==: Lead with the clinical decision, then explain method only as needed.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B3-dosing': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==Dosing scheme matrix==:
+- ==Main point==: Shows three pediatric weight bands crossed with low and high dose levels, matched to adult 5 mg and 10 mg QD exposure targets.
+- ==Use when asked==: Use if asked how the pediatric regimen was operationalized.
+- ==Boundary==: Do not claim AUC matching alone proves efficacy; it supports extrapolation within the totality.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B5-allometry': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==Allometric scaling defense==:
+- ==Main point==: Defends fixed 0.75 clearance and 1.0 volume exponents as biologically grounded and stable in a small pediatric dataset.
+- ==Use when asked==: Use if asked why age or other size functions were not retained.
+- ==Boundary==: Do not imply allometry alone solves pediatric PK; it was checked against data and diagnostics.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B6-6mwd': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==6MWD endpoint validity==:
+- ==Main point==: Explains that 6MWD is informative in pediatric PAH but noisy and not sufficient as a single decision anchor.
+- ==Use when asked==: Use if asked why the clinical endpoint did not carry the entire pediatric decision.
+- ==Boundary==: Do not dismiss 6MWD; say it supported context while exposure matching carried the decision-grade bridge.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B14-bayesian': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==Bayesian borrowing framework==:
+- ==Main point==: Frames pediatric evidence borrowing as controlled use of prior information under explicit similarity assumptions.
+- ==Use when asked==: Use if asked how rare pediatric datasets can be strengthened without pretending they are larger.
+- ==Boundary==: Borrowing depends on exchangeability; if similarity fails, the prior should not carry the decision.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B15-poppk-parameters': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==PopPK parameter table==:
+- ==Main point==: Provides the Table S3 parameter receipt: estimates, RSE, IIV, shrinkage, covariance, and structural-model details.
+- ==Use when asked==: Use if asked for numerical parameter estimates or why some parameters look unstable.
+- ==Boundary==: Do not overinterpret Vp/F; sparse pediatric sampling affects distribution estimates, while exposure predictions remained robust.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B16-model-diagnostics': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==Model diagnostics and robustness==:
+- ==Main point==: Answers show me the diagnostics with pcVPC, GOF, Vp/F sensitivity, allometry perturbation, covariate stability, and sparse-sampling checks.
+- ==Use when asked==: Use if asked whether the fit was adequate or whether sparse sampling undermined the bridge.
+- ==Boundary==: The diagnostic defense supports exposure inference, not a claim that every parameter was perfectly estimated.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B17-covariate-analysis': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==Covariate analysis==:
+- ==Main point==: Shows that liver markers, renal function, age, sex, race, ethnicity, and dose group were tested but not retained beyond body-weight allometry.
+- ==Use when asked==: Use if asked what about covariate X or whether race/ethnicity changed dosing.
+- ==Boundary==: None retained means no decision-relevant PK improvement in this dataset, not that biology can never matter.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B18-exposure-matching': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==Weight-band exposure matching==:
+- ==Main point==: Gives the core Table S5 receipt: pediatric low-dose AUC about 3 percent lower than adult 5 mg and high-dose AUC essentially identical to adult 10 mg.
+- ==Use when asked==: Use if asked for the exact exposure bridge or the 35-<50 kg low-dose subgroup.
+- ==Boundary==: Treat the 35-<50 kg low-dose higher AUC as a small-n caution, not a dosing failure.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-backup-type-3-data-cuts': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==CS1 data-cuts lane==:
+- ==Main point==: Collects observed supporting data: long-term extension, DDI/PDE-5 inhibitor context, and hemodynamic substudy support.
+- ==Use when asked==: Use when the panel asks for observed data cuts beyond the main exposure bridge.
+- ==Boundary==: These are receipts, not standalone proof of pediatric efficacy.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B7-lte': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==Long-term extension==:
+- ==Main point==: Adds longer-term tolerability and clinical-course context after the core pediatric study window.
+- ==Use when asked==: Use if asked whether the pediatric bridge was supported beyond short-term observations.
+- ==Boundary==: Uncontrolled extension data are supportive; do not present them as definitive efficacy evidence.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B8-ddi': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==DDI and PDE-5 inhibitor context==:
+- ==Main point==: Addresses whether concomitant PAH therapy and interaction context undermined the ambrisentan exposure bridge.
+- ==Use when asked==: Use if asked about PDE-5 inhibitor background therapy or real-world combination treatment.
+- ==Boundary==: Do not claim absence of all interaction risk; say available context did not undermine the bridge.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B12-hemodynamic': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==Hemodynamic substudy==:
+- ==Main point==: Provides physiologic support closer to PAH biology than walk distance alone.
+- ==Use when asked==: Use if asked whether there was disease-biology support beyond 6MWD.
+- ==Boundary==: Hemodynamics corroborate plausibility but do not replace the exposure-matching argument.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-backup-type-4-risk-mitigation': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==CS1 risk-mitigation lane==:
+- ==Main point==: Collects uncomfortable questions: sildenafil STARTS precedent, juvenile rat finding, and FDA submission gap.
+- ==Use when asked==: Use when the panel probes known vulnerabilities or agency divergence.
+- ==Boundary==: Concede limitations precisely, then return to what the evidence actually supports.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B1-starts': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==STARTS-1 and STARTS-2 detail==:
+- ==Main point==: Explains the sildenafil pediatric PAH precedent that made agencies cautious about pediatric extrapolation.
+- ==Use when asked==: Use if asked why adult PAH evidence did not automatically translate to children.
+- ==Boundary==: Do not turn the answer into a sildenafil seminar; use it only to explain regulatory caution.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B2-rat-finding': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==Juvenile rat finding==:
+- ==Main point==: Addresses the nonclinical developmental-safety concern and why it had to be managed explicitly.
+- ==Use when asked==: Use if asked about clinical hold, developmental risk, or juvenile toxicology.
+- ==Boundary==: Do not minimize the finding or speculate beyond the visible slide.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B4-fda-gap': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==FDA submission gap==:
+- ==Main point==: Prevents the overclaim that FDA non-approval equals FDA scientific rejection when no FDA pediatric filing was made.
+- ==Use when asked==: Use if asked why EMA/PMDA approved while FDA did not.
+- ==Boundary==: Keep it to filing/rights and agency-process boundaries; do not speculate on internal commercial decisions.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-backup-type-5-regulatory': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==CS1 regulatory-precedent lane==:
+- ==Main point==: Collects ICH E11A, Garnett-Florian, PIP architecture, and EMA pediatric PAH addendum context.
+- ==Use when asked==: Use if asked whether the approach aligns with regulatory science.
+- ==Boundary==: Translate guidance into the clinical pharmacology question instead of sounding legalistic.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B9-e11a': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==ICH E11A extrapolation==:
+- ==Main point==: Anchors CS1 to structured pediatric extrapolation: similarity, exposure matching, targeted pediatric data, and uncertainty management.
+- ==Use when asked==: Use if asked whether adult evidence can support pediatric labeling.
+- ==Boundary==: E11A organizes evidence; it does not make weak evidence strong by itself.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B11-garnett-florian': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==Garnett-Florian framework==:
+- ==Main point==: Places the case in a recognized pediatric extrapolation framework rather than one-off program judgment.
+- ==Use when asked==: Use if asked whether the logic generalizes beyond ambrisentan.
+- ==Boundary==: Frameworks guide acceptability; agency acceptance still depends on the specific disease, drug, endpoint, and residual uncertainty.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B13-pip': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==PIP architecture and age coverage==:
+- ==Main point==: Explains how the European pediatric plan handled age coverage, obligations, and decision points.
+- ==Use when asked==: Use if asked how EMA structured the pediatric pathway.
+- ==Boundary==: Read ages and dates from the slide; do not add procedural details from memory.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs1-B19-ema-addendum-2026': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==EMA pediatric PAH addendum==:
+- ==Main point==: Connects CS1 to newer EMA pediatric PAH thinking about structured extrapolation and uncertainty handling.
+- ==Use when asked==: Use if asked whether the field has moved toward this type of evidence integration.
+- ==Boundary==: The addendum provides later context, not retrospective proof of the 2021 decision.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside what the slide supports; do not add source details from memory.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs2-backup-master': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==CS2 backup library overview==:
+- ==Main point==: Opens the ivosidenib India defense library: public-facing timeline, six-pillar architecture, dose rationale, and population evidence.
+- ==Use when asked==: Use when the panel asks how the CDSCO waiver was scientifically defended.
+- ==Boundary==: Stay with public/regulatory-facing facts and high-level scientific rationale; do not add internal engagement details.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside public/regulatory-facing facts; do not add confidential operational details.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs2-backup-type-1-historical': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==CS2 historical-context lane==:
+- ==Main point==: Contains the CDSCO engagement chronology and the regulatory context for the Phase 3 waiver path.
+- ==Use when asked==: Use if asked how the waiver path unfolded over time.
+- ==Boundary==: Keep it to public milestones and response themes; do not disclose internal process chronology.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside public/regulatory-facing facts; do not add confidential operational details.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs2-B1-cdsco-timeline': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==CDSCO engagement timeline==:
+- ==Main point==: Shows the staged regulatory path toward CDSCO approval with Phase 4 commitment instead of a local Phase 3 before access.
+- ==Use when asked==: Use if asked what happened between the initial waiver question and final approval.
+- ==Boundary==: Do not name internal reviewers, decision gates, or operational sequencing beyond the visible slide.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside public/regulatory-facing facts; do not add confidential operational details.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs2-backup-type-2-methodology': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==CS2 methodology lane==:
+- ==Main point==: Collects the scientific architecture behind the waiver: six pillars plus dose-selection rationale.
+- ==Use when asked==: Use if asked what evidence supported the waiver beyond regulatory precedent.
+- ==Boundary==: Say each pillar reduced uncertainty; none erased the need for Phase 4 commitment.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside public/regulatory-facing facts; do not add confidential operational details.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs2-B2-six-pillar-package': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==Six-pillar package==:
+- ==Main point==: Summarizes the convergent package: global PK, IDH1 biology, race-insensitive PopPK, metabolism/DDI, exposure-response consistency, and regulatory precedent.
+- ==Use when asked==: Use if asked what was actually in the clinical pharmacology package.
+- ==Boundary==: Do not make midazolam the pillar; extrinsic-factor logic is broader than one DDI probe.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside public/regulatory-facing facts; do not add confidential operational details.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs2-B3-phase1-dose-rationale': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==Phase 1 dose rationale==:
+- ==Main point==: Defends 500 mg QD across AML and CCA by plateau-anchored dose selection and MTD not reached.
+- ==Use when asked==: Use if asked why the same ivosidenib dose was appropriate across indications.
+- ==Boundary==: Do not volunteer raw CSR details or unpublished interpretation; use visible/public-regulatory numbers only.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside public/regulatory-facing facts; do not add confidential operational details.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs2-backup-type-3-data-cuts': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==CS2 data-cuts lane==:
+- ==Main point==: Holds population-evidence details: IDH1 prevalence and UGT1A1/CYP3A4 polymorphism context.
+- ==Use when asked==: Use if asked whether Indian ethnicity or regional genetics could change the clinical pharmacology conclusion.
+- ==Boundary==: Do not conflate East Asian, Caucasian, and Indian evidence; name which population each data point represents.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside public/regulatory-facing facts; do not add confidential operational details.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs2-B4-population-evidence': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==Population evidence==:
+- ==Main point==: Shows that prevalence and DME polymorphism differences were reviewed, but did not support a population-specific dose adjustment.
+- ==Use when asked==: Use if asked whether Indian or Asian populations require a different ivosidenib dose.
+- ==Boundary==: Prevalence affects unmet need and testing strategy, not dose for mutation-positive patients.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- Lead with the direct answer, then use the slide as the receipt.
+- Stay inside public/regulatory-facing facts; do not add confidential operational details.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs3-backup-master': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==CS3 optional SPARK-ALL and Asparlas backup library==:
+- ==Main point==: This section preserves optional oncology pharmacometrics backup material, even though the live CS3 story is PharmAgent.
+- ==Use when asked==: Use only if the panel asks for the alternate pharmacometrics case or trial-design examples beyond PharmAgent.
+- ==Boundary==: Do not blend these slides into the live AI/ML case or imply they validate PharmAgent.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- If using these slides, name the boundary: optional SPARK-ALL/Asparlas pharmacometrics backup, not live PharmAgent story.
+- Lead with the direct answer, then use the slide as the receipt.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs3-backup-type-2-methodology': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==SPARK-ALL methodology lane==:
+- ==Main point==: Contains optimal-design sample-size logic and PopPK-simulated NPAA endpoint rationale from the optional Asparlas case.
+- ==Use when asked==: Use if asked about technical trial-design methods, informative priors, or simulated endpoint acceptability.
+- ==Boundary==: State clearly that this is optional SPARK-ALL backup material, separate from PharmAgent.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- If using these slides, name the boundary: optional SPARK-ALL/Asparlas pharmacometrics backup, not live PharmAgent story.
+- Lead with the direct answer, then use the slide as the receipt.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs3-B1-optimal-design': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==Optimal design backup==:
+- ==Main point==: Defends sample size by information gain using D-optimality in PopED and pediatric informative prior information.
+- ==Use when asked==: Use if asked why N=60 could be scientifically defensible versus N=94.
+- ==Boundary==: RSE values illustrate the briefing-package pattern; do not overstate them as public standalone results.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- If using these slides, name the boundary: optional SPARK-ALL/Asparlas pharmacometrics backup, not live PharmAgent story.
+- Lead with the direct answer, then use the slide as the receipt.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs3-B2-simulated-endpoint': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==Simulated primary endpoint backup==:
+- ==Main point==: Explains NPAA >= 0.1 U/mL as a mechanism-linked, PopPK-derived endpoint with FDA precedent from asparaginase review history.
+- ==Use when asked==: Use if asked whether a simulated primary endpoint can be scientifically or regulatorily defensible.
+- ==Boundary==: Critical correction: FDA deferred acceptance pending more PopPK data; it did not reject the concept outright.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- If using these slides, name the boundary: optional SPARK-ALL/Asparlas pharmacometrics backup, not live PharmAgent story.
+- Lead with the direct answer, then use the slide as the receipt.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs3-backup-type-4-risk-mitigation': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==SPARK-ALL risk-mitigation lane==:
+- ==Main point==: Handles the uncomfortable question of SPARK-ALL termination and separates program fate from methodological value.
+- ==Use when asked==: Use if asked whether trial termination invalidates the case.
+- ==Boundary==: Acknowledge termination directly; do not frame it as a success or speculate beyond public record.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- If using these slides, name the boundary: optional SPARK-ALL/Asparlas pharmacometrics backup, not live PharmAgent story.
+- Lead with the direct answer, then use the slide as the receipt.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs3-B3-trial-status': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==SPARK-ALL trial status==:
+- ==Main point==: States the public record: SPARK-ALL was terminated, enrolled 42 versus planned 60, and listed sponsor decision as the reason.
+- ==Use when asked==: Use if asked whether the early termination was scientific failure, regulatory rejection, or safety signal.
+- ==Boundary==: Do not speculate. The durable claim is about methodology and agency interaction, not completed registration outcome.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- If using these slides, name the boundary: optional SPARK-ALL/Asparlas pharmacometrics backup, not live PharmAgent story.
+- Lead with the direct answer, then use the slide as the receipt.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs3-backup-type-5-regulatory': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==SPARK-ALL regulatory-precedent lane==:
+- ==Main point==: Provides the regulatory and pediatric-data anchor behind the optional Asparlas/SPARK-ALL extrapolation logic.
+- ==Use when asked==: Use if asked what justified borrowing from pediatric ALL data.
+- ==Boundary==: A pediatric prior is useful only if adult observations do not show structural extrapolation failure.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- If using these slides, name the boundary: optional SPARK-ALL/Asparlas pharmacometrics backup, not live PharmAgent story.
+- Lead with the direct answer, then use the slide as the receipt.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  'cs3-B4-pediatric-anchor': `## Spoken
+Use this only if the panel asks for this backup detail. Do not volunteer it during the main talk.
+
+Key points for ==Pediatric anchor backup==:
+- ==Main point==: Defends the pediatric PopPK model as the prior and adult data as the falsifiable transfer test.
+- ==Use when asked==: Use if asked why pediatric Asparlas data could inform adult trial design.
+- ==Boundary==: Do not conflate N=124 pooled PopPK dataset with N=13 DFCI-only evaluable subset.
+
+Answer the specific question first. Then point to the exact figure, date, table, or framework on the slide as the receipt.
+
+## Cues
+- Backup slide — answer in 20-45 seconds unless the panel keeps probing.
+- If using these slides, name the boundary: optional SPARK-ALL/Asparlas pharmacometrics backup, not live PharmAgent story.
+- Lead with the direct answer, then use the slide as the receipt.
+- If a number is visible, read it exactly.
+- Close by returning to the live-deck thread.
+
+## Bridge
+→ Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
 };
 
 export default notes;

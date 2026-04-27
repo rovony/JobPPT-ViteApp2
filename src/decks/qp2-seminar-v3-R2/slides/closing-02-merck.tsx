@@ -1,138 +1,185 @@
 // @ts-nocheck
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
+import { Network, Globe2, ShieldCheck } from 'lucide-react';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 
 /**
- * CLOSING · Slide 02 — Why Merck QP2 specifically.
+ * CONCLUSION · Slide 02
  *
- * Added 2026-04-26. Pivots from synthesis to "what I bring" — the
- * specific intersections between this candidacy and Merck's QP2 / CMD
- * portfolio (sotatercept, oncology, AI/ML platform investment).
- *
- * Reads as the candidate's own answer to "why you, why us, why now"
- * without using those words. Three intersection cards.
+ * Repurposed from "Merck fit" to a strong, objective conclusion.
+ * Summarizes the three main case studies (PAH, Oncology, AI Infrastructure)
+ * with a focus on regulatory-grade evidence and defensible methodology.
  */
 const EASE = [0.2, 0.7, 0.3, 1];
 
-const INTERSECTIONS = [
+const PRINCIPLES = [
   {
     n: '01',
     color: 'var(--coral)',
-    label: 'PAH · sotatercept',
-    headline: 'I have lived inside this disease.',
-    body: 'Eight years of pediatric PAH PopPK + regulatory bridging. Sotatercept (Winrevair) opened the BMPR2 / activin pathway in March 2024 — the fourth column. I read that label as a continuation of the work that brought me here.',
+    label: 'PAH · PEDIATRICS',
+    icon: Network,
+    headline: 'Pediatric extrapolation.',
+    body: 'A regulator-tested framework for defining adult anchors, pediatric PK, and defensible dose logic.',
   },
   {
     n: '02',
     color: 'var(--cyan)',
-    label: 'Oncology · IDH1 / rare populations',
-    headline: 'I have run dossiers when trials are not feasible.',
-    body: 'Ivosidenib India was a six-pillar dossier replacing a local trial — MOA-anchored, regulator-aligned. Merck\'s oncology pipeline has the same structural problem at scale: small populations, fast-moving competitors, regulatory geography that fragments trials.',
+    label: 'ONCOLOGY · BRIDGING',
+    icon: Globe2,
+    headline: 'Global-to-local bridging.',
+    body: 'Translating disease mechanism, PK/PD, and covariates into regional reliance dossiers when local trials are infeasible.',
   },
   {
     n: '03',
     color: 'var(--sage)',
-    label: 'Platform · AI/ML in QSP / PopPK',
-    headline: 'I build the infrastructure, not just the analyses.',
-    body: 'PharmAgent is a 13-agent research platform: ICH M15-aligned audit by construction, schema-only privacy, deterministic tool execution. Merck\'s QP2 organization has stated AI/ML as a strategic priority. I bring the architecture judgment to build this infrastructure around existing scientific workflows.',
+    label: 'AI INFRASTRUCTURE',
+    icon: ShieldCheck,
+    headline: 'Audit-backed architecture.',
+    body: 'Designing scalable computational tools around immutable ledgers and strict human-in-the-loop workflows.',
   },
 ];
 
-export default function ClosingMerck() {
+export default function ClosingConclusion() {
   const reduced = useReducedMotion();
   const go = !reduced;
 
   return (
     <SlideGrid dataCase="amber" areas={STANDARD_AREAS}>
-      <Eyebrow delay={0.10}>Closing · The fit</Eyebrow>
+      <Eyebrow delay={0.10}>Conclusion</Eyebrow>
 
-      <Headline delay={0.25} maxChars={62}>
-        Three intersections —{' '}
+      <Headline delay={0.25} maxChars={65}>
+        Three validated{' '}
         <span style={{ color: 'var(--amber)', fontStyle: 'italic', fontWeight: 600 }}>
-          this work, this team, this moment.
+          foundations.
         </span>
       </Headline>
 
       <Subhead delay={0.45} size="lead" maxChars={120}>
-        What I bring lines up with where the QP2 organization is investing — pathway biology, dossier-led approvals, platform infrastructure.
+        A track record of taking complex methodologies and turning them into defensible, regulatory-grade evidence.
       </Subhead>
 
       <Viz>
         <div style={{
-          width: '100%', height: '100%',
+          width: '100%',
+          height: '100%',
           minHeight: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          gap: 'clamp(var(--space-3), 2vh, var(--space-5))',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(18rem, 100%), 1fr))',
+          gap: 'var(--space-8)',
+          alignItems: 'stretch',
+          paddingTop: 'var(--space-6)',
         }}>
-          {INTERSECTIONS.map((it, i) => (
-            <motion.div
-              key={it.n}
-              initial={{ opacity: 0, x: -10 }}
-              animate={go ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.55, delay: 0.7 + i * 0.15, ease: EASE }}
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'auto 1fr',
-                gap: 'clamp(var(--space-3), 2vw, var(--space-5))',
-                alignItems: 'baseline',
-                padding: 'clamp(var(--space-3), 1.4vw, var(--space-4)) clamp(var(--space-4), 2vw, var(--space-5))',
-                border: '1px solid var(--cream-hairline)',
-                borderLeft: `4px solid ${it.color}`,
-                borderRadius: 'var(--radius-md)',
-                background: 'color-mix(in srgb, var(--panel) 60%, transparent)',
-                minWidth: 0,
-              }}
-            >
-              <div style={{
-                display: 'flex', flexDirection: 'column',
-                alignItems: 'center', justifyContent: 'flex-start',
-                gap: 0,
-                minWidth: '4rem',
-              }}>
-                <span className="deck-display" style={{
-                  fontSize: 'var(--fs-slide-headline)',
-                  color: it.color,
-                  fontWeight: 700,
-                  lineHeight: 1,
-                  fontVariantNumeric: 'tabular-nums',
-                }}>{it.n}</span>
-                <span className="deck-mono uppercase" style={{
-                  fontSize: 'var(--fs-slide-pageno)',
-                  letterSpacing: 'var(--ls-mono-wide)',
-                  color: it.color,
-                  fontWeight: 700,
-                  textAlign: 'center',
-                  marginTop: 'var(--space-1)',
-                }}>{it.label}</span>
-              </div>
-              <div style={{ minWidth: 0, display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
-                <div className="deck-display" style={{
-                  fontSize: 'var(--fs-slide-tagline)',
-                  color: it.color,
-                  fontWeight: 700,
-                  fontStyle: 'italic',
-                  lineHeight: 1.3,
-                }}>{it.headline}</div>
-                <div className="deck-body" style={{
-                  fontSize: 'var(--fs-slide-subhead)',
-                  color: 'var(--cream)',
-                  opacity: 0.9,
-                  lineHeight: 1.5,
-                }}>{it.body}</div>
-              </div>
-            </motion.div>
-          ))}
+          {PRINCIPLES.map((p, i) => {
+            const Icon = p.icon;
+            return (
+              <motion.div
+                key={p.n}
+                initial={{ opacity: 0, y: 20, scale: 0.98 }}
+                animate={go ? { opacity: 1, y: 0, scale: 1 } : { opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.6 + i * 0.15, ease: EASE }}
+                style={{
+                  position: 'relative',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 'var(--space-4)',
+                  padding: 'var(--space-6) var(--space-5)',
+                  background: 'color-mix(in srgb, var(--panel) 40%, transparent)',
+                  border: `1px solid color-mix(in srgb, var(--cream-hairline) 50%, transparent)`,
+                  borderTop: `3px solid ${p.color}`,
+                  borderRadius: 'var(--radius-lg)',
+                  boxShadow: `0 8px 32px color-mix(in srgb, ${p.color} 5%, transparent)`,
+                  overflow: 'hidden',
+                  isolation: 'isolate',
+                }}
+              >
+                {/* Massive Ambient Number */}
+                <div
+                  aria-hidden
+                  className="deck-display"
+                  style={{
+                    position: 'absolute',
+                    top: '-5%',
+                    right: '-10%',
+                    fontSize: 'var(--fs-slide-display)',
+                    fontWeight: 900,
+                    color: p.color,
+                    opacity: 0.04,
+                    zIndex: -1,
+                    lineHeight: 1,
+                    userSelect: 'none',
+                    pointerEvents: 'none',
+                  }}
+                >
+                  {p.n}
+                </div>
+
+                {/* Header Group */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: 32,
+                    height: 32,
+                    borderRadius: '50%',
+                    background: `color-mix(in srgb, ${p.color} 15%, transparent)`,
+                    border: `1px solid color-mix(in srgb, ${p.color} 30%, transparent)`,
+                  }}>
+                    <Icon size={16} color={p.color} strokeWidth={2.5} />
+                  </div>
+                  <span className="deck-mono uppercase" style={{
+                    fontSize: 'var(--fs-slide-pageno)',
+                    letterSpacing: 'var(--ls-mono-wide)',
+                    color: p.color,
+                    fontWeight: 700,
+                  }}>
+                    {p.label}
+                  </span>
+                </div>
+
+                {/* Typography Group */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', marginTop: 'var(--space-2)' }}>
+                  <h3 className="deck-display" style={{
+                    fontSize: 'var(--fs-card-title)',
+                    color: 'var(--cream)',
+                    fontWeight: 600,
+                    lineHeight: 1.1,
+                    margin: 0,
+                  }}>
+                    {p.headline}
+                  </h3>
+                  <p className="deck-body" style={{
+                    fontSize: 'var(--fs-slide-subhead)',
+                    color: 'color-mix(in srgb, var(--cream) 70%, transparent)',
+                    lineHeight: 1.5,
+                    margin: 0,
+                    maxWidth: '32ch',
+                  }}>
+                    {p.body}
+                  </p>
+                </div>
+
+                {/* Subtle gradient overlay at the bottom */}
+                <div style={{
+                  position: 'absolute',
+                  bottom: 0, left: 0, right: 0,
+                  height: '40%',
+                  background: `linear-gradient(to top, color-mix(in srgb, ${p.color} 5%, transparent), transparent)`,
+                  pointerEvents: 'none',
+                  zIndex: -1,
+                }} />
+              </motion.div>
+            );
+          })}
         </div>
       </Viz>
 
       <Footer
         delay={reduced ? 0 : 1.7}
-        kicker="Closing · The fit"
-        tagline="The function keeps owning the science. I bring the methods, the regulator-tested judgment, and the platform mindset."
+        kicker="Conclusion"
+        tagline="Methods, regulator-tested judgment, and platform-minded infrastructure."
       />
     </SlideGrid>
   );

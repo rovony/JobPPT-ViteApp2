@@ -198,10 +198,9 @@ const manifest = {
     defaultSettleMs: 1300,
     slideSettleMs: {
       title: 2200,
-      // hook-A: marks land at 16/37/55s (speaker-paced reveal, math-locked
-      // to 130-wpm spoken script); static export must wait until last mark
-      // settles. 55000 + ~600ms fade duration + ~1400ms safety = 57000ms.
-      'hook-A-trial-not-answer': 57000,
+      // hook-A: marks now reveal early for normal viewing; speaker pacing is
+      // handled in notes, not by a 55s export wait.
+      'hook-A-trial-not-answer': 3500,
       'career-arc': 3200,
       roadmap: 2600,
       'cs1-divider': 1700,

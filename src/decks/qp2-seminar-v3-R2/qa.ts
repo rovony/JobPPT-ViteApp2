@@ -7,6 +7,31 @@
  */
 
 const qa = {
+  // Slide 01 — Title cover.
+  title: `## Q1: Why frame the talk as ==Quantitative Pharmacology in Action==?
+**From:** panel chair
+**Difficulty:** ★★ · **Topic:** framing
+
+A: Because the talk is not about methods in isolation. It is about ==clinical pharmacology decisions that changed what could be done==: a pediatric PAH dose when the trial could not carry the full answer, an India approval when a local trial was not available, and AI / ML infrastructure for reproducible future workflows. The title keeps the emphasis on the decision, not the tool.
+
+> **If pressed:** The methods matter, but the senior signal is knowing when the method is fit for purpose and how it changes a clinical or regulatory decision.
+
+## Q2: Is the deck aimed more at ==clinical pharmacology== or ==pharmacometrics==?
+**From:** discipline-fit panelist
+**Difficulty:** ★★★ · **Topic:** methodology
+
+A: The main variant is clinical pharmacology. Pharmacometrics is the quantitative engine, but the slide arc is organized around ==dose, population, evidence, and regulatory decision==. That is why the main slides avoid deep method-first language unless it is needed; the technical depth lives in backup and Q&A.
+
+> **Anchor:** Decision before method
+
+## Q3: Why open with three cases instead of a broader career overview?
+**From:** leadership panelist
+**Difficulty:** ★★ · **Topic:** career
+
+A: The career overview comes next, but the interview decision is really about judgment under pressure. Three cases let the panel test the same thing three ways: ==scientific rigor, regulatory judgment, and scalable infrastructure thinking==.
+
+> **If pressed:** I want the panel to leave remembering the pattern of judgment, not a long biography.`,
+
   // Slide 02-A — Hook: "When the trial isn't the answer."
   // Amendment 2: expanded to 8 questions (★ to ★★★★★) covering clinical-design,
   // methodology, regulatory-science, career, and structural pushback vectors.
@@ -113,7 +138,7 @@ to catch substitution errors before they propagate at scale. I'd argue
 the failures of pharmacology-as-evidence are usually failures of one
 of those three guardrails, not of the substitution itself.
 
-> **If pressed:** The answer is not "trust the model." The answer is ==fit-for-purpose evidence + consequence-scaled confidence + post-approval guardrails==.
+> **If pressed:** The answer is not "trust a black box." The answer is ==fit-for-purpose evidence + consequence-scaled confidence + post-approval guardrails==.
 
 > **Hostile:** Granted — substitution errors happen. The discipline is bounding them: M15 demands fit-for-purpose; regulators raise the bar with consequences; Phase 4 catches what slipped through. Pharmacology owns that bounding.
 
@@ -362,14 +387,14 @@ Happy to share the full country-by-country list after the talk.
 **Difficulty:** ★★★ · **Topic:** case-selection
 
 A: Fair challenge. China, Brazil, and Russia all have local-data
-requirements of various stringency. I chose India because ivosidenib
-India is the case I personally led — I built the Clin Pharm dossier,
-presented to the SEC, and shepherded the waiver. The framework is
-portable: the same six-pillar argument (ethnically insensitive target,
-flat PK/PD, no CYP polymorphism signal, adequate global safety database,
-PBPK DDI, E-R characterization) could defend a filing in any of those
-markets. But I can speak to the India case with primary evidence, not
-secondhand.`,
+requirements of various stringency. India is the case where the
+clinical-pharmacology evidence architecture was built and defended in
+front of the regulator, so I can speak from primary evidence rather
+than secondhand precedent. The framework is portable: the same
+six-pillar argument — ethnically insensitive target biology, PK/PD,
+intrinsic and extrinsic factors, safety database, and E-R
+characterization — could support filings in other reliance or
+local-data frameworks when the facts fit.`,
 
   'cs2-disease': `## Q1: You say "no precision option before 2018" — what about enasidenib?
 **From:** oncology-aware panelist
@@ -675,7 +700,7 @@ A: No. DDIs matter and are managed in labeling. The point is narrower: the DDI l
 A: The April 2 SEC presentation produced a favorable opinion *with*
 the Phase 4 PK/PD condition attached. Six weeks is the standard CDSCO
 window between SEC opinion and DCGI marketing-authorization issuance —
-internal ratification, conditions documentation, label finalization,
+administrative finalization, conditions documentation, label finalization,
 and the formal authorization order. Nothing dramatic happened in
 those six weeks. The science was settled at the April 2 meeting; the
 May 14 date is the administrative seal.
@@ -727,9 +752,9 @@ A: Because the two slides were making the same point: accumulated public regulat
 **From:** confidentiality-aware panelist
 **Difficulty:** ★★★ · **Topic:** disclosure boundary
 
-A: I kept the slide face to ==public regulatory milestones==: FDA labels/reviews, EMA EPAR, the public DCGI Rule 101 order, and the India marketing authorization. I did not put internal response sequencing, team ownership, launch logistics, file size, or document-level details on the timeline because those are not needed for the public story.
+A: I kept the slide face to ==public regulatory milestones==: FDA labels/reviews, EMA EPAR, the public DCGI Rule 101 order, and the India marketing authorization. I did not put response sequencing, team ownership, launch logistics, file size, or document-level details on the timeline because those are not needed for the public story.
 
-> **If pressed:** The backup answer is: ==public timeline on the slide; internal operating details only if appropriate in closed Q&A.== If I cannot cite it to a public source or describe it at a high level, I do not volunteer it.`,
+> **If pressed:** The backup answer is: ==public timeline on the slide; operational details stay high-level unless publicly citable.== If I cannot cite it to a public source or describe it safely at a high level, I do not volunteer it.`,
 
   'cs2-velocity': `## Q1: Why did it take from 2018 to 2025 to reach India if the drug was already approved by FDA?
 **From:** timeline-curious panelist
@@ -764,9 +789,9 @@ entity, but not unprecedentedly fast.
 **From:** confidentiality-aware panelist
 **Difficulty:** ★★★ · **Topic:** disclosure boundary
 
-A: I kept the slide face to ==public regulatory milestones==: FDA labels/reviews, EMA EPAR, the public DCGI Rule 101 order, and the India marketing authorization. I did not put internal response sequencing, team ownership, launch logistics, or document-level details on the timeline because those are not needed for the public story.
+A: I kept the slide face to ==public regulatory milestones==: FDA labels/reviews, EMA EPAR, the public DCGI Rule 101 order, and the India marketing authorization. I did not put response sequencing, team ownership, launch logistics, or document-level details on the timeline because those are not needed for the public story.
 
-> **If pressed:** The backup answer is: ==public timeline on the slide; internal operating details only if appropriate in closed Q&A.== If I cannot cite it to a public source or describe it at a high level, I do not volunteer it.`,
+> **If pressed:** The backup answer is: ==public timeline on the slide; operational details stay high-level unless publicly citable.== If I cannot cite it to a public source or describe it safely at a high level, I do not volunteer it.`,
 
   'cs2-reckoning': `## Q1: You list "no pre-approval Indian PK/PD data" as a not-shipped item. Wasn't avoiding that local trial the entire point of the case?
 **From:** framing-probing panelist
@@ -1000,87 +1025,6 @@ The common thread is the same discipline — clinical pharmacology as the
 load-bearing function — but CS3 shifts from applying tools to creating
 them.`,
 
-  // Slide 01 — Title cover. Three rehearsed Q&A entries the chair or any
-  // panelist may surface in the warm-up before CS1 lands. The "why
-  // quantitative" question is especially likely given the locked title.
-  title: `## Q1: Why these three case studies, in this order?
-**From:** chair (likely opener)
-**Difficulty:** ★★ · **Topic:** structure
-
-> **Quick:** Pediatric bridge, India access bridge, forward-looking
-> infrastructure — three different regulatory idioms, chronological in
-> my career.
-
-A: Each case maps to a different ==regulatory and analytical idiom== —
-pediatric extrapolation with exposure-matching, oncology/global dossier
-to ==regional approval under data scarcity== (CDSCO), and
-forward-looking ==model-informed / agentic infrastructure== for
-dose-finding (PharmAgent). The order is also chronological in my
-career, so the structure mirrors how my judgment on
-==model-informed decisions== actually evolved.
-
-> **If pressed:** I deliberately picked one that landed at EMA + PMDA,
-> one that broke a regional access bottleneck, and one that's still
-> open — so the talk is honest about wins, near-wins, and active
-> uncertainty.
-
-## Q2: Why "quantitative pharmacology" rather than just "clinical pharmacology"?
-**From:** anyone (framing probe)
-**Difficulty:** ★★★ · **Topic:** scope
-
-> **Anchor:** models change labels
-
-A: Because the decisions I'm walking you through aren't pharmacology
-decisions on their own — they're ==regulatory and access decisions==
-that hinge on pharmacology *models*. Calling it "quantitative" is the
-honest label: the work is exposure-matching, PopPK and PBPK bridging,
-dose and label questions grounded in ==exposure-response== — and, in
-the third case, the systems we build to make those models reproducible
-and reviewable. It's what changes what the label says or who gets the
-drug, not just what the molecule does in a diagram.
-
-> **If pressed:** the M-CERSI definition is the canonical one — model-
-> informed drug development across discovery → label → post-approval.
-
-## Q3: How will you keep this to forty-five minutes?
-**From:** chair (logistics)
-**Difficulty:** ★ · **Topic:** logistics
-
-A: Tight time budgets per case — roughly eight minutes each, plus a
-short opener and a closing synthesis. ==Q&A is reserved for the end==
-so I can hold timing on the cases themselves; if a question comes up
-mid-case that I can't answer in one sentence, I'll note it on the side
-board and come back to it.
-
-> **If pressed:** I've timed the talk against a stopwatch with the
-> spoken-word counts in the speaker notes — drift is under two minutes
-> either direction.
-
-## Q4: What is the curve on the title slide — is that real study data?
-**From:** anyone new to PK
-**Difficulty:** ★ · **Topic:** pk
-
-A: It's a ==stylized oral concentration–time curve==, not a dataset from
-one study. The three marks are Cmax, AUC, and T½ — three landmarks that
-map to the three cases: different problems, same pharmacology spine.
-
-> **If pressed:** If you want exact profiles, we can go to the PopPK
-> outputs in the case slides — the cover is the metaphor, not the
-> evidence file.
-
-## Q5: Your presenter line says Director; the role is Senior Director — how do we read that?
-**From:** chair / HR-minded panelist
-**Difficulty:** ★★★★ · **Topic:** career
-
-> **Anchor:** factual, not aspirational
-
-A: The line is my ==current title==; the conversation today is the
-step to Senior Director. The cases are the evidence for how I operate
-at scope.
-
-> **Hostile:** Title is factual, not aspirational — the cases are where
-> I show I'm already working at the level you're hiring for.`,
-
   'career-arc': `## Q1: Why spend time on your ==career arc== before the science?
 **From:** senior panelist / chair
 **Difficulty:** ★★ · **Topic:** structure
@@ -1141,7 +1085,7 @@ A: It is not comparable as a regulatory outcome, and I do not present it that wa
 **From:** broad panelist
 **Difficulty:** ★★ · **Topic:** discipline
 
-A: I mean clinical pharmacology decisions that depend on quantitative evidence: PopPK, exposure-response, PBPK, extrapolation, bridging, and model-informed decision infrastructure. It is not only modeling; it is ==using models to answer dose, population, label, and access questions==.
+A: I mean clinical pharmacology decisions that depend on quantitative evidence: PopPK, exposure-response, PBPK, extrapolation, bridging, and model-informed decision infrastructure. It is not only modeling; it is ==using quantitative evidence to answer dose, population, label, and access questions==.
 
 > **If pressed:** Pharmacometrics is the engine; clinical pharmacology owns the ==decision context==.
 
@@ -1781,6 +1725,62 @@ A: The primary bridging metric was ==AUCss== because adult exposure-response was
 
 > **If pressed:** ==AUC carried efficacy; Cmax informed safety.==`,
 
+  'cs1-pkpd': `## Q1: Are you claiming the exposure-response is ==flat==?
+**From:** clinical pharmacology panelist
+**Difficulty:** ★★★★ · **Topic:** exposure-response
+
+> **Quick:** No. The careful claim is ==no clear exposure-response gradient in the observed range==.
+
+A: I would not claim "flat forever." The observed pediatric data are small and six-minute walk is noisy in children. The defensible claim is narrower: within the exposure range achieved by the pediatric regimen, there was ==no clear efficacy or safety gradient that contradicted the adult exposure-matching bridge==.
+
+> **If pressed:** This is supportive PK/PD context, not the primary efficacy proof. The primary bridge is adult efficacy plus pediatric AUC matching plus pediatric safety.
+
+> **Hostile:** Correct — "flat" would be too strong. I would restate it as no clear exposure-driven gradient in the observed range, which is the claim the data can support.
+
+> **Anchor:** Observed-range gradient
+
+## Q2: If ==6MWD is weak in children==, why show AUC vs 6MWD at all?
+**From:** endpoint-focused panelist
+**Difficulty:** ★★★ · **Topic:** endpoint
+
+A: Because it is still the clinically familiar functional endpoint in PAH. I show it as supportive context, not as the load-bearing pediatric efficacy endpoint. The slide makes the narrow point that the observed relationship did not fight the exposure bridge.
+
+> **If pressed:** The endpoint is useful descriptively but weak registrationally in small pediatric datasets. That is exactly why the dose argument relies on exposure matching rather than a powered 6MWD efficacy claim.
+
+> **Anchor:** Descriptive, not load-bearing
+
+## Q3: Cmax is higher in children. Is that a ==safety problem==?
+**From:** safety panelist
+**Difficulty:** ★★★★ · **Topic:** safety
+
+A: It is a safety check, not an automatic problem. Cmax,ss was modestly higher in pediatrics — roughly 11% to 18% depending on dose comparison — while AUCss matched the adult target. The safety question is whether adverse events cluster with higher exposure; this slide shows no clear related-AE separation by AUC or Cmax.
+
+> **If pressed:** I would not ignore Cmax. I would say ==AUC carries efficacy; Cmax informs safety==, and the observed safety pattern did not invalidate the dose.
+
+> **Anchor:** AUC efficacy, Cmax safety
+
+## Q4: Are these PK/PD plots ==from the paper== or reconstructed?
+**From:** data-integrity panelist
+**Difficulty:** ★★★★ · **Topic:** visualization
+
+A: The slide re-renders the published and source-supported relationships in the deck style. The load-bearing numbers are the AUC and Cmax comparisons and the related-AE exposure distributions. I would not claim every synthetic point position is patient-level source data unless it was explicitly extracted from the publication.
+
+> **If pressed:** The safe defense is: ==numbers are the receipt; the chart is the teaching visual==. If a panelist wants source-level detail, I would pull the Okour 2023 figures and tables.
+
+> **Anchor:** Numbers over glyphs
+
+## Q5: Does "no clear safety gradient" mean ==no risk==?
+**From:** hostile safety panelist
+**Difficulty:** ★★★★★ · **Topic:** safety
+
+A: No. It means the observed exposure range did not show an obvious exposure-driven safety penalty. Pediatric PAH remains high risk, and adverse events still need clinical interpretation. The claim is not "no risk"; the claim is that the PK/PD observations did not undermine the exposure-matching dose.
+
+> **Hostile:** I would never say no risk. The correct sentence is: no clear exposure-driven safety gradient was observed, so safety did not contradict the exposure bridge.
+
+> **Anchor:** Not no-risk
+
+> **Verbatim:** "No clear exposure-driven safety gradient in the observed range" — use this phrase instead of "flat safety profile."`,
+
   'cs1-results': `## Q1: Why not use ==Garnett-Florian==?
 **From:** methodology-leaning panelist
 **Difficulty:** ★★★★ · **Topic:** methodology
@@ -2280,7 +2280,7 @@ A: Yes — and that is exactly the current operating model. The pharmacometricia
 **From:** evidence-demanding panelist
 **Difficulty:** ★★★★★ · **Topic:** validation
 
-A: Honest answer: PharmAgent is v1.0 as of February 2026 — pre-publication. Components have been validated against the same benchmark datasets the published systems use. Next 12 months I'm planning two things: a CPT:PSP submission demonstrating full-pipeline analysis on a published Phase II dataset, and an open benchmark against pyDarwin for PopPK and against PEARL for regulatory search. I'm not asking the panel to take this on faith — I'm asking for the chance to ship the validation.
+A: Honest answer: PharmAgent is v1.0 as of February 2026 — pre-publication. Components have been benchmarked or tested against public datasets where the expected answer is known, but the orchestration layer still needs formal validation. The next defensible step is an open benchmark: public Phase II data, known NCA/PopPK outputs, explicit failure modes, and comparison against accepted manual workflows or established tools.
 
 > **Anchor:** "v1.0; validation in flight"
 > **Hostile:** "Right — no peer-reviewed validation yet. That is why I frame it as research architecture, not a deployable validated platform. The deterministic-tool layer can call validated tools; the orchestration layer still needs formal benchmarking."
@@ -2383,7 +2383,7 @@ A: The specific platform is a personal research project. The transferable value 
 **From:** clinical-trial-leaning panelist
 **Difficulty:** ★★★ · **Topic:** framing
 
-A: I'm careful to say "isn't the *only* answer." Each of the three cases had real trials behind them — AMB112529, ivosidenib's Phase 1/2 dose-finding, and the simulated NPAA endpoints PharmAgent helps optimize. The framing isn't anti-trial; it's that when a trial alone can't carry the regulatory question — because of pediatric ethics, geography, or rare-disease enrollment — the model carries the *complement*. Trials and models are partners. The deck argues for the model where it earns its keep.
+A: I'm careful to say "isn't the *only* answer." Each of the first two cases had real trials behind them — AMB112529 and the ivosidenib clinical program. The framing isn't anti-trial; it's that when a trial alone can't carry the regulatory question — because of pediatric ethics, geography, or workflow maturity — quantitative pharmacology carries the complement. Trials and quantitative evidence are partners.
 
 ## Q2: All three cases are about non-traditional regulatory paths. Are there cases where the traditional path was right?
 **From:** balance-questioning panelist
@@ -2401,7 +2401,7 @@ A: Three concrete capabilities. First, pediatric PopPK with allometric defenses 
 **From:** strategic-reality panelist
 **Difficulty:** ★★★★ · **Topic:** practical
 
-A: I would *not* deploy PharmAgent at Merck on day one. Two reasons. One, Merck's existing infrastructure — internal ML platforms, validated pharmacometric pipelines, established review-team workflows — should be the substrate; replacing them creates organizational risk for marginal gain. Two, the value I bring is the *architectural pattern*, not the specific implementation: schema-only privacy, deterministic tool execution under LLM orchestration, ICH M15 audit by construction. That pattern can be applied to whatever Merck is already building or planning to build. PharmAgent is the proof I can design that pattern; deploying it is not the offer.`,
+A: I would *not* walk in and propose deploying PharmAgent as-is. Existing scientific platforms, validated pharmacometric pipelines, and established review workflows should be the substrate; replacing them creates organizational risk for marginal gain. The value I bring is the architectural pattern, not the specific implementation: schema-only privacy, deterministic tool execution under LLM orchestration, human review, and ICH M15 audit by construction. PharmAgent is proof I can design that pattern; deployment is not the offer.`,
 
   'closing-thanks': `## Q1: Walk us through one case study in more depth — your choice.
 **From:** open-prompt panelist
@@ -2414,6 +2414,1046 @@ A: I default to CS1 (ambrisentan) because it has the most completed regulatory r
 **Difficulty:** ★★★ · **Topic:** disclosure
 
 A: "Where did the framework not work?" The three cases all landed approvals, which can read as cherry-picked. The honest answer is FDA's gap on pediatric ambrisentan — same Clin Pharm package, same allometric defense, but FDA didn't proceed (different commercial owner, different submission posture). That's the case where the *methodology* held but the *organization* couldn't carry it. It tells me the framework isn't sufficient on its own; it needs aligned incentives and a sponsor willing to file. That's also why the CS2 dossier in India and the CS3 platform are deliberately lessons in *organizational* discipline alongside the methodology.`,
+  // ══════════════════════════════════════════════════════════════
+  // BACKUP SLIDES — conservative Q&A stubs generated 2026-04-27.
+  // Use as defense prompts only; do not convert backup material into the live story.
+  // ══════════════════════════════════════════════════════════════
+
+  'cs1-backup-master': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Opens the ambrisentan defense library across history, methodology, data cuts, risk mitigation, and regulatory precedent.
+
+> **If pressed:** Keep the answer tied to ==CS1 backup library overview== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use as a navigation map when Q&A moves into backup territory.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Do not explain the divider as content; jump to the exact receipt the panel asked for.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-backup-type-1-historical': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Covers the broader PAH history, ambrisentan chronology, program detail, endpoint evolution, and full-story backup.
+
+> **If pressed:** Keep the answer tied to ==CS1 historical-context lane== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use when asked why pediatric PAH extrapolation was difficult before this case.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Keep it historical; do not drift into PopPK methods unless asked.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-backup-timeline-context': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Places ambrisentan inside the broader PAH therapy arc and the persistent lag in pediatric evidence.
+
+> **If pressed:** Keep the answer tied to ==CS1 timeline 1995-2026== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked why this was a clinical pharmacology problem rather than only a modeling problem.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Avoid comparing products competitively; the point is evidence context and pathway evolution.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-backup-timeline-amb-only': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Narrows the chronology to ambrisentan adult development, pediatric work, and regional regulatory milestones.
+
+> **If pressed:** Keep the answer tied to ==Ambrisentan-only timeline 2004-2024== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked for dates or why agency outcomes were not identical across regions.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Read dates exactly from the slide; do not add unverified timing from memory.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-backup-timeline-program-detail': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Links adult evidence, AMB112529 pediatric study details, and program events that shaped the bridge.
+
+> **If pressed:** Keep the answer tied to ==CS1 program-detail timeline== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked how the pediatric evidence package was built.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Keep the answer at program-architecture level unless a specific event is requested.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B10-endpoints': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Explains why 6MWD was informative but not a clean single pediatric efficacy anchor.
+
+> **If pressed:** Keep the answer tied to ==Endpoint evolution timeline== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked why the case did not rest on one clinical endpoint.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Respect 6MWD but name its pediatric limitations: growth, cooperation, baseline function, and endpoint noise.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B20-full-story': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Compresses the whole CS1 logic chain: clinical problem, evidence gap, exposure bridge, decision, and lesson.
+
+> **If pressed:** Keep the answer tied to ==Full CS1 story backup== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if Q&A becomes fragmented or the panel asks for the whole case again.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Do not read the whole slide; use only the segment that answers the question.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-backup-type-2-methodology': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Collects dose matrix, allometry, 6MWD handling, Bayesian context, parameters, diagnostics, covariates, and exposure matching.
+
+> **If pressed:** Keep the answer tied to ==CS1 methodology lane== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use when asked how the quantitative bridge was technically defended.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Lead with the clinical decision, then explain method only as needed.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B3-dosing': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Shows three pediatric weight bands crossed with low and high dose levels, matched to adult 5 mg and 10 mg QD exposure targets.
+
+> **If pressed:** Keep the answer tied to ==Dosing scheme matrix== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked how the pediatric regimen was operationalized.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Do not claim AUC matching alone proves efficacy; it supports extrapolation within the totality.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B5-allometry': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Defends fixed 0.75 clearance and 1.0 volume exponents as biologically grounded and stable in a small pediatric dataset.
+
+> **If pressed:** Keep the answer tied to ==Allometric scaling defense== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked why age or other size functions were not retained.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Do not imply allometry alone solves pediatric PK; it was checked against data and diagnostics.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B6-6mwd': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Explains that 6MWD is informative in pediatric PAH but noisy and not sufficient as a single decision anchor.
+
+> **If pressed:** Keep the answer tied to ==6MWD endpoint validity== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked why the clinical endpoint did not carry the entire pediatric decision.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Do not dismiss 6MWD; say it supported context while exposure matching carried the decision-grade bridge.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B14-bayesian': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Frames pediatric evidence borrowing as controlled use of prior information under explicit similarity assumptions.
+
+> **If pressed:** Keep the answer tied to ==Bayesian borrowing framework== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked how rare pediatric datasets can be strengthened without pretending they are larger.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Borrowing depends on exchangeability; if similarity fails, the prior should not carry the decision.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B15-poppk-parameters': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Provides the Table S3 parameter receipt: estimates, RSE, IIV, shrinkage, covariance, and structural-model details.
+
+> **If pressed:** Keep the answer tied to ==PopPK parameter table== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked for numerical parameter estimates or why some parameters look unstable.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Do not overinterpret Vp/F; sparse pediatric sampling affects distribution estimates, while exposure predictions remained robust.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B16-model-diagnostics': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Answers show me the diagnostics with pcVPC, GOF, Vp/F sensitivity, allometry perturbation, covariate stability, and sparse-sampling checks.
+
+> **If pressed:** Keep the answer tied to ==Model diagnostics and robustness== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked whether the fit was adequate or whether sparse sampling undermined the bridge.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: The diagnostic defense supports exposure inference, not a claim that every parameter was perfectly estimated.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B17-covariate-analysis': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Shows that liver markers, renal function, age, sex, race, ethnicity, and dose group were tested but not retained beyond body-weight allometry.
+
+> **If pressed:** Keep the answer tied to ==Covariate analysis== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked what about covariate X or whether race/ethnicity changed dosing.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: None retained means no decision-relevant PK improvement in this dataset, not that biology can never matter.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B18-exposure-matching': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Gives the core Table S5 receipt: pediatric low-dose AUC about 3 percent lower than adult 5 mg and high-dose AUC essentially identical to adult 10 mg.
+
+> **If pressed:** Keep the answer tied to ==Weight-band exposure matching== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked for the exact exposure bridge or the 35-<50 kg low-dose subgroup.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Treat the 35-<50 kg low-dose higher AUC as a small-n caution, not a dosing failure.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-backup-type-3-data-cuts': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Collects observed supporting data: long-term extension, DDI/PDE-5 inhibitor context, and hemodynamic substudy support.
+
+> **If pressed:** Keep the answer tied to ==CS1 data-cuts lane== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use when the panel asks for observed data cuts beyond the main exposure bridge.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: These are receipts, not standalone proof of pediatric efficacy.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B7-lte': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Adds longer-term tolerability and clinical-course context after the core pediatric study window.
+
+> **If pressed:** Keep the answer tied to ==Long-term extension== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked whether the pediatric bridge was supported beyond short-term observations.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Uncontrolled extension data are supportive; do not present them as definitive efficacy evidence.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B8-ddi': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Addresses whether concomitant PAH therapy and interaction context undermined the ambrisentan exposure bridge.
+
+> **If pressed:** Keep the answer tied to ==DDI and PDE-5 inhibitor context== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked about PDE-5 inhibitor background therapy or real-world combination treatment.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Do not claim absence of all interaction risk; say available context did not undermine the bridge.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B12-hemodynamic': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Provides physiologic support closer to PAH biology than walk distance alone.
+
+> **If pressed:** Keep the answer tied to ==Hemodynamic substudy== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked whether there was disease-biology support beyond 6MWD.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Hemodynamics corroborate plausibility but do not replace the exposure-matching argument.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-backup-type-4-risk-mitigation': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Collects uncomfortable questions: sildenafil STARTS precedent, juvenile rat finding, and FDA submission gap.
+
+> **If pressed:** Keep the answer tied to ==CS1 risk-mitigation lane== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use when the panel probes known vulnerabilities or agency divergence.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Concede limitations precisely, then return to what the evidence actually supports.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B1-starts': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Explains the sildenafil pediatric PAH precedent that made agencies cautious about pediatric extrapolation.
+
+> **If pressed:** Keep the answer tied to ==STARTS-1 and STARTS-2 detail== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked why adult PAH evidence did not automatically translate to children.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Do not turn the answer into a sildenafil seminar; use it only to explain regulatory caution.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B2-rat-finding': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Addresses the nonclinical developmental-safety concern and why it had to be managed explicitly.
+
+> **If pressed:** Keep the answer tied to ==Juvenile rat finding== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked about clinical hold, developmental risk, or juvenile toxicology.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Do not minimize the finding or speculate beyond the visible slide.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B4-fda-gap': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Prevents the overclaim that FDA non-approval equals FDA scientific rejection when no FDA pediatric filing was made.
+
+> **If pressed:** Keep the answer tied to ==FDA submission gap== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked why EMA/PMDA approved while FDA did not.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Keep it to filing/rights and agency-process boundaries; do not speculate on internal commercial decisions.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-backup-type-5-regulatory': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Collects ICH E11A, Garnett-Florian, PIP architecture, and EMA pediatric PAH addendum context.
+
+> **If pressed:** Keep the answer tied to ==CS1 regulatory-precedent lane== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked whether the approach aligns with regulatory science.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Translate guidance into the clinical pharmacology question instead of sounding legalistic.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B9-e11a': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Anchors CS1 to structured pediatric extrapolation: similarity, exposure matching, targeted pediatric data, and uncertainty management.
+
+> **If pressed:** Keep the answer tied to ==ICH E11A extrapolation== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked whether adult evidence can support pediatric labeling.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: E11A organizes evidence; it does not make weak evidence strong by itself.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B11-garnett-florian': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Places the case in a recognized pediatric extrapolation framework rather than one-off program judgment.
+
+> **If pressed:** Keep the answer tied to ==Garnett-Florian framework== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked whether the logic generalizes beyond ambrisentan.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Frameworks guide acceptability; agency acceptance still depends on the specific disease, drug, endpoint, and residual uncertainty.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B13-pip': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Explains how the European pediatric plan handled age coverage, obligations, and decision points.
+
+> **If pressed:** Keep the answer tied to ==PIP architecture and age coverage== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked how EMA structured the pediatric pathway.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Read ages and dates from the slide; do not add procedural details from memory.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs1-B19-ema-addendum-2026': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Connects CS1 to newer EMA pediatric PAH thinking about structured extrapolation and uncertainty handling.
+
+> **If pressed:** Keep the answer tied to ==EMA pediatric PAH addendum== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked whether the field has moved toward this type of evidence integration.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: The addendum provides later context, not retrospective proof of the 2021 decision.
+
+> **If pressed:** State the limitation precisely, then return to the main clinical pharmacology thread.`,
+  'cs2-backup-master': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Opens the ivosidenib India defense library: public-facing timeline, six-pillar architecture, dose rationale, and population evidence.
+
+> **If pressed:** Keep the answer tied to ==CS2 backup library overview== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use when the panel asks how the CDSCO waiver was scientifically defended.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main confidentiality or interpretation caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** disclosure-control
+
+A: Stay with public/regulatory-facing facts and high-level scientific rationale; do not add internal engagement details.
+
+> **If pressed:** Stay at the public evidence level and avoid internal-process detail.`,
+  'cs2-backup-type-1-historical': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Contains the CDSCO engagement chronology and the regulatory context for the Phase 3 waiver path.
+
+> **If pressed:** Keep the answer tied to ==CS2 historical-context lane== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked how the waiver path unfolded over time.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main confidentiality or interpretation caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** disclosure-control
+
+A: Keep it to public milestones and response themes; do not disclose internal process chronology.
+
+> **If pressed:** Stay at the public evidence level and avoid internal-process detail.`,
+  'cs2-B1-cdsco-timeline': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Shows the staged regulatory path toward CDSCO approval with Phase 4 commitment instead of a local Phase 3 before access.
+
+> **If pressed:** Keep the answer tied to ==CDSCO engagement timeline== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked what happened between the initial waiver question and final approval.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main confidentiality or interpretation caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** disclosure-control
+
+A: Do not name internal reviewers, decision gates, or operational sequencing beyond the visible slide.
+
+> **If pressed:** Stay at the public evidence level and avoid internal-process detail.`,
+  'cs2-backup-type-2-methodology': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Collects the scientific architecture behind the waiver: six pillars plus dose-selection rationale.
+
+> **If pressed:** Keep the answer tied to ==CS2 methodology lane== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked what evidence supported the waiver beyond regulatory precedent.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main confidentiality or interpretation caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** disclosure-control
+
+A: Say each pillar reduced uncertainty; none erased the need for Phase 4 commitment.
+
+> **If pressed:** Stay at the public evidence level and avoid internal-process detail.`,
+  'cs2-B2-six-pillar-package': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Summarizes the convergent package: global PK, IDH1 biology, race-insensitive PopPK, metabolism/DDI, exposure-response consistency, and regulatory precedent.
+
+> **If pressed:** Keep the answer tied to ==Six-pillar package== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked what was actually in the clinical pharmacology package.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main confidentiality or interpretation caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** disclosure-control
+
+A: Do not make midazolam the pillar; extrinsic-factor logic is broader than one DDI probe.
+
+> **If pressed:** Stay at the public evidence level and avoid internal-process detail.`,
+  'cs2-B3-phase1-dose-rationale': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Defends 500 mg QD across AML and CCA by plateau-anchored dose selection and MTD not reached.
+
+> **If pressed:** Keep the answer tied to ==Phase 1 dose rationale== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked why the same ivosidenib dose was appropriate across indications.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main confidentiality or interpretation caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** disclosure-control
+
+A: Do not volunteer raw CSR details or unpublished interpretation; use visible/public-regulatory numbers only.
+
+> **If pressed:** Stay at the public evidence level and avoid internal-process detail.`,
+  'cs2-backup-type-3-data-cuts': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Holds population-evidence details: IDH1 prevalence and UGT1A1/CYP3A4 polymorphism context.
+
+> **If pressed:** Keep the answer tied to ==CS2 data-cuts lane== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked whether Indian ethnicity or regional genetics could change the clinical pharmacology conclusion.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main confidentiality or interpretation caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** disclosure-control
+
+A: Do not conflate East Asian, Caucasian, and Indian evidence; name which population each data point represents.
+
+> **If pressed:** Stay at the public evidence level and avoid internal-process detail.`,
+  'cs2-B4-population-evidence': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Shows that prevalence and DME polymorphism differences were reviewed, but did not support a population-specific dose adjustment.
+
+> **If pressed:** Keep the answer tied to ==Population evidence== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked whether Indian or Asian populations require a different ivosidenib dose.
+
+> **Anchor:** Backup is receipt, not a second talk.
+
+## Q3: ==What is the main confidentiality or interpretation caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** disclosure-control
+
+A: Prevalence affects unmet need and testing strategy, not dose for mutation-positive patients.
+
+> **If pressed:** Stay at the public evidence level and avoid internal-process detail.`,
+  'cs3-backup-master': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: This section preserves optional oncology pharmacometrics backup material, even though the live CS3 story is PharmAgent.
+
+> **If pressed:** Keep the answer tied to ==CS3 optional SPARK-ALL and Asparlas backup library== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use only if the panel asks for the alternate pharmacometrics case or trial-design examples beyond PharmAgent.
+
+> **Anchor:** Optional pharmacometrics backup, not the live PharmAgent case.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Do not blend these slides into the live AI/ML case or imply they validate PharmAgent.
+
+> **If pressed:** State the boundary clearly and avoid blending SPARK-ALL claims into the AI/ML architecture story.`,
+  'cs3-backup-type-2-methodology': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Contains optimal-design sample-size logic and PopPK-simulated NPAA endpoint rationale from the optional Asparlas case.
+
+> **If pressed:** Keep the answer tied to ==SPARK-ALL methodology lane== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked about technical trial-design methods, informative priors, or simulated endpoint acceptability.
+
+> **Anchor:** Optional pharmacometrics backup, not the live PharmAgent case.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: State clearly that this is optional SPARK-ALL backup material, separate from PharmAgent.
+
+> **If pressed:** State the boundary clearly and avoid blending SPARK-ALL claims into the AI/ML architecture story.`,
+  'cs3-B1-optimal-design': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Defends sample size by information gain using D-optimality in PopED and pediatric informative prior information.
+
+> **If pressed:** Keep the answer tied to ==Optimal design backup== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked why N=60 could be scientifically defensible versus N=94.
+
+> **Anchor:** Optional pharmacometrics backup, not the live PharmAgent case.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: RSE values illustrate the briefing-package pattern; do not overstate them as public standalone results.
+
+> **If pressed:** State the boundary clearly and avoid blending SPARK-ALL claims into the AI/ML architecture story.`,
+  'cs3-B2-simulated-endpoint': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Explains NPAA >= 0.1 U/mL as a mechanism-linked, PopPK-derived endpoint with FDA precedent from asparaginase review history.
+
+> **If pressed:** Keep the answer tied to ==Simulated primary endpoint backup== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked whether a simulated primary endpoint can be scientifically or regulatorily defensible.
+
+> **Anchor:** Optional pharmacometrics backup, not the live PharmAgent case.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Critical correction: FDA deferred acceptance pending more PopPK data; it did not reject the concept outright.
+
+> **If pressed:** State the boundary clearly and avoid blending SPARK-ALL claims into the AI/ML architecture story.`,
+  'cs3-backup-type-4-risk-mitigation': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Handles the uncomfortable question of SPARK-ALL termination and separates program fate from methodological value.
+
+> **If pressed:** Keep the answer tied to ==SPARK-ALL risk-mitigation lane== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked whether trial termination invalidates the case.
+
+> **Anchor:** Optional pharmacometrics backup, not the live PharmAgent case.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Acknowledge termination directly; do not frame it as a success or speculate beyond public record.
+
+> **If pressed:** State the boundary clearly and avoid blending SPARK-ALL claims into the AI/ML architecture story.`,
+  'cs3-B3-trial-status': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: States the public record: SPARK-ALL was terminated, enrolled 42 versus planned 60, and listed sponsor decision as the reason.
+
+> **If pressed:** Keep the answer tied to ==SPARK-ALL trial status== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked whether the early termination was scientific failure, regulatory rejection, or safety signal.
+
+> **Anchor:** Optional pharmacometrics backup, not the live PharmAgent case.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Do not speculate. The durable claim is about methodology and agency interaction, not completed registration outcome.
+
+> **If pressed:** State the boundary clearly and avoid blending SPARK-ALL claims into the AI/ML architecture story.`,
+  'cs3-backup-type-5-regulatory': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Provides the regulatory and pediatric-data anchor behind the optional Asparlas/SPARK-ALL extrapolation logic.
+
+> **If pressed:** Keep the answer tied to ==SPARK-ALL regulatory-precedent lane== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked what justified borrowing from pediatric ALL data.
+
+> **Anchor:** Optional pharmacometrics backup, not the live PharmAgent case.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: A pediatric prior is useful only if adult observations do not show structural extrapolation failure.
+
+> **If pressed:** State the boundary clearly and avoid blending SPARK-ALL claims into the AI/ML architecture story.`,
+  'cs3-B4-pediatric-anchor': `## Q1: ==What does this backup slide prove?==
+**From:** panelist asking for backup depth
+**Difficulty:** ★★ · **Topic:** backup-defense
+
+A: Defends the pediatric PopPK model as the prior and adult data as the falsifiable transfer test.
+
+> **If pressed:** Keep the answer tied to ==Pediatric anchor backup== and point to the visible receipt.
+
+## Q2: ==When should I use it?==
+**From:** panelist asking for a specific detail
+**Difficulty:** ★★ · **Topic:** use-case
+
+A: Use if asked why pediatric Asparlas data could inform adult trial design.
+
+> **Anchor:** Optional pharmacometrics backup, not the live PharmAgent case.
+
+## Q3: ==What is the main caution?==
+**From:** hostile or detail-oriented panelist
+**Difficulty:** ★★★ · **Topic:** limits
+
+A: Do not conflate N=124 pooled PopPK dataset with N=13 DFCI-only evaluable subset.
+
+> **If pressed:** State the boundary clearly and avoid blending SPARK-ALL claims into the AI/ML architecture story.`,
 };
 
 export default qa;

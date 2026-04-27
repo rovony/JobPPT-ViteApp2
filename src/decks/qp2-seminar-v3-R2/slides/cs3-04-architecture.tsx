@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React, { useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
+import { MessageSquareText, User } from 'lucide-react';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 
@@ -8,6 +9,8 @@ const EASE = [0.2, 0.7, 0.3, 1];
 
 // 14 Total Agents (1 Supervisor + 10 L1 + 3 L2) + 1 PharmState Bus
 const NODES = [
+  // L-1
+  { id: 'h_req', label: 'ANALYST', sub: 'Human-in-the-loop', cx: 16, cy: 15, tone: 'var(--coral)', level: -1, w: 12, h: 10 },
   // L0
   { id: 'l0_sup', label: 'SUPERVISOR', sub: 'Classifies · Routes', cx: 42, cy: 15, tone: 'var(--sage)', level: 0, w: 14, h: 10 },
 
@@ -40,7 +43,7 @@ const ORCH_LINKS = NODES.filter(n => n.level === 1).map(n => ({
 const SPEC_LINKS = NODES.filter(n => n.level === 2).map(n => ({
   from: NODE_MAP.l1_mod, to: n, color: 'var(--amber)'
 }));
-const ALL_LINKS = [...ORCH_LINKS, ...SPEC_LINKS];
+const ALL_LINKS = [{ from: NODE_MAP.h_req, to: NODE_MAP.l0_sup, color: 'var(--coral)' }, ...ORCH_LINKS, ...SPEC_LINKS];
 
 // The Decision Tiles based on the CS4 Script
 const DECISIONS = [
@@ -51,9 +54,9 @@ const DECISIONS = [
     tone: 'var(--sage)',
   },
   {
-    kicker: 'Why Three Levels',
-    title: 'Modeler depth boundary',
-    body: 'Level 1 manages data and reporting. Level 2 (PopPK, PKPD) protects deep mathematical reasoning.',
+    kicker: 'Why PharmState',
+    title: 'No agent-to-agent DMs',
+    body: 'Agents never talk directly. All I/O passes through a strongly-typed, schema-validated shared bus.',
     tone: 'var(--amber)',
   },
   {
@@ -128,9 +131,9 @@ export default function CS3Architecture() {
       </Viz>
 
       <Footer
-        kicker="Case 04 · Architecture"
+        kicker="Case 03 · Architecture"
         tagline="The platform was designed M15-native — privacy and audit are not features, they are architecture."
-        source="Source · pharmAgent.md (Okour, internal v1.0 Feb 2026) · Kim et al. 2025 (arXiv:2512.08296)"
+        source="Source · PharmAgent personal research notes (v1.0, Feb 2026) · Kim et al. 2025 (arXiv:2512.08296)"
         delay={2.1}
       />
     </SlideGrid>
@@ -189,98 +192,141 @@ function SpecColumn({ go = true }) {
   );
 }
 
+
 function RoutedWorkflow({ go = true }) {
   return (
     <div style={{ position: 'absolute', inset: 'var(--space-2)' }}>
-      {/* ── PharmState Glowing Rail (Right Side) ── */}
+      {/* ── PharmState Shared Bus (Massive Right Column) ── */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={go ? { opacity: 1 } : { opacity: 1 }}
-        transition={{ duration: 1.0, delay: 1.2, ease: EASE }}
+        initial={{ opacity: 0, x: 20 }}
+        animate={go ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
+        transition={{ duration: 1.0, delay: 1.0, ease: EASE }}
         style={{
           position: 'absolute',
-          top: '10%',
-          bottom: '10%',
-          right: '8%',
-          width: '6px',
-          background: 'var(--amber)',
-          borderRadius: '99px',
-          boxShadow: '0 0 30px var(--amber), 0 0 10px var(--amber)',
+          top: '4%',
+          bottom: '4%',
+          right: '2%',
+          width: '24%',
+          background: 'color-mix(in srgb, var(--panel) 80%, transparent)',
+          border: '1px solid color-mix(in srgb, var(--amber) 40%, transparent)',
+          borderLeft: '4px solid var(--amber)',
+          borderRadius: 'var(--radius-md)',
+          padding: 'var(--space-4)',
+          display: 'flex',
+          flexDirection: 'column',
+          zIndex: 5,
+          backdropFilter: 'blur(12px)',
+          boxShadow: '-10px 0 30px color-mix(in srgb, var(--amber) 10%, transparent)',
         }}
       >
-        <div className="deck-mono uppercase" style={{
-          position: 'absolute',
-          top: '-24px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          color: 'var(--amber)',
-          fontSize: '11px',
-          fontWeight: 700,
-          letterSpacing: '0.1em',
-        }}>PharmState</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginBottom: 'var(--space-6)' }}>
+          <div className="deck-mono uppercase" style={{
+            color: 'var(--amber)',
+            fontSize: '14px',
+            fontWeight: 800,
+            letterSpacing: '0.15em',
+          }}>PHARMSTATE</div>
+          <div className="deck-body" style={{ fontSize: '10px', color: 'var(--cream)', opacity: 0.9, lineHeight: 1.4 }}>
+            Typed Shared Bus &middot; Schema Validated<br/>
+            <span style={{ color: 'var(--coral)', fontWeight: 600 }}>Zero Direct Agent Messaging</span>
+          </div>
+        </div>
+
+        <div style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          gap: 'var(--space-2)',
+        }}>
+          {[
+            { label: 'CONTEXT', val: 'drug_name, indication', color: 'var(--sage)' },
+            { label: 'DATASET', val: 'metadata, schema', color: 'var(--amber)' },
+            { label: 'NCA & METRICS', val: 'AUC, Cmax, t1/2', color: 'var(--coral)' },
+            { label: 'MODELING & QC', val: 'parameters, diagnostics', color: 'var(--cyan)' },
+            { label: 'SIMULATION', val: 'virtual_pop, target_att', color: 'var(--amber)' },
+            { label: 'REPORT & AUDIT', val: 'hash_chain, artifacts', color: 'var(--sage)' },
+          ].map((slot, i) => (
+            <motion.div
+              key={slot.label}
+              initial={{ opacity: 0, x: 10 }}
+              animate={go ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 1.3 + i * 0.1, ease: EASE }}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 4,
+                padding: '8px 10px',
+                background: `color-mix(in srgb, ${slot.color} 10%, transparent)`,
+                border: `1px solid color-mix(in srgb, ${slot.color} 30%, transparent)`,
+                borderLeft: `2px solid ${slot.color}`,
+                borderRadius: '4px',
+                position: 'relative',
+                overflow: 'hidden',
+              }}
+            >
+              <motion.div
+                initial={{ left: '-100%' }}
+                animate={{ left: '200%' }}
+                transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.3, ease: 'linear' }}
+                style={{
+                  position: 'absolute',
+                  top: 0, bottom: 0, width: '40%',
+                  background: `linear-gradient(90deg, transparent, color-mix(in srgb, ${slot.color} 25%, transparent), transparent)`,
+                  zIndex: 0,
+                }}
+              />
+              <div className="deck-mono" style={{ fontSize: '9px', color: 'var(--cream-muted)', zIndex: 1 }}>{slot.label}</div>
+              <div className="deck-mono" style={{ fontSize: '12px', color: slot.color, fontWeight: 700, zIndex: 1 }}>{slot.val}</div>
+            </motion.div>
+          ))}
+        </div>
       </motion.div>
 
       <svg aria-hidden viewBox="0 0 100 100" preserveAspectRatio="none" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', overflow: 'visible', zIndex: 0 }}>
-        {/* State Bus Dashed Links (PharmState) */}
+        <defs>
+          <marker id="arrow-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4" markerHeight="4" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--cream-muted)" opacity="0.5" />
+          </marker>
+          <marker id="arrow-l" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--cream-muted)" opacity="0.5" />
+          </marker>
+        </defs>
+        {/* All agents connect ONLY to PharmState (at x=76) */}
         {NODES.map((node, i) => {
-          // Drop down from the node to a clean horizontal channel
-          // L0 (cy=15) drops to 22. L1A (cy=38) drops to 46. L1B (cy=58) drops to 66. L2 (cy=86) drops to 94.
-          let busY = node.cy;
-          if (node.level === 0) busY = 22;
-          else if (node.level === 1 && node.cy < 50) busY = 46;
-          else if (node.level === 1 && node.cy > 50) busY = 66;
-          else if (node.level === 2) busY = 94;
-
-          const d = `M ${node.cx} ${node.cy} L ${node.cx} ${busY} L 92 ${busY}`;
-
+          const isL0 = node.level === 0;
+          const isL2 = node.level === 2;
+          const isHuman = node.id === 'h_req';
+          const targetX = isHuman ? 35 : 76; // Human connects to Supervisor, others to Bus
+          const d = `M ${node.cx + node.w/2} ${node.cy} L ${targetX} ${node.cy}`;
+          
           return (
-            <motion.path
-              key={`bus-${node.id}`}
-              d={d}
-              fill="none"
-              stroke="var(--amber)"
-              strokeWidth={1}
-              strokeDasharray="2 4"
-              opacity={0.25}
-              initial={{ pathLength: 0 }}
-              animate={go ? { pathLength: 1 } : { pathLength: 1 }}
-              transition={{ duration: 1.2, delay: 1.2 + i * 0.05, ease: EASE }}
-            />
-          );
-        })}
-
-        {/* Hierarchical Routing Links */}
-        {ALL_LINKS.map(({ from, to, color }, i) => {
-          // Orthogonal (stair-step) routing
-          const midY = (from.cy + to.cy) / 2;
-          const d = `M ${from.cx} ${from.cy} L ${from.cx} ${midY} L ${to.cx} ${midY} L ${to.cx} ${to.cy}`;
-
-          return (
-            <g key={`link-${from.id}-${to.id}`}>
-              {/* Core Line - Thin and Sharp */}
+            <g key={`bus-${node.id}`}>
+              {/* Solid track */}
               <motion.path
                 d={d}
                 fill="none"
-                stroke={color}
-                strokeWidth={1}
-                opacity={0.3}
+                stroke={node.tone}
+                strokeWidth={isL0 || isL2 ? 1.5 : 1}
+                opacity={0.4}
+                markerStart={node.id !== 'h_req' ? 'url(#arrow-l)' : ''}
+                markerEnd="url(#arrow-r)"
                 initial={{ pathLength: 0 }}
                 animate={go ? { pathLength: 1 } : { pathLength: 1 }}
-                transition={{ duration: 1.0, delay: 0.8 + i * 0.05, ease: EASE }}
+                transition={{ duration: 1.0, delay: 1.2 + i * 0.05, ease: EASE }}
               />
-              {/* Subtle Data Flow - Faint dots moving */}
+              {/* Flowing data pulses (bi-directional implied by sweeping dash) */}
               <motion.path
                 d={d}
                 fill="none"
-                stroke={color}
-                strokeWidth={1.5}
-                strokeDasharray="2 24"
-                pathLength={100}
+                stroke={node.tone}
+                strokeWidth={2}
+                strokeDasharray="4 20"
                 opacity={0.8}
-                initial={{ strokeDashoffset: 100, opacity: 0 }}
+                initial={{ strokeDashoffset: 24, opacity: 0 }}
                 animate={go ? { strokeDashoffset: 0, opacity: 0.8 } : { opacity: 0 }}
                 transition={{
-                  strokeDashoffset: { duration: 3, repeat: Infinity, ease: "linear" },
+                  strokeDashoffset: { duration: 1.5 + Math.random(), repeat: Infinity, ease: "linear" },
                   opacity: { duration: 0.5, delay: 1.5 + i * 0.05 }
                 }}
               />
@@ -290,16 +336,24 @@ function RoutedWorkflow({ go = true }) {
       </svg>
 
       {/* Level Labels */}
-      <div className="deck-mono" style={{ position: 'absolute', top: '15%', left: '4%', color: 'var(--cream-faint)', fontSize: '10px', transform: 'translateY(-50%)' }}>LEVEL 0</div>
-      <div className="deck-mono" style={{ position: 'absolute', top: '48%', left: '4%', color: 'var(--cream-faint)', fontSize: '10px', transform: 'translateY(-50%)' }}>LEVEL 1</div>
-      <div className="deck-mono" style={{ position: 'absolute', top: '86%', left: '4%', color: 'var(--cream-faint)', fontSize: '10px', transform: 'translateY(-50%)' }}>LEVEL 2</div>
+      <div className="deck-mono" style={{ position: 'absolute', top: '15%', left: '2%', color: 'var(--cream-faint)', fontSize: '10px', transform: 'translateY(-50%)' }}>L0<br/>ORCH.</div>
+      <div className="deck-mono" style={{ position: 'absolute', top: '48%', left: '2%', color: 'var(--cream-faint)', fontSize: '10px', transform: 'translateY(-50%)' }}>L1<br/>DOMAIN</div>
+      <div className="deck-mono" style={{ position: 'absolute', top: '86%', left: '2%', color: 'var(--cream-faint)', fontSize: '10px', transform: 'translateY(-50%)' }}>L2<br/>EXPERT</div>
 
       {NODES.map((node, i) => (
-        <FlowNode key={node.id} node={node} go={go} delay={1.1 + i * 0.05} />
+        <FlowNode key={node.id} node={node} go={go} delay={0.6 + i * 0.05} />
       ))}
+
+      {go && (
+        <>
+          <ChatBubble x="10%" y="22%" delay={2.5} color="var(--coral)" text="Run exposure metrics and fit structural base model." duration={5.0} align="left" />
+          <ChatBubble x="36%" y="22%" delay={4.0} color="var(--sage)" text="Routing to NCA Agent and Modeler Manager. Writing context to PharmState." duration={5.0} align="left" />
+        </>
+      )}
     </div>
   );
 }
+
 
 function FlowNode({ node, go = true, delay = 0 }) {
   return (
@@ -389,6 +443,41 @@ function DecisionTile({ kicker, title, body, tone, delay = 0, go = true }) {
         color: 'color-mix(in srgb, var(--cream) 78%, transparent)',
         lineHeight: 1.35,
       }}>{body}</div>
+    </motion.div>
+  );
+}
+
+function ChatBubble({ x, y, text, delay, color, duration = 3, align = 'left' }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10, scale: 0.8 }}
+      animate={{ opacity: [0, 1, 1, 0], y: [10, 0, 0, -10], scale: [0.8, 1, 1, 0.9] }}
+      transition={{ times: [0, 0.05, 0.95, 1], duration: duration, delay: delay }}
+      style={{ 
+        position: 'absolute', 
+        left: align === 'left' ? x : 'auto', 
+        right: align === 'right' ? x : 'auto',
+        top: y, 
+        background: `color-mix(in srgb, var(--panel) 30%, ${color} 15%)`, 
+        backdropFilter: 'blur(8px)',
+        border: `1px solid color-mix(in srgb, ${color} 50%, transparent)`, 
+        borderRadius: '16px', 
+        borderTopLeftRadius: align === 'left' ? '4px' : '16px', 
+        borderTopRightRadius: align === 'right' ? '4px' : '16px',
+        padding: '12px 16px', 
+        maxWidth: '260px', 
+        display: 'flex',
+        gap: '12px',
+        alignItems: 'flex-start',
+        color: 'var(--cream)', 
+        fontSize: '13px', 
+        lineHeight: 1.5, 
+        boxShadow: `0 12px 40px color-mix(in srgb, ${color} 25%, transparent)`, 
+        zIndex: 50 
+      }}
+    >
+      <MessageSquareText size={16} color={color} style={{ marginTop: '2px', flexShrink: 0 }} />
+      <span>{text}</span>
     </motion.div>
   );
 }

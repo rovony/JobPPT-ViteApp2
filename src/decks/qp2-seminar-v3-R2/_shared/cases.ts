@@ -6,8 +6,7 @@
  * onto slide 02 (hook-A) via shared layoutId="hook-mark-csN" — the
  * audience reads the move as "the cards never left", with slide 02 then
  * adding 3 amber U-badges below each card and connector lines linking
- * each card to its associated badge as the speaker says each U-word at
- * 16s / 37s / 55s.
+ * each card to its associated badge.
  *
  * Source of truth for case identity, color, label, title, note. Keep
  * here; do not duplicate. Both slide 01 and slide 02 import from this.
@@ -17,7 +16,7 @@ export const CASES = [
   {
     id: 1,
     label: 'CASE 01 · AMBRISENTAN · PEDIATRIC PAH',
-    title: 'Model-based dose for a trial that could not be run.',
+    title: 'Exposure-matched dose for a trial that could not carry the answer.',
     note: 'Approved by EMA + PMDA.',
     color: 'var(--coral)',
     /* PK landmark — used on slide 01's PK curve overlay */
@@ -43,8 +42,8 @@ export const CASES = [
   {
     id: 3,
     label: 'CASE 03 · AI / ML · CLIN PHARM AGENT',
-    title: 'Agentic ML for dose-finding workflows.',
-    note: 'Pilot deployment, 2026.',
+    title: 'Agent architecture for regulated pharmacology workflows.',
+    note: 'Research platform, 2026.',
     color: 'var(--violet)',
     dotX: 625,
     dotY: 178,

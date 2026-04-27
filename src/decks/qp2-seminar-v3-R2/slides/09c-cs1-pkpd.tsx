@@ -227,16 +227,16 @@ export default function Cs1Pkpd() {
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
       <Eyebrow color="var(--coral)" delay={D.chrome}>Case 01 · PopPK · build & fit PART 2</Eyebrow>
       <Headline delay={D.headline} maxChars={50}>
-        Exposure bridged. Flat exposure-response.
+        Exposure bridged; no clear E-R gradient.
       </Headline>
       <Subhead delay={D.subhead} maxChars={100} size="lead">
-        Pediatric exposures land perfectly inside the adult target envelope, and exhibit no safety signal gradient across the exposure range.
+        Pediatric exposures land inside the adult target envelope, with no clear efficacy or safety gradient across observed exposure.
       </Subhead>
 
       <Viz>
         <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', minHeight: 0, paddingTop: 'var(--space-2)' }}>
           
-          <div className="deck-mono uppercase" style={{ background: 'color-mix(in srgb, var(--coral) 12%, transparent)', border: '1px solid color-mix(in srgb, var(--coral) 40%, transparent)', borderRadius: '4px', color: 'var(--coral)', padding: '6px 16px', fontSize: '12px', letterSpacing: '0.2em', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>PK MATCHING</div>
+          <div className="deck-mono uppercase" style={{ background: 'color-mix(in srgb, var(--coral) 12%, transparent)', border: '1px solid color-mix(in srgb, var(--coral) 40%, transparent)', borderRadius: 'var(--radius-sm)', color: 'var(--coral)', padding: 'var(--space-2) var(--space-4)', fontSize: 'var(--fs-slide-pageno)', letterSpacing: '0.2em', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>PK MATCHING</div>
 
           {/* Top Row: Exposure Match (AUC and Cmax) */}
           <div style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 'var(--space-3)' }}>
@@ -250,18 +250,18 @@ export default function Cs1Pkpd() {
             </div>
           </div>
 
-          <div className="deck-mono uppercase" style={{ background: 'color-mix(in srgb, var(--coral) 12%, transparent)', border: '1px solid color-mix(in srgb, var(--coral) 40%, transparent)', borderRadius: '4px', color: 'var(--coral)', padding: '6px 16px', fontSize: '12px', letterSpacing: '0.2em', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', marginTop: 'var(--space-1)' }}>PK-PD MATCHING</div>
+          <div className="deck-mono uppercase" style={{ background: 'color-mix(in srgb, var(--coral) 12%, transparent)', border: '1px solid color-mix(in srgb, var(--coral) 40%, transparent)', borderRadius: 'var(--radius-sm)', color: 'var(--coral)', padding: 'var(--space-2) var(--space-4)', fontSize: 'var(--fs-slide-pageno)', letterSpacing: '0.2em', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', marginTop: 'var(--space-1)' }}>PK-PD CONTEXT</div>
 
           {/* Bottom Row: Efficacy & Safety E-R */}
           <div style={{ flex: 1.3, minHeight: 0, display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: 'var(--space-3)' }}>
             <div style={CHART_PANEL}>
-              <PanelTitle label={<>Efficacy E-R: AUC<sub>ss</sub> vs 6MWD</>} right={<ConclusionPill color="var(--cyan)">FLAT EFFICACY E-R</ConclusionPill>} delay={D.axisA} />
+              <PanelTitle label={<>Efficacy E-R: AUC<sub>ss</sub> vs 6MWD</>} right={<ConclusionPill color="var(--cyan)">NO CLEAR EFFICACY GRADIENT</ConclusionPill>} delay={D.axisA} />
               <div style={CHART_PANEL_BODY}>
                 <EfficacyPanel tk={tk} D={D} />
               </div>
             </div>
             <div style={{ ...CHART_PANEL, padding: 'clamp(8px, 1vh, 16px)' }}>
-              <PanelTitle label={<>Safety E-R: AE vs Exposure</>} right={<ConclusionPill color="var(--cyan)">FLAT SAFETY PROFILE</ConclusionPill>} delay={D.axisB} />
+              <PanelTitle label={<>Safety E-R: AE vs Exposure</>} right={<ConclusionPill color="var(--cyan)">NO CLEAR SAFETY GRADIENT</ConclusionPill>} delay={D.axisB} />
               <div style={{ ...CHART_PANEL_BODY, flexDirection: 'column', gap: 'var(--space-2)' }}>
                 <div style={{ flex: 1, minHeight: 0, width: '100%', position: 'relative' }}>
                   <BoxPanel tk={tk} letter="" title="" unit={DATA.auc.unit} data={DATA.auc} axisDelay={D.axisA} boxDelay={D.boxA} guideDelay={D.guideA} deltaLabel="Δ ≈ -12%" />
@@ -278,7 +278,7 @@ export default function Cs1Pkpd() {
           {/* Summary Conclusion Card */}
           <div style={{ flex: '0 0 auto', padding: '12px 24px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'color-mix(in srgb, var(--coral) 8%, transparent)', border: '1px solid var(--coral)', borderRadius: '4px', marginTop: 'var(--space-1)' }}>
             <span className="deck-mono" style={{ fontSize: '13px', letterSpacing: '0.08em', color: 'var(--coral)', fontWeight: 600, textTransform: 'uppercase' }}>
-              CONCLUSION: PK MATCHING AND FLAT EXPOSURE-RESPONSE CONSERVED ACROSS PEDIATRIC COHORT
+              CONCLUSION: PK MATCHING HELD; NO CLEAR EXPOSURE-RESPONSE GRADIENT IN OBSERVED RANGE
             </span>
           </div>
 

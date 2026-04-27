@@ -125,7 +125,7 @@ export default function CS2Velocity() {
       <Footer
         delay={reduced ? 0 : 1.8}
         kicker="Act 4 · Timeline"
-        tagline="Public regulatory milestones only — internal engagement details stay in Q&A."
+        tagline="Public regulatory milestones only — operational details stay off the slide face."
         source="Sources · FDA Tibsovo labels/reviews · EMA EPAR · DCGI Rule 101 order · CDSCO/Servier public record"
       />
     </SlideGrid>
