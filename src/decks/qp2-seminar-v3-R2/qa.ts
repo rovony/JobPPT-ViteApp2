@@ -10,13 +10,13 @@ const qa = {
   // Slide 02-A — Hook: "When the trial isn't the answer."
   // Amendment 2: expanded to 8 questions (★ to ★★★★★) covering clinical-design,
   // methodology, regulatory-science, career, and structural pushback vectors.
-  'hook-A-trial-not-answer': `## Q1: Are you arguing we should be running fewer trials?
+  'hook-A-trial-not-answer': `## Q1: Are you arguing we should be running ==fewer trials==?
 **From:** clinical-trial-leaning panelist
 **Difficulty:** ★★★ · **Topic:** clinical-design
 
-A: No. Trials are the gold standard, and nothing in the next forty
+A: No. ==Trials are the gold standard==, and nothing in the next forty
 minutes argues otherwise. The point is that there are decisions a
-regulator has to make where the gold-standard trial is not an option —
+regulator has to make where the ==gold-standard trial is not an option== —
 pediatric efficacy where randomization is unethical, regional approval
 where a local trial doesn't exist, forward-looking work where the
 trial hasn't been designed yet. Clinical pharmacology is the discipline
@@ -31,32 +31,34 @@ we can't run; we don't substitute it for the trial we can.
 
 > **Anchor:** Pharm fills the gap
 
-## Q2: The three marks — UNTRIALABLE, UNAVAILABLE, UNBUILT — is that a real taxonomy or rhetorical framing?
+## Q2: The three marks — ==UNTRIALABLE, UNAVAILABLE, UNBUILT== — real taxonomy or rhetoric?
 **From:** methodology-leaning panelist
 **Difficulty:** ★★ · **Topic:** methodology
 
-A: Both. The taxonomy is real — each label maps to a distinct
+A: Both. The ==taxonomy is real== — each label maps to a distinct
 class of clinical pharmacology decision: extrapolation when the
-trial is *untrialable*, regional bridging when the trial is
-*unavailable*, and forward-looking infrastructure when the
-decision tools are *unbuilt*. The rhetorical framing is
+trial is ==untrialable==, regional bridging when the trial is
+==unavailable==, and forward-looking infrastructure when the
+decision tools are ==unbuilt==. The rhetorical framing is
 intentional — three different shapes of the same problem under one
 frame. Both layers are defensible; the rest of the talk is the evidence.
 
-## Q3: Doesn't this overstate the role of pharmacology? Most regulatory decisions still rest on pivotal trials.
+> **If pressed:** The labels are a memory hook; the defensible claim is that each case maps to a different ==clinical pharmacology decision class==.
+
+## Q3: Doesn't this ==overstate pharmacology==? Most decisions still rest on ==pivotal trials==.
 **From:** senior regulatory-science panelist
 **Difficulty:** ★★★★ · **Topic:** regulatory
 
 > **Quick:** Yes — most do. The hook names the cases where trials *cannot* deliver the evidence, and what pharmacology fills.
 
-A: Yes — most do. The hook isn't claiming pharmacology has displaced
+A: Yes — most do. The hook is not claiming pharmacology has displaced
 pivotal trials. The hook is naming the cases where trials *cannot*
 deliver the evidence, and what fills the gap. Across a portfolio,
-pivotal trials remain the backbone. But the *frequency* of decisions
+==pivotal trials remain the backbone==. But the *frequency* of decisions
 where a trial can't or won't run — pediatric, regional, rare disease,
 forward-looking infrastructure — is increasing. ICH E11A, India
 Rule 101, and the M15 draft are all responses to that frequency. My
-argument is that pharmacology has always carried these cases; the field
+argument is that ==pharmacology has always carried these cases==; the field
 is just starting to formalize how.
 
 > **If pressed:** I'd be happy to defend the specific assertion that
@@ -67,20 +69,20 @@ is just starting to formalize how.
 
 > **Anchor:** Pivotal backbone, pharm fills
 
-## Q4: "Three trials that couldn't be run" — but two of your cases had clinical data, just not the data the regulator initially wanted. Isn't your framing dishonest?
+## Q4: "Three trials that couldn't be run" — but you had ==clinical data==. Is that ==dishonest==?
 **From:** detail-oriented regulatory panelist
 **Difficulty:** ★★★★★ · **Topic:** clinical-design
 
 > **Quick:** Fair pushback. Adult and global clinical data existed; the *specific trial that would settle the specific regulatory question* didn't. I'll restate that as we get to each case.
 
 A: Fair pushback, and worth being precise about. The framing means:
-*the trial that would directly answer the regulatory question wasn't
-there.* In pediatric PAH, the placebo-controlled efficacy trial in
+==the trial that would directly answer the regulatory question was not
+there==. In pediatric PAH, the placebo-controlled efficacy trial in
 8-to-under-18-year-olds wasn't there — randomization was unethical.
 In India ivosidenib, the local-population efficacy trial wasn't
 there — Rule 101 explicitly accepted the global dossier in lieu of
-one. Adult or global data existed; the *specific trial that would
-settle the specific question* didn't. I should have been clearer
+one. ==Adult or global data existed==; the specific trial that would
+settle the specific question didn't. I should have been clearer
 about that distinction in the open. I'll note it in the case framing
 as we get to it.
 
@@ -93,14 +95,14 @@ as we get to it.
 
 > **Verbatim:** "the trial the regulator would have asked for first" — use this phrase, not "trials that aren't there," any time the open is challenged.
 
-## Q5: What about the cases where pharmacology gets it wrong? When the substitution for a trial turns out to be bad?
+## Q5: What about when ==pharmacology gets it wrong== — when the trial substitution is bad?
 **From:** skeptical senior panelist
 **Difficulty:** ★★★★ · **Topic:** methodology
 
 > **Quick:** Real risk. Three guardrails bound it — fit-for-purpose against the question, regulator's confidence threshold scaled to consequence, and Phase 4 commitments catching substitution errors before they propagate.
 
 A: That risk is real, and the discipline of clinical pharmacology is
-partly the discipline of bounding it. Three guardrails: first, the
+partly the discipline of ==bounding it==. Three guardrails: first, the
 analysis has to be evaluated against the specific question of interest —
 the M15 draft is explicit about this; not every population PK fit on
 adult data is fit for pediatric extrapolation. Second, the regulator's
@@ -111,46 +113,54 @@ to catch substitution errors before they propagate at scale. I'd argue
 the failures of pharmacology-as-evidence are usually failures of one
 of those three guardrails, not of the substitution itself.
 
+> **If pressed:** The answer is not "trust the model." The answer is ==fit-for-purpose evidence + consequence-scaled confidence + post-approval guardrails==.
+
 > **Hostile:** Granted — substitution errors happen. The discipline is bounding them: M15 demands fit-for-purpose; regulators raise the bar with consequences; Phase 4 catches what slipped through. Pharmacology owns that bounding.
 
 > **Anchor:** Bound the substitution
 
-## Q6: "Unbuilt" sounds aspirational. Is this all retrospective work, or are you describing something forward?
+## Q6: "==Unbuilt==" sounds aspirational. Is this retrospective or ==forward-looking==?
 **From:** career-question panelist
 **Difficulty:** ★★ · **Topic:** career
 
-A: Both. The first two cases are retrospective — work that's already
+A: Both. The first two cases are ==retrospective== — work that's already
 been argued in front of regulators and accepted. The third —
-*unbuilt* — is forward-looking infrastructure I've been building
+==unbuilt== — is forward-looking infrastructure I've been building
 because I think the next ten years of pharmacology will need it.
 The slide is intentionally double-sided: the function does this
 *now*, in CS1 and CS2, and the function will do *more of it* —
 that's CS3 — as the frameworks (E11A, M15, Rule 101) keep moving in
 this direction.
 
-## Q7: Is "clinical pharmacology" the right label, or are you really describing pharmacometrics?
+> **If pressed:** CS1 and CS2 are proof of execution; CS3 is proof of ==direction of travel==.
+
+## Q7: Is this ==clinical pharmacology==, or really ==pharmacometrics==?
 **From:** discipline-distinction panelist
 **Difficulty:** ★★★ · **Topic:** methodology
 
-A: I use "clinical pharmacology" because it's the larger discipline —
+A: I use ==clinical pharmacology== because it is the larger discipline —
 the one that owns the question (what's the right dose, in what
-population, with what evidence). Pharmacometrics is the methodological
+population, with what evidence). ==Pharmacometrics is the methodological
 engine inside that discipline. The cases I'm presenting required PK/PD
 reasoning, exposure-response judgment, regulatory framing, and
-clinical context — pharmacometrics is necessary but not sufficient.
-The decision is a clinical pharmacology decision; the math is
+clinical context== — pharmacometrics is necessary but not sufficient.
+The decision is a ==clinical pharmacology decision==; the math is
 pharmacometric.
+
+> **If pressed:** Pharmacometric methods answer the quantitative part; clinical pharmacology owns the ==dose, population, evidence, and label question==.
 
 > **Anchor:** Decision is clinical
 
-## Q8: Can you preview the three cases now so the audience knows what's coming?
+## Q8: Can you ==preview the three cases== so the audience knows what's coming?
 **From:** structural panelist
 **Difficulty:** ★ · **Topic:** clinical-design
 
 A: That's the next slide — I'll name them in 30 seconds. Decision one
-is pediatric exposure-matching extrapolation. Decision two is regional
-regulatory bridging. Decision three is forward-looking decision
-infrastructure. Drugs and details start at slide four.`,
+is ==pediatric exposure-matching extrapolation==. Decision two is ==regional
+regulatory bridging==. Decision three is ==forward-looking decision
+infrastructure==. Drugs and details start at slide four.
+
+> **If pressed:** The shortest map is ==pediatric dose → regional approval → future infrastructure==.`,
 
   // Slide 02-B — Hook: "Twenty months changed the function."
   // Amendment 2: expanded to 9 questions (★★ to ★★★★★) covering regulatory-science,
@@ -300,45 +310,45 @@ framework staying fashionable.
   // ══════════════════════════════════════════════════════════════
 
   // cs1-question — opener defenses for the 380 vs 39 asymmetry and three disruptions
-  'cs1-question': `## Q1: You said the pediatric trial was terminated. Was it really terminated, or just interrupted?
+  'cs1-question': `## Q1: You said the pediatric trial was ==terminated==. Was it really terminated, or just ==interrupted==?
 **From:** detail-oriented clinical panelist
 **Difficulty:** ★★★ · **Topic:** clinical-design
 
-A: The precise chronology is enrollment hold first, formal termination later. The juvenile-rat finding led to a global enrollment hold in March 2013 after forty-one patients had been recruited. Existing patients could remain on treatment after EMA and national-agency review. The study was formally terminated in February 2019, with thirty-nine PK-evaluable patients. So "terminated" is accurate, but if I need the cleaner technical phrase, I would say "a disrupted pediatric program with an enrollment hold and later formal termination."
+A: The precise chronology is ==enrollment hold first, formal termination later==. The juvenile-rat finding led to a global enrollment hold in March 2013 after forty-one patients had been recruited. Existing patients could remain on treatment after EMA and national-agency review. The study was formally terminated in February 2019, with ==thirty-nine PK-evaluable patients==. So "terminated" is accurate, but if I need the cleaner technical phrase, I would say "a disrupted pediatric program with an enrollment hold and later formal termination."
 
-> **If pressed:** I would not say "failed trial." The trial generated the PK and safety dataset that supported the exposure-matching package.
+> **If pressed:** I would not say "failed trial." The trial generated the ==PK and safety dataset== that supported the exposure-matching package.
 
-## Q2: How can thirty-nine pediatric patients support a pediatric label?
+## Q2: How can ==thirty-nine pediatric patients== support a ==pediatric label==?
 **From:** skeptical clinical pharmacologist
 **Difficulty:** ★★★★ · **Topic:** methodology
 
-A: The model was not built from thirty-nine patients alone. The structural model was anchored in the adult program: about three hundred eighty adults and more than three thousand PK observations. The pediatric study confirmed that the adult-informed, allometrically scaled model predicted pediatric exposure adequately. The regulatory question was not "does ambrisentan work from scratch in children?" It was "can weight-banded pediatric dosing match the adult therapeutic exposure range with acceptable pediatric safety?" For that question, thirty-nine PK-evaluable patients can be enough.
+A: The model was ==not built from thirty-nine patients alone==. The structural model was anchored in the adult program: about three hundred eighty adults and more than three thousand PK observations. The pediatric study confirmed that the adult-informed, allometrically scaled model predicted pediatric exposure adequately. The regulatory question was not "does ambrisentan work from scratch in children?" It was "can weight-banded pediatric dosing match the ==adult therapeutic exposure range== with acceptable pediatric safety?" For that question, thirty-nine PK-evaluable patients can be enough.
 
-> **If pressed:** STARTS-1 enrolled 235 children and still missed its primary endpoint. In pediatric PAH, sample size is not the only constraint; endpoint validity and ethics are binding constraints too.
+> **If pressed:** STARTS-1 enrolled 235 children and still missed its primary endpoint. In pediatric PAH, ==sample size is not the only constraint==; endpoint validity and ethics are binding constraints too.
 
-## Q3: Without a placebo comparator, how do you know this was not just weak evidence?
+## Q3: Without a ==placebo comparator==, how do you know this was not weak evidence?
 **From:** trial-design panelist
 **Difficulty:** ★★★★ · **Topic:** clinical-design
 
-A: A placebo-controlled pediatric efficacy trial was not the feasible or ethical design by that point. Children with PAH were already receiving background PAH therapy, and AMB112529 was designed as a PK and safety study, not as a stand-alone efficacy trial. The evidence package was a totality-of-evidence argument: adult efficacy, conserved disease and pharmacology, pediatric exposure matching, pediatric safety, and long-term extension follow-up.
+A: A placebo-controlled pediatric efficacy trial was ==not feasible or ethical== by that point. Children with PAH were already receiving background PAH therapy, and AMB112529 was designed as a ==PK and safety study==, not as a stand-alone efficacy trial. The evidence package was a totality-of-evidence argument: adult efficacy, conserved disease and pharmacology, pediatric exposure matching, pediatric safety, and long-term extension follow-up.
 
-> **If pressed:** I would not overclaim pediatric efficacy from this study. The claim is dose justification by exposure matching, not a new placebo-controlled efficacy demonstration.
+> **If pressed:** I would not overclaim pediatric efficacy from this study. The claim is ==dose justification by exposure matching==, not a new placebo-controlled efficacy demonstration.
 
-## Q4: Was STARTS-2 the reason you used exposure matching?
+## Q4: Was ==STARTS-2== the reason you used ==exposure matching==?
 **From:** regulatory-safety panelist
 **Difficulty:** ★★★ · **Topic:** regulatory-safety
 
-A: Not the whole reason. The architectural precedent was bosentan FUTURE-1 in 2009: PK matching as the regulatory bridge when a pediatric efficacy trial is not viable. STARTS-2 added the cautionary lesson — empirical pediatric dose escalation can look attractive short-term and still create long-term safety concern. So there are two precedents: FUTURE-1 for the architecture, STARTS-2 for dose-selection caution.
+A: Not the whole reason. The architectural precedent was ==bosentan FUTURE-1 in 2009==: PK matching as the regulatory bridge when a pediatric efficacy trial is not viable. STARTS-2 added the cautionary lesson — empirical pediatric dose escalation can look attractive short-term and still create long-term safety concern. So there are two precedents: ==FUTURE-1 for the architecture==, STARTS-2 for dose-selection caution.
 
-> **If pressed:** The ambrisentan program was not a reaction to STARTS-2; it was an application of the established ERA pediatric bridging architecture under a more conservative safety climate.
+> **If pressed:** The ambrisentan program was not a reaction to STARTS-2; it was an application of the ==established ERA pediatric bridging architecture== under a more conservative safety climate.
 
-## Q5: If the package was strong, why did FDA not approve pediatric ambrisentan?
+## Q5: If the package was strong, why did ==FDA not approve== pediatric ambrisentan?
 **From:** regulatory-strategy panelist
 **Difficulty:** ★★★★ · **Topic:** regulatory
 
-A: FDA never received the pediatric package. Ambrisentan had split commercial rights: GSK held Volibris outside the United States and filed with EMA and PMDA; Gilead held Letairis in the United States and did not submit a pediatric sNDA. The current Letairis label says safety and effectiveness in pediatric patients have not been established. That is the language of not evaluated for a pediatric label, not evaluated and rejected.
+A: ==FDA never received the pediatric package==. Ambrisentan had split commercial rights: GSK held Volibris outside the United States and filed with EMA and PMDA; Gilead held Letairis in the United States and did not submit a pediatric sNDA. The current Letairis label says safety and effectiveness in pediatric patients have not been established. That is the language of ==not evaluated== for a pediatric label, not evaluated and rejected.
 
-> **If pressed:** I cannot say FDA would have approved a package it never reviewed. I can say EMA and PMDA accepted the exposure-matching totality of evidence, and the FDA gap is commercial-geographic, not a scientific rejection.`,
+> **If pressed:** I cannot say FDA would have approved a package it never reviewed. I can say ==EMA and PMDA accepted== the exposure-matching totality of evidence, and the FDA gap is ==commercial-geographic, not a scientific rejection==.`,
 
   // cs1-outcome — three disruptions: rat finding, sildenafil mortality, commercial split
   'cs1-outcome': `## Q1: Walk me through the juvenile-rat brain-weight finding. What was the mechanism, and why didn't it stop the program permanently?
@@ -1173,17 +1183,45 @@ A: By 2017 all 41 patients had ==completed or withdrawn==. Sites moved on, popul
 > **If pressed:** Better to formally terminate at 39 evaluable (Feb 2019) and proceed with the dataset. The unplanned interim analysis became the final analysis — that 39-patient dataset was the basis for EMA + PMDA labels.
 > **Anchor:** "Proceed with what you have"`,
 
-  'cs1-context': `## Q1: STARTS-2 showed a sildenafil mortality signal — but ambrisentan isn't sildenafil. Why is STARTS-2 relevant?
+  'cs1-context': `## Q1: ==STARTS-2== showed a sildenafil mortality signal — but ambrisentan isn't sildenafil. Why is it relevant?
 **From:** safety-aware panelist
 **Difficulty:** ★★★ · **Topic:** safety
 
-A: STARTS-2 is regulatory context, not a pharmacological analogy. It taught regulators that pediatric PAH dose-escalation trials carry real risk — and that empirical escalation without a mature exposure-response anchor is dangerous in this class. AFFILIATE 2024 has since attributed the signal to confounding (80 mg non-inferior to 5 mg adult survival), but the 2017–2021 review window for ambrisentan operated under maximum caution because of it.
+A: STARTS-2 is ==regulatory context==, not a pharmacological analogy. It taught regulators that pediatric PAH dose-escalation trials carry real risk — and that ==empirical escalation== without a mature exposure-response anchor is dangerous in this class. AFFILIATE 2024 has since attributed the signal to confounding (80 mg non-inferior to 5 mg adult survival), but the 2017–2021 review window for ambrisentan operated under maximum caution because of it.
 
-## Q2: Why does PVR rise in PAH — what's the actual lesion?
+> **If pressed:** The anchor is not "sildenafil equals ambrisentan." The anchor is ==pediatric dose-selection caution==: after STARTS-2, a PK-matched dose was more defensible than empirical escalation.
+
+## Q2: Why does ==PVR rise== in PAH — what's the actual ==lesion==?
 **From:** disease-biology panelist
 **Difficulty:** ★★ · **Topic:** disease
 
-A: Three things at once in the pulmonary arteriole: vasoconstriction, smooth-muscle and endothelial proliferation, and in-situ thrombosis. The lumen narrows; PVR rises; the right ventricle works harder, then dilates, then fails. The pathology is in the small vessels, not the heart — but patients die of right-heart failure. The hemodynamic definition is mPAP ≥20, PVR ≥2 WU, PAWP ≤15 — that wedge criterion is what makes it pre-capillary disease.`,
+A: Three things at once in the pulmonary arteriole: ==vasoconstriction==, ==smooth-muscle and endothelial proliferation==, and ==in-situ thrombosis==. The lumen narrows; ==PVR rises==; the right ventricle works harder, then dilates, then fails. The pathology is in the small vessels, not the heart — but patients die of ==right-heart failure==. The hemodynamic definition is mPAP ≥20, PVR ≥2 WU, PAWP ≤15 — that wedge criterion is what makes it pre-capillary disease.
+
+> **If pressed:** The simplest chain is: ==lumen narrows → resistance rises → right ventricle fails==. That is why a lung vascular disease becomes a right-heart-failure death.
+
+## Q3: You cite ==2022 ESC/ERS== thresholds, but AMB112529 was older. Are you mixing ==definitions==?
+**From:** guideline-aware panelist
+**Difficulty:** ★★★★ · **Topic:** data-integrity
+
+A: Good catch. I use the ==2022 ESC/ERS definition== for current disease orientation: mPAP ≥20, PVR ≥2 Wood units, PAWP ≤15. AMB112529 enrolled under the older ==Dana Point-era criteria==, where the pulmonary-hypertension threshold was mPAP ≥25 and PVR criteria were indexed differently in pediatric practice. That is not a contradiction — it is a ==chronology issue==. The disease definition evolved after the trial; the case still sits squarely in pre-capillary WHO Group 1 PAH.
+
+> **If pressed:** For trial interpretation, use ==the criteria in the protocol==. For teaching the disease in 2026, use ==the current ESC/ERS definition==.
+
+## Q4: The ==2.8-year survival== number is adult and historical. Why use it on a ==pediatric== slide?
+**From:** disease-context panelist
+**Difficulty:** ★★★ · **Topic:** disease
+
+A: I use ==D'Alonzo 1991== as the historical severity anchor for PAH as a disease, not as a modern pediatric survival estimate. It explains why the field treats PAH as lethal and why placebo-controlled pediatric trials became ethically difficult once active therapies existed. Modern treated pediatric PAH outcomes are better, but the historical survival number still explains the ==regulatory and ethical posture== around this disease.
+
+> **If pressed:** I would not claim untreated pediatric median survival is exactly 2.8 years. The number is the ==adult NIH registry benchmark== that shaped PAH drug development.
+
+## Q5: Is ==right-heart failure== the right term?
+**From:** terminology-focused panelist
+**Difficulty:** ★ · **Topic:** disease
+
+A: Yes. ==Right-heart failure== and ==right-sided heart failure== are both acceptable. In PAH, the specific physiology is right-ventricular pressure overload: PVR rises, the right ventricle hypertrophies, dilates, and eventually fails. I use "right-heart failure" because it is concise and familiar in pulmonary-hypertension discussions.
+
+> **If pressed:** The more anatomical phrase is ==right-ventricular failure==; "right-heart failure" is the stage-friendly clinical shorthand.`,
 
   'cs1-mechanism': `## Q1: Why does ETA selectivity matter — why not block both ETA and ETB?
 **From:** mechanism-aware panelist

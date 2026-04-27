@@ -1,6 +1,7 @@
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
+import { NuqsAdapter } from 'nuqs/adapters/react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
@@ -98,9 +99,11 @@ function App() {
       <ThemeProvider>
         <OrganizerProvider>
           <QueryClientProvider client={queryClientInstance}>
-            <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-              <AuthenticatedApp />
-            </Router>
+            <NuqsAdapter>
+              <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+                <AuthenticatedApp />
+              </Router>
+            </NuqsAdapter>
             <Toaster />
           </QueryClientProvider>
         </OrganizerProvider>

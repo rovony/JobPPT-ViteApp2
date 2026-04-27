@@ -25,7 +25,7 @@ import { transformNotesInlineChildren } from '@/lib/notesInlineTransform';
  *   • Topic rendered as a small mono pill
  *   • Auto-expand the first match when the search filter narrows to 1
  */
-export default function StructuredQAView({ questions = [] }) {
+export default function StructuredQAView({ questions = [], fontSizePx }) {
   const [query, setQuery] = useState('');
   const [openId, setOpenId] = useState(null);
   const [densityOpen, setDensityOpen] = useState(false);
@@ -113,6 +113,7 @@ export default function StructuredQAView({ questions = [] }) {
               open={openId === q.id}
               onToggle={() => setOpenId(openId === q.id ? null : q.id)}
               density={density}
+              fontSizePx={fontSizePx}
             />
           ))}
         </ul>
@@ -121,7 +122,7 @@ export default function StructuredQAView({ questions = [] }) {
   );
 }
 
-function QARow({ q, open, onToggle, density }) {
+function QARow({ q, open, onToggle, density, fontSizePx }) {
   // Sane defaults for legacy callers — fall back to "show everything"
   // so an undefined density doesn't accidentally hide fields.
   const d = density || {
@@ -138,7 +139,7 @@ function QARow({ q, open, onToggle, density }) {
   // first sentence (or first ~120 chars), no markdown formatting.
   const answerPreview = (() => {
     if (!d.showAnswerPreview || open) return '';
-    const raw = (q.answer || '').replace(/[*_`>#\-]/g, '').replace(/\s+/g, ' ').trim();
+    const raw = (q.answer || '').replace(/[*_`>#=\-]/g, '').replace(/\s+/g, ' ').trim();
     if (!raw) return '';
     const firstSentence = raw.split(/(?<=[.!?])\s/)[0];
     return firstSentence.length > 130 ? firstSentence.slice(0, 127) + '…' : firstSentence;
@@ -185,9 +186,9 @@ function QARow({ q, open, onToggle, density }) {
           )}
           <div
             className="mt-0.5"
-            style={{ fontSize: '0.92rem', color: 'var(--cream)', fontWeight: 500, lineHeight: 1.35 }}
+            style={{ fontSize: fontSizePx ? `${fontSizePx}px` : '0.92rem', color: 'var(--cream)', fontWeight: 500, lineHeight: 1.35 }}
           >
-            {q.question}
+            <InlineHighlightText text={q.question} />
           </div>
           {d.showAsker && q.from && (
             <div
@@ -201,7 +202,7 @@ function QARow({ q, open, onToggle, density }) {
             <div
               className="mt-1 truncate"
               style={{
-                fontSize: '0.78rem',
+                fontSize: fontSizePx ? `${Math.max(12, fontSizePx - 4)}px` : '0.78rem',
                 color: 'var(--cream-muted)',
                 lineHeight: 1.4,
                 fontStyle: 'italic',
@@ -223,7 +224,7 @@ function QARow({ q, open, onToggle, density }) {
             <div
               className="qa-answer mt-2"
               style={{
-                fontSize: '0.9rem',
+                fontSize: fontSizePx ? `${fontSizePx}px` : '0.9rem',
                 lineHeight: 1.55,
                 color: 'var(--cream)',
                 fontFamily: 'var(--font-body)',
@@ -255,7 +256,7 @@ function QARow({ q, open, onToggle, density }) {
               <div
                 className="qa-if-pressed"
                 style={{
-                  fontSize: '0.85rem',
+                  fontSize: fontSizePx ? `${Math.max(12, fontSizePx - 2)}px` : '0.85rem',
                   lineHeight: 1.5,
                   color: 'var(--cream-muted)',
                   fontFamily: 'var(--font-body)',
@@ -270,6 +271,33 @@ function QARow({ q, open, onToggle, density }) {
         </div>
       )}
     </li>
+  );
+}
+
+function InlineHighlightText({ text }) {
+  const parts = String(text || '').split(/(==[^=]+==)/g).filter(Boolean);
+
+  return (
+    <>
+      {parts.map((part, index) => {
+        const match = part.match(/^==(.+)==$/);
+        if (!match) return <React.Fragment key={index}>{part}</React.Fragment>;
+
+        return (
+          <span
+            key={index}
+            style={{
+              background: 'color-mix(in srgb, var(--case, var(--amber)) 32%, transparent)',
+              color: 'var(--cream)',
+              borderRadius: '0.18em',
+              padding: '0 0.12em',
+            }}
+          >
+            {match[1]}
+          </span>
+        );
+      })}
+    </>
   );
 }
 

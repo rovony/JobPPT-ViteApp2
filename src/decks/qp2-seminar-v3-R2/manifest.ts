@@ -17,7 +17,7 @@
  *                  (synthesis · Merck fit · thanks/Q&A — added 2026-04-26
  *                   per Phase 0 audit "no closer slide currently registered")
  *
- * Backup slides (17 total, all CS1):
+ * Backup slides (23 CS1 + 4 CS2 + 4 CS3):
  *   3 timeline backups (1995–2026 / 2004–2024 amb-only / program-detail)
  *   14 deep-dive backups B1–B14 (STARTS, rat finding, dosing, FDA gap,
  *   allometry, 6MWD, LTE, DDI, E11A, endpoints, Garnett-Florian,
@@ -120,6 +120,7 @@ import Cs1BackupB16ModelDiagnostics from './slides/cs1-B16-model-diagnostics';
 import Cs1BackupB17CovariateAnalysis from './slides/cs1-B17-covariate-analysis';
 import Cs1BackupB18ExposureMatching from './slides/cs1-B18-exposure-matching';
 import Cs1BackupB19EmaAddendum2026 from './slides/cs1-B19-ema-addendum-2026';
+import Cs1BackupB20FullStory from './slides/cs1-B20-full-story';
 // CS2 backup organization (V6 framework — added 2026-04-26)
 import Cs2BackupMasterDivider from './slides/cs2-backup-master-divider';
 import Cs2BackupTypeHistorical from './slides/cs2-backup-type-1-historical';
@@ -225,6 +226,7 @@ const manifest = {
       'cs1-backup-timeline-context': 5200,
       'cs1-backup-timeline-amb-only': 5200,
       'cs1-backup-timeline-program-detail': 5600,
+      'cs1-B20-full-story': 2600,
     },
   },
 
@@ -358,12 +360,12 @@ const manifest = {
     // V6 framework reorganization (2026-04-26): backup zone is opened
     // by a Master divider then sub-divided under the V6 5-type
     // framework (Audit_Slides_V6.md §Phase 2). Lane assignments:
-    //   Type 1 · Historical Context     → 4 slides
+    //   Type 1 · Historical Context     → 5 slides
     //   Type 2 · Methodology            → 8 slides
     //   Type 3 · Data Cuts              → 3 slides
     //   Type 4 · Risk Mitigation        → 3 slides
     //   Type 5 · Regulatory Precedent   → 4 slides
-    //   Total                           → 22 backup slides
+    //   Total                           → 23 backup slides
     //
     // Slides keep their original B-codes (B1..B14 from the original
     // 4-Backup-And-QA-CS1-v2.md package; B15..B19 ported from the
@@ -386,6 +388,7 @@ const manifest = {
     { id: 'cs1-backup-timeline-amb-only',        title: 'Backup · CS1 timeline · ambrisentan-only 2004–2024',         component: Cs1BackupTimelineAmbOnly,           isTitle: false, transition: 'fade' },
     { id: 'cs1-backup-timeline-program-detail',  title: 'Backup · CS1 timeline · program detail (adult + AMB112529)', component: Cs1BackupTimelineProgramDetail,     isTitle: false, transition: 'fade' },
     { id: 'cs1-B10-endpoints',                   title: 'Backup B10 · Endpoint evolution timeline',                   component: Cs1BackupB10EndpointHistory,        isTitle: false, transition: 'fade' },
+    { id: 'cs1-B20-full-story',                  title: 'Backup B20 · Full CS1 story',                                component: Cs1BackupB20FullStory,              isTitle: false, transition: 'fade' },
 
     // ── CS1 BACKUP · TYPE 2 · METHODOLOGY ─────────────────────────
     { id: 'cs1-backup-type-2-methodology',       title: 'BACKUP TYPE 2 · Methodology',                                component: Cs1BackupTypeMethodology,           isTitle: true,  transition: 'fade' },

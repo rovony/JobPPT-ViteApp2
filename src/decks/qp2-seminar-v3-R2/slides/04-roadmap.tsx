@@ -34,7 +34,7 @@ const CASES = [
     drug: 'Ambrisentan',
     indication: 'Pediatric PAH',
     setting: 'EMA · PMDA · 2021',
-    proves: 'Exposure matching as the regulatory bridge when an efficacy trial is impossible.',
+    proves: 'Exposure matching as the regulatory bridge when an efficacy trial cannot be run.',
   },
   {
     n: '02',
@@ -67,14 +67,14 @@ export default function Roadmap({ deck }) {
       </Eyebrow>
 
       <Headline delay={0.25} maxChars={56}>
-        Three cases. Three impossibilities.{' '}
+        Three cases. Three challenges.{' '}
         <span style={{ color: 'var(--amber)', fontStyle: 'italic', fontWeight: 500 }}>
           One discipline at the center.
         </span>
       </Headline>
 
       <Subhead delay={0.55} maxChars={88} size="lead">
-        Each case is a different drug and a different kind of impossible — pediatric,
+        Each case is a different drug and a different kind of challenge — pediatric,
         geographic, methodological. Quantitative pharmacology is what they share.
       </Subhead>
 
@@ -218,7 +218,7 @@ export default function Roadmap({ deck }) {
       <Footer
         delay={reduced ? 0 : 1.8}
         kicker="Roadmap · ~10 min per case · ~5 min cross-case + Q&A"
-        tagline="Pediatric · geographic · methodological — three impossibilities, one Clin Pharm answer."
+        tagline="Pediatric · geographic · methodological — three challenges, one Clin Pharm answer."
       />
     </SlideGrid>
   );

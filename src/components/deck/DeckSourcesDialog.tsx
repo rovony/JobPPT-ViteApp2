@@ -1,75 +1,29 @@
 // @ts-nocheck
-import React, { useEffect, useState, useRef } from 'react';
-import { base44 } from '@/api/base44Client';
-import { X, Upload, FileText, Loader2, Trash2, CheckCircle2, AlertCircle, Clock } from 'lucide-react';
+import React, { useRef } from 'react';
+import { X, Upload, FileText, Loader2, Trash2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { useLocalDeckSources } from '@/lib/useLocalDeckSources';
 
 /**
  * DeckSourcesDialog — manage the per-deck reference library.
  *
- * Upload PDFs / DOCX / TXT. Each upload creates a DeckSource row and
- * triggers ingestDeckSource in the background (extract → chunk → embed →
- * SourceChunk rows). The list polls for status updates until all rows
- * reach "ready" or "failed".
+ * Upload text-based files (.txt, .md, .csv, etc.). Content is read
+ * client-side via FileReader and stored in localStorage. The AI
+ * assistant uses these as grounding context alongside the deck's
+ * built-in reading material.
+ *
+ * No server required — everything runs in the browser.
  */
 export default function DeckSourcesDialog({ open, onClose, deckId, deckTitle }) {
-  const [sources, setSources] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [uploading, setUploading] = useState(false);
+  const { sources, loading, uploading, uploadFiles, deleteSource } = useLocalDeckSources(deckId);
   const fileRef = useRef(null);
-  const pollRef = useRef(null);
-
-  const refresh = async () => {
-    if (!deckId) return;
-    const rows = await base44.entities.DeckSource.filter({ deck_id: deckId }, '-created_date');
-    setSources(rows);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    if (!open || !deckId) return;
-    refresh();
-    return () => { if (pollRef.current) clearInterval(pollRef.current); };
-     
-  }, [open, deckId]);
-
-  useEffect(() => {
-    if (pollRef.current) { clearInterval(pollRef.current); pollRef.current = null; }
-    const hasPending = sources.some((s) => s.status === 'pending' || s.status === 'indexing');
-    if (!hasPending || !open) return;
-    pollRef.current = setInterval(refresh, 2500);
-    return () => { if (pollRef.current) clearInterval(pollRef.current); };
-     
-  }, [sources, open]);
 
   const onPick = () => fileRef.current?.click();
 
   const onFiles = async (e) => {
     const files = Array.from(e.target.files || []);
     if (!files.length) return;
-    setUploading(true);
-    try {
-      for (const file of files) {
-        const { file_url } = await base44.integrations.Core.UploadFile({ file });
-        const row = await base44.entities.DeckSource.create({
-          deck_id: deckId,
-          title: file.name,
-          file_url,
-          file_type: file.name.split('.').pop()?.toLowerCase() || 'bin',
-          size_bytes: file.size,
-          status: 'pending',
-        });
-        base44.functions.invoke('ingestDeckSource', { source_id: row.id }).catch(() => {});
-      }
-      await refresh();
-    } finally {
-      setUploading(false);
-      if (fileRef.current) fileRef.current.value = '';
-    }
-  };
-
-  const onDelete = async (id) => {
-    await base44.functions.invoke('deleteDeckSource', { source_id: id });
-    await refresh();
+    await uploadFiles(files);
+    if (fileRef.current) fileRef.current.value = '';
   };
 
   if (!open) return null;
@@ -98,7 +52,7 @@ export default function DeckSourcesDialog({ open, onClose, deckId, deckTitle }) 
               {deckTitle || 'Source library'}
             </h2>
             <p className="mt-1" style={{ color: 'var(--cream-muted)', fontSize: '0.8rem' }}>
-              Upload PDF, Word, or text files. The AI uses them as its first source, falling back to the web only when needed.
+              Upload text or markdown files. The AI uses them as its first source, falling back to the web only when needed.
             </p>
           </div>
           <button onClick={onClose} aria-label="Close"
@@ -117,18 +71,18 @@ export default function DeckSourcesDialog({ open, onClose, deckId, deckTitle }) 
             style={{ background: 'var(--case, var(--amber))', color: 'var(--bg)', fontWeight: 600, fontSize: '0.85rem' }}
           >
             {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
-            {uploading ? 'Uploading…' : 'Upload files'}
+            {uploading ? 'Reading…' : 'Upload files'}
           </button>
           <input
             ref={fileRef}
             type="file"
             multiple
-            accept=".pdf,.docx,.doc,.txt,.md,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,text/markdown"
+            accept=".txt,.md,.csv,.tsv,.json,.xml,.html,.htm,text/plain,text/markdown,text/csv,application/json"
             className="hidden"
             onChange={onFiles}
           />
           <span style={{ color: 'var(--cream-faint)', fontSize: '0.75rem' }}>
-            PDF · DOCX · TXT — up to ~25MB each
+            TXT · MD · CSV · JSON — read client-side, stored in browser
           </span>
         </div>
 
@@ -138,7 +92,7 @@ export default function DeckSourcesDialog({ open, onClose, deckId, deckTitle }) 
           ) : sources.length === 0 ? (
             <Empty text="No sources yet. Upload some reference material to ground the AI." />
           ) : (
-            sources.map((s) => <SourceRow key={s.id} source={s} onDelete={onDelete} />)
+            sources.map((s) => <SourceRow key={s.id} source={s} onDelete={deleteSource} />)
           )}
         </div>
       </div>
@@ -149,18 +103,13 @@ export default function DeckSourcesDialog({ open, onClose, deckId, deckTitle }) 
 function SourceRow({ source, onDelete }) {
   const status = source.status || 'pending';
   const icon = {
-    pending:  <Clock className="w-4 h-4" style={{ color: 'var(--cream-faint)' }} />,
-    indexing: <Loader2 className="w-4 h-4 animate-spin" style={{ color: 'var(--amber)' }} />,
-    ready:    <CheckCircle2 className="w-4 h-4" style={{ color: 'var(--sage)' }} />,
-    failed:   <AlertCircle className="w-4 h-4" style={{ color: 'var(--coral)' }} />,
-  }[status];
+    ready:  <CheckCircle2 className="w-4 h-4" style={{ color: 'var(--sage)' }} />,
+    failed: <AlertCircle className="w-4 h-4" style={{ color: 'var(--coral)' }} />,
+  }[status] || <AlertCircle className="w-4 h-4" style={{ color: 'var(--cream-faint)' }} />;
 
-  const label = {
-    pending:  'Queued',
-    indexing: 'Indexing…',
-    ready:    `${source.chunk_count || 0} chunks · ready`,
-    failed:   source.error || 'Failed',
-  }[status];
+  const label = status === 'ready'
+    ? `${source.chunk_count || 0} chunks · ready`
+    : source.error || 'Failed';
 
   return (
     <div

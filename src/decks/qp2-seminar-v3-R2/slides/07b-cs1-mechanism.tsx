@@ -108,8 +108,9 @@ function SelectivityCard() {
         gap: 'var(--space-3)',
         padding: 'var(--space-4)',
         borderRadius: 'var(--radius-lg)',
-        background: 'color-mix(in srgb, var(--amber) 5%, transparent)',
-        border: '1px solid color-mix(in srgb, var(--amber) 20%, transparent)',
+        background: 'color-mix(in srgb, var(--amber) 5%, var(--panel))',
+        border: '1.5px solid var(--amber)',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
         minWidth: '240px',
       }}
     >

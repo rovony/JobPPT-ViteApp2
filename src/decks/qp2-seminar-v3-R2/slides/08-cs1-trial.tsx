@@ -5,50 +5,16 @@ import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 import Lungs from '../components/Lungs';
 
-/**
- * CS1 · Slide 08 — Field-level context · ambrisentan adult & pediatric
- * journey within the broader pediatric PAH approval landscape.
- *
- * 2026-04-26 user pass — full rebuild per direction:
- *   "timeline looks bad.. fix.." +
- *   "we would benefit by adding or highlighting Ambrisentan adult and
- *    pediatric timelines see backup slides...extract what could
- *    support the story and enhance clarity about any potential
- *    question to avoid why stopped, when did it start..etc" +
- *   memory rule (visuals must pre-empt foreseeable Q&A probes AND
- *   serve as memory aid; include competitors).
- *
- * Layout (top → bottom):
- *   1. Adult track header — "Field · adult PAH approvals"
- *   2. Adult markers above axis — bosentan/sildenafil/ambrisentan/
- *      macitentan/selexipag/sotatercept. Ambrisentan = coral; others
- *      = cream-faint ambient.
- *   3. Year axis — every 5 years labeled, 2000–2025
- *   4. Pediatric markers below axis — bosentan FUTURE-1 (the precedent),
- *      sildenafil peds, AMB HOLD (✕ coral), bosentan FDA peds, AMB
- *      TERMINATED (✕ coral), AMB APPROVED (✓ amber), sildenafil FDA peds,
- *      ICH E11A codification
- *   5. Pediatric track header below — "Pediatric arms + ambrisentan journey"
- *   6. Journey arc — dashed coral connector AMB 2013 HOLD → 2019 TERMINATED
- *      → 2021 APPROVED so the rebound story reads at a glance
- *   7. Annotation strip — methodology beat ("the precedent")
- *
- * Ambrisentan markers carry exact dates (Mar 2013, Feb 2019, etc.) so
- * panelists' "when did that happen?" probes are answered on the slide.
- * Field-context drug markers are smaller + cream-faint to recede.
- *
- * Lung continues the cs1-lung layoutId chain — trachea-axis variant
- * rotated 90° as horizontal anatomical backdrop behind the timeline.
- *
- * Sources verified: Letairis FDA approval Jun 15, 2007 · EMA Volibris
- * EPAR 2008 · GSK Japan press 2021-03-23 · EMA Volibris pediatric Apr
- * 2021 · Beghetti BJCP 2009 · Ivy J Pediatr X 2020 · Okour J Clin
- * Pharmacol 2023 · ICH E11A Step 4 (Dec 2024).
- */
-
 const EASE = [0.2, 0.7, 0.3, 1];
 
-// Adult PAH approvals — the field. AMB highlighted, others ambient.
+/**
+ * CS1 · Slide 08 — Field-level context · ambrisentan adult & pediatric
+ *
+ * Redesigned as a Premium Swimlane Dossier to eliminate vertical empty voids
+ * and create a structured, high-density timeline visualization.
+ */
+
+// Adult PAH approvals
 const ADULT = [
   { year: 2001, label: 'Bosentan',     kind: 'field' },
   { year: 2005, label: 'Sildenafil',   kind: 'field' },
@@ -58,154 +24,118 @@ const ADULT = [
   { year: 2024, label: 'Sotatercept',  kind: 'field' },
 ];
 
-// Pediatric milestones — field markers + AMB-specific events.
+// Pediatric milestones
 const PEDIATRIC = [
-  { year: 2009,    label: 'Bosentan EMA peds',    sub: 'FUTURE-1', kind: 'precedent' },
+  { year: 2009,    label: 'Bosentan peds',        sub: 'FUTURE-1', kind: 'precedent' },
   { year: 2011,    label: 'Sildenafil EMA peds',  kind: 'field' },
-  { year: 2013.20, label: 'AMB HOLD',             sub: 'Mar 2013 · juvenile rat', kind: 'amb-hold' },
+  { year: 2013.20, label: 'AMB HOLD',             sub: 'Mar 2013 · rat finding', kind: 'amb-hold' },
   { year: 2017,    label: 'Bosentan FDA peds',    kind: 'field' },
-  { year: 2019.12, label: 'AMB TERMINATED',       sub: 'Feb 2019 · 41/66 enrolled', kind: 'amb-term' },
-  { year: 2021.25, label: 'AMB APPROVED',         sub: 'EMA + PMDA peds', kind: 'amb-approved' },
+  { year: 2019.12, label: 'AMB TERMINATED',       sub: 'Feb 2019', kind: 'amb-term' },
+  { year: 2021.25, label: 'AMB APPROVED',         sub: 'EMA + PMDA', kind: 'amb-approved' },
   { year: 2023,    label: 'Sildenafil FDA peds',  kind: 'field' },
   { year: 2024,    label: 'ICH E11A',             sub: 'codified', kind: 'codification' },
 ];
 
 const YEAR_MIN = 2000;
-const YEAR_MAX = 2026;
-const yearToPct = (y) => ((y - YEAR_MIN) / (YEAR_MAX - YEAR_MIN)) * 100;
+const YEAR_MAX = 2025; // Adjusted to spread the timeline better
+const yearToPct = (y) => Math.max(0, Math.min(100, ((y - YEAR_MIN) / (YEAR_MAX - YEAR_MIN)) * 100));
 
-// Visual config per kind — drives color, dot style, label weight.
+// Styling configuration for each event type
 const KIND = {
-  field:        { accent: 'var(--cream-faint)', dotR: 4,  filled: false, glyph: null,  weight: 500, opacity: 0.65 },
-  precedent:    { accent: 'var(--case)',        dotR: 5,  filled: false, glyph: null,  weight: 600, opacity: 0.92 },
-  codification: { accent: 'var(--amber)',       dotR: 5,  filled: false, glyph: null,  weight: 600, opacity: 0.92 },
-  amb:          { accent: 'var(--case)',        dotR: 6,  filled: true,  glyph: null,  weight: 700, opacity: 1 },
-  'amb-hold':   { accent: 'var(--case)',        dotR: 7,  filled: true,  glyph: '✕',   weight: 700, opacity: 1 },
-  'amb-term':   { accent: 'var(--case)',        dotR: 7,  filled: true,  glyph: '✕',   weight: 700, opacity: 1 },
-  'amb-approved': { accent: 'var(--amber)',     dotR: 8,  filled: true,  glyph: '✓',   weight: 700, opacity: 1 },
+  field:        { bg: 'color-mix(in srgb, var(--cream-muted) 10%, transparent)', border: 'var(--cream-hairline)', color: 'var(--cream-muted)' },
+  precedent:    { bg: 'color-mix(in srgb, var(--case) 15%, transparent)',        border: 'var(--case)',           color: 'var(--case)' },
+  codification: { bg: 'color-mix(in srgb, var(--amber) 15%, transparent)',       border: 'var(--amber)',          color: 'var(--amber)' },
+  amb:          { bg: 'var(--case)',                                             border: 'var(--case)',           color: 'var(--bg)' },
+  'amb-hold':   { bg: 'var(--case)',                                             border: 'var(--case)',           color: 'var(--bg)' },
+  'amb-term':   { bg: 'var(--case)',                                             border: 'var(--case)',           color: 'var(--bg)' },
+  'amb-approved': { bg: 'var(--amber)',                                          border: 'var(--amber)',          color: 'var(--bg)' },
 };
 
-function Marker({ entry, side, delay, reduced }) {
+function SwimlaneEvent({ entry, delay, reduced }) {
   const pct = yearToPct(entry.year);
   const cfg = KIND[entry.kind] || KIND.field;
-  const anchorRight = pct > 82;
-  const anchorMiddle = pct > 25 && pct <= 82;
-
-  const transform = anchorRight ? 'translateX(-100%)' : (anchorMiddle ? 'translateX(-50%)' : 'translateX(0)');
-  const textAlign = anchorRight ? 'right' : (anchorMiddle ? 'center' : 'left');
+  
+  // Stagger overlapping events by adjusting their vertical alignment inside the flex container
+  const isHold = entry.kind === 'amb-hold';
+  const isPrecedent = entry.kind === 'precedent';
+  const isApproved = entry.kind === 'amb-approved';
 
   return (
     <motion.div
-      initial={reduced ? false : { opacity: 0, y: side === 'above' ? -4 : 4 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: reduced ? 0 : 0.45, delay: reduced ? 0 : delay, ease: EASE }}
+      initial={reduced ? false : { opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : delay, ease: EASE }}
       style={{
         position: 'absolute',
         left: `${pct}%`,
-        ...(side === 'above' ? { bottom: '50%', marginBottom: 10 } : { top: '50%', marginTop: 10 }),
+        transform: 'translateX(-50%)',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: anchorRight ? 'flex-end' : (anchorMiddle ? 'center' : 'flex-start'),
-        gap: 3,
-        transform,
-        opacity: cfg.opacity,
+        alignItems: 'center',
+        gap: '4px',
+        zIndex: entry.kind.includes('amb') ? 10 : 1,
+        // Push hold slightly down, precedent slightly up if needed for visual rhythm
+        marginTop: isHold ? '2rem' : (isApproved ? '-1rem' : '0'),
       }}
     >
-      {side === 'below' && <Dot cfg={cfg} />}
-      <span className="deck-mono" style={{
-        fontSize: 'var(--fs-slide-pageno)',
-        color: cfg.accent === 'var(--cream-faint)' ? 'var(--cream-muted)' : cfg.accent,
-        fontWeight: cfg.weight,
-        letterSpacing: 'var(--ls-mono)',
-        whiteSpace: 'nowrap',
-        textAlign,
-        fontVariantNumeric: 'tabular-nums',
+      {/* The Pin Line */}
+      <div style={{
+        width: '2px',
+        height: '1rem',
+        background: cfg.border,
+        opacity: entry.kind === 'field' ? 0.3 : 0.8,
+      }} />
+      
+      {/* The Dossier Tag */}
+      <div style={{
+        background: cfg.bg,
+        border: `1px solid ${cfg.border}`,
+        borderRadius: 'var(--radius-sm)',
+        padding: 'var(--space-1) var(--space-2)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        boxShadow: entry.kind.includes('amb') ? '0 4px 12px rgba(0,0,0,0.15)' : 'none',
+        minWidth: 'max-content',
       }}>
-        {Math.floor(entry.year)}
-      </span>
-      <span className="deck-body" style={{
-        fontSize: 'var(--fs-slide-pageno)',
-        color: cfg.accent === 'var(--cream-faint)' ? 'var(--cream-muted)' : 'var(--cream)',
-        fontWeight: cfg.weight,
-        opacity: cfg.opacity,
-        lineHeight: 1.2,
-        textAlign,
-        whiteSpace: 'nowrap',
-      }}>
-        {entry.label}
-      </span>
-      {entry.sub && (
         <span className="deck-mono" style={{
-          fontSize: 'calc(var(--fs-slide-pageno) * 0.92)',
-          color: cfg.accent === 'var(--cream-faint)' ? 'var(--cream-muted)' : cfg.accent,
-          opacity: 0.8,
-          letterSpacing: 'var(--ls-mono)',
-          textAlign,
-          whiteSpace: 'nowrap',
+          fontSize: 'calc(var(--fs-slide-pageno) * 0.85)',
+          fontWeight: 700,
+          color: cfg.color,
           fontVariantNumeric: 'tabular-nums',
         }}>
-          {entry.sub}
+          {entry.year === 2013.2 ? 'Mar 2013' : (entry.year === 2019.12 ? 'Feb 2019' : (entry.year === 2021.25 ? '2021' : Math.floor(entry.year)))}
         </span>
-      )}
-      {side === 'above' && <Dot cfg={cfg} />}
+        <span className="deck-display" style={{
+          fontSize: 'var(--fs-slide-pageno)',
+          fontWeight: 600,
+          color: cfg.color,
+          marginTop: '2px',
+        }}>
+          {entry.label}
+        </span>
+        {entry.sub && (
+          <span className="deck-mono" style={{
+            fontSize: 'calc(var(--fs-slide-pageno) * 0.75)',
+            color: cfg.color,
+            opacity: 0.8,
+            marginTop: '2px',
+          }}>
+            {entry.sub}
+          </span>
+        )}
+      </div>
     </motion.div>
-  );
-}
-
-function Dot({ cfg }) {
-  const r = cfg.dotR;
-  return (
-    <span aria-hidden style={{
-      width: r * 2,
-      height: r * 2,
-      borderRadius: '50%',
-      background: cfg.filled ? cfg.accent : 'transparent',
-      border: `1.5px solid ${cfg.accent}`,
-      boxShadow: cfg.filled ? `0 0 6px color-mix(in srgb, ${cfg.accent} 50%, transparent)` : 'none',
-      display: 'inline-flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      color: cfg.filled ? 'var(--bg)' : cfg.accent,
-      fontSize: r * 1.2,
-      fontWeight: 800,
-      lineHeight: 1,
-    }}>
-      {cfg.glyph}
-    </span>
   );
 }
 
 export default function Cs1Trial() {
   const reduced = useReducedMotion();
+  const go = !reduced;
+
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
-      {/* Trachea-as-axis lung anchor — continues cs1-lung layoutId chain */}
-      <div
-        aria-hidden
-        style={{
-          position: 'absolute',
-          left: '50%',
-          top: '54%',
-          transform: 'translate(-50%, -50%)',
-          width: 'clamp(28rem, 62vw, 50rem)',
-          opacity: 0.20,
-          pointerEvents: 'none',
-          zIndex: 0,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Lungs
-          layoutId="cs1-lung"
-          variant="trachea-axis"
-          rotation={90}
-        />
-      </div>
-
-      <Eyebrow delay={0.10}>
-        Case 01 · The field-level context
-      </Eyebrow>
+      <Eyebrow delay={0.10}>Case 01 · The field-level context</Eyebrow>
 
       <Headline delay={0.25} maxChars={66}>
         Pediatric PAH moves slowly —{' '}
@@ -215,7 +145,7 @@ export default function Cs1Trial() {
       </Headline>
 
       <Subhead delay={0.55} maxChars={108} size="lead">
-        Adult approvals above the axis · pediatric arms below · ambrisentan&rsquo;s adult-and-pediatric story stands out in coral; the 2009 FUTURE-1 framework made the 2021 approval possible.
+        Adult approvals moved quickly; pediatric arms stalled. The 2009 FUTURE-1 framework (PK matching) made ambrisentan's 2021 approval possible.
       </Subhead>
 
       <Viz>
@@ -224,140 +154,162 @@ export default function Cs1Trial() {
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          gap: 'clamp(var(--space-3), 2vh, var(--space-4))',
-          paddingTop: 'clamp(var(--space-2), 2vh, var(--space-3))',
-          paddingBottom: 'clamp(var(--space-2), 1.5vh, var(--space-3))',
+          justifyContent: 'center',
+          gap: 'var(--space-5)',
         }}>
-          {/* Track header strip */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: 'var(--space-2)' }}>
-            <span className="deck-mono uppercase" style={{
-              fontSize: 'var(--fs-slide-eyebrow)',
-              letterSpacing: 'var(--ls-mono-wide)',
-              color: 'var(--cream-muted)',
-              fontWeight: 700,
+          {/* SWIMLANE DOSSIER */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={go ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease: EASE, delay: 0.6 }}
+            style={{
+              background: 'color-mix(in srgb, var(--panel) 40%, transparent)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              border: '1px solid var(--cream-hairline)',
+              borderRadius: 'var(--radius-lg)',
+              padding: 'var(--space-4) 0',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+              position: 'relative',
+              overflow: 'hidden',
+            }}
+          >
+            {/* Background Lung Watermark inside the Dossier */}
+            <div style={{
+              position: 'absolute',
+              right: '-10%',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              opacity: 0.15,
+              pointerEvents: 'none',
+              zIndex: 0,
             }}>
-              Field · adult PAH approvals
-            </span>
-            <span className="deck-mono uppercase" style={{
-              fontSize: 'var(--fs-slide-eyebrow)',
-              letterSpacing: 'var(--ls-mono-wide)',
-              color: 'var(--case)',
-              fontWeight: 700,
-            }}>
-              Ambrisentan story · 8-year hold-to-approval
-            </span>
-          </div>
-
-          {/* Timeline scaffold */}
-          <div style={{
-            position: 'relative',
-            flex: 1,
-            minHeight: '14rem',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            background: 'color-mix(in srgb, var(--panel) 62%, transparent)',
-            backdropFilter: 'blur(10px) saturate(1.2)',
-            WebkitBackdropFilter: 'blur(10px) saturate(1.2)',
-            border: '1px solid var(--cream-hairline)',
-            borderRadius: 'var(--radius-lg)',
-            padding: 'clamp(var(--space-3), 2vw, var(--space-5))',
-            zIndex: 1,
-          }}>
-            {/* ABOVE-AXIS — adult markers */}
-            <div style={{ position: 'relative', height: '5.5rem', marginBottom: 'var(--space-2)' }}>
-              {ADULT.map((e, i) => (
-                <Marker key={`a-${i}`} entry={e} side="above" delay={0.85 + i * 0.06} reduced={reduced} />
-              ))}
+              <Lungs layoutId="cs1-lung" variant="trachea-axis" rotation={90} widthOverride="600px" />
             </div>
 
-            {/* AXIS line + ticks */}
-            <motion.div
-              aria-hidden
-              initial={reduced ? false : { scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: reduced ? 0 : 0.8, delay: reduced ? 0 : 0.85, ease: EASE }}
-              style={{
-                height: 2,
-                background: 'linear-gradient(90deg, var(--cream-faint) 0%, var(--cream-muted) 30%, var(--cream-muted) 70%, var(--cream-faint) 100%)',
-                width: '100%',
-                transformOrigin: 'left center',
-                position: 'relative',
-                borderRadius: 1,
-              }}
-            >
-              {[2000, 2005, 2010, 2015, 2020, 2025].map((y) => (
-                <span key={y} aria-hidden style={{
-                  position: 'absolute',
-                  left: `${yearToPct(y)}%`,
-                  top: -4,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  transform: 'translateX(-50%)',
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              {/* ADULT SWIMLANE */}
+              <div style={{ position: 'relative', height: '6rem', padding: '0 var(--space-6)' }}>
+                <div className="deck-mono uppercase" style={{
+                  position: 'absolute', left: 'var(--space-4)', top: 0,
+                  fontSize: 'calc(var(--fs-slide-pageno) * 0.9)',
+                  color: 'var(--cream-muted)',
+                  letterSpacing: 'var(--ls-mono-wide)',
+                  fontWeight: 700,
+                  opacity: 0.8,
                 }}>
-                  <span style={{
-                    width: 1.5,
-                    height: 10,
-                    background: 'var(--cream-muted)',
-                    borderRadius: 1,
-                  }} />
-                  <span className="deck-mono" style={{
-                    fontSize: 'var(--fs-slide-pageno)',
-                    color: 'var(--cream-faint)',
-                    fontWeight: 600,
-                    marginTop: 3,
-                    fontVariantNumeric: 'tabular-nums',
+                  Adult Pathway
+                </div>
+                {/* Horizontal Lane Guide */}
+                <div style={{
+                  position: 'absolute', left: 'var(--space-6)', right: 'var(--space-6)', top: '1rem',
+                  height: '1px', background: 'var(--cream-hairline)',
+                }} />
+                
+                {ADULT.map((e, i) => (
+                  <SwimlaneEvent key={`a-${i}`} entry={e} delay={0.8 + i * 0.05} reduced={reduced} />
+                ))}
+              </div>
+
+              {/* PEDIATRIC SWIMLANE */}
+              <div style={{ 
+                position: 'relative', 
+                height: '9rem', 
+                padding: '0 var(--space-6)',
+                background: 'color-mix(in srgb, var(--case) 3%, transparent)',
+                borderTop: '1px solid color-mix(in srgb, var(--case) 15%, transparent)',
+                borderBottom: '1px solid color-mix(in srgb, var(--case) 15%, transparent)',
+                marginTop: 'var(--space-2)',
+              }}>
+                <div className="deck-mono uppercase" style={{
+                  position: 'absolute', left: 'var(--space-4)', top: 'var(--space-2)',
+                  fontSize: 'calc(var(--fs-slide-pageno) * 0.9)',
+                  color: 'var(--case)',
+                  letterSpacing: 'var(--ls-mono-wide)',
+                  fontWeight: 700,
+                }}>
+                  Pediatric Pathway
+                </div>
+                {/* Horizontal Lane Guide */}
+                <div style={{
+                  position: 'absolute', left: 'var(--space-6)', right: 'var(--space-6)', top: '1.5rem',
+                  height: '1px', background: 'color-mix(in srgb, var(--case) 20%, transparent)',
+                }} />
+
+                {/* The Journey Arc SVG */}
+                <JourneyArc reduced={reduced} />
+
+                {PEDIATRIC.map((e, i) => (
+                  <SwimlaneEvent key={`p-${i}`} entry={e} delay={1.2 + i * 0.05} reduced={reduced} />
+                ))}
+              </div>
+
+              {/* X-AXIS */}
+              <div style={{
+                position: 'relative',
+                height: '2rem',
+                marginTop: 'var(--space-4)',
+                padding: '0 var(--space-6)',
+              }}>
+                <div style={{
+                  height: '2px',
+                  background: 'linear-gradient(90deg, transparent, var(--cream-muted) 10%, var(--cream-muted) 90%, transparent)',
+                  width: '100%',
+                }} />
+                {[2000, 2005, 2010, 2015, 2020, 2025].map((y) => (
+                  <div key={y} style={{
+                    position: 'absolute',
+                    left: `${yearToPct(y)}%`,
+                    marginLeft: 'var(--space-6)',
+                    top: '2px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    transform: 'translateX(-50%)',
                   }}>
-                    {y}
-                  </span>
-                </span>
-              ))}
-            </motion.div>
-
-            {/* BELOW-AXIS — pediatric markers */}
-            <div style={{ position: 'relative', height: '7rem', marginTop: 'var(--space-3)' }}>
-              {PEDIATRIC.map((e, i) => (
-                <Marker key={`p-${i}`} entry={e} side="below" delay={1.25 + i * 0.06} reduced={reduced} />
-              ))}
-
-              {/* Journey arc — dashed coral underline connecting HOLD → TERM → APPROVED */}
-              <JourneyArc reduced={reduced} />
+                    <div style={{ width: '2px', height: '6px', background: 'var(--cream-muted)' }} />
+                    <span className="deck-mono" style={{
+                      fontSize: 'calc(var(--fs-slide-pageno) * 0.9)',
+                      color: 'var(--cream)',
+                      opacity: 0.6,
+                      marginTop: '4px',
+                    }}>{y}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Annotation strip — the methodology beat */}
+          {/* Bottom Annotation Fact */}
           <motion.div
             initial={reduced ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : 2.05, ease: EASE }}
+            transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : 2.0, ease: EASE }}
             className="deck-body"
             style={{
               fontSize: 'var(--fs-slide-tagline)',
               color: 'var(--cream)',
-              opacity: 0.88,
-              lineHeight: 1.5,
+              opacity: 0.9,
               borderLeft: '3px solid var(--case)',
               paddingLeft: 'var(--space-3)',
-              maxWidth: '94ch',
+              alignSelf: 'center',
             }}
           >
             <strong style={{ color: 'var(--case)' }}>2009 FUTURE-1 (bosentan)</strong> set the framework: PK matching as the regulatory bridge.
-            {' '}<strong style={{ color: 'var(--cream)' }}>Ambrisentan applied it under three simultaneous program disruptions</strong> — and 8 years after the 2013 hold, EMA + PMDA approved it for pediatric PAH.
+            {' '}Ambrisentan applied it under three simultaneous program disruptions.
           </motion.div>
         </div>
       </Viz>
 
       <Footer
-        delay={reduced ? 0 : 2.25}
+        delay={reduced ? 0 : 2.2}
         kicker="08 · CS1 · TIMELINE"
-        source="Sources · FDA / EMA approval records · Beghetti BJCP 2009 · Ivy J Pediatr X 2020 · Okour J Clin Pharmacol 2023 · GSK Japan press 2021-03-23 · ICH E11A Step 4 (Dec 2024)"
+        source="Sources · FDA / EMA approval records · Beghetti BJCP 2009 · Ivy J Pediatr X 2020 · Okour J Clin Pharmacol 2023 · ICH E11A Step 4 (Dec 2024)"
       />
     </SlideGrid>
   );
 }
 
-/* ── Journey arc — dashed coral underline below the AMB peds events ── */
 function JourneyArc({ reduced }) {
   const xHold = yearToPct(2013.20);
   const xTerm = yearToPct(2019.12);
@@ -366,46 +318,37 @@ function JourneyArc({ reduced }) {
   return (
     <svg
       aria-hidden
-      viewBox="0 0 100 30"
-      preserveAspectRatio="none"
       style={{
         position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: -8,
-        width: '100%',
-        height: 30,
+        left: 'var(--space-6)',
+        right: 'var(--space-6)',
+        top: '1.5rem',
+        height: '100%',
+        width: 'calc(100% - var(--space-6) * 2)',
         overflow: 'visible',
         pointerEvents: 'none',
       }}
     >
-      {/* HOLD → TERMINATED arc (coral, dashed) */}
-      <motion.path
-        d={`M ${xHold} 4 Q ${(xHold + xTerm) / 2} 22, ${xTerm} 4`}
+      {/* HOLD → TERMINATED (dashed coral) */}
+      <motion.line
+        x1={`${xHold}%`} y1="2rem"
+        x2={`${xTerm}%`} y2="0"
         stroke="var(--case)"
-        strokeWidth="0.4"
-        fill="none"
-        strokeDasharray="1.4 1.2"
-        strokeLinecap="round"
-        opacity={0.6}
-        initial={reduced ? false : { pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ duration: reduced ? 0 : 1.2, delay: reduced ? 0 : 1.95, ease: EASE }}
-        vectorEffect="non-scaling-stroke"
+        strokeWidth="2"
+        strokeDasharray="4 4"
+        initial={reduced ? false : { opacity: 0 }}
+        animate={{ opacity: 0.6 }}
+        transition={{ delay: 1.8 }}
       />
-      {/* TERMINATED → APPROVED arc (transitions to amber) */}
-      <motion.path
-        d={`M ${xTerm} 4 Q ${(xTerm + xAppr) / 2} 22, ${xAppr} 4`}
+      {/* TERMINATED → APPROVED (solid amber) */}
+      <motion.line
+        x1={`${xTerm}%`} y1="0"
+        x2={`${xAppr}%`} y2="-1rem"
         stroke="var(--amber)"
-        strokeWidth="0.5"
-        fill="none"
-        strokeDasharray="1.4 1.2"
-        strokeLinecap="round"
-        opacity={0.7}
-        initial={reduced ? false : { pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ duration: reduced ? 0 : 0.9, delay: reduced ? 0 : 2.4, ease: EASE }}
-        vectorEffect="non-scaling-stroke"
+        strokeWidth="2"
+        initial={reduced ? false : { opacity: 0 }}
+        animate={{ opacity: 0.8 }}
+        transition={{ delay: 2.0 }}
       />
     </svg>
   );

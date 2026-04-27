@@ -31,6 +31,7 @@
  */
 
 import { isQdrantConfigured, search as qdrantSearch } from './qdrantClient';
+import { getLocalDeckSources } from './useLocalDeckSources';
 
 const KEY_STORAGE = 'merck-deck:openai-key';
 const CHAT_URL = 'https://api.openai.com/v1/chat/completions';
@@ -390,16 +391,23 @@ function buildSlideMap(deck) {
 
 function buildReadingBlock(deck) {
   const items = deck?.reading || [];
-  if (!items.length) {
+  const localSources = getLocalDeckSources(deck?.id);
+
+  if (!items.length && !localSources.length) {
     return 'READING MATERIAL FOR THIS DECK: (none uploaded)';
   }
 
-  // Per-item budget so one giant doc doesn't crowd the rest out.
-  const perItem = Math.max(1500, Math.floor(READING_BUDGET_CHARS / items.length));
-  const blocks = items.map((item, i) => {
+  const allItems = [
+    ...items.map((item) => ({ title: item.title, content: item.content || '', slug: item.slug, minutes: item.minutes })),
+    ...localSources.map((s) => ({ title: `[uploaded] ${s.title}`, content: s.content, slug: null, minutes: null })),
+  ];
+
+  const perItem = Math.max(1500, Math.floor(READING_BUDGET_CHARS / allItems.length));
+  const blocks = allItems.map((item, i) => {
     const content = (item.content || '').slice(0, perItem);
     const truncated = (item.content || '').length > perItem ? '\n[... truncated]' : '';
-    return `[R${i + 1}] ${item.title} (slug: ${item.slug}, ~${item.minutes ?? '?'} min)
+    const meta = item.slug ? `(slug: ${item.slug}, ~${item.minutes ?? '?'} min)` : '(uploaded source)';
+    return `[R${i + 1}] ${item.title} ${meta}
 ${content}${truncated}`;
   });
 

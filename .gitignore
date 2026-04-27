@@ -72,3 +72,4 @@ audit/sweep-*/
 # Always keep the canonical scripts/ folder fully trackable (defensive)
 !audit/scripts/
 !audit/scripts/**
+.vercel

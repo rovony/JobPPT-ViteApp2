@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
-import { codeToTokens } from 'shiki';
+import { createHighlighter } from 'shiki';
 import ReactPlayer from 'react-player';
 import LibraryShowcase, { Frame } from '../_LibraryShowcase';
 
@@ -32,8 +32,12 @@ export default function ShikiPlayerShowcase() {
   const [tokens, setTokens] = useState<any[]>([]);
   useEffect(() => {
     let cancelled = false;
-    codeToTokens(NMTAB, { lang: 'fortran', theme: 'github-dark' })
-      .then((res) => { if (!cancelled) setTokens(res.tokens); })
+    createHighlighter({ themes: ['github-dark'], langs: ['fortran'] })
+      .then((hl) => {
+        if (cancelled) return;
+        const result = hl.codeToTokens(NMTAB, { lang: 'fortran', theme: 'github-dark' });
+        setTokens(result.tokens);
+      })
       .catch((e) => { console.error(e); });
     return () => { cancelled = true; };
   }, []);

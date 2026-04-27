@@ -1,10 +1,13 @@
 // @ts-nocheck
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { ChevronDown, ChevronRight, Edit3, RotateCcw, HelpCircle } from 'lucide-react';
+import { ChevronDown, ChevronRight, Edit3, RotateCcw, HelpCircle, Type, Minus, Plus } from 'lucide-react';
 import { parseAnticipatedQA } from '@/lib/parseStructuredContent';
 import { transformNotesInlineChildren } from '@/lib/notesInlineTransform';
 import StructuredQAView from './StructuredQAView';
+
+const QA_SIZE_STEPS = [14, 16, 18, 20, 22, 24, 28];
+const QA_DEFAULT_SIZE_IDX = 2; // 18px
 
 /**
  * AnticipatedQAPane — collapsible per-slide Q&A prep panel.
@@ -46,6 +49,15 @@ export default function AnticipatedQAPane({
 }) {
   const taRef = useRef(null);
 
+  // Persisted type size — mirrors PresenterNotesPane pattern
+  const [sizeIdx, setSizeIdx] = useState(() => {
+    if (typeof window === 'undefined') return QA_DEFAULT_SIZE_IDX;
+    const v = parseInt(localStorage.getItem('presenter:qa-size') || '', 10);
+    return Number.isFinite(v) && v >= 0 && v < QA_SIZE_STEPS.length ? v : QA_DEFAULT_SIZE_IDX;
+  });
+  useEffect(() => { localStorage.setItem('presenter:qa-size', String(sizeIdx)); }, [sizeIdx]);
+  const qaPx = QA_SIZE_STEPS[sizeIdx];
+
   // Per-slide manual-collapse override. Resets when slide changes.
   // null = follow auto-rule; true/false = user override.
   const [manual, setManual] = useState(null);
@@ -77,27 +89,62 @@ export default function AnticipatedQAPane({
     >
       {/* ── Header bar ───────────────────────────────────── */}
       <div className="flex shrink-0 items-center justify-between px-1 gap-2">
-        <button
-          type="button"
-          onClick={toggle}
-          className="flex items-center gap-1.5 min-w-0 text-left transition-colors hover:opacity-80"
-          aria-expanded={expanded}
-          title={expanded ? 'Collapse anticipated Q&A' : 'Expand anticipated Q&A'}
-        >
-          {expanded
-            ? <ChevronDown className="w-3.5 h-3.5 shrink-0" style={{ color: 'var(--cream-muted)' }} />
-            : <ChevronRight className="w-3.5 h-3.5 shrink-0" style={{ color: 'var(--cream-muted)' }} />}
-          <span
-            className="deck-mono uppercase truncate"
-            style={{
-              fontSize: '0.62rem',
-              letterSpacing: 'var(--ls-mono-wide)',
-              color: 'var(--case, var(--amber))',
-            }}
+        <div className="flex items-center gap-2 min-w-0">
+          <button
+            type="button"
+            onClick={toggle}
+            className="flex items-center gap-1.5 min-w-0 text-left transition-colors hover:opacity-80"
+            aria-expanded={expanded}
+            title={expanded ? 'Collapse anticipated Q&A' : 'Expand anticipated Q&A'}
           >
-            {headerLabel}
-          </span>
-        </button>
+            {expanded
+              ? <ChevronDown className="w-3.5 h-3.5 shrink-0" style={{ color: 'var(--cream-muted)' }} />
+              : <ChevronRight className="w-3.5 h-3.5 shrink-0" style={{ color: 'var(--cream-muted)' }} />}
+            <span
+              className="deck-mono uppercase truncate"
+              style={{
+                fontSize: '0.62rem',
+                letterSpacing: 'var(--ls-mono-wide)',
+                color: 'var(--case, var(--amber))',
+              }}
+            >
+              {headerLabel}
+            </span>
+          </button>
+          {expanded && !editing && (
+            <div className="flex items-center gap-0.5 shrink-0">
+              <Type className="w-3 h-3" style={{ color: 'var(--cream-faint)' }} />
+              <button
+                type="button"
+                onClick={() => setSizeIdx(Math.max(0, sizeIdx - 1))}
+                disabled={sizeIdx === 0}
+                aria-label="Smaller Q&A text"
+                title="Smaller Q&A text"
+                className="h-6 w-6 rounded flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)] disabled:opacity-30 shrink-0"
+                style={{ color: 'var(--cream-muted)' }}
+              >
+                <Minus className="w-3 h-3" />
+              </button>
+              <span
+                className="deck-mono tabular-nums"
+                style={{ color: 'var(--cream-muted)', fontSize: '0.6rem', minWidth: 22, textAlign: 'center' }}
+              >
+                {qaPx}
+              </span>
+              <button
+                type="button"
+                onClick={() => setSizeIdx(Math.min(QA_SIZE_STEPS.length - 1, sizeIdx + 1))}
+                disabled={sizeIdx === QA_SIZE_STEPS.length - 1}
+                aria-label="Larger Q&A text"
+                title="Larger Q&A text"
+                className="h-6 w-6 rounded flex items-center justify-center transition-colors hover:bg-[var(--cream-ghost)] disabled:opacity-30 shrink-0"
+                style={{ color: 'var(--cream-muted)' }}
+              >
+                <Plus className="w-3 h-3" />
+              </button>
+            </div>
+          )}
+        </div>
         <div className="flex items-center gap-1 shrink-0">
           {onShowHelp && (
             <button
@@ -181,7 +228,7 @@ export default function AnticipatedQAPane({
               </div>
             </div>
           ) : value && value.trim().length ? (
-            <QARenderer value={value} />
+            <QARenderer value={value} fontSizePx={qaPx} />
           ) : (
             <button
               type="button"
@@ -218,15 +265,15 @@ A: <next answer>`;
    markdown fallback. The accordion lights up automatically when content
    uses the `## Q:` heading pattern; otherwise the raw markdown render
    path keeps working for legacy / freeform Q&A drafts. */
-function QARenderer({ value }) {
+function QARenderer({ value, fontSizePx }) {
   const parsed = useMemo(() => parseAnticipatedQA(value), [value]);
   if (parsed.structured) {
-    return <StructuredQAView questions={parsed.questions} />;
+    return <StructuredQAView questions={parsed.questions} fontSizePx={fontSizePx} />;
   }
   return (
     <div
       className="notes-prose"
-      style={{ fontFamily: 'var(--font-body)', fontSize: '0.92rem', lineHeight: 1.55 }}
+      style={{ fontFamily: 'var(--font-body)', fontSize: `${fontSizePx}px`, lineHeight: 1.55 }}
     >
       <ReactMarkdown components={qaMarkdownComponents}>{value}</ReactMarkdown>
     </div>

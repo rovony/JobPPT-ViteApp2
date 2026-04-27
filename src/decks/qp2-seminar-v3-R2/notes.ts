@@ -50,19 +50,19 @@ It can't be run because it's **unavailable** — ==a regulator asks for a local 
 
 It can't be run because it's **unbuilt** — the next decade of clinical pharmacology will need ==infrastructure, audit, and decision tools no vendor can give you off the shelf==. ⏸
 
-Three cases — three trials that couldn't be run — and *three answers anyway*. ⏸ That's the function.
+Three cases — three conventional trials that couldn't be run — and *three answers anyway*. ⏸ That's the function.
 
 ## Cues
 - ⏱ 75 sec total — the slide is a stage. The pauses do the work.
 - 🎚 Lower register on the three "it can't be run" beats. Each one lands separately. Resist the urge to chain them into a single breath.
 - 🧷 Time-lock the three beats: say **"untrialable"** at ~16 sec · **"unavailable"** at ~37 sec · **"unbuilt"** at ~55 sec. Each mark fades onto the slide AS you say its word — visual + voice in lockstep. (Math-locked at 130 wpm; if you naturally run faster or slower, anchor to landing each word on the second mark, not the clock.)
-- 📍 Stand still through the three reasons. Step forward on "Three cases — three trials that couldn't be run — and three answers anyway."
+- 📍 Stand still through the three reasons. Step forward on "Three cases — three conventional trials that couldn't be run — and three answers anyway."
 - 🎯 Eye contact rotates: first beat to the panel chair, second to a regulatory-leaning panelist if you can identify one, third to the most senior pharmacometrics panelist.
 - ⚠ Do NOT name drugs here. Drugs come at S04. Naming a drug now collapses the rhetorical weight of the open.
 - ⚠ Do NOT say "today's topic is" or "I'm going to walk you through" or any other tutorial-voice phrase. The hook IS the framing; do not narrate that you are framing.
 - ✅ The most quotable line is "Three answers anyway." Land it cleanly.
-- ✅ Closing — "Three cases — three trials that couldn't be run — and three answers anyway. ⏸ That's the function." — em-dashes give you the rhythm; the ⏸ before "That's the function" is the load-bearing pause. Hard cut after; do NOT extend.
-- 🛟 If you blank, the recovery line is: "Three trials that couldn't be run. Three answers anyway. That's the function."
+- ✅ Closing — "Three cases — three conventional trials that couldn't be run — and three answers anyway. ⏸ That's the function." — em-dashes give you the rhythm; the ⏸ before "That's the function" is the load-bearing pause. Hard cut after; do NOT extend.
+- 🛟 If you blank, the recovery line is: "Three conventional trials that couldn't be run. Three answers anyway. That's the function."
 
 ## Bridge
 → Next slide names the three cases as decision-classes — pediatric extrapolation, regional bridging, forward-looking infrastructure — without yet naming the drugs.`,
@@ -100,32 +100,31 @@ That's the background. Let me get into the cases.
 - 🛟 If you blank — fallback: "Quick background — dentist in Jordan, PhD in Minnesota, Merck QP2, GSK, now Director at Servier. Onto the cases."
 
 ## Bridge
-→ Now the agenda — three cases, three impossibilities, one discipline.`,
+→ Now the agenda — three cases, three challenges, one discipline.`,
 
   // Slide 04 — Roadmap · three cases, one discipline (~75 sec)
   // Visual: 3-card grid (CS1 coral / CS2 cyan / CS3 violet) naming
   //   each case's drug, indication, regulator, and what it proves.
   //   This slide sets the timing expectations for the panel.
   'roadmap': `## Spoken
-Three cases. ⏸ Each one a different kind of impossible.
+So here's the agenda — three case studies, and each one is a different kind of challenge, but they all come back to one discipline at the center: ==quantitative pharmacology driving the decision==.
 
-==**Case one — ambrisentan, pediatric PAH.**== A trial that couldn't be run for ethical and demographic reasons — too few children, no acceptable placebo arm, no transferable endpoint. EMA and PMDA approved a pediatric label in 2021 anyway. The framework was exposure matching. ⏸
+**==Case one — ambrisentan, pediatric PAH==** — the only pediatric trial was terminated mid-program at thirty-nine of sixty-six patients. The question became whether the ==pharmacokinetic bridge== could still carry a pediatric label. EMA and PMDA said yes in 2021 — and the framework that made that possible was ==exposure matching==. ⏸
 
-==**Case two — ivosidenib, India.**== A drug approved in the US and Europe but ==unavailable== to Indian patients because CDSCO required a local Phase 3 the program had no time to run. We replaced the local trial with a six-pillar regulatory dossier under Rule 101. Approved May 2025. ⏸
+**==Case two — ivosidenib, India==** — a drug that was approved in the US and Europe but unavailable to Indian patients because CDSCO required a local Phase 3 the program had no time to run. We replaced the local trial with a ==six-pillar regulatory dossier under Rule 101==, and CDSCO approved it May 2025. ⏸
 
-==**Case three — AI and machine learning in pharmacometrics.**== The infrastructure that the next decade of clinical pharmacology will need — agent-assisted analysis, audit-by-construction, ICH M15-aligned platforms. Personal research, designed to be publication- and regulator-grade.
+**==Case three — AI and machine learning in pharmacometrics==** — the infrastructure that the next decade of clinical pharmacology will need, from agent-assisted analysis to audit-by-construction to ICH M15-aligned platforms. This is my own research, designed to be ==publication- and regulator-grade==. ⏸
 
-⏸ ==Three impossibilities — pediatric, geographic, methodological.== One discipline doing the work that carried each one across the line.
-
-About ten minutes per case, then a brief synthesis at the end.
+==Three challenges — pediatric, geographic, methodological.== One discipline doing the work that carried each one across the line. About ten minutes per case, then a brief synthesis and questions at the end.
 
 ## Cues
 - ⏱ ~75 sec — three card-beats + one synthesis line + timing expectations
-- 🎚 Lower register on each case-name; let the audience read the card
-- 🎯 Gesture toward each card as you name it; left-to-right
+- 🎚 Even energy across the three cards — don't oversell any single case
+- 🎯 Gesture toward each card as you name it — left, center, right
 - ⚠ Do NOT preview case-level numbers (39 patients, May 14 2025, etc.) — those land inside the case
-- ⚠ Do NOT apologize for CS3 being "personal research" — it's positioned deliberately. State it neutrally and move
-- ✅ Land cleanly on "About ten minutes per case, then a brief synthesis at the end" — sets the panel's clock
+- ⚠ Do NOT apologize for CS3 being "personal research" — say "my own research" and move on neutrally
+- ✅ Land cleanly on "ten minutes per case, then a brief synthesis and questions at the end" — sets the panel's clock
+- ✅ The opening "So here's the agenda" picks up from career-arc bridge ("Now the agenda")
 - 🛟 If you blank — fallback: "Three cases. Pediatric, geographic, methodological. About ten minutes each. Let's start with case one."
 
 ## Bridge
@@ -206,7 +205,7 @@ The cases I'm going to walk you through are not abstractions. *They are the work
   'cs1-divider': `## Spoken
 The first case study is **==ambrisentan==** ⏸ — an oral selective endothelin-A antagonist for pulmonary arterial hypertension. ==Eight to under eighteen years==. Phase IIb terminated mid-program. EMA and PMDA approved the pediatric label in 2021.
 
-⏸ The clinical pharmacology question is one every pediatric drug-development program faces in some form: ==when a placebo-controlled efficacy trial isn't ethical==, what carries the dose?
+⏸ The clinical pharmacology question: ==when the pediatric trial is terminated== — can the **==pharmacokinetic bridge==** still carry a pediatric label?
 
 ## Cues
 - ⏱ Land in 25 sec — case opener, no overrun
@@ -214,27 +213,39 @@ The first case study is **==ambrisentan==** ⏸ — an oral selective endothelin
 - 🎚 Measured authority — set the tone; the case has eight years of detail behind it
 - 📍 Stand center-stage; let the lung illustration land visually
 - ⚠ Do NOT mention FDA on this opener — the FDA caveat is on slide 14
-- ✅ Land cleanly on "what carries the dose?" — advance
+- ✅ Land cleanly on "still carry a pediatric label?" — advance
 
 ## Bridge
 → Let me put the question in front of you first.`,
 
-  // V2-S2 · Hook + question — 45 sec
+  // V2-S2 · Hook + question — 60 sec
   // (manifest order places cs1-question at slot 06, immediately after cs1-divider)
+  // 2026-04-26 r4: headline asks whether the PK bridge can still carry
+  // a label; subtitle frames this as exposure matching under program
+  // disruption. Notes walk the 380/39 asymmetry + three disruptions.
   'cs1-question': `## Spoken
-Adult ambrisentan dosing was set in **==380 patients across six placebo-controlled studies==** — a mature exposure-response curve. The standard adult PAH playbook.
+Here is the question for this case. ⏸ ==When the pediatric trial is terminated — can the pharmacokinetic bridge still carry a pediatric label?==
 
-⏸ The pediatric trial was different. **Open-label. PK-anchored. ==Forty-one of sixty-six planned==** — terminated mid-program after a juvenile-rat finding. No placebo arm — placebo isn't ethical when active therapies exist as standard of care.
+In other words, this is a disrupted pediatric program testing whether ==exposure matching== can still support **a defensible pediatric dose**.
 
-⏸ Held by a juvenile rat finding. Reframed by a sildenafil mortality signal. Constrained by split commercial rights. **And a defensible pediatric dose came out anyway.** This case is how.
+Let me show you the scale of the problem. **==Three hundred eighty adult patients==** across six placebo-controlled studies. A mature exposure-response. The standard playbook.
+
+⏸ The pediatric dataset: **==thirty-nine patients==**. Open-label. PK-anchored. No placebo comparator.
+
+And three disruptions running in parallel — a ==juvenile-rat finding== that held enrollment, a ==sildenafil mortality signal== that raised the field's dose-selection bar, and ==split commercial rights== between Gilead and GSK from day one.
+
+⏸ **A defensible pediatric dose came out anyway.** This case is how.
 
 ## Cues
-- ⏱ ~45 sec — pause on the 380-vs-41 asymmetry
-- 🎯 Slow on "forty-one of sixty-six" — the asymmetry is the hook
-- 🎚 Drop tone slightly on "placebo isn't ethical" — it's the ethics frame, not a complaint
-- ⚠ Do NOT say "two of three regulators" — say "EMA and PMDA"
-- ⚠ Do NOT inflate the disruption list — name the three, move on
-- ✅ Read the obstacle path visual right-to-down: HELD → REFRAMED → CONSTRAINED → APPROVED
+- ⏱ ~60 sec — six clean beats; don't add detail
+- 🎯 Slow on "thirty-nine patients" — let the contrast with 380 land
+- 🧷 Say "exposure matching" exactly — matches the subtitle and avoids overclaiming efficacy
+- 🎚 Matter-of-fact on the three disruptions — name them, don't dramatize
+- ⚠ Do NOT say "the trial failed" — it was disrupted by a preclinical signal and formally terminated later
+- ⚠ Do NOT over-explain the subtitle — use it as the frame, then move to the evidence
+- ⚠ Do NOT preview the model or the framework — that's slide 12's job
+- ✅ Walk the right-panel timeline: HELD → REFRAMED → CONSTRAINED → APPROVED
+- ✅ Land on "this case is how" — match the payoff card on screen
 
 ## Bridge
 → Disease context first — the panel needs PAH 101 before the framework lands.`,
@@ -243,13 +254,13 @@ Adult ambrisentan dosing was set in **==380 patients across six placebo-controll
   'cs1-context': `## Spoken
 Pulmonary arterial hypertension is **==a small-vessel disease of the lungs that kills through right-heart failure==**.
 
-The pulmonary arterioles undergo three things at once — vasoconstriction, smooth-muscle and endothelial proliferation, and in-situ thrombosis. The lumen narrows. Pulmonary vascular resistance rises. The right ventricle has to push blood through a stiffer, narrower bed; it hypertrophies, then dilates, then **fails**.
+Three things happen at once — ==vasoconstriction==, ==smooth-muscle and endothelial proliferation==, and ==in-situ thrombosis==. The lumen narrows. Pulmonary vascular resistance — PVR — rises. The right ventricle has to push blood through a narrower, higher-resistance bed; it becomes hypertrophic, then dilates, then **fails**.
 
 ⏸ Patients don't die of pulmonary hypertension. They die of right-heart failure.
 
 The hemodynamic definition — *2022 ESC/ERS* — is **mean pulmonary arterial pressure ≥ 20 millimeters of mercury, pulmonary vascular resistance ≥ 2 Wood units, with a wedge pressure ≤ 15**. That last criterion is what makes it pre-capillary disease — the pathology is in the arterioles themselves.
 
-There are four therapeutic pathways — endothelin, nitric oxide / cGMP, prostacyclin, and the activin pathway most recently — and ambrisentan blocks the **==endothelin pathway==**, which is the over-active vasoconstrictor and proliferative arm.
+For this case, the target is the **==endothelin pathway==**. Endothelin is the over-active vasoconstrictor and proliferative arm, and ambrisentan blocks ETA.
 
 Untreated median survival is **==2.8 years==** — that's the *D'Alonzo NIH registry from 1991*, the benchmark every PAH therapy has been measured against.
 
@@ -258,7 +269,8 @@ Untreated median survival is **==2.8 years==** — that's the *D'Alonzo NIH regi
 - 🎯 Make eye contact at "they die of right-heart failure" — that's the moment the panel registers severity
 - 🎚 Lower volume slightly at "Patients don't die of pulmonary hypertension" — adds weight
 - 📍 Gesture toward the lung at "small-vessel disease of the lungs"
-- ⚠ Don't dive deeper into the four pathways — name them, move on
+- ⚠ Don't dive deeper into ETA selectivity — that is the next slide
+- ⚠ The slide shows BOTH the 2022 ESC/ERS definition (mPAP ≥20) AND the 2008 Dana Point criteria the trial actually used (mPAP ≥25). You cite the 2022 definition in spoken text — if asked, clarify that AMB112529 enrolled under the older threshold
 
 ## Bridge
 → That's the disease. Mechanism next — what makes ambrisentan the right tool.`,
@@ -276,7 +288,7 @@ The visual on the right is the same arteriole with ambrisentan on board. Ambrise
 ⏸ The other two pathways — nitric oxide / cGMP, prostacyclin — have their own drugs, their own approval years. They sit on the slide as field context. The case is the endothelin pathway.
 
 ## Cues
-- ⏱ 60 sec — mechanism + competitor frame; don't dwell on disease detail
+- ⏱ 45 sec — mechanism + competitor frame; don't dwell on disease detail
 - 🎚 Slow on "ETA" / "ETB" — the panel needs to register the receptor distinction
 - 🎯 Walk the panel left → right across the dual vessel
 - ⚠ Do NOT explain endothelin-1 biosynthesis — out of scope, will get probed if you open it
@@ -297,7 +309,7 @@ Before 1995, pulmonary hypertension had ==no targeted therapy==. Oxygen, anticoa
 
 ==2005== — sildenafil. The third pathway opens — NO·cGMP. The first PDE5-inhibitor for PAH. ⏸
 
-Then the expansion era. ==2007== — ambrisentan. ==The case I just walked you through.== Selective ETA, oral once-daily. 2013 — macitentan and riociguat. 2015 — selexipag. By the mid-2010s the field had three pathways, multiple oral options, and combination protocols. ⏸
+Then the expansion era. ==2007== — ambrisentan. ==The drug at the center of this case.== Selective ETA, oral once-daily. 2013 — macitentan and riociguat. 2015 — selexipag. By the mid-2010s the field had three pathways, multiple oral options, and combination protocols. ⏸
 
 And then — ==March 2024==. Sotatercept. Winrevair. ==Merck.== ==The fourth pathway== — activin signaling, BMPR2 axis. The first new mechanism in PAH in nearly two decades. The STELLAR trial showed it worked. ⏸
 
@@ -343,23 +355,23 @@ Ambrisentan in adults: **==selective ETA antagonist, FDA Jun 2007, EMA Apr 2008,
 
 ⏸ The right column is **why no pediatric efficacy trial**. Five constraints.
 
-==**One — rarity.**== Pediatric PAH prevalence is two to sixteen per million children. The patient pool barely exists.
+**==One — rarity.==** Pediatric PAH prevalence is two to sixteen per million children. The patient pool barely exists.
 
-==**Two — heterogeneity.**== AMB112529 mix: 66% idiopathic, 20% post-repair congenital heart disease, 10% connective tissue disease, 5% familial. Four mechanistically different etiologies.
+**==Two — heterogeneity.==** AMB112529 mix: 66% idiopathic, 20% post-repair congenital heart disease, 10% connective tissue disease, 5% familial. Four mechanistically different etiologies.
 
-==**Three — ethics.**== 80% of children at trial entry were already on baseline PAH therapy. 66% stayed on it. Placebo arms are untenable when you're withholding active treatment.
+**==Three — ethics.==** 80% of children at trial entry were already on baseline PAH therapy. 66% stayed on it. Placebo arms are untenable when you're withholding active treatment.
 
-==**Four — endpoint.**== Six-minute walk distance doesn't transfer to children under seven or eight. Growth confounds longer trials.
+**==Four — endpoint.==** Six-minute walk distance doesn't transfer to children under seven or eight. Growth confounds longer trials.
 
-==**Five — empirical record.**== ==STARTS-1== — the sildenafil pediatric trial — N=235, prespecified CPET peak VO₂ primary, p=0.056 versus placebo. *Even with 235 patients you couldn't get there.* Sixmwd feasibility limits sit on top of that.
+**==Five — empirical record.==** ==STARTS-1== — the sildenafil pediatric trial — N=235, prespecified CPET peak VO₂ primary, p=0.056 versus placebo. *Even with 235 patients you couldn't get there.* Sixmwd feasibility limits sit on top of that.
 
 ⏸ The clinical question wasn't "does it work in children?" Mechanism is conserved. **The question was: how do you defend a pediatric dose under these constraints?**
 
 ## Cues
-- ⏱ 90 sec — content-dense; slow on the five constraints
+- ⏱ 75 sec — content-dense; slow on the five constraints
 - 🎚 Numbered delivery — "one, two, three, four, five" — gives the panel the structure to follow
 - 🎯 STARTS-1 p=0.056 is the constraint with the most weight — pause briefly
-- ⚠ Do NOT say "we couldn't run a trial" — say "a placebo-controlled efficacy trial wasn't viable"
+- ⚠ Do NOT say "the trial failed" — the trial was terminated on a preclinical signal; the framework is what delivered the label
 - ⚠ Do NOT cite a 6th constraint live — five is the package
 - ✅ Land on "how do you defend a pediatric dose under these constraints?" — that's the pivot
 
@@ -376,9 +388,9 @@ The model: **==two-compartment, first-order absorption with t-lag==**. Allometri
 
 ⏸ The **==pcVPC==** is the receipt. Eighty percent prediction interval ribbon, observed dots scatter inside it across the full 24-hour interval — *no systematic bias*. The pediatric data sit where the model says they should.
 
-⏸ Then the payoff — **==exposure match==**. Adult target AUCss is two point four two micrograms·h/mL. The three pediatric weight bands — 8 to 25 kg at 2.5 mg, 25 to 50 kg at 5 mg, ≥50 kg at 10 mg — come in at ==minus 2.8%==, ==plus 0.3%==, and ==plus 1.4%== of that adult target.
+⏸ Then the payoff — **==exposure match==**. Adult target AUCss is two point four two microgram-hours per mL. The three pediatric weight bands — 8 to 25 kg at 2.5 mg, 25 to 50 kg at 5 mg, ≥50 kg at 10 mg — come in at ==minus 2.8%==, ==plus 0.3%==, and ==plus 1.4%== of that adult target.
 
-==**Within three percent. Across all three bands. With 39 patients.**==
+**==Within three percent. Across all three bands. With 39 patients.==**
 
 ## Cues
 - ⏱ 75 sec — receipts-heavy; PI defenders mode, slow on the numbers
@@ -407,7 +419,7 @@ The amber star on the chart is that BREATHE-3 prediction. The whisker is the con
 ⏸ One reason: the AMB112529 hemodynamic substudy was N=5 paired patients — too few to anchor a Garnett-Florian-style analysis. The substudy data were cited supportively by PMDA, disclosed in the EMA submission. Not used as the bridge.
 
 ## Cues
-- ⏱ 90 sec — two architectures, take time on each
+- ⏱ 60 sec — two architectures, keep each tight
 - 🎚 Slow on the slope — "minus zero point oh five five meters per dyne-second per cm⁵" — let the units land
 - 🎯 The amber star is the chart's payoff — gesture to it on "fourteen meters, 95% CI 3 to 31"
 - ⚠ Do NOT pretend the chart's individual scatter dots are real trial data — caption says "illustrative"; if asked, say "the slope and BREATHE-3 prediction are verbatim from the FDA framework; the dot positions illustrate the relationship"
@@ -421,16 +433,16 @@ The amber star on the chart is that BREATHE-3 prediction. The whisker is the con
   'cs1-outcome': `## Spoken
 AMB112529 absorbed three simultaneous disruptions. ⏸
 
-==**One — TRIAL.**== March 2013, a juvenile-rat brain-weight finding — three to eight percent reduction in postnatal-day-7 rats. Mechanism-specific to early-postnatal laryngeal anatomy; exposure margins of one-point-eight to seven times human pediatric AUC at 10 milligrams. The trial was held. CHMP submission November 2017. Formal termination February 2019. ==Thirty-nine evaluable of sixty-six planned.== Two deaths across the trial and LTE — both PAH-disease-related; neither attributed to ambrisentan.
+**==One — TRIAL.==** March 2013, a juvenile-rat brain-weight finding — three to eight percent reduction in postnatal-day-7 rats. Mechanism-specific to early-postnatal laryngeal anatomy; exposure margins of one-point-eight to seven times human pediatric AUC at 10 milligrams. The trial was held. CHMP submission November 2017. Formal termination February 2019. ==Thirty-nine evaluable of sixty-six planned.== Two deaths across the trial and LTE — both PAH-disease-related; neither attributed to ambrisentan.
 
-⏸ ==**Two — REGULATORY.**== STARTS-2 published 2014 — sildenafil pediatric mortality association, hazard ratio three-point-nine-five at high dose. Since attributed to confounding per AFFILIATE 2024 — but the review window 2017 to 2021 had the field operating under maximum caution on pediatric dose selection.
+⏸ **==Two — REGULATORY.==** STARTS-2 published 2014 — sildenafil pediatric mortality association, hazard ratio three-point-nine-five at high dose. Since attributed to confounding per AFFILIATE 2024 — but the review window 2017 to 2021 had the field operating under maximum caution on pediatric dose selection.
 
-⏸ ==**Three — COMMERCIAL.**== Day-one split commercial rights. **GSK** held EU plus rest-of-world as Volibris. **Gilead** held US as Letairis. Different sponsors, different filing decisions. Letairis went generic in 2022. EMA and PMDA filings proceeded; the US commercial decision was Gilead's.
+⏸ **==Three — COMMERCIAL.==** Day-one split commercial rights. **GSK** held EU plus rest-of-world as Volibris. **Gilead** held US as Letairis. Different sponsors, different filing decisions. Letairis went generic in 2022. EMA and PMDA filings proceeded; the US commercial decision was Gilead's.
 
 ⏸ Any one of these would have killed a traditional efficacy trial. The framework absorbed all three.
 
 ## Cues
-- ⏱ 80 sec — three disruptions, each gets its own beat
+- ⏱ 75 sec — three disruptions, each gets its own beat
 - 🎚 Tabular delivery on dates: "March 2013, November 2017, February 2019"
 - 🎯 The two deaths are a sub-beat — say it once, don't dwell — Q&A backup B7 carries the LTE detail
 - ⚠ Do NOT inflate ("would have killed", "catastrophic", "devastating") — name the disruption, move on
@@ -444,20 +456,20 @@ AMB112529 absorbed three simultaneous disruptions. ⏸
   'cs1-bracket': `## Spoken
 Five steps from adult anchor to pediatric dose. The architecture, not the diagnostics. ⏸
 
-==**Step 01.**== ==Three hundred and eighty== adult patients. Six studies pooled. Three thousand one hundred twenty-six PK observations. Rich sampling — that's the structural anchor.
+**==Step 01.==** ==Three hundred and eighty== adult patients. Six studies pooled. Three thousand one hundred twenty-six PK observations. Rich sampling — that's the structural anchor.
 
-==**Step 02.**== A **==two-compartment==** PopPK model. First-order absorption with lag. Allometric exponents *prespecified, not estimated* — clearance scales to weight to the 0.75; volume to the 1.0. That's the bridge.
+**==Step 02.==** A **==two-compartment==** PopPK model. First-order absorption with lag. Allometric exponents *prespecified, not estimated* — clearance scales to weight to the 0.75; volume to the 1.0. That's the bridge.
 
-==**Step 03.**== Simulate AUC by weight band — adult AUCss range as the target. Use that to set pediatric doses for the trial.
+**==Step 03.==** Simulate AUC by weight band — adult AUCss range as the target. Use that to set pediatric doses for the trial.
 
-==**Step 04.**== ==Thirty-nine== evaluable patients in AMB112529. Two hundred eleven sparse PK observations. Eight to under eighteen. **The model wasn't built on N=39 — it was confirmed by it.**
+**==Step 04.==** ==Thirty-nine== evaluable patients in AMB112529. Two hundred eleven sparse PK observations. Eight to under eighteen. **The model wasn't built on N=39 — it was confirmed by it.**
 
-==**Step 05.**== ==Minus three percent== at the low dose, plus zero-point-three percent at the high dose. Pediatric AUCss versus adult target. Plateau exposure-response. ==Match==.
+**==Step 05.==** ==Minus three percent== at the low dose, plus zero-point-three percent at the high dose. Pediatric AUCss versus adult target. Plateau exposure-response. ==Match==.
 
 ⏸ Anchor → model → simulate → confirm → match. Five steps, one chain, one defensible dose.
 
 ## Cues
-- ⏱ 75 sec — make every step land separately
+- ⏱ 60 sec — make every step land separately
 - 🎚 Number tone on "0.75 for clearance, 1.0 for volume" — matter-of-factly, allometric is standard
 - 🎯 Walk the panel through the five cards left-to-right; pause briefly on each numeral
 - ⚠ Do NOT cite M3 method or one-compartment — the model was 2-cmt with absorption lag
@@ -471,9 +483,9 @@ Five steps from adult anchor to pediatric dose. The architecture, not the diagno
   'cs1-verdict': `## Spoken
 This is where the framework earns the case. ⏸
 
-==**Minus three percent.**== Pediatric AUCss versus adult target — at the low dose. Numeric: 4.82 versus 4.98 micrograms per hour per mL.
+**==Minus three percent.==** Pediatric AUCss versus adult target — at the low dose. Numeric: 4.82 versus 4.98 microgram-hours per mL.
 
-⏸ ==**Plus zero-point-three percent.**== High dose. 9.15 versus 9.12.
+⏸ **==Plus zero-point-three percent.==** High dose. 9.15 versus 9.12.
 
 ⏸ The density curves on the slide overlap. **The pediatric distribution sits inside the adult distribution.** Geometric means per Okour 2023 — the curves themselves are illustrative Gaussians, not extracted from the paper. The means are real. The visual overlap is the argument.
 
@@ -497,11 +509,11 @@ This is where the framework earns the case. ⏸
   'cs1-lesson': `## Spoken
 EMA and PMDA approved pediatric ambrisentan in 2021. ICH E11A codified the framework in 2024. ⏸
 
-==**Pin one — EMA, 2021.**== Pediatric Volibris. Eight to seventeen years. Three weight bands. Two dose levels — 2.5 to 10 mg once daily.
+**==Pin one — EMA, 2021.==** Pediatric Volibris. Eight to seventeen years. Three weight bands. Two dose levels — 2.5 to 10 mg once daily.
 
-==**Pin two — PMDA, March 23, 2021.**== Same exposure-matching framework. The Japanese label cites the AMB112529 hemodynamic substudy.
+**==Pin two — PMDA, March 23, 2021.==** Same exposure-matching framework. The Japanese label cites the AMB112529 hemodynamic substudy.
 
-⏸ ==**Pin three — ICH E11A, December 2024.**== Extrapolation continuum codified. Where similarity is high, exposure matching alone is sufficient. **The framework prefigured the standard by four years.**
+⏸ **==Pin three — ICH E11A, December 2024.==** Extrapolation continuum codified. Where similarity is high, exposure matching alone is sufficient. **The framework prefigured the standard by four years.**
 
 ⏸ Same architecture is the working template for current pediatric PAH programs — adult efficacy as anchor, pediatric PK as bridge, totality of evidence for submission. The methodological insight travels.
 
@@ -521,18 +533,18 @@ EMA and PMDA approved pediatric ambrisentan in 2021. ICH E11A codified the frame
 
   // Slide 15 — CS1 → CS2 bridge (three takeaways: methodology / architecture / deliverable)
   'cs1-bridge': `## Spoken
-When the trial cannot carry the dose, the framework does. ⏸ Three takeaways.
+When the trial cannot deliver the dose, the model delivers the label. ⏸ Three takeaways.
 
-==**One — Methodology.**== Where similarity is high, PK matching alone supports the dose. ICH E11A codified this as the extrapolation continuum. The framework prefigured the standard by four years.
+**==One — Methodology.==** Where similarity is high, PK matching alone supports the dose. ICH E11A codified this as the extrapolation continuum. The framework prefigured the standard by four years.
 
-⏸ ==**Two — Architecture.**== Inheritance is the framework's strength. Structural model from the adult anchor; pediatric data confirms adequacy. **Thirty-nine patients cannot build a model — thirty-nine patients can confirm one.** EMA accepts PK-matching alone; FDA pairs it with the Garnett-Florian bridge.
+⏸ **==Two — Architecture.==** Inheritance is the framework's strength. Structural model from the adult anchor; pediatric data confirms adequacy. **Thirty-nine patients cannot build a model — thirty-nine patients can confirm one.** EMA accepts PK-matching alone; FDA pairs it with the Garnett-Florian bridge.
 
-⏸ ==**Three — Deliverable.**== The framework's output was a label, not a paper. Eight to seventeen years, three weight bands, two dose levels. EMA and PMDA accepted; ==the model became evidence==.
+⏸ **==Three — Deliverable.==** The framework's output was a label, not a paper. Eight to seventeen years, three weight bands, two dose levels. EMA and PMDA accepted; ==the model became evidence==.
 
-⏸ From a population we couldn't ethically test — to a population we couldn't geographically reach. **Case two — the regulatory bridge.**
+⏸ From a ==rare pediatric pulmonary disease== to a ==regulatory bridging waiver in oncology==. **Case two — the regulatory bridge.**
 
 ## Cues
-- ⏱ 60 sec — three takeaways + one-line CS2 handoff
+- ⏱ 45 sec — three takeaways + one-line CS2 handoff
 - 🎚 Confident, declarative — these are takeaways, not proposals
 - 🎯 Eye contact on "the model became evidence" — that's the case's portable line
 - 📍 The bridge ribbon at the bottom carries the CS2 handoff visually — the inline "regulatory bridging waiver in oncology" turns amber on screen

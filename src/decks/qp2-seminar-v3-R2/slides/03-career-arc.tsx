@@ -1,166 +1,86 @@
 // @ts-nocheck
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useTokens } from '@/lib/token';
+import React, { useRef } from 'react';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
-import SwayGroup from './03-career-arc/SwayGroup';
-import SatelliteDrawer from './03-career-arc/SatelliteDrawer';
 
 /**
- * Slide 03 · Career arc — "Spine + Satellites" hybrid network.
+ * Slide 03 · Career arc — "Three-card half-page" design.
  *
- * Lifted from qp2-seminar-v2/slides/03-career-arc.jsx (2026-04-25) per
- * user direction. The pre-lift v3-R2 stub (5 hubs on a flat horizontal
- * spine, no satellites, no drawer) is preserved at
- * _backup/03-career-arc.pre-v2-lift.jsx.
+ * Redesigned 2026-04-26 per user direction: replace the SVG spine-and-
+ * satellite network with 3 elegant half-page cards inspired by the
+ * components-showcase html-to-image slide's card layout.
  *
- * What this composition does:
- *   - Five HUBS along an ascending curved amber spine (Jordan → Minnesota
- *     → Merck QP2 → GSK → Servier). Spine animates left-to-right.
- *   - Each hub fans 1–6 SATELLITE work-items at angles + distances, with
- *     hub-anchored sway animation (SwayGroup wraps each satellite group).
- *   - Servier is the HERO hub (coral, larger, pulsing halo). Merck QP2
- *     is a SIDE hub (transparent, dashed cream stroke).
- *   - Satellites are clickable; the SatelliteDrawer side-sheet opens
- *     with detailed achievements + metrics keyed by `${hubKey}:${label}`.
+ * Prior version (SVG network) backed up at:
+ *   _backup/03-career-arc.pre-card-redesign-2026-04-26.tsx
  *
- * Aspect / fit:
- *   - SVG viewBox 2000×600 (~3.3:1) with preserveAspectRatio="xMidYMid
- *     meet" so labels can overflow the visible cell without clipping
- *     the spine geometry.
- *   - data-case="amber" — cross-case slide; --case cascade defaults to
- *     amber, with --coral as the hero accent for the Servier hub.
+ * Card grouping rationale — 5 career hubs compressed to 3 narrative arcs:
+ *   Card 1 · CLINICAL FOUNDATION — Jordan BDS + clinical license
+ *   Card 2 · QUANTITATIVE FORMATION — Minnesota PhD + Merck QP2 intern
+ *   Card 3 · INDUSTRY LEADERSHIP — GSK 7yr (Manager) + Servier (Director)
  *
- * Patterns honored (per CLAUDE.md):
- *   - SlideGrid + STANDARD_AREAS (overlap-proof)
- *   - useReducedMotion via window.matchMedia (matches v2 pattern)
- *   - SVG `font-size` attributes are NOT subject to the fluid-token
- *     contract (that contract applies to CSS fontSize, not SVG attrs)
+ * Cards fill the Viz area and end at the footer line. Each card follows
+ * the deck's HeroTile-pattern: left accent rail, subtle gradient bg,
+ * hairline border, case-color tint. The third card is the "hero" (coral
+ * accent, slightly brighter) to draw the eye to current role.
  */
 
-// ── SVG coordinate space (scaled by preserveAspectRatio) ──
-// Aspect ~3.3:1 — wider than the viz cell so `meet` scales by
-// width. The viz cell in-flow is ~1fr (short after chrome/headline/
-// subhead/footer eat their auto rows), so we need a flat VB to
-// guarantee horizontal fill. Satellite labels overflow visible.
-const VB_W = 2000;
-const VB_H = 600;
+const EASE = [0.2, 0.7, 0.3, 1];
 
-// ── Hubs along an ascending curve ──
-const HUBS = [
+const CARDS = [
   {
-    key: 'jordan',
-    name: 'Jordan',
-    tag: 'BDS · 2004–2010',
-    cx: 220, cy: 480, r: 30,
-    satellites: [
-      { label: 'Dental surgery',            angle: 215, dist: 95 },
-      { label: 'Clinical license',          angle: 165, dist: 100 },
-      { label: 'Bedside dosing decisions',  angle: 265, dist: 90 },
+    number: '01',
+    kicker: 'CLINICAL FOUNDATION',
+    title: 'Jordan',
+    years: '2004 – 2010',
+    color: 'var(--amber)',
+    items: [
+      'Doctor of Dental Surgery (BDS)',
+      'Clinical license — bedside dosing decisions',
+      'Patient-facing pharmacology instinct',
     ],
   },
   {
-    key: 'minnesota',
-    name: 'Minnesota',
-    tag: 'PhD · 2012–2015',
-    cx: 560, cy: 380, r: 36,
-    satellites: [
-      { label: 'NLME',              angle: 165, dist: 100 },
-      { label: 'EHC dissertation',  angle: 205, dist: 110 },
-      { label: 'ECP Fellowship',    angle: 255, dist: 95  },
-      { label: 'Brundage lab',      angle: 115, dist: 150 },
-      { label: '3 research awards', angle: 60,  dist: 155 },
+    number: '02',
+    kicker: 'QUANTITATIVE FORMATION',
+    title: 'Minnesota + Merck',
+    years: '2012 – 2015',
+    color: 'var(--amber)',
+    items: [
+      'PhD — Experimental & Clinical Pharmacology',
+      'NLME · population modeling · EHC dissertation',
+      'Merck QP2 intern — NLME simulation for trial design',
+      '3 research awards · ECP Fellowship',
     ],
   },
   {
-    key: 'merck',
-    name: 'Merck · QP2',
-    tag: 'Intern · 2014',
-    cx: 960, cy: 300, r: 24,
-    side: true,
-    satellites: [
-      { label: 'NLME simulation · trial-design inputs', angle: 230, dist: 95 },
-    ],
-  },
-  {
-    key: 'gsk',
-    name: 'GSK',
-    tag: 'Manager · 2015–2022',
-    cx: 1380, cy: 210, r: 40,
-    satellites: [
-      { label: '5 TAs',                        angle: 145, dist: 110 },
-      { label: '4 approvals · during tenure',  angle: 195, dist: 125 },
-      { label: '5 agencies · ambrisentan peds',angle: 245, dist: 115 },
-      { label: 'Ambrisentan peds',             angle: 30,  dist: 115 },
-      { label: 'Top 10% Award 2019',           angle: 85,  dist: 160 },
-      { label: 'Clin Pharm M&S',               angle: 300, dist: 95  },
-    ],
-  },
-  {
-    key: 'servier',
-    name: 'Servier',
-    tag: 'Director · Since 2022',
-    cx: 1830, cy: 120, r: 52,
+    number: '03',
+    kicker: 'INDUSTRY LEADERSHIP',
+    title: 'GSK → Servier',
+    years: '2015 – present',
+    color: 'var(--coral)',
     hero: true,
-    satellites: [
-      { label: 'Oncology · solid',        angle: 150, dist: 120 },
-      { label: 'Oncology · heme',         angle: 200, dist: 130 },
-      { label: '3 approvals',             angle: 250, dist: 115 },
-      { label: 'Asparlas adult design',   angle: 90,  dist: 180 },
-      { label: 'Ivosidenib · India',      angle: 305, dist: 125 },
+    items: [
+      'GSK · 5 TAs · 4 approvals during tenure',
+      'Ambrisentan pediatric — 5 agencies',
+      'Servier · Director · Oncology solid + heme',
+      '3 approvals · Ivosidenib India CDSCO',
+      'PharmAgent — AI/ML workflow platform',
     ],
   },
 ];
 
-function buildSpinePath() {
-  const pts = HUBS.map((h) => ({ x: h.cx, y: h.cy }));
-  let d = `M ${pts[0].x} ${pts[0].y}`;
-  for (let i = 0; i < pts.length - 1; i++) {
-    const a = pts[i], b = pts[i + 1];
-    const dx = (b.x - a.x) * 0.5;
-    d += ` C ${a.x + dx} ${a.y}, ${b.x - dx} ${b.y}, ${b.x} ${b.y}`;
-  }
-  return d;
-}
-
-function satelliteXY(hub, sat) {
-  const rad = (sat.angle * Math.PI) / 180;
-  return {
-    x: hub.cx + Math.cos(rad) * sat.dist,
-    y: hub.cy + Math.sin(rad) * sat.dist,
-  };
-}
-
 export default function CareerArc() {
-  const reduced =
-    typeof window !== 'undefined' &&
-    window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const prefersReduced = useReducedMotion();
+  const go = isInView && !prefersReduced;
 
-  const ease = [0.16, 1, 0.3, 1];
-
-  const D = reduced
-    ? { spine: 0, hubBase: 0, hubStep: 0, satBase: 0, satStep: 0 }
-    : {
-        spine:    0.75,
-        hubBase:  1.55,
-        hubStep:  0.12,
-        satBase:  1.80,
-        satStep:  0.03,
-      };
-  const spineDur = reduced ? 0.01 : 1.20;
-
-  const T = useTokens([
-    '--amber', '--coral', '--cream', '--cream-muted', '--cream-faint',
-    '--cream-hairline', '--cream-ghost', '--bg',
-  ]);
-  const tk = (n, fb = 'transparent') => (T ? T[n] || fb : fb);
-
-  const spineD = buildSpinePath();
-  const spineLen = 2400;
-
-  const [selection, setSelection] = useState(null);
-  const selectedHub = selection ? HUBS.find((h) => h.key === selection.hubKey) : null;
+  const fade = (delay) => ({
+    initial: { opacity: 0, y: 12 },
+    animate: go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 },
+    transition: { duration: 0.6, ease: EASE, delay },
+  });
 
   return (
     <SlideGrid dataCase="amber" areas={STANDARD_AREAS}>
@@ -175,216 +95,175 @@ export default function CareerArc() {
         </span>
       </Headline>
 
-      <Subhead delay={0.55} maxChars={100} size="lead">
-        Each hub is an institution; each satellite is the work. One spine —
-        clinic to leadership, through quantitative pharmacology.
+      <Subhead delay={0.45} maxChars={100} size="lead">
+        Clinic to leadership, through quantitative pharmacology.
       </Subhead>
 
-      <Viz style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <svg
-          viewBox={`0 0 ${VB_W} ${VB_H}`}
-          preserveAspectRatio="xMidYMid meet"
-          style={{ width: '100%', height: '100%', display: 'block', overflow: 'visible' }}
-          aria-label="Career network — five institution hubs linked by an ascending amber spine, each surrounded by satellite nodes representing specific work."
+      <Viz ref={ref}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(18rem, 100%), 1fr))',
+            gap: 'var(--space-5)',
+            height: '100%',
+            alignContent: 'stretch',
+            alignItems: 'stretch',
+          }}
         >
-          {/* Career spine — animated draw */}
-          <motion.path
-            d={spineD}
-            fill="none"
-            stroke={tk('--amber')}
-            strokeWidth={3.5}
-            strokeLinecap="round"
-            strokeDasharray={spineLen}
-            opacity={0.85}
-            initial={{ strokeDashoffset: spineLen }}
-            animate={{ strokeDashoffset: 0 }}
-            transition={{ duration: spineDur, ease, delay: D.spine }}
-          />
-          {/* Soft amber halo behind the spine */}
-          <path
-            d={spineD}
-            fill="none"
-            stroke={tk('--amber')}
-            strokeWidth={10}
-            strokeLinecap="round"
-            opacity={0.08}
-          />
-
-          {HUBS.map((hub, hi) => {
-            const hubDelay = D.hubBase + hi * D.hubStep;
-            const satDelay = D.satBase + hi * D.hubStep;
-            const hubColor = hub.hero ? tk('--coral') : hub.side ? tk('--cream-muted') : tk('--amber');
-            const hubFill  = hub.hero ? tk('--coral') : hub.side ? 'transparent' : tk('--amber');
-            const hubFillOp = hub.hero ? 1 : hub.side ? 0 : 0.18;
-
-            return (
-              <g key={hub.key}>
-                {hub.satellites.map((sat, si) => {
-                  const p = satelliteXY(hub, sat);
-                  const perSat = satDelay + si * D.satStep;
-                  const rightSide = p.x > hub.cx;
-                  // Tree-branch sway — gentle, hub-anchored.
-                  const swayAmp = 2.4 + ((hi + si) % 3) * 0.5;
-                  const swayPeriod = 11 + ((hi * 7 + si * 3) % 5) * 0.7;
-                  const swayDelay = perSat + 0.8 + ((si % 4) * 0.45);
-                  return (
-                    <SwayGroup
-                      key={si}
-                      px={hub.cx}
-                      py={hub.cy}
-                      amplitude={swayAmp}
-                      period={swayPeriod}
-                      delay={swayDelay}
-                      disabled={reduced}
-                    >
-                      <g
-                        role="button"
-                        tabIndex={0}
-                        aria-label={`${hub.name} · ${sat.label} — open details`}
-                        onClick={() => setSelection({ hubKey: hub.key, label: sat.label })}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            setSelection({ hubKey: hub.key, label: sat.label });
-                          }
-                        }}
-                        style={{ cursor: 'pointer', outline: 'none' }}
-                        className="sat-hit"
-                      >
-                        <motion.line
-                          x1={hub.cx} y1={hub.cy} x2={p.x} y2={p.y}
-                          stroke={hub.hero ? tk('--coral') : tk('--cream-hairline')}
-                          strokeWidth={1}
-                          opacity={hub.hero ? 0.5 : 0.6}
-                          initial={{ pathLength: 0, opacity: 0 }}
-                          animate={{ pathLength: 1, opacity: hub.hero ? 0.5 : 0.6 }}
-                          transition={{ duration: 0.5, ease, delay: perSat }}
-                        />
-                        {/* Invisible hit-target — generous radius for mouse + touch. */}
-                        <circle
-                          cx={p.x} cy={p.y} r={22}
-                          fill="transparent"
-                          pointerEvents="all"
-                        />
-                        <motion.circle
-                          cx={p.x} cy={p.y}
-                          r={hub.hero ? 5 : 4}
-                          fill={hub.hero ? tk('--coral') : tk('--cream-muted')}
-                          fillOpacity={hub.hero ? 0.9 : 0.7}
-                          stroke={tk('--bg')}
-                          strokeWidth={1.2}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1], delay: perSat + 0.25 }}
-                          className="sat-dot"
-                          style={{ transition: 'r 160ms ease, fill-opacity 160ms ease' }}
-                        />
-                        <motion.text
-                          x={p.x + (rightSide ? 11 : -11)}
-                          y={p.y + 5}
-                          textAnchor={rightSide ? 'start' : 'end'}
-                          fontFamily="var(--font-body)"
-                          fontSize={17}
-                          fill={hub.hero ? tk('--cream') : tk('--cream-muted')}
-                          fontWeight={hub.hero ? 500 : 400}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: 0.4, ease, delay: perSat + 0.35 }}
-                          className="hidden sm:block sat-label"
-                          style={{ transition: 'fill 160ms ease' }}
-                        >
-                          {sat.label}
-                        </motion.text>
-                      </g>
-                    </SwayGroup>
-                  );
-                })}
-
-                {hub.hero && (
-                  <motion.circle
-                    cx={hub.cx} cy={hub.cy} r={hub.r + 10}
-                    fill="none"
-                    stroke={tk('--coral')}
-                    strokeWidth={1.4}
-                    opacity={0.3}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 0.3 }}
-                    transition={{ duration: 0.6, ease, delay: hubDelay + 0.3 }}
-                  />
-                )}
-
-                <motion.circle
-                  cx={hub.cx} cy={hub.cy} r={hub.r}
-                  fill={hubFill}
-                  fillOpacity={hubFillOp}
-                  stroke={hubColor}
-                  strokeWidth={hub.hero ? 3 : hub.side ? 1.5 : 2.2}
-                  strokeDasharray={hub.side ? '4 4' : undefined}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.9, ease: [0.4, 0, 0.2, 1], delay: hubDelay }}
-                />
-
-                <motion.g
-                  transform={`translate(0, ${hub.cy + hub.r + 26})`}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1], delay: hubDelay + 0.25 }}
+          {CARDS.map((card, i) => (
+            <motion.div
+              key={card.number}
+              {...fade(0.7 + i * 0.18)}
+              style={{
+                position: 'relative',
+                border: `1.5px solid ${card.hero
+                  ? 'color-mix(in srgb, var(--coral) 50%, transparent)'
+                  : 'var(--cream-hairline)'}`,
+                borderLeft: `4px solid ${card.color}`,
+                borderRadius: 'var(--radius-lg)',
+                background: card.hero
+                  ? `linear-gradient(180deg,
+                      color-mix(in srgb, var(--coral) 10%, transparent),
+                      color-mix(in srgb, var(--panel) 75%, transparent) 60%)`
+                  : 'color-mix(in srgb, var(--panel) 60%, transparent)',
+                padding: 'clamp(var(--space-4), 3vh, var(--space-6)) var(--space-5)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--space-3)',
+                overflow: 'hidden',
+                minHeight: 0,
+                minWidth: 0,
+              }}
+            >
+              {/* Number + kicker row */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+                <div
+                  className="deck-display"
+                  style={{
+                    fontSize: 'var(--fs-slide-headline)',
+                    fontWeight: 700,
+                    lineHeight: 1,
+                    color: card.color,
+                    opacity: 0.22,
+                    fontVariantNumeric: 'tabular-nums',
+                  }}
                 >
-                  <text
-                    x={hub.cx} y={0}
-                    textAnchor="middle"
-                    fontFamily="var(--font-display)"
-                    fontSize={hub.hero ? 36 : hub.side ? 25 : 30}
-                    fontWeight={hub.hero ? 700 : 600}
-                    letterSpacing="-0.02em"
-                    fill={hub.hero ? tk('--coral') : tk('--cream')}
+                  {card.number}
+                </div>
+                <div
+                  className="deck-mono uppercase"
+                  style={{
+                    fontSize: 'var(--fs-slide-eyebrow)',
+                    letterSpacing: 'var(--ls-mono-wide)',
+                    color: card.color,
+                  }}
+                >
+                  {card.kicker}
+                </div>
+              </div>
+
+              {/* Title + years */}
+              <div>
+                <div
+                  className="deck-display"
+                  style={{
+                    fontSize: 'var(--fs-slide-lead)',
+                    fontWeight: 600,
+                    color: card.hero ? 'var(--coral)' : 'var(--cream)',
+                    lineHeight: 1.2,
+                  }}
+                >
+                  {card.title}
+                </div>
+                <div
+                  className="deck-mono"
+                  style={{
+                    fontSize: 'var(--fs-slide-pageno)',
+                    color: 'var(--cream-faint)',
+                    letterSpacing: '0.06em',
+                    marginTop: 'var(--space-1)',
+                  }}
+                >
+                  {card.years}
+                </div>
+              </div>
+
+              {/* Hairline separator */}
+              <div
+                aria-hidden
+                style={{
+                  width: 'clamp(48px, 40%, 80px)',
+                  height: 'var(--stroke-hair)',
+                  background: card.hero
+                    ? 'color-mix(in srgb, var(--coral) 40%, transparent)'
+                    : 'var(--cream-hairline)',
+                }}
+              />
+
+              {/* Achievement items */}
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 'clamp(6px, 1.2vh, 12px)',
+                  flex: 1,
+                  minHeight: 0,
+                  justifyContent: 'flex-start',
+                }}
+              >
+                {card.items.map((item, j) => (
+                  <motion.div
+                    key={j}
+                    initial={{ opacity: 0, x: -6 }}
+                    animate={go ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, ease: EASE, delay: 0.9 + i * 0.18 + j * 0.06 }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: 'var(--space-2)',
+                    }}
                   >
-                    {hub.name}
-                  </text>
-                  <text
-                    x={hub.cx} y={28}
-                    textAnchor="middle"
-                    fontFamily="var(--font-mono)"
-                    fontSize={15}
-                    fontWeight={600}
-                    letterSpacing="0.16em"
-                    fill={tk('--cream-muted')}
-                  >
-                    {hub.tag.toUpperCase()}
-                  </text>
-                </motion.g>
-              </g>
-            );
-          })}
-        </svg>
+                    <div
+                      aria-hidden
+                      style={{
+                        width: 6,
+                        height: 1,
+                        background: card.color,
+                        opacity: card.hero ? 0.6 : 0.35,
+                        marginTop: '0.65em',
+                        flexShrink: 0,
+                      }}
+                    />
+                    <div
+                      className="deck-body"
+                      style={{
+                        fontSize: 'var(--fs-slide-subhead)',
+                        color: card.hero ? 'var(--cream)' : 'var(--cream-muted)',
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {item}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </Viz>
 
       <Footer
-        delay={2.6}
+        delay={2.0}
         kicker="Four countries · three sponsors · one discipline"
         tagline={
           <>
-            The discipline hasn&apos;t changed. The question hasn&apos;t either —{' '}
+            The question hasn&apos;t changed —{' '}
             <em style={{ color: 'var(--coral)', fontStyle: 'italic', fontWeight: 700 }}>
               what dose, for whom, why?
             </em>
           </>
         }
       />
-
-      <SatelliteDrawer
-        open={!!selection}
-        onOpenChange={(v) => { if (!v) setSelection(null); }}
-        selection={selection}
-        hub={selectedHub}
-      />
-
-      <style>{`
-        .sat-hit:hover .sat-dot { r: 7; fill-opacity: 1; }
-        .sat-hit:hover .sat-label { fill: var(--cream); font-weight: 600; }
-        .sat-hit:focus-visible .sat-dot { r: 7; fill-opacity: 1; }
-      `}</style>
     </SlideGrid>
   );
 }
