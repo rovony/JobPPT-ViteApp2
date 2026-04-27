@@ -7,21 +7,7 @@ import Lungs from '../components/Lungs';
 
 /**
  * CS1 · Slide 07 (slot) — V2-S3 · PAH 101 · disease foundation.
- *
- * 2026-04-25 v2-final pass — content replaced wholesale per
- * 2-Slides_Dev/2-Slides-Plan-V2/_Results/2-SlidesPlan/V2/2A-Slides-CS1-Slides01-06-v2.md.
- *
- * V2 spec: lung is the SUBJECT — moves to center, gets large, fact
- * boxes anchored via leader lines to anatomical regions. We approximate
- * with a centered Lungs (context variant) + four fact-box panels in
- * a 2×2 grid below the headline. Full anatomy-anchor leader lines are
- * Wave 2 work.
- *
- * Verified facts (V2-final):
- *   - 2022 ESC/ERS hemodynamic def: mPAP ≥20, PVR ≥2 WU, PAWP ≤15
- *   - AMB112529 trial used 2008 Dana Point def: mPAP ≥25, PVR ≥3 WU·m²
- *   - Untreated adult median survival 2.8 yrs (D'Alonzo NIH 1991)
- *   - Four pathways: ET, NO/cGMP, prostacyclin, activin/TGF-β
+ * Redesigned to strict 2-column dossier layout.
  */
 
 const EASE = [0.2, 0.7, 0.3, 1];
@@ -30,7 +16,7 @@ const FACTS = [
   {
     n: '01',
     label: 'The pathology',
-    body: 'Vasoconstriction, smooth-muscle proliferation, in-situ thrombosis — pulmonary arterioles narrow.',
+    body: <><strong style={{ color: 'var(--case)' }}>Vasoconstriction</strong>, <strong style={{ color: 'var(--case)' }}>smooth-muscle and endothelial proliferation</strong>, and <strong style={{ color: 'var(--case)' }}>in-situ thrombosis</strong> — the lumen narrows.</>,
   },
   {
     n: '02',
@@ -40,49 +26,52 @@ const FACTS = [
   {
     n: '03',
     label: 'The pathways',
-    body: <>Endothelin <strong style={{ color: 'var(--case)' }}>↑</strong> · Nitric oxide <strong>↓</strong> · Prostacyclin <strong>↓</strong> · Activin / TGF-β dysregulated.</>,
+    body: <><strong style={{ color: 'var(--case)' }}>Endothelin ↑</strong> · Nitric oxide <strong style={{ opacity: 0.6 }}>↓</strong> · Prostacyclin <strong style={{ opacity: 0.6 }}>↓</strong> · <span style={{ opacity: 0.8 }}>Activin / TGF-β dysregulated.</span></>,
   },
   {
     n: '04',
     label: 'The outcome',
-    body: 'Untreated median survival ≈ 2.8 years (D\'Alonzo 1991, NIH registry).',
+    body: <>Untreated median survival ≈ 2.8 years <em style={{ opacity: 0.5, fontStyle: 'italic' }}>(D'Alonzo 1991, NIH registry)</em>.</>,
   },
 ];
 
-function FactPanel({ fact, delay, reduced }) {
+function FactRow({ fact, delay, reduced }) {
   return (
     <motion.div
-      initial={reduced ? false : { opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : delay, ease: EASE }}
+      initial={reduced ? false : { opacity: 0, x: -10 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : delay, ease: EASE }}
       style={{
-        position: 'relative',
-        minWidth: 0,
-        border: '1px solid var(--cream-hairline)',
-        borderLeft: '3px solid var(--case)',
-        borderRadius: 'var(--radius-md)',
-        background: 'color-mix(in srgb, var(--panel) 60%, transparent)',
-        padding: 'clamp(var(--space-3), 1.4vw, var(--space-4))',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 'var(--space-1)',
+        display: 'grid',
+        gridTemplateColumns: 'max-content 1fr',
+        gap: 'var(--space-5)',
+        padding: 'var(--space-3) 0',
+        borderBottom: '1px solid var(--cream-hairline)',
       }}
     >
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-eyebrow)',
-        letterSpacing: 'var(--ls-mono-wide)',
-        color: 'var(--case)',
-        fontWeight: 700,
-        fontVariantNumeric: 'tabular-nums',
-      }}>
+      <div 
+        className="deck-mono" 
+        style={{
+          color: 'var(--case)',
+          fontSize: 'var(--fs-slide-mono)',
+          letterSpacing: 'var(--ls-mono-wide)',
+          fontWeight: 700,
+          opacity: 0.9,
+          paddingTop: '0.2rem',
+          whiteSpace: 'nowrap',
+        }}
+      >
         {fact.n} · {fact.label}
       </div>
-      <div className="deck-body" style={{
-        fontSize: 'var(--fs-slide-subhead)',
-        color: 'var(--cream)',
-        opacity: 0.86,
-        lineHeight: 1.45,
-      }}>
+      <div 
+        className="deck-body" 
+        style={{
+          color: 'var(--cream)',
+          fontSize: 'var(--fs-slide-body)',
+          lineHeight: 1.5,
+          opacity: 0.85,
+        }}
+      >
         {fact.body}
       </div>
     </motion.div>
@@ -107,168 +96,103 @@ export default function Cs1Context() {
       </Headline>
 
       <Subhead delay={0.55} maxChars={92} size="lead">
-        The pulmonary arterioles narrow. PVR rises. The right ventricle hypertrophies, dilates, then fails.
+        The lumen narrows. PVR rises. The right ventricle hypertrophies, dilates, then fails.
       </Subhead>
 
       <Viz>
-        {/* V2 §0 anatomy-anchored fact composition: 2 cards above the
-            lung, 2 below — the lung is the SUBJECT, the facts orbit
-            its anatomy. Desktop: 3-column grid (fact-left | lung |
-            fact-right) × 2 rows. Narrow viewports collapse to a
-            single column stack so nothing clips. */}
-        {/* 2026-04-26 user pass — restructured Viz as flex column so the
-            closing amber badge sits in its own row above the footer
-            instead of overlapping it. */}
         <div style={{
-          display: 'flex',
-          flexDirection: 'column',
+          display: 'grid',
+          gridTemplateColumns: '1.2fr 1fr',
+          gap: 'var(--space-8)',
           width: '100%',
           height: '100%',
-          minHeight: 0,
-          gap: 'clamp(var(--space-3), 2vh, var(--space-5))',
+          alignItems: 'center',
         }}>
-        <div className="cs1-context-anatomy" style={{
-          width: '100%',
-          flex: 1,
-          minHeight: 0,
-          position: 'relative',
-          zIndex: 1,
-        }}>
-          {/* BIG LUNG — anatomical SUBJECT filling the whole Viz, with
-              fact cards anchored to the 4 corners. Cards may overlap
-              the outer edges of the lung — that's intentional, the
-              anatomy is the canvas the facts live on. */}
-          <div
-            aria-hidden
-            className="cs1-lung-canvas"
+          
+          {/* LEFT COLUMN: Data Dossier */}
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduced ? 0 : 0.6, delay: 0.7, ease: EASE }}
             style={{
-              position: 'absolute',
-              inset: 0,
-              opacity: 0.32,
-              pointerEvents: 'none',
-              zIndex: 0,
+              background: 'color-mix(in srgb, var(--panel) 40%, transparent)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              border: '1px solid var(--cream-hairline)',
+              borderLeft: '4px solid var(--case)',
+              borderRadius: 'var(--radius-lg)',
+              padding: 'var(--space-5) var(--space-6)',
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              overflow: 'hidden',
+              flexDirection: 'column',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
             }}
           >
-            <Lungs
-              layoutId="cs1-lung"
-              variant="foundation"
-              widthOverride="min(86vw, 68rem)"
-            />
-          </div>
+            {FACTS.map((fact, i) => (
+              <FactRow 
+                key={fact.n} 
+                fact={fact} 
+                delay={0.8 + (i * 0.1)} 
+                reduced={reduced} 
+              />
+            ))}
+          </motion.div>
 
-          {/* Top-left card — fact 01 PATHOLOGY (pulled inward toward
-              the lung's left lobe instead of slammed to the edge) */}
-          <div className="cs1-corner cs1-corner-tl" style={{
-            position: 'absolute',
-            top: 'clamp(var(--space-2), 2vh, var(--space-3))',
-            left: 'clamp(var(--space-2), 4vw, var(--space-6))',
-            width: 'clamp(19rem, 36vw, 28rem)',
-            zIndex: 2,
-          }}>
-            <FactPanel fact={FACTS[0]} delay={0.85} reduced={reduced} />
-          </div>
-
-          {/* Top-right card — fact 02 HEMODYNAMIC */}
-          <div className="cs1-corner cs1-corner-tr" style={{
-            position: 'absolute',
-            top: 'clamp(var(--space-2), 2vh, var(--space-3))',
-            right: 'clamp(var(--space-2), 4vw, var(--space-6))',
-            width: 'clamp(19rem, 36vw, 28rem)',
-            zIndex: 2,
-          }}>
-            <FactPanel fact={FACTS[1]} delay={0.97} reduced={reduced} />
-          </div>
-
-          {/* Bottom-left card — fact 03 PATHWAYS */}
-          <div className="cs1-corner cs1-corner-bl" style={{
-            position: 'absolute',
-            bottom: 'clamp(var(--space-2), 2vh, var(--space-3))',
-            left: 'clamp(var(--space-2), 4vw, var(--space-6))',
-            width: 'clamp(19rem, 36vw, 28rem)',
-            zIndex: 2,
-          }}>
-            <FactPanel fact={FACTS[2]} delay={1.09} reduced={reduced} />
-          </div>
-
-          {/* Bottom-right card — fact 04 OUTCOME */}
-          <div className="cs1-corner cs1-corner-br" style={{
-            position: 'absolute',
-            bottom: 'clamp(var(--space-2), 2vh, var(--space-3))',
-            right: 'clamp(var(--space-2), 4vw, var(--space-6))',
-            width: 'clamp(19rem, 36vw, 28rem)',
-            zIndex: 2,
-          }}>
-            <FactPanel fact={FACTS[3]} delay={1.21} reduced={reduced} />
-          </div>
-        </div>
-
-        {/* Closing conclusion badge — amber-tinted, centered, above footer.
-            2026-04-26 user pass — was a floating coral italic line that
-            overlapped the footer; now sits in its own row in the Viz
-            flex column with explicit padding + amber surface treatment
-            per the slide-design-patterns conclusion-badge convention. */}
-        <motion.div
-          initial={reduced ? false : { opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : 1.45, ease: EASE }}
-          style={{
-            alignSelf: 'center',
-            maxWidth: 'min(72ch, 92%)',
-            padding: 'clamp(var(--space-2), 1.4vw, var(--space-3)) clamp(var(--space-4), 2.5vw, var(--space-6))',
-            background: 'color-mix(in srgb, var(--amber) 8%, transparent)',
-            border: '1px solid color-mix(in srgb, var(--amber) 28%, transparent)',
-            borderRadius: 'var(--radius-md)',
-            zIndex: 1,
+          {/* RIGHT COLUMN: Anatomical Anchor & Conclusion */}
+          <div style={{
             position: 'relative',
-          }}
-        >
-          <div className="deck-display italic" style={{
-            fontSize: 'var(--fs-slide-tagline)',
-            color: 'var(--cream)',
-            lineHeight: 1.5,
-            fontWeight: 500,
-            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%',
           }}>
-            Ambrisentan blocks the <strong style={{ color: 'var(--case)', fontStyle: 'normal' }}>endothelin pathway</strong> &mdash; the over-active vasoconstrictor and proliferative arm.
-          </div>
-        </motion.div>
-        </div>
+            <div
+              style={{
+                width: '100%',
+                maxWidth: '36rem',
+                display: 'flex',
+                justifyContent: 'center',
+                opacity: 0.8,
+              }}
+            >
+              <Lungs
+                layoutId="cs1-lung"
+                variant="foundation"
+                widthOverride="100%"
+              />
+            </div>
 
-        {/* Mobile fallback — under 640px viewport, drop absolute
-            positioning and stack everything in flow so nothing clips
-            off-screen. Lung shrinks and goes between the top pair
-            and bottom pair. */}
-        <style>{`
-          @media (max-width: 640px) {
-            .cs1-context-anatomy {
-              display: flex !important;
-              flex-direction: column;
-              gap: var(--space-3);
-              padding-top: var(--space-3);
-            }
-            .cs1-context-anatomy .cs1-corner,
-            .cs1-context-anatomy .cs1-lung-canvas {
-              position: static !important;
-              width: 100% !important;
-              transform: none !important;
-              top: auto !important;
-              left: auto !important;
-              right: auto !important;
-              bottom: auto !important;
-            }
-            .cs1-context-anatomy .cs1-lung-canvas {
-              order: 99;
-              opacity: 0.6 !important;
-              max-height: 16rem;
-              align-self: center;
-              width: 60vw !important;
-            }
-          }
-        `}</style>
+            {/* Conclusion badge — elevated and prominent */}
+            <motion.div
+              initial={reduced ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduced ? 0 : 0.6, delay: 1.3, ease: EASE }}
+              style={{
+                marginTop: 'var(--space-6)',
+                width: '100%',
+                padding: 'var(--space-4) var(--space-5)',
+                background: 'color-mix(in srgb, var(--amber) 12%, var(--bg))',
+                border: '1px solid color-mix(in srgb, var(--amber) 30%, transparent)',
+                borderRadius: 'var(--radius-md)',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+              }}
+            >
+              <div 
+                className="deck-display italic" 
+                style={{
+                  fontSize: 'var(--fs-slide-tagline)',
+                  color: 'var(--cream)',
+                  lineHeight: 1.4,
+                  fontWeight: 500,
+                  textAlign: 'center',
+                }}
+              >
+                Ambrisentan blocks the <strong style={{ color: 'var(--case)', fontStyle: 'normal' }}>endothelin pathway</strong> &mdash; the over-active vasoconstrictor and proliferative arm.
+              </div>
+            </motion.div>
+          </div>
+          
+        </div>
       </Viz>
 
       <Footer
