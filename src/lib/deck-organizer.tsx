@@ -2,6 +2,40 @@ import { createContext, useContext, useReducer, useEffect, useCallback, useMemo 
 
 const STORAGE_KEY = 'deck-studio-organizer';
 
+/**
+ * Parse deck creation time: Postgres row (`createdAt` / `created_at`) wins for dossiers;
+ * built-in manifests use `catalogGitFirstCommittedAt` from git history (see deck-catalog-git.json).
+ */
+export function getDeckCreatedMs(deck: {
+  createdAt?: string | Date | null;
+  created_at?: string | null;
+  catalogGitFirstCommittedAt?: string | null;
+}) {
+  const raw = deck?.createdAt ?? deck?.created_at ?? deck?.catalogGitFirstCommittedAt;
+  if (raw == null || raw === '') return null;
+  const ms = new Date(raw as string | Date).getTime();
+  return Number.isFinite(ms) ? ms : null;
+}
+
+/** Locale date+time for studio list, or null when unknown (e.g. built-in manifests with no stamp). */
+export function formatDeckCreatedLabel(deck: Parameters<typeof getDeckCreatedMs>[0]) {
+  const ms = getDeckCreatedMs(deck);
+  if (ms == null) return null;
+  try {
+    return new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(ms));
+  } catch {
+    return null;
+  }
+}
+
+/** One line for cards/list: Postgres dossiers → "Created …"; manifests → "Repo since …" (git catalog). */
+export function formatDeckStudioCreatedLine(deck: Parameters<typeof getDeckCreatedMs>[0]) {
+  const when = formatDeckCreatedLabel(deck);
+  if (!when) return null;
+  const fromPg = !!(deck && (deck.createdAt ?? deck.created_at));
+  return `${fromPg ? 'Created' : 'Repo since'} ${when}`;
+}
+
 /* ================================================================
    Default folders — always present, cannot be deleted
    ================================================================ */
@@ -294,6 +328,25 @@ export function useFilteredDecks(allDecks) {
     }
 
     filtered.sort((a, b) => {
+      if (sortBy === 'created') {
+        const aMs = getDeckCreatedMs(a);
+        const bMs = getDeckCreatedMs(b);
+        const aUnknown = aMs == null;
+        const bUnknown = bMs == null;
+        const aTitle = deckMeta[a.id]?.overrides?.title || a.title;
+        const bTitle = deckMeta[b.id]?.overrides?.title || b.title;
+        if (aUnknown && bUnknown) {
+          const t = aTitle.localeCompare(bTitle);
+          return sortDir === 'desc' ? -t : t;
+        }
+        if (aUnknown) return 1;
+        if (bUnknown) return -1;
+        const diff = aMs - bMs;
+        if (diff !== 0) return sortDir === 'desc' ? -diff : diff;
+        const t = aTitle.localeCompare(bTitle);
+        return sortDir === 'desc' ? -t : t;
+      }
+
       let cmp = 0;
       switch (sortBy) {
         case 'title': {

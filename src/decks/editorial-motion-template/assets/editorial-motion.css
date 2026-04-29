@@ -1,0 +1,316 @@
+/* ============================================================
+ * editorial-motion-template — scoped zaj-design tokens
+ *
+ * SOURCE OF TRUTH: ~/.claude/skills/zaj-design/references/assets/tokens.css
+ * (and the standalone template at .../templates/deck-react-vite/src/tokens.css)
+ *
+ * This file is a *scoped* mirror — every declaration that the canonical
+ * tokens put on :root has been moved under [data-zaj-design] so the
+ * tokens only resolve for descendants of the new deck's slides. That
+ * keeps the merck-deck app's existing global tokens (--bg, --case,
+ * --space-5, etc., which have DIFFERENT values) completely untouched.
+ *
+ * The integrated deck is intentionally **dark-only**. The standalone
+ * template under ~/.claude/skills/zaj-design/.../deck-react-vite still
+ * ships the full light/dark/system toggle. Inside merck-deck the deck
+ * commits to the editorial-noir register so the cascade is predictable
+ * and the merck-deck DeckRunner's per-deck theme override can stay
+ * unaware of this template. (If a future requirement asks for a light
+ * variant inside merck-deck, copy the [data-theme="light"] block from
+ * the canonical tokens.css and prefix it with [data-zaj-design].)
+ *
+ * Sync rule: when canonical tokens.css gains a token, mirror it here.
+ * ============================================================ */
+
+[data-zaj-design] {
+  color-scheme: dark;
+
+  /* === 1. COLORS ============================================= */
+
+  --bg-charcoal: #0e0e10;
+  --bg-paper: #fafaf7;
+  --bg-paper-warm: #f5f1ea;
+  --ink-light-on-dark: #f5f5f1;
+  --ink-dark-on-light: #1a1a1c;
+  --ink-muted-light-on-dark: rgba(245, 245, 241, 0.62);
+  --ink-muted-dark-on-light: rgba(26, 26, 28, 0.58);
+  --ink-faint-light-on-dark: rgba(245, 245, 241, 0.42);
+  --ink-faint-dark-on-light: rgba(26, 26, 28, 0.38);
+
+  --case-coral: #ff7a59;
+  --case-cyan: #5ad6e0;
+  --case-amber: #f6c352;
+  --case-emerald: #6ce4a3;
+  --case-violet: #b28dff;
+  --case-magenta: #ff7ab8;
+
+  --state-success: #34d399;
+  --state-warning: #fbbf24;
+  --state-danger: #f87171;
+  --state-info: #60a5fa;
+
+  --bg: var(--bg-charcoal);
+  --bg-elevated-faint: rgba(245, 245, 241, 0.02);
+  --bg-elevated: rgba(245, 245, 241, 0.04);
+  --bg-elevated-strong: rgba(245, 245, 241, 0.08);
+  --bg-sunken: rgba(0, 0, 0, 0.18);
+  --bg-tint-case: color-mix(in srgb, var(--case) 8%, transparent);
+  --bg-tint-case-strong: color-mix(in srgb, var(--case) 16%, transparent);
+  --bg-tint-danger: color-mix(in srgb, var(--state-danger) 6%, transparent);
+  --bg-tint-success: color-mix(in srgb, var(--state-success) 6%, transparent);
+  --ink: var(--ink-light-on-dark);
+  --ink-muted: var(--ink-muted-light-on-dark);
+  --ink-faint: var(--ink-faint-light-on-dark);
+  --case: var(--case-cyan);
+
+  /* === 2. TYPE =============================================== */
+
+  --type-display: clamp(2.5rem, 6vw + 0.5rem, 5.5rem);
+  --type-h1: clamp(2rem, 4vw + 0.5rem, 3.5rem);
+  --type-h2: clamp(1.5rem, 2.4vw + 0.5rem, 2.25rem);
+  --type-h3: clamp(1.125rem, 1.4vw + 0.5rem, 1.5rem);
+  --type-h4: clamp(1rem, 1.2vw + 0.4rem, 1.25rem);
+  --type-body-lg: clamp(1rem, 1vw + 0.5rem, 1.25rem);
+  --type-body: clamp(0.9375rem, 0.5vw + 0.75rem, 1.0625rem);
+  --type-small: clamp(0.8125rem, 0.3vw + 0.7rem, 0.875rem);
+  --type-mono: clamp(0.75rem, 0.2vw + 0.7rem, 0.8125rem);
+  --type-stat: clamp(3rem, 7vw + 0.5rem, 6.25rem);
+  --type-stat-sm: clamp(2rem, 4vw + 0.5rem, 3.5rem);
+
+  --font-serif: "Source Serif 4", "Source Serif Pro", "Iowan Old Style", "Charter", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --leading-tight: 1.12;
+  --leading-snug: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+
+  --tracking-tight: -0.02em;
+  --tracking-snug: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.06em;
+  --tracking-wider: 0.08em;
+
+  /* === 3. SPACING ============================================ */
+  /* NOTE: zaj-design --space-5 = 24px; merck-deck --space-5 = 20px.
+     The scope keeps these distinct — these values only apply inside
+     [data-zaj-design]. */
+
+  --space-0: 0;
+  --space-px: 1px;
+  --space-0-5: 2px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --space-11: 192px;
+  --space-12: 256px;
+
+  --pad-x: var(--space-5);
+  --pad-y: var(--space-5);
+
+  /* === 4. LAYOUT ============================================= */
+
+  --bp-xs: 375px;
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+  --bp-2xl: 1536px;
+  --bp-3xl: 1920px;
+
+  --container-prose: 70ch;
+  --container-narrow: 40rem;
+  --container-card: 32rem;
+  --container-wide: 80rem;
+  --container-full: 100%;
+
+  --grid-cols-12-gap: var(--space-5);
+  --grid-cols-2-gap: var(--space-6);
+  --grid-cols-3-gap: var(--space-6);
+
+  /* === 5. MOTION ============================================= */
+
+  --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth-step: cubic-bezier(0.45, 0, 0.55, 1);
+  --ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-snap: cubic-bezier(0.5, 0, 0.75, 0);
+  --ease-overshoot: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-linear: linear;
+
+  --dur-instant: 120ms;
+  --dur-snap: 200ms;
+  --dur-base: 350ms;
+  --dur-soft: 600ms;
+  --dur-cinematic: 1200ms;
+  --dur-set-piece: 2400ms;
+
+  --tx-base: var(--dur-base) var(--ease-expo-out);
+  --tx-snap: var(--dur-snap) var(--ease-expo-out);
+  --tx-soft: var(--dur-soft) var(--ease-expo-out);
+  --tx-bounce: var(--dur-base) var(--ease-overshoot);
+
+  /* === 6. LAYERS ============================================= */
+
+  --z-base: 0;
+  --z-content: 10;
+  --z-overlay: 20;
+  --z-modal: 30;
+  --z-toast: 40;
+  --z-tooltip: 50;
+  --z-debug: 9999;
+
+  /* === 7. HAIRLINES ========================================== */
+
+  --hairline-faint: rgba(245, 245, 241, 0.08);
+  --hairline-default: rgba(245, 245, 241, 0.16);
+  --hairline-strong: rgba(245, 245, 241, 0.28);
+  --hairline: var(--hairline-default);
+
+  /* === 8. GLASS ============================================== */
+
+  --glass-fill: rgba(245, 245, 241, 0.06);
+  --glass-fill-strong: rgba(245, 245, 241, 0.10);
+  --glass-border: rgba(245, 245, 241, 0.12);
+  --glass-blur: 20px;
+  --glass-blur-strong: 32px;
+  --glass-saturation: 1.2;
+
+  /* === 9. GLOW =============================================== */
+
+  --glow-soft: 0 0 28px var(--case);
+  --glow-strong: 0 0 48px var(--case);
+  --glow-sharp: 0 0 12px var(--case);
+
+  /* === 10. FOCUS ============================================= */
+
+  --focus-ring: 2px solid var(--case);
+  --focus-ring-offset: 2px;
+  --focus-ring-shadow: 0 0 0 4px color-mix(in srgb, var(--case) 32%, transparent);
+
+  /* === 11. DENSITY =========================================== */
+
+  --density-pad-multiplier: 1;
+  --density-line-height-multiplier: 1;
+
+  /* === 12. SHADOWS / DEPTH =================================== */
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.20);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.24);
+  --shadow-lg: 0 12px 32px -8px rgba(0, 0, 0, 0.40);
+  --shadow-xl: 0 24px 56px -16px rgba(0, 0, 0, 0.52);
+
+  /* === 13. RADII ============================================= */
+
+  --radius-none: 0;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-pill: 999px;
+  --radius-full: 50%;
+
+  /* === 14. ASPECT RATIOS ===================================== */
+
+  --ratio-square: 1 / 1;
+  --ratio-portrait: 4 / 5;
+  --ratio-photo: 3 / 2;
+  --ratio-wide: 16 / 9;
+  --ratio-cinemascope: 21 / 9;
+  --ratio-golden: 1.618 / 1;
+
+  /* === 15. ICON SIZES ======================================== */
+
+  --icon-xs: 14px;
+  --icon-sm: 16px;
+  --icon-md: 20px;
+  --icon-lg: 24px;
+  --icon-xl: 32px;
+  --icon-2xl: 48px;
+
+  /* Apply the editorial register inside the scope. */
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+/* ─── Density modifiers (scoped) ─────────────────────────── */
+
+[data-zaj-design][data-density="compact"] {
+  --density-pad-multiplier: 0.75;
+  --density-line-height-multiplier: 0.95;
+  --pad-x: calc(var(--space-5) * 0.75);
+  --pad-y: calc(var(--space-5) * 0.75);
+}
+
+[data-zaj-design][data-density="spacious"] {
+  --density-pad-multiplier: 1.25;
+  --density-line-height-multiplier: 1.05;
+  --pad-x: calc(var(--space-5) * 1.25);
+  --pad-y: calc(var(--space-5) * 1.25);
+}
+
+/* ─── Container padding scales with breakpoint ───────────── */
+
+@media (min-width: 768px) {
+  [data-zaj-design] {
+    --pad-x: var(--space-6);
+    --pad-y: var(--space-6);
+  }
+}
+@media (min-width: 1024px) {
+  [data-zaj-design] {
+    --pad-x: var(--space-7);
+    --pad-y: var(--space-7);
+  }
+}
+@media (min-width: 1536px) {
+  [data-zaj-design] {
+    --pad-x: var(--space-8);
+    --pad-y: var(--space-8);
+  }
+}
+
+/* ─── 17. REDUCED-MOTION (C10) — scoped ──────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-zaj-design] {
+    --dur-instant: 0ms;
+    --dur-snap: 0ms;
+    --dur-base: 0ms;
+    --dur-soft: 0ms;
+    --dur-cinematic: 0ms;
+    --dur-set-piece: 0ms;
+  }
+
+  [data-zaj-design] *,
+  [data-zaj-design] *::before,
+  [data-zaj-design] *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Scoped focus ring ──────────────────────────────────── */
+
+[data-zaj-design] :focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  box-shadow: var(--focus-ring-shadow);
+}

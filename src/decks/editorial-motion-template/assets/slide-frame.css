@@ -1,0 +1,305 @@
+/* ============================================================
+ * editorial-motion-template — Slide-Frame Contract (A1)
+ *
+ * Scoped port of:
+ *   ~/.claude/skills/zaj-design/references/templates/deck-react-vite/src/app.css
+ *
+ * Differences from the standalone template:
+ *   - Resets / link colors / focus ring are scoped to [data-zaj-design]
+ *     so they don't pollute merck-deck's global app styles.
+ *   - .sf height fills 100% of its parent (DeckRunner wraps each slide
+ *     in `position:absolute; inset:0`) instead of locking to dvh/svh.
+ *     The standalone template needs viewport units because it embeds
+ *     its own DeckNavigator footer; merck-deck handles navigation
+ *     above the canvas.
+ *   - Light-theme ornament override removed (integrated deck = dark-only).
+ * ============================================================ */
+
+/* ─── Scoped resets ─────────────────────────────────────── */
+
+[data-zaj-design],
+[data-zaj-design] *,
+[data-zaj-design] *::before,
+[data-zaj-design] *::after {
+  box-sizing: border-box;
+}
+
+[data-zaj-design] button {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+[data-zaj-design] a {
+  color: var(--case);
+  text-decoration: none;
+  transition: color var(--dur-snap) var(--ease-expo-out);
+}
+
+[data-zaj-design] a:hover {
+  text-decoration: underline;
+}
+
+[data-zaj-design] img,
+[data-zaj-design] svg,
+[data-zaj-design] video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ============================================================
+ * Slide-Frame Contract (A1)
+ * ============================================================ */
+
+[data-zaj-design] .sf {
+  display: grid;
+  grid-template-areas:
+    "eyebrow"
+    "headline"
+    "subhead"
+    "viz"
+    "source"
+    "footer";
+  grid-template-rows: auto auto auto 1fr auto auto;
+  width: 100%;
+  height: 100%;
+  padding: var(--pad-y) var(--pad-x);
+  gap: var(--space-3);
+  position: relative;
+  overflow: hidden;
+  container-type: inline-size;
+  container-name: slide;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--type-body);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+[data-zaj-design] .sf__eyebrow {
+  grid-area: eyebrow;
+  font-family: var(--font-mono);
+  font-size: var(--type-mono);
+  font-weight: var(--weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--ink-muted);
+}
+
+[data-zaj-design] .sf__headline {
+  grid-area: headline;
+  font-family: var(--font-serif);
+  font-size: var(--type-h1);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-snug);
+  color: var(--ink);
+  max-width: 22ch;
+  text-wrap: balance;
+}
+
+[data-zaj-design] .sf__headline em,
+[data-zaj-design] .sf__headline .accent {
+  font-style: italic;
+  color: var(--case);
+  font-weight: var(--weight-regular);
+}
+
+[data-zaj-design] .sf__subhead {
+  grid-area: subhead;
+  font-family: var(--font-sans);
+  font-size: var(--type-body-lg);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-normal);
+  color: var(--ink-muted);
+  max-width: 60ch;
+  margin-top: var(--space-2);
+  text-wrap: pretty;
+}
+
+[data-zaj-design] .sf__viz {
+  grid-area: viz;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5) 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+[data-zaj-design] .sf__source {
+  grid-area: source;
+  justify-self: end;
+  align-self: end;
+  font-family: var(--font-mono);
+  font-size: var(--type-mono);
+  color: var(--ink-faint);
+  text-align: right;
+  max-width: 50ch;
+}
+
+[data-zaj-design] .sf__footer {
+  grid-area: footer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--hairline);
+  font-family: var(--font-mono);
+  font-size: var(--type-mono);
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  flex-wrap: wrap;
+}
+
+/* ─── Variants ─────────────────────────────────────────── */
+
+[data-zaj-design] .sf--title {
+  grid-template-areas:
+    ". eyebrow ."
+    ". headline ."
+    ". subhead ."
+    ". footer .";
+  grid-template-columns: 1fr min(var(--container-prose), 90%) 1fr;
+  grid-template-rows: 1fr auto auto auto;
+  align-items: end;
+  row-gap: var(--space-5);
+}
+
+[data-zaj-design] .sf--title .sf__subhead {
+  margin-bottom: var(--space-4);
+}
+
+[data-zaj-design] .sf--title .sf__headline {
+  font-size: var(--type-display);
+  max-width: 18ch;
+  margin: var(--space-3) 0;
+}
+
+[data-zaj-design] .sf--closing {
+  grid-template-areas:
+    "."
+    "headline"
+    "subhead"
+    ".";
+  grid-template-rows: 1fr auto auto 1fr;
+}
+
+[data-zaj-design] .sf--closing .sf__headline {
+  font-size: var(--type-display);
+  max-width: 20ch;
+}
+
+[data-zaj-design] .sf--divider {
+  grid-template-areas:
+    "eyebrow"
+    "headline";
+  grid-template-rows: 1fr auto;
+  align-items: end;
+  padding-bottom: var(--space-9);
+}
+
+[data-zaj-design] .sf--divider .sf__headline {
+  font-size: var(--type-display);
+}
+
+/* ─── Breakpoints ──────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  [data-zaj-design] .sf {
+    height: auto;
+    min-height: 100%;
+    padding: var(--pad-y) var(--pad-x);
+    overflow: visible;
+  }
+  [data-zaj-design] .sf--divider {
+    padding-bottom: var(--space-7);
+  }
+  [data-zaj-design] .sf__viz {
+    overflow: visible;
+  }
+}
+
+@media (max-width: 480px) {
+  [data-zaj-design] .sf--title {
+    grid-template-areas:
+      "eyebrow"
+      "headline"
+      "subhead"
+      "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto auto auto;
+  }
+  [data-zaj-design] .sf__headline {
+    max-width: 100%;
+  }
+  [data-zaj-design] .sf--title .sf__headline {
+    max-width: 14ch;
+  }
+}
+
+@container slide (max-width: 720px) {
+  [data-zaj-design] .sf__viz {
+    padding: var(--space-3) 0;
+  }
+}
+
+/* ─── Background ornament ──────────────────────────────── */
+
+[data-zaj-design] .sf__ornament {
+  position: absolute;
+  font-family: var(--font-serif);
+  font-size: clamp(12rem, 28vw, 28rem);
+  color: var(--ink);
+  opacity: 0.04;
+  font-weight: var(--weight-regular);
+  line-height: 0.8;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+[data-zaj-design] .sf__ornament--right {
+  right: -0.05em;
+  bottom: -0.1em;
+}
+
+[data-zaj-design] .sf__ornament--left {
+  left: -0.05em;
+  top: -0.05em;
+}
+
+@media (max-width: 640px) {
+  [data-zaj-design] .sf__ornament {
+    font-size: clamp(8rem, 30vw, 14rem);
+    opacity: 0.05;
+  }
+}
+
+@media print {
+  [data-zaj-design] .sf {
+    height: auto;
+    overflow: visible;
+    padding: 0;
+    page-break-after: always;
+    break-after: page;
+  }
+  [data-zaj-design] .sf__ornament {
+    display: none;
+  }
+}
+
+[data-zaj-design] .sf > *:not(.sf__ornament) {
+  position: relative;
+  z-index: 1;
+}

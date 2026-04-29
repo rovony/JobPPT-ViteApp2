@@ -2057,6 +2057,139 @@ Answer the specific question first. Then point to the exact figure, date, table,
 
 ## Bridge
 → Return to the current Q&A thread; do not advance through backup slides as a mini-talk.`,
+  // ══════════════════════════════════════════════════════════════
+  // CS4 — PharmAgent · cinematic 13-slide arc (added 2026-04-29)
+  // ══════════════════════════════════════════════════════════════
+  'cs4-divider': `## Spoken
+Case 04 — ==AI/ML in Clinical Pharmacology==. ⏸ Personal research, on my own time. The discipline is the same as the first three cases. ==The substrate has advanced.==
+
+## Cues
+- ⏱ 15 sec — open the amber cascade, let the title breathe
+- 🎚 Lower-tempo open; the brain morph carries the visual weight
+- 🎯 Hand off cleanly into the objective slide
+
+## Bridge
+→ "What I want to defend in the next 15 minutes is the contract on the next slide."`,
+  'cs4-objective': `## Spoken
+This is the ==contract==. ⏸ A platform that orchestrates the ==full MIDD workflow== — end-to-end, regulator-replayable — for ==both audiences== in this room: clinical pharmacologists and pharmacometricians, juniors and seniors. ⏸ Left column is what a clinical pharmacologist gets. Right column is what a pharmacometrician gets. The Success line at the bottom is the test for the entire arc.
+
+## Cues
+- ⏱ 60 sec — read the headline once, then walk both columns
+- 🎚 Steady; this slide is the load-bearing claim
+- 🎯 Land cleanly on the Success band before advancing
+
+## Bridge
+→ "The reason this contract matters now — slide 03."`,
+  'cs4-problem': `## Spoken
+Pharmacometric workflows in 2026 are ==80% scaffolding and 20% science==. ⏸ Six tools, every transition by hand: SAS, Phoenix, NONMEM, PsN, mrgsolve, Word. ⏸ Five to ten software tools per analysis. Four to eight weeks. ==Zero shared state.== The pharmacometrician is the integration layer.
+
+## Cues
+- ⏱ 60 sec — let the strip render before reading durations
+- 🎚 Slightly clinical register; the numbers carry the punch
+- 🎯 The dotted handoff line is the visual claim
+
+## Bridge
+→ "And the regulatory frame just changed underneath it — slide 04."`,
+  'cs4-why-now': `## Spoken
+==ICH M15== makes AI/ML a ==regulatory category==, not a research direction. ⏸ Step 4 adopted 29 January 2026. EU effective 23 July 2026. ⏸ The framework that classifies population PK, PBPK, exposure-response now classifies AI/ML alongside them. Three implications: ==documentation, audit, qualification.==
+
+## Cues
+- ⏱ 60 sec — read the anchor band, the quote, then the three cards
+- 🎚 Anchor band reads as a regulatory clock landing
+- 🎯 The quote does the heavy lifting; cards are receipts
+
+## Bridge
+→ "What's already published against that bar — slide 05."`,
+  'cs4-landscape': `## Spoken
+Five published systems address ==slices== of the workflow. ⏸ Apollo-AI, pyDarwin, DeepPumas, PEARL, QSP-Copilot. ⏸ ==No card fills more than three of seven segments==. The end-to-end MIDD substrate is the gap. ⏸ Hold this comparison — slide 07 overturns it.
+
+## Cues
+- ⏱ 75 sec — name each card briefly, point to the coverage bar
+- 🎚 Editorial; not adversarial — these are honest peers
+- 🎯 Land on "slices, not substrate"
+
+## Bridge
+→ "Before I show what fills the gap — what an agent actually is. Slide 06."`,
+  'cs4-primitive': `## Spoken
+Junior on-ramp. ⏸ An agent is an ==LLM with three things==: ==tools that compute, state that persists, a reasoning loop==. ⏸ The LLM is not the worker. ==scipy is the worker.== The agent is what decides when to call it.
+
+## Cues
+- ⏱ 60 sec — slow on the bottom band; this is the load-bearing line
+- 🎚 Teaching register; nobody loses face by hearing this twice
+- 🎯 Three primitives, then the bottom band
+
+## Bridge
+→ "Compose those three primitives at scope — slide 07."`,
+  'cs4-at-a-glance': `## Spoken
+==PharmAgent==. ⏸ Thirteen specialized agents. One hundred fifty-one deterministic tools. Seventy-six review-gated workflow templates. ⏸ ==End-to-end coverage== — every segment of the MIDD bar filled. ==Privacy by architecture. Audit by cryptographic chain.==
+
+## Cues
+- ⏱ 60 sec — let the numerals tick before reading the bar
+- 🎚 The reveal slide; allow the visual to land
+- 🎯 The contrast with the S5 thumbnails IS the claim
+
+## Bridge
+→ "How the topology was chosen — slide 08."`,
+  'cs4-architecture': `## Spoken
+Three levels. ==Centralized topology==. ⏸ L0 supervisor classifies and routes. L1 — ten domain agents own their stage. L2 — three modeling specialists, reachable only through the Modeler Manager. ⏸ Why centralized — Kim et al. 2025: ==4.4× error vs 17.2× independent==. Best-case structured-task gain ==+80.8%==. Capability saturation around 45%. ⏸ The structure is grounded.
+
+## Cues
+- ⏱ 120 sec — the centerpiece; let the build happen
+- 🎚 Confident, structural; this is the architecture claim
+- 🎯 The three numbers are the receipts
+
+## Bridge
+→ "Two architectural commitments make it submission-ready — slide 09."`,
+  'cs4-privacy': `## Spoken
+==Patient data physically cannot reach the LLM.== The boundary is ==structural, not contractual.== ⏸ SchemaExtractor sits between the dataset and the reasoning context. Subject-level concentrations, identifiers, raw covariate rows, free-text — all stay local. ⏸ What reaches the LLM: column names, types, subject count, dose levels, aggregate statistics, categorical levels. ⏸ ==Non-compliance is not disallowed. It is structurally impossible.==
+
+## Cues
+- ⏱ 90 sec — let the wall hold during the slide motion
+- 🎚 Quiet, deliberate; the tagline is the punch
+- 🎯 Architecture as the privacy primitive
+
+## Bridge
+→ "And the audit primitive — slide 10."`,
+  'cs4-audit': `## Spoken
+==Every tool call is hashed and chained.== Modify any past entry — every downstream hash breaks. ⏸ Each entry: timestamp, agent, tool, IO hash, previous hash. ==entry_hash = sha256(prev_hash || timestamp || agent || tool || io_hash).== ⏸ Tamper-evident by construction. Replayable in 2034. ==21 CFR Part 11 + ICH M15 aligned==.
+
+## Cues
+- ⏱ 90 sec — let the tamper choreography play; do not narrate it
+- 🎚 The visual makes the claim; the words frame it
+- 🎯 Land on the three numbered claims
+
+## Bridge
+→ "Now what it actually does end-to-end — slide 11."`,
+  'cs4-end-to-end': `## Spoken
+==User types "Run NCA."== ⏸ Supervisor routes. NCA Agent fires ==seven deterministic tools==: detect_pk_columns, lambda_z, AUC linear-log, Cmax/tmax, dose proportionality, summary table, spaghetti plot. ⏸ QC Agent runs the 15-point diagnostic suite. Verdict: PASS. Report Agent drafts Section 12.3. ⏸ Wall-clock under five minutes. The Methods section is generated from the audit trail — ==what actually ran, not what was planned==.
+
+## Cues
+- ⏱ 90 sec — slow on Lane 3; the seven names are the proof
+- 🎚 Practitioner register; this is the working slide
+- 🎯 The morph from S8's NCA box is the cinematic anchor
+
+## Bridge
+→ "Four design decisions that aren't standard practice — slide 12."`,
+  'cs4-novelty': `## Spoken
+==Four design decisions== not standard practice in published pharma AI. ⏸ ==Hierarchy at scope== — 13 agents in three levels, against the published 3–7 range. ==Typed shared state== — PharmState bus, no agent-to-agent messaging. ==Architectural privacy== — SchemaExtractor as single allow-listed boundary. ==Cryptographic audit== — hash-chain, tamper-evident by construction. ⏸ Not the only way to build. ==The way I'd defend in front of a regulator.==
+
+## Cues
+- ⏱ 60 sec — Z-pattern reveal; read each card's headline
+- 🎚 Confident, not defensive; these are choices
+- 🎯 The bottom band is the closing claim
+
+## Bridge
+→ "Where this lands — slide 13."`,
+  'cs4-closer': `## Spoken
+==PharmAgent is my own architecture.== Three-level hierarchy, typed shared state, schema-only privacy, hash-chain audit — the design decisions are mine. ==Personal research, on my own time, IP-clean.== ⏸ Manuscript in preparation — target ==CPT: Pharmacometrics & Systems Pharmacology==. Working title: "A Multi-Agent Architecture for End-to-End Model-Informed Drug Development." ⏸ The Senior Director QP role I'm interviewing for is ==exactly this synthesis== — regulatory rigor, methodological forward-thinking, and the judgment to know which AI architecture fits which problem. ==That's the work I want to do next.==
+
+## Cues
+- ⏱ 60 sec — slow on Block 3; the synthesis sentence is the loudest type
+- 🎚 Steady, definite; close on intent
+- 🎯 The TracingBeam completes as Block 3 lands
+
+## Bridge
+→ "I'll stop there. Happy to take questions." (Continue into closing arc.)`,
 };
 
 export default notes;

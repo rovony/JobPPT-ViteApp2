@@ -38,6 +38,7 @@ import ZoneGAuditChain   from './zones/ZoneG-AuditChain';
 import ZoneHWorkflow     from './zones/ZoneH-WorkflowOverlay';
 import ZoneIFuture2034   from './zones/ZoneI-Future2034';
 import TitleCard         from './zones/TitleCard';
+import FinaleStageContent from './zones/FinaleStageContent';
 
 export default function CanvasStage() {
   const cam = useActiveCameraPosition();
@@ -85,6 +86,10 @@ export default function CanvasStage() {
       <ZoneGAuditChain />
       <ZoneHWorkflow />
       <ZoneIFuture2034 />
+
+      {/* Camera-10 finale: stage-2 named-system corners, stage-3
+          analyst at-desk close-up. Renders in canvas coords. */}
+      <FinaleStageContent />
     </motion.div>
   );
 }

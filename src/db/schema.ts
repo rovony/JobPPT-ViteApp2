@@ -52,6 +52,10 @@ export const decks = pgTable('decks', {
   folderId: uuid('folder_id').references(() => folders.id, { onDelete: 'set null' }),
   ownerId: uuid('owner_id').references(() => users.id, { onDelete: 'cascade' }),
   title: varchar('title', { length: 255 }).notNull(),
+  /** Studio / dossier metadata (see drizzle/0001_decks_subtitle_description_theme.sql) */
+  subtitle: varchar('subtitle', { length: 512 }),
+  description: text('description'),
+  theme: varchar('theme', { length: 64 }),
   versionId: varchar('version_id', { length: 50 }),
   variant: deckVariantEnum('variant').default('clinical_pharmacology'),
   status: itemStatusEnum('status').default('draft'),

@@ -1,0 +1,12 @@
+/* ============================================================
+ * editorial-motion-template — asset entry
+ *
+ * One import to rule them all. Every slide module imports this
+ * file; Vite dedupes so the CSS is only injected once. The order
+ * matters: tokens MUST come before the components that consume
+ * their values.
+ * ============================================================ */
+
+@import "./editorial-motion.css";  /* 1. tokens (scoped to [data-zaj-design]) */
+@import "./slide-frame.css";       /* 2. SlideFrame (A1) — structural backbone */
+@import "./components.css";        /* 3. all named components (B/C/D/E patterns) */

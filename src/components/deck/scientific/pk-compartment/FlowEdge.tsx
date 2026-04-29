@@ -65,7 +65,7 @@ export default function FlowEdge({
       {rate && (
         <EdgeLabelRenderer>
           <div
-            className="deck-mono"
+            className="deck-mono nodrag nopan"
             style={{
               position: 'absolute',
               transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)`,
@@ -79,7 +79,6 @@ export default function FlowEdge({
               pointerEvents: 'all',
               whiteSpace: 'nowrap',
             }}
-            className="nodrag nopan"
           >
             {rate}
           </div>

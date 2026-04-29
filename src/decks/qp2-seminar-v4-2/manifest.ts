@@ -86,11 +86,35 @@ import CS3Divider from './slides/cs3-01-divider';
 import CS3Question from './slides/cs3-02-question';
 import CS3Problem from './slides/cs3-03-problem';
 import CS3Architecture from './slides/cs3-04-architecture';
+import CS3ArchitectureOLD from './slides/cs3-04-architecture.OLD';
+import CS3Architecture638 from './slides/cs3-04-architecture-v3-638';
 import CS3DecisiveMove from './slides/cs3-05-decisive-move';
 import CS3Pilot from './slides/cs3-06-pilot';
+// import CS3PilotOld from './slides/cs3-06-pilot.old';
+import CS3PilotV2 from './slides/cs3-06-pilot-v2';
 import CS3InteractiveDossier from './slides/cs3-06b-interactive-dossier';
 import CS3Bracket from './slides/cs3-07-bracket';
 import CS3Portable from './slides/cs3-08-portable';
+// ══════════════════════════════════════════════════════════════
+// CS4 — PharmAgent · cinematic 13-slide arc · AMBER
+// 13-act spine: divider → objective → problem → why-now →
+// landscape → primitive → at-a-glance → architecture → privacy →
+// audit → end-to-end → novelty → closer.
+// Added 2026-04-29 per CS4 16-min flagship spec.
+// ══════════════════════════════════════════════════════════════
+import CS4Divider        from './slides/cs4-01-divider';
+import CS4Objective      from './slides/cs4-02-objective';
+import CS4Problem        from './slides/cs4-03-problem';
+import CS4WhyNow         from './slides/cs4-04-why-now';
+import CS4Landscape      from './slides/cs4-05-landscape';
+import CS4AgentPrimitive from './slides/cs4-06-agent-primitive';
+import CS4AtAGlance      from './slides/cs4-07-at-a-glance';
+import CS4Architecture   from './slides/cs4-08-architecture';
+import CS4Privacy        from './slides/cs4-09-privacy';
+import CS4Audit          from './slides/cs4-10-audit';
+import CS4EndToEnd       from './slides/cs4-11-end-to-end';
+import CS4Novelty        from './slides/cs4-12-novelty';
+import CS4Closer         from './slides/cs4-13-closer';
 // Closing slides — added 2026-04-26 per Phase 0 audit (manifest flagged
 // "no closer slide currently registered"). Synthesis + fit + Q&A.
 import ClosingThread from './slides/closing-01-thread';
@@ -235,6 +259,22 @@ const manifest = {
       'cs1-backup-timeline-amb-only': 5200,
       'cs1-backup-timeline-program-detail': 5600,
       'cs1-B20-full-story': 2600,
+      // CS4 — settle times scale with each slide's animation budget.
+      // Architecture is the slowest live build (top-down + chip slides);
+      // end-to-end + audit + novelty also have multi-stage entrances.
+      'cs4-divider':      1800,
+      'cs4-objective':    2400,
+      'cs4-problem':      2200,
+      'cs4-why-now':      2200,
+      'cs4-landscape':    2400,
+      'cs4-primitive':    2200,
+      'cs4-at-a-glance':  3600,
+      'cs4-architecture': 3000,
+      'cs4-privacy':      2400,
+      'cs4-audit':        2400,
+      'cs4-end-to-end':   4200,
+      'cs4-novelty':      2400,
+      'cs4-closer':       2400,
     },
   },
 
@@ -353,11 +393,36 @@ const manifest = {
     { id: 'cs3-question', title: 'CS3 · The question', component: CS3Question, isTitle: false },
     { id: 'cs3-problem', title: 'CS3 · 80% scaffolding', component: CS3Problem, isTitle: false },
     { id: 'cs3-architecture', title: 'CS3 · PharmAgent platform', component: CS3Architecture, isTitle: false },
+    { id: 'cs3-architecture-old', title: 'CS3 · Architecture (4-Quadrant)', component: CS3ArchitectureOLD, isTitle: false },
+    { id: 'cs3-architecture-v3', title: 'CS3 · Architecture (638-line version)', component: CS3Architecture638, isTitle: false },
     { id: 'cs3-decisive-move', title: 'CS3 · Privacy & audit by construction', component: CS3DecisiveMove, isTitle: false },
     { id: 'cs3-pilot', title: 'CS3 · Pilot evidence', component: CS3Pilot, isTitle: false },
+    // { id: 'cs3-pilot-old', title: 'CS3 · Pilot evidence (Old)', component: CS3PilotOld, isTitle: false },
+    { id: 'cs3-pilot-v2', title: 'CS3 · Pilot evidence (V2)', component: CS3PilotV2, isTitle: false },
     { id: 'cs3-interactive-dossier', title: 'CS3 · Interactive Dossier', component: CS3InteractiveDossier, isTitle: false },
     { id: 'cs3-bracket', title: 'CS3 · Bracket Method', component: CS3Bracket, isTitle: false },
     { id: 'cs3-portable', title: 'CS3 · Portable principle', component: CS3Portable, isTitle: false },
+
+    // ══════════════════════════════════════════════════════════════
+    // CS4 — PharmAgent · cinematic 13-slide arc · AMBER
+    // 13-act spine: divider → objective → problem → why-now →
+    // landscape → primitive → at-a-glance → architecture → privacy →
+    // audit → end-to-end → novelty → closer.
+    // Added 2026-04-29 per CS4 16-min flagship spec.
+    // ══════════════════════════════════════════════════════════════
+    { id: 'cs4-divider',     title: 'Case 04 · AI/ML in Clinical Pharmacology', component: CS4Divider,        isTitle: true,  transition: 'fade', time: 15 },
+    { id: 'cs4-objective',   title: 'CS4 · Objective — the contract',           component: CS4Objective,      isTitle: false, transition: 'fade', time: 60 },
+    { id: 'cs4-problem',     title: 'CS4 · 80% scaffolding, 20% science',       component: CS4Problem,        isTitle: false, transition: 'fade', time: 60 },
+    { id: 'cs4-why-now',     title: 'CS4 · Why now — ICH M15',                  component: CS4WhyNow,         isTitle: false, transition: 'fade', time: 60 },
+    { id: 'cs4-landscape',   title: 'CS4 · Landscape — slices of the workflow', component: CS4Landscape,      isTitle: false, transition: 'fade', time: 75 },
+    { id: 'cs4-primitive',   title: 'CS4 · What an agent actually is',          component: CS4AgentPrimitive, isTitle: false, transition: 'fade', time: 60 },
+    { id: 'cs4-at-a-glance', title: 'CS4 · PharmAgent at a glance',             component: CS4AtAGlance,      isTitle: false, transition: 'fade', time: 60 },
+    { id: 'cs4-architecture',title: 'CS4 · Three levels, centralized topology', component: CS4Architecture,   isTitle: false, transition: 'fade', time: 120 },
+    { id: 'cs4-privacy',     title: 'CS4 · Privacy by architecture',            component: CS4Privacy,        isTitle: false, transition: 'fade', time: 90 },
+    { id: 'cs4-audit',       title: 'CS4 · Audit by cryptographic chain',       component: CS4Audit,          isTitle: false, transition: 'fade', time: 90 },
+    { id: 'cs4-end-to-end',  title: 'CS4 · One workflow, end-to-end',           component: CS4EndToEnd,       isTitle: false, transition: 'fade', time: 90 },
+    { id: 'cs4-novelty',     title: "CS4 · What's novel here",                  component: CS4Novelty,        isTitle: false, transition: 'fade', time: 60 },
+    { id: 'cs4-closer',      title: 'CS4 · Where this lands',                   component: CS4Closer,         isTitle: false, transition: 'fade', time: 60 },
 
     // ══════════════════════════════════════════════════════════════
     // CLOSING — synthesis · Merck fit · Q&A invitation

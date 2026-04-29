@@ -126,7 +126,7 @@ export function Viz({ area = 'viz', children, className, style }) {
   return (
     <GridSlot
       area={area}
-      className={`relative ${className || ''}`}
+      className={`relative flex flex-col ${className || ''}`}
       style={{ width: '100%', height: '100%', minHeight: 0, minWidth: 0, ...style }}
     >
       {children}

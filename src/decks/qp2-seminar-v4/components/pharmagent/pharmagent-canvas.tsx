@@ -5,7 +5,6 @@ import { AGENTS_L1, AGENTS_L2 } from './pharmagent-data';
 
 /* PharmAgent · architecture canvas (Tier 0–5 with permanent topology + active flows) */
 
-
 /* Node positions in % of canvas. Canvas is sized fluidly via flex. */
 const POS = {
   analyst:  { x: 50,   y: 7,  w: 22 }, /* tier 0 */
@@ -88,10 +87,10 @@ const ArchCanvas = ({ activeStep, useCase, onAgentHover }) => {
       <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 1 }}>
         <defs>
           <marker id="arrow-dim" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M0,0 L10,5 L0,10 z" fill="#57534e" fillOpacity="0.32" />
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--cream-dim)" fillOpacity="0.4" />
           </marker>
-          <marker id="arrow-emerald" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M0,0 L10,5 L0,10 z" fill="#34d399" />
+          <marker id="arrow-active" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--success)" />
           </marker>
         </defs>
         {EDGES.map(([a,b], i) => {
@@ -102,19 +101,19 @@ const ArchCanvas = ({ activeStep, useCase, onAgentHover }) => {
           return (
             <g key={i}>
               {/* dim baseline */}
-              <path d={d} stroke="#57534e" strokeOpacity="0.28" strokeWidth="1" fill="none" markerEnd="url(#arrow-dim)" />
+              <path d={d} stroke="var(--cream-dim)" strokeOpacity="0.25" strokeWidth="1" fill="none" markerEnd="url(#arrow-dim)" />
               {/* active overlay */}
               {isActive && (
                 <motion.path
                   d={d}
-                  stroke="#34d399"
+                  stroke="var(--success)"
                   strokeWidth="1.6"
                   fill="none"
-                  markerEnd="url(#arrow-emerald)"
+                  markerEnd="url(#arrow-active)"
                   initial={{ pathLength: 0, opacity: 0.4 }}
                   animate={{ pathLength: 1, opacity: 1 }}
                   transition={{ duration: 1.4, ease: [0.22,1,0.36,1] }}
-                  style={{ filter: 'drop-shadow(0 0 4px rgba(52,211,153,0.55))' }}
+                  style={{ filter: 'drop-shadow(0 0 4px var(--success))' }}
                 />
               )}
             </g>
@@ -123,7 +122,7 @@ const ArchCanvas = ({ activeStep, useCase, onAgentHover }) => {
       </svg>
 
       {/* Tier 0 — Analyst */}
-      <NodeBox pos={POS.analyst} active={active.includes('analyst')} accent="rose">
+      <NodeBox pos={POS.analyst} active={active.includes('analyst')} accent="coral">
         <AnalystCard mood={moodIcon} active={active.includes('analyst')} />
       </NodeBox>
 
@@ -131,34 +130,34 @@ const ArchCanvas = ({ activeStep, useCase, onAgentHover }) => {
       <PrivacyBoundary pos={POS.privacy} active={active.includes('privacy')} />
 
       {/* Tier 2 — L0 supervisor */}
-      <NodeBox pos={POS.l0} active={active.includes('l0')} accent="emerald">
+      <NodeBox pos={POS.l0} active={active.includes('l0')} accent="success">
         <L0Card active={active.includes('l0')} />
       </NodeBox>
 
       {/* Tier 3 — L1 agents */}
       {AGENTS_L1.map(a => (
-        <NodeBox key={a.id} pos={POS[a.id]} active={active.includes(a.id)} accent="emerald">
+        <NodeBox key={a.id} pos={POS[a.id]} active={active.includes(a.id)} accent="success">
           <AgentCard agent={a} tier="L1" active={active.includes(a.id)} onHover={onAgentHover} />
         </NodeBox>
       ))}
 
       {/* Tier 4 — L2 specialists */}
       {AGENTS_L2.map(a => (
-        <NodeBox key={a.id} pos={POS[a.id]} active={active.includes(a.id)} accent="emerald" tier2>
+        <NodeBox key={a.id} pos={POS[a.id]} active={active.includes(a.id)} accent="success" tier2>
           <AgentCard agent={a} tier="L2" active={active.includes(a.id)} onHover={onAgentHover} />
         </NodeBox>
       ))}
 
       {/* labels for tier rows */}
-      <div className="absolute left-2 font-mono text-[9px] tracking-widest text-stone-600 uppercase" style={{ top: '5%' }}>tier 0 · human</div>
-      <div className="absolute left-2 font-mono text-[9px] tracking-widest text-stone-600 uppercase" style={{ top: '20%' }}>tier 1 · privacy</div>
-      <div className="absolute left-2 font-mono text-[9px] tracking-widest text-stone-600 uppercase" style={{ top: '36%' }}>tier 2 · L0</div>
-      <div className="absolute left-2 font-mono text-[9px] tracking-widest text-stone-600 uppercase" style={{ top: '54%' }}>tier 3 · L1</div>
-      <div className="absolute left-2 font-mono text-[9px] tracking-widest text-stone-600 uppercase" style={{ top: '74%' }}>tier 4 · L2</div>
-      <div className="absolute left-2 right-2 font-mono text-[9px] tracking-widest text-emerald-600 uppercase flex items-center gap-2" style={{ top: '93%' }}>
+      <div className="absolute left-2 font-mono text-[9px] tracking-widest text-deck-ink-faint uppercase" style={{ top: '5%' }}>tier 0 · human</div>
+      <div className="absolute left-2 font-mono text-[9px] tracking-widest text-deck-ink-faint uppercase" style={{ top: '20%' }}>tier 1 · privacy</div>
+      <div className="absolute left-2 font-mono text-[9px] tracking-widest text-deck-ink-faint uppercase" style={{ top: '36%' }}>tier 2 · L0</div>
+      <div className="absolute left-2 font-mono text-[9px] tracking-widest text-deck-ink-faint uppercase" style={{ top: '54%' }}>tier 3 · L1</div>
+      <div className="absolute left-2 font-mono text-[9px] tracking-widest text-deck-ink-faint uppercase" style={{ top: '74%' }}>tier 4 · L2</div>
+      <div className="absolute left-2 right-2 font-mono text-[9px] tracking-widest text-deck-success uppercase flex items-center gap-2" style={{ top: '93%' }}>
         <span>tier 5 · pharmstate ↓</span>
-        <span className="flex-1 h-px bg-emerald-700/30"></span>
-        <span className="text-stone-600">all agents read · write</span>
+        <span className="flex-1 h-px bg-deck-success opacity-30"></span>
+        <span className="text-deck-ink-muted">all agents read · write</span>
       </div>
     </div>
   );
@@ -166,9 +165,9 @@ const ArchCanvas = ({ activeStep, useCase, onAgentHover }) => {
 
 /* Position wrapper. */
 const NodeBox = ({ pos, active, accent, tier2, children }) => {
-  const ringClass = active
-    ? (accent === 'rose' ? 'ring-1 ring-rose-400/70 rose-glow' : 'ring-1 ring-emerald-400/70 emerald-glow')
-    : 'ring-1 ring-stone-800';
+  const borderColor = active
+    ? (accent === 'coral' ? 'var(--coral)' : 'var(--success)')
+    : 'var(--cream-dim)';
   return (
     <div
       className="absolute -translate-x-1/2 -translate-y-1/2"
@@ -179,7 +178,11 @@ const NodeBox = ({ pos, active, accent, tier2, children }) => {
         zIndex: 5,
       }}
     >
-      <div className={`relative rounded-md bg-stone-900/90 ${ringClass} transition-all duration-500`}>
+      <div className="relative rounded-md bg-deck-panel/90 backdrop-blur-md transition-all duration-500 border border-solid"
+           style={{
+             borderColor: active ? `color-mix(in srgb, ${borderColor} 60%, transparent)` : 'var(--cream-dim)',
+             boxShadow: active ? `0 0 15px color-mix(in srgb, ${borderColor} 30%, transparent)` : 'none'
+           }}>
         {children}
       </div>
     </div>
@@ -190,12 +193,17 @@ const AnalystCard = ({ mood, active }) => {
   const I = Icon[mood] || Icon.User;
   return (
     <div className="px-3 py-2 flex items-center gap-2.5">
-      <div className={`w-8 h-8 rounded-full bg-rose-950/60 border border-rose-400/40 flex items-center justify-center ${active ? 'pulse-ring' : ''}`}>
-        <I size={16} color="#fb7185" />
+      <div className="w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-300"
+           style={{
+             backgroundColor: 'color-mix(in srgb, var(--coral) 15%, transparent)',
+             borderColor: 'color-mix(in srgb, var(--coral) 40%, transparent)',
+             boxShadow: active ? '0 0 10px var(--coral)' : 'none'
+           }}>
+        <I size={16} color="var(--coral)" />
       </div>
       <div className="leading-tight">
-        <div className="text-[11px] font-medium text-rose-200">Analyst</div>
-        <div className="text-[9px] font-mono text-stone-500 uppercase tracking-wider">human · authority</div>
+        <div className="text-[11px] font-medium" style={{ color: 'var(--coral)' }}>Analyst</div>
+        <div className="text-[9px] font-mono text-deck-ink-muted uppercase tracking-wider">human · authority</div>
       </div>
     </div>
   );
@@ -206,15 +214,20 @@ const L0Card = ({ active }) => {
   return (
     <div className="px-3 py-2 flex items-center gap-2.5" title="Keyword scoring → LLM fallback. Routes to L1 or executes template.">
       <motion.div
-        className="w-8 h-8 rounded-full bg-emerald-950/60 border border-emerald-400/40 flex items-center justify-center"
+        className="w-8 h-8 rounded-full border flex items-center justify-center transition-all"
+        style={{
+          backgroundColor: 'color-mix(in srgb, var(--success) 15%, transparent)',
+          borderColor: 'color-mix(in srgb, var(--success) 40%, transparent)',
+          boxShadow: active ? '0 0 10px var(--success)' : 'none'
+        }}
         animate={active ? { rotate: [0, -8, 8, -6, 0] } : { rotate: 0 }}
         transition={{ duration: 1.2, repeat: active ? Infinity : 0, ease: 'easeInOut' }}
       >
-        <I size={16} color="#34d399" />
+        <I size={16} color="var(--success)" />
       </motion.div>
       <div className="leading-tight">
-        <div className="text-[11px] font-medium text-emerald-200">L0 Supervisor</div>
-        <div className="text-[9px] font-mono text-stone-500 uppercase tracking-wider">classifies · routes</div>
+        <div className="text-[11px] font-medium" style={{ color: 'var(--success)' }}>L0 Supervisor</div>
+        <div className="text-[9px] font-mono text-deck-ink-muted uppercase tracking-wider">classifies · routes</div>
       </div>
     </div>
   );
@@ -231,12 +244,16 @@ const AgentCard = ({ agent, tier, active, onHover }) => {
       title={`${agent.name} (${agent.tools} tools) — ${agent.role}\nSample: ${agent.sample.join(', ')}`}
     >
       <div className="flex items-center gap-1.5">
-        <div className="w-6 h-6 rounded bg-emerald-950/60 border border-emerald-400/30 flex items-center justify-center shrink-0">
-          <I size={12} color="#34d399" />
+        <div className="w-6 h-6 rounded border flex items-center justify-center shrink-0 transition-all"
+             style={{
+               backgroundColor: 'color-mix(in srgb, var(--success) 10%, transparent)',
+               borderColor: 'color-mix(in srgb, var(--success) 30%, transparent)'
+             }}>
+          <I size={12} color="var(--success)" />
         </div>
         <div className="leading-tight min-w-0 flex-1">
-          <div className="text-[10px] font-medium text-stone-100 truncate">{agent.name}</div>
-          <div className="text-[8px] font-mono text-stone-500 uppercase tracking-wider">{agent.tools} tools · {tierBadge}</div>
+          <div className="text-[10px] font-medium text-deck-ink truncate">{agent.name}</div>
+          <div className="text-[8px] font-mono text-deck-ink-muted uppercase tracking-wider">{agent.tools} tools · {tierBadge}</div>
         </div>
       </div>
     </div>
@@ -251,20 +268,24 @@ const PrivacyBoundary = ({ pos, active }) => {
       style={{ left: `${pos.x}%`, top: `${pos.y}%`, width: `${pos.w}%`, zIndex: 4 }}
       title="Patient-level data stays local. Only metadata reaches the LLM. This is structural privacy — not a policy."
     >
-      <div className={`rounded-md bg-stone-900/80 border ${active ? 'border-emerald-400/70 emerald-glow' : 'border-stone-800'} transition-all duration-500 px-3 py-2`}>
+      <div className="rounded-md bg-deck-panel/80 backdrop-blur-md border transition-all duration-500 px-3 py-2"
+           style={{
+             borderColor: active ? 'color-mix(in srgb, var(--info) 60%, transparent)' : 'var(--cream-dim)',
+             boxShadow: active ? '0 0 15px color-mix(in srgb, var(--info) 30%, transparent)' : 'none'
+           }}>
         <div className="flex items-center justify-between mb-1.5">
-          <div className="text-[10px] font-mono uppercase tracking-widest text-stone-400">SchemaExtractor · privacy firewall</div>
+          <div className="text-[10px] font-mono uppercase tracking-widest text-deck-ink-muted">SchemaExtractor · privacy firewall</div>
           <div className="flex items-center gap-1.5">
-            <Icon.Lock size={11} color="#22d3ee" />
-            <span className="text-[9px] font-mono text-cyan-300">0 patient rows cross this boundary</span>
+            <Icon.Lock size={11} style={{ color: 'var(--info)' }} />
+            <span className="text-[9px] font-mono" style={{ color: 'var(--info)' }}>0 patient rows cross this boundary</span>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-3 relative">
           {/* LEFT: raw dataset */}
-          <div className="border border-stone-700 rounded p-1.5 opacity-30">
-            <div className="text-[8px] font-mono uppercase text-stone-400 mb-1">RAW DATASET (local only)</div>
-            <table className="text-[8px] font-mono w-full tabular text-stone-400">
-              <thead><tr className="text-stone-500"><th className="text-left font-normal">SUBJID</th><th className="text-left font-normal">TIME</th><th className="text-left font-normal">DV</th><th className="text-left font-normal">AMT</th><th className="text-left font-normal">WT</th><th className="text-left font-normal">AGE</th></tr></thead>
+          <div className="border border-deck-rule rounded p-1.5 opacity-60">
+            <div className="text-[8px] font-mono uppercase text-deck-ink-muted mb-1">RAW DATASET (local only)</div>
+            <table className="text-[8px] font-mono w-full tabular text-deck-ink">
+              <thead><tr className="text-deck-ink-muted"><th className="text-left font-normal">SUBJID</th><th className="text-left font-normal">TIME</th><th className="text-left font-normal">DV</th><th className="text-left font-normal">AMT</th><th className="text-left font-normal">WT</th><th className="text-left font-normal">AGE</th></tr></thead>
               <tbody>
                 <tr><td>1001</td><td>0.5</td><td>184.3</td><td>200</td><td>78.4</td><td>54</td></tr>
                 <tr><td>1001</td><td>1.0</td><td>312.7</td><td>—</td><td>78.4</td><td>54</td></tr>
@@ -276,11 +297,14 @@ const PrivacyBoundary = ({ pos, active }) => {
           </div>
           {/* dashed divider */}
           <div className="absolute left-1/2 top-0 bottom-0 -translate-x-1/2 flex items-center justify-center pointer-events-none">
-            <div className={`w-px h-full ${active ? 'bg-emerald-400' : 'bg-emerald-500/40'} transition-colors`} style={{ borderLeft: `1px dashed ${active ? '#34d399' : '#10b98166'}` }}></div>
+            <div className="w-px h-full transition-colors"
+                 style={{
+                   borderLeft: `1px dashed ${active ? 'var(--info)' : 'var(--cream-dim)'}`
+                 }}></div>
             {active && (
               <motion.div
-                className="absolute w-1.5 h-1.5 rounded-full bg-emerald-400"
-                style={{ filter: 'drop-shadow(0 0 4px #34d399)' }}
+                className="absolute w-1.5 h-1.5 rounded-full"
+                style={{ backgroundColor: 'var(--info)', filter: 'drop-shadow(0 0 4px var(--info))' }}
                 initial={{ x: -80, opacity: 0 }}
                 animate={{ x: 80, opacity: [0, 1, 1, 0] }}
                 transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
@@ -288,14 +312,18 @@ const PrivacyBoundary = ({ pos, active }) => {
             )}
           </div>
           {/* RIGHT: metadata to LLM */}
-          <div className="border border-emerald-500/60 rounded p-1.5 bg-emerald-950/10">
-            <div className="text-[8px] font-mono uppercase text-emerald-300 mb-1">METADATA TO LLM</div>
-            <div className="text-[9px] font-mono leading-snug text-stone-200 space-y-0.5 tabular">
+          <div className="border rounded p-1.5"
+               style={{
+                 borderColor: 'color-mix(in srgb, var(--info) 40%, transparent)',
+                 backgroundColor: 'color-mix(in srgb, var(--info) 10%, transparent)'
+               }}>
+            <div className="text-[8px] font-mono uppercase mb-1" style={{ color: 'var(--info)' }}>METADATA TO LLM</div>
+            <div className="text-[9px] font-mono leading-snug text-deck-ink space-y-0.5 tabular">
               <div>247 subjects · 4,812 obs · BLQ 8.3%</div>
               <div>doses [100 / 200 / 400] mg</div>
               <div>WT mean 72.4 (SD 15.2) kg</div>
               <div>CRCL median 89 [72–104] mL/min</div>
-              <div className="text-emerald-300/80">no patient identifiers · aggregated only</div>
+              <div style={{ color: 'var(--info)', opacity: 0.8 }}>no patient identifiers · aggregated only</div>
             </div>
           </div>
         </div>

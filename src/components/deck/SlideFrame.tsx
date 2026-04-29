@@ -2,6 +2,10 @@
 import React from 'react';
 import SlideGrid, { STANDARD_AREAS } from './SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from './SlideParts';
+import PlainEnglishCard from './PlainEnglishCard';
+import RiskValueChips from './RiskValueChips';
+import RehearsalOverlay from './RehearsalOverlay';
+import { plainEnglishContent, riskValueContent } from '@/decks/pharazi-seminar/content';
 
 /**
  * SlideFrame — the one-and-only chrome wrapper every slide should use.
@@ -64,7 +68,11 @@ export default function SlideFrame({
   colSizes,
   className,
   children,
+  slideId,
 }) {
+  const plainEnglish = slideId ? plainEnglishContent[slideId] : null;
+  const riskValue = slideId ? riskValueContent[slideId] : null;
+
   const D = {
     eyebrow:  delays.eyebrow  ?? 0.15,
     headline: delays.headline ?? 0.30,
@@ -108,6 +116,19 @@ export default function SlideFrame({
           delay={D.footer}
         />
       )}
+
+      {/* Generic Overlays */}
+      {plainEnglish && (
+        <PlainEnglishCard 
+          whatThisIs={plainEnglish.whatThisIs}
+          whyItMatters={plainEnglish.whyItMatters}
+          whatCouldGoWrong={plainEnglish.whatCouldGoWrong}
+        />
+      )}
+      {riskValue && (
+        <RiskValueChips value={riskValue.value} risk={riskValue.risk} />
+      )}
+      {slideId && <RehearsalOverlay slideId={slideId} />}
     </SlideGrid>
   );
 }

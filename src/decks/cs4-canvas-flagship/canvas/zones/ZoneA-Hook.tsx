@@ -41,11 +41,17 @@ import { ZONE_BOUNDS, HOOK_TOOLS, HOOK_ANALYST_POS } from '../../data';
 import { EASE_EDITORIAL, DUR } from '../../themes';
 import AnalystIcon from '../../primitives/AnalystIcon';
 import ToolWindow from '../../primitives/ToolWindow';
+import { useCanvasCamera } from '../CameraController';
 
 const Z = ZONE_BOUNDS.A;
 
 export default function ZoneAHook() {
   const reduce = useReducedMotion();
+  const { cameraIndex } = useCanvasCamera();
+  // The analyst (cs4-analyst layoutId) lives here from C1..C4. At C5
+  // it morphs into Zone D's tier-1 position. Conditional render so
+  // exactly one instance with this layoutId is mounted at a time.
+  const showAnalystHere = cameraIndex <= 4;
 
   return (
     <div
@@ -57,8 +63,6 @@ export default function ZoneAHook() {
         width: Z.width,
         height: Z.height,
         // Off-camera optimization: paint only when intersecting
-        contentVisibility: 'auto',
-        contain: 'paint layout',
       }}
     >
       {/* Six tool windows scattered around the analyst */}
@@ -124,18 +128,22 @@ export default function ZoneAHook() {
         ))}
       </svg>
 
-      {/* Analyst silhouette — center. layoutId="cs4-analyst". */}
-      <div
-        style={{
-          position: 'absolute',
-          left: HOOK_ANALYST_POS.x - 110,
-          top: HOOK_ANALYST_POS.y - 110,
-          width: 220,
-          height: 220,
-        }}
-      >
-        <AnalystIcon variant="silhouette" size={220} opacity={0.7} />
-      </div>
+      {/* Analyst silhouette — center. layoutId="cs4-analyst".
+          Mounted at C1..C4; hidden at C5+ so Zone D's tier-1 analyst
+          becomes the canonical instance and Framer Motion morphs. */}
+      {showAnalystHere && (
+        <div
+          style={{
+            position: 'absolute',
+            left: HOOK_ANALYST_POS.x - 110,
+            top: HOOK_ANALYST_POS.y - 110,
+            width: 220,
+            height: 220,
+          }}
+        >
+          <AnalystIcon variant="silhouette" size={220} opacity={0.7} />
+        </div>
+      )}
 
       {/* Headline — top of zone */}
       <motion.h2

@@ -72,6 +72,7 @@ const ArchCanvas = ({ activeStep, useCase, onAgentHover }) => {
   React.useEffect(() => {
     if (!ref.current) return;
     const ro = new ResizeObserver(() => {
+      if (!ref.current) return;
       const r = ref.current.getBoundingClientRect();
       setSize({ W: r.width, H: r.height });
     });

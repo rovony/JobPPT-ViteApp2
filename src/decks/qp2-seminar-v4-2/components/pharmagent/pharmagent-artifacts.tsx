@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion as M } from 'framer-motion';
 import * as Icon from 'lucide-react';
-
-/* PharmAgent · rich artifact bubbles using recharts and inline SVG */
-
-const Rch = window.Recharts || {};
-const { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, ScatterChart, Scatter, LineChart, Line, AreaChart, Area, CartesianGrid, ReferenceLine, Tooltip } = Rch;
+import {
+  ResponsiveContainer, BarChart, Bar, XAxis, YAxis,
+  ScatterChart, Scatter, LineChart, Line, AreaChart, Area,
+  CartesianGrid, ReferenceLine, Tooltip, Cell,
+} from 'recharts';
 
 /* NCA parameter table */
 const ArtifactNCATable = () => (
@@ -50,7 +50,7 @@ const ArtifactPopPKOFV = () => {
             <YAxis type="category" dataKey="model" width={42} stroke="#a8a29e" tick={{ fill:'#d6d3d1', fontFamily:'JetBrains Mono', fontSize:10 }} axisLine={false} tickLine={false} />
             <Bar dataKey="ofv" fill="#34d399" radius={[0,2,2,0]} barSize={18}>
               {data.map((d,i) => (
-                <Rch.Cell key={i} fill={d.model === '2-CMT' ? '#34d399' : '#57534e'} />
+                <Cell key={i} fill={d.model === '2-CMT' ? '#34d399' : '#57534e'} />
               ))}
             </Bar>
           </BarChart>

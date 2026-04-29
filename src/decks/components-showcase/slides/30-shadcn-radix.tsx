@@ -18,7 +18,7 @@ export default function ShadcnRadixShowcase() {
       library="@radix-ui/* (shadcn-style)"
       npmInstall="npx shadcn@latest add tabs switch slider tooltip dialog"
       url="ui.shadcn.com · radix-ui.com"
-      headline={<>Headless primitives + <span style={{ color: 'var(--cream)', fontStyle: 'italic', color: 'var(--coral)' }}>copy-paste</span> styling.</>}
+      headline={<>Headless primitives + <span style={{ fontStyle: 'italic', color: 'var(--coral)' }}>copy-paste</span> styling.</>}
       subhead="Radix ships behavior + a11y; you own the styling. shadcn/ui is the convention — copy components into your codebase, customize freely."
       tone="var(--coral)"
     >

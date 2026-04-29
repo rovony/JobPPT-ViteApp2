@@ -34,8 +34,6 @@ export default function ZonePlaceholder({
         top: Z.top,
         width: Z.width,
         height: Z.height,
-        contentVisibility: 'auto',
-        contain: 'paint layout',
         // Faint sage outline so it's obvious in dev when the camera
         // is framing the right zone. Hidden in print/export.
         border: '1px dashed color-mix(in srgb, var(--case, #7BAE7F) 30%, transparent)',

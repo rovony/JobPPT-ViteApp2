@@ -39,12 +39,16 @@ import KeyboardCameraNav from '../overlays/KeyboardCameraNav';
 import HashCameraSync from '../overlays/HashCameraSync';
 import CameraNotesOverlay from '../overlays/CameraNotesOverlay';
 import TracingBeamHost from '../overlays/TracingBeamHost';
+import C1Hint from '../overlays/C1Hint';
+import CitationChip from '../overlays/CitationChip';
 
 export default function CS4ContinuousCanvas() {
   return (
     <CameraController>
       <CanvasViewport>
         <TracingBeamHost />
+        <CitationChip />
+        <C1Hint />
         <CameraNotesOverlay />
         {/* Behavior-only overlays (no DOM): */}
         <KeyboardCameraNav />

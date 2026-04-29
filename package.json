@@ -10,7 +10,8 @@
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc -p ./tsconfig.json",
     "preview": "vite preview",
-    "clean:screenshots": "rm -rf _screenshots/* && echo '_screenshots/ cleared (folder kept; gitignored).'"
+    "clean:screenshots": "rm -rf _screenshots/* && echo '_screenshots/ cleared (folder kept; gitignored).'",
+    "gen:deck-catalog-git": "node scripts/gen-deck-git-catalog.mjs"
   },
   "dependencies": {
     "@base44/sdk": "^0.8.26",
@@ -90,6 +91,7 @@
     "nuqs": "^2.8.9",
     "postgres": "^3.4.9",
     "pptxgenjs": "^3.12.0",
+    "qrcode.react": "^4.2.0",
     "react": "^18.2.0",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18.2.0",

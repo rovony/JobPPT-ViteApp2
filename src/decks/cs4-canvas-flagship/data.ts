@@ -120,8 +120,9 @@ export const CAMERA_POSITIONS: CameraPosition[] = [
   // [4] What is an agent — Zone C
   { label: 'C4 · Agent?',       ...frame(ZONE_BOUNDS.C),     scale: 1.0 },
 
-  // [5] Architecture — Zone D
-  { label: 'C5 · Architecture', ...frame(ZONE_BOUNDS.D),     scale: 0.85 }, // D is larger; pull back
+  // [5] Architecture — Zone D (D is 2400 wide; pull back to 0.7 so the
+  // full hierarchy fits inside the 1920-wide viewport with margin)
+  { label: 'C5 · Architecture', ...frame(ZONE_BOUNDS.D, 0.7), scale: 0.7 },
 
   // [6] Novelty — Zone E (with D ghosted at left edge)
   { label: 'C6 · Novelty',      ...frame(ZONE_BOUNDS.E),     scale: 1.0 },
@@ -133,7 +134,7 @@ export const CAMERA_POSITIONS: CameraPosition[] = [
   { label: 'C8 · Audit',        ...frame(ZONE_BOUNDS.G),     scale: 1.0 },
 
   // [9] Workflow trace — back to Zone D (overlay H atop D)
-  { label: 'C9 · Workflow',     ...frame(ZONE_BOUNDS.D),     scale: 0.85 },
+  { label: 'C9 · Workflow',     ...frame(ZONE_BOUNDS.D, 0.7), scale: 0.7 },
 
   // [10] Finale — stage 1 (whole-canvas zoom-out, scale 0.5)
   //      Stages 2/3/4 are in CAMERA_FINALE_STAGES below.

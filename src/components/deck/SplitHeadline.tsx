@@ -62,6 +62,10 @@ export default function SplitHeadline({
         reduceWhiteSpace: false,
       });
 
+      if (!split.lines || split.lines.length === 0) {
+        return () => split.revert();
+      }
+
       gsap.set(split.lines, {
         yPercent: 110,
         opacity: 0,

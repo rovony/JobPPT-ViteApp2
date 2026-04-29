@@ -23,7 +23,9 @@ import { EASE_EDITORIAL, DUR } from '../themes';
 export default function TracingBeamHost() {
   const { cameraIndex, finaleStage } = useCanvasCamera();
 
-  if (cameraIndex < 2) return null;
+  // Show on every camera (including C1) so the user sees that there
+  // are 10 positions total. Brief originally said hide on C1, but the
+  // discoverability cost outweighed the editorial restraint here.
 
   // Progress: 0..1 across the 10 cameras. Finale stages count as
   // fractional advances inside camera 10.

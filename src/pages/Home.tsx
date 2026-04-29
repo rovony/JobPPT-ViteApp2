@@ -13,7 +13,7 @@ import ShareLinkModal from '@/components/deck/ShareLinkModal';
 import ThemeToggle from '@/components/ThemeToggle';
 import { useTheme } from '@/lib/ThemeContext';
 import { useAuth } from '@/lib/AuthContext';
-import { useOrganizer, useFilteredDecks, useDeckDisplay } from '@/lib/deck-organizer';
+import { useOrganizer, useFilteredDecks, useDeckDisplay, formatDeckStudioCreatedLine } from '@/lib/deck-organizer';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 /* ================================================================
@@ -69,6 +69,7 @@ const TAG_COLORS = [
    ================================================================ */
 const SORT_OPTIONS = [
   { value: 'title', label: 'Name' },
+  { value: 'created', label: 'Date created' },
   { value: 'slides', label: 'Slide count' },
   { value: 'theme', label: 'Theme' },
 ];
@@ -384,14 +385,15 @@ function SortControls() {
               className="absolute right-0 mt-2 w-36 rounded-lg border bg-deck-surface shadow-lg z-50 overflow-hidden"
               style={{ borderColor: 'var(--cream-hairline)' }}
             >
-              {SORT_OPTIONS.map((opt) => (
+                  {SORT_OPTIONS.map((opt) => (
                 <button
                   key={opt.value}
                   onClick={() => {
                     if (state.sortBy === opt.value) {
                       dispatch({ type: 'TOGGLE_SORT_DIR' });
                     } else {
-                      dispatch({ type: 'SET_SORT', sortBy: opt.value, sortDir: 'asc' });
+                      const defaultDir = opt.value === 'created' ? 'desc' : 'asc';
+                      dispatch({ type: 'SET_SORT', sortBy: opt.value, sortDir: defaultDir });
                     }
                     setOpen(false);
                   }}
@@ -403,7 +405,11 @@ function SortControls() {
                 >
                   {opt.label}
                   {state.sortBy === opt.value && (
-                    <span className="text-[0.55rem] deck-mono">{state.sortDir === 'asc' ? 'A→Z' : 'Z→A'}</span>
+                    <span className="text-[0.55rem] deck-mono">
+                      {opt.value === 'created'
+                        ? (state.sortDir === 'asc' ? 'Oldest' : 'Newest')
+                        : (state.sortDir === 'asc' ? 'A→Z' : 'Z→A')}
+                    </span>
                   )}
                 </button>
               ))}
@@ -761,6 +767,7 @@ function DeckCard({ deck, index, themeMode, onOpenSources, onOpenShare }) {
   const { state, dispatch } = useOrganizer();
   const meta = state.deckMeta[deck.id] || {};
   const display = useDeckDisplay(deck);
+  const createdLine = formatDeckStudioCreatedLine(deck);
   const [ctxMenu, setCtxMenu] = useState(null);
   const [editing, setEditing] = useState(false);
 
@@ -795,8 +802,17 @@ function DeckCard({ deck, index, themeMode, onOpenSources, onOpenShare }) {
         <Link to={`/Deck?id=${deck.id}`} className="block">
           <div className="aspect-[16/10] p-5 sm:p-6 flex flex-col justify-between relative">
             <div className="flex items-center justify-between">
-              <div className="deck-mono text-[10px] tracking-[0.22em] uppercase deck-ink-subtle">
-                {deck.slides.length} slides · {deck.theme}
+              <div className="deck-mono text-[10px] tracking-[0.22em] uppercase deck-ink-subtle space-y-0.5">
+                <div>{deck.slides.length} slides · {deck.theme}</div>
+                {createdLine ? (
+                  <div className="normal-case tracking-normal text-[0.65rem] deck-ink-muted">
+                    {createdLine}
+                  </div>
+                ) : (
+                  <div className="normal-case tracking-normal text-[0.6rem] deck-ink-subtle/90">
+                    Built-in deck
+                  </div>
+                )}
               </div>
               <div className="flex items-center gap-1">
                 {/* Edit pencil */}
@@ -918,6 +934,7 @@ function DeckListRow({ deck, index, themeMode, onOpenSources, onOpenShare }) {
   const { state, dispatch } = useOrganizer();
   const meta = state.deckMeta[deck.id] || {};
   const display = useDeckDisplay(deck);
+  const createdLine = formatDeckStudioCreatedLine(deck);
   const [ctxMenu, setCtxMenu] = useState(null);
   const [editing, setEditing] = useState(false);
 
@@ -987,6 +1004,13 @@ function DeckListRow({ deck, index, themeMode, onOpenSources, onOpenShare }) {
         <div className="deck-mono text-[0.55rem] deck-ink-subtle shrink-0 hidden md:block">
           {deck.slides.length} slides
         </div>
+        <div className="deck-mono text-[0.55rem] deck-ink-subtle shrink-0 hidden lg:block max-w-[11rem] truncate" title={createdLine || 'Repository manifest (no DB row)'}>
+          {createdLine ? (
+            <span className="normal-case">{createdLine}</span>
+          ) : (
+            <span className="uppercase deck-ink-subtle/80">Built-in</span>
+          )}
+        </div>
         <div className="deck-mono text-[0.55rem] deck-ink-subtle shrink-0 hidden md:block uppercase">
           {deck.theme}
         </div>
@@ -1052,7 +1076,11 @@ export default function Home() {
         const res = await fetch('/api/decks');
         if (!res.ok) return [];
         const data = await res.json();
-        return data.map((d: any) => ({ ...d, slides: [] })); // Satisfy UI requirements
+        return data.map((d: any) => ({
+          ...d,
+          slides: [],
+          createdAt: d.createdAt ?? d.created_at ?? null,
+        }));
       } catch {
         return [];
       }

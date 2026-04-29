@@ -3462,6 +3462,176 @@ A: Use if asked why pediatric Asparlas data could inform adult trial design.
 A: Do not conflate N=124 pooled PopPK dataset with N=13 DFCI-only evaluable subset.
 
 > **If pressed:** State the boundary clearly and avoid blending SPARK-ALL claims into the AI/ML architecture story.`,
+  // ══════════════════════════════════════════════════════════════
+  // CS4 — PharmAgent · cinematic 13-slide arc (added 2026-04-29)
+  // ══════════════════════════════════════════════════════════════
+  'cs4-divider': `## Q1: ==Is this Servier IP?==
+**From:** Reviewer wanting an IP-clean answer first
+**Difficulty:** ★★ · **Topic:** ownership
+
+A: No. PharmAgent is personal research, on my own time, with no Servier or Merck data, code, or models. The architecture, the design choices, and the manuscript in preparation are mine.
+
+> **If pressed:** Repeat the boundary verbatim — personal time, personal research, IP-clean — and offer to defer detail to S13.
+
+## Q2: ==Why open Case 04 with this?==
+**From:** Panelist tracking arc framing
+**Difficulty:** ★ · **Topic:** framing
+
+A: To set the contract before the receipts. The discipline is the same as Cases 1–3; the substrate has advanced.`,
+  'cs4-objective': `## Q1: ==Two audiences, one platform — really?==
+**From:** Skeptical clinical pharmacologist or pharmacometrician
+**Difficulty:** ★★★ · **Topic:** scope
+
+A: Yes — by design. The left column is the regulatory primitive (defensibility, audit, M15 alignment, named human authority); the right column is the workflow substrate (typed state, deterministic tools, end-to-end coverage). Same platform, two views.
+
+> **If pressed:** Walk the Success band and name the test for both audiences.
+
+## Q2: ==What does "regulator-replayable" mean?==
+**From:** Regulatory-leaning reviewer
+**Difficulty:** ★★ · **Topic:** terminology
+
+A: Pin tool versions, capture every input/output hash, replay the same audit chain deterministically. We expand on this on slide 10 (Audit by Cryptographic Chain).`,
+  'cs4-problem': `## Q1: ==The 80/20 split — where does that number come from?==
+**From:** Numbers-first reviewer
+**Difficulty:** ★★ · **Topic:** sourcing
+
+A: It's a rounded characterization of typical pharmacometrics workflows in the literature and from practice — six tools per analysis, four to eight weeks, every transition by hand. It's directional, not a measured study.
+
+> **If pressed:** Acknowledge it's an estimate; offer to reframe as "the majority of effort is scaffolding, not science."
+
+## Q2: ==Aren't there shared-state solutions already?==
+**From:** Pharmacometrician familiar with workflow tools
+**Difficulty:** ★★ · **Topic:** field
+
+A: There are filesystem-based pipelines, but no typed shared bus across NCA, PopPK, simulation, QC, and reporting. Slide 12 frames PharmState specifically against shared-scratchpad alternatives.`,
+  'cs4-why-now': `## Q1: ==Is M15 actually in force, or still draft?==
+**From:** Regulator-aware panelist
+**Difficulty:** ★ · **Topic:** dates
+
+A: ICH M15 reached Step 4 on 29 January 2026. EU implementation date is 23 July 2026. It is the framework, not a draft.
+
+## Q2: ==Does M15 actually mention AI/ML?==
+**From:** Skeptic asking for the receipt
+**Difficulty:** ★★ · **Topic:** sourcing
+
+A: Yes — §2 lists AI/ML alongside population PK/PD, PBPK, and exposure-response as included M&S methods. The pull-quote on the slide is from §2.`,
+  'cs4-landscape': `## Q1: ==Apollo-AI — what's the boundary?==
+**From:** Panelist who knows the InsightRX work
+**Difficulty:** ★★ · **Topic:** comparison
+
+A: Apollo-AI is conceptual / ~5 agents, QCP-focused (Shahin et al. 2025, CTS). Useful for PopPK + PKPD + ER literature work; not an end-to-end MIDD substrate.
+
+> **If pressed:** Name the three covered segments and stop there.
+
+## Q2: ==What about pyDarwin, DeepPumas, PEARL, QSP-Copilot?==
+**From:** Panelist asking for full landscape coverage
+**Difficulty:** ★★ · **Topic:** comparison
+
+A: Each owns one slice — pyDarwin (PopPK structural search), DeepPumas (model substrate), PEARL (regulatory RAG), QSP-Copilot (QSP modeling). None covers more than three of seven workflow segments. The visual claim is the contrast.`,
+  'cs4-primitive': `## Q1: ==Why does the LLM need to be deterministic?==
+**From:** Reviewer questioning the contract
+**Difficulty:** ★★★ · **Topic:** correctness
+
+A: It doesn't — and on PharmAgent it isn't. The LLM does the routing and reasoning (non-deterministic). scipy / NONMEM / numpy do the math (deterministic). The agent is what decides which tool to call. That separation is the load-bearing claim.
+
+## Q2: ==Can't you just have the LLM compute the AUC directly?==
+**From:** Junior on-ramp question
+**Difficulty:** ★ · **Topic:** primitive
+
+A: You could — and that's exactly what we don't do. compute_auc() is a deterministic tool. The LLM is the dispatcher, not the calculator.`,
+  'cs4-at-a-glance': `## Q1: ==13 / 151 / 76 — what counts?==
+**From:** Reviewer asking for definitions
+**Difficulty:** ★★ · **Topic:** definitions
+
+A: 13 = specialized agents (1 supervisor + 10 domain + 3 modeling specialists at L0/L1/L2). 151 = deterministic tools the agents can call. 76 = review-gated workflow templates that compose tool sequences.
+
+## Q2: ==How is "end-to-end" defined?==
+**From:** Workflow-savvy reviewer
+**Difficulty:** ★★ · **Topic:** scope
+
+A: Data ingestion → NCA → PopPK → PKPD → ER → QC → Reporting. Every segment of the standard MIDD bar has a designated agent.`,
+  'cs4-architecture': `## Q1: ==Why centralized over decentralized?==
+**From:** Architecture-savvy reviewer
+**Difficulty:** ★★★ · **Topic:** topology
+
+A: Kim et al. 2025 (Table 5) measured 4.4× error containment with centralized coordination versus 17.2× under independent agents. The centralized supervisor stops cascading failures. Best-case structured-task gain was +80.8%. The choice is grounded in published scaling-law evidence, not preference.
+
+> **If pressed:** Cite arXiv:2512.08296 and offer to walk Table 5.
+
+## Q2: ==What's the ~45% threshold?==
+**From:** Numbers-first reviewer
+**Difficulty:** ★★ · **Topic:** evidence
+
+A: Capability saturation — the point at which a single competent agent baseline starts beating multi-agent systems. The architecture is sized to stay above that threshold for end-to-end MIDD.
+
+## Q3: ==Won't 13 agents add latency?==
+**From:** Practical reviewer
+**Difficulty:** ★★ · **Topic:** performance
+
+A: They run sequentially within a workflow template; latency is dominated by the deterministic tools (NCA / PopPK), not the routing. End-to-end wall-clock for a fresh NCA analysis is under five minutes (slide 11).`,
+  'cs4-privacy': `## Q1: ==How is this different from prompt-level redaction?==
+**From:** Privacy-savvy panelist
+**Difficulty:** ★★★ · **Topic:** primitive
+
+A: Redaction is a runtime check on a string. SchemaExtractor is structural — patient data never enters the variable that becomes the LLM context. The boundary is in the wiring, not in a filter that could be misconfigured.
+
+## Q2: ==What if a developer bypasses SchemaExtractor?==
+**From:** Adversarial reviewer
+**Difficulty:** ★★★ · **Topic:** threat-model
+
+A: That would be a code change, reviewable in version control, blocked at the architecture review. The runtime path has no other surface to the LLM. Non-compliance becomes a structural change, not an accident.
+
+> **If pressed:** Acknowledge that any architecture is bypassable by the maintainers; the point is that accidental leakage is impossible.`,
+  'cs4-audit': `## Q1: ==Why hash-chain instead of append-only logs?==
+**From:** Regulatory-leaning reviewer
+**Difficulty:** ★★ · **Topic:** primitive
+
+A: Append-only is a policy. Hash-chain is a property. Modify any past entry and every downstream hash invalidates — visibly. That's the right shape for 21 CFR Part 11 + ICH M15.
+
+## Q2: ==Why sha256 specifically?==
+**From:** Crypto-aware panelist
+**Difficulty:** ★★ · **Topic:** choice
+
+A: It's the standard collision-resistant hash for regulatory contexts; Part 11-compatible; widely auditable. The slide names the concatenation only at the field level — exact ordering and key-management posture stay off the slide.
+
+## Q3: ==Can the chain be replayed in 2034?==
+**From:** Long-horizon reviewer
+**Difficulty:** ★★ · **Topic:** durability
+
+A: Yes — pin tool versions, store hashed inputs/outputs, re-run deterministically. That's the regulator-replayable claim.`,
+  'cs4-end-to-end': `## Q1: ==Five minutes — really?==
+**From:** Practitioner reviewer
+**Difficulty:** ★★ · **Topic:** performance
+
+A: For a fresh single-dose NCA on a curated dataset, yes — wall-clock under five minutes for the seven-tool sequence and the QC verdict. Larger datasets and more complex models scale linearly with the deterministic tool runtimes.
+
+## Q2: ==Are those exact tool names production code?==
+**From:** Detail-oriented reviewer
+**Difficulty:** ★★ · **Topic:** scope
+
+A: They're the canonical names for the seven steps. Implementation details, function signatures, and the QC checklist contents stay off the slide — the architecture and the orchestration are the claim.`,
+  'cs4-novelty': `## Q1: ==Are any of these four really novel?==
+**From:** Skeptical reviewer
+**Difficulty:** ★★★ · **Topic:** positioning
+
+A: Each is novel against published pharma-AI work — not against general AI research. Hierarchy at scope (against the published 3–7 agent range), typed shared state (against shared scratchpads), architectural privacy (against prompt-level redaction), cryptographic audit (against post-hoc logging). The claim is positioning, not invention.
+
+## Q2: ==Why these four and not others?==
+**From:** Reviewer probing scope
+**Difficulty:** ★★ · **Topic:** scope
+
+A: They are the four that map directly onto the regulatory primitive — defensibility, reproducibility, privacy, audit. Other choices exist; these four are the ones I would defend in front of a regulator.`,
+  'cs4-closer': `## Q1: ==Where will the manuscript appear?==
+**From:** Reviewer asking for the publication anchor
+**Difficulty:** ★ · **Topic:** publication
+
+A: Manuscript is in preparation, target CPT: Pharmacometrics & Systems Pharmacology. Working title: "A Multi-Agent Architecture for End-to-End Model-Informed Drug Development."
+
+## Q2: ==Why does this fit a Senior Director QP role?==
+**From:** Hiring panel synthesis question
+**Difficulty:** ★★ · **Topic:** fit
+
+A: The role is the synthesis of regulatory rigor, methodological forward-thinking, and the judgment to know which AI architecture fits which problem. That synthesis is what the four cases together demonstrate, and what PharmAgent in particular is grounded in.`,
 };
 
 export default qa;
