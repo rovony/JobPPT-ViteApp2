@@ -1,5 +1,10 @@
+@import '@fontsource-variable/inter/index.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap');
+
 /* ============================================================
-   Font imports — v3.3 stack
+   Font stack — v3.3
    Fraunces (display, variable opsz) · Inter (body) · JetBrains Mono (chrome)
 
    Inter + JetBrains Mono are SELF-HOSTED via @fontsource packages
@@ -8,15 +13,6 @@
    no Fontsource package ships its variable opsz axis yet, and that
    axis is what makes the deck's display type feel editorial.
    ============================================================ */
-@import '@fontsource-variable/inter/index.css';
-@import '@fontsource/jetbrains-mono/400.css';
-@import '@fontsource/jetbrains-mono/500.css';
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap');
-@import "@fontsource/source-serif-pro/600.css";
-@import "@fontsource/ibm-plex-sans/400.css";
-@import "@fontsource/ibm-plex-sans/500.css";
-@import "@fontsource/ibm-plex-sans/600.css";
-@import "@fontsource/ibm-plex-mono/400.css";
 
 @tailwind base;
 @tailwind components;
