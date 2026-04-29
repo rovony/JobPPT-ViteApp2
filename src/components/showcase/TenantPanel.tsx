@@ -30,12 +30,23 @@ export default function TenantPanel({ id, name, type, stage, delay, auditCount, 
       <div className="p-6 border-b border-[color:var(--cream-hairline)] flex items-center gap-4">
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.4, delay: delay + 0.2 }}
-          className="w-12 h-12 rounded-full border-2 border-[color:var(--case)] bg-[color:var(--case)]/10 flex items-center justify-center shrink-0"
+          animate={
+            stage === 'running' 
+              ? { scale: [1, 1.05, 1], rotate: [0, -2, 2, 0], opacity: 1, transition: { repeat: Infinity, duration: 2, ease: "easeInOut" } }
+              : stage === 'qc'
+                ? { scale: [1, 1.02, 1], opacity: [0.8, 1, 0.8], transition: { repeat: Infinity, duration: 3, ease: "easeInOut" } }
+                : { scale: 1, opacity: 1, transition: { duration: 0.4, delay: delay + 0.2 } }
+          }
+          className={`w-12 h-12 rounded-full border-2 flex items-center justify-center shrink-0 ${
+            stage === 'running' ? 'bg-[color:var(--case-cyan)]/20 border-[color:var(--case-cyan)]' :
+            stage === 'qc' ? 'bg-[color:var(--case-amber)]/20 border-[color:var(--case-amber)]' :
+            'bg-[color:var(--case-sage)]/20 border-[color:var(--case-sage)]'
+          }`}
         >
           {/* Schematic Avatar */}
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[color:var(--case)]">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`
+            ${stage === 'running' ? 'text-[color:var(--case-cyan)]' : stage === 'qc' ? 'text-[color:var(--case-amber)]' : 'text-[color:var(--case-sage)]'}
+          `}>
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
             <circle cx="12" cy="7" r="4" />
           </svg>

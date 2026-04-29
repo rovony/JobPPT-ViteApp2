@@ -1,17 +1,19 @@
-@import '@fontsource-variable/inter/index.css';
 @import '@fontsource/jetbrains-mono/400.css';
 @import '@fontsource/jetbrains-mono/500.css';
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap');
 
 /* ============================================================
-   Font stack — v3.3
-   Fraunces (display, variable opsz) · Inter (body) · JetBrains Mono (chrome)
+   Font stack — restored to prior HTML-deck pairing
+   Montserrat (display) · Open Sans (body) · JetBrains Mono (chrome)
 
-   Inter + JetBrains Mono are SELF-HOSTED via @fontsource packages
-   (installed as deps) — no Google Fonts CDN roundtrip, no FOUT from
-   DNS/TLS, no third-party request. Fraunces stays on the CDN because
-   no Fontsource package ships its variable opsz axis yet, and that
-   axis is what makes the deck's display type feel editorial.
+   JetBrains Mono is SELF-HOSTED via @fontsource (no CDN roundtrip).
+   Montserrat + Open Sans are loaded from Google Fonts (matches
+   `3_Presentation-Versions/2-HTMLApp/.../lib/tokens.css`, the prior
+   source of truth for typography).
+
+   Note: italic emphasis on display headlines now uses italic
+   Montserrat (not Fraunces opsz). Adjust per slide if a particular
+   headline needs more editorial weight.
    ============================================================ */
 
 @tailwind base;
@@ -113,8 +115,8 @@
     --info:             #7DD3FC;   /* cyan */
 
     /* --- Typography stacks --- */
-    --font-display:     'Fraunces', Georgia, 'Times New Roman', serif;
-    --font-body:        'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    --font-display:     'Montserrat', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    --font-body:        'Open Sans', -apple-system, 'Helvetica Neue', Arial, sans-serif;
     --font-mono:        'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
 
     /* --- Size scale (anchored in pt for 1920×1080 authoring) --- */

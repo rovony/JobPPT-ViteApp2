@@ -128,9 +128,11 @@ module.exports = {
         'deck-display': ['var(--font-display)'],
         'deck-body':    ['var(--font-body)'],
         'deck-mono':    ['var(--font-mono)'],
-        serif: ['"Source Serif Pro"', 'serif'],
-        sans:  ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
-        mono:  ['"IBM Plex Mono"', 'monospace'],
+        // Tailwind aliases retained for compatibility — point to current
+        // deck font stack (Montserrat display, Open Sans body, JetBrains Mono).
+        serif: ['Montserrat', '"Open Sans"', 'system-ui', 'sans-serif'],
+        sans:  ['"Open Sans"', 'Montserrat', 'system-ui', 'sans-serif'],
+        mono:  ['"JetBrains Mono"', '"SF Mono"', 'Menlo', 'monospace'],
       },
       fontSize: {
         'deck-hero':       'var(--fs-hero)',

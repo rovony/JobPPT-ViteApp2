@@ -109,23 +109,25 @@ export default function Principle5Slide() {
              </div>
 
              {/* SHARED INFRASTRUCTURE BAND */}
-             <motion.div 
-                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.0, duration: 1.0, ease: EASE }}
-                className="w-full h-[120px] border border-[color:var(--cream-hairline)] bg-[color-mix(in_srgb,var(--bg)_80%,transparent)] backdrop-blur-xl flex flex-col items-center justify-center relative overflow-hidden shadow-[0_-10px_30px_rgba(0,0,0,0.5)] z-0"
-             >
-                {/* B8 Glow triggered at 165.5s (simulated here at 27.5s) */}
-                <motion.div 
-                   initial={{ opacity: 0 }} animate={{ opacity: [0, 1, 0] }} transition={{ delay: 27.5, duration: 2.0, ease: "easeInOut" }}
-                   className="absolute inset-0 bg-[color-mix(in_srgb,var(--case)_20%,transparent)] shadow-[inset_0_0_50px_var(--case)]"
-                />
+             {prefersReducedMotion && (
+               <motion.div 
+                  initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.0, duration: 1.0, ease: EASE }}
+                  className="w-full h-[120px] border border-[color:var(--cream-hairline)] bg-[color-mix(in_srgb,var(--bg)_80%,transparent)] backdrop-blur-xl flex flex-col items-center justify-center relative overflow-hidden shadow-[0_-10px_30px_rgba(0,0,0,0.5)] z-0"
+               >
+                  {/* B8 Glow triggered at 165.5s (simulated here at 27.5s) */}
+                  <motion.div 
+                     initial={{ opacity: 0 }} animate={{ opacity: [0, 1, 0] }} transition={{ delay: 27.5, duration: 2.0, ease: "easeInOut" }}
+                     className="absolute inset-0 bg-[color-mix(in_srgb,var(--case)_20%,transparent)] shadow-[inset_0_0_50px_var(--case)]"
+                  />
 
-                <div className="deck-mono text-sm tracking-[0.2em] uppercase text-[color:var(--case)] mb-3 relative z-10">
-                   SHARED INFRASTRUCTURE
-                </div>
-                <div className="deck-body text-base xl:text-lg text-[color:var(--cream-muted)] max-w-5xl text-center leading-relaxed relative z-10">
-                   Schema Extractor · Audit Chain · QC Debate · Manager Review · Regulatory RAG · Report Generator · HITL Gate · State Bus
-                </div>
-             </motion.div>
+                  <div className="deck-mono text-sm tracking-[0.2em] uppercase text-[color:var(--case)] mb-3 relative z-10">
+                     SHARED INFRASTRUCTURE
+                  </div>
+                  <div className="deck-body text-base xl:text-lg text-[color:var(--cream-muted)] max-w-5xl text-center leading-relaxed relative z-10">
+                     Schema Extractor · Audit Chain · QC Debate · Manager Review · Regulatory RAG · Report Generator · HITL Gate · State Bus
+                  </div>
+               </motion.div>
+             )}
           </div>
        </div>
 

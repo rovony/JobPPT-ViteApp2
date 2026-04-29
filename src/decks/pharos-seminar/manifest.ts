@@ -32,7 +32,7 @@ import QASlide from './slides/23-qa';
 
 const manifest = {
   id: 'pharos-seminar',
-  title: 'Pharos · Seminar',
+  title: 'V5-Pharos',
   subtitle: 'Pharazi — an end-to-end AI multi-agent foundation for pharmaceutical sciences',
   theme: 'editorial',
   defaultTransition: 'card',
@@ -40,7 +40,7 @@ const manifest = {
     enabled: true,
     footer: {
       line: true,
-      text: 'PHAROS · SEMINAR · 2026',
+      text: 'V5-PHAROS · 2026',
       showSlideNumber: true,
       showTime: false,
     },

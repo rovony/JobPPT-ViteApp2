@@ -10,8 +10,8 @@ export function Hierarchy3D({ step = 0 }: { step?: number }) {
     >
       <motion.div 
         className="relative w-full max-w-3xl h-full flex flex-col items-center justify-center"
-        initial={{ rotateX: 60, rotateZ: -10 }}
-        animate={{ rotateX: 60, rotateZ: -10 }}
+        initial={{ rotateX: 60, rotateZ: -10, y: 80 }}
+        animate={{ rotateX: 60, rotateZ: -10, y: 80 }}
         style={{ transformStyle: 'preserve-3d' }}
       >
         {/* Base Layer: Infrastructure */}
@@ -66,7 +66,7 @@ export function Hierarchy3D({ step = 0 }: { step?: number }) {
           style={{ transformStyle: 'preserve-3d' }}
         >
           {['Trial Design', 'RWE', 'Reg-Author', 'Lifecycle'].map((b, i) => (
-            <div key={b} className="w-36 h-36 border border-[color:var(--case)] bg-[color:var(--case)] flex items-center justify-center deck-mono text-2xl text-[color:var(--bg)] shadow-[0_30px_60px_rgba(0,0,0,0.9)] backdrop-blur-md font-bold">
+            <div key={b} className="w-40 h-32 border border-[color:var(--case)] bg-[color:var(--case)] flex items-center justify-center deck-mono text-[1.1rem] text-[color:var(--bg)] shadow-[0_30px_60px_rgba(0,0,0,0.9)] backdrop-blur-md font-bold text-center px-2">
               {b}
             </div>
           ))}
