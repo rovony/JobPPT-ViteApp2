@@ -1,13 +1,10 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import SlideFrame from '@/components/deck/SlideFrame';
 import TakeHomeStrip from '@/components/deck/TakeHomeStrip';
 import PrincipleTitleBlock from '@/components/deck/PrincipleTitleBlock';
 import WithWithoutPair from '@/components/deck/WithWithoutPair';
 import { Hierarchy3D } from '@/components/showcase/Hierarchy3D';
-import { useReducedMotion } from 'framer-motion';
-import { Hierarchy3D } from '@/components/showcase/Hierarchy3D';
-import { useReducedMotion } from 'framer-motion';
 
 export default function Principle5Slide() {
   const EASE = [0.16, 1, 0.3, 1];
