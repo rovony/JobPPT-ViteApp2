@@ -6,6 +6,7 @@ import { useTokens } from '@/lib/token';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 import HighlightWord from '@/components/deck/patterns/HighlightWord';
+import ZoomablePanel from '@/components/deck/ZoomablePanel';
 import CompartmentSchematic from '../../qp2-seminar/slides/cs1-build/CompartmentSchematic';
 import DecisionGate from '../../qp2-seminar/slides/cs1-build/DecisionGate';
 
@@ -192,38 +193,62 @@ export default function Cs1Poppk() {
           
           <div style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: '1.4fr 1.8fr', gap: 'var(--space-4)' }}>
             
-            {/* Left Column: Schematic and Workflow */}
+            {/* Left Column: schematic + compact pcVPC. Workflow is larger on the right. */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-              <div style={{...CHART_PANEL, flex: 1}}>
+              <ZoomablePanel
+                title="Structural Model"
+                right={<span className="deck-mono" style={{ fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-faint)', letterSpacing: '0.12em' }}>2-CMT</span>}
+                panelStyle={{...CHART_PANEL, flex: 1.05}}
+                modalBodyStyle={{ alignItems: 'center' }}
+                modalChildren={<div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CompartmentSchematic tk={tk} go={go} /></div>}
+              >
                 <PanelTitle label="Structural Model" right="2-CMT" delay={D.structure} go={go} />
                 <div style={{...CHART_PANEL_BODY}}>
                    <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                      <CompartmentSchematic tk={tk} go={go} />
                    </div>
                 </div>
-              </div>
-              <div style={{...CHART_PANEL, flex: 1}}>
-                <PanelTitle label="Workflow" right="NONMEM" delay={D.workflow} go={go} />
-                <div style={{...CHART_PANEL_BODY}}>
-                   <DecisionGate />
+              </ZoomablePanel>
+              <ZoomablePanel
+                title="PcVPC"
+                right={<span className="deck-mono" style={{ fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-faint)', letterSpacing: '0.12em' }}>500 replicates</span>}
+                panelStyle={{...CHART_PANEL, flex: 0.95}}
+                modalBodyStyle={{ alignItems: 'center' }}
+                modalChildren={<PcVpcChart go={go} delay={D.vpc} tk={tk} D={{lines: D.vpc+0.3, dots: D.vpc+0.5, ribbon: D.vpc+0.1}} />}
+              >
+                <PanelTitle label="PcVPC" right="500 replicates" delay={D.vpc} go={go} />
+                <div style={{...CHART_PANEL_BODY, flexDirection: 'column', alignItems: 'stretch'}}>
+                   <PcVpcChart go={go} delay={D.vpc} tk={tk} D={{lines: D.vpc+0.3, dots: D.vpc+0.5, ribbon: D.vpc+0.1}} compact />
                 </div>
-              </div>
+              </ZoomablePanel>
             </div>
 
-            {/* Right Column: Table and pcVPC */}
+            {/* Right Column: parameter table + enlarged workflow. */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-               <div style={{...CHART_PANEL, flex: '0 0 auto'}}>
+               <ZoomablePanel
+                 title="Parameter Estimates"
+                 right={<span className="deck-mono" style={{ fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-faint)', letterSpacing: '0.12em' }}>CL/F, Vc/F</span>}
+                 panelStyle={{...CHART_PANEL, flex: '0 0 auto'}}
+                 modalBodyStyle={{ alignItems: 'center' }}
+                 modalChildren={<ParamTable go={go} delay={D.table} />}
+               >
                  <PanelTitle label="Parameter Estimates" right="CL/F, Vc/F" delay={D.table} go={go} />
                  <div style={{ position: 'relative', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <ParamTable go={go} delay={D.table} />
                  </div>
-               </div>
-               <div style={{...CHART_PANEL, flex: 1}}>
-                 <PanelTitle label="PcVPC" right="500 replicates" delay={D.vpc} go={go} />
-                 <div style={{...CHART_PANEL_BODY, flexDirection: 'column', alignItems: 'stretch'}}>
-                    <PcVpcChart go={go} delay={D.vpc} tk={tk} D={{lines: D.vpc+0.3, dots: D.vpc+0.5, ribbon: D.vpc+0.1}} />
+               </ZoomablePanel>
+               <ZoomablePanel
+                 title="Workflow"
+                 right={<span className="deck-mono" style={{ fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-faint)', letterSpacing: '0.12em' }}>NONMEM</span>}
+                 panelStyle={{...CHART_PANEL, flex: 1}}
+                 modalBodyStyle={{ alignItems: 'center' }}
+                 modalChildren={<DecisionGate id="cs1-v4-poppk-workflow-modal" replay />}
+               >
+                 <PanelTitle label="Workflow" right="NONMEM" delay={D.workflow} go={go} />
+                 <div style={{...CHART_PANEL_BODY}}>
+                    <DecisionGate id="cs1-v4-poppk-workflow-inline" replay initialDelay={D.workflow} />
                  </div>
-               </div>
+               </ZoomablePanel>
             </div>
 
           </div>
@@ -233,22 +258,58 @@ export default function Cs1Poppk() {
             style={{ 
               display: 'flex', 
               alignItems: 'center', 
-              gap: 'var(--space-4)', 
-              padding: 'var(--space-3) var(--space-4)',
-              background: 'rgba(255,255,255,0.02)',
-              border: '1px solid var(--cream-hairline)'
+              flexWrap: 'wrap',
+              gap: 'var(--space-3) var(--space-4)', 
+              minHeight: 'clamp(60px, 6vh, 84px)',
+              padding: 'clamp(var(--space-3), 1.6vh, var(--space-4)) var(--space-5)',
+              background: 'color-mix(in srgb, var(--coral) 8%, transparent)',
+              border: '1px solid color-mix(in srgb, var(--coral) 42%, var(--cream-hairline))',
+              boxShadow: 'inset 0 0 0 1px color-mix(in srgb, var(--cream) 5%, transparent)'
             }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: go ? 1 : 0, y: go ? 0 : 10 }}
             transition={{ duration: 0.6, ease: EASE, delay: D.covariates }}
           >
-             <span className="deck-mono uppercase" style={{ fontSize: '12px', color: 'var(--coral)', letterSpacing: '0.14em' }}>Covariate Screen</span>
-             <div style={{ flex: 1, display: 'flex', gap: 'var(--space-4)' }}>
+             <span className="deck-mono uppercase" style={{ fontSize: 'var(--fs-slide-pageno)', color: 'var(--coral)', letterSpacing: 'var(--ls-mono-wide)', fontWeight: 800 }}>Full Covariate Model</span>
+             <span className="deck-mono uppercase" style={{
+               fontSize: 'var(--fs-card-meta)',
+               color: 'var(--cream)',
+               letterSpacing: '0.12em',
+               padding: 'var(--space-1) var(--space-3)',
+               border: '1px solid color-mix(in srgb, var(--coral) 50%, transparent)',
+               background: 'color-mix(in srgb, var(--coral) 16%, transparent)',
+               whiteSpace: 'nowrap',
+             }}>
+               12 prespecified covariates entered together
+             </span>
+             <div style={{ flex: '1 1 34rem', display: 'flex', flexWrap: 'wrap', gap: 'var(--space-2) var(--space-2)', minWidth: 0 }}>
                 {['Age', 'Sex', 'Race', 'WHO FC', 'Baseline 6MWD', 'NT-proBNP', 'Hepatic Fn', 'Renal Fn', 'ETRA naive'].map(cov => (
-                   <span key={cov} className="deck-mono" style={{ fontSize: '11px', color: 'var(--cream-muted)', textDecoration: 'line-through' }}>{cov}</span>
+                   <span key={cov} className="deck-mono" style={{
+                     display: 'inline-flex',
+                     alignItems: 'center',
+                     gap: '0.45em',
+                     fontSize: 'var(--fs-slide-pageno)',
+                     color: 'var(--cream)',
+                     background: 'color-mix(in srgb, var(--panel) 72%, transparent)',
+                     border: '1px solid color-mix(in srgb, var(--cream-muted) 28%, transparent)',
+                     padding: '0.16rem 0.42rem',
+                     opacity: 0.9,
+                     whiteSpace: 'nowrap',
+                   }}>
+                     <span style={{ color: 'var(--coral)', fontWeight: 800, fontSize: '0.9em' }}>×</span>
+                     {cov}
+                   </span>
                 ))}
              </div>
-             <span className="deck-mono" style={{ fontSize: '12px', color: 'var(--cream)' }}>Only Allometric WT Retained</span>
+             <span className="deck-mono uppercase" style={{
+               fontSize: 'var(--fs-slide-pageno)',
+               color: 'var(--bg)',
+               background: 'var(--coral)',
+               letterSpacing: '0.13em',
+               fontWeight: 800,
+               padding: 'var(--space-1) var(--space-3)',
+               whiteSpace: 'nowrap',
+             }}>Retained: Allometric WT</span>
           </motion.div>
 
         </div>
@@ -262,7 +323,7 @@ export default function Cs1Poppk() {
     </SlideGrid>
   );
 }
-function PcVpcChart({ tk, D }) {
+function PcVpcChart({ tk, D, compact = false }) {
   const W = 1080, H = 420;
   const m = { top: 20, right: 32, bottom: 50, left: 82 };
   const iw = W - m.left - m.right;
@@ -308,7 +369,7 @@ function PcVpcChart({ tk, D }) {
       className="w-full"
       viewBox={`0 0 ${W} ${H}`}
       preserveAspectRatio="xMidYMid meet"
-      style={{ maxHeight: '42vh' }}
+      style={{ maxHeight: compact ? '28vh' : '42vh' }}
       aria-label="Prediction-corrected visual predictive check — observed percentiles sit inside simulated CIs"
     >
       <g transform={`translate(${m.left},${m.top})`}>

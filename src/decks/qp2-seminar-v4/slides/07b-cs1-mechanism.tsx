@@ -79,7 +79,7 @@ export default function Cs1Mechanism() {
           </div>
 
           {/* Cards Zone */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(260px, auto) 1fr', gap: 'var(--space-4)', alignItems: 'stretch' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(20rem, 100%), 1fr))', gap: 'var(--space-4)', alignItems: 'start' }}>
             <SelectivityCard />
             <PathwayBand />
           </div>
@@ -120,7 +120,7 @@ function SelectivityCard() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
         {ERA_SELECTIVITY.map((era) => (
           <div key={era.name} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 'var(--space-4)' }}>
-            <span className="deck-display" style={{ fontSize: 'var(--fs-slide-title)', color: era.isThisCase ? 'var(--case)' : 'var(--cream)', fontWeight: era.isThisCase ? 700 : 500 }}>
+            <span className="deck-display" style={{ fontSize: 'var(--fs-slide-name)', color: era.isThisCase ? 'var(--case)' : 'var(--cream)', fontWeight: era.isThisCase ? 700 : 500 }}>
               {era.name}
             </span>
             <span className="deck-mono" style={{ fontSize: 'var(--fs-slide-subhead)', color: era.isThisCase ? 'var(--case)' : 'var(--cream-faint)', fontVariantNumeric: 'tabular-nums', fontWeight: 700 }}>
@@ -142,7 +142,7 @@ function PathwayBand() {
       transition={{ duration: 0.5, delay: 1.6, ease: EASE }}
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(min(13rem, 100%), 1fr))',
         gap: 'var(--space-4)',
       }}
     >
@@ -157,9 +157,9 @@ function PathwayBand() {
           borderLeft: `3px solid ${p.isThisCase ? 'var(--case)' : 'var(--cream-hairline)'}`,
         }}>
           <div className="deck-mono uppercase" style={{ fontSize: 'var(--fs-slide-subhead)', color: p.isThisCase ? 'var(--case)' : 'var(--cream-muted)', letterSpacing: 'var(--ls-mono-wide)', fontWeight: 700 }}>
-            {p.isThisCase ? '★ ' : ''}Pathway {p.n}
+            {p.isThisCase ? 'This case · ' : ''}Pathway {p.n}
           </div>
-          <div className="deck-display" style={{ fontSize: 'var(--fs-slide-title)', color: 'var(--cream)', fontWeight: 600 }}>
+          <div className="deck-display" style={{ fontSize: 'var(--fs-slide-name)', color: 'var(--cream)', fontWeight: 600 }}>
             {p.name}
           </div>
           <div className="deck-mono uppercase" style={{ fontSize: 'var(--fs-slide-tagline)', color: p.isThisCase ? 'var(--case)' : 'var(--cream-faint)', letterSpacing: 'var(--ls-mono-wide)', marginTop: 'var(--space-2)' }}>

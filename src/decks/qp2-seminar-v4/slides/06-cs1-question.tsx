@@ -153,7 +153,7 @@ function DataDossierRow({ label, accent = 'var(--cream-muted)', children, delay,
       <div className="deck-mono uppercase" style={{ fontSize: 'var(--fs-slide-eyebrow)', letterSpacing: 'var(--ls-mono-wide)', color: accent, fontWeight: 700, paddingTop: '4px' }}>
         {label}
       </div>
-      <div className="deck-display" style={{ fontSize: 'clamp(17px, 1.3vw, 20px)', lineHeight: 1.5, color: 'var(--cream)', fontWeight: 400 }}>
+      <div className="deck-display" style={{ fontSize: 'var(--fs-slide-subhead)', lineHeight: 1.5, color: 'var(--cream)', fontWeight: 400 }}>
         {children}
       </div>
     </motion.div>

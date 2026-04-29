@@ -54,7 +54,7 @@ const Header = ({ activeUC, onSwitch, onReset }) => {
           );
         })}
         <button onClick={onReset} className="ml-2 text-[9px] font-mono text-stone-500 hover:text-rose-300 px-1.5 py-1 flex items-center gap-1 transition-colors" title="Clear PharmState">
-          <Icon.Refresh size={10} /> Reset PharmState
+          <Icon.RotateCcw size={10} /> Reset PharmState
         </button>
       </div>
     </div>

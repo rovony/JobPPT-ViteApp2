@@ -25,6 +25,8 @@ export default function CS3InteractiveDossier() {
         .pharmagent-scale {
           width: 100%;
           height: 100%;
+          transform: scale(1.3);
+          transform-origin: center top;
         }
       `}</style>
       <div className="pharmagent-wrapper">

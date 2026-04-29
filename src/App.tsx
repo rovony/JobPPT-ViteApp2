@@ -26,10 +26,12 @@ import DevLibrariesPage from '@/components/devkit/pages/LibrariesPage';
 import PKSim from '@/pages/PKSim';
 import Reading from '@/pages/Reading';
 import ShareViewPage from '@/pages/ShareViewPage';
+import Login from '@/pages/auth/Login';
+import Register from '@/pages/auth/Register';
 // Add page imports here
 
 const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin, isAuthenticated } = useAuth();
 
   // Show loading spinner while checking app public settings or auth
   if (isLoadingPublicSettings || isLoadingAuth) {
@@ -54,28 +56,33 @@ const AuthenticatedApp = () => {
   // Render the main app
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/Home" element={<Home />} />
-      <Route path="/home" element={<Home />} />
+      {/* Public Routes */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/v/:token" element={<ShareViewPage />} />
       <Route path="/v/:token/s/:slideId" element={<ShareViewPage />} />
-      <Route path="/Deck" element={<Deck />} />
-      <Route path="/deck" element={<Deck />} />
-      <Route path="/decks/:deckId" element={<DeckRunner />} />
-      <Route path="/decks/:deckId/s/:slideIndex" element={<DeckRunner />} />
+
+      {/* Protected Routes */}
+      <Route path="/" element={isAuthenticated ? <Home /> : <Login />} />
+      <Route path="/Home" element={isAuthenticated ? <Home /> : <Login />} />
+      <Route path="/home" element={isAuthenticated ? <Home /> : <Login />} />
+      <Route path="/Deck" element={isAuthenticated ? <Deck /> : <Login />} />
+      <Route path="/deck" element={isAuthenticated ? <Deck /> : <Login />} />
+      <Route path="/decks/:deckId" element={isAuthenticated ? <DeckRunner /> : <Login />} />
+      <Route path="/decks/:deckId/s/:slideIndex" element={isAuthenticated ? <DeckRunner /> : <Login />} />
       {/* Dedicated dual-screen routes — see DeckRunner for the path-segment
           source-of-truth pattern. Legacy ?presenter=1 / ?audience=1 are
           redirected to /speaker · /audience inside DeckRunner. */}
-      <Route path="/decks/:deckId/s/:slideIndex/speaker" element={<DeckRunner />} />
-      <Route path="/decks/:deckId/s/:slideIndex/audience" element={<DeckRunner />} />
-      <Route path="/qa/:deckId" element={<AudienceQA />} />
+      <Route path="/decks/:deckId/s/:slideIndex/speaker" element={isAuthenticated ? <DeckRunner /> : <Login />} />
+      <Route path="/decks/:deckId/s/:slideIndex/audience" element={isAuthenticated ? <DeckRunner /> : <Login />} />
+      <Route path="/qa/:deckId" element={isAuthenticated ? <AudienceQA /> : <Login />} />
       {/* Reading material — full-page route, deep-linkable per item.
           Modal counterpart (ReadingMaterialPane) lives inside presenter view. */}
-      <Route path="/decks/:deckId/reading" element={<Reading />} />
-      <Route path="/decks/:deckId/reading/:slug" element={<Reading />} />
-      <Route path="/decks/:deckId/analytics" element={<DeckAnalytics />} />
-      <Route path="/pk-sim" element={<PKSim />} />
-      <Route path="/PKSim" element={<PKSim />} />
+      <Route path="/decks/:deckId/reading" element={isAuthenticated ? <Reading /> : <Login />} />
+      <Route path="/decks/:deckId/reading/:slug" element={isAuthenticated ? <Reading /> : <Login />} />
+      <Route path="/decks/:deckId/analytics" element={isAuthenticated ? <DeckAnalytics /> : <Login />} />
+      <Route path="/pk-sim" element={isAuthenticated ? <PKSim /> : <Login />} />
+      <Route path="/PKSim" element={isAuthenticated ? <PKSim /> : <Login />} />
       <Route path="/dev" element={<AdminRoute><DevKit /></AdminRoute>}>
         <Route index element={<DevOverviewPage />} />
         <Route path="tokens" element={<DevTokensPage />} />

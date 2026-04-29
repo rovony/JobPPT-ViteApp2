@@ -1,11 +1,10 @@
 import React from 'react';
-import { motion as M, AnimatePresence as AP } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import * as Icon from 'lucide-react';
 import { AGENTS_L1, AGENTS_L2 } from './pharmagent-data';
 
 /* PharmAgent · architecture canvas (Tier 0–5 with permanent topology + active flows) */
 
-const { motion, AnimatePresence } = window.Motion || window.framerMotion || {};
 
 /* Node positions in % of canvas. Canvas is sized fluidly via flex. */
 const POS = {
@@ -67,7 +66,6 @@ function buildPath(p1, p2, W, H) {
 
 /* The canvas with all tier rendering. Uses absolute% positioning. */
 const ArchCanvas = ({ activeStep, useCase, onAgentHover }) => {
-  const { AGENTS_L1, AGENTS_L2 } = window.PA_DATA;
   const ref = React.useRef(null);
   const [size, setSize] = React.useState({ W: 800, H: 700 });
 

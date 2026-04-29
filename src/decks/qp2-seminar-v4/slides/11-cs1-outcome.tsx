@@ -48,7 +48,7 @@ const DISRUPTIONS = [
   },
 ];
 
-function DisruptionCard({ d, delay, reduced }) {
+function DisruptionCard({ d, delay, reduced, step }) {
   return (
     <motion.div
       initial={reduced ? false : { opacity: 0, y: 14 }}
@@ -58,24 +58,34 @@ function DisruptionCard({ d, delay, reduced }) {
       style={{
         position: 'relative',
         minWidth: 0,
+        marginTop: step,
         border: '1px solid color-mix(in srgb, var(--coral) 30%, transparent)',
         borderLeft: '4px solid var(--case)',
         borderRadius: 'var(--radius-lg)',
-        background: 'color-mix(in srgb, var(--coral) 5%, transparent)',
+        background: 'linear-gradient(180deg, color-mix(in srgb, var(--coral) 10%, var(--panel)), color-mix(in srgb, var(--panel) 78%, transparent))',
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
-        padding: 'clamp(var(--space-3), 1.6vw, var(--space-5))',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 'var(--space-2)',
+        padding: 'clamp(var(--space-4), 1.8vw, var(--space-5))',
+        display: 'grid',
+        gridTemplateRows: 'auto auto auto minmax(0, 1fr) auto',
+        gap: 'clamp(var(--space-2), 1.1vw, var(--space-3))',
+        minHeight: 'clamp(13.5rem, 28vh, 17.5rem)',
+        boxShadow: 'inset 0 1px 0 color-mix(in srgb, var(--cream) 8%, transparent)',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
         <span className="deck-mono" style={{
+          display: 'inline-grid',
+          placeItems: 'center',
+          width: 'clamp(2.15rem, 3vw, 2.8rem)',
+          aspectRatio: '1',
+          border: '1px solid color-mix(in srgb, var(--case) 42%, transparent)',
+          borderRadius: '999px',
+          background: 'color-mix(in srgb, var(--case) 10%, transparent)',
           fontSize: 'var(--fs-slide-eyebrow)',
           letterSpacing: 'var(--ls-mono-wide)',
           color: 'var(--case)',
-          fontWeight: 700,
+          fontWeight: 800,
           fontVariantNumeric: 'tabular-nums',
         }}>
           {d.n}
@@ -84,26 +94,27 @@ function DisruptionCard({ d, delay, reduced }) {
           fontSize: 'var(--fs-slide-eyebrow)',
           letterSpacing: 'var(--ls-mono-wide)',
           color: 'var(--case)',
-          fontWeight: 700,
+          fontWeight: 800,
         }}>
-          · {d.label}
+          {d.label}
         </span>
       </div>
       <div className="deck-display" style={{
         fontSize: 'var(--fs-slide-name)',
         color: 'var(--cream)',
-        fontWeight: 600,
-        lineHeight: 1.22,
-        letterSpacing: '-0.005em',
+        fontWeight: 700,
+        lineHeight: 1.12,
+        letterSpacing: 'var(--ls-display)',
       }}>
         {d.headline}
       </div>
       <div className="deck-mono" style={{
-        fontSize: 'var(--fs-slide-pageno)',
-        color: 'color-mix(in srgb, var(--case) 85%, transparent)',
-        letterSpacing: 'var(--ls-mono)',
-        lineHeight: 1.45,
+        fontSize: 'var(--fs-slide-eyebrow)',
+        color: 'color-mix(in srgb, var(--case) 88%, transparent)',
+        letterSpacing: '0.08em',
+        lineHeight: 1.35,
         fontVariantNumeric: 'tabular-nums',
+        textTransform: 'uppercase',
       }}>
         {d.timestamps}
       </div>
@@ -111,33 +122,34 @@ function DisruptionCard({ d, delay, reduced }) {
         fontSize: 'var(--fs-slide-subhead)',
         color: 'var(--cream)',
         opacity: 0.9,
-        lineHeight: 1.5,
+        lineHeight: 1.38,
+        alignSelf: 'start',
       }}>
         {d.body}
       </div>
-      <div aria-hidden style={{
-        height: 'var(--stroke-hair)',
-        width: 'clamp(40px, 6vw, 64px)',
-        background: 'var(--case)',
-        opacity: 0.5,
-        marginTop: 'var(--space-2)',
-        marginBottom: 'var(--space-1)',
-      }} />
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-pageno)',
-        letterSpacing: 'var(--ls-mono-wide)',
-        color: 'var(--cream-faint)',
-        fontWeight: 700,
+      <div style={{
+        borderTop: '1px solid color-mix(in srgb, var(--case) 24%, transparent)',
+        background: 'color-mix(in srgb, var(--case) 9%, transparent)',
+        borderRadius: 'var(--radius-md)',
+        padding: 'clamp(var(--space-2), 1vw, var(--space-3))',
       }}>
-        Outcome
-      </div>
-      <div className="deck-body" style={{
-        fontSize: 'var(--fs-slide-subhead)',
-        color: 'var(--cream)',
-        opacity: 0.96,
-        lineHeight: 1.5,
-      }}>
-        {d.outcome}
+        <div className="deck-mono uppercase" style={{
+          fontSize: 'var(--fs-slide-eyebrow)',
+          letterSpacing: 'var(--ls-mono-wide)',
+          color: 'var(--cream-faint)',
+          fontWeight: 800,
+          marginBottom: 'var(--space-1)',
+        }}>
+          So what
+        </div>
+        <div className="deck-body" style={{
+          fontSize: 'var(--fs-slide-subhead)',
+          color: 'var(--cream)',
+          opacity: 0.98,
+          lineHeight: 1.35,
+        }}>
+          {d.outcome}
+        </div>
       </div>
     </motion.div>
   );
@@ -145,6 +157,7 @@ function DisruptionCard({ d, delay, reduced }) {
 
 export default function Cs1Outcome() {
   const reduced = useReducedMotion();
+  const steps = ['0rem', 'clamp(2rem, 6vh, 4rem)', 'clamp(4rem, 12vh, 7rem)'];
   return (
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
       {/* V2-S7 lung-anchor treatment · stress · background presence
@@ -193,12 +206,15 @@ export default function Cs1Outcome() {
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(min(18rem, 100%), 1fr))',
-          gap: 'clamp(var(--space-3), 2vw, var(--space-5))',
-          paddingTop: 'clamp(var(--space-2), 2vh, var(--space-4))',
-          alignItems: 'stretch',
+          gap: 'clamp(var(--space-4), 2.4vw, var(--space-6))',
+          paddingTop: 'clamp(var(--space-2), 1.2vh, var(--space-3))',
+          paddingBottom: 'clamp(var(--space-6), 10vh, var(--space-12, 6rem))',
+          alignItems: 'start',
+          position: 'relative',
+          zIndex: 1,
         }}>
           {DISRUPTIONS.map((d, i) => (
-            <DisruptionCard key={d.n} d={d} delay={0.85 + i * 0.18} reduced={reduced} />
+            <DisruptionCard key={d.n} d={d} delay={0.85 + i * 0.18} reduced={reduced} step={steps[i]} />
           ))}
         </div>
       </Viz>

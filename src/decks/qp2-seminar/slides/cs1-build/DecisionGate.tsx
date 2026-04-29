@@ -96,12 +96,16 @@ const EASE = [0.4, 0, 0.2, 1];
 const GATE_W = 820;
 const GATE_H = 500;
 
-export default function DecisionGate({ id = 'cs1-build-flowchart-v691' }) {
+export default function DecisionGate({
+  id = 'cs1-build-flowchart-v691',
+  replay = false,
+  initialDelay = 0,
+}) {
   const prefersReduced = useReducedMotion();
 
   const firstMountRef = useRef(null);
   if (firstMountRef.current === null) {
-    firstMountRef.current = !MOUNTED_GATES.has(id);
+    firstMountRef.current = replay || !MOUNTED_GATES.has(id);
   }
   const isFirstMount = firstMountRef.current;
 
@@ -110,6 +114,7 @@ export default function DecisionGate({ id = 'cs1-build-flowchart-v691' }) {
   }, [id]);
 
   const animate = isFirstMount && !prefersReduced;
+  const withDelay = (delay) => initialDelay + delay;
 
   // Scale-to-fit: observe the responsive outer box, scale the fixed
   // 820 × 500 canvas by min(W/820, H/500). Aspect-ratio on the outer
@@ -154,7 +159,7 @@ export default function DecisionGate({ id = 'cs1-build-flowchart-v691' }) {
       ? {
           initial: { opacity: 0 },
           animate: { opacity: 1 },
-          transition: { duration: 0.3, ease: EASE, delay },
+          transition: { duration: 0.3, ease: EASE, delay: withDelay(delay) },
         }
       : { initial: false, animate: { opacity: 1 } };
 
@@ -164,8 +169,8 @@ export default function DecisionGate({ id = 'cs1-build-flowchart-v691' }) {
           initial: { pathLength: 0, opacity: 0 },
           animate: { pathLength: 1, opacity: 1 },
           transition: {
-            pathLength: { duration: 0.35, ease: EASE, delay },
-            opacity: { duration: 0.01, delay },
+            pathLength: { duration: 0.35, ease: EASE, delay: withDelay(delay) },
+            opacity: { duration: 0.01, delay: withDelay(delay) },
           },
         }
       : { initial: false, animate: { pathLength: 1, opacity: 1 } };
@@ -178,7 +183,7 @@ export default function DecisionGate({ id = 'cs1-build-flowchart-v691' }) {
       ? {
           initial: { opacity: 0 },
           animate: { opacity: counterOpacity },
-          transition: { duration: 0.3, ease: EASE, delay },
+          transition: { duration: 0.3, ease: EASE, delay: withDelay(delay) },
         }
       : { initial: false, animate: { opacity: counterOpacity } };
 
@@ -322,7 +327,7 @@ export default function DecisionGate({ id = 'cs1-build-flowchart-v691' }) {
         </motion.text>
 
         {/* Flowing particles along YES path */}
-        {animate && <FlowParticles />}
+        {animate && <FlowParticles delayOffset={initialDelay} />}
       </svg>
 
       {/* ═════ HTML LAYER (nodes + descriptions) ═════ */}
@@ -548,7 +553,7 @@ function ArrowRight({ x1, x2, y, drawStyle, color = 'var(--coral)', dashed = fal
    V6.9.3 — start y bumped from 49 to 46 because Step 01 moved up to
    top=2 (bottom=46) to give A1 visible arrow length.
    ───────────────────────────────────────────────────────────── */
-function FlowParticles() {
+function FlowParticles({ delayOffset = 0 }) {
   // cx/cy arrays have 9 stops. Stops [0] and [1] share position so the
   // fade-in (opacity 0→1 during times[0]→times[1]) happens WHILE the
   // particle is stationary at step01-bottom.
@@ -573,7 +578,7 @@ function FlowParticles() {
           }}
           transition={{
             duration: 6.0,
-            delay: 2.5 + delay,
+            delay: delayOffset + 2.5 + delay,
             ease: 'linear',
             times: [0, 0.06, 0.15, 0.30, 0.38, 0.55, 0.72, 0.92, 1],
             // V6.9.2 — stop after 2 passes (matches slide-8 ConstrainViz).

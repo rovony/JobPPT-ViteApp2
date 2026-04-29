@@ -206,12 +206,12 @@ The cases I'm going to walk you through are not abstractions. *They are the work
 
   // V2-S1 · Divider · "Ambrisentan" — 30 sec
   'cs1-divider': `## Spoken
-First case: **==ambrisentan==** — an oral selective endothelin-A antagonist for pulmonary arterial hypertension.
+First case: **==ambrisentan==** in pediatric PAH.
 
-This is pediatrics: ==eight to under eighteen years==. The Phase IIb program was terminated mid-program, but EMA and PMDA still approved the pediatric label in 2021.
+The trial stopped early, but the exposure bridge still supported EMA and PMDA pediatric approval in 2021.
 
 ## Cues
-- ⏱ 25 sec — quick case opener
+- ⏱ 20 sec — quick case opener
 - 🎚 Plain and factual; do not make this sound dramatic
 - ⚠ Do NOT mention FDA yet — save the caveat for the outcome slide
 - ✅ Keep slide 5 as a clean case entry; let slide 6 own the clinical pharmacology question
@@ -227,16 +227,16 @@ This is pediatrics: ==eight to under eighteen years==. The Phase IIb program was
   'cs1-question': `## Spoken
 So the clinical pharmacology question was simple: ==when the pediatric trial is terminated==, can the **==pharmacokinetic bridge==** still support a pediatric label?
 
-The adult side was strong: **==380 adult patients==** across six studies, with a mature adult PK anchor.
+The adult anchor was strong: **==380 adults==** across six studies.
 
-The pediatric side was much smaller: **==39 patients==**, open-label, PK-anchored, and no placebo comparator.
+The pediatric dataset was small: **==39 patients==**, open-label, PK-anchored, and no placebo comparator.
 
-And the program had three things happening at the same time: a ==juvenile-rat finding== that held enrollment, a ==sildenafil mortality signal== that changed how regulators thought about pediatric dose selection, and ==split commercial rights== between Gilead and GSK.
+At the same time, enrollment was disrupted, pediatric dose selection was under scrutiny, and filing geography mattered.
 
-So this was not a clean pediatric efficacy-trial story. It was a question of whether ==exposure matching== could still support **a defensible pediatric dose**.
+So this was not a repeat-efficacy-trial story. It was a dose-defense story: could ==exposure matching== carry the pediatric label?
 
 ## Cues
-- ⏱ ~60 sec — keep the contrast clear: 380 adults vs 39 pediatric patients
+- ⏱ ~45 sec — keep the contrast clear: 380 adults vs 39 pediatric patients
 - 🎚 Conversational; say "here is the question" like you are orienting the room
 - ⚠ Do NOT say "the trial failed"
 - ✅ Use the exact phrase "exposure matching"
@@ -248,20 +248,16 @@ So this was not a clean pediatric efficacy-trial story. It was a question of whe
   'cs1-context': `## Spoken
 Quick PAH 101.
 
-Pulmonary arterial hypertension is **==a small-vessel disease of the lungs that kills through right-heart failure==**.
+Pulmonary arterial hypertension is **==a small-vessel lung disease that kills through right-heart failure==**.
 
-Three things happen together: ==vasoconstriction==, ==smooth-muscle and endothelial proliferation==, and ==in-situ thrombosis==. The lumen narrows, pulmonary vascular resistance rises, and the right ventricle has to push against a higher-resistance circuit.
+The vessel lumen narrows, pulmonary vascular resistance rises, and the right ventricle pushes against a higher-resistance circuit until it fails.
 
-Over time, the right ventricle hypertrophies, dilates, and then fails. Patients do not really die from the pressure number. They die from right-heart failure.
+The hemodynamic definition is pre-capillary disease: mean pulmonary arterial pressure at least 20, PVR at least 2 Wood units, and wedge pressure no more than 15.
 
-The current hemodynamic definition is **mean pulmonary arterial pressure ≥ 20 millimeters of mercury, pulmonary vascular resistance ≥ 2 Wood units, and wedge pressure ≤ 15**. That last part tells you this is pre-capillary disease.
-
-For this case, the relevant pathway is endothelin. Endothelin is the over-active vasoconstrictor and proliferative signal, and ambrisentan blocks ETA.
-
-The historical benchmark is still striking: untreated median survival was **==2.8 years==** in the *D'Alonzo NIH registry from 1991*.
+For this case, the relevant pathway is endothelin: an over-active vasoconstrictor and proliferative signal. Ambrisentan blocks that pathway through ETA.
 
 ## Cues
-- ⏱ ~60 sec — disease setup, not a lecture
+- ⏱ ~45 sec — disease setup, not a lecture
 - 🎚 Plain explanation first, definitions second
 - ⚠ The trial used older Dana Point criteria with mPAP ≥25; only explain if asked
 - ✅ Make "right-heart failure" the simple takeaway
@@ -271,26 +267,22 @@ The historical benchmark is still striking: untreated median survival was **==2.
 
   // V2-S3b · Mechanism — endothelin pathway · ambrisentan MOA — 60 sec
   'cs1-mechanism': `## Spoken
-PAH treatment is organized around pathways. Ambrisentan works on the endothelin pathway, and the important word is **==selective==**.
+Ambrisentan works on the endothelin pathway, and the important word is **==selective==**.
 
-On the disease side, endothelin-1 binds ETA on vascular smooth muscle. That drives vasoconstriction and proliferation, so the arteriole narrows.
+Endothelin-1 drives vasoconstriction through ETA. Ambrisentan sits mainly on **==ETA==** — over **==4000:1 selectivity==** — while leaving ETB relatively intact.
 
-With ambrisentan on board, the drug sits mainly on **==ETA==** — over **==4000:1 selectivity==** — while leaving **==ETB==** relatively intact. ETB matters because it helps clear endothelin-1 and releases nitric oxide.
+That is the pharmacology idea: block the constrictor arm without removing the dilator and clearance arm.
 
-So the idea is straightforward: block the constrictor arm without removing the dilator and clearance arm.
-
-For context, bosentan is about **20:1** selective, macitentan about **50:1**, and ambrisentan is over **4000:1**. That is the selectivity story.
-
-The other two PAH pathways — nitric oxide / cGMP and prostacyclin — are here for context. This case is the endothelin pathway.
+The other PAH pathways are context. This case is the endothelin-pathway dose bridge.
 
 ## Cues
-- ⏱ 45 sec — mechanism only
+- ⏱ 35 sec — mechanism only
 - 🎚 Slow down on ETA vs ETB
 - ⚠ Do NOT inflate the selectivity; the number is enough
 - ✅ Land on "that is the selectivity story"
 
 ## Bridge
-→ Field context next — where ambrisentan sits in the pediatric PAH timeline.`,
+→ AMB112529 trial design next — where the bridge had to work.`,
 
   'cs1-history': `## Spoken
 A step back from ambrisentan for a minute: this is the PAH treatment landscape — three decades, four pathway columns.
@@ -325,18 +317,18 @@ The point is: ==PAH treatment evolved by pathway expansion==. Ambrisentan sits i
   'cs1-trial': `## Spoken
 Pediatric PAH moved more slowly than adult PAH.
 
-Above the axis are adult approval landmarks: ==bosentan 2001, sildenafil 2005, ambrisentan 2007, macitentan 2013, selexipag 2015, sotatercept 2024==. These are approval years, not an exhaustive drug-history list, but enough to show the pace.
+The adult field had multiple pathway approvals by the mid-2010s. Pediatric PAH had fewer precedents and much smaller trials.
 
-Below the axis are the pediatric steps. The key early precedent is ==bosentan 2009 EMA== with FUTURE-1: the first PK-matching framework approved in pediatric PAH.
+The key pediatric precedent was ==bosentan 2009 EMA== with FUTURE-1: adult efficacy as anchor, pediatric PK as bridge.
 
-Ambrisentan took **==eight years==**. Enrollment was ==held== in March 2013 because of the juvenile rat brain-weight finding. The study was ==terminated== in February 2019 at **41 of 66 enrolled**. Then in ==2021==, EMA and PMDA approved the pediatric label on the Okour PopPK package.
+Ambrisentan took **==eight years==**. Enrollment was held in 2013, the study was terminated in 2019 at **41 of 66 enrolled**, and EMA and PMDA approved the pediatric label in 2021.
 
 So the dashed coral arc is the story: ==held, terminated, then approved==.
 
-And ICH E11A in 2024 later formalized this kind of logic: use adult evidence, disease similarity, pediatric PK, and uncertainty management to support pediatric extrapolation. In other words, this case used the framework before the guidance gave it a formal name.
+ICH E11A later gave that logic a formal name.
 
 ## Cues
-- ⏱ ~70 sec — keep the timeline clean
+- ⏱ ~50 sec — keep the timeline clean
 - 🎚 Calm on "eight years"; no melodrama
 - 🗣 Pronunciation cues: macitentan (Machatentin); sotatercept (So-Tater-Cept)
 - ⚠ Do NOT say "the trial failed"
@@ -351,29 +343,46 @@ This is the pivot.
 
 Adult evidence existed. The pediatric efficacy-trial path ==did not==.
 
-ARIES established adult PAH efficacy. ETA blockade was mechanistically plausible in pediatric PAH. So the clinical task became dose selection.
+ARIES established adult PAH efficacy. ETA blockade was mechanistically plausible in children. So the clinical task became dose selection.
 
-But repeating the adult efficacy trial in children was not realistic.
+Repeating the adult trial in children was not realistic for five reasons.
 
-Five constraints made that clear.
+==Enrollment== was rare disease: roughly **2 to 16 per million children**.
 
-**==One — enrollment.==** Pediatric PAH is rare: roughly **2 to 16 per million children**.
+==Pooling== mixed etiologies. ==Control arm== ethics were difficult because most patients entered on background PAH therapy.
 
-**==Two — pooling.==** AMB112529 was not one clean phenotype: idiopathic disease, post-repair congenital heart disease, connective tissue disease, and familial disease.
+==Endpoint== was unstable because six-minute walk does not transfer cleanly to younger children.
 
-**==Three — control arm.==** **80%** entered on baseline PAH therapy, and **66%** continued it. A clean placebo-controlled pediatric efficacy trial is hard clinically and ethically.
-
-**==Four — endpoint.==** Six-minute walk distance does not transfer cleanly to young children. Growth, cooperation, and performance all affect the signal.
-
-**==Five — precedent.==** STARTS-1 enrolled **235 children** and still narrowly missed its primary endpoint.
+And ==precedent== mattered: STARTS-1 enrolled **235 children** and still narrowly missed its primary endpoint.
 
 So the question was not, "Can we repeat ARIES in children?" The question was: ==how do we defend a pediatric dose under these constraints?==
 
 ## Cues
-- ⏱ 65–75 sec — five numbered beats
+- ⏱ 55 sec — five constraint beats
 - 🎚 Say the constraints plainly; this is senior judgment, not drama
 - ⚠ Do NOT say "trial failed"
 - ✅ Land on the dose-defense question
+
+## Bridge
+→ Before the PopPK build itself, one methodological guardrail: how we handled covariates and allometry.`,
+
+  'cs1-covariate-strategy': `## Spoken
+Before showing the model fit, I want to name the three design decisions that made the model defensible.
+
+First, anchor on adults. The adult evidence base carried the structure; the pediatric data tested whether that structure still held.
+
+Second, constrain the biology. Allometric scaling was fixed — clearance at **==0.75==**, volume at **==1.0==** — rather than estimated from 39 children.
+
+Third, stay parsimonious. Covariates entered as a full model, and the deletion gate was **==p less than 0.001==**, not 0.05.
+
+So the final model being weight-only was not omission. It was the defense: ==anchor, constrain, stay parsimonious==.
+
+## Cues
+- ⏱ 55 sec — methodological guardrail, not a stats lecture
+- 👆 Gesture left-to-right: anchor → constrain → parsimonious
+- 🎚 Say "each one a regulatory defense" slowly
+- ⚠ Do NOT expand the whole table live; point to backup if challenged
+- ✅ Land on "anchor, constrain, stay parsimonious"
 
 ## Bridge
 → Now the PopPK build itself — what model, what fit, what exposure match.`,
@@ -382,20 +391,18 @@ So the question was not, "Can we repeat ARIES in children?" The question was: ==
   'cs1-poppk': `## Spoken
 The model was **==two-compartment, first-order absorption with t-lag==**.
 
-Allometric scaling was fixed *a priori*: body weight on clearance with exponent **0.75**, and on volume with exponent **1.0**. We did not estimate those exponents from 39 pediatric patients. That was deliberate, and it is the standard Holford convention regulators expect.
+Allometric scaling was fixed *a priori*: body weight on clearance with exponent **0.75**, and on volume with exponent **1.0**. We did not estimate those exponents from 39 pediatric patients.
 
 The basic structure was: **==380 adult patients build the model. 39 pediatric patients confirm it.==**
 
-The workflow was straightforward. We built the adult PopPK foundation, then used the pcVPC to ask: does the adult model predict the pediatric data? If yes, we inherited the structure and fit the pediatric data with sparse sampling. Then we compared steady-state exposure — AUCss and Cmax — evaluated exposure-response for 6MWD and adverse events, and packaged that evidence for submission.
+The workflow was adult foundation first, then pediatric confirmation. The pcVPC asked whether the adult model predicted the pediatric observations. It did.
 
-The parameter table is the receipt. The two things to point to are **==clearance over F==** and **==volume==**. The estimates are precise enough for the bridge, and the allometric weight scaling is fixed rather than estimated given the small pediatric dataset.
+The parameter table is the receipt, not the story. The story is parsimony: the structure held, weight scaling did the work, and the pediatric data confirmed the bridge.
 
-For covariates, we used a full covariate model rather than forward inclusion: all **==12 prespecified covariates==** went in together. To be extra careful, we also used backward elimination. The result was clean — only allometric body weight stayed.
-
-The pcVPC is the model check. The pediatric observations overlap the model-predicted ribbon across the dosing interval, so the pediatric fit is behaving well.
+This is why the final model can stay simple without being simplistic.
 
 ## Cues
-- ⏱ 75 sec — numbers need air
+- ⏱ 65 sec — numbers need air
 - 🎚 Speak the parameter row like a receipt, not a proof of cleverness
 - ⚠ Do NOT imply 39 patients built the model
 - ✅ Land on "380 build; 39 confirm"
@@ -404,30 +411,24 @@ The pcVPC is the model check. The pediatric observations overlap the model-predi
 → The next slide adds the PK/PD context: did the exposure match sit in a clinically safe and interpretable range?`,
 
   'cs1-pkpd': `## Spoken
-The previous slide answered the first question: can we confidently predict the pediatric data? ==Yes — the pediatric observations overlapped the model-predicted ribbon.==
+The model predicted the pediatric data. Now the question is whether the exposure range looked clinically coherent.
 
-Now this slide asks the next question: how do those pediatric exposures compare with adults, and do we see any warning signal across exposure?
+Top row: pediatric AUC sits inside the adult target envelope. ==AUC is the bridge.==
 
-The careful answer is: ==no clear exposure-response gradient in the observed range.==
+Cmax is higher in children, but still interpretable against adult safety experience. ==Cmax is the safety check.==
 
-Top row first. AUCss by weight and Cmax by dose tell the same basic story: pediatric exposures sit inside the adult target envelope. AUC is the bridge. Cmax is the safety check.
+Bottom row: no clear efficacy or safety exposure-response gradient in the observed range.
 
-Cmax is higher in children, but still interpretable against adult safety experience.
-
-Bottom row. The efficacy panel plots AUCss against change in six-minute walk distance. I would not overclaim this. Six-minute walk is noisy in children, and the dataset is small. The defensible statement is that ==there is no clear exposure-response gradient suggesting we chose the wrong exposure range.==
-
-The safety boxplots are similar. Related adverse events did not cluster at clearly higher AUC or Cmax.
-
-So the case has two receipts: ==exposure matched the adult target==, and ==the observed PK/PD did not contradict the bridge==.
+I would not overclaim six-minute walk here. The defensible statement is simpler: ==the observed PK/PD did not contradict the exposure bridge==.
 
 ## Cues
-- ⏱ 75 sec — distinguish AUC bridge from Cmax safety check
+- ⏱ 55 sec — distinguish AUC bridge from Cmax safety check
 - 🎚 Use cautious verbs: "no clear gradient," "observed range," "did not contradict"
 - ⚠ Do NOT call 6MWD a strong pediatric endpoint
 - ✅ Recovery line: "AUC carried the dose. Cmax checked safety."
 
 ## Bridge
-→ Now the regulatory architecture — which branch did this evidence fit: EMA PK matching or the FDA hemodynamic bridge?`,
+→ But the program absorbed three disruptions at once.`,
 
   // Slide 10 — CS1 two architectural precedents (FUTURE-1 + Garnett-Florian)
   'cs1-results': `## Spoken
@@ -463,18 +464,16 @@ The case is the left branch: ==adult efficacy anchor plus pediatric PK matching=
   'cs1-outcome': `## Spoken
 AMB112529 had three disruptions happening at the same time.
 
-**==One — trial.==** Enrollment stopped before a clean efficacy answer. The program was held from **2013 to 2017**, formally terminated in **2019**, and ended with **39 of 66** planned patients evaluable. The pediatric dataset became confirmatory, not a standalone efficacy trial.
+**==Trial.==** Enrollment stopped before a clean efficacy answer; the pediatric dataset became confirmatory, not standalone.
 
-**==Two — regulatory.==** Pediatric PAH dose selection was under scrutiny. The sildenafil history made regulators cautious about empirical pediatric dose escalation. That pushed the program toward exposure matching.
+**==Regulatory.==** Pediatric PAH dose selection was under scrutiny, so empirical dose escalation was not enough.
 
-**==Three — filing.==** Label outcomes followed filing geography. EMA and PMDA proceeded. The filing-details answer is Q&A material if asked; I would not volunteer it here.
+**==Filing.==** EMA and PMDA proceeded; FDA did not receive the package.
 
-Trial interruption, regulatory caution, filing geography. All three pointed away from a conventional pediatric efficacy trial.
-
-The next slide is how the dose bridge held.
+Trial interruption, regulatory caution, filing geography. All three pointed toward one defensible path: exposure matching.
 
 ## Cues
-- ⏱ 55–65 sec — three constraints only
+- ⏱ 45 sec — three constraints only
 - 🎚 Say each card plainly; no mini-lecture
 - ⚠ Do NOT volunteer HR 3.95, exposure margins, two deaths, GSK/Gilead rights, or FDA non-filing unless asked
 - ✅ End with "how the dose bridge held"
@@ -484,28 +483,28 @@ The next slide is how the dose bridge held.
 
   // Slide 12 — CS1 5-node framework (380 → 2-cmt → AUC → 39 → −3%)
   'cs1-bracket': `## Spoken
-Here is the five-step chain from adult anchor to pediatric dose.
+Here is the chain from adult anchor to pediatric dose.
 
-**==Step 01.==** **380 adult patients**, six studies pooled, **3,126 PK observations**. That is the anchor.
+**==Anchor.==** **380 adult patients**, six studies pooled, **3,126 PK observations**.
 
-**==Step 02.==** A **two-compartment** PopPK model with first-order absorption and lag. Allometric exponents were prespecified: clearance to weight **0.75**, volume to weight **1.0**.
+**==Model.==** A two-compartment PopPK structure with prespecified allometry.
 
-**==Step 03.==** Simulate AUC by weight band, using the adult AUCss range as the target.
+**==Simulate.==** AUC by weight band against the adult AUCss target.
 
-**==Step 04.==** **39 evaluable pediatric patients** in AMB112529, with **211 sparse PK observations**, ages **8 to under 18**. The pediatric data did not create the framework. They confirmed the exposure bridge.
+**==Confirm.==** **39 evaluable pediatric patients**, **211 sparse PK observations**, ages **8 to under 18**.
 
-**==Step 05.==** **Minus 3%** at the low dose and **plus 0.3%** at the high dose, pediatric AUCss versus adult target.
+**==Match.==** Pediatric AUCss was **minus 3%** at the low dose and **plus 0.3%** at the high dose versus adult target.
 
-Anchor, model, simulate, confirm, match. Five steps, one defensible dose.
+The pediatric data did not create the framework. They confirmed it.
 
 ## Cues
-- ⏱ 60 sec — one breath per step
+- ⏱ 45 sec — one breath per step
 - 🎚 Make this sound like a workflow you can defend, not a slogan
 - ⚠ Do NOT say the model was built on 39 patients
 - ✅ Land on "pediatric data confirmed the exposure bridge"
 
 ## Bridge
-→ The match itself — the result.`,
+→ Outcome and codification next — what the agencies did, and what ICH later formalized.`,
 
   // Slide 13 — CS1 exposure match (-3% / +0.3% + density overlay)
   'cs1-verdict': `## Spoken
@@ -536,43 +535,39 @@ EMA and PMDA approved pediatric ambrisentan in 2021. ICH E11A codified the extra
 
 **==EMA, 2021.==** Pediatric Volibris, ages **8 to 17**, three weight bands, two dose levels: **2.5 to 10 mg once daily**.
 
-**==PMDA, 2021.==** Same exposure-matching framework. GSK Japan announced the pediatric Volibris approval on **March 23, 2021**, and the Japanese label cites the AMB112529 hemodynamic substudy.
+**==PMDA, 2021.==** Same exposure-matching framework.
 
-**==ICH E11A, December 2024.==** The extrapolation continuum was codified. Where similarity is high, exposure matching can carry more of the inference.
+**==ICH E11A, 2024.==** The extrapolation continuum was codified. Where similarity is high, exposure matching can carry more of the inference.
 
 So the framework prefigured the standard by four years.
 
-The same architecture is now the working template for pediatric PAH programs: adult efficacy as anchor, pediatric PK as bridge, totality of evidence for submission.
+One FDA caveat: FDA never received the package. That is not a regulatory rejection; it is a filing-geography issue.
 
-One proactive note on FDA. FDA never received the package. That is a split-rights commercial outcome, not a regulatory rejection. The Letairis label says safety and effectiveness in pediatric patients have not been established. As of 2026, ambrisentan still has no formal FDA pediatric indication.
+The lesson is the portable architecture: adult efficacy as anchor, pediatric PK as bridge, totality of evidence for submission.
 
 ## Cues
-- ⏱ 75 sec — outcome, codification, FDA caveat
+- ⏱ 50 sec — outcome, codification, FDA caveat
 - 🎚 Calm on FDA; state it once and move on
 - ⚠ Do NOT make this defensive
 - ✅ Land on "no formal FDA pediatric indication"
 
 ## Bridge
-→ Three takeaways that travel beyond ambrisentan, then we hand off to Case 02.`,
+→ Two takeaways that travel beyond ambrisentan, then we hand off to Case 02.`,
 
   // Slide 15 — CS1 → CS2 bridge (three takeaways: methodology / architecture / regulatory outcome)
   'cs1-bridge': `## Spoken
-So what travels beyond ambrisentan?
+What travels beyond ambrisentan is simple.
 
-First, **==methodology==**. Where similarity is high, PK matching can support the dose. ICH E11A later codified that as part of the extrapolation continuum.
+Where similarity is high, PK matching can support the dose.
 
-Second, **==architecture==**. Inheritance is the strength. The adult data build the model; pediatric data confirm whether the bridge is adequate. **39 patients cannot build the whole answer, but 39 patients can confirm one.**
+And the architecture matters: adult data build the model; pediatric data confirm whether the bridge is adequate.
 
-Third, **==regulatory outcome==**. The practical endpoint was dose labeling: **8 to 17 years**, three weight bands, two dose levels. EMA and PMDA accepted the exposure bridge.
-
-So case one is a rare pediatric pulmonary disease where the model made the dose defensible.
-
-Case two is a different problem: oncology, India, and a regulatory waiver where the clinical pharmacology package had to replace a local trial.
+Case two is a different problem: oncology, India, and a clinical pharmacology package that had to replace a local trial.
 
 ## Cues
-- ⏱ 45 sec — three takeaways and move
+- ⏱ 30 sec — two takeaways and move
 - 🎚 Conversational summary; this should sound like you closing the loop
-- ⚠ Do NOT add a fourth takeaway
+- ⚠ Do NOT add more takeaways
 - ✅ Land on "clinical pharmacology package had to replace a local trial"
 
 ## Bridge

@@ -1,0 +1,22 @@
+export default {
+  'principles': `Welcome to the Zaj-Design Showcase. \n\nZaj-Design optimizes for credibility-first design. We build trust by resisting the urge to over-design.`,
+  'color': `The five-slot color system is strictly enforced. \n\nWe never use color decoratively. Each color serves a distinct semantic purpose.`,
+  'typography': `We restrict typography to three distinct fonts. \n\nBy ensuring strict adherence to the font triplet, we achieve consistent hierarchy and legibility.`,
+  'motion': `Motion reveals content. \n\nWe strictly enforce the Out-Expo easing curve and duration tiers to ensure motions are smooth, predictable, and professional.`,
+  'spacing': `Marketing fills space; editorial earns space. \n\nBy leveraging the 8-point scale and asymmetric layouts, our compositions breathe.`,
+  'failure-visual': `Generative AI can introduce unpredictable artifacts. \n\nWe rely on deterministic rendering tools (Framer Motion, SVG, Manim) for technical architecture.`,
+  'failure-structural': `Structure must support the synthesis. \n\nAvoid rushing, over-densifying slides, and leaking illustrative numbers by enforcing strict validation systems.`,
+  'tone': `Don't try to satisfy multiple registers at once. \n\nKnow your audience and adopt the appropriate tone from the beginning.`,
+  'multi-case': `When presenting a multi-case deck, case-color discipline is paramount. \n\nThe audience should inherently know which case they are viewing by the slide's active color tokens.`,
+  'anti-patterns': `Finally, these are the patterns we explicitly reject. \n\nZaj-Design is defined as much by what we exclude as what we include.`,
+  'motion-newspaper': `The Newspaper Reveal (Johnny Harris signature). \n\nNotice how the document slides from the top while scaling down, creating the feeling of being "placed" on the canvas.`,
+  'motion-highlighter': `The Highlighter (Vox signature). \n\nA specific phrase gets an amber rectangle drawn behind it. The color stays at 80% opacity so text reads through.`,
+  'motion-slide-from-top': `The Slide-from-top label (Bloomberg signature). \n\nUsed for chart axes, section headers, and callouts. It animates opacity and vertical position simultaneously.`,
+  'motion-number-ramp': `Number ramp-up. \n\nThe most important data stat builds to its final value, holding the audience's attention until the number resolves.`,
+  'motion-annotation': `The Annotation Arrow (NYT signature). \n\nThe arrow draws along a curve. The arrowhead and text label only appear after the line finishes its path.`,
+  'pharmagent-beat1': `PharmAgent Explainer: The Problem. \n\nBy placing the disconnected tools the audience currently uses on screen, we establish instant empathy and credibility.`,
+  'pharmagent-beat2': `PharmAgent Explainer: Privacy Boundary. \n\nThe split-panel composition visually enforces the claim of structural privacy. Zero patient rows cross this boundary.`,
+  'pharmagent-beat3': `PharmAgent Explainer: The Architecture. \n\nThis is the load-bearing visual of the presentation. We use bidirectional arrows to explicitly demonstrate that agents read and write to the typed state bus.`,
+  'pharmagent-beat5': `PharmAgent Explainer: The Audit Chain. \n\nA physical chain-link visualization makes the abstract concept of a tamper-evident hash chain concrete for the panel.`,
+  'pharmagent-beat6': `PharmAgent Explainer: The Close. \n\nWe complete the narrative arc by returning to the analyst. The ghost architecture in the background reinforces the learning, and the citation card grounds the work in formal research.`
+};

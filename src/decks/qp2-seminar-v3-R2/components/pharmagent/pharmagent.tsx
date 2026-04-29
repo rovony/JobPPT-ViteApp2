@@ -30,7 +30,7 @@ const Header = ({ activeUC, onSwitch, onReset }) => {
   return (
     <div className="px-6 pt-4 pb-3 border-b border-stone-800 flex items-start gap-6 bg-stone-950">
       <div className="flex-1 min-w-0">
-        <div className="text-[16px] font-mono uppercase tracking-[0.18em] text-stone-500 mb-1">CS · PHARMAGENT WORKFLOW — INTERACTIVE STORYBOARD</div>
+        <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-stone-500 mb-1">CS · PHARMAGENT WORKFLOW — INTERACTIVE STORYBOARD</div>
         <div className="font-serif text-[22px] leading-tight text-stone-100 max-w-[820px]">
           The architecture decides. The tools execute. <span className="text-emerald-300">The audit chain remembers.</span>
         </div>
@@ -45,16 +45,16 @@ const Header = ({ activeUC, onSwitch, onReset }) => {
               <div className="flex items-center gap-1.5">
                 <I size={13} color={active ? '#34d399' : '#a8a29e'} />
                 <div className="leading-tight text-left">
-                  <div className={`text-[16px] font-medium ${active ? 'text-emerald-200' : 'text-stone-200'}`}>{uc.label}</div>
-                  <div className="text-[20px] font-mono text-stone-500 uppercase tracking-wider">{uc.sub}</div>
+                  <div className={`text-[10px] font-medium ${active ? 'text-emerald-200' : 'text-stone-200'}`}>{uc.label}</div>
+                  <div className="text-[8px] font-mono text-stone-500 uppercase tracking-wider">{uc.sub}</div>
                 </div>
               </div>
               {active && <div className="absolute left-2 right-2 -bottom-px h-px bg-emerald-400" style={{ boxShadow: '0 0 6px #34d399' }} />}
             </button>
           );
         })}
-        <button onClick={onReset} className="ml-2 text-[24px] font-mono text-stone-500 hover:text-rose-300 px-1.5 py-1 flex items-center gap-1 transition-colors" title="Clear PharmState">
-          <Icon.RefreshCw size={10} /> Reset PharmState
+        <button onClick={onReset} className="ml-2 text-[9px] font-mono text-stone-500 hover:text-rose-300 px-1.5 py-1 flex items-center gap-1 transition-colors" title="Clear PharmState">
+          <Icon.Refresh size={10} /> Reset PharmState
         </button>
       </div>
     </div>
@@ -65,7 +65,7 @@ const Header = ({ activeUC, onSwitch, onReset }) => {
 const Timeline = ({ uc, currentIdx }) => {
   return (
     <div className="w-[240px] shrink-0 border-r border-stone-800 bg-stone-950/60 px-3 py-3 overflow-y-auto">
-      <div className="text-[16px] font-mono uppercase tracking-widest text-stone-500 mb-2">storyboard · {uc.label}</div>
+      <div className="text-[10px] font-mono uppercase tracking-widest text-stone-500 mb-2">storyboard · {uc.label}</div>
       <div className="space-y-2">
         {uc.steps.map((s, i) => {
           const isPast = i < currentIdx;
@@ -79,8 +79,8 @@ const Timeline = ({ uc, currentIdx }) => {
                 <div className={`w-1.5 h-1.5 rounded-full ${dotColor} ${isActive ? 'pulse-ring' : ''}`} />
               </div>
               <div className="min-w-0">
-                <div className={`text-[24px] font-mono ${tColor} tabular`}>{s.t}</div>
-                <div className={`text-[16px] leading-tight ${labelColor}`}>{s.label}</div>
+                <div className={`text-[9px] font-mono ${tColor} tabular`}>{s.t}</div>
+                <div className={`text-[10px] leading-tight ${labelColor}`}>{s.label}</div>
               </div>
             </div>
           );
@@ -98,8 +98,8 @@ const ChatStream = ({ messages, pharmState }) => {
   }, [messages.length]);
 
   return (
-    <div className="w-[480px] shrink-0 border-l border-stone-800 bg-stone-950/60 flex flex-col">
-      <div className="px-3 py-2 border-b border-stone-800 text-[16px] font-mono uppercase tracking-widest text-stone-500">chat stream · last 4</div>
+    <div className="w-[340px] shrink-0 border-l border-stone-800 bg-stone-950/60 flex flex-col">
+      <div className="px-3 py-2 border-b border-stone-800 text-[10px] font-mono uppercase tracking-widest text-stone-500">chat stream · last 4</div>
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-3 py-3 space-y-2.5">
         {messages.slice(-4).map((m, idx, arr) => {
           const isLast = idx === arr.length - 1;
@@ -115,10 +115,10 @@ const ChatStream = ({ messages, pharmState }) => {
                 <div className={`w-4 h-4 rounded-sm flex items-center justify-center ${isAnalyst ? 'bg-rose-950 border border-rose-500/40' : 'bg-emerald-950 border border-emerald-500/40'}`}>
                   <I size={9} color={isAnalyst ? '#fb7185' : '#34d399'} />
                 </div>
-                <span className={`text-[24px] font-mono uppercase tracking-widest ${isAnalyst ? 'text-rose-300' : 'text-emerald-300'}`}>{m.who}</span>
-                <span className="text-[20px] font-mono text-stone-600 ml-auto tabular">{m.t}</span>
+                <span className={`text-[9px] font-mono uppercase tracking-widest ${isAnalyst ? 'text-rose-300' : 'text-emerald-300'}`}>{m.who}</span>
+                <span className="text-[8px] font-mono text-stone-600 ml-auto tabular">{m.t}</span>
               </div>
-              <div className="text-[16px] leading-snug text-stone-200">{m.text}</div>
+              <div className="text-[10.5px] leading-snug text-stone-200">{m.text}</div>
               {Artifact && (
                 <div className="mt-2">
                   <Artifact chainHead={pharmState.audit.chain_head} nEntries={pharmState.audit.n_entries} />
@@ -132,7 +132,7 @@ const ChatStream = ({ messages, pharmState }) => {
           <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 typing-dot" style={{ animationDelay: '0s' }}></div>
           <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 typing-dot" style={{ animationDelay: '0.18s' }}></div>
           <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 typing-dot" style={{ animationDelay: '0.36s' }}></div>
-          <span className="text-[20px] font-mono text-stone-600 ml-1.5">agent thinking</span>
+          <span className="text-[8px] font-mono text-stone-600 ml-1.5">agent thinking</span>
         </div>
       </div>
     </div>
@@ -143,20 +143,20 @@ const ChatStream = ({ messages, pharmState }) => {
 const ToolCallLog = ({ entries }) => (
   <div className="flex-1 border-r border-stone-800 px-3 py-2 bg-stone-950/60 overflow-hidden flex flex-col">
     <div className="flex items-center justify-between mb-1.5">
-      <span className="text-[16px] font-mono uppercase tracking-widest text-stone-500">Tool calls · live</span>
-      <span className="text-[24px] font-mono text-stone-600 tabular">{entries.length} total</span>
+      <span className="text-[10px] font-mono uppercase tracking-widest text-stone-500">Tool calls · live</span>
+      <span className="text-[9px] font-mono text-stone-600 tabular">{entries.length} total</span>
     </div>
     <div className="flex-1 overflow-y-auto space-y-1">
       {entries.slice(-5).map((e, i, arr) => {
         const isLast = i === arr.length - 1;
         return (
-          <div key={e.id} className={`font-mono text-[16px] tabular ${isLast ? 'text-stone-100' : 'text-stone-500'} transition-colors`}>
+          <div key={e.id} className={`font-mono text-[10px] tabular ${isLast ? 'text-stone-100' : 'text-stone-500'} transition-colors`}>
             <span className="text-stone-600">[{e.at}] </span>
             <span>{e.text}</span>
           </div>
         );
       })}
-      {entries.length === 0 && <div className="text-[16px] font-mono text-stone-700 italic">awaiting first invocation…</div>}
+      {entries.length === 0 && <div className="text-[10px] font-mono text-stone-700 italic">awaiting first invocation…</div>}
     </div>
   </div>
 );
@@ -167,11 +167,11 @@ const AuditChain = ({ entries, onVerify, verifying }) => {
   return (
     <div className="flex-1 px-3 py-2 bg-stone-950/60 flex flex-col">
       <div className="flex items-center justify-between mb-1.5">
-        <span className="text-[16px] font-mono uppercase tracking-widest text-stone-500">Audit chain · SHA-256 · tamper-evident</span>
-        <button onClick={onVerify} className="text-[24px] font-mono px-2 py-0.5 rounded border border-emerald-700/50 text-emerald-300 hover:bg-emerald-950/40 transition-colors">Verify chain</button>
+        <span className="text-[10px] font-mono uppercase tracking-widest text-stone-500">Audit chain · SHA-256 · tamper-evident</span>
+        <button onClick={onVerify} className="text-[9px] font-mono px-2 py-0.5 rounded border border-emerald-700/50 text-emerald-300 hover:bg-emerald-950/40 transition-colors">Verify chain</button>
       </div>
       <div className="flex items-center gap-1 overflow-hidden flex-1">
-        {prior > 0 && <div className="text-[24px] font-mono text-stone-600 shrink-0 pr-1">+{prior} prior →</div>}
+        {prior > 0 && <div className="text-[9px] font-mono text-stone-600 shrink-0 pr-1">+{prior} prior →</div>}
         <AP>
         {visible.map((e, i) => (
           <M.div
@@ -184,8 +184,8 @@ const AuditChain = ({ entries, onVerify, verifying }) => {
             title={`tool: ${e.tool}\nhash: ${e.hash}\ninput: 0x${(e.id*7919).toString(16).slice(0,8)}\noutput: 0x${(e.id*1543).toString(16).slice(0,8)}`}
           >
             <div className={`relative flex flex-col items-center justify-center px-1.5 py-1 rounded border bg-stone-900/80 ${verifying ? 'border-emerald-400/80' : 'border-stone-700'}`} style={{ minWidth: 76 }}>
-              <div className="text-[20px] font-mono text-stone-300 truncate max-w-[68px]">{e.tool}</div>
-              <div className="text-[20px] font-mono text-emerald-300 tabular">{e.hash}</div>
+              <div className="text-[8px] font-mono text-stone-300 truncate max-w-[68px]">{e.tool}</div>
+              <div className="text-[8px] font-mono text-emerald-300 tabular">{e.hash}</div>
               {verifying && (
                 <M.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: i * 0.12, duration: 0.25 }} className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-emerald-500 flex items-center justify-center">
                   <Icon.CheckCircle size={9} color="#0c0a09" strokeWidth={3} />
@@ -198,7 +198,7 @@ const AuditChain = ({ entries, onVerify, verifying }) => {
           </M.div>
         ))}
         </AP>
-        {entries.length === 0 && <div className="text-[16px] font-mono text-stone-700 italic">no entries yet</div>}
+        {entries.length === 0 && <div className="text-[10px] font-mono text-stone-700 italic">no entries yet</div>}
       </div>
     </div>
   );
@@ -206,12 +206,11 @@ const AuditChain = ({ entries, onVerify, verifying }) => {
 
 /* ─── PHARMSTATE BUS ─── */
 const PharmStateBus = ({ pharmState, expanded, onExpand }) => {
-  
   return (
     <div className="border-t border-emerald-900/40 bg-emerald-950/20 px-3 py-2">
       <div className="flex items-center justify-between mb-1.5">
-        <span className="text-[16px] font-mono uppercase tracking-widest text-emerald-300">PharmState · typed shared bus · 34 fields total</span>
-        <span className="text-[24px] font-mono text-stone-500">click bucket to inspect · persists across runs</span>
+        <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-300">PharmState · typed shared bus · 34 fields total</span>
+        <span className="text-[9px] font-mono text-stone-500">click bucket to inspect · persists across runs</span>
       </div>
       <div className="grid grid-cols-6 gap-1.5">
         {BUCKETS.map(b => {
@@ -225,10 +224,10 @@ const PharmStateBus = ({ pharmState, expanded, onExpand }) => {
               className={`relative rounded border p-1.5 text-left transition-all ${isExpanded ? 'border-emerald-400 emerald-glow bg-emerald-950/40' : filled > 0 ? 'border-emerald-700/60 bg-stone-900/70 hover:bg-stone-900' : 'border-stone-800 bg-stone-900/50 hover:bg-stone-900'}`}>
               <div className="flex items-center gap-1.5">
                 <I size={11} color={filled > 0 ? '#34d399' : '#78716c'} />
-                <span className={`text-[16px] font-medium ${filled > 0 ? 'text-emerald-200' : 'text-stone-300'}`}>{b.label}</span>
-                <span className="ml-auto text-[24px] font-mono tabular text-stone-500">{filled}/{b.fields.length}</span>
+                <span className={`text-[10px] font-medium ${filled > 0 ? 'text-emerald-200' : 'text-stone-300'}`}>{b.label}</span>
+                <span className="ml-auto text-[9px] font-mono tabular text-stone-500">{filled}/{b.fields.length}</span>
               </div>
-              <div className="text-[20px] font-mono text-stone-500 uppercase tracking-wider mt-0.5 truncate">{b.sub}</div>
+              <div className="text-[8px] font-mono text-stone-500 uppercase tracking-wider mt-0.5 truncate">{b.sub}</div>
               <div className="h-0.5 bg-stone-800 rounded-full mt-1 overflow-hidden">
                 <M.div
                   initial={false}
@@ -256,12 +255,12 @@ const PharmStateBus = ({ pharmState, expanded, onExpand }) => {
               const state = pharmState[expanded] || {};
               return (
                 <div>
-                  <div className="text-[24px] font-mono uppercase tracking-widest text-emerald-300 mb-1.5">{b.label} bucket · field contents</div>
+                  <div className="text-[9px] font-mono uppercase tracking-widest text-emerald-300 mb-1.5">{b.label} bucket · field contents</div>
                   <div className="grid grid-cols-3 gap-x-4 gap-y-1">
                     {b.fields.map(f => {
                       const has = !!state[f];
                       return (
-                        <div key={f} className="font-mono text-[16px] tabular flex justify-between gap-2">
+                        <div key={f} className="font-mono text-[10px] tabular flex justify-between gap-2">
                           <span className="text-stone-500 truncate">{f}:</span>
                           <span className={has ? 'text-emerald-300 truncate' : 'text-stone-700'}>{has ? state[f] : '— null'}</span>
                         </div>
@@ -281,7 +280,6 @@ const PharmStateBus = ({ pharmState, expanded, onExpand }) => {
 
 /* ─── MAIN APP ─── */
 export default function PharmAgentApp() {
-  
   const reduced = useReducedMotion();
   const [activeUC, setActiveUC] = React.useState('poppk');
   const [stepIdx, setStepIdx] = React.useState(0);
@@ -408,3 +406,4 @@ export default function PharmAgentApp() {
     </div>
   );
 }
+

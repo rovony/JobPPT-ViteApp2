@@ -169,6 +169,9 @@ const stub = ({ id, title, layout = 'body', eyebrow, headline, caseColor, note }
   };
 };
 
+const Cs1CovariateStrategy = () =>
+  createElement(Cs1BackupB17CovariateAnalysis, { live: true });
+
 const manifest = {
   id: 'qp2-seminar-v4',
   title: 'Quantitative Pharmacology in Action',
@@ -268,51 +271,57 @@ const manifest = {
     // ══════════════════════════════════════════════════════════════
 
     // 05 — CS1 case divider (coral cascade starts here; lung morph source)
-    { id: 'cs1-divider', title: 'Case 01 · Ambrisentan', component: Cs1Divider, isTitle: true, transition: 'fade', time: 30 },
+    { id: 'cs1-divider', title: 'Case 01 · Ambrisentan', component: Cs1Divider, isTitle: true, transition: 'fade', time: 20 },
 
     // 06 — CS1 the Clin Pharm question (lung morph destination)
-    { id: 'cs1-question', title: 'CS1 · the question', component: Cs1Question, isTitle: false, transition: 'fade', time: 60 },
+    { id: 'cs1-question', title: 'CS1 · the question', component: Cs1Question, isTitle: false, transition: 'fade', time: 45 },
 
     // 07 — CS1 context (merged disease + class)
-    { id: 'cs1-context', title: 'CS1 · why the question is hard', component: Cs1Context, isTitle: false, transition: 'fade', time: 75 },
+    { id: 'cs1-context', title: 'CS1 · why the question is hard', component: Cs1Context, isTitle: false, transition: 'fade', time: 45 },
 
     // 07b — CS1 mechanism (4 PAH pathways + ambrisentan ETA blocker; Merck/sotatercept anchor)
-    { id: 'cs1-mechanism', title: 'CS1 · pathway + drug', component: Cs1Mechanism, isTitle: false, transition: 'fade', time: 45 },
+    { id: 'cs1-mechanism', title: 'CS1 · pathway + drug', component: Cs1Mechanism, isTitle: false, transition: 'fade', time: 35 },
 
-    // 07c — CS1 PAH treatment history (separate visual per fixes-on-v6 — three decades, four pathways, Merck arrives 2024)
-    { id: 'cs1-history', title: 'CS1 · PAH treatment history', component: Cs1History, isTitle: false, transition: 'fade', time: 75 },
+    // 07c — CS1 PAH treatment history (HIDDEN from live v4 timing pass;
+    //      retained as backup/context because it made Case 1 run long).
+    // { id: 'cs1-history', title: 'CS1 · PAH treatment history', component: Cs1History, isTitle: false, transition: 'fade', time: 75 },
 
     // 08 — CS1 trial design + LTE
-    { id: 'cs1-trial', title: 'CS1 · AMB112529 + LTE', component: Cs1Trial, isTitle: false, transition: 'fade', time: 75 },
+    { id: 'cs1-trial', title: 'CS1 · AMB112529 + LTE', component: Cs1Trial, isTitle: false, transition: 'fade', time: 50 },
 
     // 09 — CS1 architecture (drug profile + 5 pediatric trial constraints —
     //      sets up why a 41-patient trial had to carry the dose)
-    { id: 'cs1-architecture', title: 'CS1 · drug + 5 constraints', component: Cs1Architecture, isTitle: false, transition: 'fade', time: 75 },
+    { id: 'cs1-architecture', title: 'CS1 · drug + 5 constraints', component: Cs1Architecture, isTitle: false, transition: 'fade', time: 55 },
+
+    // 09a — CS1 full covariate model / fixed allometry defense.
+    //       Promoted from B17 for v4 timing pass at user request.
+    { id: 'cs1-covariate-strategy', title: 'CS1 · full covariate model', component: Cs1CovariateStrategy, isTitle: false, transition: 'fade', time: 55 },
 
     // 09b — CS1 PopPK build + fit (added 2026-04-26 per cs1.md "no PK/PD charts")
     //       2-cmt schematic · param table · pcVPC · exposure-match strip
-    { id: 'cs1-poppk', title: 'CS1 · PopPK · build + fit', component: Cs1Poppk, isTitle: false, transition: 'fade', time: 75 },
+    { id: 'cs1-poppk', title: 'CS1 · PopPK · build + fit', component: Cs1Poppk, isTitle: false, transition: 'fade', time: 65 },
 
     // 09c — CS1 PKPD + Bridging
-    { id: 'cs1-pkpd', title: 'CS1 · PopPK · build + fit PART 2', component: Cs1Pkpd, isTitle: false, transition: 'fade', time: 75 },
+    { id: 'cs1-pkpd', title: 'CS1 · PopPK · build + fit PART 2', component: Cs1Pkpd, isTitle: false, transition: 'fade', time: 55 },
 
-    // 10 — CS1 results (the 3% match · two precedents · EMA branch chosen)
-    { id: 'cs1-results', title: 'CS1 · within 3% of adult', component: Cs1Results, isTitle: false, transition: 'fade', time: 60 },
-
-    // 11 — CS1 Bracket Method (leadership ownership before the verdict)
-    { id: 'cs1-bracket', title: 'CS1 · ownership', component: Cs1Bracket, isTitle: false, transition: 'fade', time: 60 },
-
-    // 12 — CS1 what this case proves (portable Director-level lessons)
-    { id: 'cs1-lesson', title: 'CS1 · what this case proves', component: Cs1Lesson, isTitle: false, transition: 'fade', time: 75 },
+    // 10 — CS1 results / two precedent architectures (HIDDEN from live v4
+    //      timing pass; keep for backup/Q&A if the panel asks EMA vs FDA).
+    // { id: 'cs1-results', title: 'CS1 · within 3% of adult', component: Cs1Results, isTitle: false, transition: 'fade', time: 60 },
 
     // 13 — CS1 clinical outcome (3 disruptions absorbed)
-    { id: 'cs1-outcome', title: 'CS1 · the numbers', component: Cs1Outcome, isTitle: false, transition: 'fade', time: 75 },
+    { id: 'cs1-outcome', title: 'CS1 · the numbers', component: Cs1Outcome, isTitle: false, transition: 'fade', time: 45 },
+
+    // 11 — CS1 Bracket Method (leadership ownership before the verdict)
+    { id: 'cs1-bracket', title: 'CS1 · ownership', component: Cs1Bracket, isTitle: false, transition: 'fade', time: 45 },
+
+    // 12 — CS1 what this case proves (portable Director-level lessons)
+    { id: 'cs1-lesson', title: 'CS1 · what this case proves', component: Cs1Lesson, isTitle: false, transition: 'fade', time: 50 },
 
     // 14 — CS1 regulatory verdicts (HIDDEN: Merged into cs1-bracket)
     // { id: 'cs1-verdict', title: 'CS1 · regulatory verdicts', component: Cs1Verdict, isTitle: false, transition: 'fade', time: 60 },
 
     // 15 — CS1 → CS2 bridge (hook-aware tagline)
-    { id: 'cs1-bridge', title: 'CS1 → CS2 bridge', component: Cs1Bridge, isTitle: false, transition: 'fade', time: 45 },
+    { id: 'cs1-bridge', title: 'CS1 → CS2 bridge', component: Cs1Bridge, isTitle: false, transition: 'fade', time: 30 },
 
     // ══════════════════════════════════════════════════════════════
     // CS2 — Ivosidenib · India CDSCO regulatory waiver · CYAN

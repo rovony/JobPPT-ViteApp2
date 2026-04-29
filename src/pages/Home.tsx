@@ -5,7 +5,7 @@ import {
   ArrowUpRight, Layers, Sparkles, FolderOpen, BarChart3, FlaskConical,
   Search, ChevronDown, Star, Archive, FolderPlus, Tag, X, Check,
   LayoutGrid, LayoutList, ArrowUpDown, Plus, Trash2, Pencil, ArchiveRestore, Folder, ChevronRight,
-  SlidersHorizontal, Hash, Share2,
+  SlidersHorizontal, Hash, Share2, LogOut, User,
 } from 'lucide-react';
 import { DECKS } from '@/decks/registry';
 import DeckSourcesDialog from '@/components/deck/DeckSourcesDialog';
@@ -14,6 +14,7 @@ import ThemeToggle from '@/components/ThemeToggle';
 import { useTheme } from '@/lib/ThemeContext';
 import { useAuth } from '@/lib/AuthContext';
 import { useOrganizer, useFilteredDecks, useDeckDisplay } from '@/lib/deck-organizer';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 /* ================================================================
    MonoChip — reusable uppercase pill (kept for backward compat)
@@ -577,14 +578,36 @@ function DeckContextMenu({ deck, position, onClose, onEdit }) {
 /* ================================================================
    DeckEditModal — inline CRUD for title, subtitle, description
    ================================================================ */
-function DeckEditModal({ deck, onClose }) {
+function DeckEditModal({ deck, onClose }: any) {
   const { dispatch } = useOrganizer();
   const display = useDeckDisplay(deck);
   const [title, setTitle] = useState(display.title);
   const [subtitle, setSubtitle] = useState(display.subtitle);
   const [description, setDescription] = useState(display.description);
-  const backdropRef = useRef(null);
-  const titleRef = useRef(null);
+  const backdropRef = useRef<any>(null);
+  const titleRef = useRef<any>(null);
+
+  const queryClient = useQueryClient();
+  const updateDeck = useMutation({
+    mutationFn: async (vars: any) => {
+      await fetch(`/api/decks/${deck.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(vars)
+      });
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['dbDecks'] })
+  });
+
+  const deleteDeck = useMutation({
+    mutationFn: async () => {
+      await fetch(`/api/decks/${deck.id}`, { method: 'DELETE' });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['dbDecks'] });
+      onClose();
+    }
+  });
 
   useEffect(() => { titleRef.current?.focus(); }, []);
 
@@ -596,6 +619,11 @@ function DeckEditModal({ deck, onClose }) {
       subtitle: subtitle !== (deck.subtitle || '') ? subtitle : undefined,
       description: description || undefined,
     });
+
+    // If it's a UUID, it's from the database
+    if (deck.id && deck.id.length > 20) {
+      updateDeck.mutate({ title, subtitle, description });
+    }
     onClose();
   };
 
@@ -687,9 +715,17 @@ function DeckEditModal({ deck, onClose }) {
               {display.hasOverrides && (
                 <button
                   onClick={handleReset}
+                  className="text-xs deck-ink-subtle hover:text-amber-400 transition-colors flex items-center gap-1"
+                >
+                  <ArchiveRestore className="w-3 h-3" /> Reset
+                </button>
+              )}
+              {deck.id && deck.id.length > 20 && (
+                <button
+                  onClick={() => { if (window.confirm('Delete this dossier permanently?')) deleteDeck.mutate(); }}
                   className="text-xs deck-ink-subtle hover:text-red-400 transition-colors flex items-center gap-1"
                 >
-                  <ArchiveRestore className="w-3 h-3" /> Reset to original
+                  <Trash2 className="w-3 h-3" /> Delete
                 </button>
               )}
             </div>
@@ -1003,13 +1039,43 @@ export default function Home() {
   const [sourcesDeck, setSourcesDeck] = useState(null);
   const [shareDeck, setShareDeck] = useState(null);
   const { mode, toggle } = useTheme();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const { state } = useOrganizer();
   const isAdmin = user?.role === 'admin';
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  const filtered = useFilteredDecks(DECKS);
-  const folderLabel = state.folders.find((f) => f.id === state.activeFolder)?.label || 'All Decks';
+  const queryClient = useQueryClient();
+  const { data: dbDecks = [], isLoading: isLoadingDecks } = useQuery({
+    queryKey: ['dbDecks'],
+    queryFn: async () => {
+      try {
+        const res = await fetch('/api/decks');
+        if (!res.ok) return [];
+        const data = await res.json();
+        return data.map((d: any) => ({ ...d, slides: [] })); // Satisfy UI requirements
+      } catch {
+        return [];
+      }
+    }
+  });
+
+  const createDeck = useMutation({
+    mutationFn: async (deckInfo: any) => {
+      const res = await fetch('/api/decks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(deckInfo)
+      });
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['dbDecks'] });
+    }
+  });
+
+  const combinedDecks = [...DECKS, ...dbDecks];
+  const filtered = useFilteredDecks(combinedDecks);
+  const folderLabel = state.folders.find((f: any) => f.id === state.activeFolder)?.label || 'All Decks';
 
   return (
     <div data-deck-theme="clinical" className="deck-root min-h-screen">
@@ -1026,6 +1092,12 @@ export default function Home() {
               <Sparkles className="w-3 h-3" /> Deck Studio
             </div>
             <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+              {user && (
+                <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--cream-hairline)] bg-[var(--cream-ghost)]">
+                  <User className="w-3.5 h-3.5 text-deck-accent" />
+                  <span className="deck-mono text-[0.62rem] uppercase tracking-widest text-deck-ink">{user.email.split('@')[0]}</span>
+                </div>
+              )}
               <MonoChip as={Link} to="/pk-sim">
                 <FlaskConical className="w-3 h-3" /> PK Simulator
               </MonoChip>
@@ -1033,6 +1105,11 @@ export default function Home() {
                 <MonoChip as={Link} to="/dev">Dev Kit</MonoChip>
               )}
               <ThemeToggle mode={mode} onToggle={toggle} />
+              {user && (
+                <button onClick={logout} className="p-1.5 rounded-full hover:bg-[var(--cream-ghost)] transition-colors text-deck-ink-subtle hover:text-red-400" title="Log out">
+                  <LogOut className="w-4 h-4" />
+                </button>
+              )}
             </div>
           </div>
           <h1 className="deck-display text-3xl sm:text-4xl md:text-5xl leading-[0.95] text-deck-ink max-w-3xl">
@@ -1083,6 +1160,14 @@ export default function Home() {
                   <SearchBar />
                 </div>
                 <SortControls />
+                <button
+                  onClick={() => createDeck.mutate({ title: 'New Data Dossier', subtitle: 'Draft', theme: 'clinical' })}
+                  disabled={createDeck.isPending}
+                  className="px-4 py-1.5 text-xs rounded-lg bg-deck-accent text-white hover:opacity-90 transition-all active:scale-95 deck-mono uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-deck-accent/20"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  {createDeck.isPending ? 'Creating...' : 'Create Dossier'}
+                </button>
               </div>
               {/* Tag bar */}
               <TagBar />

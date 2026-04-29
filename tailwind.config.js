@@ -44,6 +44,12 @@ module.exports = {
         'deck-16': 'var(--space-16)',
       },
       colors: {
+        'zaj-bg':     '#0D1B2A',
+        'zaj-text':   '#F5F0E8',
+        'zaj-sage':   '#7BAE7F',
+        'zaj-rose':   '#C4847A',
+        'zaj-amber':  '#E8B547',
+        'zaj-teal':   '#5F8A8B',
         // shadcn tokens
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
@@ -122,6 +128,9 @@ module.exports = {
         'deck-display': ['var(--font-display)'],
         'deck-body':    ['var(--font-body)'],
         'deck-mono':    ['var(--font-mono)'],
+        serif: ['"Source Serif Pro"', 'serif'],
+        sans:  ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+        mono:  ['"IBM Plex Mono"', 'monospace'],
       },
       fontSize: {
         'deck-hero':       'var(--fs-hero)',
@@ -155,6 +164,9 @@ module.exports = {
         'deck-overshoot': 'var(--ease-overshoot)',
         'deck-in-out':    'var(--deck-ease-in-out)',
         'deck-standard':  'var(--deck-ease-standard)',
+        'editorial':  'cubic-bezier(0.22, 1, 0.36, 1)',
+        'data':       'cubic-bezier(0.16, 1, 0.3, 1)',
+        'camera':     'cubic-bezier(0.65, 0, 0.35, 1)',
       },
       transitionDuration: {
         'deck-fast':      '180ms',

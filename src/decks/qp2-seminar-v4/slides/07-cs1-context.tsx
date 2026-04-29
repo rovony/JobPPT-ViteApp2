@@ -53,7 +53,7 @@ function FactRow({ fact, delay, reduced }) {
         className="deck-mono" 
         style={{
           color: 'var(--case)',
-          fontSize: 'var(--fs-slide-mono)',
+          fontSize: 'var(--fs-slide-eyebrow)',
           letterSpacing: 'var(--ls-mono-wide)',
           fontWeight: 700,
           opacity: 0.9,
@@ -67,7 +67,7 @@ function FactRow({ fact, delay, reduced }) {
         className="deck-body" 
         style={{
           color: 'var(--cream)',
-          fontSize: 'var(--fs-slide-body)',
+          fontSize: 'var(--fs-slide-subhead)',
           lineHeight: 1.5,
           opacity: 0.85,
         }}

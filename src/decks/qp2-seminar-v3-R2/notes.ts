@@ -404,9 +404,9 @@ The pcVPC is the model check. The pediatric observations overlap the model-predi
 → The next slide adds the PK/PD context: did the exposure match sit in a clinically safe and interpretable range?`,
 
   'cs1-pkpd': `## Spoken
-This slide answers the first question: can pediatric patients get into the adult exposure range? ==Yes — the AUC match held.==
+The previous slide answered the first question: can we confidently predict the pediatric data? ==Yes — the pediatric observations overlapped the model-predicted ribbon.==
 
-This slide asks the next question: once exposures match, do we see any warning signal across exposure?
+Now this slide asks the next question: how do those pediatric exposures compare with adults, and do we see any warning signal across exposure?
 
 The careful answer is: ==no clear exposure-response gradient in the observed range.==
 
@@ -431,29 +431,30 @@ So the case has two receipts: ==exposure matched the adult target==, and ==the o
 
   // Slide 10 — CS1 two architectural precedents (FUTURE-1 + Garnett-Florian)
   'cs1-results': `## Spoken
-Pediatric ERA bridging has two recognized architectures. Both came through bosentan. ==This case follows the EMA branch.==
+This slide is here to prevent one possible confusion.
 
-The **==EMA path is PK matching==**. FUTURE-1 — Beghetti, *British Journal of Clinical Pharmacology*, 2009 — had **N=36 children**, ages **3 to 17**. Pediatric AUC came in at **54% of the adult target**. The PK match missed, but EMA approved the pediatric formulation anyway. The precedent was the method.
+There are two ways pediatric PAH ERA programs have used adult evidence. Both came through bosentan. They are both legitimate, but they are not the same.
 
-AMB112529 was tighter: **97% of adult AUC at low dose**.
+The left side is the **==EMA-style path: PK matching==**. FUTURE-1 enrolled **36 children**, ages **3 to 17**. Their exposure was only **54% of the adult target** — so the PK match itself was not perfect. But EMA still accepted the pediatric formulation. Why? Because the precedent established the architecture: adult efficacy is the anchor, and pediatric PK is the bridge.
 
-The **FDA path is the Garnett-Florian framework**, NDA 209279, 2017. It pooled **12 placebo-controlled adult trials**, **2,028 patients**, **9 drugs**, and **5 classes**. The slope was **minus 0.055 meters per dyne-second per cm⁵**.
+AMB112529 did much better on that same architecture: the low-dose pediatric AUC was about **97% of the adult target**.
 
-Apply that to BREATHE-3 — **N=19**, change in PVR around **minus 389** — and it predicts a pediatric six-minute-walk improvement of **14 meters**, with **95% CI 3 to 31**.
+The right side is the **FDA-style path: hemodynamics to walking distance**. Garnett-Florian pooled adult PAH trials and linked change in PVR to change in six-minute walk distance. That framework can translate a pediatric hemodynamic change into an expected clinical effect.
 
-Same intellectual move: extrapolate adult efficacy through a quantitative pediatric bridge. Different evidence weights.
+So the two branches have the same intellectual move — use adult evidence, then build a quantitative pediatric bridge — but the bridge is different.
 
-EMA accepts PK matching alone when similarity is high. FDA pairs it with the hemodynamic surrogate.
+For this ambrisentan case, the important point is: ==we are not relying on the FDA hemodynamic branch.==
 
-For AMB112529, the hemodynamic substudy was only **N=5 paired patients**. PMDA cited it supportively; EMA disclosed it. But it was ==not the bridge==.
+AMB112529 had only **N=5 paired patients** in the hemodynamic substudy. PMDA could cite it supportively, and EMA could disclose it, but it is too small to carry the case.
 
-==This case is the EMA branch.==
+The case is the left branch: ==adult efficacy anchor plus pediatric PK matching==. That is why the exposure match matters so much.
 
 ## Cues
-- ⏱ 60 sec — two branches, keep them balanced
-- 🎚 Neutral on EMA and FDA; both are legitimate paths
+- ⏱ 60 sec — left branch, right branch, then land left
+- 🎚 Keep it simple: "same move, different bridge"
+- ⚠ Do not make the FDA branch sound wrong; it is just not the branch used here
 - ⚠ The illustrative scatter dots are not real trial-level dots
-- ✅ Land on "this case is the EMA branch"
+- ✅ Land on "adult efficacy anchor plus pediatric PK matching"
 
 ## Bridge
 → But the case ran under three simultaneous disruptions — let me show you what AMB112529 absorbed.`,
@@ -592,7 +593,7 @@ This is ivosidenib — a first-in-class IDH1 inhibitor. By early 2025 it was alr
 
 But even with that global record, ==Indian patients still did not have access==.
 
-The issue was not whether the drug worked. The pivotal evidence existed. The problem was that CDSCO expected local clinical evidence, and ==no Indian patient had been enrolled in a pivotal ivosidenib trial==.
+The issue was not whether the drug worked. The pivotal evidence existed. The problem was whether a global evidence package could satisfy India without a pre-approval local trial.
 
 So the question became simple: could the ==global clinical pharmacology dossier== do the job that a local trial normally does?
 
@@ -633,7 +634,7 @@ Quick biology orientation.
 
 IDH1 mutations occur in about ==six to ten percent of AML== and about ==thirteen percent of intrahepatic cholangiocarcinoma==. So both populations are small, and both sit inside broader cancers.
 
-The mechanism is straightforward. Mutant IDH1 produces 2-hydroxyglutarate, an oncometabolite. That disrupts epigenetic regulation and blocks differentiation. Ivosidenib inhibits mutant IDH1, lowers 2-HG, and helps restore differentiation.
+The mechanism is straightforward. Mutant IDH1 produces 2-hydroxyglutarate, an oncometabolite. That disrupts epigenetic regulation and blocks differentiation. ==Ivosidenib inhibits mutant IDH1==, lowers 2-HG, and helps restore differentiation.
 
 Before 2018, these patients did not have a targeted IDH1 option. Ivosidenib changed that, starting with the FDA label in relapsed or refractory AML in July 2018.
 
@@ -656,7 +657,7 @@ IDH1 and IDH2 mutations were identified in 2008 and 2009. By 2010, 2-HG was esta
 
 The first approved IDH inhibitor was enasidenib for IDH2-mutant AML in 2017. Ivosidenib followed in 2018 as the ==first IDH1 inhibitor==, with later labels in cholangiocarcinoma and frontline AML.
 
-Olutasidenib and vorasidenib are part of the broader field, but they are ==not the India registration story==.
+Olutasidenib (olo-tes-deneib) and vorasidenib are part of the broader field, but they are ==not the India registration story==.
 
 So the molecule here is specific: ivosidenib, IDH1, AML and cholangiocarcinoma, ==globally approved before India==.
 
@@ -713,7 +714,7 @@ So the strategy was to show that the ==existing clinical pharmacology package co
 - ✅ Land on: "existing clinical pharmacology package could answer the local-data question"
 
 ## Bridge
-→ Next: mechanism first — why somatic IDH1 biology matters before statistics.`,
+→ Next: mechanism first — why somatic IDH1 biology matters before introducing the six-pillar dossier.`,
 
   'cs2-architecture': `## Spoken
 Mechanism is the foundation. ⏸
