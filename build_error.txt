@@ -1,0 +1,26 @@
+
+> base44-app@0.0.0 build
+> vite build
+
+[base44] Proxy enabled: /api -> http://localhost:5173
+vite v6.4.1 building for production...
+transforming...
+
+/noise.svg referenced in /noise.svg didn't resolve at build time, it will remain unchanged to be resolved at runtime
+✓ 3895 modules transformed.
+✗ Build failed in 3.68s
+error during build:
+[vite]: Rollup failed to resolve import "leaflet/dist/leaflet.css" from "/Users/malekokour/MyWork/MyZajaly/2-Products/99-Misc/JobSearch2026/JobPresentation-2026/4-Apps/merck-deck/src/decks/components-showcase/slides/26-leaflet-gsap.tsx".
+This is most likely unintended because it can break your application at runtime.
+If you do want to externalize this module explicitly add it to
+`build.rollupOptions.external`
+    at viteLog (file:///Users/malekokour/MyWork/MyZajaly/2-Products/99-Misc/JobSearch2026/JobPresentation-2026/4-Apps/merck-deck/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:46374:15)
+    at file:///Users/malekokour/MyWork/MyZajaly/2-Products/99-Misc/JobSearch2026/JobPresentation-2026/4-Apps/merck-deck/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:46432:18
+    at onwarn (file:///Users/malekokour/MyWork/MyZajaly/2-Products/99-Misc/JobSearch2026/JobPresentation-2026/4-Apps/merck-deck/node_modules/@vitejs/plugin-react/dist/index.js:90:7)
+    at file:///Users/malekokour/MyWork/MyZajaly/2-Products/99-Misc/JobSearch2026/JobPresentation-2026/4-Apps/merck-deck/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:46430:7
+    at onRollupLog (file:///Users/malekokour/MyWork/MyZajaly/2-Products/99-Misc/JobSearch2026/JobPresentation-2026/4-Apps/merck-deck/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:46422:5)
+    at onLog (file:///Users/malekokour/MyWork/MyZajaly/2-Products/99-Misc/JobSearch2026/JobPresentation-2026/4-Apps/merck-deck/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:46072:7)
+    at file:///Users/malekokour/MyWork/MyZajaly/2-Products/99-Misc/JobSearch2026/JobPresentation-2026/4-Apps/merck-deck/node_modules/rollup/dist/es/shared/node-entry.js:20958:32
+    at Object.logger [as onLog] (file:///Users/malekokour/MyWork/MyZajaly/2-Products/99-Misc/JobSearch2026/JobPresentation-2026/4-Apps/merck-deck/node_modules/rollup/dist/es/shared/node-entry.js:22945:9)
+    at ModuleLoader.handleInvalidResolvedId (file:///Users/malekokour/MyWork/MyZajaly/2-Products/99-Misc/JobSearch2026/JobPresentation-2026/4-Apps/merck-deck/node_modules/rollup/dist/es/shared/node-entry.js:21689:26)
+    at file:///Users/malekokour/MyWork/MyZajaly/2-Products/99-Misc/JobSearch2026/JobPresentation-2026/4-Apps/merck-deck/node_modules/rollup/dist/es/shared/node-entry.js:21647:26

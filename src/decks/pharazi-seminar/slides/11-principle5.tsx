@@ -4,6 +4,10 @@ import SlideFrame from '@/components/deck/SlideFrame';
 import TakeHomeStrip from '@/components/deck/TakeHomeStrip';
 import PrincipleTitleBlock from '@/components/deck/PrincipleTitleBlock';
 import WithWithoutPair from '@/components/deck/WithWithoutPair';
+import { Hierarchy3D } from '@/components/showcase/Hierarchy3D';
+import { useReducedMotion } from 'framer-motion';
+import { Hierarchy3D } from '@/components/showcase/Hierarchy3D';
+import { useReducedMotion } from 'framer-motion';
 
 export default function Principle5Slide() {
   const EASE = [0.16, 1, 0.3, 1];
@@ -12,6 +16,16 @@ export default function Principle5Slide() {
   const act1Boxes = ['NCA', 'PopPK', 'PKPD', 'E-R', 'QC'];
   const act2Boxes = ['Signal Detection', 'Biomarker', 'MIPD', 'Pharmacogenomics'];
   const act3Boxes = ['Trial Design', 'RWE', 'Reg-Author', 'Lifecycle'];
+
+  const prefersReducedMotion = useReducedMotion();
+  const [step, setStep] = React.useState(0);
+
+  // Auto-advance step for 3D demo
+  React.useEffect(() => {
+    const timer1 = setTimeout(() => setStep(1), 8000);
+    const timer2 = setTimeout(() => setStep(2), 16000);
+    return () => { clearTimeout(timer1); clearTimeout(timer2); };
+  }, []);
 
   return (
     <SlideFrame slideId="11" dataCase="violet" footerKicker="11 · THE ARCHITECTURE">
@@ -26,10 +40,17 @@ export default function Principle5Slide() {
           <div className="flex-1 relative flex flex-col items-center justify-end w-full max-w-6xl mx-auto px-12">
              
              {/* EXPERT BOXES CONTAINER */}
+             {/* ESCALATION: Pure CSS 3D Hierarchy chosen to represent the Z-axis stack of domain experts. Fallback is the original Framer Motion 2D layout. */}
              <div className="relative w-full h-[320px] mb-8">
                 
-                {/* ACT 1: Built today */}
-                <div className="absolute bottom-0 w-full flex justify-between px-4 z-10">
+                {!prefersReducedMotion ? (
+                  <div className="absolute inset-0 z-20" style={{ transform: 'scale(0.8)', transformOrigin: 'bottom center' }}>
+                     <Hierarchy3D step={step} />
+                  </div>
+                ) : (
+                  <>
+                  {/* ACT 1: Built today */}
+                  <div className="absolute bottom-0 w-full flex justify-between px-4 z-10">
                    {act1Boxes.map((b, i) => (
                       <motion.div 
                          key={b}
@@ -86,6 +107,8 @@ export default function Principle5Slide() {
                       ONLY THE DOMAIN EXPERTS MULTIPLY.
                    </motion.div>
                 </motion.div>
+                </>
+              )}
              </div>
 
              {/* SHARED INFRASTRUCTURE BAND */}
