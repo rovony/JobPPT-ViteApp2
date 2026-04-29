@@ -3,12 +3,13 @@
 import qp2Seminar from './qp2-seminar/manifest';
 import qp2SeminarV2 from './qp2-seminar-v2/manifest';
 import qp2SeminarV3R2 from './qp2-seminar-v3-R2/manifest';
+import qp2SeminarV4 from './qp2-seminar-v4/manifest';
 import launchKeynote from './launch-keynote/manifest';
 import templateBlank from './template-blank/manifest';
 import slideTemplates from './slide-templates/manifest';
 import componentsShowcase from './components-showcase/manifest';
 
-export const DECKS = [qp2Seminar, qp2SeminarV2, qp2SeminarV3R2, launchKeynote, templateBlank, slideTemplates, componentsShowcase];
+export const DECKS = [qp2Seminar, qp2SeminarV2, qp2SeminarV3R2, qp2SeminarV4, launchKeynote, templateBlank, slideTemplates, componentsShowcase];
 
 export function getDeck(id: string | undefined): any {
   return DECKS.find((d) => d.id === id) || null;
