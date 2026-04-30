@@ -27,12 +27,16 @@ import Domain6Slide from './slides/19-domain-audit';
 // import ConcurrentUseSlide from './slides/19-5b-concurrent-use';
 import CloseSlide from './slides/20-close-ecosystem';
 import QASlide from './slides/21-qa';
+import notes from './notes';
+import qa from './qa';
 
 const manifest = {
   id: 'pharazi-seminar',
   title: 'Pharazi Seminar Deck',
   subtitle: 'An end-to-end AI multi-agent foundation for pharmaceutical sciences',
   theme: 'clinical',
+  notes,
+  qa,
   defaultTransition: 'card',
   standardLayout: {
     enabled: true,

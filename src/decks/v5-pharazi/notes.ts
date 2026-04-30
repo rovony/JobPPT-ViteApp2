@@ -34,19 +34,15 @@ const mappedPharaziNotes = Object.entries(pharaziNotes).reduce((acc, [key, value
   return acc;
 }, {} as Record<string, string>);
 
-// Map Ivosidenib notes from qp2-seminar-v4 (where it was CS2) to CS3
-const mappedIvosidenibNotes = Object.entries(qp2Notes).reduce((acc, [key, value]) => {
-  if (key.startsWith('cs2-')) {
-    acc[key.replace('cs2-', 'cs3-')] = value;
-  }
-  return acc;
-}, {} as Record<string, string>);
+import cs3Notes from './cs3-notes';
+import { overrideNotes } from './override-notes';
 
 // Merge all notes
 const notes = {
   ...qp2Notes, // Retains Intro, CS1, Closing, and all CS1 backups
-  ...mappedIvosidenibNotes, // Adds CS3 (Ivosidenib)
+  ...cs3Notes, // Adds expanded CS3 (Ivosidenib)
   ...mappedPharaziNotes, // Adds CS2 (Pharazi)
+  ...overrideNotes, // Overrides roadmap and bridge slides for new flow
 };
 
 export default notes;

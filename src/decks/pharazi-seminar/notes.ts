@@ -2190,6 +2190,528 @@ Three levels. ==Centralized topology==. ⏸ L0 supervisor classifies and routes.
 
 ## Bridge
 → "I'll stop there. Happy to take questions." (Continue into closing arc.)`,
+
+  // =========================================================================
+  // PHARAZI-SEMINAR canonical keys (matches pharazi-seminar/manifest.ts ids).
+  // The v5-pharazi deck remaps these to cs2-* via decks/v5-pharazi/notes.ts.
+  // Voice = work-as-subject (Amendment 2). 15-min CS2 budget across 22 slides
+  // used in v5; pharazi standalone adds title/agenda/whole-story/close/qa.
+  // =========================================================================
+
+  // Slide 01 — Title cover. (~30 sec, ~65 words)
+  '01-title': `## Spoken
+Good morning. ⏸ I'm ==Malek Okour==. ⏸ This talk is one case study, not three — about ==how the next decade of pharmaceutical sciences gets built==.
+
+The case has a name. ==Pharazi== — a ==reference architecture== for AI multi-agent infrastructure across pharmaceutical sciences. ⏸ The goal of the next thirty minutes is simple: walk you through ==what's built==, ==why this shape==, and ==where it goes next==.
+
+## Cues
+- ⏱ 30 sec — slow open; let the title slide breathe
+- 🎚 Steady, low-energy; no preview of the architecture yet
+- 🎯 Lock the panel chair on the name "Pharazi"
+- ⚠ Do NOT pitch the system here — that's slide 02.5/02.7
+- ✅ Land cleanly on "where it goes next"
+- 🛟 Fallback: "One case study. One architecture. Thirty minutes."
+
+## Bridge
+→ Agenda next: three movements, eighteen-minute architecture core.`,
+
+  // Slide 02.5 — Agenda · 3 movements · 30 min + 15 Q&A (~45 sec, ~95 words)
+  '02-5-agenda': `## Spoken
+==Three movements. Thirty minutes. Then fifteen for questions.== ⏸
+
+==Movement 1 — The Vision==, four minutes. The regulatory floor is set. The market is moving above it. The MIDD foundation is unbuilt. ⏸
+
+==Movement 2 — The Architecture==, eighteen minutes. ==Five principles==, one working system, scalability shown not asserted. This is where the weight sits. ⏸
+
+==Movement 3 — The Primitives==, eight minutes. ==Six domains== — Data, NCA, PopPK, Exposure–Response, Regulatory Authoring, Audit. Each one already running.
+
+## Cues
+- ⏱ 45 sec — each movement gets one breath, not a paragraph
+- 🎚 Mark the time budgets out loud — "four · eighteen · eight" — sets expectations
+- 🎯 Eye contact rotates per movement: chair, methodology panelist, then the senior reg-affairs reviewer
+- ⚠ Do NOT preview principles or domains by name yet
+- ✅ Land on "eight minutes" — clean
+- 🛟 Fallback: "Vision. Architecture. Primitives. Q&A."
+
+## Bridge
+→ Whole-story panel next — the four-panel arc behind the three movements.`,
+
+  // Slide 02.7 — The whole story (4 editorial panels). (~60 sec, ~130 words)
+  '02-7-whole-story': `## Spoken
+==Four panels. The whole arc, before the details.== ⏸
+
+==Panel 1 — The Problem.== Pharma programs ==rebuild workflow infrastructure every time==. Fragmentation under pressure. ⏸
+
+==Panel 2 — The Move.== Build the foundation once. ==Centralized hierarchy. Structural privacy. Cryptographic audit.== Workflow as versioned plan. Orthogonal layering. Five principles, locked. ⏸
+
+==Panel 3 — The Result.== A working system. ==Hash-chained, schema-private, M15-aligned.== Deployed at ==pharazi.ai==. Right now. ⏸
+
+==Panel 4 — The Bet.== The next decade of pharmaceutical sciences runs on infrastructure of this shape — or it doesn't run at all. ⏸ The bet is on ==infrastructure==, not on any single model.
+
+## Cues
+- ⏱ 60 sec — each panel ~14 sec; clear pause between
+- 🎚 Slight escalation panel-to-panel; loudest type on Panel 4
+- 🎯 Move eyes left-to-right with the panels — physical anchoring
+- ⚠ Do NOT name principles before the slide reveals them
+- ✅ Land on "infrastructure, not on any single model"
+- 🛟 Fallback: "Problem. Move. Result. Bet."
+
+## Bridge
+→ Movement 1 next: the regulatory floor is set.`,
+
+  // Slide 03 — The regulatory floor is set. (~40 sec, ~85 words)
+  '03-regulatory-floor': `## Spoken
+==The regulatory floor is set.== ⏸ Three regulators. Three dossiers. ⏸
+
+==FDA, January 2025== — a seven-step risk-based framework for AI in regulatory submissions. ⏸ ==FDA and EMA, January 2026== — ten guiding principles, harmonized across both jurisdictions. ⏸ ==ICH M15, July 2026== — AI and ML now sit explicitly alongside PopPK, PBPK, and QSP as legitimate MIDD methodologies. ⏸
+
+==Eighteen-month enforcement window.== The floor is not a draft. The floor is here.
+
+## Cues
+- ⏱ 40 sec — three nodes, three beats; pause between agencies
+- 🎚 Plain, factual register; no editorial color on the regulators
+- 🎯 Track the FDA/EMA panelist if identifiable on "10 Guiding Principles"
+- ⚠ Do NOT debate enforcement strength — that's Q&A territory
+- ✅ Land on "The floor is here" — short, definite
+- 🛟 Fallback: "FDA. EMA. ICH M15. Eighteen months."
+
+## Bridge
+→ Now look at what the market is doing above that floor.`,
+
+  // Slide 04 — The market is moving above it. (~40 sec, ~85 words)
+  '04-market-moving': `## Spoken
+==The market is moving above that floor — but unevenly.== ⏸
+
+Six systems plotted across the seven-stage value chain. ⏸ ==PharmAgents, Prompt-to-Pill, PharmaSwarm== — Discovery. ==Apollo-AI== — Pfizer's QCP workflow tool, Phase 1 and 2. ==pyDarwin== — Certara and FDA, PopPK only. ==QSP-Copilot== — RAG over QSP, academic.
+
+==Each system owns one or two stages.== ⏸ The end-to-end MIDD foundation — the slot that connects them — ==is empty==.
+
+## Cues
+- ⏱ 40 sec — name each system once; do NOT re-explain
+- 🎚 Steady; stage-by-stage cadence
+- 🎯 Eye contact on the methodology panelist when naming pyDarwin
+- ⚠ Do NOT critique competitors by name; you are mapping, not attacking
+- ✅ Land on "is empty" — beat — then advance
+- 🛟 Fallback: "Six systems. Six stages. One empty slot."
+
+## Bridge
+→ Name the empty slot directly — slide 05.`,
+
+  // Slide 05 — The MIDD foundation is unbuilt. (~40 sec, ~85 words)
+  '05-gap': `## Spoken
+==Discovery has multi-agent.== ⏸ ==QCP has Apollo-AI.== ⏸ ⏸
+
+==The MIDD foundation is unbuilt.== ⏸
+
+End-to-end. ==Structurally private. Cryptographically audited. M15-aligned.== ⏸ That is the unfilled slot. ⏸
+
+==That is the slot Pharazi fills.==
+
+## Cues
+- ⏱ 40 sec — the silence between the first three sentences IS the slide
+- 🎚 Drop register on "The MIDD foundation is unbuilt"; pull volume back up on the closing line
+- 🎯 Hold the chair's eyes through the long pause
+- ⚠ Do NOT rush. The 70-frame gap (1.40s → 2.10s) is choreographed; respect it
+- ✅ Land on "That is the slot Pharazi fills" — definitive
+- 🛟 Fallback: "End-to-end. Private. Audited. M15. Unbuilt."
+
+## Bridge
+→ Movement 2 begins. The architecture is built — show it.`,
+
+  // Slide 06 — Transition: "Pharazi is built." (~30 sec, ~65 words)
+  '06-transition': `## Spoken
+==Pharazi is== — ⏸ ==built.== ⏸
+
+The Roman numeral II behind the word marks ==Movement 2==. ⏸ The next eighteen minutes ==show the architecture== — five principles, one working system, audit visible at every step.
+
+## Cues
+- ⏱ 30 sec — let the magic-move on "built" land before speaking
+- 🎚 Quiet; slide does the work
+- 🎯 Look up at the giant "built" with the room
+- ⚠ Do NOT narrate the transition glyph (II) — it is ambient
+- ✅ Land on "audit visible at every step"
+- 🛟 Fallback: "Built. Eighteen minutes. The architecture."
+
+## Bridge
+→ Movement-2-begins marker, then the working dashboard.`,
+
+  // Slide 06.5 — Movement 2 begins (~20 sec, ~45 words)
+  '06-5-m2-begins': `## Spoken
+==Movement 2 of 3. Eighteen minutes.== ⏸ The pulsing amber bar marks where we are in the talk. ⏸ The architecture — in detail.
+
+## Cues
+- ⏱ 20 sec — chapter marker, no content
+- 🎚 Calm pacing breath; no escalation
+- 🎯 Glance at the progress bar; let the room follow
+- ⚠ Do NOT preview principles
+- ✅ Land cleanly on "in detail"
+- 🛟 Fallback: "Movement two. Eighteen minutes. Begin."
+
+## Bridge
+→ Working overview dashboard — the system running live.`,
+
+  // Slide 06.6 — Foundation overview (live dashboard at pharazi.ai). (~50 sec, ~110 words)
+  '06-6-foundation-overview': `## Spoken
+==The system runs.== ⏸ ==At pharazi.ai. Right now.== ⏸ Vercel. Railway. Supabase. ⏸
+
+Top-left, the user request — *"Run NCA on this dataset, zero to twenty-four hours, linear-up log-down."* ⏸ Top-right, the orchestration trace streams: ==complexity moderate, routing non-model-manager, delegating nca-expert, tools calculate-NCA and plot-PK-profile, waiting on QC review.== ⏸
+
+Bottom-left, the result lands — ==AUC 145.2. Cmax 12.4. Tmax 2.0.== ⏸ Bottom-right, the audit chain ticks forward. ⏸
+
+==This is one frame of a representative end-to-end trace, sanitized.==
+
+## Cues
+- ⏱ 50 sec — quadrant by quadrant, do NOT chain them
+- 🎚 Plain; let the live numbers land
+- 🎯 Walk eyes counter-clockwise: request → trace → result → audit
+- ⚠ Do NOT claim production usage of real patient data — sanitized representative
+- ✅ Land on "sanitized" — accuracy matters
+- 🛟 Fallback: "Live. Real trace. Real numbers. Sanitized."
+
+## Bridge
+→ Now the five principles. One per slide.`,
+
+  // Slide 07 — Principle 1 · Centralized Hierarchy (~45 sec, ~95 words)
+  '07-principle1': `## Spoken
+==Principle 1 of 5 — Centralized Hierarchy.== ⏸
+
+The published evidence is hard. ==Independent agents amplify errors seventeen-fold as scope grows. Centralized hierarchies contain that to four-fold.== ⏸
+
+The architecture: ==L0 orchestrator. L1 managers. L2 expert agents.== ⏸ Every routing decision crosses the hierarchy. Every delegation is logged. Every result lifts back up the same path.
+
+==The hierarchy is the contract that bounds error propagation.==
+
+## Cues
+- ⏱ 45 sec — name "17×" and "4×" cleanly; the contrast is the point
+- 🎚 Steady; technical authority register
+- 🎯 Hold the methodology panelist on the 17× / 4× moment
+- ⚠ Do NOT cite the paper title verbatim — Q&A territory
+- ✅ Land on "bounds error propagation" — final word
+- 🛟 Fallback: "L0. L1. L2. Seventeen to four."
+
+## Bridge
+→ Principle 2: privacy as a property of the code.`,
+
+  // Slide 08 — Principle 2 · Structural Privacy (~45 sec, ~95 words)
+  '08-principle2': `## Spoken
+==Principle 2 of 5 — Structural Privacy.== ⏸
+
+==Privacy is a property of the code, not a runtime policy.== ⏸ Raw data has ==no callable path== to the LLM. It cannot leak by configuration error.
+
+Left side — the local computation engine. ==Patient records in memory. R and Python on real data. NONMEM jobs locally.== ⏸ Right side — the LLM context. ==Schema only. Variable names. Units. Counts.== Never values.
+
+==The boundary is enforced by the type system, not by a flag.==
+
+## Cues
+- ⏱ 45 sec — left/right orientation is critical, walk physically if needed
+- 🎚 Definite; this is the privacy claim of record
+- 🎯 Reg-affairs / safety panelist — anchor here
+- ⚠ Do NOT say "we anonymize" — that is policy talk; this is structural
+- ✅ Land on "not by a flag"
+- 🛟 Fallback: "Code. Not policy. No callable path."
+
+## Bridge
+→ Principle 3: cryptographic audit, the chain that makes it verifiable.`,
+
+  // Slide 09 — Principle 3 · Cryptographic Audit (~45 sec, ~95 words)
+  '09-principle3': `## Spoken
+==Principle 3 of 5 — Cryptographic Audit.== ⏸
+
+==Every state mutation. Every routing decision. Every approval. Bound into one verifiable hash chain.== ⏸ SHA-256. Every node carries the previous hash. ==Tamper one entry, every downstream hash breaks.==
+
+==One verify call returns true or false.== ⏸ That is M15-grade reproducibility — at the foundation level, not bolted on at submission time.
+
+## Cues
+- ⏱ 45 sec — name SHA-256 once, do NOT linger on cryptography
+- 🎚 Quiet authority; the chain ambient in the background does the visual work
+- 🎯 The senior reg-affairs panelist on "M15-grade reproducibility"
+- ⚠ Do NOT promise blockchain — this is hash-chained logging, not a ledger
+- ✅ Land on "not bolted on at submission time"
+- 🛟 Fallback: "Hash chain. Verify. M15."
+
+## Bridge
+→ Principle 4: workflow as versioned plan, coordination cost bounded.`,
+
+  // Slide 10 — Principle 4 · Versioned Workflow + Coordination (~45 sec, ~95 words)
+  '10-principle4': `## Spoken
+==Principle 4 of 5 — Versioned Workflow plus Coordination Discipline.== ⏸
+
+==Workflows are hash-anchored execution plans.== Six-step pattern: ==Data Ingestion → Schema extraction → QC Debate Gate → Manager Review → NCA Execution → HITL Approval.== ⏸
+
+==The QC debate gate is the cost bound.== ==Two experts argue, the manager arbitrates, the workflow advances or it does not.== ⏸ Coordination cost stops growing because deliberation is structurally bounded — not because anyone optimizes it after the fact.
+
+## Cues
+- ⏱ 45 sec — the six steps are the slide; you are the labeller
+- 🎚 Process-engineering register; this is the operations slide
+- 🎯 The HITL panelist on "QC Debate Gate"
+- ⚠ Do NOT skip "HITL Approval" — that is the audience's safety beat
+- ✅ Land on "not because anyone optimizes it after the fact"
+- 🛟 Fallback: "Versioned plan. Six steps. Debate is bounded."
+
+## Bridge
+→ Principle 5: orthogonal layering — the scaling story.`,
+
+  // Slide 11 — Principle 5 · Orthogonal Layering (~45 sec, ~95 words)
+  '11-principle5': `## Spoken
+==Principle 5 of 5 — Orthogonal Layering.== ⏸
+
+==Domain experts multiply. Shared infrastructure does not.== ⏸
+
+Built today — ==NCA, PopPK, PKPD, Exposure–Response, QC.== Built next — ==Signal Detection, Biomarker, MIPD, Pharmacogenomics.== Built after — ==Trial Design, RWE, Regulatory Authoring, Lifecycle.== ⏸
+
+==Scale by registering, not by rebuilding.== ⏸ A new expert plugs into the same orchestrator, same audit chain, same privacy boundary. ==The platform is the API.==
+
+## Cues
+- ⏱ 45 sec — the three acts get equal beats; do NOT crowd Act 3
+- 🎚 Forward-looking register; this is the bet on infrastructure
+- 🎯 The leadership panelist on "Scale by registering, not by rebuilding"
+- ⚠ Do NOT speculate on agents we have not actually scoped
+- ✅ Land on "The platform is the API"
+- 🛟 Fallback: "Multiply experts. Shared infra. Register, not rebuild."
+
+## Bridge
+→ Foundation audit slide — the chain made visible end of Movement 2.`,
+
+  // Slide 11.5 — Foundation audit visible (~40 sec, ~85 words)
+  '11-5-foundation-audit': `## Spoken
+==The workflow completes. The chain persists.== ⏸
+
+==SHA-256 audit panel.== Five entries. ==Request. Data Sanitized. Route NCA. Execute calculate-NCA. Result.== ⏸ Each line carries the previous hash.
+
+==One verify call.== ⏸ Returns true. ⏸ ==That is M15-grade reproducibility, foundation-level — not a submission-time afterthought.==
+
+## Cues
+- ⏱ 40 sec — slow on "Returns true" — single beat
+- 🎚 Calm; the screen IS the proof
+- 🎯 Hold the senior reg panelist's eye on "M15-grade"
+- ⚠ Do NOT zoom into specific hash strings — they are illustrative
+- ✅ Land on "submission-time afterthought" — refusal of the bolt-on framing
+- 🛟 Fallback: "Five entries. One verify. True."
+
+## Bridge
+→ Movement 3: the primitives. Six domains, one chain.`,
+
+  // Slide 12.5 — Movement 3 begins (~20 sec, ~45 words)
+  '12-5-m3-begins': `## Spoken
+==Movement 3 of 3. Eight minutes.== ⏸ The Primitives. ==Six domains. One chain.==
+
+## Cues
+- ⏱ 20 sec — chapter marker
+- 🎚 Tighter pacing than M2 marker; we are accelerating
+- 🎯 Glance at the progress bar — orange now occupies the right segment
+- ⚠ Do NOT preview each domain
+- ✅ Land cleanly
+- 🛟 Fallback: "Movement three. Eight minutes. Six domains."
+
+## Bridge
+→ Transition glyph (III), then domain 1.`,
+
+  // Slide 13 — The Domains (transition III). (~30 sec, ~65 words)
+  '13-transition-components': `## Spoken
+==The Domains.== ⏸ Six primitives sit on the foundation. ==Each one already running. Each one auditable.== ⏸ Roman numeral III marks Movement 3.
+
+## Cues
+- ⏱ 30 sec — let the III glyph land before speaking
+- 🎚 Quiet; transition cadence
+- 🎯 Look up at the slide
+- ⚠ Do NOT name the six domains here — that is the next six slides
+- ✅ Land on "Each one auditable"
+- 🛟 Fallback: "Six primitives. One foundation."
+
+## Bridge
+→ Domain 1: Data Ingestion — the privacy boundary in code.`,
+
+  // Slide 14 — Domain 1 · Data Ingestion (~35 sec, ~75 words)
+  '14-domain-data': `## Spoken
+==Domain 1 of 6 — Data Ingestion.== ⏸
+
+Datasets enter. ==Patient records stay local.== ==Sanitized schema crosses to the LLM context.== ⏸ Chaos JSON. Filter wall. Typed schema. ⏸
+
+==This is structural privacy — Principle 2 — in code.== Not a configuration choice. The boundary IS the data type.
+
+## Cues
+- ⏱ 35 sec — three-step sequence; the wall metaphor lands visually
+- 🎚 Plain; this is the operations slide
+- 🎯 Privacy-leaning panelist on "in code, not configuration"
+- ⚠ Do NOT show real PHI — sanitized illustrative only
+- ✅ Land on "The boundary IS the data type"
+- 🛟 Fallback: "Local data. Sanitized schema. Typed boundary."
+
+## Bridge
+→ Domain 2: NCA — sub-second human time per analysis.`,
+
+  // Slide 15 — Domain 2 · NCA (~35 sec, ~75 words)
+  '15-domain-nca': `## Spoken
+==Domain 2 of 6 — Non-compartmental analysis.== ⏸
+
+==Routing. Calculation. Light QC. Audit.== ⏸ ==Under one second of human time per analysis.== The PK curve plots. AUC, Cmax, Tmax derive. The hash logs. Done.
+
+The cost saved is not minutes — ==it is the friction that prevents NCA from ever being routine.==
+
+## Cues
+- ⏱ 35 sec — the curve animation does the visual lift
+- 🎚 Confident on "under one second"
+- 🎯 Pharmacometrics panelist on the friction-removed claim
+- ⚠ Do NOT claim NCA is now solved — this is one routine path
+- ✅ Land on "ever being routine"
+- 🛟 Fallback: "Curve. AUC. Hash. Done."
+
+## Bridge
+→ Domain 3: PopPK — heavier compute, same audit chain.`,
+
+  // Slide 16 — Domain 3 · Population PK (~35 sec, ~75 words)
+  '16-domain-poppk': `## Spoken
+==Domain 3 of 6 — Population Pharmacokinetics.== ⏸
+
+==NONMEM-bridged model fitting== with cross-department QC debate. ⏸ ==Validation gate two: within five percent of NONMEM.== Heavy compute, wrapped behind the same audit chain. ⏸
+
+==The chain does not care that PopPK is harder.== Same orchestration contract. Same hash structure. Same verify call.
+
+## Cues
+- ⏱ 35 sec — name the 5% gate cleanly; this is the credibility moment
+- 🎚 Technical register; the panel includes pharmacometricians
+- 🎯 NONMEM-literate panelist on "validation gate two"
+- ⚠ Do NOT promise NONMEM replacement — this is bridged validation
+- ✅ Land on "Same verify call"
+- 🛟 Fallback: "PopPK. NONMEM-bridged. Within five percent."
+
+## Bridge
+→ Domain 4: Exposure–Response — typed shared state.`,
+
+  // Slide 17 — Domain 4 · Exposure–Response (~35 sec, ~75 words)
+  '17-domain-er': `## Spoken
+==Domain 4 of 6 — Exposure–Response.== ⏸
+
+==PK posterior in. Dose recommendation out.== ⏸ ==Typed shared state across domains.== Zero re-extraction. The PopPK posterior IS the input — directly. No copy. No re-parse.
+
+==The shared state is the API.== That is what makes the six domains a foundation, not six tools.
+
+## Cues
+- ⏱ 35 sec — "shared state is the API" is the load-bearing line
+- 🎚 Steady; engineering register
+- 🎯 Architecture-leaning panelist on the typed-state claim
+- ⚠ Do NOT detail the type system — Q&A
+- ✅ Land on "not six tools"
+- 🛟 Fallback: "PK in. Dose out. Shared state. No re-extraction."
+
+## Bridge
+→ Domain 5: Regulatory Authoring — RAG-grounded, HITL-gated.`,
+
+  // Slide 18 — Domain 5 · Regulatory Authoring (~35 sec, ~75 words)
+  '18-domain-reg': `## Spoken
+==Domain 5 of 6 — Regulatory Authoring.== ⏸
+
+==M15-aligned documents. RAG-grounded. HITL-gated.== ⏸ ==Every clause traceable to a hash-chained source.== ⏸
+
+The dossier writes itself — but ==a human approves every section==. The audit chain records the approval. The reviewer reads what the human signed off on, with citations to immutable inputs.
+
+## Cues
+- ⏱ 35 sec — "human approves" must land hard; this is the safety beat
+- 🎚 Definite; this is the regulator-facing slide
+- 🎯 Senior reg panelist on "M15-aligned" and "HITL-gated"
+- ⚠ Do NOT promise auto-submission — HITL is mandatory
+- ✅ Land on "immutable inputs"
+- 🛟 Fallback: "M15. RAG. HITL. Every clause traceable."
+
+## Bridge
+→ Domain 6: End-to-end audit — the chain across all six.`,
+
+  // Slide 19 — Domain 6 · End-to-end audit (~35 sec, ~75 words)
+  '19-domain-audit': `## Spoken
+==Domain 6 of 6 — End-to-end audit.== ⏸
+
+==One chain across all six domains. One verify call.== ⏸ ICH M15 reproducibility, ==foundation-level==. Open the trace. Zoom into any panel. The hash you see is the hash that was logged.
+
+==That closes the loop on the architecture half of this talk.==
+
+## Cues
+- ⏱ 35 sec — terminal-typing animation does most of the work
+- 🎚 Closing register for Movement 3; calm
+- 🎯 Senior reg panelist + chair simultaneously
+- ⚠ Do NOT click into the demo unless the deck rehearsal includes it
+- ✅ Land on "closes the loop"
+- 🛟 Fallback: "One chain. One verify. Foundation-level."
+
+## Bridge
+→ End-to-end one-frame in v5; otherwise → close ecosystem.`,
+
+  // Slide 19.5a — End-to-end in one frame (v5-pharazi only). (~70 sec, ~150 words)
+  '19-5a-end-to-end': `## Spoken
+==End-to-end. One frame.== ⏸
+
+==Data → NCA → PopPK → Exposure–Response → Regulatory Authoring → Audit.== ⏸ Six domains. One run. ==Hash-anchored at every step.== ⏸
+
+The pattern matters: ==no intermediate file lands on disk un-audited==. The PK posterior moves directly into ER as typed state. The dose recommendation moves directly into the dossier as a citation, not a paste. ==The audit chain spans the full six-domain trace==, so the regulator can verify the path of any number on the page back to its sanitized input.
+
+==This is what "M15-aligned at the foundation level" means in operational terms.==
+
+## Cues
+- ⏱ 70 sec — six domains × ~10 sec; pause between
+- 🎚 The synthesis slide; loudest type on the closing line
+- 🎯 Walk eyes left-to-right with the chain
+- ⚠ Do NOT skip the "no intermediate file un-audited" beat — that is the operational claim
+- ✅ Land on "operational terms"
+- 🛟 Fallback: "Six domains. One run. One chain. One verify."
+
+## Bridge
+→ Concurrent-use slide — same foundation, three tenants.`,
+
+  // Slide 19.5b — Foundation in concurrent use (v5-pharazi only). (~55 sec, ~120 words)
+  '19-5b-concurrent-use': `## Spoken
+==Same foundation. Three tenants.== ⏸
+
+==Acme Pharma. Merck. A contract CRO.== ⏸ Each tenant runs an isolated workflow against the same shared infrastructure. ==State is partitioned. Audit semantics are shared.== ⏸
+
+That matters because ==the multi-tenant pattern is how this scales horizontally==. The architecture doesn't have to grow to absorb new programs — programs ==register against the platform== and inherit the privacy boundary, the audit chain, and the workflow contract by default.
+
+==Same foundation, isolated state, shared audit semantics.==
+
+## Cues
+- ⏱ 55 sec — three tenant cards reveal in sequence; pause per
+- 🎚 Forward-looking register; this is the deployment story
+- 🎯 Senior leadership panelist on "scales horizontally"
+- ⚠ Do NOT name customers as committed contracts — illustrative tenants only
+- ✅ Land on "shared audit semantics"
+- 🛟 Fallback: "Three tenants. Isolated state. Shared audit."
+
+## Bridge
+→ Close ecosystem: manuscript, live site, contributors.`,
+
+  // Slide 20 — Ecosystem publication close (~60 sec, ~130 words)
+  '20-close-ecosystem': `## Spoken
+==Manuscript in preparation, April 2026.== ⏸ Title — *Pharazi: A Centralized Multi-Agent Reference Architecture for Pharmaceutical Sciences with Structural Privacy and Cryptographic Audit.* ⏸
+
+Senior author and corresponding — ==Malek Okour==. ⏸ Target journal — ==CPT: Pharmacometrics and Systems Pharmacology==, special collection on AI for pharmacometrics. Submission window — Q3 2026. ⏸
+
+The site is live. ==pharazi.ai==. Built in N. Six ecosystem cells visible. ⏸ Open-source banner pinned at the bottom: ==the reference architecture is documented, the build-out is collaborative.== ⏸
+
+==That is the close of the architecture story.== ⏸ Happy to take questions.
+
+## Cues
+- ⏱ 60 sec — the publication banner is the credibility close
+- 🎚 Calm; this is the landing
+- 🎯 Senior leadership panelist on "open-source · collaborative"
+- ⚠ Do NOT overpromise journal acceptance — manuscript IN PREPARATION
+- ✅ Land on "Happy to take questions" — earned
+- 🛟 Fallback: "Manuscript. Live site. Open contributors. Questions?"
+
+## Bridge
+→ Q&A.`,
+
+  // Slide 21 — Q&A (~15 sec, ~30 words)
+  '21-qa': `## Spoken
+==Happy to take questions.==
+
+## Cues
+- ⏱ 15 sec — title slide; do not over-talk
+- 🎚 Calm, open posture
+- 🎯 Eye contact rotates the panel
+- ⚠ Do NOT preview answers
+- ✅ Wait for the chair to call the first question
+- 🛟 Fallback: silence + open hands
+
+## Bridge
+→ Field questions; defer to backup decks if asked for depth.`,
 };
 
 export default notes;

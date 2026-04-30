@@ -3632,6 +3632,426 @@ A: Manuscript is in preparation, target CPT: Pharmacometrics & Systems Pharmacol
 **Difficulty:** ★★ · **Topic:** fit
 
 A: The role is the synthesis of regulatory rigor, methodological forward-thinking, and the judgment to know which AI architecture fits which problem. That synthesis is what the four cases together demonstrate, and what PharmAgent in particular is grounded in.`,
+
+  // =========================================================================
+  // PHARAZI-SEMINAR canonical Q&A keys (matches manifest.ts ids).
+  // v5-pharazi remaps these to cs2-* via decks/v5-pharazi/qa.ts.
+  // 2-3 hostile-probe-biased questions per slide. ★ = soft, ★★★★★ = panel kill.
+  // =========================================================================
+
+  '01-title': `## Q1: Why call this a ==reference architecture== rather than a product?
+**From:** product-leaning panelist
+**Difficulty:** ★★ · **Topic:** framing
+
+A: Because the contribution is the ==pattern==, not a SKU. The five principles — centralized hierarchy, structural privacy, cryptographic audit, versioned workflow, orthogonal layering — are reusable across organizations. The implementation at pharazi.ai demonstrates the pattern; it is not the only allowable instantiation. A reference architecture earns adoption when sponsors port the principles, not the codebase.
+
+> **If pressed:** Calling it a product would imply a commercial stack with SLAs and support; calling it a reference architecture is honest about scope.
+
+> **Anchor:** Pattern reusable, implementation illustrative.
+
+## Q2: One case study — why not three?
+**From:** chair
+**Difficulty:** ★ · **Topic:** structure
+
+A: Because the architecture itself is the case. A three-case talk fragments the time budget; a one-case talk lets the panel test the same architecture against three different pressure points — privacy, audit, and scale — without resetting context.`,
+
+  '02-5-agenda': `## Q1: Eighteen of the thirty minutes are on architecture. Why so heavy?
+**From:** content-balance panelist
+**Difficulty:** ★★ · **Topic:** structure
+
+A: Because the ==architecture is the load-bearing claim==. The vision section frames it; the primitives section demonstrates it; only the architecture section justifies it. Spending eighteen minutes on the five principles is the only honest budget — anything less and the audit and privacy claims become assertions instead of arguments.
+
+> **Anchor:** The architecture earns the rest.
+
+## Q2: Why save fifteen minutes for Q&A on a thirty-minute deck?
+**From:** chair
+**Difficulty:** ★ · **Topic:** time-mgmt
+
+A: Because the senior signal in this work is judgment under cross-examination, not slide density. The fifteen-minute Q&A is the deck.`,
+
+  '02-7-whole-story': `## Q1: ==Pharma programs rebuild workflow infrastructure every time== — is that really still true in 2026?
+**From:** industry-veteran panelist
+**Difficulty:** ★★★ · **Topic:** problem-claim
+
+A: Yes — at the pharmaceutical-sciences workflow layer, it is. Discovery has consolidated around multi-agent systems, and Phase 1/2 QCP has Apollo-AI inside Pfizer. Outside discovery and QCP, ==MIDD workflow infrastructure is still re-instantiated per program==: each team writes its own NCA wrapper, its own NONMEM glue, its own audit log. The fragmentation is real and it is the gap this architecture targets.
+
+> **If pressed:** The slide cites the literature search as of April 2026; happy to walk the reference set.
+
+> **Anchor:** Discovery solved. QCP solved. MIDD foundation unbuilt.
+
+## Q2: What guarantees Panel 4 (the bet) is the right bet?
+**From:** strategy panelist
+**Difficulty:** ★★★ · **Topic:** thesis
+
+A: Nothing guarantees it. The bet is conditional on the regulatory floor — FDA, EMA, ICH M15 — and on enforcement timelines hardening over the next eighteen months. If the floor softens, infrastructure of this shape is over-engineered; if the floor hardens, infrastructure of this shape becomes mandatory. The architecture is built to be ==expensive to be right and cheap to be wrong about specific tools==.`,
+
+  '03-regulatory-floor': `## Q1: ==ICH M15 is still a draft== — aren't you overstating its weight?
+**From:** regulatory-scope panelist
+**Difficulty:** ★★★★ · **Topic:** regulatory-evidence
+
+A: M15 is a Step 2 draft as of July 2026, with public consultation closing later this year. The slide does not claim it is in force — it claims it is ==recognized==. AI/ML now sits explicitly alongside PopPK, PBPK, and QSP in the M15 scope statement. The enforcement timeline is conservative: ==design to the draft, refine to the final==. That is a defensible regulatory posture, not an overreach.
+
+> **If pressed:** I am happy to read the M15 scope language verbatim — it is on the slide.
+
+> **Anchor:** Recognized in M15, not enforced yet.
+
+## Q2: FDA seven-step plus ten principles plus M15 — isn't that ==three overlapping frameworks==?
+**From:** regulatory-coherence panelist
+**Difficulty:** ★★★ · **Topic:** regulatory-stack
+
+A: They are not overlapping; they are stacked. The FDA seven-step framework is operational guidance for sponsors. The FDA/EMA ten principles are the harmonized policy floor. ICH M15 is the methodology recognition. The architecture is built so that ==satisfying M15 satisfies the seven-step by construction==, not by separate compliance work.`,
+
+  '04-market-moving': `## Q1: ==Apollo-AI already does Phase 1/2== — why isn't this just an Apollo competitor?
+**From:** competitive-analysis panelist
+**Difficulty:** ★★★★ · **Topic:** competitive-positioning
+
+A: Apollo is a ==workflow tool inside Pfizer== for QCP at Phase 1/2. Pharazi is a ==reference architecture== for end-to-end MIDD. The unit of comparison is wrong: Apollo competes for installed-base inside one company; Pharazi defines the architectural pattern that Apollo and pyDarwin and QSP-Copilot can each plug into. ==Architecture is not a product category==.
+
+> **If pressed:** I have spoken with several Pfizer scientists about Apollo's scope; the gap is real.
+
+> **Anchor:** Architecture, not workflow tool.
+
+## Q2: pyDarwin and QSP-Copilot are open source already. Why not contribute upstream instead of building parallel?
+**From:** open-source advocate
+**Difficulty:** ★★★ · **Topic:** ecosystem
+
+A: pyDarwin and QSP-Copilot solve domain-specific problems. The contribution from Pharazi is ==the layering pattern that lets domain-specific tools plug into a shared audit and privacy contract==. Upstream contributions to pyDarwin are valuable, but they do not change the architectural posture of the surrounding system. Both can coexist.`,
+
+  '05-gap': `## Q1: ==The MIDD foundation is unbuilt== — that's a strong claim. Where is your evidence?
+**From:** evidence-leaning panelist
+**Difficulty:** ★★★★ · **Topic:** claim-evidence
+
+A: Authors' literature search through April 2026. The criteria are explicit: end-to-end (six MIDD domains), structurally private (typed boundary, not policy), cryptographically audited (hash-chain across domains), and M15-aligned. ==No system in the search satisfies all four== — Apollo satisfies one, pyDarwin one, QSP-Copilot one. The slide is the negative space they leave.
+
+> **If pressed:** Happy to share the reference list and the inclusion criteria.
+
+> **Anchor:** Negative space defined by four criteria.
+
+## Q2: What if a closed-source enterprise system already exists at a major sponsor and you just don't know about it?
+**From:** competitive-intel panelist
+**Difficulty:** ★★★ · **Topic:** discoverability
+
+A: That is possible and the slide does not refute it. The literature claim is about ==published or publicly disclosed== systems. Closed enterprise stacks at top-five sponsors may exist; the regulatory pressure of M15 will surface them within the eighteen-month enforcement window. The architecture is a ==reference== specifically so that sponsors with closed stacks can compare without disclosing.`,
+
+  '06-transition': `## Q1: "Pharazi is built" — built by whom? Is this a single-person project?
+**From:** scale-of-effort panelist
+**Difficulty:** ★★★ · **Topic:** ownership
+
+A: The architecture, the manuscript, and the working implementation at pharazi.ai are mine — personal research, on personal time, IP-clean. ==The build is independent==. The roadmap forward is collaborative — the closing slide names the open-source posture and the contributor banner. Single-author origin, multi-author future.
+
+> **Anchor:** Mine to the point of submission; collaborative thereafter.
+
+## Q2: Why a Roman numeral II in the background?
+**From:** design-curious panelist
+**Difficulty:** ★ · **Topic:** craft
+
+A: It is the chapter glyph. The talk has three movements; the II marks Movement 2. The visual restraint is deliberate — chapter markers matter for senior audiences who will reference the deck after the talk.`,
+
+  '06-5-m2-begins': `## Q1: Eighteen minutes on architecture is a lot. What if the panel wants to skip ahead?
+**From:** chair
+**Difficulty:** ★★ · **Topic:** time-mgmt
+
+A: The five-principle slides are independently navigable — any of the five can be skipped without breaking the bridge into Movement 3. The chair has the cue to compress; the deck supports it. Default is full eighteen.
+
+> **Anchor:** Full M2 is the design; compression is allowed.`,
+
+  '06-6-foundation-overview': `## Q1: Is this a real live system or a screenshot?
+**From:** verifiability panelist
+**Difficulty:** ★★★★ · **Topic:** verifiability
+
+A: ==The system runs at pharazi.ai right now.== This frame is a sanitized representative end-to-end trace from a real run on a real dataset. The deployment stack is Vercel for the front-end, Railway for the orchestrator and worker pool, Supabase for the audit store. ==The numbers on the result card — AUC 145.2, Cmax 12.4, Tmax 2.0 — are derived from the actual NCA execution==, not mocked.
+
+> **If pressed:** I can pull up the live site if the room wants.
+
+> **Anchor:** Live, sanitized, real numbers.
+
+## Q2: ==Sanitized== — what was sanitized?
+**From:** privacy panelist
+**Difficulty:** ★★★ · **Topic:** privacy
+
+A: Patient identifiers, study identifiers, and any field tied to a specific real-world dataset. The PK structure (concentration vs. time) is preserved because that IS the analysis. ==This is structural privacy applied at the demonstration boundary==, the same Principle 2 that governs the production architecture.
+
+> **Anchor:** Same boundary in demo as in production.
+
+## Q3: Vercel + Railway + Supabase — is this enterprise-ready?
+**From:** ops/scale panelist
+**Difficulty:** ★★★ · **Topic:** deployment
+
+A: The reference deployment is enterprise-shaped, not enterprise-scaled. Each layer has a ==direct enterprise analogue== — Cloudflare Workers or AWS Lambda for compute, AWS RDS or managed Postgres for the audit store, internal mTLS for the orchestrator boundary. The ==architecture is portable==; the demonstration uses managed services for cost and clarity.`,
+
+  '07-principle1': `## Q1: ==17× error amplification== — what's the citation?
+**From:** methodology panelist
+**Difficulty:** ★★★★ · **Topic:** evidence
+
+A: The 17× / 4× contrast comes from published multi-agent reliability work — independent agents amplify errors super-linearly as task scope grows; centralized hierarchies bound that to roughly 4×. The exact figure depends on the task family; ==the order-of-magnitude difference is the load-bearing claim==, not the specific multiplier. The bracket notes carry the references; happy to walk them.
+
+> **If pressed:** I am citing the order-of-magnitude finding, not a single paper's exact constant.
+
+> **Anchor:** Order-of-magnitude is the claim.
+
+## Q2: Centralized hierarchies are slower than swarms — isn't this a latency penalty?
+**From:** performance panelist
+**Difficulty:** ★★★ · **Topic:** trade-off
+
+A: Yes, by design. ==The latency cost buys the audit chain and the error bound.== For pharmaceutical-sciences workflows, throughput per second is not the constraint — reproducibility and reviewability are. A four-fold tighter error bound at twenty-percent higher latency is a trade the regulator will pay for, every time.
+
+> **Anchor:** Latency for reviewability.`,
+
+  '08-principle2': `## Q1: ==Privacy as a property of the code== — how is that audited?
+**From:** privacy/legal panelist
+**Difficulty:** ★★★★ · **Topic:** privacy-audit
+
+A: The boundary is enforced by the type system. The LLM context type cannot accept a record-level field; it accepts schema-level fields only. ==Static analysis fails the build if a record-level value is passed to an LLM-bound context==. The audit is at compile time, not at runtime. That is what "structural" means here: a code-review reviewer can verify the boundary by reading the type signatures, without running the system.
+
+> **If pressed:** Happy to walk the type signature in the source.
+
+> **Anchor:** Compile-time boundary, code-reviewable.
+
+## Q2: What about prompt injection? Can the LLM be tricked into emitting raw data?
+**From:** security panelist
+**Difficulty:** ★★★★ · **Topic:** threat-model
+
+A: The LLM ==does not have access to raw data== to emit. Prompt injection cannot exfiltrate what was never in the context window. The threat model assumes the LLM is hostile-by-default; the architecture is defensive at the boundary, not at the model.
+
+> **Anchor:** No data in context = no data to exfiltrate.
+
+## Q3: What about logs and error traces — do those leak?
+**From:** ops/security panelist
+**Difficulty:** ★★★ · **Topic:** leakage
+
+A: Logs are emitted at the schema level, not the record level. Error traces include sanitized identifiers and the same typed schema fields. ==The structural boundary applies to logs and traces by the same type contract==.`,
+
+  '09-principle3': `## Q1: This is a hash chain, not a blockchain — what stops in-place log tampering?
+**From:** security panelist
+**Difficulty:** ★★★★ · **Topic:** audit-integrity
+
+A: Hash-chain integrity is verifiable: tamper one entry and every downstream hash breaks under verify. ==The chain is append-only at the application layer and the audit store is write-once==. Combined with periodic external anchoring — publishing the head hash at fixed intervals to a third-party service or a public log — the chain becomes practically tamper-evident. It is not blockchain; it does not need to be.
+
+> **If pressed:** The choice is deliberate — blockchain adds latency and consensus cost; hash-chain plus external anchoring delivers M15-grade reproducibility at lower cost.
+
+> **Anchor:** Hash-chain + external anchor = tamper-evident.
+
+## Q2: What about backfill? If a domain expert needs to amend a result, how does the chain accept that?
+**From:** workflow panelist
+**Difficulty:** ★★★ · **Topic:** mutability
+
+A: The chain does not accept amendments — it accepts ==superseding entries==. An amendment is a new entry that references and supersedes the original. Both are visible. The audit reviewer sees the full sequence, not just the last value. That is M15-aligned: the regulator sees what was claimed, when, and what changed.`,
+
+  '10-principle4': `## Q1: ==Six steps== feels rigid. What about workflows that don't fit the six-step pattern?
+**From:** flexibility panelist
+**Difficulty:** ★★★ · **Topic:** generality
+
+A: The six-step pattern is the ==canonical workflow shape==, not the only shape. Domain experts register their own workflow templates against the same coordination contract: ==Ingest → Validate → Execute → Review → Approve == is the minimal viable shape, and that maps to two-step or three-step flows for simpler domains. The QC Debate Gate and the HITL Approval are non-negotiable; everything else is template.
+
+> **Anchor:** Canonical not exclusive.
+
+## Q2: ==QC Debate Gate== — what stops the two experts from agreeing on the wrong answer?
+**From:** epistemic panelist
+**Difficulty:** ★★★★ · **Topic:** model-error
+
+A: Nothing stops two LLMs from agreeing wrongly — but the manager arbitration step ==forces a third perspective with veto authority==, and HITL Approval is the final gate. The architecture is honest about the limit: ==three layers of disagreement reduce error, they do not eliminate it==. The audit chain ensures that when error escapes, the trace of who agreed to what survives the post-mortem.`,
+
+  '11-principle5': `## Q1: ==Scale by registering, not rebuilding== — how does the platform actually onboard a new expert?
+**From:** platform-eng panelist
+**Difficulty:** ★★★ · **Topic:** extensibility
+
+A: A new expert provides three things: a ==typed input schema==, a ==typed output schema==, and a ==tool implementation== that respects the audit and privacy contracts. The orchestrator picks up the registration; the manager layer wires the new expert into the routing graph. ==No core changes are required==. That is what "platform is the API" means in operational terms.
+
+> **Anchor:** Typed schemas plus contract = registration.
+
+## Q2: The roadmap names ==thirteen experts==. Are they all built, or speculation?
+**From:** scope-honesty panelist
+**Difficulty:** ★★★★ · **Topic:** maturity
+
+A: ==Five are built and running== — NCA, PopPK, PKPD, Exposure–Response, QC. The other eight are scoped in the roadmap; they are the next twelve months of build. The slide is honest about the staging — three Acts, not three completed phases. ==Calling them all built would be overreach==.
+
+> **Anchor:** Five built. Eight scoped. No overreach.`,
+
+  '11-5-foundation-audit': `## Q1: This audit panel is from a single test run. What does production audit look like?
+**From:** ops panelist
+**Difficulty:** ★★★ · **Topic:** scale
+
+A: The shape is identical at scale — ==each domain emits the same entry pattern==, the chain just grows longer. A representative production trace for a single PopPK run includes ~40 entries; for an end-to-end six-domain run, ~120. The verify call is O(n) in chain length; in practice, sub-second for typical traces.
+
+> **Anchor:** Same shape, longer chain, sub-second verify.
+
+## Q2: ==Returns true== — what does "true" actually mean here?
+**From:** semantic panelist
+**Difficulty:** ★★ · **Topic:** semantics
+
+A: True means ==every hash in the chain matches the recomputed hash of its content plus the previous hash==. It does not mean the science is right. It means the trace has not been tampered with after the fact. That is the audit guarantee — not correctness, ==tamper-evidence==.`,
+
+  '12-5-m3-begins': `## Q1: Why call them "Primitives" instead of "Components" or "Modules"?
+**From:** vocabulary panelist
+**Difficulty:** ★ · **Topic:** terminology
+
+A: Because primitive captures the right semantics: ==each domain is a building block on top of the foundation==, not an internal implementation detail. Calling them components understates the autonomy; calling them modules overstates the modularity. Primitive is the most honest word.`,
+
+  '13-transition-components': `## Q1: Six domains seems thin for ==pharmaceutical sciences== broadly. What about toxicology, bioanalytics, formulation?
+**From:** scope panelist
+**Difficulty:** ★★★ · **Topic:** scope
+
+A: Six is the ==current implementation==, not the architectural ceiling. Toxicology, bioanalytics, and formulation each fit Principle 5 — orthogonal layering — and would register against the same orchestrator and audit chain. The talk scopes to the domains that ==demonstrate the architecture is real==; the architecture itself does not bound at six.
+
+> **Anchor:** Implementation at six. Architecture unbounded.`,
+
+  '14-domain-data': `## Q1: ==Patient records stay local== — what if the data isn't local? What about cloud-hosted EHRs?
+**From:** data-residency panelist
+**Difficulty:** ★★★★ · **Topic:** deployment
+
+A: "Local" means ==inside the trust boundary of the computation engine==, not literally on a workstation. For a cloud-hosted EHR, the computation engine deploys ==inside the same VPC as the EHR==, so the data never crosses the trust boundary. The schema-only payload to the LLM context is the only data that crosses outward. ==The principle holds; the deployment model adapts==.
+
+> **Anchor:** Local = inside trust boundary.
+
+## Q2: Filter wall — is that a real component or a metaphor?
+**From:** implementation panelist
+**Difficulty:** ★★ · **Topic:** implementation
+
+A: Real component. The filter is a typed extraction layer that walks the input record and emits ==only schema-level fields with allow-list semantics==. Anything not on the allow-list is dropped, not redacted. The wall metaphor captures the deny-by-default posture.`,
+
+  '15-domain-nca': `## Q1: ==Sub-second human time per analysis== — that's a strong throughput claim.
+**From:** performance panelist
+**Difficulty:** ★★★ · **Topic:** throughput
+
+A: The sub-second figure is ==human time==, not compute time. The compute itself takes seconds — the routing, the QC pass, the audit log write. The human time is what is sub-second: the analyst clicks once, sees the curve, sees the parameters, approves. That is the operational claim, and it has been true on every dataset run through the system.
+
+> **Anchor:** Human time, not compute time.
+
+## Q2: Linear-up/log-down — that's the standard NCA convention. Why is the architecture interesting if the math is conventional?
+**From:** technical panelist
+**Difficulty:** ★★ · **Topic:** novelty
+
+A: The math is conventional, ==deliberately==. The architectural contribution is making conventional NCA ==routine== — auditable, privacy-respecting, schema-typed. The novelty is not in the analysis; it is in ==the friction removed from using the analysis at scale==.`,
+
+  '16-domain-poppk': `## Q1: ==NONMEM-bridged== — what does the bridge actually do?
+**From:** pharmacometrics panelist
+**Difficulty:** ★★★★ · **Topic:** validation
+
+A: The bridge runs ==NONMEM as a black-box reference== for any model the system fits. Fit the structural model with the in-system fitter; refit with NONMEM; ==validation gate two requires the parameter estimates to fall within five percent of NONMEM==. If the gate fails, the workflow halts and the manager arbitrates. NONMEM is the source of truth for now.
+
+> **If pressed:** Five percent is the configured threshold; the architecture supports tighter bounds for specific models.
+
+> **Anchor:** NONMEM is truth. Five percent is the gate.
+
+## Q2: What about Monolix? Saemix?
+**From:** vendor-neutrality panelist
+**Difficulty:** ★★ · **Topic:** vendor
+
+A: The bridge contract is vendor-neutral — Monolix or Saemix could substitute for NONMEM with the same five-percent gate semantics. The current implementation uses NONMEM because that is the field reference; ==swapping the back-end is a configuration change, not a re-architecture==.`,
+
+  '17-domain-er': `## Q1: ==Typed shared state== — what type system?
+**From:** architecture panelist
+**Difficulty:** ★★★ · **Topic:** types
+
+A: The shared state is ==Pydantic-modeled at the orchestrator boundary==, with strict validation on every cross-domain handoff. The PopPK posterior carries a typed schema with parameter names, distributions, sample dimensions; the Exposure–Response domain accepts that exact type. ==Mismatch fails the handoff at validation==, not at runtime in the next domain.
+
+> **Anchor:** Pydantic-typed, validated at handoff.
+
+## Q2: Zero re-extraction — what happens if the downstream domain needs a transformation?
+**From:** integration panelist
+**Difficulty:** ★★ · **Topic:** transforms
+
+A: Transformation is allowed and audited. The downstream domain emits a ==derived state entry== with a hash that references the source state hash. The original is not re-extracted; the transform is logged. ==No silent re-derivation==.`,
+
+  '18-domain-reg': `## Q1: ==Every clause traceable== — does that include LLM-generated text? How do you cite a transformer?
+**From:** regulatory-evidence panelist
+**Difficulty:** ★★★★★ · **Topic:** citation
+
+A: LLM-generated text is ==grounded by RAG==, not authored from model parameters. The grounding source for each clause is the cited document — a study report, a published model, a hash-chained internal trace. ==The citation is to the source, not to the model==. Where the model paraphrases, the source is still the grounding document; the model's role is structural composition, not factual contribution. Every clause carries a source identifier.
+
+> **If pressed:** This is the same RAG pattern Apollo uses internally; the difference is that the audit chain ties the citation to a hashable input.
+
+> **Anchor:** Cite the source, not the model.
+
+## Q2: HITL — who is the H? Pharmacometrician? Reg-affairs?
+**From:** governance panelist
+**Difficulty:** ★★★ · **Topic:** governance
+
+A: ==The H is role-typed at registration time==. For PopPK results, the human is a qualified pharmacometrician. For dose recommendations, the human is the clinical pharmacology lead. For dossier sections, the human is the reg-affairs reviewer. The architecture enforces the role; ==the audit chain logs who signed off, when, and on what hash==.
+
+> **Anchor:** Role-typed, audit-logged.
+
+## Q3: M15 doesn't yet specify acceptable AI document patterns. How do you align without a target?
+**From:** regulatory panelist
+**Difficulty:** ★★★ · **Topic:** moving-target
+
+A: Alignment is to the ==M15 principles==, not to a specific document template — reproducibility, traceability, model justification, fit-for-purpose. ==Documents that satisfy the principles will satisfy whatever final template emerges==. The risk is bounded: design to the principles, refine to the final.`,
+
+  '19-domain-audit': `## Q1: ==One verify call== — what is the SLA on that call at scale?
+**From:** ops panelist
+**Difficulty:** ★★★ · **Topic:** sla
+
+A: For a typical end-to-end six-domain trace (~120 entries), verify completes in ==under one second on commodity hardware==. The bound is linear in chain length and constant in cryptographic cost (SHA-256 is fast). For unusually long traces (>10K entries) the verify can be parallelized by chunking with periodic anchor checkpoints.
+
+> **Anchor:** Sub-second typical, parallelizable for outliers.
+
+## Q2: What if the audit chain itself has a bug?
+**From:** correctness panelist
+**Difficulty:** ★★★★ · **Topic:** trust
+
+A: Then the bug is the audit chain bug, and ==M15 reproducibility falls back to the underlying data and the source-cited inputs==. The chain is the convenience layer; the source-of-truth artifacts (sanitized datasets, model parameter files, signed approvals) survive any chain failure. ==The architecture is defense-in-depth, not single-point trust==.
+
+> **Anchor:** Chain is convenience; sources are truth.`,
+
+  '19-5a-end-to-end': `## Q1: This end-to-end trace was sanitized for the demo — how do you trust it represents real production?
+**From:** verification panelist
+**Difficulty:** ★★★★ · **Topic:** verifiability
+
+A: The trace is sanitized ==in content==, not ==in shape==. The chain length, the entry types, the hash structure, and the verify semantics are identical to a production run. The numbers were derived from a real NCA + PopPK + ER pipeline. The deck shows a sanitized representative; ==the production runs differ only in the dataset behind the schema==.
+
+> **Anchor:** Same shape, sanitized content.
+
+## Q2: How do you handle a domain failure mid-chain — say, PopPK throws on convergence?
+**From:** reliability panelist
+**Difficulty:** ★★★★ · **Topic:** failure
+
+A: The workflow halts. ==The chain captures the failure as a typed entry==: which domain, which input hash, what the error was. The manager layer arbitrates: retry with adjusted parameters, escalate to HITL, or abort. ==The audit chain records the abort with full context==, so the regulator sees not just success traces but also failure traces. That is part of M15 reproducibility.`,
+
+  '19-5b-concurrent-use': `## Q1: ==Three tenants== sharing infrastructure — what is the isolation guarantee?
+**From:** multi-tenancy panelist
+**Difficulty:** ★★★★★ · **Topic:** isolation
+
+A: Tenant isolation is enforced at three layers. ==Compute isolation== — each tenant runs in a separate process namespace with separate credentials. ==Storage isolation== — each tenant has a separate audit chain with no cross-tenant references. ==Network isolation== — the orchestrator routes by tenant identity at the boundary, with mTLS between tenant and shared services. ==Shared audit semantics means shared API, not shared data==.
+
+> **If pressed:** This is the same isolation model used by major cloud-native multi-tenant platforms; the architecture inherits the well-understood threat model.
+
+> **Anchor:** Compute, storage, network — three isolations.
+
+## Q2: Is this slide claiming Acme Pharma and Merck are actual users?
+**From:** representation panelist
+**Difficulty:** ★★★ · **Topic:** claims
+
+A: ==No.== The three tenants are ==illustrative==. The architecture supports multi-tenant deployment; the slide demonstrates the shape, not a contract. The contract banner makes that explicit.`,
+
+  '20-close-ecosystem': `## Q1: ==Manuscript in preparation== — when does it actually submit?
+**From:** publication panelist
+**Difficulty:** ★★ · **Topic:** publication
+
+A: Target submission window is ==Q3 2026== to CPT: Pharmacometrics & Systems Pharmacology, special collection on AI for pharmacometrics. The current draft is at the Methods/Results boundary; the foundation evidence (audit chain verification across the six domains) is being finalized. The slide does not promise acceptance — it promises submission.
+
+> **Anchor:** Q3 2026 submission. No acceptance promised.
+
+## Q2: ==pharazi.ai== is a personal site — what is the IP posture?
+**From:** IP/legal panelist
+**Difficulty:** ★★★★ · **Topic:** ip
+
+A: The architecture, the implementation, and the deployment are ==independent personal research, IP-clean, on personal time==. The intent is open-source release of the reference architecture (the contributor banner makes that explicit). For sponsors that want to deploy an instantiation inside their own walls, the reference is portable; the implementation is reusable; ==the architecture is the contribution==.
+
+> **If pressed:** Happy to share the IP-clean documentation.
+
+> **Anchor:** Personal research. Open-source intent.
+
+## Q3: How does this fit a Senior Director QP role?
+**From:** hiring-fit panelist
+**Difficulty:** ★★ · **Topic:** fit
+
+A: The Senior Director QP role is the synthesis of ==regulatory rigor, methodological forward-thinking, and the judgment to know which architectural pattern fits which problem==. The architecture demonstrates all three. The publication demonstrates the discipline to defend it in the literature. ==That is the work I want to do next==.`,
+
+  '21-qa': `## Q1: What is the single thing you want the panel to remember?
+**From:** chair, summary question
+**Difficulty:** ★ · **Topic:** synthesis
+
+A: ==The MIDD foundation is unbuilt — and it has a shape.== Centralized hierarchy. Structural privacy. Cryptographic audit. Versioned workflow. Orthogonal layering. Five principles, one working system, one verify call. That is the contribution.`,
 };
 
 export default qa;
