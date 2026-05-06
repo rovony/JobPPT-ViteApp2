@@ -5,7 +5,7 @@ import {
   ArrowUpRight, Layers, Sparkles, FolderOpen, BarChart3, FlaskConical,
   Search, ChevronDown, Star, Archive, FolderPlus, Tag, X, Check,
   LayoutGrid, LayoutList, ArrowUpDown, Plus, Trash2, Pencil, ArchiveRestore, Folder, ChevronRight,
-  SlidersHorizontal, Hash, Share2, LogOut, User, MoreVertical, Mic,
+  SlidersHorizontal, Hash, Share2, LogOut, User, MoreVertical, Mic, Puzzle,
 } from 'lucide-react';
 import { DECKS } from '@/decks/registry';
 import DeckSourcesDialog from '@/components/deck/DeckSourcesDialog';
@@ -44,6 +44,7 @@ export function MonoChip({ as: As = 'span' as any, size = 'md', className = '', 
    ================================================================ */
 const FOLDER_ICONS = {
   check: Check,
+  puzzle: Puzzle,
   mic: Mic,
   layoutGrid: LayoutGrid,
   layers: Layers,
@@ -138,6 +139,12 @@ function Sidebar({ collapsed }) {
             <span className="truncate">{f.label}</span>
             {f.id === 'delivered' && (
               <span className="ml-auto deck-mono text-[0.55rem] deck-ink-subtle">{DECKS.filter(d => !!(d as any).audience?.deliveredAt && !state.deckMeta[d.id]?.archived).length}</span>
+            )}
+            {f.id === 'sections' && (
+              <span className="ml-auto deck-mono text-[0.55rem] deck-ink-subtle">{DECKS.filter(d => {
+                const k = (d as any).audience?.kind || d.catalogGit?.kind;
+                return k === 'section' && !state.deckMeta[d.id]?.archived;
+              }).length}</span>
             )}
             {f.id === 'live' && (
               <span className="ml-auto deck-mono text-[0.55rem] deck-ink-subtle">{DECKS.filter(d => {

@@ -51,8 +51,8 @@
     "audience": "Gilead",
     "role": "PMX",
     "kind": "section",
-    "deliveredAt": "2026-04-29T13:00:00-04:00",
-    "note": "Gilead PMX — 'V5-Pharos' (display title); the pharos version delivered Apr 29 (paired with v5-pharazi)"
+    "deliveredAt": null,
+    "note": "Gilead PMX section — 'V5-Pharos' (display title), 27 slides. Section/scaffold, not delivered."
   },
   "v5-pharazi": {
     "audience": "Gilead",

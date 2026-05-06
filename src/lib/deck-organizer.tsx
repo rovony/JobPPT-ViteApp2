@@ -40,14 +40,16 @@ export function formatDeckStudioCreatedLine(deck: Parameters<typeof getDeckCreat
    Default folders — always present, cannot be deleted
    ================================================================ */
 const SYSTEM_FOLDERS = [
-  // 'delivered' = decks that were actually delivered live to an audience
-  { id: 'delivered', label: 'Delivered',   icon: 'check',       system: true, order: 0 },
-  // 'live' = my talks (presentations + sections), delivered or not
-  { id: 'live',     label: 'Talks',        icon: 'mic',         system: true, order: 1 },
-  { id: 'templates', label: 'Templates & Showcases', icon: 'layoutGrid', system: true, order: 2 },
-  { id: 'all',      label: 'All',          icon: 'layers',      system: true, order: 3 },
-  { id: 'favorites', label: 'Favorites',   icon: 'star',        system: true, order: 4 },
-  { id: 'archive',  label: 'Archive',      icon: 'archive',     system: true, order: 5 },
+  // 'delivered' = decks that were actually delivered live to an audience (the public-facing top picks)
+  { id: 'delivered', label: 'Final Delivered', icon: 'check',     system: true, order: 0 },
+  // 'sections' = sub-pieces (kind=section), regardless of delivered status — scaffolds, building blocks
+  { id: 'sections', label: 'Sections',    icon: 'puzzle',      system: true, order: 1 },
+  // 'live' = all talks (presentations + sections, delivered or not)
+  { id: 'live',     label: 'Talks',        icon: 'mic',         system: true, order: 2 },
+  { id: 'templates', label: 'Templates & Showcases', icon: 'layoutGrid', system: true, order: 3 },
+  { id: 'all',      label: 'All',          icon: 'layers',      system: true, order: 4 },
+  { id: 'favorites', label: 'Favorites',   icon: 'star',        system: true, order: 5 },
+  { id: 'archive',  label: 'Archive',      icon: 'archive',     system: true, order: 6 },
 ];
 
 /* ================================================================
@@ -309,6 +311,8 @@ export function useFilteredDecks(allDecks) {
       filtered = filtered.filter((d) => deckMeta[d.id]?.archived);
     } else if (activeFolder === 'delivered') {
       filtered = filtered.filter((d: any) => !!d.audience?.deliveredAt);
+    } else if (activeFolder === 'sections') {
+      filtered = filtered.filter((d: any) => (d.audience?.kind || d.catalogGit?.kind) === 'section');
     } else if (activeFolder === 'live') {
       filtered = filtered.filter(isLiveTalk);
     } else if (activeFolder === 'templates') {
