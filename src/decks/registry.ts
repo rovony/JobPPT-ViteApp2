@@ -20,11 +20,39 @@ import deckCatalogGit from './deck-catalog-git.json';
 
 const RAW_DECKS = [qp2Seminar, qp2SeminarV2, qp2SeminarV3R2, qp2SeminarV4, qp2SeminarV42, v5Pharazi, cs4FlagshipV1, cs4CanvasFlagship, launchKeynote, templateBlank, slideTemplates, componentsShowcase, zajDesignShowcase, editorialMotionTemplate, pharaziSeminar, pharosSeminar];
 
-/** First commit touching each manifest (regenerate: `npm run gen:deck-catalog-git`). */
-export const DECKS = RAW_DECKS.map((d) => ({
-  ...d,
-  catalogGitFirstCommittedAt: (deckCatalogGit as Record<string, string>)[d.id] ?? null,
-}));
+/** Shape written by `npm run gen:deck-catalog-git`. */
+export type DeckCatalogGitEntry = {
+  firstCommittedAt: string | null;
+  lastUpdatedAt: string | null;
+  commitCount: number;
+  lastCommitSubject: string | null;
+  kind: 'presentation' | 'case-study' | 'template' | 'showcase';
+  versionFamily: string;
+  versionLabel: string | null;
+  isLatestInFamily: boolean;
+};
+
+const CATALOG = deckCatalogGit as Record<string, DeckCatalogGitEntry>;
+
+/**
+ * DECKS — registered manifests enriched with git-derived metadata.
+ *
+ * Each entry carries the manifest's own fields plus:
+ *   catalogGit                   — full git-derived metadata block (preferred)
+ *   catalogGitFirstCommittedAt   — backward-compat alias for catalogGit.firstCommittedAt
+ *
+ * A manifest's own `kind` (when set) takes precedence over the heuristic in catalogGit.kind.
+ *
+ * Regenerate the underlying JSON with: `npm run gen:deck-catalog-git`
+ */
+export const DECKS = RAW_DECKS.map((d) => {
+  const meta: DeckCatalogGitEntry | undefined = CATALOG[d.id];
+  return {
+    ...d,
+    catalogGit: meta ?? null,
+    catalogGitFirstCommittedAt: meta?.firstCommittedAt ?? null,
+  };
+});
 
 export function getDeck(id: string | undefined): any {
   return DECKS.find((d) => d.id === id) || null;

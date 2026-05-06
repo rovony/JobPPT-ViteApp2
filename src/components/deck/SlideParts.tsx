@@ -24,7 +24,7 @@ import SplitHeadline from './SplitHeadline';
 
 const EASE = [0.2, 0.7, 0.3, 1];
 
-export function Eyebrow({ area = 'eyebrow', color = 'var(--case, var(--coral))', children, delay = 0.15 }) {
+export function Eyebrow({ area = 'eyebrow', color = 'var(--case, var(--coral))', children, delay = 0.15 }: any) {
   return (
     <GridSlot
       area={area}
@@ -42,7 +42,7 @@ export function Eyebrow({ area = 'eyebrow', color = 'var(--case, var(--coral))',
   );
 }
 
-export function TopRight({ area = 'chrome-r', children, delay = 0.15 }) {
+export function TopRight({ area = 'chrome-r', children, delay = 0.15 }: any) {
   return (
     <GridSlot
       area={area}
@@ -73,7 +73,7 @@ export function TopRight({ area = 'chrome-r', children, delay = 0.15 }) {
  * wraps text nodes, leaving styled wrappers intact so per-word color
  * overrides still render correctly.
  */
-export function Headline({ area = 'headline', children, delay = 0.3, maxChars = 34 }) {
+export function Headline({ area = 'headline', children, delay = 0.3, maxChars = 34 }: any) {
   return (
     <GridSlot
       area={area}
@@ -94,7 +94,7 @@ export function Headline({ area = 'headline', children, delay = 0.3, maxChars = 
   );
 }
 
-export function Subhead({ area = 'subhead', children, delay = 0.55, maxChars = 100, size = 'default' }) {
+export function Subhead({ area = 'subhead', children, delay = 0.55, maxChars = 100, size = 'default' }: any) {
   // `size` lets individual slides bump the subhead when the line is
   // narrative/lead copy rather than a tight caption. 'lead' taps the
   // lead token (~28pt) which scales fluidly across viewports.
@@ -122,7 +122,7 @@ export function Subhead({ area = 'subhead', children, delay = 0.55, maxChars = 1
   );
 }
 
-export function Viz({ area = 'viz', children, className, style }) {
+export function Viz({ area = 'viz', children, className, style }: any) {
   return (
     <GridSlot
       area={area}
@@ -151,7 +151,7 @@ export function Viz({ area = 'viz', children, className, style }) {
  * a second row that may wrap, so 4-cite chains stay legible. The page
  * number is sourced from deck context so callers never hardcode "03 / 20".
  */
-export function Footer({ area = 'footer', kicker, tagline, source, delay = 2.6 }) {
+export function Footer({ area = 'footer', kicker, tagline, source, delay = 2.6 }: any) {
   const { index, total } = useDeck();
   return (
     <GridSlot

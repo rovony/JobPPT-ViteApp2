@@ -69,7 +69,7 @@ export default function SlideFrame({
   className,
   children,
   slideId,
-}) {
+}: any) {
   const plainEnglish = slideId ? plainEnglishContent[slideId] : null;
   const riskValue = slideId ? riskValueContent[slideId] : null;
 

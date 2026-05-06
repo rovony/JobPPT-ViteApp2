@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { motion as M, AnimatePresence as AP } from 'framer-motion';
 import * as Icon from 'lucide-react';

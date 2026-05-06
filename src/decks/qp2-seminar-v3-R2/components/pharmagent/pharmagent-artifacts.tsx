@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { motion as M } from 'framer-motion';
 import * as Icon from 'lucide-react';
@@ -308,5 +309,3 @@ export const ARTIFACTS = {
   'report':     ArtifactReport,
   'audit-summary': ArtifactAuditSummary,
 };
-
-

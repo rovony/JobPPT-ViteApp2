@@ -39,7 +39,7 @@ export default function CaseHeroDivider({
   verdict,
   illustration,
   source,
-}) {
+}: any) {
   const reduce = useReducedMotion();
   const ease = [0.2, 0.7, 0.3, 1];
   const D = {

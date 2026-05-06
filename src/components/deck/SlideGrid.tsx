@@ -54,7 +54,7 @@ export default function SlideGrid({
   padding = 'var(--deck-gutter)',
   className,
   ...rest
-}) {
+}: any) {
   // Build grid-template-areas from the 2D string array.
   const template = areas.map((row) => `"${row}"`).join(' ');
   const cols = areas[0].trim().split(/\s+/).length;
@@ -124,7 +124,7 @@ export function GridSlot({
   motion: motionProps,
   as = 'div',
   ...rest
-}) {
+}: any) {
   const Component = motionProps ? motion[as] || motion.div : as;
   const motionStyle = motionProps
     ? {

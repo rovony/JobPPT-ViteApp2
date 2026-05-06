@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export function DashboardGrid({ children, zoomedId }: { children: React.ReactNode, zoomedId: string | null }) {
+export function DashboardGrid({ children, zoomedId }: { children: React.ReactNode, zoomedId?: string | null }) {
   return (
     <>
       <AnimatePresence>

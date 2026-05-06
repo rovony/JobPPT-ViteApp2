@@ -1,15 +1,162 @@
 {
-  "qp2-seminar": "2026-04-26T18:38:25-04:00",
-  "qp2-seminar-v2": "2026-04-26T18:38:25-04:00",
-  "qp2-seminar-v3-R2": "2026-04-26T18:26:29-04:00",
-  "qp2-seminar-v4": "2026-04-28T21:29:31-04:00",
-  "qp2-seminar-v4-2": "2026-04-29T00:01:18-04:00",
-  "cs4-flagship-v1": "2026-04-28T23:56:23-04:00",
-  "cs4-canvas-flagship": "2026-04-28T23:56:23-04:00",
-  "launch-keynote": "2026-04-26T18:38:25-04:00",
-  "template-blank": "2026-04-26T18:38:25-04:00",
-  "slide-templates": "2026-04-26T18:38:25-04:00",
-  "components-showcase": "2026-04-26T18:38:25-04:00",
-  "zaj-design-showcase": "2026-04-28T23:56:23-04:00",
-  "pharazi-seminar": "2026-04-29T16:45:56.960Z"
+  "components-showcase": {
+    "firstCommittedAt": "2026-04-26T18:38:25-04:00",
+    "lastUpdatedAt": "2026-04-29T16:48:53-04:00",
+    "commitCount": 5,
+    "lastCommitSubject": "feat(deck): implement deck studio API development plugin and enhance deck management",
+    "kind": "showcase",
+    "versionFamily": "components-showcase",
+    "versionLabel": null,
+    "isLatestInFamily": true
+  },
+  "cs4-canvas-flagship": {
+    "firstCommittedAt": "2026-04-28T23:56:23-04:00",
+    "lastUpdatedAt": "2026-04-29T16:48:53-04:00",
+    "commitCount": 2,
+    "lastCommitSubject": "feat(deck): implement deck studio API development plugin and enhance deck management",
+    "kind": "case-study",
+    "versionFamily": "cs4-canvas-flagship",
+    "versionLabel": null,
+    "isLatestInFamily": true
+  },
+  "cs4-flagship-v1": {
+    "firstCommittedAt": "2026-04-28T23:56:23-04:00",
+    "lastUpdatedAt": "2026-04-28T23:56:23-04:00",
+    "commitCount": 1,
+    "lastCommitSubject": "feat(deck): expand Merck seminar app iteration",
+    "kind": "case-study",
+    "versionFamily": "cs4-flagship",
+    "versionLabel": "v1",
+    "isLatestInFamily": true
+  },
+  "editorial-motion-template": {
+    "firstCommittedAt": "2026-04-29T16:48:53-04:00",
+    "lastUpdatedAt": "2026-04-29T16:48:53-04:00",
+    "commitCount": 1,
+    "lastCommitSubject": "feat(deck): implement deck studio API development plugin and enhance deck management",
+    "kind": "template",
+    "versionFamily": "editorial-motion-template",
+    "versionLabel": null,
+    "isLatestInFamily": true
+  },
+  "launch-keynote": {
+    "firstCommittedAt": "2026-04-23T17:54:03-04:00",
+    "lastUpdatedAt": "2026-04-26T18:38:25-04:00",
+    "commitCount": 2,
+    "lastCommitSubject": "Complete jsx->tsx migration + CS2 audit pass (notes + Q&A)",
+    "kind": "presentation",
+    "versionFamily": "launch-keynote",
+    "versionLabel": null,
+    "isLatestInFamily": true
+  },
+  "pharazi-seminar": {
+    "firstCommittedAt": "2026-04-29T16:48:53-04:00",
+    "lastUpdatedAt": "2026-04-30T10:06:32-04:00",
+    "commitCount": 5,
+    "lastCommitSubject": "chore(decks): WIP pharazi-seminar + v5-pharazi notes/qa updates",
+    "kind": "presentation",
+    "versionFamily": "pharazi-seminar",
+    "versionLabel": null,
+    "isLatestInFamily": true
+  },
+  "pharos-seminar": {
+    "firstCommittedAt": "2026-04-29T16:48:53-04:00",
+    "lastUpdatedAt": "2026-04-29T17:40:27-04:00",
+    "commitCount": 3,
+    "lastCommitSubject": "feat(pharos-seminar): add V5-Pharos speaker notes and anticipated Q&A",
+    "kind": "presentation",
+    "versionFamily": "pharos-seminar",
+    "versionLabel": null,
+    "isLatestInFamily": true
+  },
+  "qp2-seminar": {
+    "firstCommittedAt": "2026-04-23T17:54:03-04:00",
+    "lastUpdatedAt": "2026-04-28T23:56:23-04:00",
+    "commitCount": 51,
+    "lastCommitSubject": "feat(deck): expand Merck seminar app iteration",
+    "kind": "presentation",
+    "versionFamily": "qp2-seminar",
+    "versionLabel": null,
+    "isLatestInFamily": false
+  },
+  "qp2-seminar-v2": {
+    "firstCommittedAt": "2026-04-25T09:48:13-04:00",
+    "lastUpdatedAt": "2026-04-26T18:38:25-04:00",
+    "commitCount": 6,
+    "lastCommitSubject": "Complete jsx->tsx migration + CS2 audit pass (notes + Q&A)",
+    "kind": "presentation",
+    "versionFamily": "qp2-seminar",
+    "versionLabel": "v2",
+    "isLatestInFamily": false
+  },
+  "qp2-seminar-v3-R2": {
+    "firstCommittedAt": "2026-04-25T10:44:42-04:00",
+    "lastUpdatedAt": "2026-04-29T16:48:53-04:00",
+    "commitCount": 58,
+    "lastCommitSubject": "feat(deck): implement deck studio API development plugin and enhance deck management",
+    "kind": "presentation",
+    "versionFamily": "qp2-seminar",
+    "versionLabel": "v3-R2",
+    "isLatestInFamily": true
+  },
+  "qp2-seminar-v4": {
+    "firstCommittedAt": "2026-04-28T21:29:31-04:00",
+    "lastUpdatedAt": "2026-04-29T16:48:53-04:00",
+    "commitCount": 3,
+    "lastCommitSubject": "feat(deck): implement deck studio API development plugin and enhance deck management",
+    "kind": "presentation",
+    "versionFamily": "qp2-seminar",
+    "versionLabel": "v4",
+    "isLatestInFamily": false
+  },
+  "qp2-seminar-v4-2": {
+    "firstCommittedAt": "2026-04-29T00:01:18-04:00",
+    "lastUpdatedAt": "2026-04-29T16:48:53-04:00",
+    "commitCount": 2,
+    "lastCommitSubject": "feat(deck): implement deck studio API development plugin and enhance deck management",
+    "kind": "presentation",
+    "versionFamily": "qp2-seminar",
+    "versionLabel": "v4-2",
+    "isLatestInFamily": false
+  },
+  "slide-templates": {
+    "firstCommittedAt": "2026-04-26T11:29:29-04:00",
+    "lastUpdatedAt": "2026-04-26T18:38:25-04:00",
+    "commitCount": 4,
+    "lastCommitSubject": "Complete jsx->tsx migration + CS2 audit pass (notes + Q&A)",
+    "kind": "template",
+    "versionFamily": "slide-templates",
+    "versionLabel": null,
+    "isLatestInFamily": true
+  },
+  "template-blank": {
+    "firstCommittedAt": "2026-04-23T17:54:03-04:00",
+    "lastUpdatedAt": "2026-04-26T18:38:25-04:00",
+    "commitCount": 3,
+    "lastCommitSubject": "Complete jsx->tsx migration + CS2 audit pass (notes + Q&A)",
+    "kind": "template",
+    "versionFamily": "template-blank",
+    "versionLabel": null,
+    "isLatestInFamily": true
+  },
+  "v5-pharazi": {
+    "firstCommittedAt": "2026-04-29T17:36:39-04:00",
+    "lastUpdatedAt": "2026-04-30T10:06:32-04:00",
+    "commitCount": 2,
+    "lastCommitSubject": "chore(decks): WIP pharazi-seminar + v5-pharazi notes/qa updates",
+    "kind": "presentation",
+    "versionFamily": "v5-pharazi",
+    "versionLabel": null,
+    "isLatestInFamily": true
+  },
+  "zaj-design-showcase": {
+    "firstCommittedAt": "2026-04-28T23:56:23-04:00",
+    "lastUpdatedAt": "2026-04-28T23:56:23-04:00",
+    "commitCount": 1,
+    "lastCommitSubject": "feat(deck): expand Merck seminar app iteration",
+    "kind": "showcase",
+    "versionFamily": "zaj-design-showcase",
+    "versionLabel": null,
+    "isLatestInFamily": true
+  }
 }
