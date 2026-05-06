@@ -1,11 +1,9 @@
 import React from 'react';
-import { motion as M, AnimatePresence as AP } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import * as Icon from 'lucide-react';
 import { AGENTS_L1, AGENTS_L2 } from './pharmagent-data';
 
 /* PharmAgent · architecture canvas (Tier 0–5 with permanent topology + active flows) */
-
-const { motion, AnimatePresence } = (window.Motion || window.framerMotion || {}) as any;
 
 type NodePos = { x: number; y: number; w: number };
 

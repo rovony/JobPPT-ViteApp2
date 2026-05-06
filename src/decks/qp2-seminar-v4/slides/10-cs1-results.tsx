@@ -253,7 +253,7 @@ function PvrChart({ reduced, delay }) {
             <text x={xScale(tx)} y={VB_H - PAD.bottom + 12}
                   fontFamily="var(--font-mono)" fontSize="7.5"
                   fill="var(--cream-muted)" textAnchor="middle"
-                  fontVariantNumeric="tabular-nums" letterSpacing="0.04em">
+                  letterSpacing="0.04em" style={{ fontVariantNumeric: 'tabular-nums' }}>
               {tx}
             </text>
           </g>
@@ -272,7 +272,7 @@ function PvrChart({ reduced, delay }) {
             <text x={PAD.left - 6} y={yScale(ty) + 2.5}
                   fontFamily="var(--font-mono)" fontSize="7.5"
                   fill="var(--cream-muted)" textAnchor="end"
-                  fontVariantNumeric="tabular-nums">
+                  style={{ fontVariantNumeric: 'tabular-nums' }}>
               {ty}
             </text>
           </g>

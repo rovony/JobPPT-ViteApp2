@@ -45,21 +45,21 @@
     "role": "PMX",
     "kind": "section",
     "deliveredAt": null,
-    "note": "Gilead PMX section — combined live with siblings (no single full deck)"
+    "note": "Gilead PMX section — Apr 29 lineage scaffold, not delivered (the delivered pair was v5-pharazi + pharos-seminar)"
   },
   "pharos-seminar": {
     "audience": "Gilead",
     "role": "PMX",
     "kind": "section",
-    "deliveredAt": null,
-    "note": "Gilead PMX section — Apr 29 lineage"
+    "deliveredAt": "2026-04-29T13:00:00-04:00",
+    "note": "Gilead PMX — 'V5-Pharos' (display title); the pharos version delivered Apr 29 (paired with v5-pharazi)"
   },
   "v5-pharazi": {
     "audience": "Gilead",
     "role": "PMX",
     "kind": "section",
     "deliveredAt": "2026-04-29T13:00:00-04:00",
-    "note": "Lead Gilead PMX section delivered Apr 29 PM. Time approximate; combined live with pharazi/pharos sections during the talk. Stands in for the Gilead delivery in the Delivered folder."
+    "note": "Gilead PMX — 'Quantitative Pharmacology in Action' (display title); the pharazi-folder version delivered Apr 29 (URL: /decks/v5-pharazi/s/cs2-domain3 confirmed)"
   },
 
   "cs4-flagship-v1": {
