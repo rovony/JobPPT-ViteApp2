@@ -11,7 +11,10 @@
     "typecheck": "tsc -p ./tsconfig.json",
     "preview": "vite preview",
     "clean:screenshots": "rm -rf _screenshots/* && echo '_screenshots/ cleared (folder kept; gitignored).'",
-    "gen:deck-catalog-git": "node scripts/gen-deck-git-catalog.mjs"
+    "gen:deck-catalog-git": "node scripts/gen-deck-git-catalog.mjs",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed"
   },
   "dependencies": {
     "@base44/sdk": "^0.8.26",
@@ -126,6 +129,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
+    "@playwright/test": "^1.59.1",
     "@types/bcryptjs": "^2.4.6",
     "@types/cookie": "^0.6.0",
     "@types/d3": "^7.4.3",
