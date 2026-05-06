@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { motion as M, AnimatePresence as AP } from 'framer-motion';
 import * as Icon from 'lucide-react';
@@ -18,15 +17,17 @@ function useReducedMotion() {
   React.useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
     setR(mq.matches);
-    const fn = (e) => setR(e.matches);
+    const fn = (e: MediaQueryListEvent) => setR(e.matches);
     mq.addEventListener('change', fn);
     return () => mq.removeEventListener('change', fn);
   }, []);
   return r;
 }
 
+type HeaderProps = { activeUC: string; onSwitch: (id: string) => void; onReset: () => void };
+
 /* ─── HEADER ─── */
-const Header = ({ activeUC, onSwitch, onReset }) => {
+const Header: React.FC<HeaderProps> = ({ activeUC, onSwitch, onReset }) => {
   const cases = Object.entries(USE_CASES);
   return (
     <div className="px-6 pt-4 pb-3 border-b border-stone-800 flex items-start gap-6 bg-stone-950">
@@ -38,7 +39,7 @@ const Header = ({ activeUC, onSwitch, onReset }) => {
       </div>
       <div className="flex items-center gap-1.5 shrink-0 pt-1">
         {cases.map(([id, uc]) => {
-          const I = Icon[uc.icon] || Icon.Box;
+          const I = (Icon as any)[uc.icon] || Icon.Box;
           const active = id === activeUC;
           return (
             <button key={id} onClick={() => onSwitch(id)}
@@ -63,7 +64,7 @@ const Header = ({ activeUC, onSwitch, onReset }) => {
 };
 
 /* ─── LEFT RAIL · STORYBOARD TIMELINE ─── */
-const Timeline = ({ uc, currentIdx }) => {
+const Timeline: React.FC<{ uc: any; currentIdx: number }> = ({ uc, currentIdx }) => {
   return (
     <div className="w-[240px] shrink-0 border-r border-stone-800 bg-stone-950/60 px-3 py-3 overflow-y-auto">
       <div className="text-[10px] font-mono uppercase tracking-widest text-stone-500 mb-2">storyboard · {uc.label}</div>
@@ -92,8 +93,8 @@ const Timeline = ({ uc, currentIdx }) => {
 };
 
 /* ─── RIGHT RAIL · CHAT STREAM + RICH BUBBLES ─── */
-const ChatStream = ({ messages, pharmState }) => {
-  const scrollRef = React.useRef(null);
+const ChatStream: React.FC<{ messages: any[]; pharmState: any }> = ({ messages, pharmState }) => {
+  const scrollRef = React.useRef<HTMLDivElement | null>(null);
   React.useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [messages.length]);
@@ -102,14 +103,14 @@ const ChatStream = ({ messages, pharmState }) => {
     <div className="w-[340px] shrink-0 border-l border-stone-800 bg-stone-950/60 flex flex-col">
       <div className="px-3 py-2 border-b border-stone-800 text-[10px] font-mono uppercase tracking-widest text-stone-500">chat stream · last 4</div>
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-3 py-3 space-y-2.5">
-        {messages.slice(-4).map((m, idx, arr) => {
+        {messages.slice(-4).map((m: any, idx: number, arr: any[]) => {
           const isLast = idx === arr.length - 1;
           const opacity = isLast ? 1 : idx === arr.length-2 ? 0.7 : idx === arr.length-3 ? 0.55 : 0.4;
           const isAnalyst = m.who === 'Analyst';
           const tint = isAnalyst ? 'bg-rose-950/30 border-rose-500/30' : 'bg-emerald-950/20 border-emerald-700/30';
           const ring = isLast ? (isAnalyst ? 'ring-1 ring-rose-400/30' : 'ring-1 ring-emerald-400/30') : '';
-          const Artifact = m.artifact ? ARTIFACTS[m.artifact] : null;
-          const I = isAnalyst ? Icon.User : (Icon[m.icon] || Icon.BrainCircuit);
+          const Artifact = m.artifact ? (ARTIFACTS as any)[m.artifact] : null;
+          const I = isAnalyst ? Icon.User : ((Icon as any)[m.icon] || Icon.BrainCircuit);
           return (
             <div key={m.id} style={{ opacity }} className={`rounded-md border ${tint} ${ring} px-2.5 py-2 transition-all`}>
               <div className="flex items-center gap-1.5 mb-1">
@@ -141,14 +142,14 @@ const ChatStream = ({ messages, pharmState }) => {
 };
 
 /* ─── BOTTOM · TOOL CALL LOG + AUDIT CHAIN ─── */
-const ToolCallLog = ({ entries }) => (
+const ToolCallLog: React.FC<{ entries: any[] }> = ({ entries }) => (
   <div className="flex-1 border-r border-stone-800 px-3 py-2 bg-stone-950/60 overflow-hidden flex flex-col">
     <div className="flex items-center justify-between mb-1.5">
       <span className="text-[10px] font-mono uppercase tracking-widest text-stone-500">Tool calls · live</span>
       <span className="text-[9px] font-mono text-stone-600 tabular">{entries.length} total</span>
     </div>
     <div className="flex-1 overflow-y-auto space-y-1">
-      {entries.slice(-5).map((e, i, arr) => {
+      {entries.slice(-5).map((e: any, i: number, arr: any[]) => {
         const isLast = i === arr.length - 1;
         return (
           <div key={e.id} className={`font-mono text-[10px] tabular ${isLast ? 'text-stone-100' : 'text-stone-500'} transition-colors`}>
@@ -162,7 +163,7 @@ const ToolCallLog = ({ entries }) => (
   </div>
 );
 
-const AuditChain = ({ entries, onVerify, verifying }) => {
+const AuditChain: React.FC<{ entries: any[]; onVerify: () => void; verifying: boolean }> = ({ entries, onVerify, verifying }) => {
   const visible = entries.slice(-6);
   const prior = Math.max(0, entries.length - visible.length);
   return (
@@ -174,7 +175,7 @@ const AuditChain = ({ entries, onVerify, verifying }) => {
       <div className="flex items-center gap-1 overflow-hidden flex-1">
         {prior > 0 && <div className="text-[9px] font-mono text-stone-600 shrink-0 pr-1">+{prior} prior →</div>}
         <AP>
-        {visible.map((e, i) => (
+        {visible.map((e: any, i: number) => (
           <M.div
             key={e.id}
             initial={{ opacity: 0, x: 14 }}
@@ -206,7 +207,7 @@ const AuditChain = ({ entries, onVerify, verifying }) => {
 };
 
 /* ─── PHARMSTATE BUS ─── */
-const PharmStateBus = ({ pharmState, expanded, onExpand }) => {
+const PharmStateBus: React.FC<{ pharmState: any; expanded: string | null; onExpand: (id: string | null) => void }> = ({ pharmState, expanded, onExpand }) => {
   return (
     <div className="border-t border-emerald-900/40 bg-emerald-950/20 px-3 py-2">
       <div className="flex items-center justify-between mb-1.5">
@@ -219,7 +220,7 @@ const PharmStateBus = ({ pharmState, expanded, onExpand }) => {
           const filled = b.fields.filter(f => bucketState[f]).length;
           const pct = filled / b.fields.length;
           const isExpanded = expanded === b.id;
-          const I = Icon[b.icon] || Icon.Box;
+          const I = (Icon as any)[b.icon] || Icon.Box;
           return (
             <button key={b.id} onClick={() => onExpand(isExpanded ? null : b.id)}
               className={`relative rounded border p-1.5 text-left transition-all ${isExpanded ? 'border-emerald-400 emerald-glow bg-emerald-950/40' : filled > 0 ? 'border-emerald-700/60 bg-stone-900/70 hover:bg-stone-900' : 'border-stone-800 bg-stone-900/50 hover:bg-stone-900'}`}>
@@ -287,19 +288,19 @@ export default function PharmAgentApp() {
 
   /* PharmState - persists across UC switches */
   const initialState = React.useMemo(() => {
-    const s = {};
+    const s: Record<string, Record<string, any>> = {};
     BUCKETS.forEach(b => { s[b.id] = {}; });
     return s;
   }, []);
-  const [pharmState, setPharmState] = React.useState(initialState);
-  const [expandedBucket, setExpandedBucket] = React.useState(null);
+  const [pharmState, setPharmState] = React.useState<Record<string, Record<string, any>>>(initialState);
+  const [expandedBucket, setExpandedBucket] = React.useState<string | null>(null);
 
   /* Chat messages */
-  const [messages, setMessages] = React.useState([]);
+  const [messages, setMessages] = React.useState<any[]>([]);
   /* Tool call entries */
-  const [toolCalls, setToolCalls] = React.useState([]);
+  const [toolCalls, setToolCalls] = React.useState<any[]>([]);
   /* Audit chain entries */
-  const [auditEntries, setAuditEntries] = React.useState([]);
+  const [auditEntries, setAuditEntries] = React.useState<any[]>([]);
 
   const [verifying, setVerifying] = React.useState(false);
 
@@ -326,11 +327,11 @@ export default function PharmAgentApp() {
     /* populate fields */
     if (step.populate && step.populate.length) {
       setPharmState(prev => {
-        const next = { ...prev };
-        step.populate.forEach(pf => {
+        const next: Record<string, Record<string, any>> = { ...prev };
+        step.populate.forEach((pf: string) => {
           const [bucket, field] = pf.split('.');
           if (!next[bucket]) next[bucket] = {};
-          next[bucket] = { ...next[bucket], [field]: FIELD_VALUES[field] || 'set' };
+          next[bucket] = { ...next[bucket], [field]: (FIELD_VALUES as any)[field] || 'set' };
         });
         return next;
       });
@@ -343,11 +344,11 @@ export default function PharmAgentApp() {
       if (step.label.toLowerCase().includes('analyst submits')) return 'Analyst';
       if (step.label.startsWith('⚠')) return 'L0 Supervisor';
       if (step.label.toLowerCase().includes('analyst approves')) return 'Analyst';
-      const aMap = { data:'Data Manager', nca:'NCA Agent', mod:'Modeler Manager', pbpk:'PBPK Agent', stats:'Statistical Agent', qc:'QC Agent', rep:'Report Agent', poppk:'PopPK Expert', pkpd:'PKPD Expert', er:'E-R Expert', l0:'L0 Supervisor', privacy:'SchemaExtractor' };
+      const aMap: Record<string, string> = { data:'Data Manager', nca:'NCA Agent', mod:'Modeler Manager', pbpk:'PBPK Agent', stats:'Statistical Agent', qc:'QC Agent', rep:'Report Agent', poppk:'PopPK Expert', pkpd:'PKPD Expert', er:'E-R Expert', l0:'L0 Supervisor', privacy:'SchemaExtractor' };
       const last = step.active[step.active.length - 1];
       return aMap[last] || 'L0 Supervisor';
     })();
-    const iconMap = { 'Analyst': 'User', 'Data Manager': 'Database', 'NCA Agent':'Activity', 'Modeler Manager':'Layers', 'PBPK Agent':'Beaker', 'Statistical Agent':'TrendingUp', 'QC Agent':'ShieldCheck', 'Report Agent':'FileText', 'PopPK Expert':'Beaker', 'PKPD Expert':'LineChart', 'E-R Expert':'Target', 'L0 Supervisor':'BrainCircuit', 'SchemaExtractor':'Lock' };
+    const iconMap: Record<string, string> = { 'Analyst': 'User', 'Data Manager': 'Database', 'NCA Agent':'Activity', 'Modeler Manager':'Layers', 'PBPK Agent':'Beaker', 'Statistical Agent':'TrendingUp', 'QC Agent':'ShieldCheck', 'Report Agent':'FileText', 'PopPK Expert':'Beaker', 'PKPD Expert':'LineChart', 'E-R Expert':'Target', 'L0 Supervisor':'BrainCircuit', 'SchemaExtractor':'Lock' };
     setMessages(prev => [...prev, {
       id: `${activeUC}-${stepIdx}-${Date.now()}`,
       who, icon: iconMap[who] || 'BrainCircuit', t: step.t, text: step.label.replace(/^⚠ /, ''), artifact: step.artifact
@@ -361,7 +362,7 @@ export default function PharmAgentApp() {
     }
   }, [activeUC, stepIdx]);
 
-  const handleSwitch = (id) => {
+  const handleSwitch = (id: string) => {
     if (id === activeUC) return;
     /* Hold up to SWITCH_HOLD_MAX_MS for current step to settle, then switch */
     setTimeout(() => {

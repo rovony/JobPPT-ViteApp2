@@ -1,14 +1,14 @@
-// @ts-nocheck
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import * as Icon from 'lucide-react';
 import { AGENTS_L1, AGENTS_L2 } from './pharmagent-data';
 
 /* PharmAgent · architecture canvas (Tier 0–5 with permanent topology + active flows) */
 
+type NodePos = { x: number; y: number; w: number };
 
 /* Node positions in % of canvas. Canvas is sized fluidly via flex. */
-const POS = {
+const POS: Record<string, NodePos> = {
   analyst:  { x: 50,   y: 7,  w: 22 }, /* tier 0 */
   privacy:  { x: 50,   y: 22, w: 92 }, /* tier 1 panel */
   l0:       { x: 50,   y: 38, w: 22 }, /* tier 2 */
@@ -29,7 +29,7 @@ const POS = {
 };
 
 /* Edge list. Drawn as dim hairlines always, bright when active. */
-const EDGES = [
+const EDGES: Array<[string, string]> = [
   ['analyst', 'privacy'],
   ['privacy', 'l0'],
   /* L0 → each L1 */
@@ -43,7 +43,7 @@ const EDGES = [
   ['l0','analyst'],
 ];
 
-function isEdgeActive(activeIds, a, b) {
+function isEdgeActive(activeIds: string[], a: string, b: string) {
   /* an edge is active when both endpoints are in active set, OR
      one endpoint is 'pharmstate' and the other is in active set */
   if (a === 'pharmstate' || b === 'pharmstate') {
@@ -54,7 +54,7 @@ function isEdgeActive(activeIds, a, b) {
 }
 
 /* Cubic-style path between two nodes (top center → top center, in pixel space) */
-function buildPath(p1, p2, W, H) {
+function buildPath(p1: NodePos, p2: NodePos, W: number, H: number) {
   const x1 = (p1.x / 100) * W;
   const y1 = (p1.y / 100) * H;
   const x2 = (p2.x / 100) * W;
@@ -66,8 +66,14 @@ function buildPath(p1, p2, W, H) {
 }
 
 /* The canvas with all tier rendering. Uses absolute% positioning. */
-const ArchCanvas = ({ activeStep, useCase, onAgentHover }) => {
-  const ref = React.useRef(null);
+type ArchCanvasProps = {
+  activeStep: any;
+  useCase?: string;
+  onAgentHover?: (agent: any | null) => void;
+};
+
+const ArchCanvas: React.FC<ArchCanvasProps> = ({ activeStep, onAgentHover }) => {
+  const ref = React.useRef<HTMLDivElement | null>(null);
   const [size, setSize] = React.useState({ W: 800, H: 700 });
 
   React.useEffect(() => {
@@ -138,14 +144,14 @@ const ArchCanvas = ({ activeStep, useCase, onAgentHover }) => {
       </NodeBox>
 
       {/* Tier 3 — L1 agents */}
-      {AGENTS_L1.map(a => (
+      {AGENTS_L1.map((a: any) => (
         <NodeBox key={a.id} pos={POS[a.id]} active={active.includes(a.id)} accent="emerald">
           <AgentCard agent={a} tier="L1" active={active.includes(a.id)} onHover={onAgentHover} />
         </NodeBox>
       ))}
 
       {/* Tier 4 — L2 specialists */}
-      {AGENTS_L2.map(a => (
+      {AGENTS_L2.map((a: any) => (
         <NodeBox key={a.id} pos={POS[a.id]} active={active.includes(a.id)} accent="emerald" tier2>
           <AgentCard agent={a} tier="L2" active={active.includes(a.id)} onHover={onAgentHover} />
         </NodeBox>
@@ -167,7 +173,15 @@ const ArchCanvas = ({ activeStep, useCase, onAgentHover }) => {
 };
 
 /* Position wrapper. */
-const NodeBox = ({ pos, active, accent, tier2, children }) => {
+type NodeBoxProps = {
+  pos: NodePos;
+  active: boolean;
+  accent: 'rose' | 'emerald';
+  tier2?: boolean;
+  children?: React.ReactNode;
+};
+
+const NodeBox: React.FC<NodeBoxProps> = ({ pos, active, accent, children }) => {
   const ringClass = active
     ? (accent === 'rose' ? 'ring-1 ring-rose-400/70 rose-glow' : 'ring-1 ring-emerald-400/70 emerald-glow')
     : 'ring-1 ring-stone-800';
@@ -188,8 +202,8 @@ const NodeBox = ({ pos, active, accent, tier2, children }) => {
   );
 };
 
-const AnalystCard = ({ mood, active }) => {
-  const I = Icon[mood] || Icon.User;
+const AnalystCard: React.FC<{ mood: string; active: boolean }> = ({ mood, active }) => {
+  const I = (Icon as any)[mood] || Icon.User;
   return (
     <div className="px-3 py-2 flex items-center gap-2.5">
       <div className={`w-8 h-8 rounded-full bg-rose-950/60 border border-rose-400/40 flex items-center justify-center ${active ? 'pulse-ring' : ''}`}>
@@ -203,7 +217,7 @@ const AnalystCard = ({ mood, active }) => {
   );
 };
 
-const L0Card = ({ active }) => {
+const L0Card: React.FC<{ active: boolean }> = ({ active }) => {
   const I = active ? Icon.PhoneCall : Icon.BrainCircuit;
   return (
     <div className="px-3 py-2 flex items-center gap-2.5" title="Keyword scoring → LLM fallback. Routes to L1 or executes template.">
@@ -222,8 +236,15 @@ const L0Card = ({ active }) => {
   );
 };
 
-const AgentCard = ({ agent, tier, active, onHover }) => {
-  const I = Icon[agent.icon] || Icon.Box;
+type AgentCardProps = {
+  agent: any;
+  tier: 'L1' | 'L2';
+  active: boolean;
+  onHover?: (agent: any | null) => void;
+};
+
+const AgentCard: React.FC<AgentCardProps> = ({ agent, tier, onHover }) => {
+  const I = (Icon as any)[agent.icon] || Icon.Box;
   const tierBadge = tier === 'L2' ? 'L2' : 'L1';
   return (
     <div
@@ -246,7 +267,7 @@ const AgentCard = ({ agent, tier, active, onHover }) => {
 };
 
 /* Privacy boundary panel - the differentiator */
-const PrivacyBoundary = ({ pos, active }) => {
+const PrivacyBoundary: React.FC<{ pos: NodePos; active: boolean }> = ({ pos, active }) => {
   return (
     <div
       className="absolute -translate-x-1/2 -translate-y-1/2"

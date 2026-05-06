@@ -10,3 +10,12 @@ declare module '*.md?raw' {
   const content: string;
   export default content;
 }
+
+// Runtime globals loaded by external scripts at deck-render time.
+// Used by pharmagent components across multiple deck versions.
+interface Window {
+  Motion?: any;
+  framerMotion?: any;
+  PA_DATA?: any;
+  Recharts?: any;
+}

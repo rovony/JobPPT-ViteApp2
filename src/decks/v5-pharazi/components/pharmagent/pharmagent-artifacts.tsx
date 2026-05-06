@@ -1,12 +1,10 @@
-// @ts-nocheck
 import React from 'react';
-import { motion as M } from 'framer-motion';
 import * as Icon from 'lucide-react';
 
 /* PharmAgent · rich artifact bubbles using recharts and inline SVG */
 
-const Rch = window.Recharts || {};
-const { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, ScatterChart, Scatter, LineChart, Line, AreaChart, Area, CartesianGrid, ReferenceLine, Tooltip } = Rch;
+const Rch = (window.Recharts || {}) as any;
+const { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, ScatterChart, Scatter, Line, AreaChart, Area, CartesianGrid, ReferenceLine } = Rch;
 
 /* NCA parameter table */
 const ArtifactNCATable = () => (
@@ -50,7 +48,7 @@ const ArtifactPopPKOFV = () => {
             <XAxis type="number" domain={[4500, 4900]} hide />
             <YAxis type="category" dataKey="model" width={42} stroke="#a8a29e" tick={{ fill:'#d6d3d1', fontFamily:'JetBrains Mono', fontSize:10 }} axisLine={false} tickLine={false} />
             <Bar dataKey="ofv" fill="#34d399" radius={[0,2,2,0]} barSize={18}>
-              {data.map((d,i) => (
+              {data.map((d: any, i: number) => (
                 <Rch.Cell key={i} fill={d.model === '2-CMT' ? '#34d399' : '#57534e'} />
               ))}
             </Bar>
@@ -66,7 +64,7 @@ const ArtifactPopPKOFV = () => {
 };
 
 /* QC GOF: 2x2 mini panels */
-const MiniPanel = ({ title, children }) => (
+const MiniPanel: React.FC<{ title: string; children?: React.ReactNode }> = ({ title, children }) => (
   <div className="border border-stone-700/60 rounded p-1 bg-stone-950/40">
     <div className="text-[8px] font-mono uppercase text-stone-400 mb-0.5 tracking-wider">{title}</div>
     <div style={{ height: 56 }}>{children}</div>
@@ -74,13 +72,13 @@ const MiniPanel = ({ title, children }) => (
 );
 
 const ArtifactGOF = () => {
-  const dvPred = Array.from({length: 40}, (_,i) => {
+  const dvPred = Array.from({length: 40}, (_, i: number) => {
     const x = 1 + i*0.4;
     return { x, y: x + (Math.sin(i*1.3) * 0.4 + (Math.random()-0.5)*0.6) };
   });
-  const cwres = Array.from({length: 50}, (_,i) => ({ t: i*2, r: (Math.random()-0.5)*3 }));
-  const vpcMid = Array.from({length: 24}, (_,i) => ({ t:i, lo: 50 + 30*Math.exp(-i/8), mid: 80 + 50*Math.exp(-i/8), hi: 110 + 70*Math.exp(-i/8) }));
-  const boots = Array.from({length: 14}, (_,i) => ({ b: 10 + i, n: 8 + Math.round(40 * Math.exp(-Math.pow((i-7)/3,2))) }));
+  const cwres = Array.from({length: 50}, (_, i: number) => ({ t: i*2, r: (Math.random()-0.5)*3 }));
+  const vpcMid = Array.from({length: 24}, (_, i: number) => ({ t:i, lo: 50 + 30*Math.exp(-i/8), mid: 80 + 50*Math.exp(-i/8), hi: 110 + 70*Math.exp(-i/8) }));
+  const boots = Array.from({length: 14}, (_, i: number) => ({ b: 10 + i, n: 8 + Math.round(40 * Math.exp(-Math.pow((i-7)/3,2))) }));
   return (
     <div className="grid grid-cols-2 gap-1.5">
       <MiniPanel title="DV vs PRED">
@@ -137,7 +135,7 @@ const ArtifactForest = () => {
     { label: 'Cmax ratio',   est: 96.7, lo: 85.2, hi: 109.7 },
   ];
   const min = 70, max = 135;
-  const scale = (v) => ((v - min) / (max - min)) * 100;
+  const scale = (v: number) => ((v - min) / (max - min)) * 100;
   return (
     <div className="w-full">
       <div className="flex items-center justify-between mb-1">
@@ -151,7 +149,7 @@ const ArtifactForest = () => {
           <div className="absolute inset-y-0 bg-emerald-500/10 border-x border-emerald-500/30" style={{ left: `${scale(80)}%`, width: `${scale(125)-scale(80)}%` }}></div>
           <div className="absolute inset-y-0 border-l border-emerald-500/40" style={{ left: `${scale(100)}%` }}></div>
           {/* rows */}
-          {rows.map((r, i) => (
+          {rows.map((r: any, i: number) => (
             <div key={i} className="absolute flex items-center w-full" style={{ top: `${i * 28 + 4}px` }}>
               <div className="absolute h-px bg-stone-300" style={{ left: `${scale(r.lo)}%`, width: `${scale(r.hi)-scale(r.lo)}%` }}></div>
               <div className="absolute w-2 h-2 bg-emerald-400 rounded-sm -translate-x-1/2 -translate-y-1/2" style={{ left: `${scale(r.est)}%`, top: '50%' }}></div>
@@ -163,7 +161,7 @@ const ArtifactForest = () => {
           <span>70</span><span>80</span><span>100</span><span>125</span><span>135</span>
         </div>
         <div className="text-[9px] font-mono tabular text-stone-200 mt-1.5 space-y-0.5">
-          {rows.map((r,i) => <div key={i}>{r.label} · {r.est.toFixed(1)} [{r.lo.toFixed(1)} – {r.hi.toFixed(1)}]</div>)}
+          {rows.map((r: any, i: number) => <div key={i}>{r.label} · {r.est.toFixed(1)} [{r.lo.toFixed(1)} – {r.hi.toFixed(1)}]</div>)}
         </div>
       </div>
     </div>
@@ -185,7 +183,7 @@ const ArtifactDDIHeatmap = () => {
     [1.9,  1.01, 1.05],
     [1.6,  1.03, 1.40],
   ];
-  const colorFor = (v) => {
+  const colorFor = (v: number) => {
     const r = Math.abs(Math.log10(v));
     if (r < 0.1) return '#1c1917';
     if (r < 0.3) return '#065f46';
@@ -199,10 +197,10 @@ const ArtifactDDIHeatmap = () => {
         <div className="grid" style={{ gridTemplateColumns: '64px repeat(3, 1fr)', gap: '2px' }}>
           <div></div>
           {mechs.map(m => <div key={m} className="text-[8px] font-mono uppercase text-stone-400 text-center">{m}</div>)}
-          {perps.map((p,i) => (
+          {perps.map((p: string, i: number) => (
             <React.Fragment key={p}>
               <div className="text-[9px] font-mono text-stone-300 truncate">{p}</div>
-              {grid[i].map((v,j) => (
+              {grid[i].map((v: number, j: number) => (
                 <div key={j} className="h-5 flex items-center justify-center text-[8px] font-mono tabular rounded-sm text-stone-100" style={{ background: colorFor(v) }} title={`${perps[i]} · ${mechs[j]} · ratio ${v}`}>{v}</div>
               ))}
             </React.Fragment>
@@ -222,7 +220,7 @@ const ArtifactPediatricRibbon = () => {
     { name:'child',      color:'#7dd3fc', y: 46 },
     { name:'adolescent', color:'#34d399', y: 30 },
   ];
-  const points = (off, amp) => Array.from({length: 30}, (_,i) => {
+  const points = (off: number, amp: number) => Array.from({length: 30}, (_, i: number) => {
     const t = i / 29;
     const v = off + amp * Math.exp(-i/9) * Math.sin(t*5+1.2);
     return { x: t * 100, y: off + amp * Math.exp(-i/9) };
@@ -235,7 +233,7 @@ const ArtifactPediatricRibbon = () => {
           {/* adult ref dashed */}
           <line x1="0" y1="50" x2="200" y2="50" stroke="#a8a29e" strokeDasharray="3 3" strokeWidth="0.6" />
           <text x="2" y="46" fontSize="6" fill="#a8a29e" fontFamily="JetBrains Mono">adult ref</text>
-          {bands.map((b,i) => {
+          {bands.map((b: any, i: number) => {
             /* draw a ribbon centered at b.y with width 6 */
             const top = b.y - 4, bot = b.y + 4;
             return (
@@ -284,7 +282,7 @@ const ArtifactReport = () => (
 );
 
 /* Audit summary */
-const ArtifactAuditSummary = ({ chainHead, nEntries }) => (
+const ArtifactAuditSummary: React.FC<{ chainHead?: string; nEntries?: number | string }> = ({ chainHead, nEntries }) => (
   <div className="bg-emerald-950/20 border border-emerald-700/50 rounded p-2 space-y-1">
     <div className="flex items-center gap-1.5">
       <Icon.CheckCircle size={12} color="#34d399" />

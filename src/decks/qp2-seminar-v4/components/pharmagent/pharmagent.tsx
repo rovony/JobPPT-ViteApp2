@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { motion as M, AnimatePresence as AP } from 'framer-motion';
 import * as Icon from 'lucide-react';
@@ -18,16 +17,18 @@ function useReducedMotion() {
   React.useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
     setR(mq.matches);
-    const fn = (e) => setR(e.matches);
+    const fn = (e: MediaQueryListEvent) => setR(e.matches);
     mq.addEventListener('change', fn);
     return () => mq.removeEventListener('change', fn);
   }, []);
   return r;
 }
 
+type HeaderProps = { activeUC: string; onSwitch: (id: string) => void; onReset: () => void };
+
 /* ─── HEADER ─── */
-const Header = ({ activeUC, onSwitch, onReset }) => {
-  const cases = Object.entries(USE_CASES);
+const Header: React.FC<HeaderProps> = ({ activeUC, onSwitch, onReset }) => {
+  const cases = Object.entries(USE_CASES) as Array<[string, any]>;
   return (
     <div className="px-4 xl:px-6 py-4 border-b border-deck-rule flex flex-col xl:flex-row xl:items-start gap-4 xl:gap-6 bg-deck-bg/90 backdrop-blur-xl z-20 shrink-0">
       <div className="flex-1 min-w-0">
@@ -38,7 +39,7 @@ const Header = ({ activeUC, onSwitch, onReset }) => {
       </div>
       <div className="flex flex-wrap items-center gap-2 shrink-0 xl:pt-1">
         {cases.map(([id, uc]) => {
-          const I = Icon[uc.icon] || Icon.Box;
+          const I = (Icon as any)[uc.icon] || Icon.Box;
           const active = id === activeUC;
           return (
             <button key={id} onClick={() => onSwitch(id)}
@@ -62,14 +63,14 @@ const Header = ({ activeUC, onSwitch, onReset }) => {
 };
 
 /* ─── LEFT RAIL · STORYBOARD TIMELINE ─── */
-const Timeline = ({ uc, currentIdx }) => {
+const Timeline: React.FC<{ uc: any; currentIdx: number }> = ({ uc, currentIdx }) => {
   return (
     <div className="w-full h-full flex flex-col p-5 overflow-y-auto scrollbar-hide">
       <div className="text-[10px] font-mono uppercase tracking-widest text-deck-case opacity-80 mb-6 pl-1">storyboard · {uc.label}</div>
       <div className="relative space-y-6">
         {/* Continuous hairline behind dots */}
         <div className="absolute left-[5px] top-3 bottom-3 w-px bg-deck-rule" />
-        {uc.steps.map((s, i) => {
+        {uc.steps.map((s: any, i: number) => {
           const isPast = i < currentIdx;
           const isActive = i === currentIdx;
           
@@ -91,8 +92,8 @@ const Timeline = ({ uc, currentIdx }) => {
 };
 
 /* ─── RIGHT RAIL · CHAT STREAM + RICH BUBBLES ─── */
-const ChatStream = ({ messages, pharmState }) => {
-  const scrollRef = React.useRef(null);
+const ChatStream: React.FC<{ messages: any[]; pharmState: any }> = ({ messages, pharmState }) => {
+  const scrollRef = React.useRef<HTMLDivElement | null>(null);
   React.useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [messages.length]);
@@ -104,7 +105,7 @@ const ChatStream = ({ messages, pharmState }) => {
       </div>
       <div ref={scrollRef} className="flex-1 overflow-y-auto p-5 space-y-4 scrollbar-hide">
         <AP initial={false}>
-          {messages.slice(-5).map((m, idx, arr) => {
+          {messages.slice(-5).map((m: any, idx: number, arr: any[]) => {
             const isLast = idx === arr.length - 1;
             const opacity = isLast ? 1 : idx === arr.length-2 ? 0.9 : 0.6;
             const isAnalyst = m.who === 'Analyst';
@@ -114,8 +115,8 @@ const ChatStream = ({ messages, pharmState }) => {
             const bgColor = isAnalyst ? 'color-mix(in srgb, var(--coral) 12%, transparent)' : 'color-mix(in srgb, var(--success) 12%, transparent)';
             const borderColor = isAnalyst ? 'color-mix(in srgb, var(--coral) 30%, transparent)' : 'color-mix(in srgb, var(--success) 30%, transparent)';
             
-            const Artifact = m.artifact ? ARTIFACTS[m.artifact] : null;
-            const I = isAnalyst ? Icon.User : (Icon[m.icon] || Icon.BrainCircuit);
+            const Artifact = m.artifact ? (ARTIFACTS as any)[m.artifact] : null;
+            const I = isAnalyst ? Icon.User : ((Icon as any)[m.icon] || Icon.BrainCircuit);
             
             return (
               <M.div
@@ -162,14 +163,14 @@ const ChatStream = ({ messages, pharmState }) => {
 };
 
 /* ─── BOTTOM · TOOL CALL LOG + AUDIT CHAIN ─── */
-const ToolCallLog = ({ entries }) => (
+const ToolCallLog: React.FC<{ entries: any[] }> = ({ entries }) => (
   <div className="flex-1 border-r border-deck-rule px-4 py-3 bg-deck-panel/40 overflow-hidden flex flex-col">
     <div className="flex items-center justify-between mb-2">
       <span className="text-[10px] font-mono uppercase tracking-widest text-deck-ink-muted">Tool calls · live</span>
       <span className="text-[9px] font-mono text-deck-ink-faint tabular">{entries.length} total</span>
     </div>
     <div className="flex-1 overflow-y-auto space-y-1 scrollbar-hide">
-      {entries.slice(-5).map((e, i, arr) => {
+      {entries.slice(-5).map((e: any, i: number, arr: any[]) => {
         const isLast = i === arr.length - 1;
         return (
           <div key={e.id} className={`font-mono text-[10px] tabular ${isLast ? 'text-deck-ink' : 'text-deck-ink-muted'} transition-colors`}>
@@ -183,7 +184,7 @@ const ToolCallLog = ({ entries }) => (
   </div>
 );
 
-const AuditChain = ({ entries, onVerify, verifying }) => {
+const AuditChain: React.FC<{ entries: any[]; onVerify: () => void; verifying: boolean }> = ({ entries, onVerify, verifying }) => {
   const visible = entries.slice(-6);
   const prior = Math.max(0, entries.length - visible.length);
   return (
@@ -195,7 +196,7 @@ const AuditChain = ({ entries, onVerify, verifying }) => {
       <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide flex-1 pb-1">
         {prior > 0 && <div className="text-[9px] font-mono text-deck-ink-faint shrink-0 pr-1">+{prior} prior →</div>}
         <AP>
-        {visible.map((e, i) => (
+        {visible.map((e: any, i: number) => (
           <M.div
             key={e.id}
             initial={{ opacity: 0, x: 14 }}
@@ -227,7 +228,7 @@ const AuditChain = ({ entries, onVerify, verifying }) => {
 };
 
 /* ─── PHARMSTATE BUS ─── */
-const PharmStateBus = ({ pharmState, expanded, onExpand }) => {
+const PharmStateBus: React.FC<{ pharmState: any; expanded: string | null; onExpand: (id: string | null) => void }> = ({ pharmState, expanded, onExpand }) => {
   return (
     <div className="p-4 bg-deck-panel/60">
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 px-2">
@@ -243,7 +244,7 @@ const PharmStateBus = ({ pharmState, expanded, onExpand }) => {
           const filled = b.fields.filter(f => bucketState[f]).length;
           const pct = filled / b.fields.length;
           const isExpanded = expanded === b.id;
-          const I = Icon[b.icon] || Icon.Box;
+          const I = (Icon as any)[b.icon] || Icon.Box;
           
           return (
             <button key={b.id} onClick={() => onExpand(isExpanded ? null : b.id)}
@@ -320,19 +321,19 @@ export default function PharmAgentApp() {
 
   /* PharmState - persists across UC switches */
   const initialState = React.useMemo(() => {
-    const s = {};
+    const s: Record<string, Record<string, any>> = {};
     BUCKETS.forEach(b => { s[b.id] = {}; });
     return s;
   }, []);
-  const [pharmState, setPharmState] = React.useState(initialState);
-  const [expandedBucket, setExpandedBucket] = React.useState(null);
+  const [pharmState, setPharmState] = React.useState<Record<string, Record<string, any>>>(initialState);
+  const [expandedBucket, setExpandedBucket] = React.useState<string | null>(null);
 
   /* Chat messages */
-  const [messages, setMessages] = React.useState([]);
+  const [messages, setMessages] = React.useState<any[]>([]);
   /* Tool call entries */
-  const [toolCalls, setToolCalls] = React.useState([]);
+  const [toolCalls, setToolCalls] = React.useState<any[]>([]);
   /* Audit chain entries */
-  const [auditEntries, setAuditEntries] = React.useState([]);
+  const [auditEntries, setAuditEntries] = React.useState<any[]>([]);
 
   const [verifying, setVerifying] = React.useState(false);
 
@@ -349,7 +350,7 @@ export default function PharmAgentApp() {
   }, [activeUC, uc.steps.length, reduced]);
 
   /* ─── apply step effects ─── */
-  const lastApplied = React.useRef({ uc: null, step: -1 });
+  const lastApplied = React.useRef<{ uc: string | null; step: number }>({ uc: null, step: -1 });
   React.useEffect(() => {
     /* On step change, populate state, append messages, tool calls, audit entries */
     const key = { uc: activeUC, step: stepIdx };
@@ -359,11 +360,11 @@ export default function PharmAgentApp() {
     /* populate fields */
     if (step.populate && step.populate.length) {
       setPharmState(prev => {
-        const next = { ...prev };
-        step.populate.forEach(pf => {
+        const next: Record<string, Record<string, any>> = { ...prev };
+        step.populate.forEach((pf: string) => {
           const [bucket, field] = pf.split('.');
           if (!next[bucket]) next[bucket] = {};
-          next[bucket] = { ...next[bucket], [field]: FIELD_VALUES[field] || 'set' };
+          next[bucket] = { ...next[bucket], [field]: (FIELD_VALUES as any)[field] || 'set' };
         });
         return next;
       });
@@ -374,11 +375,11 @@ export default function PharmAgentApp() {
       if (step.label.toLowerCase().includes('analyst submits')) return 'Analyst';
       if (step.label.startsWith('⚠')) return 'L0 Supervisor';
       if (step.label.toLowerCase().includes('analyst approves')) return 'Analyst';
-      const aMap = { data:'Data Manager', nca:'NCA Agent', mod:'Modeler Manager', pbpk:'PBPK Agent', stats:'Statistical Agent', qc:'QC Agent', rep:'Report Agent', poppk:'PopPK Expert', pkpd:'PKPD Expert', er:'E-R Expert', l0:'L0 Supervisor', privacy:'SchemaExtractor' };
+      const aMap: Record<string, string> = { data:'Data Manager', nca:'NCA Agent', mod:'Modeler Manager', pbpk:'PBPK Agent', stats:'Statistical Agent', qc:'QC Agent', rep:'Report Agent', poppk:'PopPK Expert', pkpd:'PKPD Expert', er:'E-R Expert', l0:'L0 Supervisor', privacy:'SchemaExtractor' };
       const last = step.active[step.active.length - 1];
       return aMap[last] || 'L0 Supervisor';
     })();
-    const iconMap = { 'Analyst': 'User', 'Data Manager': 'Database', 'NCA Agent':'Activity', 'Modeler Manager':'Layers', 'PBPK Agent':'Beaker', 'Statistical Agent':'TrendingUp', 'QC Agent':'ShieldCheck', 'Report Agent':'FileText', 'PopPK Expert':'Beaker', 'PKPD Expert':'LineChart', 'E-R Expert':'Target', 'L0 Supervisor':'BrainCircuit', 'SchemaExtractor':'Lock' };
+    const iconMap: Record<string, string> = { 'Analyst': 'User', 'Data Manager': 'Database', 'NCA Agent':'Activity', 'Modeler Manager':'Layers', 'PBPK Agent':'Beaker', 'Statistical Agent':'TrendingUp', 'QC Agent':'ShieldCheck', 'Report Agent':'FileText', 'PopPK Expert':'Beaker', 'PKPD Expert':'LineChart', 'E-R Expert':'Target', 'L0 Supervisor':'BrainCircuit', 'SchemaExtractor':'Lock' };
     setMessages(prev => [...prev, {
       id: `${activeUC}-${stepIdx}-${Date.now()}`,
       who, icon: iconMap[who] || 'BrainCircuit', t: step.t, text: step.label.replace(/^⚠ /, ''), artifact: step.artifact
@@ -392,7 +393,7 @@ export default function PharmAgentApp() {
     }
   }, [activeUC, stepIdx]);
 
-  const handleSwitch = (id) => {
+  const handleSwitch = (id: string) => {
     if (id === activeUC) return;
     /* Hold up to SWITCH_HOLD_MAX_MS for current step to settle, then switch */
     setTimeout(() => {
