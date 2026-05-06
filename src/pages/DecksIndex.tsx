@@ -413,9 +413,21 @@ function DeckIndexCard({ deck, index }: { deck: (typeof DECKS)[number]; index: n
       )}
 
       <Link to={`/decks/${deck.id}`} className="block p-4 sm:p-5 flex-1">
-        {/* Eyebrow row: kind + version label */}
-        <div className="flex items-center gap-2 mb-3">
-          {meta && (
+        {/* Badge row: kind/section + version + audience + delivered. Semantic CSS vars => light/dark parity. */}
+        <div className="flex flex-wrap items-center gap-1.5 mb-3">
+          {/* Kind: Section override (curated) wins over auto-derived presentation/template/etc */}
+          {(deck as any).audience?.kind === 'section' ? (
+            <span
+              className="deck-mono text-[0.55rem] uppercase tracking-[0.22em] px-1.5 py-0.5 rounded"
+              style={{
+                background: 'color-mix(in srgb, var(--cream) 8%, transparent)',
+                color: 'var(--cream-muted, var(--cream))',
+                border: '1px solid var(--cream-hairline)',
+              }}
+            >
+              § Section
+            </span>
+          ) : meta && (
             <span
               className="deck-mono text-[0.55rem] uppercase tracking-[0.22em] px-1.5 py-0.5 rounded"
               style={{ background: tone.bg, color: tone.fg, border: `1px solid ${tone.border}` }}
@@ -426,6 +438,42 @@ function DeckIndexCard({ deck, index }: { deck: (typeof DECKS)[number]; index: n
           {meta?.versionLabel && (
             <span className="deck-mono text-[0.6rem] uppercase tracking-[0.2em] deck-ink-subtle">
               {meta.versionLabel}
+            </span>
+          )}
+          {/* Audience pill */}
+          {(deck as any).audience?.audience && (() => {
+            const a = (deck as any).audience.audience as string;
+            const t =
+              a === 'Merck' ? 'var(--cyan)' :
+              a === 'Gilead' ? 'var(--coral)' :
+              'var(--cream-muted, var(--cream))';
+            return (
+              <span
+                className="deck-mono text-[0.55rem] uppercase tracking-[0.22em] px-1.5 py-0.5 rounded"
+                style={{
+                  background: `color-mix(in srgb, ${t} 12%, transparent)`,
+                  color: t,
+                  border: `1px solid color-mix(in srgb, ${t} 30%, transparent)`,
+                }}
+                title={(deck as any).audience.role ? `${a} · ${(deck as any).audience.role}` : a}
+              >
+                {a}
+                {(deck as any).audience.role && <span className="opacity-60"> · {(deck as any).audience.role}</span>}
+              </span>
+            );
+          })()}
+          {/* Delivered marker */}
+          {(deck as any).audience?.deliveredAt && (
+            <span
+              className="deck-mono text-[0.55rem] uppercase tracking-[0.22em] px-1.5 py-0.5 rounded"
+              style={{
+                background: 'color-mix(in srgb, var(--amber) 14%, transparent)',
+                color: 'var(--amber)',
+                border: '1px solid color-mix(in srgb, var(--amber) 36%, transparent)',
+              }}
+              title={`Delivered ${new Date((deck as any).audience.deliveredAt).toLocaleString()}`}
+            >
+              ✓ Delivered
             </span>
           )}
         </div>

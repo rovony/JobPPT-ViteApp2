@@ -1,0 +1,64 @@
+{
+  "_doc": "Hand-authored audience/role/delivery mapping per deck. Add new entries when a deck is created. Inferred from git history + manifest content (closing-02-merck slides, commit subjects, dates). Edit freely — registry merges this into each deck at load.",
+  "_audiences": ["Merck", "Gilead", "Internal"],
+  "_roles": ["ClinPharm", "PMX", "Director", "VP"],
+
+  "qp2-seminar": {
+    "audience": "Merck",
+    "role": "ClinPharm",
+    "deliveredAt": null,
+    "note": "v1 — earliest scaffold, superseded by v2/v3-R2"
+  },
+  "qp2-seminar-v2": {
+    "audience": "Merck",
+    "role": "ClinPharm",
+    "deliveredAt": null,
+    "note": "working draft superseded by v3-R2"
+  },
+  "qp2-seminar-v3-R2": {
+    "audience": "Merck",
+    "role": "ClinPharm",
+    "deliveredAt": "2026-04-27T11:00:00-04:00",
+    "note": "delivered — Merck QP2-CMD interview seminar"
+  },
+  "qp2-seminar-v4": {
+    "audience": "Merck",
+    "role": "ClinPharm",
+    "deliveredAt": null,
+    "note": "post-talk iteration"
+  },
+  "qp2-seminar-v4-2": {
+    "audience": "Merck",
+    "role": "ClinPharm",
+    "deliveredAt": null,
+    "note": "post-talk iteration"
+  },
+
+  "pharazi-seminar": {
+    "audience": "Gilead",
+    "role": "PMX",
+    "deliveredAt": null,
+    "note": "Gilead PMX seminar lineage — see v5-pharazi for delivered version"
+  },
+  "pharos-seminar": {
+    "audience": "Gilead",
+    "role": "PMX",
+    "deliveredAt": null,
+    "note": "sibling to pharazi-seminar; same Apr 29 lineage"
+  },
+  "v5-pharazi": {
+    "audience": "Gilead",
+    "role": "PMX",
+    "deliveredAt": "2026-04-29T13:00:00-04:00",
+    "note": "delivered — Gilead PMX seminar (Apr 29 PM); time approximate, edit to actual"
+  },
+
+  "cs4-flagship-v1": { "audience": null, "role": null, "deliveredAt": null, "note": "internal — case-study flagship" },
+  "cs4-canvas-flagship": { "audience": null, "role": null, "deliveredAt": null, "note": "internal — case-study flagship canvas variant" },
+  "launch-keynote": { "audience": null, "role": null, "deliveredAt": null, "note": "internal — generic launch keynote demo" },
+  "template-blank": { "audience": null, "role": null, "deliveredAt": null },
+  "slide-templates": { "audience": null, "role": null, "deliveredAt": null },
+  "components-showcase": { "audience": null, "role": null, "deliveredAt": null },
+  "zaj-design-showcase": { "audience": null, "role": null, "deliveredAt": null },
+  "editorial-motion-template": { "audience": null, "role": null, "deliveredAt": null }
+}

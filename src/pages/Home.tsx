@@ -5,7 +5,7 @@ import {
   ArrowUpRight, Layers, Sparkles, FolderOpen, BarChart3, FlaskConical,
   Search, ChevronDown, Star, Archive, FolderPlus, Tag, X, Check,
   LayoutGrid, LayoutList, ArrowUpDown, Plus, Trash2, Pencil, ArchiveRestore, Folder, ChevronRight,
-  SlidersHorizontal, Hash, Share2, LogOut, User,
+  SlidersHorizontal, Hash, Share2, LogOut, User, MoreVertical,
 } from 'lucide-react';
 import { DECKS } from '@/decks/registry';
 import DeckSourcesDialog from '@/components/deck/DeckSourcesDialog';
@@ -485,7 +485,7 @@ function SearchBar() {
 /* ================================================================
    Deck context menu (move to folder, tag, fav, archive)
    ================================================================ */
-function DeckContextMenu({ deck, position, onClose, onEdit }) {
+function DeckContextMenu({ deck, position, onClose, onEdit, onOpenShare, onOpenSources }: any) {
   const { state, dispatch } = useOrganizer();
   const ref = useRef(null);
   const meta = state.deckMeta[deck.id] || {};
@@ -511,6 +511,41 @@ function DeckContextMenu({ deck, position, onClose, onEdit }) {
         left: position.x,
       }}
     >
+      {/* Open · Analytics · Share · Sources — moved here from inline card buttons (2026-05-06) */}
+      <Link
+        to={`/decks/${deck.id}`}
+        onClick={onClose}
+        className="w-full text-left px-3 py-2 text-xs flex items-center gap-2 deck-ink-muted hover:bg-[var(--cream-ghost)] hover:text-deck-ink transition-colors"
+      >
+        <ArrowUpRight className="w-3.5 h-3.5" />
+        Open deck
+      </Link>
+      <Link
+        to={`/decks/${deck.id}/analytics`}
+        onClick={onClose}
+        className="w-full text-left px-3 py-2 text-xs flex items-center gap-2 deck-ink-muted hover:bg-[var(--cream-ghost)] hover:text-deck-ink transition-colors"
+      >
+        <BarChart3 className="w-3.5 h-3.5" />
+        Analytics
+      </Link>
+      <button
+        onClick={() => { onOpenShare?.(); onClose(); }}
+        className="w-full text-left px-3 py-2 text-xs flex items-center gap-2 deck-ink-muted hover:bg-[var(--cream-ghost)] hover:text-deck-ink transition-colors"
+      >
+        <Share2 className="w-3.5 h-3.5" />
+        Share
+      </button>
+      <button
+        onClick={() => { onOpenSources?.(); onClose(); }}
+        className="w-full text-left px-3 py-2 text-xs flex items-center gap-2 deck-ink-muted hover:bg-[var(--cream-ghost)] hover:text-deck-ink transition-colors"
+      >
+        <FolderOpen className="w-3.5 h-3.5" />
+        Sources
+      </button>
+
+      {/* Divider */}
+      <div className="border-t my-0.5" style={{ borderColor: 'var(--cream-hairline)' }} />
+
       {/* Edit */}
       <button
         onClick={() => { onEdit?.(); }}
@@ -900,26 +935,106 @@ function DeckCard({ deck, index, themeMode, onOpenSources, onOpenShare }) {
               </div>
             </div>
             <div className="pr-8">
-              <div className="deck-display text-xl sm:text-2xl md:text-3xl text-deck-ink leading-tight">
+              {/* Badge row — kind/section, audience, version, Latest. All semantic CSS vars => light/dark theme parity */}
+              {(deck.audience?.audience || deck.audience?.kind || deck.catalogGit?.kind === 'template' || deck.catalogGit?.kind === 'showcase') && (
+                <div className="flex flex-wrap items-center gap-1 mb-2">
+                  {/* Section badge — explicit user-curated truth wins over the heuristic */}
+                  {deck.audience?.kind === 'section' && (
+                    <span
+                      className="deck-mono text-[0.5rem] uppercase tracking-[0.18em] px-1.5 py-0.5 rounded-full border"
+                      style={{
+                        background: 'color-mix(in srgb, var(--cream) 8%, transparent)',
+                        borderColor: 'var(--cream-hairline)',
+                        color: 'var(--cream-muted, var(--cream))',
+                      }}
+                    >
+                      § Section
+                    </span>
+                  )}
+                  {/* Template / Showcase badges (auto from catalogGit.kind) */}
+                  {deck.catalogGit?.kind === 'template' && (
+                    <span
+                      className="deck-mono text-[0.5rem] uppercase tracking-[0.18em] px-1.5 py-0.5 rounded-full"
+                      style={{
+                        background: 'color-mix(in srgb, var(--sage) 12%, transparent)',
+                        color: 'var(--sage)',
+                        border: '1px solid color-mix(in srgb, var(--sage) 30%, transparent)',
+                      }}
+                    >
+                      Template
+                    </span>
+                  )}
+                  {deck.catalogGit?.kind === 'showcase' && (
+                    <span
+                      className="deck-mono text-[0.5rem] uppercase tracking-[0.18em] px-1.5 py-0.5 rounded-full"
+                      style={{
+                        background: 'color-mix(in srgb, var(--violet) 12%, transparent)',
+                        color: 'var(--violet)',
+                        border: '1px solid color-mix(in srgb, var(--violet) 30%, transparent)',
+                      }}
+                    >
+                      Showcase
+                    </span>
+                  )}
+                  {/* Audience pill — Merck=cyan, Gilead=coral, etc. Falls back to neutral */}
+                  {deck.audience?.audience && (
+                    <span
+                      className="deck-mono text-[0.5rem] uppercase tracking-[0.18em] px-1.5 py-0.5 rounded-full"
+                      style={(() => {
+                        const a = deck.audience.audience as string;
+                        const tone =
+                          a === 'Merck' ? 'var(--cyan)' :
+                          a === 'Gilead' ? 'var(--coral)' :
+                          'var(--cream-muted, var(--cream))';
+                        return {
+                          background: `color-mix(in srgb, ${tone} 12%, transparent)`,
+                          color: tone,
+                          border: `1px solid color-mix(in srgb, ${tone} 30%, transparent)`,
+                        };
+                      })()}
+                      title={deck.audience.role ? `${deck.audience.audience} · ${deck.audience.role}` : deck.audience.audience}
+                    >
+                      {deck.audience.audience}
+                      {deck.audience.role && <span className="opacity-60"> · {deck.audience.role}</span>}
+                    </span>
+                  )}
+                  {/* Delivered marker */}
+                  {deck.audience?.deliveredAt && (
+                    <span
+                      className="deck-mono text-[0.5rem] uppercase tracking-[0.18em] px-1.5 py-0.5 rounded-full"
+                      style={{
+                        background: 'color-mix(in srgb, var(--amber) 14%, transparent)',
+                        color: 'var(--amber)',
+                        border: '1px solid color-mix(in srgb, var(--amber) 36%, transparent)',
+                      }}
+                      title={`Delivered ${new Date(deck.audience.deliveredAt).toLocaleString()}`}
+                    >
+                      ✓ Delivered
+                    </span>
+                  )}
+                </div>
+              )}
+
+              <div className="deck-display text-base sm:text-lg md:text-xl text-deck-ink leading-snug line-clamp-2">
                 {display.title}
               </div>
               {display.subtitle && (
-                <div className="mt-2 text-xs sm:text-sm deck-ink-muted">{display.subtitle}</div>
+                <div className="mt-1.5 text-[0.7rem] sm:text-xs deck-ink-muted line-clamp-2">{display.subtitle}</div>
               )}
               {display.description && (
-                <div className="mt-1 text-[0.65rem] deck-ink-subtle line-clamp-2">{display.description}</div>
+                <div className="mt-1 text-[0.6rem] deck-ink-subtle line-clamp-1">{display.description}</div>
               )}
-              {display.hasOverrides && (
-                <div className="mt-1 inline-flex items-center gap-0.5 text-[0.5rem] px-1.5 py-0.5 rounded-full bg-deck-accent/10 text-deck-accent deck-mono uppercase">
-                  edited
-                </div>
-              )}
-              {deckTags.length > 0 && (
-                <div className="flex flex-wrap gap-1 mt-2">
+              {(display.hasOverrides || deckTags.length > 0) && (
+                <div className="flex flex-wrap items-center gap-1 mt-2">
+                  {display.hasOverrides && (
+                    <span className="inline-flex items-center gap-0.5 text-[0.5rem] px-1.5 py-0.5 rounded-full bg-deck-accent/10 text-deck-accent deck-mono uppercase">
+                      edited
+                    </span>
+                  )}
                   {deckTags.map((tag) => (
                     <span
                       key={tag.id}
-                      className="inline-flex items-center gap-0.5 text-[0.55rem] px-1.5 py-0.5 rounded-full"
+                      className="inline-flex items-center gap-0.5 text-[0.5rem] px-1.5 py-0.5 rounded-full"
                       style={{ backgroundColor: tag.color + '22', color: tag.color }}
                     >
                       <Hash className="w-2 h-2" />{tag.label}
@@ -945,25 +1060,16 @@ function DeckCard({ deck, index, themeMode, onOpenSources, onOpenShare }) {
               </span>
             )}
           </div>
-          <div className="flex items-center gap-1.5">
-            <MonoChip as={Link} to={`/decks/${deck.id}/analytics`} size="sm">
-              <BarChart3 className="w-3 h-3" /> Analytics
-            </MonoChip>
-            <MonoChip as="button" size="sm" onClick={() => onOpenShare?.()}>
-              <Share2 className="w-3 h-3" /> Share
-            </MonoChip>
-            <MonoChip as="button" size="sm" onClick={() => onOpenSources?.()}>
-              <FolderOpen className="w-3 h-3" /> Sources
-            </MonoChip>
-            <MonoChip
-              as="button"
-              size="sm"
-              onClick={handleContextMenu}
-              aria-label="Organize"
-            >
-              <SlidersHorizontal className="w-3 h-3" />
-            </MonoChip>
-          </div>
+          {/* Single 3-dot kebab opens the unified menu (Open · Analytics · Share · Sources · Edit · Favorite · Archive · Folders · Tags) */}
+          <button
+            type="button"
+            onClick={handleContextMenu}
+            aria-label="Open deck actions menu"
+            title="Open deck actions menu"
+            className="p-1.5 -m-1 rounded hover:bg-[var(--cream-ghost)] deck-ink-subtle hover:text-deck-ink transition-colors"
+          >
+            <MoreVertical className="w-4 h-4" />
+          </button>
         </div>
       </motion.div>
 
@@ -974,6 +1080,8 @@ function DeckCard({ deck, index, themeMode, onOpenSources, onOpenShare }) {
             position={ctxMenu}
             onClose={() => setCtxMenu(null)}
             onEdit={() => { setCtxMenu(null); setEditing(true); }}
+            onOpenShare={() => onOpenShare?.()}
+            onOpenSources={() => onOpenSources?.()}
           />
         )}
         {editing && (
@@ -1103,6 +1211,8 @@ function DeckListRow({ deck, index, themeMode, onOpenSources, onOpenShare }) {
             position={ctxMenu}
             onClose={() => setCtxMenu(null)}
             onEdit={() => { setCtxMenu(null); setEditing(true); }}
+            onOpenShare={() => onOpenShare?.()}
+            onOpenSources={() => onOpenSources?.()}
           />
         )}
         {editing && (
