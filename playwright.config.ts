@@ -1,15 +1,24 @@
+import 'dotenv/config';
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * Playwright config for the v5-ultragenyx auth gate. Spins up the
- * Vercel dev server (which runs Vite + serverless functions + edge
- * middleware) so tests exercise the FULL stack, not just the SPA.
+ * Playwright config for the v5-ultragenyx auth gate.
  *
- * Required env vars (loaded from .env.local for local runs):
+ * Two run modes:
+ *   1. **Preview-URL mode (recommended):** set
+ *      `PLAYWRIGHT_BASE_URL=https://<preview>.vercel.app` and the
+ *      webServer block is skipped — tests run against a real Vercel
+ *      preview that exercises edge middleware + serverless functions
+ *      end-to-end.
+ *   2. **Local mode:** webServer auto-spins `vercel dev`. Note this
+ *      requires the cloud Vercel project to NOT have a stale
+ *      `devCommand` set — otherwise vercel dev shells out to plain
+ *      Vite and middleware never fires. Preview-URL mode sidesteps
+ *      this entirely.
+ *
+ * Env vars (loaded automatically from .env.local via dotenv):
  *   SITE_PASSWORD — what tests POST to /api/auth/site-login
- *   SITE_SECRET   — server signing key
- *
- * The dev server is reused across runs to keep tests fast.
+ *   SITE_SECRET   — server signing key (only used by webServer mode)
  */
 export default defineConfig({
   testDir: './tests/e2e',
