@@ -77,7 +77,7 @@
     "note": "Case-study section — canvas variant"
   },
 
-  "launch-keynote": { "audience": null, "role": null, "kind": "presentation", "deliveredAt": null, "note": "internal — generic launch keynote demo" },
+  "launch-keynote": { "audience": null, "role": null, "kind": "showcase", "deliveredAt": null, "note": "example demo — generic product launch keynote, not a real talk" },
   "template-blank": { "audience": null, "role": null, "deliveredAt": null },
   "slide-templates": { "audience": null, "role": null, "deliveredAt": null },
   "components-showcase": { "audience": null, "role": null, "deliveredAt": null },
