@@ -290,7 +290,7 @@ function DeckStage({ deck, viewMode = 'default', sharePathBase = null, shareHasC
     enabled: !isShareView,
   });
 
-  useEffect(() => { document.title = `${deck.title} — Deck Studio`; }, [deck.title]);
+  useEffect(() => { document.title = deck.title; }, [deck.title]);
 
   // Lock page scroll while a deck is mounted
   useEffect(() => {

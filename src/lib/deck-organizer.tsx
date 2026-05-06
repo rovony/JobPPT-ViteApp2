@@ -55,8 +55,8 @@ function createInitialState() {
     deckMeta: {},
     activeFolder: 'all',
     activeTags: [],
-    sortBy: 'title',
-    sortDir: 'asc',
+    sortBy: 'lastUpdated',
+    sortDir: 'desc',
     searchQuery: '',
     viewMode: 'grid',
   };
@@ -361,6 +361,23 @@ export function useFilteredDecks(allDecks) {
           const aTime = deckMeta[a.id]?.archivedAt || 0;
           const bTime = deckMeta[b.id]?.archivedAt || 0;
           cmp = bTime - aTime;
+          break;
+        }
+        case 'lastUpdated': {
+          // Latest-in-family bubbles up first within same date band; missing metadata sinks.
+          const aLatest = a.catalogGit?.isLatestInFamily ? 1 : 0;
+          const bLatest = b.catalogGit?.isLatestInFamily ? 1 : 0;
+          if (aLatest !== bLatest) { cmp = aLatest - bLatest; break; }
+          const aIso = a.catalogGit?.lastUpdatedAt || '';
+          const bIso = b.catalogGit?.lastUpdatedAt || '';
+          if (!aIso && !bIso) { cmp = 0; break; }
+          if (!aIso) return 1;
+          if (!bIso) return -1;
+          cmp = aIso.localeCompare(bIso);
+          break;
+        }
+        case 'commitCount': {
+          cmp = (a.catalogGit?.commitCount ?? 0) - (b.catalogGit?.commitCount ?? 0);
           break;
         }
         default: cmp = 0;

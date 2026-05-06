@@ -68,6 +68,8 @@ const TAG_COLORS = [
    SORT OPTIONS
    ================================================================ */
 const SORT_OPTIONS = [
+  { value: 'lastUpdated', label: 'Last updated (git)' },
+  { value: 'commitCount', label: 'Commit activity' },
   { value: 'title', label: 'Name' },
   { value: 'created', label: 'Date created' },
   { value: 'slides', label: 'Slide count' },
