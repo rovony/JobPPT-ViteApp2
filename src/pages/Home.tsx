@@ -147,6 +147,17 @@ function Sidebar({ collapsed }) {
         );
       })}
 
+      {/* Discoverability link to the dedicated git-aware deck browser */}
+      <Link
+        to="/decks"
+        className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-left text-sm deck-ink-muted hover:bg-[var(--cream-ghost)] hover:text-deck-ink transition-colors w-full mt-1"
+        title="Sort, filter, and group decks by git-derived metadata"
+      >
+        <Sparkles className="w-3.5 h-3.5 shrink-0" />
+        <span className="truncate">Browse · sort · group</span>
+        <span className="ml-auto deck-mono text-[0.55rem] deck-ink-subtle">→</span>
+      </Link>
+
       {userFolders.length > 0 && (
         <div className="mt-3 mb-1 deck-mono text-[0.58rem] uppercase tracking-[0.22em] deck-ink-subtle px-2 flex items-center justify-between">
           Custom
@@ -803,10 +814,54 @@ function DeckCard({ deck, index, themeMode, onOpenSources, onOpenShare }) {
           <div className="aspect-[16/10] p-5 sm:p-6 flex flex-col justify-between relative">
             <div className="flex items-center justify-between">
               <div className="deck-mono text-[10px] tracking-[0.22em] uppercase deck-ink-subtle space-y-0.5">
-                <div>{deck.slides.length} slides · {deck.theme}</div>
+                <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+                  <span>{deck.slides.length} slides · {deck.theme}</span>
+                  {deck.catalogGit?.versionLabel && (
+                    <span
+                      className="px-1 py-0.5 rounded text-[0.55rem]"
+                      style={{
+                        background: 'color-mix(in srgb, var(--cream) 8%, transparent)',
+                        color: 'var(--cream-muted, var(--cream))',
+                      }}
+                      title={`Version family: ${deck.catalogGit.versionFamily}`}
+                    >
+                      {deck.catalogGit.versionLabel}
+                    </span>
+                  )}
+                  {deck.catalogGit?.isLatestInFamily &&
+                    deck.catalogGit.versionLabel /* skip badge for solo families (not informative) */ && (
+                      <span
+                        className="inline-flex items-center gap-0.5 text-[0.55rem] px-1.5 py-0.5 rounded-full"
+                        style={{
+                          background: 'color-mix(in srgb, var(--amber) 14%, transparent)',
+                          border: '1px solid color-mix(in srgb, var(--amber) 40%, transparent)',
+                          color: 'var(--amber)',
+                        }}
+                        title="Most recently updated in this version family"
+                      >
+                        ✦ Latest
+                      </span>
+                    )}
+                </div>
                 {createdLine ? (
                   <div className="normal-case tracking-normal text-[0.65rem] deck-ink-muted">
                     {createdLine}
+                  </div>
+                ) : deck.catalogGit?.lastUpdatedAt ? (
+                  <div
+                    className="normal-case tracking-normal text-[0.6rem] deck-ink-subtle/90"
+                    title={`Last updated ${new Date(deck.catalogGit.lastUpdatedAt).toLocaleString()} · ${deck.catalogGit.commitCount} commits`}
+                  >
+                    Updated {(() => {
+                      const d = Date.now() - new Date(deck.catalogGit.lastUpdatedAt).valueOf();
+                      const days = Math.floor(d / 86_400_000);
+                      if (days < 1) return 'today';
+                      if (days === 1) return 'yesterday';
+                      if (days < 7) return `${days}d ago`;
+                      if (days < 30) return `${Math.floor(days / 7)}w ago`;
+                      if (days < 365) return `${Math.floor(days / 30)}mo ago`;
+                      return `${Math.floor(days / 365)}y ago`;
+                    })()} · {deck.catalogGit.commitCount} commits
                   </div>
                 ) : (
                   <div className="normal-case tracking-normal text-[0.6rem] deck-ink-subtle/90">

@@ -10,6 +10,7 @@ import { OrganizerProvider } from '@/lib/deck-organizer';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import AdminRoute from '@/components/AdminRoute';
 import Home from '@/pages/Home';
+import DecksIndex from '@/pages/DecksIndex';
 import Deck from '@/pages/Deck';
 import DeckRunner from '@/components/deck/DeckRunner';
 import AudienceQA from '@/pages/AudienceQA';
@@ -68,6 +69,7 @@ const AuthenticatedApp = () => {
       <Route path="/home" element={isAuthenticated ? <Home /> : <Login />} />
       <Route path="/Deck" element={isAuthenticated ? <Deck /> : <Login />} />
       <Route path="/deck" element={isAuthenticated ? <Deck /> : <Login />} />
+      <Route path="/decks" element={isAuthenticated ? <DecksIndex /> : <Login />} />
       <Route path="/decks/:deckId" element={isAuthenticated ? <DeckRunner /> : <Login />} />
       <Route path="/decks/:deckId/s/:slideIndex" element={isAuthenticated ? <DeckRunner /> : <Login />} />
       {/* Dedicated dual-screen routes — see DeckRunner for the path-segment
