@@ -5,7 +5,7 @@ import {
   ArrowUpRight, Layers, Sparkles, FolderOpen, BarChart3, FlaskConical,
   Search, ChevronDown, Star, Archive, FolderPlus, Tag, X, Check,
   LayoutGrid, LayoutList, ArrowUpDown, Plus, Trash2, Pencil, ArchiveRestore, Folder, ChevronRight,
-  SlidersHorizontal, Hash, Share2, LogOut, User, MoreVertical,
+  SlidersHorizontal, Hash, Share2, LogOut, User, MoreVertical, Mic,
 } from 'lucide-react';
 import { DECKS } from '@/decks/registry';
 import DeckSourcesDialog from '@/components/deck/DeckSourcesDialog';
@@ -43,6 +43,8 @@ export function MonoChip({ as: As = 'span' as any, size = 'md', className = '', 
    Icon map for folder icons
    ================================================================ */
 const FOLDER_ICONS = {
+  mic: Mic,
+  layoutGrid: LayoutGrid,
   layers: Layers,
   star: Star,
   archive: Archive,
@@ -133,11 +135,21 @@ function Sidebar({ collapsed }) {
           >
             <Icon className="w-3.5 h-3.5 shrink-0" />
             <span className="truncate">{f.label}</span>
-            {f.id === 'all' && (
+            {f.id === 'live' && (
               <span className="ml-auto deck-mono text-[0.55rem] deck-ink-subtle">{DECKS.filter(d => {
-                const meta = state.deckMeta[d.id];
-                return !meta?.archived;
+                const k = (d as any).audience?.kind || d.catalogGit?.kind;
+                const isTmpl = k === 'template' || k === 'showcase';
+                return !state.deckMeta[d.id]?.archived && !isTmpl;
               }).length}</span>
+            )}
+            {f.id === 'templates' && (
+              <span className="ml-auto deck-mono text-[0.55rem] deck-ink-subtle">{DECKS.filter(d => {
+                const k = (d as any).audience?.kind || d.catalogGit?.kind;
+                return !state.deckMeta[d.id]?.archived && (k === 'template' || k === 'showcase');
+              }).length}</span>
+            )}
+            {f.id === 'all' && (
+              <span className="ml-auto deck-mono text-[0.55rem] deck-ink-subtle">{DECKS.filter(d => !state.deckMeta[d.id]?.archived).length}</span>
             )}
             {f.id === 'archive' && (
               <span className="ml-auto deck-mono text-[0.55rem] deck-ink-subtle">{DECKS.filter(d => state.deckMeta[d.id]?.archived).length}</span>
@@ -999,8 +1011,9 @@ function DeckCard({ deck, index, themeMode, onOpenSources, onOpenShare }) {
                 </div>
               )}
             </div>
-            <div className="absolute top-4 right-4 sm:top-5 sm:right-5 text-deck-ink-subtle group-hover:text-deck-accent transition-colors">
-              <ArrowUpRight className="w-5 h-5" />
+            {/* Arrow indicator at bottom-right of the link area; fades on hover so the top-right pencil/star don't compete with it. */}
+            <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 text-deck-ink-subtle group-hover:text-deck-accent transition-all duration-200 pointer-events-none">
+              <ArrowUpRight className="w-4 h-4" />
             </div>
           </div>
         </Link>
@@ -1264,11 +1277,13 @@ export default function Home() {
             </div>
           </div>
           <h1 className="deck-display text-3xl sm:text-4xl md:text-5xl leading-[0.95] text-deck-ink max-w-3xl">
-            Code-driven decks<br />with a shared grammar.
+            My talks,<br />composable and code-driven.
           </h1>
           <p className="mt-4 sm:mt-5 max-w-2xl text-sm sm:text-base deck-ink-muted leading-relaxed">
-            A unified design system, motion vocabulary, and composable patterns —
-            so every presentation feels like it came from the same studio.
+            Every interview seminar, conference talk, and section I give —
+            built from a shared design system and motion vocabulary so the
+            audience reads them as coming from one studio. Latest first;
+            sections combine into the talk on stage.
           </p>
         </motion.header>
 
