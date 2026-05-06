@@ -849,64 +849,100 @@ function DeckCard({ deck, index, themeMode, onOpenSources, onOpenShare }) {
       >
         <Link to={`/Deck?id=${deck.id}`} className="block">
           <div className="aspect-[16/10] p-5 sm:p-6 flex flex-col justify-between relative">
-            <div className="flex items-center justify-between">
-              <div className="deck-mono text-[10px] tracking-[0.22em] uppercase deck-ink-subtle space-y-0.5">
-                <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
-                  <span>{deck.slides.length} slides · {deck.theme}</span>
-                  {deck.catalogGit?.versionLabel && (
-                    <span
-                      className="px-1 py-0.5 rounded text-[0.55rem]"
-                      style={{
-                        background: 'color-mix(in srgb, var(--cream) 8%, transparent)',
-                        color: 'var(--cream-muted, var(--cream))',
-                      }}
-                      title={`Version family: ${deck.catalogGit.versionFamily}`}
-                    >
+            {/* Unified chip strip — slides · theme · date · version · Latest · kind · audience · Delivered */}
+            <div className="flex items-start justify-between gap-2">
+              <div className="flex flex-wrap items-center gap-1 pr-2 min-w-0">
+                {(() => {
+                  const chipBase = "deck-mono text-[0.5rem] uppercase tracking-[0.18em] px-1.5 py-0.5 rounded-full inline-flex items-center gap-1 whitespace-nowrap";
+                  const neutral = {
+                    background: 'color-mix(in srgb, var(--cream) 6%, transparent)',
+                    border: '1px solid var(--cream-hairline)',
+                    color: 'var(--cream-muted, var(--cream))',
+                  } as React.CSSProperties;
+                  const tinted = (token: string, bgPc = 12, bdPc = 30): React.CSSProperties => ({
+                    background: `color-mix(in srgb, ${token} ${bgPc}%, transparent)`,
+                    color: token,
+                    border: `1px solid color-mix(in srgb, ${token} ${bdPc}%, transparent)`,
+                  });
+                  const updated = deck.catalogGit?.lastUpdatedAt;
+                  const updatedRel = updated ? (() => {
+                    const d = Date.now() - new Date(updated).valueOf();
+                    const days = Math.floor(d / 86_400_000);
+                    if (days < 1) return 'today';
+                    if (days === 1) return 'yesterday';
+                    if (days < 7) return `${days}d ago`;
+                    if (days < 30) return `${Math.floor(days / 7)}w ago`;
+                    if (days < 365) return `${Math.floor(days / 30)}mo ago`;
+                    return `${Math.floor(days / 365)}y ago`;
+                  })() : null;
+                  const chips: React.ReactNode[] = [];
+                  // Slides
+                  chips.push(
+                    <span key="slides" className={chipBase} style={neutral}>
+                      {deck.slides.length} slides
+                    </span>
+                  );
+                  // Theme
+                  if (deck.theme) chips.push(
+                    <span key="theme" className={chipBase} style={neutral}>{deck.theme}</span>
+                  );
+                  // Updated date (relative)
+                  if (updatedRel) chips.push(
+                    <span key="updated" className={chipBase} style={neutral}
+                      title={`Last updated ${new Date(updated!).toLocaleString()} · ${deck.catalogGit?.commitCount ?? 0} commits`}>
+                      {updatedRel}
+                    </span>
+                  );
+                  // Version label
+                  if (deck.catalogGit?.versionLabel) chips.push(
+                    <span key="ver" className={chipBase} style={neutral}
+                      title={`Version family: ${deck.catalogGit.versionFamily}`}>
                       {deck.catalogGit.versionLabel}
                     </span>
-                  )}
-                  {deck.catalogGit?.isLatestInFamily &&
-                    deck.catalogGit.versionLabel /* skip badge for solo families (not informative) */ && (
-                      <span
-                        className="inline-flex items-center gap-0.5 text-[0.55rem] px-1.5 py-0.5 rounded-full"
-                        style={{
-                          background: 'color-mix(in srgb, var(--amber) 14%, transparent)',
-                          border: '1px solid color-mix(in srgb, var(--amber) 40%, transparent)',
-                          color: 'var(--amber)',
-                        }}
-                        title="Most recently updated in this version family"
-                      >
-                        ✦ Latest
+                  );
+                  // Latest in family (only if multi-version family)
+                  if (deck.catalogGit?.isLatestInFamily && deck.catalogGit.versionLabel) chips.push(
+                    <span key="latest" className={chipBase} style={tinted('var(--amber)', 14, 40)}
+                      title="Most recently updated in this version family">
+                      ✦ Latest
+                    </span>
+                  );
+                  // Kind: Section override > Template/Showcase auto
+                  if (deck.audience?.kind === 'section') chips.push(
+                    <span key="section" className={chipBase} style={neutral}>§ Section</span>
+                  );
+                  if (deck.catalogGit?.kind === 'template') chips.push(
+                    <span key="tmpl" className={chipBase} style={tinted('var(--sage)')}>Template</span>
+                  );
+                  if (deck.catalogGit?.kind === 'showcase') chips.push(
+                    <span key="show" className={chipBase} style={tinted('var(--violet)')}>Showcase</span>
+                  );
+                  // Audience — Merck cyan, Gilead coral, else neutral
+                  if (deck.audience?.audience) {
+                    const a = deck.audience.audience as string;
+                    const tone =
+                      a === 'Merck' ? 'var(--cyan)' :
+                      a === 'Gilead' ? 'var(--coral)' :
+                      null;
+                    chips.push(
+                      <span key="aud" className={chipBase} style={tone ? tinted(tone) : neutral}
+                        title={deck.audience.role ? `${a} · ${deck.audience.role}` : a}>
+                        {a}
+                        {deck.audience.role && <span className="opacity-60"> · {deck.audience.role}</span>}
                       </span>
-                    )}
-                </div>
-                {createdLine ? (
-                  <div className="normal-case tracking-normal text-[0.65rem] deck-ink-muted">
-                    {createdLine}
-                  </div>
-                ) : deck.catalogGit?.lastUpdatedAt ? (
-                  <div
-                    className="normal-case tracking-normal text-[0.6rem] deck-ink-subtle/90"
-                    title={`Last updated ${new Date(deck.catalogGit.lastUpdatedAt).toLocaleString()} · ${deck.catalogGit.commitCount} commits`}
-                  >
-                    Updated {(() => {
-                      const d = Date.now() - new Date(deck.catalogGit.lastUpdatedAt).valueOf();
-                      const days = Math.floor(d / 86_400_000);
-                      if (days < 1) return 'today';
-                      if (days === 1) return 'yesterday';
-                      if (days < 7) return `${days}d ago`;
-                      if (days < 30) return `${Math.floor(days / 7)}w ago`;
-                      if (days < 365) return `${Math.floor(days / 30)}mo ago`;
-                      return `${Math.floor(days / 365)}y ago`;
-                    })()} · {deck.catalogGit.commitCount} commits
-                  </div>
-                ) : (
-                  <div className="normal-case tracking-normal text-[0.6rem] deck-ink-subtle/90">
-                    Built-in deck
-                  </div>
-                )}
+                    );
+                  }
+                  // Delivered marker
+                  if (deck.audience?.deliveredAt) chips.push(
+                    <span key="delivered" className={chipBase} style={tinted('var(--amber)', 14, 36)}
+                      title={`Delivered ${new Date(deck.audience.deliveredAt).toLocaleString()}`}>
+                      ✓ Delivered
+                    </span>
+                  );
+                  return chips;
+                })()}
               </div>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 shrink-0">
                 {/* Edit pencil */}
                 <button
                   onClick={(e) => {
@@ -935,86 +971,6 @@ function DeckCard({ deck, index, themeMode, onOpenSources, onOpenShare }) {
               </div>
             </div>
             <div className="pr-8">
-              {/* Badge row — kind/section, audience, version, Latest. All semantic CSS vars => light/dark theme parity */}
-              {(deck.audience?.audience || deck.audience?.kind || deck.catalogGit?.kind === 'template' || deck.catalogGit?.kind === 'showcase') && (
-                <div className="flex flex-wrap items-center gap-1 mb-2">
-                  {/* Section badge — explicit user-curated truth wins over the heuristic */}
-                  {deck.audience?.kind === 'section' && (
-                    <span
-                      className="deck-mono text-[0.5rem] uppercase tracking-[0.18em] px-1.5 py-0.5 rounded-full border"
-                      style={{
-                        background: 'color-mix(in srgb, var(--cream) 8%, transparent)',
-                        borderColor: 'var(--cream-hairline)',
-                        color: 'var(--cream-muted, var(--cream))',
-                      }}
-                    >
-                      § Section
-                    </span>
-                  )}
-                  {/* Template / Showcase badges (auto from catalogGit.kind) */}
-                  {deck.catalogGit?.kind === 'template' && (
-                    <span
-                      className="deck-mono text-[0.5rem] uppercase tracking-[0.18em] px-1.5 py-0.5 rounded-full"
-                      style={{
-                        background: 'color-mix(in srgb, var(--sage) 12%, transparent)',
-                        color: 'var(--sage)',
-                        border: '1px solid color-mix(in srgb, var(--sage) 30%, transparent)',
-                      }}
-                    >
-                      Template
-                    </span>
-                  )}
-                  {deck.catalogGit?.kind === 'showcase' && (
-                    <span
-                      className="deck-mono text-[0.5rem] uppercase tracking-[0.18em] px-1.5 py-0.5 rounded-full"
-                      style={{
-                        background: 'color-mix(in srgb, var(--violet) 12%, transparent)',
-                        color: 'var(--violet)',
-                        border: '1px solid color-mix(in srgb, var(--violet) 30%, transparent)',
-                      }}
-                    >
-                      Showcase
-                    </span>
-                  )}
-                  {/* Audience pill — Merck=cyan, Gilead=coral, etc. Falls back to neutral */}
-                  {deck.audience?.audience && (
-                    <span
-                      className="deck-mono text-[0.5rem] uppercase tracking-[0.18em] px-1.5 py-0.5 rounded-full"
-                      style={(() => {
-                        const a = deck.audience.audience as string;
-                        const tone =
-                          a === 'Merck' ? 'var(--cyan)' :
-                          a === 'Gilead' ? 'var(--coral)' :
-                          'var(--cream-muted, var(--cream))';
-                        return {
-                          background: `color-mix(in srgb, ${tone} 12%, transparent)`,
-                          color: tone,
-                          border: `1px solid color-mix(in srgb, ${tone} 30%, transparent)`,
-                        };
-                      })()}
-                      title={deck.audience.role ? `${deck.audience.audience} · ${deck.audience.role}` : deck.audience.audience}
-                    >
-                      {deck.audience.audience}
-                      {deck.audience.role && <span className="opacity-60"> · {deck.audience.role}</span>}
-                    </span>
-                  )}
-                  {/* Delivered marker */}
-                  {deck.audience?.deliveredAt && (
-                    <span
-                      className="deck-mono text-[0.5rem] uppercase tracking-[0.18em] px-1.5 py-0.5 rounded-full"
-                      style={{
-                        background: 'color-mix(in srgb, var(--amber) 14%, transparent)',
-                        color: 'var(--amber)',
-                        border: '1px solid color-mix(in srgb, var(--amber) 36%, transparent)',
-                      }}
-                      title={`Delivered ${new Date(deck.audience.deliveredAt).toLocaleString()}`}
-                    >
-                      ✓ Delivered
-                    </span>
-                  )}
-                </div>
-              )}
-
               <div className="deck-display text-base sm:text-lg md:text-xl text-deck-ink leading-snug line-clamp-2">
                 {display.title}
               </div>
