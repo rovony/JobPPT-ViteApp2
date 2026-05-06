@@ -2,7 +2,8 @@
   "_doc": "Hand-authored audience/role/section/delivery mapping per deck. Sections are sub-pieces (one case study, one topic) that get combined live in a presentation. 'kind: section' overrides catalogGit.kind heuristic.",
   "_audiences": ["Merck", "Gilead", "Internal"],
   "_roles": ["ClinPharm", "PMX", "Director", "VP"],
-  "_kinds": ["section (default for case-study or single-topic decks)", "presentation (full talk)"],
+  "_kinds": ["section (sub-piece, single topic, <=30 slides)", "presentation (full talk, >30 slides)"],
+  "_rule_section_size": "Anything >30 slides is NOT a section. Sections are sub-pieces; full presentations are larger.",
 
   "qp2-seminar": {
     "audience": "Merck",
@@ -57,9 +58,9 @@
   "v5-pharazi": {
     "audience": "Gilead",
     "role": "PMX",
-    "kind": "section",
+    "kind": "presentation",
     "deliveredAt": "2026-04-29T13:00:00-04:00",
-    "note": "Gilead PMX — 'Quantitative Pharmacology in Action' (display title); the pharazi-folder version delivered Apr 29 (URL: /decks/v5-pharazi/s/cs2-domain3 confirmed)"
+    "note": "Gilead PMX — 'Quantitative Pharmacology in Action' (display title); 98 slides (full presentation, not a section per >30-slide rule). Delivered Apr 29 — URL /decks/v5-pharazi/s/cs2-domain3 confirmed."
   },
 
   "cs4-flagship-v1": {
