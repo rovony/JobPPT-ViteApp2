@@ -79,7 +79,7 @@ const manifest = {
     { id: 'xyflow',         title: '§5A · @xyflow/react — process workflows',                     component: Slide13 },
     { id: 'katex',          title: '§5A · katex + react-katex — equations',                       component: Slide14 },
     { id: 'tremor',         title: '§5A · @tremor/react — KPI cards',                             component: Slide15 },
-    { id: 'maps',           title: '§5A · react-simple-maps + react-world-flags',                 component: Slide16 },
+    { id: 'maps',           title: '§5A · inline world-map.svg + react-world-flags',              component: Slide16 },
     { id: 'tanstack-table', title: '§5A · @tanstack/react-table — sortable',                      component: Slide17 },
     { id: 'lottie',         title: '§5A · lottie-react — vector animations',                      component: Slide18 },
     { id: 'shaders',        title: '§5A · @paper-design/shaders-react — WebGL gradients',         component: Slide19 },

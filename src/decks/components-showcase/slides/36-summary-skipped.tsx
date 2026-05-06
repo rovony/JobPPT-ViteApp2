@@ -11,7 +11,7 @@ const COVERED = [
   { lib: '@xyflow/react', cat: '§5A', note: 'Process workflows, decision trees' },
   { lib: 'katex + react-katex', cat: '§5A', note: '4 PK equation variants — block + inline' },
   { lib: '@tremor/react', cat: '§5A', note: 'Metric / Card / BadgeDelta / ProgressBar' },
-  { lib: 'react-simple-maps', cat: '§5A', note: 'Approval-status world map' },
+  { lib: 'inline world-map.svg', cat: '§5A', note: 'Approval-status world map (replaces react-simple-maps)' },
   { lib: 'react-world-flags', cat: '§5A', note: 'Compact country callouts' },
   { lib: '@tanstack/react-table', cat: '§5A', note: 'Headless sortable PAH-drug table' },
   { lib: 'lottie-react', cat: '§5A', note: 'Inline JSON loop animation' },

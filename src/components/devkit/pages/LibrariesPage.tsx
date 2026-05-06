@@ -113,10 +113,10 @@ const GROUPS = [
       },
       {
         status: 'installed',
-        name: 'react-simple-maps',
-        role: 'Lightweight choropleth / geo maps',
-        useFor: 'Approval geography (EMA/PMDA/FDA/CDSCO maps)',
-        importExample: `import { ComposableMap, Geographies, Geography } from 'react-simple-maps';`,
+        name: 'inline world-map.svg (Robinson projection)',
+        role: 'Bundled SVG world map with ISO 3166 A3 country classes — zero runtime deps',
+        useFor: 'Approval geography (EMA/PMDA/FDA/CDSCO maps). Replaces unmaintained react-simple-maps.',
+        importExample: `import WorldMapSvg from '@/decks/<deck>/assets/world-map.svg?react';`,
       },
       {
         status: 'installed',
@@ -244,10 +244,10 @@ const GROUPS = [
       },
       {
         status: 'installed',
-        name: 'react-quill',
-        role: 'WYSIWYG rich-text editor (Quill-based, lighter)',
+        name: 'react-quill-new',
+        role: 'WYSIWYG rich-text editor (maintained fork of react-quill)',
         useFor: 'Authoring speaker notes inline · simple content editors',
-        importExample: `import ReactQuill from 'react-quill';`,
+        importExample: `import ReactQuill from 'react-quill-new';`,
       },
     ],
   },
@@ -408,7 +408,7 @@ const GROUPS = [
         status: 'installed',
         name: 'react-leaflet',
         role: 'Leaflet map wrapper (interactive tile maps)',
-        useFor: 'Zoom/pan maps with markers. Prefer react-simple-maps for static choropleths.',
+        useFor: 'Zoom/pan maps with markers. Prefer the bundled world-map.svg for static choropleths.',
         importExample: `import { MapContainer, TileLayer, Marker } from 'react-leaflet';`,
       },
       {
@@ -440,7 +440,7 @@ const GROUPS = [
       {
         status: 'available',
         name: '@tiptap/react',
-        role: 'ProseMirror-based rich-text editor — more powerful than react-quill',
+        role: 'ProseMirror-based rich-text editor — more powerful than react-quill-new',
         useFor: 'Advanced content editors (tables, embeds, collaborative cursors). Ask to install.',
         importExample: `// Not installed yet — ask to add @tiptap/react + @tiptap/starter-kit`,
       },
