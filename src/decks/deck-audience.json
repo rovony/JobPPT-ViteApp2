@@ -58,8 +58,8 @@
     "audience": "Gilead",
     "role": "PMX",
     "kind": "section",
-    "deliveredAt": null,
-    "note": "Gilead PMX section (V5 Pharos display) — most-recently iterated section, used in Apr 29 PM talk"
+    "deliveredAt": "2026-04-29T13:00:00-04:00",
+    "note": "Lead Gilead PMX section delivered Apr 29 PM. Time approximate; combined live with pharazi/pharos sections during the talk. Stands in for the Gilead delivery in the Delivered folder."
   },
 
   "cs4-flagship-v1": {

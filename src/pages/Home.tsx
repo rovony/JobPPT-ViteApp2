@@ -43,6 +43,7 @@ export function MonoChip({ as: As = 'span' as any, size = 'md', className = '', 
    Icon map for folder icons
    ================================================================ */
 const FOLDER_ICONS = {
+  check: Check,
   mic: Mic,
   layoutGrid: LayoutGrid,
   layers: Layers,
@@ -135,6 +136,9 @@ function Sidebar({ collapsed }) {
           >
             <Icon className="w-3.5 h-3.5 shrink-0" />
             <span className="truncate">{f.label}</span>
+            {f.id === 'delivered' && (
+              <span className="ml-auto deck-mono text-[0.55rem] deck-ink-subtle">{DECKS.filter(d => !!(d as any).audience?.deliveredAt && !state.deckMeta[d.id]?.archived).length}</span>
+            )}
             {f.id === 'live' && (
               <span className="ml-auto deck-mono text-[0.55rem] deck-ink-subtle">{DECKS.filter(d => {
                 const k = (d as any).audience?.kind || d.catalogGit?.kind;

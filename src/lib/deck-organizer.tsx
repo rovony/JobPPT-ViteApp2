@@ -40,12 +40,14 @@ export function formatDeckStudioCreatedLine(deck: Parameters<typeof getDeckCreat
    Default folders — always present, cannot be deleted
    ================================================================ */
 const SYSTEM_FOLDERS = [
-  // 'live' = my actual talks (presentations + sections) — default view
-  { id: 'live',     label: 'Talks',        icon: 'mic',         system: true, order: 0 },
-  { id: 'templates', label: 'Templates & Showcases', icon: 'layoutGrid', system: true, order: 1 },
-  { id: 'all',      label: 'All',          icon: 'layers',      system: true, order: 2 },
-  { id: 'favorites', label: 'Favorites',   icon: 'star',        system: true, order: 3 },
-  { id: 'archive',  label: 'Archive',      icon: 'archive',     system: true, order: 4 },
+  // 'delivered' = decks that were actually delivered live to an audience
+  { id: 'delivered', label: 'Delivered',   icon: 'check',       system: true, order: 0 },
+  // 'live' = my talks (presentations + sections), delivered or not
+  { id: 'live',     label: 'Talks',        icon: 'mic',         system: true, order: 1 },
+  { id: 'templates', label: 'Templates & Showcases', icon: 'layoutGrid', system: true, order: 2 },
+  { id: 'all',      label: 'All',          icon: 'layers',      system: true, order: 3 },
+  { id: 'favorites', label: 'Favorites',   icon: 'star',        system: true, order: 4 },
+  { id: 'archive',  label: 'Archive',      icon: 'archive',     system: true, order: 5 },
 ];
 
 /* ================================================================
@@ -56,7 +58,7 @@ function createInitialState() {
     folders: [...SYSTEM_FOLDERS],
     tags: [],
     deckMeta: {},
-    activeFolder: 'live',
+    activeFolder: 'delivered',
     activeTags: [],
     sortBy: 'lastUpdated',
     sortDir: 'desc',
@@ -305,6 +307,8 @@ export function useFilteredDecks(allDecks) {
       filtered = filtered.filter((d) => deckMeta[d.id]?.favorite);
     } else if (activeFolder === 'archive') {
       filtered = filtered.filter((d) => deckMeta[d.id]?.archived);
+    } else if (activeFolder === 'delivered') {
+      filtered = filtered.filter((d: any) => !!d.audience?.deliveredAt);
     } else if (activeFolder === 'live') {
       filtered = filtered.filter(isLiveTalk);
     } else if (activeFolder === 'templates') {
