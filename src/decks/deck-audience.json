@@ -37,8 +37,8 @@
     "audience": "Merck",
     "role": "ClinPharm",
     "kind": "presentation",
-    "deliveredAt": null,
-    "note": "post-talk iteration"
+    "deliveredAt": "2026-04-29T00:00:00-04:00",
+    "note": "Merck QP2-CMD — post-talk delivered iteration (110 slides). v4-2 is a finalized version after the Apr 27 live talk. Edit deliveredAt if shipped to a specific event/audience date."
   },
 
   "pharazi-seminar": {
