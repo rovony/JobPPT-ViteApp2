@@ -73,3 +73,7 @@ audit/sweep-*/
 !audit/scripts/
 !audit/scripts/**
 .vercel
+
+# Local-only working tree (sources, inbox, slide drafts, archived versions).
+# 792MB+ of binary/PDF/zip files — never committed. See ../JobPPT-App1/ for origin.
+_Admin/
