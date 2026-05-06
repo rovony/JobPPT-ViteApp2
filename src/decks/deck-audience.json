@@ -1,10 +1,21 @@
 {
   "_doc": "Hand-authored audience/role/section/delivery mapping per deck. Sections are sub-pieces (one case study, one topic) that get combined live in a presentation. 'kind: section' overrides catalogGit.kind heuristic.",
-  "_audiences": ["Merck", "Gilead", "Internal"],
-  "_roles": ["ClinPharm", "PMX", "Director", "VP"],
-  "_kinds": ["section (sub-piece, single topic, <=30 slides)", "presentation (full talk, >30 slides)"],
+  "_audiences": [
+    "Merck",
+    "Gilead",
+    "Internal"
+  ],
+  "_roles": [
+    "ClinPharm",
+    "PMX",
+    "Director",
+    "VP"
+  ],
+  "_kinds": [
+    "section (sub-piece, single topic, <=30 slides)",
+    "presentation (full talk, >30 slides)"
+  ],
   "_rule_section_size": "Anything >30 slides is NOT a section. Sections are sub-pieces; full presentations are larger.",
-
   "qp2-seminar": {
     "audience": "Merck",
     "role": "ClinPharm",
@@ -40,7 +51,6 @@
     "deliveredAt": "2026-04-29T00:00:00-04:00",
     "note": "Merck QP2-CMD — post-talk delivered iteration (110 slides). v4-2 is a finalized version after the Apr 27 live talk. Edit deliveredAt if shipped to a specific event/audience date."
   },
-
   "pharazi-seminar": {
     "audience": "Gilead",
     "role": "PMX",
@@ -62,7 +72,13 @@
     "deliveredAt": "2026-04-29T13:00:00-04:00",
     "note": "Gilead PMX — 'Quantitative Pharmacology in Action' (display title); 98 slides (full presentation, not a section per >30-slide rule). Delivered Apr 29 — URL /decks/v5-pharazi/s/cs2-domain3 confirmed."
   },
-
+  "v5-ultragenyx": {
+    "audience": "Ultragenyx",
+    "role": "ClinPharm",
+    "kind": "presentation",
+    "deliveredAt": "2026-05-06T00:00:00-04:00",
+    "note": "Ultragenyx Sr Director Clin Pharm — cloned from v5-pharazi as starting scaffold. Title: 'When the trial can’t answer — three cases where clinical pharmacology closed the gap.' deliveredAt = placeholder so deck appears in Final Delivered folder; update to actual interview/delivery date when scheduled. CS2 to interleave pharos-seminar slides; PharmAgent visual flows to be added. Backup pool will share with V5-Gilead + V5-Merck."
+  },
   "cs4-flagship-v1": {
     "audience": "Internal",
     "role": null,
@@ -77,11 +93,36 @@
     "deliveredAt": null,
     "note": "Case-study section — canvas variant"
   },
-
-  "launch-keynote": { "audience": null, "role": null, "kind": "showcase", "deliveredAt": null, "note": "example demo — generic product launch keynote, not a real talk" },
-  "template-blank": { "audience": null, "role": null, "deliveredAt": null },
-  "slide-templates": { "audience": null, "role": null, "deliveredAt": null },
-  "components-showcase": { "audience": null, "role": null, "deliveredAt": null },
-  "zaj-design-showcase": { "audience": null, "role": null, "deliveredAt": null },
-  "editorial-motion-template": { "audience": null, "role": null, "deliveredAt": null }
+  "launch-keynote": {
+    "audience": null,
+    "role": null,
+    "kind": "showcase",
+    "deliveredAt": null,
+    "note": "example demo — generic product launch keynote, not a real talk"
+  },
+  "template-blank": {
+    "audience": null,
+    "role": null,
+    "deliveredAt": null
+  },
+  "slide-templates": {
+    "audience": null,
+    "role": null,
+    "deliveredAt": null
+  },
+  "components-showcase": {
+    "audience": null,
+    "role": null,
+    "deliveredAt": null
+  },
+  "zaj-design-showcase": {
+    "audience": null,
+    "role": null,
+    "deliveredAt": null
+  },
+  "editorial-motion-template": {
+    "audience": null,
+    "role": null,
+    "deliveredAt": null
+  }
 }
