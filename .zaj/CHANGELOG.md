@@ -5,6 +5,17 @@
 
 ---
 
+## 2026-05-07 — Auth gate SHIPPED to production
+
+- PR #1 merged → main as commit `c27bfec` (2026-05-07 14:15 UTC)
+- All 6 Playwright e2e specs green on preview pre-merge
+- Production smoke-tested post-deploy: 307 redirect, 401 wrong, 200 correct, share-link `/v/:token` whitelisted
+- **Two real bugs found by the Playwright suite + fixed:**
+  - `AuthContext.login` toggled `isLoadingAuth` → App.tsx unmounted `<Login />` mid-submit → wiped error state. Removed the toggle.
+  - `.env.preview` (from `vercel env pull`) had empty values for Sensitive vars → blocked dotenv from loading real values. Simplified config to always use `.env.local`.
+- Vercel SSO disabled on `jobppt-viteapp2` previews (project-scoped, user-approved)
+- `SITE_PASSWORD` synced `.env.local` → Vercel via stdin pipe (Production direct; Preview branch-specific). Value never entered transcript.
+
 ## 2026-05-06 — Pattern Guide for friend's SaaS deck-builder
 
 - 10 files (2071 lines) at `~/MyWork/MyHQs/0-Inbox/Pattern-Guide-Deck-Builder/`
