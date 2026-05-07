@@ -1,4 +1,12 @@
-import 'dotenv/config';
+import { config as dotenvConfig } from 'dotenv';
+// `.env.local` is the source of truth for test creds. The Vercel-stored
+// SITE_PASSWORD has been kept in sync with .env.local so tests against
+// preview / production URLs use matching credentials. (Earlier we tried
+// `vercel env pull --environment=preview .env.preview` but Sensitive-
+// marked vars come back empty, which blocked dotenv from loading the
+// real values from .env.local — dotenv's default is "don't override".)
+dotenvConfig({ path: '.env.local' });
+
 import { defineConfig, devices } from '@playwright/test';
 
 /**
