@@ -72,7 +72,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
    * only `password` is sent to the server.
    */
   const login = async (_email: string, password: string) => {
-    setIsLoadingAuth(true);
+    // Do NOT toggle isLoadingAuth here. App.tsx renders a global
+    // LoadingScreen while isLoadingAuth is true, which unmounts the
+    // <Login /> route mid-submit and wipes its local error/password
+    // state before the catch block can call setError(). Login.tsx
+    // owns its own submit-button loading state via local useState.
     try {
       const res = await fetch('/api/auth/site-login', {
         method: 'POST',
@@ -90,8 +94,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     } catch (err: any) {
       setAuthError({ type: 'auth_error', message: err.message });
       throw err;
-    } finally {
-      setIsLoadingAuth(false);
     }
   };
 
