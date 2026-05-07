@@ -1,0 +1,66 @@
+{
+  "$schema_version": "1.1",
+  "project_name": "JobPPT-App2",
+  "project_archetype": "saas-app",
+  "project_kind_subtype": "presentation-deck-app",
+  "primary_purpose": "Interview-prep presentation decks for clinical-pharmacology Sr Director roles. Each deck = a React component tree compiled into the bundle. Production at jobppt-viteapp2.vercel.app.",
+  "stack": {
+    "frontend": "React 18 + Vite 6 + TypeScript",
+    "styling": "Tailwind 3 + shadcn/ui (Radix) + custom CSS tokens",
+    "motion": "framer-motion 11 (layoutId FLIP morphs across slides)",
+    "router": "react-router-dom v6 (v7 future flags on)",
+    "state": "zustand + React context (deck-store, auth-context)",
+    "backend_legacy": "@base44/sdk — STUBBED locally, do not reconnect",
+    "db_legacy": "Drizzle + Neon Postgres — present but unused for shared-pwd auth",
+    "auth": "Vercel Edge Middleware + serverless functions, HMAC-SHA256 cookie",
+    "hosting": "Vercel (main → prod, dev → preview)",
+    "test": "@playwright/test"
+  },
+  "git": {
+    "remote": "git@github.com:rovony/JobPPT-ViteApp2.git",
+    "default_branch": "main",
+    "current_branch_at_bootstrap": "feat/site-auth-gate",
+    "last_main_commit": "5903e2a",
+    "branch_head": "37dfe66",
+    "deploy_url": "https://jobppt-viteapp2.vercel.app"
+  },
+  "decks_in_repo": {
+    "delivered": ["qp2-seminar-v4-2 (Merck)", "v5-pharazi (Gilead)", "pharos-seminar (Gilead section)"],
+    "in_flight": ["v5-ultragenyx (Sr Director Clin Pharm interview)"],
+    "templates": ["template-blank", "launch-keynote"],
+    "naming_plan_pending": "v5-pharazi → v5-gilead, qp2-seminar-v4-2 → v5-merck"
+  },
+  "active_work_streams": [
+    {
+      "id": "auth-gate",
+      "branch": "feat/site-auth-gate",
+      "commit": "37dfe66",
+      "status": "code-complete, env-vars-set, awaiting playwright validation",
+      "blocking_step": "vercel dev + npm run test:e2e",
+      "merge_blocker": "all 6 Playwright specs must pass before merging to main"
+    },
+    {
+      "id": "v5-ultragenyx",
+      "branch": "main",
+      "commit": "5903e2a",
+      "status": "deployed to production",
+      "next_polish": [
+        "cs2-principle4 font bumps",
+        "cs2-component-{nca,dataflow,audit} animation slowdown",
+        "Phase 6: apply Ultragenyx-tailored slide updates from _Admin/1-Inbox/ULTRAGENIX/Ultragenix.html"
+      ]
+    }
+  ],
+  "vercel_env_vars": {
+    "production_and_preview": ["SITE_PASSWORD", "SITE_SECRET"],
+    "set_at": "2026-05-06",
+    "rotation_policy": "rotate SITE_SECRET to invalidate all live sessions; rotate SITE_PASSWORD to change the gate password"
+  },
+  "skill_version_in_use": {
+    "skill": "zaj-vibecode",
+    "version": "1.1",
+    "candidates_for_next_revision": []
+  },
+  "bootstrapped_at": "2026-05-06T19:01:00-04:00",
+  "bootstrap_reason": "User: 'create the .zaj and changelog, readme, etc so we never have to spend hours investigating what we didn't.' Routed via /zaj-vibecode → onboard-existing flow."
+}

@@ -24,70 +24,98 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>({ id: 'local-user', email: 'admin@merck.com', role: 'admin' });
-  const [isLoadingAuth, setIsLoadingAuth] = useState(false);
-  const [authChecked, setAuthChecked] = useState(true);
+  /**
+   * 2026-05-06 — bypassed user removed; site is now perimeter-gated by
+   * Vercel Edge Middleware checking the `site-session` cookie. The
+   * React app polls /api/auth/site-me on boot to mirror cookie state
+   * into AuthContext for the route gating in App.tsx.
+   *
+   * Login = single shared password against SITE_PASSWORD env var.
+   * Register flow is intentionally a no-op (kept exported so the
+   * /register route stops short and shows a "registration disabled"
+   * notice instead of crashing).
+   */
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoadingAuth, setIsLoadingAuth] = useState(true);
+  const [authChecked, setAuthChecked] = useState(false);
   const [authError, setAuthError] = useState<any>(null);
 
   const checkUserAuth = async () => {
-    // TEMPORARILY BYPASSED FOR LOCAL DEV
-    const currentUser = { id: 'local-user', email: 'admin@merck.com', role: 'admin' };
-    setUser(currentUser);
-    setIsLoadingAuth(false);
-    setAuthChecked(true);
-    return currentUser;
+    setIsLoadingAuth(true);
+    try {
+      const res = await fetch('/api/auth/site-me', { credentials: 'include' });
+      if (res.ok) {
+        const currentUser = { id: 'site-user', email: 'site@local', role: 'admin' };
+        setUser(currentUser);
+        setAuthError(null);
+        return currentUser;
+      }
+      setUser(null);
+      return null;
+    } catch (err) {
+      // Network error or endpoint missing — fail closed.
+      setUser(null);
+      return null;
+    } finally {
+      setIsLoadingAuth(false);
+      setAuthChecked(true);
+    }
   };
 
   useEffect(() => {
     checkUserAuth();
   }, []);
 
-  const login = async (email, password) => {
-    setIsLoadingAuth(true);
+  /**
+   * Shared-password login. Email arg is kept in the signature for
+   * back-compat with the existing Login.tsx component but ignored —
+   * only `password` is sent to the server.
+   */
+  const login = async (_email: string, password: string) => {
+    // Do NOT toggle isLoadingAuth here. App.tsx renders a global
+    // LoadingScreen while isLoadingAuth is true, which unmounts the
+    // <Login /> route mid-submit and wipes its local error/password
+    // state before the catch block can call setError(). Login.tsx
+    // owns its own submit-button loading state via local useState.
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch('/api/auth/site-login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        credentials: 'include',
+        body: JSON.stringify({ password }),
       });
-      
-      const data = await res.json();
+
+      const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || 'Login failed');
-      
-      localStorage.setItem('accessToken', data.accessToken);
-      setUser(data.user);
+
+      const currentUser = { id: 'site-user', email: 'site@local', role: 'admin' };
+      setUser(currentUser);
       setAuthError(null);
     } catch (err: any) {
       setAuthError({ type: 'auth_error', message: err.message });
       throw err;
-    } finally {
-      setIsLoadingAuth(false);
     }
   };
 
-  const register = async (email, password) => {
-    setIsLoadingAuth(true);
+  /**
+   * Registration disabled (single-password site). Kept as a no-op so
+   * the /register route can render a neutral "registration disabled"
+   * message without throwing.
+   */
+  const register = async (_email: string, _password: string) => {
+    setAuthError({ type: 'auth_error', message: 'Registration is disabled on this site.' });
+    throw new Error('Registration is disabled on this site.');
+  };
+
+  const logout = async () => {
     try {
-      const res = await fetch('/api/auth/register', {
+      await fetch('/api/auth/site-logout', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        credentials: 'include',
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Registration failed');
-      
-      // Auto login after register
-      await login(email, password);
-    } catch (err: any) {
-      setAuthError({ type: 'auth_error', message: err.message });
-      throw err;
-    } finally {
-      setIsLoadingAuth(false);
+    } catch {
+      /* swallow — server may already have cleared the session */
     }
-  };
-
-  const logout = () => {
-    localStorage.removeItem('accessToken');
     setUser(null);
     window.location.href = '/login';
   };

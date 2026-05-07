@@ -1,6 +1,8 @@
 #env
 .env
 .env.*
+!.env.local.example
+!.env.example
 
 # Logs
 /logs
@@ -77,3 +79,7 @@ audit/sweep-*/
 # Local-only working tree (sources, inbox, slide drafts, archived versions).
 # 792MB+ of binary/PDF/zip files — never committed. See ../JobPPT-App1/ for origin.
 _Admin/
+
+# Playwright test output (auto-generated)
+test-results/
+playwright-report/
