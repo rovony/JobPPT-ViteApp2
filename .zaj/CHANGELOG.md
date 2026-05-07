@@ -5,6 +5,14 @@
 
 ---
 
+## 2026-05-06 — Pattern Guide for friend's SaaS deck-builder
+
+- 10 files (2071 lines) at `~/MyWork/MyHQs/0-Inbox/Pattern-Guide-Deck-Builder/`
+- Generalized beyond pharma; organized by tech stack, layout system, cross-slide cinema, card vocabularies, animation grammar, layout discipline, illustrations, AI co-pilot, and adapt-vs-copy migration plan
+- README explicitly cross-references existing docs (`JobPPT-App2/CLAUDE.md`, `~/.claude/skills/zaj-design/`, `~/.claude/skills/zaj-slides/`, `~/.claude/rules/frontend.md`) so the friend doesn't redo work that already exists
+- Inbox-grade — refine before sharing externally
+- Not committed to git (MyHQs root is umbrella, not a repo)
+
 ## 2026-05-06 — `.zaj/` + `.ai/` durable docs bootstrapped
 
 - Created `.zaj/state.json`, `.zaj/conventions.md`, `.zaj/CHANGELOG.md` (this file), `.zaj/vibecode/handoff/HANDOFF.md`

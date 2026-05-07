@@ -14,11 +14,14 @@ artifact_kind: handoff
 
 Two work streams in flight:
 
-### 1. Auth gate validation — IN PROGRESS, code-complete, awaiting Playwright run
+### 1. Auth gate validation — BLOCKED on Vercel SSO decision
 
-- **Branch:** `feat/site-auth-gate` (NOT pushed)
-- **HEAD:** `37dfe66` ("feat(auth): shared-password site gate via Vercel Edge Middleware")
-- **Status:** code-complete, Vercel env vars set (Production + Preview), awaiting `npm run test:e2e`
+- **Branch:** `feat/site-auth-gate` (PUSHED to GitHub as of 2026-05-06)
+- **HEAD:** `edcb722` ("fix(auth-test): load .env.local via dotenv; remove devCommand override")
+- **Status:** code-complete, Vercel env vars set (Production + Preview), preview deployed, BUT preview URL returns 401 on every route — Vercel team-SSO is gating preview deploys
+- **Blocker:** need user approval to either (a) disable Vercel SSO for previews via `vercel project protection disable jobppt-viteapp2 --sso`, OR (b) create automation bypass token, OR (c) merge to main untested
+- **Recommendation in `.zaj/CHANGELOG.md`:** option (a) — Vercel SSO is redundant defense given our SITE_PASSWORD gate; same posture as production today
+- **Sandbox correctly blocked the SSO disable as security-weakening.** User must explicitly approve.
 - **What's been done:**
   - Edge middleware at `middleware.ts` (project root) — gates all routes except whitelist
   - Serverless functions: `api/auth/site-{login,logout,me}.ts`
@@ -34,7 +37,13 @@ Two work streams in flight:
 - **If tests fail:** check `.env.local` exists with `SITE_PASSWORD` + `SITE_SECRET` matching what Playwright uses (see `playwright.config.ts` webServer.env)
 - **Merge plan:** once green, `git push -u origin feat/site-auth-gate` → PR → merge to main → Vercel auto-deploys
 
-### 2. `.zaj/` + `.ai/` durable docs — JUST COMPLETED
+### 2. Pattern Guide for friend's SaaS deck-builder — COMPLETE
+
+- 10 files (2071 lines) at `~/MyWork/MyHQs/0-Inbox/Pattern-Guide-Deck-Builder/`
+- Generalized beyond pharma; cross-references existing docs to avoid duplication
+- Inbox-grade — Malek to refine before sharing
+
+### 3. `.zaj/` + `.ai/` durable docs — COMPLETE
 
 - Files written:
   - `.zaj/state.json` — project state machine
