@@ -49,7 +49,7 @@ const STOPS = [
   },
   {
     years: 'Summer 2014',
-    title: 'Merck · QP2 · Intern',
+    title: 'QP2 · Intern',
     items: [
       'NLME simulation under uncertainty',
       'Trial design inputs (sample size, dose range, endpoints)',

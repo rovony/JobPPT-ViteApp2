@@ -26,7 +26,7 @@ export default function ClosingThanks() {
       </Headline>
 
       <Subhead delay={0.45} size="lead" maxChars={120}>
-        Three cases, one discipline — I&rsquo;m here to discuss any of them in more depth, or to talk about how that translates to Vir&rsquo;s clinical pharmacology priorities.
+        Four cases, one discipline — I&rsquo;m here to discuss any of them in more depth, or to talk about how that translates to Vir&rsquo;s clinical pharmacology priorities.
       </Subhead>
 
       <Viz>
@@ -58,7 +58,7 @@ export default function ClosingThanks() {
             Thank you.
           </motion.div>
 
-          {/* Three discussion-prompt chips — invites the panel to a chosen depth */}
+          {/* Four discussion-prompt chips — invites the panel to a chosen depth */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={go ? { opacity: 1, y: 0 } : {}}
@@ -73,8 +73,9 @@ export default function ClosingThanks() {
           >
             {[
               { c: 'var(--coral)', cs: 'CS1', label: 'Pediatric PopPK · ETA antagonism · ICH E11A' },
-              { c: 'var(--cyan)', cs: 'CS2', label: 'ADC multi-analyte PK · dose strategy · exposure-response' },
-              { c: 'var(--violet)', cs: 'CS3', label: 'AI / ML platforms · ICH M15 audit · agent design' },
+              { c: 'var(--teal)', cs: 'CS2', label: 'Asparlas · optimal design · FDA Type A alignment' },
+              { c: 'var(--cyan)', cs: 'CS3', label: 'Ivosidenib India · reliance · cross-functional leadership' },
+              { c: 'var(--sage)', cs: 'CS4', label: 'AI / ML platforms · ICH M15 audit · agent design' },
             ].map((chip) => (
               <div key={chip.cs} style={{
                 padding: 'clamp(var(--space-3), 1.5vw, var(--space-4))',
@@ -123,7 +124,7 @@ export default function ClosingThanks() {
         delay={reduced ? 0 : 1.5}
         kicker="Thank you"
         tagline="Malek Okour · Quantitative Pharmacology · Vir seminar · June 2026"
-        source="Sources: Okour 2023 JCP · ESC/ERS 2022 · ICH E11A 2024 · ICH M15 2026 · FDA MIDD public workshop materials · ADC public-methods literature"
+        source="Sources: Okour 2023 JCP · FDA Type A 2023 · ICH E11A 2024 · ICH M15 2026 · Vir public pipeline materials · Vir Deck Content Pack"
       />
     </SlideGrid>
   );

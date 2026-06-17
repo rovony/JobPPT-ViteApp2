@@ -9,17 +9,18 @@ defenses in backup slides.
 ## What this deck argues
 
 When measurement falls short, the model makes the dose defensible. The talk
-uses three cases to show the same leadership move in different evidence
-constraints: pediatric extrapolation, ADC multi-analyte PK, and audit-ready
-clinical pharmacology workflows.
+uses four cases to show the same leadership move in different evidence
+constraints: pediatric extrapolation, efficient design, India reliance, and
+audit-ready clinical pharmacology workflows.
 
-## Three cases at a glance
+## Four cases at a glance
 
 | Case | Therapeutic area | Key analytic move | Regulatory outcome |
 |---|---|---|---|
 | CS1 | Pediatric PAH | Model-informed dose for an untriable trial | EMA + PMDA approval |
-| CS2 | ADC multi-analyte PK | Analyte map to model strategy to dose rationale | Transferable leadership credential |
-| CS3 | AI / Pharazi | Traceable workflow architecture | Personal research platform |
+| CS2 | Asparlas / adult ALL | Simulated primary plus optimal design | FDA Type A agreement on N=60 |
+| CS3 | Ivosidenib / India | Six-pillar reliance dossier | CDSCO approval without local pre-approval trial |
+| CS4 | AI / Pharazi | Traceable workflow architecture | Personal research platform |
 
 ## Things to remember before the room
 
@@ -27,7 +28,7 @@ clinical pharmacology workflows.
 - The audience is Vir clinical pharmacology / translational PK/PD leadership.
 - ==Avoid Servier internal numbers== throughout.
 - Do not claim direct Vir or PRO-XTEN program ownership.
-- Keep ADC framed as strategy leadership, not hands-on ownership of every analyte or model.
+- Keep ADC framed only as portfolio breadth if asked, not as a core case.
 
 ## Open questions to revisit
 

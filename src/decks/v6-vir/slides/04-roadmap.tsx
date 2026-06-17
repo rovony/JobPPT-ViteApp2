@@ -5,26 +5,17 @@ import SlideGrid, { GridSlot } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 
 /**
- * 04 · Roadmap — "Three cases, three regulators, one discipline."
+ * 04 · Roadmap — "Four cases, four constraints, one discipline."
  *
- * MIN-DESIGN PASS. Text-forward 3-column case agenda. Sets the
- * coral / cyan / violet case-color cascade preview so the audience
+ * MIN-DESIGN PASS. Text-forward case agenda. Sets the
+ * coral / teal / cyan / sage case-color cascade preview so the audience
  * recognizes each color when its case opens.
  *
- * v3-R2 case set (REVISED 2026-04-25):
- *   CS1 — Ambrisentan · pediatric PAH                    · coral
- *   CS2 — ADC multi-analyte PK                            · cyan
- *   CS3 — AI/ML pharmacometric tools (Pharazi)            · violet
- *
- * Note: CS3 was Calaspargase in v1/v2; replaced for v3-R2 with the
- * personal AI/ML research projects (PharmAgent / DeepPK / reproducible tooling).
- * Per zaj-slides confidentiality rule: AI tools framed as personal
- * research projects demonstrating capability — NOT as products for
- * transfer to a new employer.
- *
- * Forward note for v2 design pass: this slide is a candidate for
- * lifting v2's framework-themes DataflowEngine SVG (5 inputs → 1
- * decision → 3 outcomes). For now the 3-card grid carries the work.
+ * v6-vir final case set:
+ *   CS1 — Ambrisentan · pediatric PAH               · coral
+ *   CS2 — Asparlas · efficient adult design          · teal
+ *   CS3 — Ivosidenib · India reliance                · cyan
+ *   CS4 — AI/ML clinical pharmacology tooling        · sage
  */
 
 const CASES = [
@@ -38,26 +29,35 @@ const CASES = [
   },
   {
     n: '02',
-    token: 'cyan',
-    drug: 'ADC multi-analyte PK',
-    indication: 'Conjugate · total antibody · payload',
-    setting: 'Transferable strategy leadership',
-    proves: 'Analyte maps and model architecture make complex modality dose decisions interpretable.',
+    token: 'teal',
+    drug: 'Asparlas',
+    indication: 'Adult ALL efficient design',
+    setting: 'FDA Type A · 2023',
+    proves: 'Precision-based design can replace endpoint power when the adult trial is not feasible.',
   },
   {
     n: '03',
-    token: 'violet',
+    token: 'cyan',
+    drug: 'Ivosidenib',
+    indication: 'India reliance / trial waiver',
+    setting: 'CDSCO · cross-functional',
+    proves: 'A convergent evidence package can support access without overclaiming local evidence.',
+  },
+  {
+    n: '04',
+    token: 'sage',
     drug: 'AI / Pharazi',
     indication: 'Audit-ready clinical pharmacology workflows',
-    setting: 'Personal research · 2024 –',
+    setting: 'Personal research · 2024-',
     proves: 'Architecture judgment for privacy-safe, traceable, human-accountable evidence systems.',
   },
 ];
 
 const CHALLENGES = [
-  { label: 'Pediatric', color: 'var(--coral)' },
-  { label: 'Multi-analyte', color: 'var(--cyan)' },
-  { label: 'Computational', color: 'var(--violet)' },
+  { label: 'Untrialable', color: 'var(--coral)' },
+  { label: 'Sample-limited', color: 'var(--teal)' },
+  { label: 'Local evidence', color: 'var(--cyan)' },
+  { label: 'Computational', color: 'var(--sage)' },
 ];
 
 const ROADMAP_AREAS = [
@@ -122,7 +122,7 @@ export default function Roadmap({ deck }) {
       </Eyebrow>
 
       <Headline delay={0.25} maxChars={56}>
-        Three cases. Three challenges.{' '}
+        Four cases. Four constraints.{' '}
         <span style={{ color: 'var(--amber)', fontStyle: 'italic', fontWeight: 500 }}>
           One discipline at the center.
         </span>
@@ -130,8 +130,8 @@ export default function Roadmap({ deck }) {
 
       <Subhead delay={0.55} maxChars={88} size="lead">
         Each case is a different decision constraint — pediatric extrapolation,
-        multi-analyte modality complexity, and audit-ready computation.
-        Quantitative pharmacology is what makes each answer defensible.
+        efficient design, reliance without a local trial, and audit-ready
+        computation. Quantitative pharmacology is what makes each answer defensible.
       </Subhead>
 
       <Viz>
@@ -287,7 +287,7 @@ export default function Roadmap({ deck }) {
             className="deck-mono uppercase"
             style={CHALLENGE_LABEL_STYLE}
           >
-            Three challenges
+            Four constraints
           </span>
           {CHALLENGES.map((challenge) => (
             <span
@@ -317,8 +317,8 @@ export default function Roadmap({ deck }) {
 
       <Footer
         delay={reduced ? 0 : 1.8}
-        kicker="Roadmap · ~10-12 min per case · ~5 min cross-case + Q&A"
-        tagline="About ten minutes per case, then synthesis and questions."
+        kicker="Roadmap · four cases · portfolio · Vir bridge · Q&A"
+        tagline="Four cases build the core; the portfolio and bridge translate it to Vir."
       />
     </SlideGrid>
   );

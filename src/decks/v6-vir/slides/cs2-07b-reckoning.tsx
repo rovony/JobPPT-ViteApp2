@@ -4,7 +4,7 @@ import { motion, useInView, useReducedMotion } from 'framer-motion';
 import SlideFrame from '@/components/deck/SlideFrame';
 
 /**
- * CS2 Slide 9 · Honest reckoning — what we shipped, what we did not.
+ * CS3 Slide 9 · Honest reckoning — what we shipped, what we did not.
  *
  * Two-column contrast: SHIPPED (cyan wash, 4 rows) vs DID NOT SHIP
  * (muted panel, 3 rows). "0 Indian patients" gets an amber highlight —
@@ -114,7 +114,7 @@ export default function CS2Reckoning() {
   return (
     <SlideFrame
       dataCase="cyan"
-      eyebrow="Case 02 · Honest reckoning"
+      eyebrow="Case 03 · Honest reckoning"
       headline={
         <>
           What we{' '}
@@ -129,7 +129,7 @@ export default function CS2Reckoning() {
         </>
       }
       subhead="Naming the gap is the credibility move — not the disqualifying one."
-      footerKicker="Case 02 · Honest reckoning"
+      footerKicker="Case 03 · Honest reckoning"
       footerSource="Sources · ClinicalTrials.gov · CDSCO public record · Lancet RH SE Asia 2024"
       delays={{ footer: reduced ? 0 : D.amber + 0.7 }}
     >

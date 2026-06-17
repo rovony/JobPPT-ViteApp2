@@ -45,6 +45,34 @@ export function deckStudioApiDevPlugin() {
     name: 'deck-studio-api-dev',
     enforce: 'pre',
     configureServer(server) {
+      // Vite dev has no Vercel middleware — stub site auth so decks load locally.
+      server.middlewares.use(async (req, res, next) => {
+        const url = req.url || '';
+        const hostUrl = new URL(url, 'http://localhost');
+        const pathname = hostUrl.pathname;
+        const method = (req.method || 'GET').toUpperCase();
+
+        if (pathname === '/api/auth/site-me' && method === 'GET') {
+          res.setHeader('Content-Type', 'application/json');
+          res.statusCode = 200;
+          res.end(JSON.stringify({ authed: true }));
+          return;
+        }
+        if (pathname === '/api/auth/site-login' && method === 'POST') {
+          res.setHeader('Content-Type', 'application/json');
+          res.statusCode = 200;
+          res.end(JSON.stringify({ ok: true }));
+          return;
+        }
+        if (pathname === '/api/auth/site-logout' && method === 'POST') {
+          res.statusCode = 204;
+          res.end();
+          return;
+        }
+
+        next();
+      });
+
       server.middlewares.use(async (req, res, next) => {
         const url = req.url || '';
         if (!url.startsWith('/api/decks')) return next();

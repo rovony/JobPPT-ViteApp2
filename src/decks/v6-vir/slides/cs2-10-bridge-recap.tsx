@@ -4,7 +4,7 @@ import { motion, useInView, useReducedMotion } from 'framer-motion';
 import SlideFrame from '@/components/deck/SlideFrame';
 
 /**
- * CS2 Slide 10 v2 · Closing — "The science was the bridge."
+ * CS3 Slide 10 v2 · Closing — "The science was the bridge."
  *
  * Sparse typographic stack — three portable principles, no cards, no
  * panels, no first-person, no Rule 101 / PBPK / PopPK jargon.
@@ -66,7 +66,7 @@ export default function CS2BridgeRecap() {
   return (
     <SlideFrame
       dataCase="cyan"
-      eyebrow="Case 02 · Close"
+      eyebrow="Case 03 · Close"
       headline={
         <>
           The science{' '}
@@ -262,7 +262,7 @@ export default function CS2BridgeRecap() {
             animate={go ? { opacity: 1 } : { opacity: 1 }}
             transition={{ duration: 0.3, delay: D.footer }}
           >
-            Case 02 · End
+            Case 03 · End
           </motion.span>
 
           <span style={{ display: 'flex', gap: 'var(--space-3)' }}>

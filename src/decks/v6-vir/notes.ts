@@ -1,4 +1,5 @@
 import qp2Notes from '../qp2-seminar-v4/notes';
+import asparlasNotes from '../qp2-seminar/notes';
 import pharosNotes from '../pharos-seminar/notes';
 import cs3Notes from './cs3-notes';
 import { overrideNotes } from './override-notes';
@@ -28,12 +29,25 @@ const pharosIdMap: Record<string, string> = {
   '22-publication-close': 'cs2-publication-close',
 };
 
+const asparlasIdMap: Record<string, string> = {
+  'case3-divider': 'cs2-asp-divider',
+  'case3-challenge': 'cs2-asp-challenge',
+  'case3-strategy': 'cs2-asp-strategy',
+  'case3-fda-engagement': 'cs2-asp-fda',
+  'case3-fit': 'cs2-asp-fit',
+  'case3-impact': 'cs2-asp-impact',
+  'case3-bridge': 'cs2-asp-bridge',
+};
+
 const validNoteIds = [
   'title', 'hook-A-trial-not-answer', 'career-arc', 'roadmap', 'cs1-divider', 'cs1-question', 'cs1-context', 'cs1-mechanism',
   'cs1-trial', 'cs1-architecture', 'cs1-covariate-strategy', 'cs1-poppk', 'cs1-pkpd', 'cs1-outcome', 'cs1-bracket', 'cs1-lesson',
-  'cs1-bridge', 'cs2-adc-divider', 'cs2-adc-question', 'cs2-adc-why-hard', 'cs2-adc-disposition', 'cs2-adc-model', 'cs2-adc-tmdd', 'cs2-adc-er',
-  'cs2-adc-dose', 'cs2-adc-leadership', 'cs2-adc-lesson', 'cs2-adc-bridge', 'cs2-pharazi-divider', 'cs2-regulatory-floor', 'cs2-gap', 'cs2-working-overview',
-  'cs2-poppk-dashboard', 'cs2-publication-close', 'vir-landing-01', 'vir-landing-02', 'vir-landing-03', 'closing-thread', 'closing-merck', 'closing-thanks',
+  'cs1-bridge', 'cs2-asp-divider', 'cs2-asp-challenge', 'cs2-asp-strategy', 'cs2-asp-fda', 'cs2-asp-fit', 'cs2-asp-impact',
+  'cs2-asp-bridge', 'cs3-ivosidenib-divider', 'cs3-setup', 'cs3-bg-regulatory', 'cs3-pillars', 'cs3-reversal', 'cs3-reckoning',
+  'cs3-leadership', 'cs3-bridge-recap', 'cs2-pharazi-divider', 'cs2-regulatory-floor', 'cs2-gap', 'cs2-working-overview',
+  'cs2-poppk-dashboard', 'cs2-publication-close', 'portfolio-01', 'company-bridge-divider', 'company-bridge-oncology-problem',
+  'company-bridge-oncology-approach', 'company-bridge-case-mapping', 'company-bridge-hbv-hdv', 'company-bridge-fit',
+  'closing-thread', 'closing-fit', 'closing-thanks',
   'cs1-backup-master', 'cs1-backup-type-1-historical', 'cs1-backup-timeline-context', 'cs1-backup-timeline-amb-only', 'cs1-backup-timeline-program-detail', 'cs1-B10-endpoints', 'cs1-B20-full-story', 'cs1-backup-type-2-methodology',
   'cs1-B3-dosing', 'cs1-B5-allometry', 'cs1-B6-6mwd', 'cs1-B14-bayesian', 'cs1-B15-poppk-parameters', 'cs1-B16-model-diagnostics', 'cs1-B18-exposure-matching', 'cs1-backup-type-3-data-cuts',
   'cs1-B7-lte', 'cs1-B8-ddi', 'cs1-B12-hemodynamic', 'cs1-backup-type-4-risk-mitigation', 'cs1-B1-starts', 'cs1-B2-rat-finding', 'cs1-B4-fda-gap', 'cs1-backup-type-5-regulatory',
@@ -51,15 +65,22 @@ const mappedPharosNotes = Object.entries(pharosNotes).reduce((acc, [key, value])
   return acc;
 }, {} as Record<string, string>);
 
+const mappedAsparlasNotes = Object.entries(asparlasNotes).reduce((acc, [key, value]) => {
+  const mappedId = asparlasIdMap[key];
+  if (mappedId) acc[mappedId] = value;
+  return acc;
+}, {} as Record<string, string>);
+
 const baseNotes: Record<string, string> = {
   ...qp2Notes,
+  ...mappedAsparlasNotes,
   ...cs3Notes,
   ...mappedPharosNotes,
   ...overrideNotes,
 };
 
 const fallbackNote = (id: string) => `## Spoken
-Backup or reference slide for v6-vir.
+Reference-only supporting detail.
 
 Use this only if the panel asks for this supporting detail. Keep the answer tied back to the main thesis: when measurement falls short, the model makes the dose defensible.
 

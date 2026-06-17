@@ -91,7 +91,7 @@ export function Thermos({ reduced }) {
         {/* Lid */}
         <rect x="20" y="15" width="80" height="15" rx="2" fill="var(--panel)" stroke="var(--cream-hairline)" />
         <path d="M35,15 L40,0 L80,0 L85,15 Z" fill="var(--panel)" stroke="var(--cream-hairline)" />
-        {/* Merck Logo */}
+        {/* QP2 internship logo mark */}
         <text x="60" y="100" textAnchor="middle" fontFamily="var(--font-display)" fontSize="18" fontWeight="800" fill="var(--bg)" letterSpacing="1">MERCK</text>
 
         <defs>

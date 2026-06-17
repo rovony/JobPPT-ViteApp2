@@ -14,7 +14,7 @@ import VirWordmark from '../components/VirWordmark';
  * Register: editorial dark-cinema title card. NOT centered-stack,
  * NOT TED, NOT McKinsey. Asymmetric composition: chapter mark (TL)
  * → asymmetric headline (centered vertical band) → subtitle →
- * three HeroTile-style structural-mark cards (icon + uppercase mono
+ * four HeroTile-style structural-mark cards (icon + uppercase mono
  * label + case-color foreshadow hairline) under subtitle.
  *
  * Variant note (preserved for future Pharmacometrics fork):
@@ -42,21 +42,21 @@ import VirWordmark from '../components/VirWordmark';
  *   - "OPEN · 02"           → --fs-slide-eyebrow — chapter mark
  *   - "When the trial / isn't the answer." → --fs-slide-hook — thesis
  *   - subtitle prose         → --fs-slide-lead — framing line
- *   - "UNTRIALABLE/UNAVAILABLE/UNBUILT" → --fs-slide-eyebrow in HeroTile cards
+ *   - "UNTRIALABLE/SAMPLE-LIMITED/LOCAL-EVIDENCE/UNBUILT" → --fs-slide-eyebrow in HeroTile cards
  *
  * Mark icons (custom inline SVGs in Lucide visual idiom — single-stroke,
  * 24×24 viewBox, stroke 1.5, currentColor, no fills). Pattern source:
- * Magic 21st_magic_component_inspiration "three pillars editorial cards"
+ * Magic 21st_magic_component_inspiration "evidence-limit editorial cards"
  * — icon-before-text + accent-color primitive. 2026-04-26.
  *   - Clipboard + diagonal strike → UNTRIALABLE (the protocol that can't run)
- *   - Globe + dashed marker      → UNAVAILABLE (the region the trial doesn't reach)
+ *   - Globe + dashed marker      → LOCAL-EVIDENCE (the region-specific evidence gap)
  *   - Triangular node lattice    → UNBUILT (the architecture missing one node)
  *
  * Case-color foreshadow: each mark carries a 1px bottom hairline in its
- * corresponding case color (coral CS1 / cyan CS2 / sage CS3) so the
- * audience subliminally meets the case-color cascade three slides early.
+ * corresponding case color (coral CS1 / teal CS2 / cyan CS3 / sage CS4)
+ * so the audience subliminally meets the case-color cascade early.
  *
- * Reveal: marks fade in progressively at 1.2s / 1.6s / 2.0s.
+ * Reveal: marks fade in progressively at 1.2s / 1.5s / 1.8s / 2.1s.
  * (Originally speaker-paced at 16s/37s/55s, but sped up for normal viewing).
  *
  * Case color: unset (open segment). --case defaults to --amber so the
@@ -76,8 +76,9 @@ import VirWordmark from '../components/VirWordmark';
 
 const MARKS = [
   { label: 'UNTRIALABLE',   foreshadow: 'var(--coral)', icon: 'clipboard-strike' },
-  { label: 'MULTI-ANALYTE', foreshadow: 'var(--cyan)',  icon: 'globe-gap' },
-  { label: 'UNBUILT',       foreshadow: 'var(--violet)', icon: 'lattice-dashed' },
+  { label: 'SAMPLE-LIMITED', foreshadow: 'var(--teal)', icon: 'clipboard-strike' },
+  { label: 'LOCAL-EVIDENCE', foreshadow: 'var(--cyan)',  icon: 'globe-gap' },
+  { label: 'UNBUILT',        foreshadow: 'var(--sage)', icon: 'lattice-dashed' },
 ];
 
 /**
@@ -277,14 +278,14 @@ export default function HookATrialNotAnswer({ deck }) {
             }}
             {...fade(0.8)}
           >
-            Three cases. Three evidence limits. One{' '}
+            Four cases. Four evidence limits. One{' '}
             <span style={{ color: 'var(--amber)', fontWeight: 600 }}>
               clinical pharmacology
             </span>
             {' '}standard: make the dose defensible.
           </motion.p>
 
-          {/* ─── Zone 4 — STRUCTURAL PROMISE (three marks) ─── */}
+          {/* ─── Zone 4 — STRUCTURAL PROMISE (four marks) ─── */}
           <div
             style={{
               display: 'flex',
@@ -295,7 +296,7 @@ export default function HookATrialNotAnswer({ deck }) {
           >
             {MARKS.map((m, i) => {
               /* Sped up from speaker-paced reveal (16s/37s/55s) for better viewing */
-              const markDelay = [1.2, 1.6, 2.0][i];
+              const markDelay = [1.2, 1.5, 1.8, 2.1][i];
               return (
                 <motion.div
                   key={m.label}

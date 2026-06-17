@@ -97,6 +97,7 @@
     /* --- Accent family (theme + case-study markers) --- */
     --amber:            #FFE14D;    /* theme 01 · QP replaces study */
     --cyan:             #7DD3FC;    /* theme 02 · dose precision    (CS2) */
+    --teal:             #2DD4BF;    /* case 02 · efficient design   (Asparlas) */
     --sage:             #6B8E73;    /* theme 03 · global strategy */
     --violet:           #A78BFA;    /* theme 04 · novel methods     (CS3) */
     --coral:            #FB923C;    /* theme 05 · judgment          (CS1) */
@@ -579,9 +580,10 @@
 
   /* =========================================================
      Per-case theme overrides. A deck/slide root sets one of:
-     data-case="coral" | "cyan" | "violet" | "amber" | "sage"
+     data-case="coral" | "teal" | "cyan" | "violet" | "amber" | "sage"
      ========================================================= */
   [data-case="coral"]  { --case: var(--coral); }
+  [data-case="teal"]   { --case: var(--teal); }
   [data-case="cyan"]   { --case: var(--cyan); }
   [data-case="violet"] { --case: var(--violet); }
   [data-case="amber"]  { --case: var(--amber); }
@@ -887,4 +889,20 @@
 /* qp2 cover (01-title) — ambient stack uses amber/violet tints; paper mode is already bright */
 .deck-root[data-theme-mode="light"] .title-slide-ambient {
   opacity: 0.52;
+}
+
+/* Dense deck fallback: small portrait and short screens should scroll instead of clipping slide content. */
+@media (max-width: 640px), (max-height: 760px) {
+  .deck-root {
+    height: auto !important;
+    min-height: 100dvh;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+
+  .deck-root [data-slide] {
+    height: auto !important;
+    min-height: 100dvh;
+    overflow: visible !important;
+  }
 }

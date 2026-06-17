@@ -5,8 +5,8 @@ import { AiEvidenceSlide } from './cs3-ai-shared';
 export default function Cs3AiWorkingOverview() {
   return (
     <AiEvidenceSlide
-      eyebrow="Case 03 · working overview"
-      headline={<>The working pattern is simple: <span style={{ color: 'var(--violet)', fontStyle: 'italic' }}>plan, run, check, record.</span></>}
+      eyebrow="Case 04 · working overview"
+      headline={<>The working pattern is simple: <span style={{ color: 'var(--sage)', fontStyle: 'italic' }}>plan, run, check, record.</span></>}
       subhead="Pharazi is framed here as an architecture proof: deterministic tools under agent orchestration, with explicit review gates and a durable decision record."
       cards={[
         { icon: 'PanelsTopLeft', label: 'Plan', title: 'Write the analysis intent first.', body: 'The system starts from a task plan, not an unbounded chat request.' },

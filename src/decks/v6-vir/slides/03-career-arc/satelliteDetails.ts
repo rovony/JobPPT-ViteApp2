@@ -106,7 +106,7 @@ export const SATELLITE_DETAILS = {
     metrics: [],
   },
 
-  // ─── Merck · QP2 ─────────────────────────────
+  // ─── QP2 internship ──────────────────────────
   'merck:NLME simulation · trial-design inputs': {
     period: 'Summer 2014',
     summary: 'QP2 intern — NLME simulation under uncertainty, feeding trial-design inputs (sample size, dose range, endpoints).',
@@ -114,10 +114,10 @@ export const SATELLITE_DETAILS = {
       'Simulated trial designs to size a Phase 2 dose-ranging study, including sample size, dose range, and endpoint selection.',
       'Quantified and communicated parameter uncertainty via bootstrap and SIR-based CIs on reportable parameters.',
       'Framed recommendations as "here is the range the decision should survive" — not a single point estimate.',
-      'Delivered a written analysis + presentation reviewed by senior Merck modelers.',
+      'Delivered a written analysis + presentation reviewed by senior QP2 modelers.',
     ],
     metrics: [
-      { value: 'QP2', caption: 'Merck internship program' },
+      { value: 'QP2', caption: 'Internship program' },
     ],
   },
 

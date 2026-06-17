@@ -54,7 +54,7 @@ export default function CS2Reversal() {
 
   return (
     <SlideGrid dataCase="cyan" areas={STANDARD_AREAS}>
-      <Eyebrow delay={0.10}>Case 02 · The reversal</Eyebrow>
+      <Eyebrow delay={0.10}>Case 03 · The reversal</Eyebrow>
 
       <Headline delay={0.25} maxChars={80}>
         Public record, then the reversal —{' '}
@@ -354,7 +354,7 @@ export default function CS2Reversal() {
       </Viz>
 
       <Footer
-        kicker="Case 02 · The reversal"
+        kicker="Case 03 · The reversal"
         source="Sources · FDA Tibsovo labels/reviews · EMA EPAR · DCGI Rule 101 order · CDSCO/Servier public record"
         delay={D.amber + 0.7}
       />

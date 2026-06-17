@@ -6,7 +6,7 @@ export default function CS3IvosidenibDivider() {
     <CaseHeroDivider
       caseToken="cyan"
       caseNumber="03"
-      totalCases={3}
+      totalCases={4}
       kicker="CASE STUDY 03"
       title="Ivosidenib"
       subtitle="Regulatory strategy in India"

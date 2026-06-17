@@ -11,7 +11,7 @@ export const overrideNotes: Record<string, string> = {
   title: note(
     `Open with the Vir audience first. This is a Senior Director clinical pharmacology seminar for Vir Biotechnology, and the thesis is the throughline for the whole talk: when measurement falls short, the model makes the dose defensible.
 
-Name the three cases quickly. Case one is pediatric PAH, where the trial could not carry the answer. Case two is ADC multi-analyte PK, where the measurement architecture itself changes the dose decision. Case three is AI / Pharazi, where the workflow has to preserve traceability as the evidence system scales.`,
+Name the four cases quickly. Case one is pediatric PAH, where the trial could not carry the answer. Case two is Asparlas, where the adult endpoint-powered trial was not feasible. Case three is India/ivosidenib, where a local trial request had to be answered with a defensible reliance package. Case four is AI / Pharazi, where the workflow has to preserve traceability as the evidence system scales.`,
     `Time: 45 sec. Keep this calm and declarative. Do not over-explain the cases yet.`,
     `Next: the thesis hook.`
   ),
@@ -19,7 +19,7 @@ Name the three cases quickly. Case one is pediatric PAH, where the trial could n
   'hook-A-trial-not-answer': note(
     `This is the premise of the talk. Clinical pharmacology is most valuable when the clean measurement is unavailable, incomplete, or too complex to interpret directly.
 
-The three cards are the promise of the next 35 minutes: untrialable pediatric evidence, multi-analyte ADC evidence, and unbuilt evidence infrastructure. The shared standard is not "more modeling." It is defensible dosing.`,
+The four marks are the promise of the talk: untrialable pediatric evidence, sample-limited adult design, local-evidence reliance, and unbuilt evidence infrastructure. The shared standard is not "more modeling." It is defensible dosing and defensible decision-making.`,
     `Time: 60-75 sec. Say "defensible dose" plainly. Avoid sounding like every problem has the same solution.`,
     `Next: why my background fits this operating problem.`
   ),
@@ -33,9 +33,9 @@ Land on the operating question: how do we turn incomplete evidence into a defens
   ),
 
   roadmap: note(
-    `The roadmap is three cases and one discipline. Case one shows regulatory-tested pediatric extrapolation. Case two shows modality complexity in ADC multi-analyte PK. Case three shows audit-ready AI / ML infrastructure for clinical pharmacology workflows.
+    `The roadmap is four cases and one discipline. Case one shows regulatory-tested pediatric extrapolation. Case two shows efficient design for Asparlas. Case three shows India reliance and cross-functional leadership under pressure. Case four shows audit-ready AI / ML infrastructure for clinical pharmacology workflows.
 
-Be explicit that the ADC case is a transferable leadership credential. Do not imply that most of my career is ADCs or that I personally executed every assay and model.`,
+Be explicit that the portfolio and bridge come after the cases. The story is not a methods catalog; it is a sequence of decision constraints.`,
     `Time: 75 sec. Set expectations for a concise main story with backups available.`,
     `Next: Case 01.`
   ),
@@ -98,90 +98,54 @@ Be explicit that the ADC case is a transferable leadership credential. Do not im
   'cs1-lesson': note(
     `The lesson is portable: when similarity is high and direct evidence is limited, a disciplined quantitative bridge can make a pediatric dose defensible.`,
     `Time: 50 sec. Say "portable" and then stop.`,
-    `Next: bridge to ADC.`
+    `Next: bridge to Asparlas.`
   ),
   'cs1-bridge': note(
-    `Close Case 01 with the thesis, then pivot. In ambrisentan the evidence problem was pediatric extrapolation. In the ADC case, the evidence problem is different: several analytes can each tell a different story about the same dose.
+    `Close Case 01 with the thesis, then pivot. In ambrisentan the evidence problem was pediatric extrapolation. In Asparlas, the adult evidence problem is feasibility: an endpoint-powered trial is too large for the question.
 
-The shared move is interpretability. The model has to make the dose defensible even when the measurement system is incomplete or complex.`,
-    `Time: 30 sec. Make the pivot feel natural: pediatric constraint to modality constraint.`,
-    `Next: Case 02, ADC multi-analyte PK.`
+The shared move is interpretability. The model has to make the dose defensible even when direct measurement or direct trial evidence cannot carry the decision alone.`,
+    `Time: 30 sec. Make the pivot feel natural: pediatric constraint to efficient adult design.`,
+    `Next: Case 02, Asparlas.`
   ),
 
-  'cs2-adc-divider': note(
-    `Open the ADC case honestly. This is a transferable clinical pharmacology leadership case, not a claim that ADCs are the majority of my career.
-
-The point is that ADC programs force modelers and clinical teams to agree on what each analyte means before dose decisions can be defended.`,
-    `Time: 25 sec. Use "transferable" once, then move into the science.`,
-    `Next: the ADC decision question.`
+  'cs2-asp-divider': note(
+    `Open Case 02 as the efficient-design case. This is not a new therapeutic-area detour; it is the same decision standard under a different constraint. The adult endpoint-powered Asparlas study was not feasible, so the question became how to make a smaller adult evidence package defensible.`,
+    `Time: 35 sec. Say "Case 02" clearly; this was imported from a prior Case 03 source.`,
+    `Next: why the adult design was hard.`
   ),
-  'cs2-adc-question': note(
-    `The first question is not "what is the PK?" It is which exposure makes the dose interpretable. Conjugate, total antibody, payload, and derived metrics can each support a different decision.
-
-That is why the clinical pharmacology strategy starts upstream of modeling.`,
-    `Time: 45 sec. Avoid confidential specifics. Keep to public methods and general ADC logic.`,
-    `Next: why ADCs are hard.`
+  'cs2-asp-challenge': note(
+    `The challenge is feasibility without relaxing the decision standard. Pediatric approval and the NSAA surrogate gave a strong reference frame, but the adult Ph-negative ALL study could not simply be powered like a conventional endpoint trial.`,
+    `Time: 70 sec. Keep this as problem framing, not methods yet.`,
+    `Next: the stacked strategy.`
   ),
-  'cs2-adc-why-hard': note(
-    `ADC pharmacology makes assay selection a modeling decision. The measured species is not metadata; it defines the biological claim the model can make.
-
-The practical risk is a model that is precise for the wrong analyte or the wrong exposure window.`,
-    `Time: 45 sec. Use the four cards as a tour: conjugate, total antibody, payload, derived metric.`,
-    `Next: disposition map.`
+  'cs2-asp-strategy': note(
+    `The approach stacked two precedented ideas: a model-based simulated primary and optimal design. The important leadership point is that neither was treated as magic; the team asked whether the combination was transparent enough for FDA to review prospectively.`,
+    `Time: 75 sec. Use "stacked, but reviewable" as the anchor phrase.`,
+    `Next: FDA engagement.`
   ),
-  'cs2-adc-disposition': note(
-    `Before model fitting, the team needs a disposition map. This is where binding, internalization, catabolism, deconjugation, and payload release become one shared picture.
-
-The map prevents a model from hiding a biological assumption inside a parameter.`,
-    `Time: 45 sec. Keep this as the visual systems-thinking beat.`,
-    `Next: population PK architecture.`
+  'cs2-asp-fda': note(
+    `This is the regulatory decision beat. FDA Type A engagement aligned the adult study at N=60, with the confidence interval relaxed from 90% to 85%. The point is that the model-informed strategy was discussed before execution, not rationalized afterward.`,
+    `Time: 75 sec. Be precise: Type A, July 21 2023, N=60.`,
+    `Next: why sixty adults could still anchor the model.`
   ),
-  'cs2-adc-model': note(
-    `The base model separates platform biology from study noise. A useful ADC PopPK model is not simply a clearance estimate; it is a scaffold for interpreting species, variability, and dose scenarios.`,
-    `Time: 45 sec. Mention covariates only as decision-bearing variables.`,
-    `Next: nonlinearity and TMDD.`
+  'cs2-asp-fit': note(
+    `Use this as the quantitative proof. The adult sample was smaller, but it was not arbitrary. The design was chosen around parameter precision and the adult data anchored a model that already had strong pediatric and label-supporting context.`,
+    `Time: 75 sec. Make precision the word the panel remembers.`,
+    `Next: impact.`
   ),
-  'cs2-adc-tmdd': note(
-    `Nonlinearity should be treated as a decision point. If target-mediated behavior changes dose choice, show it. If it does not, document robustness and avoid unnecessary complexity.
-
-This is where leadership matters: keep mechanistic ambition connected to clinical consequence.`,
-    `Time: 40 sec. Do not overclaim TMDD; say "TMDD-like" if discussing general behavior.`,
-    `Next: exposure-response.`
+  'cs2-asp-impact': note(
+    `Land the impact: the adult trial burden dropped by 36%, and the method became a documented precedent for how to defend an adult program when endpoint power is not practical.`,
+    `Time: 65 sec. Do not overstate beyond the public precedent; keep the claim about the design logic.`,
+    `Next: bridge to India.`
   ),
-  'cs2-adc-er': note(
-    `Exposure-response only helps if the metric matches the biology. For ADCs, efficacy and safety may point to different analytes or different windows.
-
-The E-R plan should make the metric choice explicit before the result is interpreted.`,
-    `Time: 40 sec. Tie efficacy, safety, timing, and action together.`,
-    `Next: dose strategy.`
-  ),
-  'cs2-adc-dose': note(
-    `This is where the case becomes clinical. Dose strategy is the point where PK, safety, translational biology, and regulatory narrative have to agree.
-
-The model has to help the team say why this dose, for this population, now.`,
-    `Time: 45 sec. This is the strongest cross-functional leadership beat in the ADC case.`,
-    `Next: leadership role.`
-  ),
-  'cs2-adc-leadership': note(
-    `Be explicit and credible about role. I led and directed the clinical pharmacology strategy, aligned disciplines, and protected interpretability. I am not claiming to have personally executed every component.
-
-That distinction matters because Senior Director value is strategy, judgment, and team alignment.`,
-    `Time: 45 sec. This is the honesty guardrail slide. Say it cleanly.`,
-    `Next: ADC lesson.`
-  ),
-  'cs2-adc-lesson': note(
-    `The ADC lesson is that quantitative pharmacology starts with the analyte map. Once the map is clear, modeling can identify which uncertainties matter and which dose rationale is defensible.`,
-    `Time: 35 sec. Keep it portable and concise.`,
-    `Next: bridge to AI / Pharazi.`
-  ),
-  'cs2-adc-bridge': note(
-    `Bridge biological complexity to computational complexity. In the ADC case, traceability means preserving the chain from analyte to dose. In the AI case, traceability means preserving the chain from data input to model output to decision record.`,
-    `Time: 30 sec. The key word is traceability.`,
-    `Next: Case 03, AI / Pharazi.`
+  'cs2-asp-bridge': note(
+    `Close Case 02 by making the transfer explicit. Asparlas shows how a smaller study can still be decision-grade when the design is transparent. India shows the same principle when the constraint is not sample size but local evidence: the dossier has to carry the uncertainty honestly.`,
+    `Time: 45 sec. Transition from efficient design to access under pressure.`,
+    `Next: Case 03, Ivosidenib in India.`
   ),
 
   'cs2-pharazi-divider': note(
-    `Case three is the only case that is not about a single drug. It is about the system that does the work.
+    `Case four is the only case that is not about a single drug. It is about the system that does the work.
 
 Pharazi is personal research into audit-ready clinical pharmacology workflows: deterministic tools, privacy boundaries, human accountability, and traceable outputs. This is not a product pitch and not a sponsor deployment claim.`,
     `Time: 25 sec. Say "personal research" clearly.`,
@@ -212,41 +176,75 @@ Pharazi is personal research into audit-ready clinical pharmacology workflows: d
 
 This case should sound like architecture judgment, not startup pitching.`,
     `Time: 30 sec. Land on accountability.`,
-    `Next: Vir landing.`
+    `Next: portfolio breadth.`
   ),
 
-  'vir-landing-01': note(
-    `Now translate the cases to Vir. Do not claim direct Vir program experience. Say that Vir's work sits where viral biology, immune pharmacology, timing, and dose decisions interact, and that these cases show how I operate under evidence constraints.`,
-    `Time: 45 sec. This is fit, not flattery.`,
-    `Next: what I would bring.`
+  'portfolio-01': note(
+    `Use the portfolio slide to widen the aperture without creating a fifth case. The four cases are the deep proof points; the portfolio shows breadth across oncology, biologics, antiviral and infectious disease, respiratory and PAH, and dose-prediction or AI work.
+
+Keep the ADC row as breadth only. If asked, say the precise honesty guardrail: I led and directed strategy, but ADC is not the core case in this final talk.`,
+    `Time: 120 sec. Do not walk every cell. Highlight oncology, biologics, antiviral/ID, and AI as bridge-relevant breadth.`,
+    `Next: company bridge divider.`
   ),
-  'vir-landing-02': note(
-    `State the value proposition: model discipline under evidence constraints. I start from the decision, translate across functions, and modernize workflows without black boxes.`,
-    `Time: 45 sec. Keep the tone senior and practical.`,
-    `Next: first 90 days.`
+  'company-bridge-divider': note(
+    `Now translate the core into Vir. Do not claim direct access to confidential Vir data. The bridge is built from public pipeline information and the evaluator signal: two pillars, one discipline, making the dose defensible.
+
+Name the two pillars: oncology masked T-cell engagers, and infectious disease with HBV / HDV functional cure ambitions.`,
+    `Time: 45 sec. Tone: humble, specific, senior.`,
+    `Next: oncology problem.`
   ),
-  'vir-landing-03': note(
-    `Describe the first 90 days as learn first, then tighten the operating model. Portfolio evidence map, cross-functional decision rhythm, and reusable evidence standards.`,
-    `Time: 45 sec. This is a leadership close; avoid over-prescribing before joining.`,
+  'company-bridge-oncology-problem': note(
+    `Frame the oncology problem through measurement. For a PRO-XTEN masked T-cell engager, plasma exposure is not the same as tumor exposure. Assays may return masked or total drug, but the decision needs active tumor-compartment exposure tied to PD.
+
+This is the point to sound like a translational partner: I would ask what the assay sees, what the tumor biology changes, and what exposure metric is decision-bearing.`,
+    `Time: 80 sec. Do not overclaim knowledge of VIR-5500 internals. Say "based on public information" if needed.`,
+    `Next: oncology approach.`
+  ),
+  'company-bridge-oncology-approach': note(
+    `Walk the assay to model to dose chain. Separate safety and efficacy metrics: CRS risk may follow early Cmax, while efficacy may require AUC or time above active threshold. For T-cell engagers, step-up or priming logic and bell-shaped PD can make optimal biological dose more relevant than maximum tolerated dose.
+
+Land on the evaluator signal: model precision is not power. Use optimal-design tools when the program needs a more precise answer from limited sampling.`,
+    `Time: 95 sec. Keep it concrete: assay, model, dose, OBD.`,
+    `Next: why the four cases transfer.`
+  ),
+  'company-bridge-case-mapping': note(
+    `Map the cases explicitly. Ambrisentan shows target exposure thinking. Asparlas shows efficient design under feasibility constraints. India shows a reliance dossier under pressure. AI shows how to scale review without losing traceability.
+
+The point is not that the diseases are the same. The point is that the decision discipline transfers.`,
+    `Time: 65 sec. This is the bridge from biography to contribution.`,
+    `Next: HBV and HDV.`
+  ),
+  'company-bridge-hbv-hdv': note(
+    `Use the infectious-disease slide carefully. Say that HBV is familiar territory because of the HBV combination patent co-inventor scope and viral mAb experience with Sotrovimab and Dectova. Do not overclaim HDV direct experience.
+
+The transferable contribution is disciplined combination thinking: target-product profile, interaction risk, resistance and durability, timing of biomarkers, and dose evidence that can support functional-cure decisions.`,
+    `Time: 65 sec. Keep the humility line explicit: HBV adjacency, HDV learning posture.`,
+    `Next: what I would own.`
+  ),
+  'company-bridge-fit': note(
+    `Close the bridge with the role you would play: cross-functional dose-defense function, not a lone modeler. In the first 90 days, listen first, map the evidence gaps, and then help tighten assay to model to dose decisions for priority programs.
+
+For VIR-5500, speak conditionally from public information: build backward from the filing decision, identify the exposure metric, and make the open questions explicit.`,
+    `Time: 90 sec. Say "partner and player-coach" if it feels natural.`,
     `Next: final synthesis.`
   ),
 
   'closing-thread': note(
     `Bring the thesis home. The common thread is not a method; it is the standard for decision-making when measurement falls short.
 
-Case one: trial untrialable. Case two: measurement complex. Case three: workflow unbuilt. In each, the model or evidence system makes the dose or decision defensible.`,
+Case one: trial untrialable. Case two: sample-limited. Case three: local-evidence constrained. Case four: workflow unbuilt. In each, the model or evidence system makes the dose or decision defensible.`,
     `Time: 60 sec. Say the headline nearly verbatim.`,
     `Next: why Vir.`
   ),
-  'closing-merck': note(
-    `This is the "Why Vir" slide despite the inherited file name. Translate the three cases into an operating model for Vir: pediatric extrapolation, modality complexity, and audit-ready infrastructure.
+  'closing-fit': note(
+    `Translate the four cases into an operating model for Vir: start from the decision, make the dose defensible, and keep judgment visible across functions.
 
 The point is that I can lead under uncertainty without losing interpretability.`,
-    `Time: 75 sec. Do not mention Merck.`,
+    `Time: 75 sec. Keep it Vir-facing and practical.`,
     `Next: thank you and Q&A.`
   ),
   'closing-thanks': note(
-    `Close with gratitude and invite questions. The three discussion chips let the panel choose depth: pediatric PopPK, ADC multi-analyte strategy, or AI / ML infrastructure.`,
+    `Close with gratitude and invite questions. The four discussion chips let the panel choose depth: pediatric PopPK, Asparlas efficient design, India reliance, or AI / ML infrastructure.`,
     `Time: 30 sec. Stop after the invitation.`,
     `End: Q&A.`
   ),

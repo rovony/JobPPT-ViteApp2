@@ -19,18 +19,14 @@ import Cs1Lesson from './slides/14-cs1-lesson';
 import Cs1Bridge from './slides/15-cs1-bridge';
 import Cs1BackupB17CovariateAnalysis from './slides/cs1-B17-covariate-analysis';
 
-// CS2 — ADC multi-analyte PK
-import Cs2AdcDivider from './slides/cs2-adc-divider';
-import Cs2AdcQuestion from './slides/cs2-adc-question';
-import Cs2AdcWhyHard from './slides/cs2-adc-why-hard';
-import Cs2AdcDisposition from './slides/cs2-adc-disposition';
-import Cs2AdcModel from './slides/cs2-adc-model';
-import Cs2AdcTmdd from './slides/cs2-adc-tmdd';
-import Cs2AdcEr from './slides/cs2-adc-er';
-import Cs2AdcDose from './slides/cs2-adc-dose';
-import Cs2AdcLeadership from './slides/cs2-adc-leadership';
-import Cs2AdcLesson from './slides/cs2-adc-lesson';
-import Cs2AdcBridge from './slides/cs2-adc-bridge';
+// CS2 — Asparlas efficient design
+import Cs2AspDivider from './slides/cs2-asp-divider';
+import Cs2AspChallenge from './slides/cs2-asp-challenge';
+import Cs2AspStrategy from './slides/cs2-asp-strategy';
+import Cs2AspFda from './slides/cs2-asp-fda';
+import Cs2AspFit from './slides/cs2-asp-fit';
+import Cs2AspImpact from './slides/cs2-asp-impact';
+import Cs2AspBridge from './slides/cs2-asp-bridge';
 
 // CS2 — Pharos (formerly Pharazi). 2026-05-06: full CS2 swap from
 // pharazi-seminar → pharos-seminar source slides per user direction.
@@ -68,10 +64,14 @@ import Cs3AiWorkingOverview from './slides/cs3-ai-working-overview';
 import Cs3AiPoppkDashboard from './slides/cs3-ai-poppk-dashboard';
 import Cs3AiPublicationClose from './slides/cs3-ai-publication-close';
 
-// Vir landing
-import VirLanding01 from './slides/vir-landing-01';
-import VirLanding02 from './slides/vir-landing-02';
-import VirLanding03 from './slides/vir-landing-03';
+// Portfolio + company adapter
+import Portfolio01 from './slides/portfolio-01';
+import CompanyBridgeDivider from './slides/company-bridge/00-divider';
+import CompanyBridgeOncologyProblem from './slides/company-bridge/01-oncology-problem';
+import CompanyBridgeOncologyApproach from './slides/company-bridge/02-oncology-approach';
+import CompanyBridgeCaseMapping from './slides/company-bridge/03-case-mapping';
+import CompanyBridgeHbvHdv from './slides/company-bridge/04-hbv-hdv';
+import CompanyBridgeFit from './slides/company-bridge/05-fit';
 
 // Prior-work backup — India reliance (Ivosidenib)
 import CS3IvosidenibDivider from './slides/cs3-01-ivosidenib-divider';
@@ -89,7 +89,7 @@ import CS2BridgeRecap from './slides/cs2-10-bridge-recap';
 
 // Close
 import ClosingThread from './slides/closing-01-thread';
-import ClosingMerck from './slides/closing-02-merck';
+import ClosingFit from './slides/closing-02-fit';
 import ClosingThanks from './slides/closing-03-thanks';
 
 // Backups
@@ -130,7 +130,7 @@ import Cs2BackupB1CdscoTimeline from './slides/cs2-B1-cdsco-timeline';
 import Cs2BackupB2SixPillarPackage from './slides/cs2-B2-six-pillar-package';
 import Cs2BackupB3Phase1DoseRationale from './slides/cs2-B3-phase1-dose-rationale';
 import Cs2BackupB4PopulationEvidence from './slides/cs2-B4-population-evidence';
-import { AiBackupDivider, IvosidenibBackupDivider } from './slides/backup-group-divider';
+import { AiBackupDivider } from './slides/backup-group-divider';
 
 import notes from './notes';
 import qa from './qa';
@@ -142,7 +142,7 @@ const Cs1CovariateStrategy = () =>
 const manifest = {
   id: 'v6-vir',
   title: 'When measurement falls short',
-  subtitle: 'Three cases where the model makes the dose defensible',
+  subtitle: 'Four cases where the model makes the dose — and the decision — defensible',
   theme: 'clinical',
   notes,
   qa,
@@ -163,7 +163,7 @@ const manifest = {
   },
   slides: [
     // Intro
-    { id: 'title', title: "When the trial can't answer", component: TitleSlide, isTitle: true, time: 45 },
+    { id: 'title', title: 'When measurement falls short', component: TitleSlide, isTitle: true, time: 45 },
     { id: 'hook-A-trial-not-answer', title: 'Hook A', component: HookATrialNotAnswer, isTitle: true, transition: 'fade', time: 75 },
     { id: 'career-arc', title: 'Career arc', component: CareerArc, isTitle: false, time: 90 },
     { id: 'roadmap', title: 'Roadmap', component: Roadmap, isTitle: false, time: 75 },
@@ -183,35 +183,45 @@ const manifest = {
     { id: 'cs1-lesson', title: 'CS1 · what this case proves', component: Cs1Lesson, isTitle: false, transition: 'fade', time: 50 },
     { id: 'cs1-bridge', title: 'CS1 → CS2 bridge', component: Cs1Bridge, isTitle: false, transition: 'fade', time: 30 },
 
-    // CS 2 — ADC multi-analyte PK
-    { id: 'cs2-adc-divider', title: 'Case 02 · ADC multi-analyte PK', component: Cs2AdcDivider, isTitle: true, transition: 'fade', time: 25 },
-    { id: 'cs2-adc-question', title: 'CS2 · Which exposure makes the dose interpretable?', component: Cs2AdcQuestion, isTitle: false, transition: 'fade', time: 45 },
-    { id: 'cs2-adc-why-hard', title: 'CS2 · Assay selection is a modeling decision', component: Cs2AdcWhyHard, isTitle: false, transition: 'fade', time: 45 },
-    { id: 'cs2-adc-disposition', title: 'CS2 · Disposition map before model', component: Cs2AdcDisposition, isTitle: false, transition: 'fade', time: 45 },
-    { id: 'cs2-adc-model', title: 'CS2 · Platform biology vs study noise', component: Cs2AdcModel, isTitle: false, transition: 'fade', time: 45 },
-    { id: 'cs2-adc-tmdd', title: 'CS2 · Nonlinearity as a decision point', component: Cs2AdcTmdd, isTitle: false, transition: 'fade', time: 40 },
-    { id: 'cs2-adc-er', title: 'CS2 · Exposure-response needs biological metric', component: Cs2AdcEr, isTitle: false, transition: 'fade', time: 40 },
-    { id: 'cs2-adc-dose', title: 'CS2 · Dose strategy across evidence streams', component: Cs2AdcDose, isTitle: false, transition: 'fade', time: 45 },
-    { id: 'cs2-adc-leadership', title: 'CS2 · Leadership and interpretability', component: Cs2AdcLeadership, isTitle: false, transition: 'fade', time: 45 },
-    { id: 'cs2-adc-lesson', title: 'CS2 · The analyte map comes first', component: Cs2AdcLesson, isTitle: false, transition: 'fade', time: 35 },
-    { id: 'cs2-adc-bridge', title: 'CS2 → CS3 bridge · traceability', component: Cs2AdcBridge, isTitle: false, transition: 'fade', time: 30 },
+    // CS 2 — Asparlas efficient design
+    { id: 'cs2-asp-divider', title: 'Case 02 · Calaspargase pegol', component: Cs2AspDivider, isTitle: true, transition: 'fade', time: 35 },
+    { id: 'cs2-asp-challenge', title: "CS2 · 94 adults isn't feasible", component: Cs2AspChallenge, isTitle: false, transition: 'fade', time: 70 },
+    { id: 'cs2-asp-strategy', title: 'CS2 · two innovations stacked', component: Cs2AspStrategy, isTitle: false, transition: 'fade', time: 75 },
+    { id: 'cs2-asp-fda', title: 'CS2 · FDA Type A agreed N=60', component: Cs2AspFda, isTitle: false, transition: 'fade', time: 75 },
+    { id: 'cs2-asp-fit', title: 'CS2 · sixty adults anchor the model', component: Cs2AspFit, isTitle: false, transition: 'fade', time: 75 },
+    { id: 'cs2-asp-impact', title: 'CS2 · 36% reduction · precedent travels', component: Cs2AspImpact, isTitle: false, transition: 'fade', time: 65 },
+    { id: 'cs2-asp-bridge', title: 'CS2 → CS3 bridge · efficient design to access', component: Cs2AspBridge, isTitle: false, transition: 'fade', time: 45 },
 
-    // CS 3 — AI / Pharazi hard cut
-    { id: 'cs2-pharazi-divider', title: 'Case 03 · AI / Pharazi', component: CS2PharaziDivider, isTitle: true, transition: 'fade', time: 25 },
-    { id: 'cs2-regulatory-floor', title: 'CS3 · Regulatory floor', component: Cs3AiRegulatoryFloor, isTitle: false, time: 35 },
-    { id: 'cs2-gap', title: 'CS3 · Traceability gap', component: Cs3AiGap, isTitle: false, time: 35 },
-    { id: 'cs2-working-overview', title: 'CS3 · Working system overview', component: Cs3AiWorkingOverview, isTitle: false, time: 35 },
-    { id: 'cs2-poppk-dashboard', title: 'CS3 · PopPK review dashboard', component: Cs3AiPoppkDashboard, isTitle: false, time: 35 },
-    { id: 'cs2-publication-close', title: 'CS3 · Traceable acceleration', component: Cs3AiPublicationClose, isTitle: false, time: 30 },
+    // CS 3 — Ivosidenib / India reliance
+    { id: 'cs3-ivosidenib-divider', title: "Case 03 · Ivosidenib in India", component: CS3IvosidenibDivider, isTitle: true, transition: 'fade', time: 25 },
+    { id: 'cs3-setup', title: 'CS3 · CDSCO normally demands a local trial', component: CS2Setup, isTitle: false, transition: 'fade', time: 55 },
+    { id: 'cs3-bg-regulatory', title: 'CS3 · Rule 101 · the wall and the opening', component: CS2BackgroundRegulatory, isTitle: false, transition: 'fade', time: 55 },
+    { id: 'cs3-pillars', title: 'CS3 · six convergent evidence pillars', component: CS2Pillars, isTitle: false, transition: 'fade', time: 70 },
+    { id: 'cs3-reversal', title: 'CS3 · CDSCO approved without a local trial', component: CS2Reversal, isTitle: false, transition: 'fade', time: 55 },
+    { id: 'cs3-reckoning', title: 'CS3 · what we shipped and what we did not', component: CS2Reckoning, isTitle: false, transition: 'fade', time: 55 },
+    { id: 'cs3-leadership', title: 'CS3 · leading cross-functionally under pressure', component: CS2Leadership, isTitle: false, transition: 'fade', time: 55 },
+    { id: 'cs3-bridge-recap', title: 'CS3 → CS4 bridge · the science was the bridge', component: CS2BridgeRecap, isTitle: false, transition: 'fade', time: 40 },
 
-    // Vir landing
-    { id: 'vir-landing-01', title: 'Vir · biology, immunity, timing', component: VirLanding01, isTitle: false, transition: 'fade', time: 45 },
-    { id: 'vir-landing-02', title: 'Vir · what I would bring', component: VirLanding02, isTitle: false, transition: 'fade', time: 45 },
-    { id: 'vir-landing-03', title: 'Vir · first 90 days', component: VirLanding03, isTitle: false, transition: 'fade', time: 45 },
+    // CS 4 — AI / Pharazi hard cut
+    { id: 'cs2-pharazi-divider', title: 'Case 04 · AI / Pharazi', component: CS2PharaziDivider, isTitle: true, transition: 'fade', time: 25 },
+    { id: 'cs2-regulatory-floor', title: 'CS4 · Regulatory floor', component: Cs3AiRegulatoryFloor, isTitle: false, time: 35 },
+    { id: 'cs2-gap', title: 'CS4 · Traceability gap', component: Cs3AiGap, isTitle: false, time: 35 },
+    { id: 'cs2-working-overview', title: 'CS4 · Working system overview', component: Cs3AiWorkingOverview, isTitle: false, time: 35 },
+    { id: 'cs2-poppk-dashboard', title: 'CS4 · PopPK review dashboard', component: Cs3AiPoppkDashboard, isTitle: false, time: 35 },
+    { id: 'cs2-publication-close', title: 'CS4 · Traceable acceleration', component: Cs3AiPublicationClose, isTitle: false, time: 30 },
+
+    // Portfolio + company bridge
+    { id: 'portfolio-01', title: 'Portfolio · breadth across modality, area, and agency', component: Portfolio01, isTitle: false, transition: 'fade', time: 120 },
+    { id: 'company-bridge-divider', title: 'Company bridge · two pillars, one discipline', component: CompanyBridgeDivider, isTitle: true, transition: 'fade', time: 45 },
+    { id: 'company-bridge-oncology-problem', title: 'Company bridge · oncology problem', component: CompanyBridgeOncologyProblem, isTitle: false, transition: 'fade', time: 80 },
+    { id: 'company-bridge-oncology-approach', title: 'Company bridge · assay to model to dose', component: CompanyBridgeOncologyApproach, isTitle: false, transition: 'fade', time: 95 },
+    { id: 'company-bridge-case-mapping', title: 'Company bridge · why the cases transfer', component: CompanyBridgeCaseMapping, isTitle: false, transition: 'fade', time: 65 },
+    { id: 'company-bridge-hbv-hdv', title: 'Company bridge · HBV/HDV fit', component: CompanyBridgeHbvHdv, isTitle: false, transition: 'fade', time: 65 },
+    { id: 'company-bridge-fit', title: 'Company bridge · what I would own', component: CompanyBridgeFit, isTitle: false, transition: 'fade', time: 90 },
 
     // Close
     { id: 'closing-thread',  title: 'Closing · The common thread', component: ClosingThread, isTitle: false, transition: 'fade', time: 60 },
-    { id: 'closing-merck',   title: 'Closing · The fit',         component: ClosingMerck,  isTitle: false, transition: 'fade', time: 75 },
+    { id: 'closing-fit',     title: 'Closing · Why Vir',         component: ClosingFit,    isTitle: false, transition: 'fade', time: 75 },
     { id: 'closing-thanks',  title: 'Thank you · Q&A',           component: ClosingThanks, isTitle: true,  transition: 'fade', time: 30 },
 
     // Backups
@@ -264,19 +274,10 @@ const manifest = {
     { id: 'cs2-synthesis-trace',                 title: 'Backup · AI · Cinematic workflow trace',                      component: PharosSynthesisTrace,               isTitle: false, transition: 'fade' },
     { id: 'cs2-interactive-dossier',             title: 'Backup · AI · PharmAgent interactive dossier',                component: CS2InteractiveDossier,              isTitle: false, transition: 'fade' },
     
-    { id: 'cs3-backup-master',                   title: 'BACKUP · Prior work · India reliance (Ivosidenib)',          component: IvosidenibBackupDivider,            isTitle: true,  transition: 'fade' },
-    { id: 'cs3-ivosidenib-divider',              title: 'Backup · Ivosidenib divider',                                component: CS3IvosidenibDivider,               isTitle: true,  transition: 'fade' },
     { id: 'cs3-bg-disease',                      title: 'Backup · Ivosidenib · 42 countries',                         component: CS2BackgroundDisease,               isTitle: false, transition: 'fade' },
     { id: 'cs3-disease',                         title: 'Backup · Ivosidenib · Disease',                              component: CS2DiseaseBackground,               isTitle: false, transition: 'fade' },
     { id: 'cs3-competitors',                     title: 'Backup · Ivosidenib · Landscape',                            component: CS2Competitors,                     isTitle: false, transition: 'fade' },
-    { id: 'cs3-bg-regulatory',                   title: 'Backup · Ivosidenib · Rule 101',                             component: CS2BackgroundRegulatory,            isTitle: false, transition: 'fade' },
-    { id: 'cs3-setup',                           title: 'Backup · Ivosidenib · Can dossier replace local trial?',     component: CS2Setup,                           isTitle: false, transition: 'fade' },
     { id: 'cs3-architecture-v2',                 title: 'Backup · Ivosidenib · MOA',                                  component: CS2ArchitectureV2,                  isTitle: false, transition: 'fade' },
-    { id: 'cs3-pillars',                         title: 'Backup · Ivosidenib · Six pillars',                          component: CS2Pillars,                         isTitle: false, transition: 'fade' },
-    { id: 'cs3-reversal',                        title: 'Backup · Ivosidenib · CDSCO approved',                       component: CS2Reversal,                        isTitle: false, transition: 'fade' },
-    { id: 'cs3-reckoning',                       title: 'Backup · Ivosidenib · What we shipped',                      component: CS2Reckoning,                       isTitle: false, transition: 'fade' },
-    { id: 'cs3-leadership',                      title: 'Backup · Ivosidenib · Bracket Method ownership',             component: CS2Leadership,                      isTitle: false, transition: 'fade' },
-    { id: 'cs3-bridge-recap',                    title: 'Backup · Ivosidenib · The science was the bridge',           component: CS2BridgeRecap,                     isTitle: false, transition: 'fade' },
     { id: 'cs3-backup-type-1-historical',        title: 'BACKUP TYPE 1 · Historical Context',                         component: Cs2BackupTypeHistorical,            isTitle: true,  transition: 'fade' },
     { id: 'cs3-B1-cdsco-timeline',               title: 'Backup B1 · CDSCO engagement timeline',                      component: Cs2BackupB1CdscoTimeline,           isTitle: false, transition: 'fade' },
     { id: 'cs3-backup-type-2-methodology',       title: 'BACKUP TYPE 2 · Methodology',                                component: Cs2BackupTypeMethodology,           isTitle: true,  transition: 'fade' },

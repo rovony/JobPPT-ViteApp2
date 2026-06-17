@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import SlideFrame from '@/components/deck/SlideFrame';
 
 /**
- * CS2 · Regulatory background — Rule 101.
+ * CS3 · Regulatory background — Rule 101.
  *
  * Full 7.5s entry sequence.
  *
@@ -41,7 +41,7 @@ export default function CS2BackgroundRegulatory() {
     <SlideFrame
       dataCase="cyan"
       eyebrowColor="var(--cyan)"
-      eyebrow="Case 02 · Background — Regulatory Regime"
+      eyebrow="Case 03 · Background — Regulatory Regime"
       headline={
         <>
           India's regulatory path got{' '}
@@ -59,7 +59,7 @@ export default function CS2BackgroundRegulatory() {
       }
       subheadMaxChars={80}
       subheadSize="lead"
-      footerKicker="Case 02 · Rule 101"
+      footerKicker="Case 03 · Rule 101"
       footerSource="ClinRegs · DIA Global Forum · CDSCO public record"
     >
       <div

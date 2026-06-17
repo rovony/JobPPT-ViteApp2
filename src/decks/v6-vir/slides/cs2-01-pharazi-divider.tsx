@@ -4,10 +4,10 @@ import CaseHeroDivider from '@/components/deck/patterns/CaseHeroDivider';
 export default function CS2PharaziDivider() {
   return (
     <CaseHeroDivider
-      caseToken="violet"
-      caseNumber="03"
-      totalCases={3}
-      kicker="CASE STUDY 03"
+      caseToken="sage"
+      caseNumber="04"
+      totalCases={4}
+      kicker="CASE STUDY 04"
       title="AI / Pharazi"
       subtitle="Pharazi.ai · open-source project"
       tagline="Audit-ready clinical pharmacology workflows, with deterministic tools and human accountability."

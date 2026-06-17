@@ -10,9 +10,10 @@ import VirWordmark from '../components/VirWordmark';
  *
  * Ported verbatim from `qp2-seminar/slides/01-title.jsx` per explicit
  * authoring decision (Apr 2026). The v3-R2 cover adopts the v1 kinetic
- * composition: amber PK curve with three landmark dots, three case
- * cards anchored to Cmax / AUC / T½, presenter card + framed meta
- * spec (3 cases / 3 regulators / 45 min), soft ambient gradient.
+ * composition: amber PK curve with four landmark dots, four case
+ * cards anchored to Cmax / precision / reliance / audit, presenter
+ * card + framed meta spec (4 cases / Vir fit / 45 min), soft ambient
+ * gradient.
  *
  * Locked talk identity (V6-Vir):
  *   Title:    "When measurement falls short"
@@ -35,8 +36,8 @@ import VirWordmark from '../components/VirWordmark';
 // Landmarks float ABOVE the PK curve — pharmacologic markers, no drop-lines.
 // Each dot is positioned at its own (x,y) independent of the curve path.
 // Labels sit at a shared baseline below, offset to match reference layout.
-// CASES data is now imported from _shared/cases.ts so slide 02 (hook-A)
-// can render the same 3 cards via shared layoutId — the cards persist
+// CASES data is now imported from _shared/cases.ts so title and hook
+// language can stay aligned — the cards persist
 // visually across the slide-1 → slide-2 transition.
 
 // Primary oral-PK curve — absorption → Cmax (x=150, y=20) → decline.
@@ -92,7 +93,7 @@ export default function TitleSlide() {
           /* All stops use theme tokens — flips with data-theme-mode on .deck-root */
           background: [
             'radial-gradient(ellipse 85% 55% at 50% -8%, color-mix(in srgb, var(--amber) 16%, transparent), transparent 52%)',
-            'radial-gradient(ellipse 70% 40% at 100% 100%, color-mix(in srgb, var(--violet) 6%, transparent), transparent 50%)',
+            'radial-gradient(ellipse 70% 40% at 100% 100%, color-mix(in srgb, var(--sage) 6%, transparent), transparent 50%)',
             'linear-gradient(180deg, color-mix(in srgb, var(--panel) 20%, transparent) 0%, transparent 38%, transparent 100%)',
           ].join(', '),
         }}
@@ -238,20 +239,20 @@ export default function TitleSlide() {
           animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 1.0 }}
         >
-          Three cases where{' '}
+          Four cases where{' '}
           <span style={{ color: 'var(--amber)', fontWeight: 600 }}>
             the model
           </span>
-          {' '}makes the dose defensible.
+          {' '}makes the dose — and the decision — defensible.
         </motion.p>
 
         {/* Top spacer — title breathing room above the cards.
             Flex: grows modestly, shrinks to the minimum on small screens. */}
         <div style={{ flex: '0 1 var(--space-6)', minHeight: 'var(--space-2)' }} aria-hidden />
 
-        {/* ---------- Case cards (3 col desktop, 1 col mobile) ---------- */}
+        {/* ---------- Case cards (4 col desktop, 2 col tablet, 1 col mobile) ---------- */}
         <div
-          className="grid grid-cols-1 md:grid-cols-3"
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4"
           style={{ gap: 'var(--space-8)' }}
         >
           {CASES.map((c, i) => (
@@ -359,7 +360,7 @@ export default function TitleSlide() {
             transition={{ duration: 0.3, delay: 2.7 }}
           >
             <div>SEMINAR · JUNE 17 2026</div>
-            <div>3 CASES · VIR FIT · 45 MIN</div>
+            <div>4 CASES · VIR FIT · 45 MIN</div>
           </motion.div>
         </div>
       </div>
@@ -473,12 +474,8 @@ function PKCurve({ go, idleAtRest }) {
         return (
           <g key={c.id}>
             {/* Dot — gentle fade-in (no pop, no directional slide). On idle, the
-             * three dots run a soft "spotlight cycle" through coral → cyan → violet
-             * on an 18-second loop (6s per case · ~3s peak in own slot · dim during
-             * off-slots). Signals the slide is alive during multi-minute opens and
-             * reads as the speaker walking the audience through the three cases
-             * visually, without competing with the spoken intro. Reduced-motion
-             * users see baseline opacity only (gated behind primaryIdle). */}
+             * four dots run a soft spotlight cycle through coral → teal → cyan
+             * → sage. Reduced-motion users see baseline opacity only. */}
             <motion.circle
               cx={c.dotX} cy={c.dotY} r={7}
               fill={c.color}
@@ -492,11 +489,11 @@ function PKCurve({ go, idleAtRest }) {
                 primaryIdle
                   ? {
                     opacity: {
-                      duration: 18,
-                      times: [0, 1 / 18, 3 / 18, 5 / 18, 6 / 18, 17 / 18, 1],
+                      duration: 20,
+                      times: [0, 1 / 20, 3 / 20, 5 / 20, 6 / 20, 19 / 20, 1],
                       repeat: Infinity,
                       ease: 'easeInOut',
-                      delay: i * 6,
+                      delay: i * 5,
                     },
                   }
                   : go

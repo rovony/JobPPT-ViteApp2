@@ -11,7 +11,7 @@ import {
 } from './cs2-shared/CS2Pillars';
 
 /**
- * CS2 Slide 7 · Six convergent pillars — the ICH E5(R1) framework, fully populated.
+ * CS3 Slide 7 · Six convergent pillars — the ICH E5(R1) framework, fully populated.
  *
  * The MOA card (col 1) morphs in from slide 6 via shared layoutId.
  * Pillars 02–06 cascade in to its right with staggered entrance.
@@ -41,7 +41,7 @@ export default function CS2Pillars() {
 
   return (
     <SlideGrid dataCase="cyan" areas={STANDARD_AREAS}>
-      <Eyebrow delay={0.10}>Case 02 · Architecture — Six convergent pillars</Eyebrow>
+      <Eyebrow delay={0.10}>Case 03 · Architecture — Six convergent pillars</Eyebrow>
 
       <Headline delay={0.25} maxChars={68}>
         Six lines converge — across{' '}
@@ -188,7 +188,7 @@ export default function CS2Pillars() {
 
       <Footer
         delay={reduced ? 0 : 2.0}
-        kicker="Case 02 · Six convergent pillars · ICH E5(R1)"
+        kicker="Case 03 · Six convergent pillars · ICH E5(R1)"
         tagline=""
         source="Jiang CTS 2021 · Bolleddula CPT:PSP 2021 · Dang Cancer Cell 2009 · Tibsovo USPI · ICH E5(R1)"
       />

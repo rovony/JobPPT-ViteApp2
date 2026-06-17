@@ -5,7 +5,7 @@ import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 
 /**
- * CS2 Act 6 · Leadership — function-level bracket.
+ * CS3 Act 6 · Leadership — function-level bracket.
  *
  * Two-column bracket: Quantitative Pharmacology vs partner functions.
  */
@@ -32,7 +32,7 @@ export default function CS2Leadership() {
 
   return (
     <SlideGrid dataCase="cyan" areas={STANDARD_AREAS}>
-      <Eyebrow delay={0.10}>Case 02 · Leadership</Eyebrow>
+      <Eyebrow delay={0.10}>Case 03 · Leadership</Eyebrow>
 
       <Headline delay={0.25} maxChars={48}>
         Quantitative pharmacology built the bridge —{' '}

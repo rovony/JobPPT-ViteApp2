@@ -2,10 +2,10 @@
 /**
  * Shared CASES data for the v6 Vir seminar deck.
  *
- * The 3 case cards are rendered on slide 01 (title) and persist visually
+ * The 4 case cards are rendered on slide 01 (title) and persist visually
  * onto slide 02 (hook-A) via shared layoutId="hook-mark-csN" — the
  * audience reads the move as "the cards never left", with slide 02 then
- * adding 3 amber U-badges below each card and connector lines linking
+ * adding amber evidence-limit badges below each card and connector lines linking
  * each card to its associated badge.
  *
  * Source of truth for case identity, color, label, title, note. Keep
@@ -16,7 +16,7 @@ export const CASES = [
   {
     id: 1,
     label: 'CASE 01 · AMBRISENTAN · PEDIATRIC PAH',
-    title: 'Exposure-matched dose for a trial that could not carry the answer.',
+    title: 'Exposure-matched dose when the pediatric efficacy trial cannot carry the answer.',
     note: 'Approved by EMA + PMDA.',
     color: 'var(--coral)',
     /* PK landmark — used on slide 01's PK curve overlay */
@@ -29,26 +29,38 @@ export const CASES = [
   },
   {
     id: 2,
-    label: 'CASE 02 · ADC · MULTI-ANALYTE PK',
-    title: 'Analyte map to model strategy for a dose that has to stay interpretable.',
-    note: 'Transferable leadership credential.',
-    color: 'var(--cyan)',
-    dotX: 495,
-    dotY: 118,
-    labelX: 555,
-    labelText: 'AUC',
-    hookBadgeLabel: 'MULTI-ANALYTE',
+    label: 'CASE 02 · ASPARLAS · EFFICIENT DESIGN',
+    title: 'A defensible adult design when the endpoint-powered trial is not feasible.',
+    note: 'FDA Type A agreement.',
+    color: 'var(--teal)',
+    dotX: 390,
+    dotY: 96,
+    labelX: 450,
+    labelText: 'PRECISION',
+    hookBadgeLabel: 'SAMPLE-LIMITED',
   },
   {
     id: 3,
-    label: 'CASE 03 · AI / ML · PHARAZI',
+    label: 'CASE 03 · IVOSIDENIB · INDIA RELIANCE',
+    title: 'A local-trial waiver defended through convergent global evidence.',
+    note: 'Cross-functional approval under pressure.',
+    color: 'var(--cyan)',
+    dotX: 610,
+    dotY: 158,
+    labelX: 670,
+    labelText: 'RELIANCE',
+    hookBadgeLabel: 'LOCAL-EVIDENCE',
+  },
+  {
+    id: 4,
+    label: 'CASE 04 · AI / ML · PHARAZI',
     title: 'Audit-ready clinical pharmacology workflows when the evidence system must scale.',
     note: 'Personal research platform.',
-    color: 'var(--violet)',
-    dotX: 625,
-    dotY: 178,
-    labelX: 685,
-    labelText: 'T½',
+    color: 'var(--sage)',
+    dotX: 770,
+    dotY: 184,
+    labelX: 820,
+    labelText: 'AUDIT',
     hookBadgeLabel: 'UNBUILT',
   },
 ];

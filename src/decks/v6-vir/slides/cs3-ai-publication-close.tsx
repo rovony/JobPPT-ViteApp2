@@ -5,8 +5,8 @@ import { AiEvidenceSlide } from './cs3-ai-shared';
 export default function Cs3AiPublicationClose() {
   return (
     <AiEvidenceSlide
-      eyebrow="Case 03 · close"
-      headline={<>The AI lesson is not automation; it is <span style={{ color: 'var(--violet)', fontStyle: 'italic' }}>traceable acceleration.</span></>}
+      eyebrow="Case 04 · close"
+      headline={<>The AI lesson is not automation; it is <span style={{ color: 'var(--sage)', fontStyle: 'italic' }}>traceable acceleration.</span></>}
       subhead="The same standard from the ADC case applies here: no black boxes at the decision point. If the system cannot show its evidence chain, it is not ready for clinical pharmacology use."
       cards={[
         { icon: 'Bot', label: 'Use AI', title: 'For routing, drafting, checking, and assembly.', body: 'Let the system remove friction where the output remains inspectable.' },

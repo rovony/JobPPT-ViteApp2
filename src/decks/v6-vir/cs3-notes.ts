@@ -246,7 +246,7 @@ This is the portable lesson: when a local trial is simply not feasible, a rigoro
 - ✅ Land powerfully on: "clinical pharmacology dossier can become the bridge to patient access."
 
 ## Bridge
-→ That concludes the three case studies. Let's pull the common thread together in the closing.`,
+→ The next case changes the medium from dossier strategy to AI infrastructure, but keeps the same standard: traceable decisions under evidence constraints.`,
 };
 
 export default cs3Notes;

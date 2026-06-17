@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import SlideFrame from '@/components/deck/SlideFrame';
 
 /**
- * CS2 · Setup — the SEC challenge (Dec 2024).
+ * CS3 · Setup — the SEC challenge (Dec 2024).
  *
  * Full 9.3s entry sequence:
  *   0.0–0.8s  chrome (SlideFrame)
@@ -67,7 +67,7 @@ export default function CS2Setup() {
     <SlideFrame
       dataCase="cyan"
       eyebrowColor="var(--cyan)"
-      eyebrow="Case 02 · The Challenge"
+      eyebrow="Case 03 · The Challenge"
       headline={
         <>
           December 2024 — the SEC asked for{' '}
@@ -85,7 +85,7 @@ export default function CS2Setup() {
       }
       subheadMaxChars={80}
       subheadSize="lead"
-      footerKicker="Case 02 · The Challenge"
+      footerKicker="Case 03 · The Challenge"
       footerSource="CDSCO SEC public minutes · Dec 2024"
     >
       <div

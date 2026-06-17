@@ -8,10 +8,10 @@ import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/Slide
  * CLOSING · Slide 01 — The throughline.
  *
  * Added 2026-04-26 per workspace audit (manifest flagged "no closer
- * currently registered"). Synthesis of CS1 / CS2 / CS3 under the Hook A
+ * currently registered"). Synthesis of CS1 / CS2 / CS3 / CS4 under the Hook A
  * thesis — "when the trial isn't the answer, the framework is."
  *
- * Layout: hook-A callback at top, three case lanes below with the
+ * Layout: hook-A callback at top, four case lanes below with the
  * shared structural move spelled out per case.
  */
 const EASE = [0.2, 0.7, 0.3, 1];
@@ -26,16 +26,24 @@ const LANES = [
     verdict: 'EMA + PMDA · 2021 · pediatric PAH label',
   },
   {
-    color: 'var(--cyan)',
+    color: 'var(--teal)',
     cs: 'Case 02',
-    drug: 'ADC multi-analyte PK',
-    obstacle: 'Measurement complex.',
-    move: 'Analyte map + model architecture + dose strategy.',
-    verdict: 'Transferable modality leadership · decision-ready evidence',
+    drug: 'Asparlas',
+    obstacle: 'Endpoint-powered trial infeasible.',
+    move: 'Simulated primary + optimal design + FDA Type A alignment.',
+    verdict: '36% smaller adult trial · precedent for efficient design',
   },
   {
-    color: 'var(--violet)',
+    color: 'var(--cyan)',
     cs: 'Case 03',
+    drug: 'Ivosidenib',
+    obstacle: 'Local trial pressure.',
+    move: 'Six-pillar reliance package + cross-functional dose defense.',
+    verdict: 'CDSCO approval without local trial · uncertainty owned',
+  },
+  {
+    color: 'var(--sage)',
+    cs: 'Case 04',
     drug: 'AI / Pharazi',
     obstacle: 'Workflow unbuilt.',
     move: '13 agents · 151 tools · privacy + audit by construction.',
@@ -59,7 +67,7 @@ export default function ClosingThread() {
       </Headline>
 
       <Subhead delay={0.45} size="lead" maxChars={108}>
-        Three cases, three obstacles, one discipline — quantitative evidence when measurement alone cannot carry the answer.
+        Four cases, four obstacles, one discipline — quantitative evidence when measurement alone cannot carry the answer.
       </Subhead>
 
       <Viz>
@@ -71,7 +79,7 @@ export default function ClosingThread() {
           justifyContent: 'center',
           gap: 'clamp(var(--space-4), 4vh, var(--space-7))',
         }}>
-          {/* Three-lane synthesis */}
+          {/* Four-lane synthesis */}
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(min(18rem, 100%), 1fr))',
@@ -156,7 +164,7 @@ export default function ClosingThread() {
             }}>
               In each case, quantitative pharmacology supplies what measurement alone cannot —{' '}
               <strong style={{ color: 'var(--amber)', fontWeight: 700 }}>a defensible dose,
-              a defensible analyte strategy, or defensible infrastructure.</strong>
+              a defensible design, a defensible reliance package, or defensible infrastructure.</strong>
             </div>
           </motion.div>
         </div>
@@ -165,7 +173,7 @@ export default function ClosingThread() {
       <Footer
         delay={reduced ? 0 : 1.7}
         kicker="Closing · Synthesis"
-        tagline="Trial untrialable. Measurement complex. Workflow unbuilt. One discipline."
+        tagline="Untrialable. Sample-limited. Local-evidence constrained. Workflow unbuilt. One discipline."
       />
     </SlideGrid>
   );

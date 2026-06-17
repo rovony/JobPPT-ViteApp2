@@ -13,7 +13,7 @@ export function AiEvidenceSlide({ eyebrow, headline, subhead, cards, footerTagli
 
   return (
     <SlideFrame
-      dataCase="violet"
+      dataCase="sage"
       eyebrow={eyebrow}
       headline={headline}
       headlineMaxChars={68}
@@ -45,10 +45,10 @@ export function AiEvidenceSlide({ eyebrow, headline, subhead, cards, footerTagli
               animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.62 + i * 0.12, ease: EASE }}
               style={{
-                border: '1px solid color-mix(in srgb, var(--violet) 26%, transparent)',
-                borderTop: '3px solid var(--violet)',
+                border: '1px solid color-mix(in srgb, var(--sage) 26%, transparent)',
+                borderTop: '3px solid var(--sage)',
                 borderRadius: 'var(--radius-md)',
-                background: 'linear-gradient(180deg, color-mix(in srgb, var(--violet) 8%, var(--panel)), color-mix(in srgb, var(--panel) 68%, transparent))',
+                background: 'linear-gradient(180deg, color-mix(in srgb, var(--sage) 8%, var(--panel)), color-mix(in srgb, var(--panel) 68%, transparent))',
                 padding: 'clamp(var(--space-4), 2vw, var(--space-6))',
                 display: 'flex',
                 flexDirection: 'column',
@@ -56,11 +56,11 @@ export function AiEvidenceSlide({ eyebrow, headline, subhead, cards, footerTagli
                 minWidth: 0,
               }}
             >
-              <Icon size={28} color="var(--violet)" strokeWidth={2.2} />
+              <Icon size={28} color="var(--sage)" strokeWidth={2.2} />
               <div className="deck-mono uppercase" style={{
                 fontSize: 'var(--fs-slide-eyebrow)',
                 letterSpacing: 'var(--ls-mono-wide)',
-                color: 'var(--violet)',
+                color: 'var(--sage)',
                 fontWeight: 700,
               }}>
                 {card.label}
