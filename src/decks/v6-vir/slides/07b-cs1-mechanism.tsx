@@ -22,12 +22,6 @@ const ERA_SELECTIVITY = [
   { name: 'Bosentan', ratio: '≈20:1', type: 'Dual ETA / ETB', isThisCase: false },
 ];
 
-const PATHWAYS = [
-  { n: '01', name: 'Endothelin', state: '↑ ET-1 OVERACTIVE', drugs: 'Ambrisentan · Bosentan · Macitentan', isThisCase: true },
-  { n: '02', name: 'NO / cGMP', state: '↓ NO UNDERACTIVE', drugs: 'Sildenafil · Tadalafil · Riociguat', isThisCase: false },
-  { n: '03', name: 'Prostacyclin', state: '↓ PGI2 UNDERACTIVE', drugs: 'Epoprostenol · Treprostinil · Selexipag', isThisCase: false },
-];
-
 export default function Cs1Mechanism() {
   const reduced = useReducedMotion();
 
@@ -78,10 +72,9 @@ export default function Cs1Mechanism() {
             <MechanismVisual delay={reduced ? 0 : 1.0} />
           </div>
 
-          {/* Cards Zone */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(20rem, 100%), 1fr))', gap: 'var(--space-4)', alignItems: 'start' }}>
+          {/* Selectivity payoff — one card, not a pathway encyclopedia */}
+          <div style={{ display: 'flex', justifyContent: 'center', maxWidth: '28rem', margin: '0 auto', width: '100%' }}>
             <SelectivityCard />
-            <PathwayBand />
           </div>
         </div>
       </Viz>
@@ -133,43 +126,3 @@ function SelectivityCard() {
   );
 }
 
-function PathwayBand() {
-  const reduced = useReducedMotion();
-  return (
-    <motion.div
-      initial={reduced ? false : { opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 1.6, ease: EASE }}
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(min(13rem, 100%), 1fr))',
-        gap: 'var(--space-4)',
-      }}
-    >
-      {PATHWAYS.map((p) => (
-        <div key={p.n} style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 'var(--space-1)',
-          padding: 'var(--space-4)',
-          borderRadius: 'var(--radius-lg)',
-          background: p.isThisCase ? 'color-mix(in srgb, var(--case) 8%, transparent)' : 'color-mix(in srgb, var(--panel) 40%, transparent)',
-          borderLeft: `3px solid ${p.isThisCase ? 'var(--case)' : 'var(--cream-hairline)'}`,
-        }}>
-          <div className="deck-mono uppercase" style={{ fontSize: 'var(--fs-slide-subhead)', color: p.isThisCase ? 'var(--case)' : 'var(--cream-muted)', letterSpacing: 'var(--ls-mono-wide)', fontWeight: 700 }}>
-            {p.isThisCase ? 'This case · ' : ''}Pathway {p.n}
-          </div>
-          <div className="deck-display" style={{ fontSize: 'var(--fs-slide-name)', color: 'var(--cream)', fontWeight: 600 }}>
-            {p.name}
-          </div>
-          <div className="deck-mono uppercase" style={{ fontSize: 'var(--fs-slide-tagline)', color: p.isThisCase ? 'var(--case)' : 'var(--cream-faint)', letterSpacing: 'var(--ls-mono-wide)', marginTop: 'var(--space-2)' }}>
-            {p.state}
-          </div>
-          <div className="deck-body" style={{ fontSize: 'var(--fs-slide-tagline)', color: 'var(--cream-muted)' }}>
-            {p.drugs}
-          </div>
-        </div>
-      ))}
-    </motion.div>
-  );
-}

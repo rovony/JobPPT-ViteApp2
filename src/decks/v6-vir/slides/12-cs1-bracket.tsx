@@ -154,7 +154,7 @@ export default function Cs1Bracket() {
             <DensityCurve reduced={reduced} />
 
             <div className="deck-mono" style={{
-              fontSize: 'var(--fs-slide-pageno)',
+              fontSize: 'var(--fs-slide-eyebrow)',
               color: 'var(--cream-faint)',
               letterSpacing: 'var(--ls-mono)',
               textAlign: 'center',
@@ -325,7 +325,7 @@ function StaticFooter({ kicker, tagline, source }) {
           {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
         </span>
       </div>
-      <span className="deck-mono" style={{ fontSize: 'var(--fs-card-meta, 0.62rem)', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)', lineHeight: 1.45 }}>
+      <span className="deck-mono" style={{ fontSize: 'var(--fs-slide-eyebrow)', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)', lineHeight: 1.45 }}>
         {source}
       </span>
     </div>
@@ -353,7 +353,7 @@ function ReceiptCard({ item }) {
       }}
     >
       <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-pageno)',
+        fontSize: 'var(--fs-slide-eyebrow)',
         letterSpacing: 'var(--ls-mono-wide)',
         color: item.isHero ? 'var(--case)' : 'var(--cream-faint)',
         fontWeight: 700,

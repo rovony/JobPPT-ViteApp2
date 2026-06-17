@@ -129,7 +129,7 @@ export default function CaseCard({ c, index, go, idleAtRest, persistent = false 
       <motion.p
         style={{
           margin: 0,
-          fontSize: 'var(--fs-slide-kicker)',
+          fontSize: 'var(--fs-slide-subhead)',
           color: 'var(--cream-muted)',
           lineHeight: 1.45,
         }}

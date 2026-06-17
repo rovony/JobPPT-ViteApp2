@@ -8,7 +8,7 @@ defenses in backup slides.
 
 ## What this deck argues
 
-When measurement falls short, the model makes the dose defensible. The talk
+When measurement falls short, clinical pharmacology makes the dose defensible. The talk
 uses four cases to show the same leadership move in different evidence
 constraints: pediatric extrapolation, efficient design, India reliance, and
 audit-ready clinical pharmacology workflows.

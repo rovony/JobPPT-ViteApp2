@@ -15,23 +15,18 @@ const EASE = [0.2, 0.7, 0.3, 1];
 const FACTS = [
   {
     n: '01',
-    label: 'The pathology',
-    body: <><strong style={{ color: 'var(--case)' }}>Vasoconstriction</strong>, <strong style={{ color: 'var(--case)' }}>smooth-muscle and endothelial proliferation</strong>, and <strong style={{ color: 'var(--case)' }}>in-situ thrombosis</strong> — the lumen narrows.</>,
+    label: 'The disease',
+    body: (
+      <>
+        Small-vessel lung disease: vasoconstriction, proliferation, in-situ thrombosis — the lumen narrows until the{' '}
+        <strong style={{ color: 'var(--case)' }}>right ventricle fails</strong>.
+      </>
+    ),
   },
   {
     n: '02',
-    label: 'The hemodynamic',
-    body: <>mPAP ≥ 20 mmHg · PVR ≥ 2 WU · PAWP ≤ 15 mmHg — pre-capillary, WHO Group 1.</>,
-  },
-  {
-    n: '03',
-    label: 'The pathways',
-    body: <><strong style={{ color: 'var(--case)' }}>Endothelin ↑</strong> · Nitric oxide <strong style={{ opacity: 0.6 }}>↓</strong> · Prostacyclin <strong style={{ opacity: 0.6 }}>↓</strong> · <span style={{ opacity: 0.8 }}>Activin / TGF-β dysregulated.</span></>,
-  },
-  {
-    n: '04',
-    label: 'The outcome',
-    body: <>Untreated median survival ≈ 2.8 years <em style={{ opacity: 0.5, fontStyle: 'italic' }}>(D'Alonzo 1991, NIH registry)</em>.</>,
+    label: 'The definition',
+    body: <>Pre-capillary PAH: mPAP ≥ 20 mmHg · PVR ≥ 2 WU · PAWP ≤ 15 mmHg — WHO Group 1.</>,
   },
 ];
 

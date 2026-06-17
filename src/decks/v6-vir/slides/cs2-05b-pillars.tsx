@@ -5,17 +5,14 @@ import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
 import CS2MoaCard from './cs2-shared/CS2MoaCard';
 import {
-  PillarTextCard, PillarVizCard, PillarHeroNumber, PillarHeroItalic, PillarSub,
-  PillarVizWrap, PillarBody, PillarCite,
-  PkSimilarityViz, ErSimilarityViz, IntrinsicViz, ExtrinsicViz, GlobalRegViz,
+  PillarTextCard, PillarHeroNumber, PillarHeroItalic, PillarSub,
+  PillarBody, PillarCite,
 } from './cs2-shared/CS2Pillars';
 
 /**
  * CS3 Slide 7 · Six convergent pillars — the ICH E5(R1) framework, fully populated.
  *
- * The MOA card (col 1) morphs in from slide 6 via shared layoutId.
- * Pillars 02–06 cascade in to its right with staggered entrance.
- * Each pillar carries a dashboard mini-viz widget in its middle band.
+ * v6-vir trim: text-only pillar cards — mini-viz widgets removed for one idea per column.
  */
 
 const C = {
@@ -75,7 +72,7 @@ export default function CS2Pillars() {
             </div>
 
             {/* Pillar 02 · PK Similarity */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', minHeight: 0 }}>
+            <div style={{ display: 'flex', minHeight: 0, minWidth: 0 }}>
               <PillarTextCard delay={go ? D.p2 : 0} eyebrow="Pillar 02" name="PK Similarity">
                 <PillarHeroNumber>n = 253</PillarHeroNumber>
                 <PillarSub>race not significant</PillarSub>
@@ -84,13 +81,10 @@ export default function CS2Pillars() {
                 </PillarBody>
                 <PillarCite>Jiang et al.<br />CTS 2021</PillarCite>
               </PillarTextCard>
-              <PillarVizCard delay={go ? D.p2 + 0.1 : 0}>
-                <PillarVizWrap><PkSimilarityViz /></PillarVizWrap>
-              </PillarVizCard>
             </div>
 
             {/* Pillar 03 · ER Similarity */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', minHeight: 0 }}>
+            <div style={{ display: 'flex', minHeight: 0, minWidth: 0 }}>
               <PillarTextCard delay={go ? D.p3 : 0} eyebrow="Pillar 03" name="ER Similarity">
                 <PillarHeroItalic>
                   Flat<br />
@@ -104,13 +98,10 @@ export default function CS2Pillars() {
                 </PillarBody>
                 <PillarCite>Phase 1 + AGILE pivotal</PillarCite>
               </PillarTextCard>
-              <PillarVizCard delay={go ? D.p3 + 0.1 : 0}>
-                <PillarVizWrap><ErSimilarityViz /></PillarVizWrap>
-              </PillarVizCard>
             </div>
 
             {/* Pillar 04 · Intrinsic */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', minHeight: 0 }}>
+            <div style={{ display: 'flex', minHeight: 0, minWidth: 0 }}>
               <PillarTextCard delay={go ? D.p4 : 0} eyebrow="Pillar 04" name="Intrinsic">
                 <PillarHeroItalic size="tag">No impact</PillarHeroItalic>
                 <PillarSub>organ fn · age · sex</PillarSub>
@@ -119,13 +110,10 @@ export default function CS2Pillars() {
                 </PillarBody>
                 <PillarCite>Tibsovo USPI · EMA EPAR</PillarCite>
               </PillarTextCard>
-              <PillarVizCard delay={go ? D.p4 + 0.1 : 0}>
-                <PillarVizWrap><IntrinsicViz /></PillarVizWrap>
-              </PillarVizCard>
             </div>
 
             {/* Pillar 05 · Extrinsic */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', minHeight: 0 }}>
+            <div style={{ display: 'flex', minHeight: 0, minWidth: 0 }}>
               <PillarTextCard delay={go ? D.p5 : 0} eyebrow="Pillar 05" name="Extrinsic">
                 <PillarHeroItalic size="tag">No impact</PillarHeroItalic>
                 <PillarSub>food · DDIs · comeds</PillarSub>
@@ -134,13 +122,10 @@ export default function CS2Pillars() {
                 </PillarBody>
                 <PillarCite>Tibsovo USPI<br />EMA EPAR</PillarCite>
               </PillarTextCard>
-              <PillarVizCard delay={go ? D.p5 + 0.1 : 0}>
-                <PillarVizWrap><ExtrinsicViz /></PillarVizWrap>
-              </PillarVizCard>
             </div>
 
             {/* Pillar 06 · Global Reg */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)', minHeight: 0 }}>
+            <div style={{ display: 'flex', minHeight: 0, minWidth: 0 }}>
               <PillarTextCard delay={go ? D.p6 : 0} eyebrow="Pillar 06" name="Global Reg">
                 <PillarHeroNumber>30+</PillarHeroNumber>
                 <PillarSub>jurisdictions · 8 yrs</PillarSub>
@@ -149,9 +134,6 @@ export default function CS2Pillars() {
                 </PillarBody>
                 <PillarCite>FDA Orange Book<br />EMA EPAR · multi-agency</PillarCite>
               </PillarTextCard>
-              <PillarVizCard delay={go ? D.p6 + 0.1 : 0}>
-                <PillarVizWrap><GlobalRegViz /></PillarVizWrap>
-              </PillarVizCard>
             </div>
           </div>
 

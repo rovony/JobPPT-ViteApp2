@@ -115,7 +115,7 @@ export default function ClosingThanks() {
               maxWidth: 'min(60ch, 92%)',
             }}
           >
-            &ldquo;When measurement falls short, the model makes the dose defensible.&rdquo;
+            &ldquo;When measurement falls short, clinical pharmacology makes the dose defensible.&rdquo;
           </motion.div>
         </div>
       </Viz>

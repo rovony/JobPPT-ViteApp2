@@ -17,7 +17,7 @@ import VirWordmark from '../components/VirWordmark';
  *
  * Locked talk identity (V6-Vir):
  *   Title:    "When measurement falls short"
- *   Subtitle: "The model makes the dose defensible"
+ *   Subtitle: "Clinical pharmacology makes the dose defensible"
  *
  * This slide is fully self-contained — it does NOT use TitleLayout
  * because it manages its own chrome (page number, meta line, gradient).
@@ -241,7 +241,7 @@ export default function TitleSlide() {
         >
           Four cases where{' '}
           <span style={{ color: 'var(--amber)', fontWeight: 600 }}>
-            the model
+            clinical pharmacology
           </span>
           {' '}makes the dose — and the decision — defensible.
         </motion.p>
@@ -349,7 +349,7 @@ export default function TitleSlide() {
               background:
                 'linear-gradient(145deg, color-mix(in srgb, var(--panel) 65%, transparent) 0%, color-mix(in srgb, var(--panel) 25%, transparent) 100%)',
               boxShadow: 'var(--shadow-sm)',
-              fontSize: 'var(--fs-slide-pageno)',
+              fontSize: 'var(--fs-slide-eyebrow)',
               letterSpacing: 'var(--ls-mono)',
               color: 'var(--cream-faint)',
               lineHeight: 1.65,
@@ -518,7 +518,7 @@ function PKCurve({ go, idleAtRest }) {
               textAnchor="middle"
               className="deck-mono uppercase"
               style={{
-                fontSize: 'var(--fs-slide-pageno)',
+                fontSize: 'var(--fs-slide-eyebrow)',
                 letterSpacing: 'var(--ls-mono-wide)',
                 fill: 'var(--cream-faint)',
               }}

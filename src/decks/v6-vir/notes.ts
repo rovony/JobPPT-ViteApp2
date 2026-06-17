@@ -82,7 +82,7 @@ const baseNotes: Record<string, string> = {
 const fallbackNote = (id: string) => `## Spoken
 Reference-only supporting detail.
 
-Use this only if the panel asks for this supporting detail. Keep the answer tied back to the main thesis: when measurement falls short, the model makes the dose defensible.
+Use this only if the panel asks for this supporting detail. Keep the answer tied back to the main thesis: when measurement falls short, clinical pharmacology makes the dose defensible.
 
 ## Cues
 Optional backup. Do not volunteer this unless it answers a live question.

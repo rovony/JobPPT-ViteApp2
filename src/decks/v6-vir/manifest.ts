@@ -142,7 +142,7 @@ const Cs1CovariateStrategy = () =>
 const manifest = {
   id: 'v6-vir',
   title: 'When measurement falls short',
-  subtitle: 'Four cases where the model makes the dose — and the decision — defensible',
+  subtitle: 'Four cases where clinical pharmacology makes the dose — and the decision — defensible',
   theme: 'clinical',
   notes,
   qa,
@@ -178,7 +178,7 @@ const manifest = {
     { id: 'cs1-covariate-strategy', title: 'CS1 · full covariate model', component: Cs1CovariateStrategy, isTitle: false, transition: 'fade', time: 55 },
     { id: 'cs1-poppk', title: 'CS1 · PopPK · build + fit', component: Cs1Poppk, isTitle: false, transition: 'fade', time: 65 },
     { id: 'cs1-pkpd', title: 'CS1 · PopPK · build + fit PART 2', component: Cs1Pkpd, isTitle: false, transition: 'fade', time: 55 },
-    { id: 'cs1-outcome', title: 'CS1 · the numbers', component: Cs1Outcome, isTitle: false, transition: 'fade', time: 45 },
+    { id: 'cs1-outcome', title: 'CS1 · three disruptions', component: Cs1Outcome, isTitle: false, transition: 'fade', time: 45 },
     { id: 'cs1-bracket', title: 'CS1 · ownership', component: Cs1Bracket, isTitle: false, transition: 'fade', time: 45 },
     { id: 'cs1-lesson', title: 'CS1 · what this case proves', component: Cs1Lesson, isTitle: false, transition: 'fade', time: 50 },
     { id: 'cs1-bridge', title: 'CS1 → CS2 bridge', component: Cs1Bridge, isTitle: false, transition: 'fade', time: 30 },

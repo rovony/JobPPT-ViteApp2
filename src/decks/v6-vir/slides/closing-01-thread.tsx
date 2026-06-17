@@ -62,7 +62,7 @@ export default function ClosingThread() {
       <Headline delay={0.25} maxChars={62}>
         When measurement falls short,{' '}
         <span style={{ color: 'var(--amber)', fontStyle: 'italic', fontWeight: 600 }}>
-          the model makes the dose defensible.
+          clinical pharmacology makes the dose defensible.
         </span>
       </Headline>
 

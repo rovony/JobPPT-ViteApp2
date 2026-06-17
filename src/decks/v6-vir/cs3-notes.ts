@@ -1,21 +1,18 @@
 const cs3Notes: Record<string, string> = {
   'cs3-ivosidenib-divider': `## Spoken
-Welcome to Case Three.
+Case three is ==ivosidenib== — approved in more than forty countries, but not in India.
 
-This is the story of **==Ivosidenib==** — a first-in-class IDH1 inhibitor. By early 2025, it had already secured approvals across more than forty-two countries, including the US FDA, the European EMA, Japan's PMDA, China's NMPA, and many others.
+The drug worked globally. The constraint was ==local evidence==.
 
-But despite that massive global evidence package, **==Indian patients still did not have access to the drug.==**
-
-The problem was not whether the drug worked. The pivotal evidence already existed. The issue was structural: Indian regulations historically required a pre-approval local trial. Our goal was to answer one question: could a comprehensive, robust global clinical pharmacology dossier do the job that a local trial normally does?
+Could a clinical pharmacology dossier do the job a local trial normally does?
 
 ## Cues
-- ⏱ 60 sec — Reset the room's energy. This is a regulatory strategy case.
-- 🎚 Contrast the 42 global approvals against the lack of access in India.
-- 🎯 Look at the regulatory-leaning panelists on "clinical pharmacology dossier."
-- ✅ Land on: "could the global dossier do the job?"
+- ⏱ 25 sec — crisp reset; regulatory strategy case
+- 🎚 Forty-plus approvals vs no India access
+- ✅ Land on the dossier question
 
 ## Bridge
-→ Let's look at the global disease landscape and why India was the gap.`,
+→ The SEC challenge — what they asked for in December 2024.`,
 
   'cs3-bg-disease': `## Spoken
 By August 2024, ivosidenib had achieved marketing authorization in forty-two countries. This included every major reference regulator globally.
@@ -77,46 +74,36 @@ The focus here is specific: ivosidenib, targeting IDH1, for AML and cholangiocar
 → So how did the regulatory pathway in India suddenly change?`,
 
   'cs3-bg-regulatory': `## Spoken
-Here is the Indian regulatory context that unlocked the strategy.
+India's 2019 rules expected local Phase III data. For rare IDH1-mutant AML, that means years of delay.
 
-Under the standard New Drugs and Clinical Trials Rules of 2019, local Phase III data was expected. For a rare disease like IDH1-mutant AML, running a local efficacy trial would delay access by years.
+On ==August 7, 2024==, DCGI's Rule 101 order named six reference agencies and waiver categories — including orphan drugs and significant therapeutic advancement. Ivosidenib fit both.
 
-Then, the landscape shifted. On **==August 7, 2024==**, the DCGI issued a highly anticipated order under Rule 101. 
-
-This order explicitly named six reference agencies—the FDA, EMA, PMDA, MHRA, TGA, and Health Canada. It also specified five eligible categories for local-trial waivers, including orphan drugs and drugs representing significant therapeutic advancement. Ivosidenib clearly fit into both of those categories.
-
-But it is crucial to understand that Rule 101 **==did not create an automatic approval==**. It merely opened the door. The fundamental scientific question remained: can the global evidence be safely extrapolated to the Indian population?
-
-That answer had to come from the **==clinical pharmacology dossier==**.
+Rule 101 does not guarantee approval. It opens the door. The scientific answer still has to come from the ==clinical pharmacology dossier==.
 
 ## Cues
-- ⏱ 80 sec — Speak precisely. This is the regulatory pivot of the case.
-- ⚠ Say "August 7, 2024" and "Rule 101" with clear emphasis.
-- 🎚 Make sure the panel understands that Rule 101 is an opportunity, not a guarantee.
-- ✅ Land on: "That answer came from the clinical pharmacology dossier."
+- ⏱ 55 sec — regulatory pivot; speak precisely
+- ⚠ Emphasize Rule 101 is opportunity, not automatic approval
+- ✅ Land on clinical pharmacology dossier
 
 ## Bridge
-→ Which brings us to the specific operational challenge the team faced.`,
+→ Six convergent pillars in that dossier.`,
 
   'cs3-setup': `## Spoken
-The abstract waiver pathway suddenly became an operational reality.
+In December 2024 the SEC asked for a ==PK/PD study in India== before approval.
 
-In December 2024, the Subject Expert Committee (SEC) requested a **==PK/PD study in the Indian population==** prior to approval. Under the old framework, that request makes perfect sense.
+Under the old framing, that request is reasonable. Under our evidence, it is a twelve-to-eighteen-month delay patients did not need.
 
-But we already possessed the evidence to answer the underlying scientific question. We had a Population PK model built on **==253 patients==** demonstrating that race was not a significant covariate. We had PBPK-supported DDI labeling. We had a flat exposure-response relationship.
+We already had PopPK on ==253 patients== with race not significant, PBPK-supported DDI labeling, and flat exposure-response.
 
-The true cost was time. A local PK/PD study would add **==twelve to eighteen months of delay==**. For older, unfit patients with relapsed/refractory IDH1-mutant AML, an 18-month delay is a matter of survival, not just logistics.
-
-Our strategy was to prove that the **==existing global clinical pharmacology package could fully answer the local-data question==**.
+The strategy: prove the ==existing global clinical pharmacology package== answers the local-data question.
 
 ## Cues
-- ⏱ 80 sec — This is the thesis slide. Deliver it with steady conviction.
-- 🎚 The contrast is between the SEC's request (time delay) and the existing PopPK data (immediate answer).
-- ⚠ If asked, clarify that the survival point specifically refers to the older, unfit AML population.
-- ✅ Land on: "existing clinical pharmacology package could fully answer the local-data question."
+- ⏱ 55 sec — thesis slide; steady conviction
+- 🎚 Contrast SEC request vs existing PopPK evidence
+- ✅ Land on "existing global package"
 
 ## Bridge
-→ The foundation of that package starts with the mechanism of action.`,
+→ Rule 101 and the regulatory opening that made the waiver possible.`,
 
   'cs3-architecture-v2': `## Spoken
 Let's build the argument, starting with mechanism.
@@ -139,114 +126,85 @@ Why does this matter to the Indian regulator? Because the drug target exists **=
 → That mechanism was just the first of six convergent pillars in the dossier.`,
 
   'cs3-pillars': `## Spoken
-The dossier we submitted relied on **==six converging lines of evidence==**. The strength of the package was the convergence.
+The waiver case rested on ==six converging lines of evidence==.
 
-First: **Mechanism**. The somatic nature of the IDH1 R132 mutation minimizes ethnic variability at the target site.
+Mechanism — somatic IDH1, not germline. PK similarity — two hundred fifty-three patients, race not significant. Exposure-response — flat across range, five hundred milligrams once daily.
 
-Second: **PK Similarity**. Our pooled PopPK analysis across **253 patients** proved that race was not a significant covariate, demonstrating linear PK across diverse ethnic groups.
+Intrinsic and extrinsic factors fully characterized. Global regulatory experience across thirty-plus jurisdictions.
 
-Third: **Exposure-Response**. Across the entire studied exposure range, there was no efficacy cliff and no safety cliff that would necessitate a dose adjustment. **500 milligrams once daily** safely covered the whole population.
-
-Fourth: **Intrinsic factors**. Age, sex, and organ function were fully characterized with no demographic dose adjustments required.
-
-Fifth: **Extrinsic factors**. Food effects and DDIs were managed through labeling. Crucially, we identified no India-specific extrinsic factors that required a different dose.
-
-Sixth: **Global regulatory experience**. We had safety data from over thirty jurisdictions and years of post-marketing surveillance with no ethnicity-specific safety signals.
-
-No single pillar would have won the waiver. **==The convergence was the case.==**
+==No single pillar wins alone. Convergence is the case.==
 
 ## Cues
-- ⏱ 100 sec — This is the longest slide. Name all six pillars distinctly, but keep the pace moving.
-- 🎚 Use your hands to count off the pillars if it feels natural.
-- ⚠ Emphasize the anchors: 253 patients, 500mg QD, 30+ jurisdictions.
-- ✅ Land powerfully on: "The convergence was the case."
+- ⏱ 70 sec — name six pillars distinctly; keep pace
+- 🎚 Count pillars if natural; don't rush the convergence line
+- ✅ Land on "Convergence is the case"
 
 ## Bridge
-→ So did the strategy work? Here is the timeline of the reversal.`,
+→ Did the strategy work? The public timeline.`,
 
   'cs3-reversal': `## Spoken
-Here is the public timeline of how the access gap closed.
+The public arc: FDA approvals from 2018 through 2021, EMA in 2023, then ==August 2024== when Rule 101 opened the waiver pathway.
 
-We started with FDA approvals for relapsed/refractory AML in 2018, newly diagnosed AML in 2019, and cholangiocarcinoma in 2021. EMA conditional marketing authorization followed in 2023.
+The outcome: ==May 14, 2025== — CDSCO marketing authorization in India without a pre-approval local trial.
 
-Then, the regulatory pivot: **August 2024**, when the DCGI operationalized the Rule 101 waiver pathway.
-
-And finally, the outcome: **==May 14, 2025==**. The CDSCO formally granted marketing authorization in India.
-
-This is the clean, public version of the story. But the underlying reality is that the India authorization did not happen in a vacuum. It was the direct result of accumulated global evidence and a clinical pharmacology package that **==made extrapolation scientifically defensible==**.
+The authorization followed accumulated global evidence and a pharmacology package that made extrapolation ==scientifically defensible==.
 
 ## Cues
-- ⏱ 80 sec — Walk the timeline from left to right.
-- 🎚 Keep the tone professional. "May 14, 2025" is a success, but state it as a factual milestone, not a boast.
-- ⚠ Do not mention internal filing timelines or specific team members.
-- ✅ Land on: "made extrapolation scientifically defensible."
+- ⏱ 55 sec — walk timeline left to right
+- 🎚 State May 14, 2025 as fact, not boast
+- ✅ Land on scientifically defensible extrapolation
 
 ## Bridge
-→ But to be fully transparent, we have to acknowledge what we shipped and what we didn't.`,
+→ An honest accounting of what we shipped and what we did not.`,
 
   'cs3-reckoning': `## Spoken
-In clinical pharmacology, we have to provide an **==honest accounting==**.
+Clinical pharmacology requires an ==honest accounting==.
 
-On the left is **==what we shipped==**. We delivered a mechanism-first defense based on somatic biology. We submitted a 36-page justification built on six convergent pillars of evidence. We characterized all extrinsic factors with no India-specific dose modifications. And we secured the CDSCO approval on May 14, 2025, alongside a Phase 4 commitment.
+We shipped a mechanism-first defense, a thirty-six-page justification on six pillars, and CDSCO approval with a Phase 4 commitment.
 
-On the right is **==what we did not have==**. We had zero pre-approval Indian PK/PD data. We had zero Indian sites in our pivotal trials. We did not have an India-specific peer-reviewed PK paper. Our inference relied entirely on the 253-patient PopPK model. Furthermore, local pharmacovigilance will still need to mature post-approval.
+We did not have pre-approval Indian PK/PD data, Indian pivotal sites, or an India-specific peer-reviewed PK paper. Inference rested on the two hundred fifty-three-patient PopPK model.
 
-This is why the Phase 4 commitment is vital. The dossier carried all the evidence it could, but it was **==explicit and transparent about what remained uncertain==**.
+The dossier was ==explicit about what remained uncertain== — and the Phase 4 commitment addressed it.
 
 ## Cues
-- ⏱ 70 sec — Give equal weight to both sides of the ledger.
-- 🎚 Speak with absolute candor. Acknowledging gaps builds credibility with the panel.
-- ⚠ Do not downplay the gaps on the right. Own them.
-- ✅ Land on: "explicit and transparent about what remained uncertain."
+- ⏱ 55 sec — equal weight to shipped vs gaps
+- 🎚 Candor builds credibility with the panel
+- ✅ Land on explicit uncertainty + Phase 4
 
 ## Bridge
-→ How did we organize the team to execute this? Let's look at the functional ownership.`,
+→ How the team organized to execute under pressure.`,
 
   'cs3-leadership': `## Spoken
-This slide outlines the operating model that made the waiver possible.
+The operating model had four clear owners.
 
-**Quantitative pharmacology** owned the scientific evidence bridge. We translated the ICH E5 ethnic sensitivity concepts into testable PopPK, exposure-response, and PBPK data, and we defined the Phase 4 PK/PD commitment to handle residual uncertainty.
+==Quantitative pharmacology== translated ICH E5 concepts into PopPK, exposure-response, and PBPK evidence — and defined the Phase 4 PK/PD commitment.
 
-**Regulatory affairs** owned the agency pathway, managing the filing mechanics, formal responses, and navigating the novel Rule 101 process.
+==Regulatory affairs== owned the Rule 101 pathway and agency responses. Medical and pharmacovigilance owned post-marketing follow-up. The India affiliate owned in-country execution.
 
-**Medical and Pharmacovigilance** owned the post-marketing layer, ensuring local follow-up and safety commitments would be met.
+Quantitative pharmacology answered: can global evidence extrapolate? Partner functions answered: can the pathway hold?
 
-**Regulatory writing and the local India affiliate** owned the submission record and the in-country execution.
-
-The handoff was extremely clear. Quantitative pharmacology answered the question: *can the global evidence extrapolate?* Partner functions answered: *can the pathway and execution hold?*
-
-**==Both had to be true==** for the CDSCO to grant the waiver.
+==Both had to be true== for CDSCO to grant the waiver.
 
 ## Cues
-- ⏱ 75 sec — Emphasize cross-functional collaboration.
-- 🎚 Use clear, function-level language. You are describing an organizational architecture.
-- ⚠ Do not get into the weeds of specific document drafting. Focus on the division of responsibilities.
-- ✅ Land on: "Both had to be true."
+- ⏱ 55 sec — function-level language; cross-functional tone
+- ✅ Land on "Both had to be true"
 
 ## Bridge
-→ Let me recap the three core lessons from this case.`,
+→ Three portable lessons from this case.`,
 
   'cs3-bridge-recap': `## Spoken
-Ultimately, **==the science was the bridge==**.
+==The science was the bridge.==
 
-If there are three takeaways from the ivosidenib India case, they are these:
+Three lessons: mechanism matters — somatic IDH1 narrowed the ethnic-sensitivity question. Convergence matters — no single pillar carried the waiver alone. Transparency matters — we named the PK gap and committed to Phase 4.
 
-First: **==Mechanism matters==**. The fact that the target was a somatic mutation—tumor-acquired, not germline—drastically narrowed the ethnic-sensitivity question from the very start.
-
-Second: **==Convergence matters==**. PopPK, PBPK, extrinsic factors, and global regulatory experience all pointed to the same conclusion. No single pillar could have carried the waiver by itself.
-
-Third: **==Transparency matters==**. We lacked pre-approval Indian PK/PD data. We explicitly named that gap and addressed the residual uncertainty through a structured Phase 4 commitment.
-
-This is the portable lesson: when a local trial is simply not feasible, a rigorously structured **==clinical pharmacology dossier can become the bridge to patient access==**.
+When a local trial is not feasible, a rigorous clinical pharmacology dossier can become the ==bridge to patient access==.
 
 ## Cues
-- ⏱ 60 sec — This is the conclusion of Case 3. Speak with finality and synthesis.
-- 🎚 Count the three lessons cleanly.
-- ⚠ Do not re-litigate the timeline or the specific pillars. Keep it high-level.
-- ✅ Land powerfully on: "clinical pharmacology dossier can become the bridge to patient access."
+- ⏱ 40 sec — synthesis; count three lessons cleanly
+- ✅ Land on bridge to patient access
 
 ## Bridge
-→ The next case changes the medium from dossier strategy to AI infrastructure, but keeps the same standard: traceable decisions under evidence constraints.`,
+→ Case four shifts medium — AI infrastructure — same standard: traceable decisions.`,
 };
 
 export default cs3Notes;

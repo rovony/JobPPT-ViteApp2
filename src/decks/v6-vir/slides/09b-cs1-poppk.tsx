@@ -48,7 +48,7 @@ function PanelTitle({ label, right, delay, go }) {
       </span>
       <span
         className="deck-mono"
-        style={{ fontSize: 'var(--fs-card-meta)', letterSpacing: '0.14em', color: 'var(--cream-faint)' }}
+        style={{ fontSize: 'var(--fs-slide-eyebrow)', letterSpacing: '0.14em', color: 'var(--cream-faint)' }}
       >
         {right}
       </span>
@@ -148,7 +148,7 @@ function Cell({ children, head, hero, mono, dim }) {
     <div
       className={mono || head ? 'deck-mono' : 'deck-body'}
       style={{
-        fontSize: head ? 'var(--fs-slide-pageno)' : 'var(--fs-slide-tagline)',
+        fontSize: head ? 'var(--fs-slide-eyebrow)' : 'var(--fs-slide-tagline)',
         textTransform: head ? 'uppercase' : 'none',
         letterSpacing: head ? 'var(--ls-mono-wide)' : 0,
         color: head ? 'var(--cream-faint)' : (hero ? 'var(--case)' : 'var(--cream)'),
@@ -197,7 +197,7 @@ export default function Cs1Poppk() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
               <ZoomablePanel
                 title="Structural Model"
-                right={<span className="deck-mono" style={{ fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-faint)', letterSpacing: '0.12em' }}>2-CMT</span>}
+                right={<span className="deck-mono" style={{ fontSize: 'var(--fs-slide-eyebrow)', color: 'var(--cream-faint)', letterSpacing: '0.12em' }}>2-CMT</span>}
                 panelStyle={{...CHART_PANEL, flex: 1.05}}
                 modalBodyStyle={{ alignItems: 'center' }}
                 modalChildren={<div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CompartmentSchematic tk={tk} go={go} /></div>}
@@ -211,7 +211,7 @@ export default function Cs1Poppk() {
               </ZoomablePanel>
               <ZoomablePanel
                 title="PcVPC"
-                right={<span className="deck-mono" style={{ fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-faint)', letterSpacing: '0.12em' }}>500 replicates</span>}
+                right={<span className="deck-mono" style={{ fontSize: 'var(--fs-slide-eyebrow)', color: 'var(--cream-faint)', letterSpacing: '0.12em' }}>500 replicates</span>}
                 panelStyle={{...CHART_PANEL, flex: 0.95}}
                 modalBodyStyle={{ alignItems: 'center' }}
                 modalChildren={<PcVpcChart go={go} delay={D.vpc} tk={tk} D={{lines: D.vpc+0.3, dots: D.vpc+0.5, ribbon: D.vpc+0.1}} />}
@@ -227,7 +227,7 @@ export default function Cs1Poppk() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
                <ZoomablePanel
                  title="Parameter Estimates"
-                 right={<span className="deck-mono" style={{ fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-faint)', letterSpacing: '0.12em' }}>CL/F, Vc/F</span>}
+                 right={<span className="deck-mono" style={{ fontSize: 'var(--fs-slide-eyebrow)', color: 'var(--cream-faint)', letterSpacing: '0.12em' }}>CL/F, Vc/F</span>}
                  panelStyle={{...CHART_PANEL, flex: '0 0 auto'}}
                  modalBodyStyle={{ alignItems: 'center' }}
                  modalChildren={<ParamTable go={go} delay={D.table} />}
@@ -239,7 +239,7 @@ export default function Cs1Poppk() {
                </ZoomablePanel>
                <ZoomablePanel
                  title="Workflow"
-                 right={<span className="deck-mono" style={{ fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-faint)', letterSpacing: '0.12em' }}>NONMEM</span>}
+                 right={<span className="deck-mono" style={{ fontSize: 'var(--fs-slide-eyebrow)', color: 'var(--cream-faint)', letterSpacing: '0.12em' }}>NONMEM</span>}
                  panelStyle={{...CHART_PANEL, flex: 1}}
                  modalBodyStyle={{ alignItems: 'center' }}
                  modalChildren={<DecisionGate id="cs1-v4-poppk-workflow-modal" replay />}
@@ -253,63 +253,27 @@ export default function Cs1Poppk() {
 
           </div>
 
-          {/* Footer Ribbon: Covariate Screen */}
-          <motion.div 
-            style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
+          {/* Footer ribbon — one line; full covariate screen is on prior slide */}
+          <motion.div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
               flexWrap: 'wrap',
-              gap: 'var(--space-3) var(--space-4)', 
-              minHeight: 'clamp(60px, 6vh, 84px)',
-              padding: 'clamp(var(--space-3), 1.6vh, var(--space-4)) var(--space-5)',
+              gap: 'var(--space-3)',
+              padding: 'var(--space-3) var(--space-5)',
               background: 'color-mix(in srgb, var(--coral) 8%, transparent)',
               border: '1px solid color-mix(in srgb, var(--coral) 42%, var(--cream-hairline))',
-              boxShadow: 'inset 0 0 0 1px color-mix(in srgb, var(--cream) 5%, transparent)'
             }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: go ? 1 : 0, y: go ? 0 : 10 }}
             transition={{ duration: 0.6, ease: EASE, delay: D.covariates }}
           >
-             <span className="deck-mono uppercase" style={{ fontSize: 'var(--fs-slide-pageno)', color: 'var(--coral)', letterSpacing: 'var(--ls-mono-wide)', fontWeight: 800 }}>Full Covariate Model</span>
-             <span className="deck-mono uppercase" style={{
-               fontSize: 'var(--fs-card-meta)',
-               color: 'var(--cream)',
-               letterSpacing: '0.12em',
-               padding: 'var(--space-1) var(--space-3)',
-               border: '1px solid color-mix(in srgb, var(--coral) 50%, transparent)',
-               background: 'color-mix(in srgb, var(--coral) 16%, transparent)',
-               whiteSpace: 'nowrap',
-             }}>
-               12 prespecified covariates entered together
-             </span>
-             <div style={{ flex: '1 1 34rem', display: 'flex', flexWrap: 'wrap', gap: 'var(--space-2) var(--space-2)', minWidth: 0 }}>
-                {['Age', 'Sex', 'Race', 'WHO FC', 'Baseline 6MWD', 'NT-proBNP', 'Hepatic Fn', 'Renal Fn', 'ETRA naive'].map(cov => (
-                   <span key={cov} className="deck-mono" style={{
-                     display: 'inline-flex',
-                     alignItems: 'center',
-                     gap: '0.45em',
-                     fontSize: 'var(--fs-slide-pageno)',
-                     color: 'var(--cream)',
-                     background: 'color-mix(in srgb, var(--panel) 72%, transparent)',
-                     border: '1px solid color-mix(in srgb, var(--cream-muted) 28%, transparent)',
-                     padding: '0.16rem 0.42rem',
-                     opacity: 0.9,
-                     whiteSpace: 'nowrap',
-                   }}>
-                     <span style={{ color: 'var(--coral)', fontWeight: 800, fontSize: '0.9em' }}>×</span>
-                     {cov}
-                   </span>
-                ))}
-             </div>
-             <span className="deck-mono uppercase" style={{
-               fontSize: 'var(--fs-slide-pageno)',
-               color: 'var(--bg)',
-               background: 'var(--coral)',
-               letterSpacing: '0.13em',
-               fontWeight: 800,
-               padding: 'var(--space-1) var(--space-3)',
-               whiteSpace: 'nowrap',
-             }}>Retained: Allometric WT</span>
+            <span className="deck-mono uppercase" style={{ fontSize: 'var(--fs-slide-eyebrow)', color: 'var(--coral)', letterSpacing: 'var(--ls-mono-wide)', fontWeight: 700 }}>
+              380 adults build the model · 39 children confirm it
+            </span>
+            <span className="deck-body" style={{ fontSize: 'var(--fs-slide-subhead)', color: 'var(--cream-muted)' }}>
+              Parameter table is the receipt — parsimony held (weight-only covariate).
+            </span>
           </motion.div>
 
         </div>

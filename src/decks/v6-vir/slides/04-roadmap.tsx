@@ -53,13 +53,6 @@ const CASES = [
   },
 ];
 
-const CHALLENGES = [
-  { label: 'Untrialable', color: 'var(--coral)' },
-  { label: 'Sample-limited', color: 'var(--teal)' },
-  { label: 'Local evidence', color: 'var(--cyan)' },
-  { label: 'Computational', color: 'var(--sage)' },
-];
-
 const ROADMAP_AREAS = [
   'chrome-l chrome-l chrome-l chrome-l chrome-l chrome-l chrome-r chrome-r chrome-r chrome-r chrome-r chrome-r',
   'eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow',
@@ -84,25 +77,12 @@ const CONCLUSION_RIBBON_STYLE = {
   flexWrap: 'wrap',
 };
 
-const CHALLENGE_ROW_STYLE = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: 'var(--space-2)',
-  flexWrap: 'wrap',
-};
-
-const CHALLENGE_LABEL_STYLE = {
-  fontSize: 'var(--fs-slide-eyebrow)',
-  color: 'var(--cream-faint)',
-  letterSpacing: '0.1em',
-};
-
 const CONCLUSION_TEXT_STYLE = {
   fontSize: 'var(--fs-slide-tagline)',
   color: 'var(--cream)',
   lineHeight: 1.25,
-  flex: '1 1 16rem',
-  minWidth: 0,
+  width: '100%',
+  textAlign: 'center',
 };
 
 export default function Roadmap({ deck }) {
@@ -282,36 +262,11 @@ export default function Roadmap({ deck }) {
         }}
         style={CONCLUSION_RIBBON_STYLE}
       >
-        <div style={CHALLENGE_ROW_STYLE}>
-          <span
-            className="deck-mono uppercase"
-            style={CHALLENGE_LABEL_STYLE}
-          >
-            Four constraints
-          </span>
-          {CHALLENGES.map((challenge) => (
-            <span
-              key={challenge.label}
-              className="deck-body"
-              style={{
-                fontSize: 'var(--fs-slide-subhead)',
-                color: challenge.color,
-                fontWeight: 700,
-                padding: 'var(--space-1) var(--space-3)',
-                borderRadius: '999px',
-                border: `1px solid color-mix(in srgb, ${challenge.color} 44%, transparent)`,
-                background: `color-mix(in srgb, ${challenge.color} 12%, transparent)`,
-              }}
-            >
-              {challenge.label}
-            </span>
-          ))}
-        </div>
         <div
           className="deck-display"
           style={CONCLUSION_TEXT_STYLE}
         >
-          One discipline carrying the decision in each case.
+          One discipline carrying the decision in each case — then portfolio breadth and the Vir bridge.
         </div>
       </GridSlot>
 

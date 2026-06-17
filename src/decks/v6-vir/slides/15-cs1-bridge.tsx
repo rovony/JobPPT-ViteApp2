@@ -237,11 +237,7 @@ export default function Cs1Bridge() {
             fontSize: 'var(--fs-slide-tagline)',
             lineHeight: 1.4,
           }}>
-            From a rare pediatric pulmonary disease to an{' '}
-            <span style={{ color: 'var(--cyan)', fontWeight: 500, fontStyle: 'italic' }}>
-              ADC with multiple analytes and one dose decision
-            </span>
-            {' '}— the next case takes the same intellectual move into modality complexity.
+            From pediatric PAH to adult ALL — the next case asks whether a ==smaller adult evidence package== can still be FDA-defensible when the pediatric prior already carries the weight.
           </div>
         </motion.div>
 

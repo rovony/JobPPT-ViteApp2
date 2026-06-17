@@ -1,465 +1,245 @@
 // @ts-nocheck
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useTokens } from '@/lib/token';
-import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
-import { Eyebrow, Headline, Viz, Footer } from '@/components/deck/SlideParts';
-import { QP2_THEMES } from '../themes';
-import PipelineBridgeCard from './cs1-bridge/PipelineBridgeCard';
+import React, { useRef } from 'react';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
+import SlideFrame from '@/components/deck/SlideFrame';
 
 /**
- * Slide 29 · CS2 Bridge — Themes recap + bridge to India reliance.
- *
- * 2026-04-24 redesign (Agent D · CS2 cluster fix):
- *   • Theme ribbon vocabulary now aligned with slide 14 (CS1 bridge):
- *     hairline-divider panels with NUM · GLYPH · TITLE row + italic
- *     detail body. Removed the card-style border + background tint
- *     (banned decorative chrome) and the card-padded box layout.
- *   • Theme glyphs upsized so the icon vocabulary reads at a glance.
- *   • Coda decorative panel chrome removed (borderRadius + background
- *     tint dropped). Kept the teal borderLeft accent rule.
- *
- * Architecturally mirrors the CS1 bridge so the seminar reads as a
- * repeatable pattern: each case closes with a four-element coda —
- * template · next-case bridge · payoff · themes ribbon.
- *
- * CS2 colour: teal (efficient-design family).
- *
- * Active themes per the audit plan: 01 QP replaces study · 04 Novel
- * methods · 05 Judgment. The bridge moves from efficient design to
- * cross-functional access under pressure in Case 03.
+ * CS2 Bridge — sparse close matching override Spoken script.
+ * Efficient design → local-evidence constraint (India).
  */
 
-const ACTIVE_NUMS = ['01', '04', '05'];
+const EASE = [0.2, 0.7, 0.3, 1];
 
-const TEMPLATE_BULLETS = [
-  'Anchor sample size on parameter precision · not endpoint power',
-  'Use a model-based simulated primary when observation isn’t feasible',
-  'Stack two FDA-precedented methods · don’t bet on one untested move',
-  'Quantify the safety framework alongside the design — agencies anchor on it',
-  'Brief the regulator with the methodology, not just the number',
+const PRINCIPLES = [
+  { n: '01', em: 'Transparent design', rest: 'briefs methodology, not just the number.' },
+  { n: '02', em: 'Durable template', rest: 'when the pediatric prior carries the weight.' },
 ];
 
-const THEME_DETAIL = {
-  '01': 'A simulated primary substituted for an endpoint-powered N = 94 adult trial.',
-  '04': 'Two FDA-precedented methods stacked — first time in adult oncology.',
-  '05': 'Type A briefed pre-execution · CI relaxed 90% → 85% · pillar repositioned to keep the reduction.',
+const D = {
+  divider: 0.6,
+  p: [
+    { num: 1.1, rule: 1.3, words: 1.6 },
+    { num: 2.4, rule: 2.6, words: 2.9 },
+  ],
+  endMark: 3.9,
+  amber: 4.3,
+  footer: 4.8,
 };
 
+function WordReveal({ em, rest, baseDelay, go, accent }) {
+  const allWords = [em, ...rest.split(' ').filter(Boolean)];
+  return (
+    <>
+      {allWords.map((word, i) => (
+        <motion.span
+          key={i}
+          style={i === 0 ? { color: accent, fontWeight: 500 } : undefined}
+          initial={{ opacity: 0 }}
+          animate={go ? { opacity: 1 } : { opacity: 1 }}
+          transition={{ duration: 0.06, delay: baseDelay + i * 0.08 }}
+        >
+          {word}{i < allWords.length - 1 ? ' ' : ''}
+        </motion.span>
+      ))}
+    </>
+  );
+}
+
 export default function Cs2AspBridge() {
-  const ease = [0.2, 0.7, 0.3, 1];
-  const D = {
-    chrome: 0.10,
-    headline: 0.30,
-    leftLabel: 0.60,
-    bullets: 0.75,
-    bridge: 1.10,
-    payoff: 1.80,
-    coda: 2.05,
-    themesLabel: 2.30,
-    themes: 2.45,
-    source: 2.80,
-  };
-
-  const T = useTokens([
-    '--coral', '--amber', '--cyan', '--sage', '--teal',
-    '--cream', '--cream-muted', '--cream-faint', '--cream-hairline',
-  ]);
-  const tk = (n, fb = 'transparent') => (T ? T[n] || fb : fb);
-
-  const activeThemes = QP2_THEMES.filter((t) => ACTIVE_NUMS.includes(t.num));
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
+  const reduced = useReducedMotion();
+  const go = inView && !reduced;
+  const accent = 'var(--teal)';
 
   return (
-    <SlideGrid dataCase="teal" areas={STANDARD_AREAS}>
-      <Eyebrow color="var(--cream-muted)" delay={D.chrome}>CS2 · Bridge forward + Framework recap</Eyebrow>
-      <Headline delay={D.headline} maxChars={42}>
-        The methodology{' '}
-        <span style={{ color: 'var(--teal)', fontStyle: 'italic', fontWeight: 700 }}>
-          scales —
-        </span>{' '}
-        and the value isn’t one trial. It’s a template.
-      </Headline>
-
-      <Viz style={{ overflow: 'hidden' }}>
-        <div
-          style={{
-            width: '100%',
-            height: '100%',
-            display: 'grid',
-            // 4 children render here (top split · payoff · ICH coda ·
-            // themes ribbon) — previously declared only 3 rows
-            // ('auto auto 1fr') which pushed the themes ribbon into
-            // an implicit 4th auto row that overflowed the Viz cell
-            // on short viewports. Now all 4 rows are explicit and
-            // content-sized; the themes ribbon's bottom edge is the
-            // grid bottom, no overflow. (SLIDE-REVIEW.md §2 row 29)
-            gridTemplateRows: 'auto auto auto auto',
-            // Tighter than slide 14 — slide 29 has heavier content
-            // above (template label + bullets + ICH coda body) so the
-            // themes ribbon row needs every px of vertical room to
-            // render the ThemeTile detail line below each title.
-            rowGap: 'var(--space-2)',
-            minHeight: 0,
-          }}
-        >
-          {/* ═══════════ Top split: template · pipeline ═══════════ */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1.15fr 1fr',
-              gap: 'var(--space-10)',
-              alignItems: 'start',
-            }}
-          >
-            {/* LEFT — Template flow diagram */}
-            <div>
-              <motion.div
-                style={{
-                  marginBottom: '14px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 4,
-                  maxWidth: '58ch',
-                }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, ease, delay: D.leftLabel }}
-              >
-                <span
-                  className="deck-mono uppercase"
-                  style={{
-                    fontSize: 'var(--fs-card-label)',
-                    letterSpacing: 'var(--ls-mono-wide)',
-                    color: 'var(--teal)',
-                    fontWeight: 700,
-                  }}
-                >
-                  The template
-                </span>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: 'var(--fs-card-body)',
-                    color: 'var(--cream-muted)',
-                    lineHeight: 1.4,
-                    fontStyle: 'italic',
-                  }}
-                >
-                  Generalizes wherever a reference population is well-characterized and
-                  observed-endpoint trials aren’t feasible.
-                </span>
-              </motion.div>
-
-              <div style={{ position: 'relative' }}>
-                {/* Vertical spine */}
-                <motion.div
-                  style={{
-                    position: 'absolute',
-                    left: 11,
-                    top: 14,
-                    bottom: 14,
-                    width: 2,
-                    background: 'linear-gradient(to bottom, var(--teal), color-mix(in srgb, var(--teal) 20%, transparent))',
-                    transformOrigin: 'top',
-                  }}
-                  initial={{ scaleY: 0 }}
-                  animate={{ scaleY: 1 }}
-                  transition={{ duration: 0.8, ease, delay: D.bullets }}
-                />
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                  {TEMPLATE_BULLETS.map((b, i) => (
-                    <TemplateNode
-                      key={i}
-                      index={i + 1}
-                      text={b}
-                      delay={D.bullets + i * 0.12}
-                      highlight={i === TEMPLATE_BULLETS.length - 1}
-                      isLast={i === TEMPLATE_BULLETS.length - 1}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* RIGHT — Bridge to India reliance */}
-            <PipelineBridgeCard
-              label="Where it goes next — Case 03 India"
-              body={
-                <>
-                  <strong style={{ color: 'var(--cream)', fontWeight: 600 }}>
-                    Ivosidenib · India reliance
-                  </strong>{' '}
-                  · the same model-informed discipline applies when the
-                  constraint is local-trial pressure, cross-functional alignment,
-                  and a dossier that has to replace local evidence.
-                  <br />
-                  <br />
-                  Case 03 handoff:{' '}
-                  <em style={{ color: 'var(--cream)', fontStyle: 'italic' }}>
-                    Rule 101 · six convergent pillars · CDSCO approval without a local trial
-                  </em>{' '}
-                  — the template becomes access under pressure.
-                </>
-              }
-              footer="Case 03 · leadership + reliance"
-              delay={D.bridge}
-              accent="var(--teal)"
-            />
-          </div>
-
-          {/* ─── Teal payoff line ─── */}
-          <motion.div
-            style={{ textAlign: 'center' }}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease, delay: D.payoff }}
-          >
-            <div
-              className="deck-display"
-              style={{
-                fontSize: 'clamp(1.1rem, 1.5vw, 1.65rem)',
-                color: 'var(--teal)',
-                fontWeight: 700,
-                letterSpacing: 'var(--ls-headline)',
-                lineHeight: 1.2,
-              }}
-            >
-              The win wasn’t a smaller trial — it was a way to make incomplete evidence decision-grade.
-            </div>
-          </motion.div>
-
-          {/* ─── Next-case coda — inline, hairline-only (no panel chrome) ─── */}
-          <motion.div
-            style={{
-              margin: '0 auto',
-              maxWidth: '92ch',
-              padding: '4px var(--space-3)',
-              borderLeft: '3px solid var(--teal)',
-              display: 'flex',
-              flexWrap: 'wrap',
-              alignItems: 'baseline',
-              columnGap: 'var(--space-3)',
-              rowGap: 4,
-            }}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease, delay: D.coda }}
-          >
-            <span
-              className="deck-mono uppercase"
-              style={{
-                fontSize: 'var(--fs-card-label)',
-                letterSpacing: 'var(--ls-mono-wide)',
-                color: 'var(--teal)',
-                fontWeight: 700,
-                whiteSpace: 'nowrap',
-              }}
-            >
-              Next case · India reliance
-            </span>
-            <span
-              style={{
-                fontSize: 'var(--fs-card-body)',
-                color: 'var(--cream-muted)',
-                lineHeight: 1.4,
-                flex: '1 1 360px',
-              }}
-            >
-              Asparlas shows efficient design can earn agreement; India shows
-              model-informed evidence can earn access when a local trial is not
-              feasible, so long as the uncertainties are owned.
-            </span>
-          </motion.div>
-
-          {/* ═══════════ Framework themes ribbon ═══════════ */}
-          <div style={{ minHeight: 0 }}>
-            <motion.div
-              className="deck-mono uppercase"
-              style={{
-                textAlign: 'center',
-                fontSize: 'var(--fs-card-label)',
-                letterSpacing: 'var(--ls-mono-wide)',
-                color: 'var(--teal)',
-                fontWeight: 700,
-                marginBottom: '10px',
-                paddingTop: '12px',
-                borderTop: '1px solid var(--cream-hairline)',
-              }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, ease, delay: D.themesLabel }}
-            >
-              Framework themes in this case study · 3 of 5
-            </motion.div>
-
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-                gap: 0,
-              }}
-            >
-              {activeThemes.map((theme, i) => (
-                <ThemePanel
-                  key={theme.num}
-                  theme={theme}
-                  detail={THEME_DETAIL[theme.num]}
-                  delay={D.themes + i * 0.12}
-                  tk={tk}
-                  isFirst={i === 0}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </Viz>
-
-      <Footer
-        kicker="Case 02 · Bridge"
-        source="Source · FDA Type A 21 Jul 2023 · NCT04817761 · v6-vir build spec"
-        delay={D.source}
-      />
-    </SlideGrid>
-  );
-}
-
-/* ========================================================
-   TemplateNode — numbered circle + step text (flow diagram)
-   ======================================================== */
-function TemplateNode({ index, text, delay, highlight, isLast }) {
-  const ease = [0.2, 0.7, 0.3, 1];
-  return (
-    <motion.div
-      style={{
-        display: 'flex',
-        alignItems: 'flex-start',
-        gap: 12,
-        padding: '6px 0',
-      }}
-      initial={{ opacity: 0, x: -8 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5, ease, delay }}
+    <SlideFrame
+      dataCase="teal"
+      eyebrow="Case 02 · Close"
+      headline={
+        <>
+          The methodology{' '}
+          <span style={{ color: accent, fontStyle: 'italic', fontWeight: 500 }}>
+            scales
+          </span>
+          {' '}— and the value is the template.
+        </>
+      }
+      subhead="What Asparlas teaches — beyond one adult ALL trial."
     >
-      <span
-        style={{
-          flex: '0 0 auto',
-          width: 24,
-          height: 24,
-          borderRadius: '50%',
-          background: highlight
-            ? 'var(--teal)'
-            : 'color-mix(in srgb, var(--teal) 15%, transparent)',
-          border: highlight ? 'none' : '1.5px solid var(--teal)',
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <span
-          className="deck-mono"
-          style={{
-            fontSize: 'var(--fs-card-meta)',
-            fontWeight: 700,
-            color: highlight ? 'var(--bg)' : 'var(--teal)',
-            lineHeight: 1,
-          }}
-        >
-          {index}
-        </span>
-      </span>
-      <span
-        style={{
-          fontFamily: 'var(--font-body)',
-          fontSize: 'var(--fs-card-body)',
-          lineHeight: 1.4,
-          color: highlight ? 'var(--cream)' : 'var(--cream-muted)',
-          fontWeight: highlight ? 600 : 400,
-        }}
-      >
-        {text}
-      </span>
-    </motion.div>
-  );
-}
-
-/* ========================================================
-   ThemePanel — hairline-divider theme panel.
-   Mirrors the slide 14 (CS1 bridge) ThemePanel vocabulary so
-   the framework themes ribbon reads the same on every case
-   bridge: NUM · GLYPH · TITLE row + italic detail body, with
-   borderLeft hairlines as the only visual divider between
-   panels (no card chrome). The user explicitly asked for the
-   theme icon vocabulary to be applied consistently across the
-   deck — this is that consistency.
-   ======================================================== */
-function ThemePanel({ theme, detail, delay, tk, isFirst }) {
-  const ease = [0.2, 0.7, 0.3, 1];
-  const color = tk(`--${theme.token}`);
-  return (
-    <motion.div
-      style={{
-        padding: '6px var(--space-4) 4px',
-        borderLeft: isFirst ? 'none' : '1px solid var(--cream-hairline)',
-      }}
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, ease, delay }}
-    >
-      {/* NUM · GLYPH · TITLE row */}
       <div
+        ref={ref}
         style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: 0,
+        }}
+      >
+        <motion.div
+          style={{
+            height: 1,
+            background: 'var(--cream-hairline)',
+            transformOrigin: 'left',
+            marginBottom: 'var(--space-4)',
+            flexShrink: 0,
+          }}
+          initial={{ scaleX: 0 }}
+          animate={go ? { scaleX: 1 } : { scaleX: 1 }}
+          transition={{ duration: 0.4, delay: D.divider, ease: EASE }}
+        />
+
+        <div style={{
+          flex: 1,
+          minHeight: 0,
           display: 'flex',
           alignItems: 'center',
-          gap: 'var(--space-2)',
-          marginBottom: '6px',
-        }}
-      >
-        <span
-          className="deck-mono"
-          style={{
-            fontSize: 'var(--fs-card-label)',
-            letterSpacing: 'var(--ls-mono-wide)',
-            color,
-            fontWeight: 700,
-          }}
-        >
-          {theme.num}
-        </span>
-        <span
-          aria-hidden
-          style={{
-            fontSize: '1.35rem',
-            color,
-            lineHeight: 1,
-            display: 'inline-flex',
-          }}
-        >
-          {theme.glyph}
-        </span>
-        <span
-          className="deck-mono uppercase"
-          style={{
-            fontSize: 'var(--fs-card-label)',
-            letterSpacing: 'var(--ls-mono-wide)',
-            color: 'var(--cream)',
-            fontWeight: 700,
-          }}
-        >
-          {theme.title}
-        </span>
-      </div>
+          justifyContent: 'center',
+        }}>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'clamp(var(--space-6), 6vh, 3.75rem)',
+            maxWidth: '55rem',
+            width: '100%',
+          }}>
+            {PRINCIPLES.map((p, i) => (
+              <div
+                key={p.n}
+                style={{
+                  display: 'flex',
+                  alignItems: 'baseline',
+                  gap: 'clamp(var(--space-3), 2vw, var(--space-5))',
+                }}
+              >
+                <motion.span
+                  className="deck-mono"
+                  style={{
+                    fontSize: 'var(--fs-slide-eyebrow)',
+                    letterSpacing: '0.18em',
+                    color: accent,
+                    fontWeight: 500,
+                    width: '1.75rem',
+                    flexShrink: 0,
+                  }}
+                  initial={{ opacity: 0 }}
+                  animate={go ? { opacity: 1 } : { opacity: 1 }}
+                  transition={{ duration: 0.2, delay: D.p[i].num }}
+                >
+                  {p.n}
+                </motion.span>
 
-      <div
-        className="deck-display italic"
-        style={{
-          fontSize: 'var(--fs-card-body)',
-          lineHeight: 1.35,
-          color: 'var(--cream-muted)',
-          fontWeight: 400,
-        }}
-      >
-        {detail}
+                <motion.div
+                  style={{
+                    width: 'clamp(48px, 8vw, 80px)',
+                    height: 1,
+                    flexShrink: 0,
+                    alignSelf: 'center',
+                    marginTop: -2,
+                    transformOrigin: 'left',
+                  }}
+                  initial={{ scaleX: 0, background: `color-mix(in srgb, ${accent} 28%, transparent)` }}
+                  animate={go ? { scaleX: 1, background: `color-mix(in srgb, ${accent} 28%, transparent)` } : { scaleX: 1 }}
+                  transition={{ duration: 0.3, delay: D.p[i].rule, ease: EASE }}
+                />
+
+                <span
+                  className="deck-display"
+                  style={{
+                    fontSize: 'var(--fs-slide-headline)',
+                    fontStyle: 'italic',
+                    fontWeight: 400,
+                    lineHeight: 1.15,
+                    letterSpacing: '-0.012em',
+                    color: 'var(--cream)',
+                    flex: 1,
+                    minWidth: 0,
+                  }}
+                >
+                  <WordReveal
+                    em={p.em}
+                    rest={p.rest}
+                    baseDelay={D.p[i].words}
+                    go={go}
+                    accent={accent}
+                  />
+                </span>
+              </div>
+            ))}
+
+            <motion.div
+              style={{
+                height: 1,
+                width: 'clamp(48px, 6vw, 60px)',
+                marginLeft: 'calc(1.75rem + clamp(var(--space-3), 2vw, var(--space-5)) + clamp(48px, 8vw, 80px) + clamp(var(--space-3), 2vw, var(--space-5)))',
+                transformOrigin: 'left',
+              }}
+              initial={{ scaleX: 0, background: `color-mix(in srgb, ${accent} 28%, transparent)` }}
+              animate={go ? { scaleX: 1 } : { scaleX: 1 }}
+              transition={{ duration: 0.3, delay: D.endMark, ease: EASE }}
+            />
+          </div>
+        </div>
+
+        <motion.div
+          style={{
+            flexShrink: 0,
+            background: 'color-mix(in srgb, var(--amber) 12%, transparent)',
+            borderTop: '1px solid color-mix(in srgb, var(--amber) 42%, transparent)',
+            borderBottom: '1px solid color-mix(in srgb, var(--amber) 42%, transparent)',
+            padding: 'var(--space-3) var(--space-5)',
+            borderRadius: 'var(--radius-sm)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-3)',
+          }}
+          initial={{ opacity: 0, y: 8 }}
+          animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: D.amber, ease: EASE }}
+        >
+          <motion.div
+            aria-hidden
+            style={{
+              flexShrink: 0,
+              transform: 'rotate(45deg)',
+              width: 12,
+              height: 12,
+              background: 'var(--amber)',
+            }}
+          />
+          <div className="deck-display" style={{ fontSize: 'var(--fs-slide-tagline)', lineHeight: 1.4 }}>
+            Case three shifts the constraint: not sample size, but{' '}
+            <span style={{ color: 'var(--cyan)', fontWeight: 500, fontStyle: 'italic' }}>
+              local evidence
+            </span>
+            {' '}— India asked for a trial the global dossier had to replace.
+          </div>
+        </motion.div>
+
+        <div style={{
+          flexShrink: 0,
+          display: 'flex',
+          alignItems: 'baseline',
+          justifyContent: 'space-between',
+          paddingTop: 'var(--space-3)',
+          marginTop: 'var(--space-2)',
+        }}>
+          <motion.span
+            className="deck-mono uppercase"
+            style={{
+              fontSize: 'var(--fs-slide-pageno)',
+              letterSpacing: '0.14em',
+              color: 'var(--cream-faint)',
+            }}
+            initial={{ opacity: 0 }}
+            animate={go ? { opacity: 1 } : { opacity: 1 }}
+            transition={{ duration: 0.3, delay: D.footer }}
+          >
+            Case 02 · End
+          </motion.span>
+        </div>
       </div>
-    </motion.div>
+    </SlideFrame>
   );
 }
