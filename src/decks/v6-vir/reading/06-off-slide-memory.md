@@ -6,6 +6,23 @@ The live deck was **de-busied** on purpose. This page holds facts, guardrails, a
 
 ---
 
+## Speaker-notes convention (live spine)
+
+All **49 live slides** now have v6-vir overrides in `override-notes.ts`. Read the **Spoken** section aloud — it is full sentences. **Cues** are delivery reminders only (timing, pointing, guardrails). **Off-slide** is Q&A depth not on screen.
+
+---
+
+Every case follows: **divider reset** → **first content slide orients** (drug · program · ask) → then numbers or quotes.
+
+| Case | Divider | First setup slide | What audience must hear before depth |
+|------|---------|-------------------|--------------------------------------|
+| CS1 | Ambrisentan · pediatric PAH | `cs1-question` | Drug, terminated Phase IIb, exposure-matching ask → then 380 vs 39 |
+| CS2 | Asparlas · adult Ph-neg ALL | `cs2-asp-challenge` | Pegaspargase, 2018 pediatric label, 94-adult problem |
+| CS3 | Ivosidenib · India | `cs3-setup` | 42+ countries, India gap, global dossier strategy → then SEC quote |
+| CS4 | Pharazi · AI workflows | `cs2-regulatory-floor` | Shift from drug dossiers to evidence-system traceability |
+
+---
+
 ## Global guardrails (every answer)
 
 - **No Servier-confidential numbers** anywhere in the talk.
@@ -34,6 +51,12 @@ Meta: Vir Biotechnology candidate seminar · **June 17, 2026** · ~45 min includ
 ---
 
 ## CS1 · Pediatric PAH — off-slide
+
+### `cs1-mechanism` (scope guard)
+- **Headline** names three pathways — **do not lecture** prostacyclin / NO; backup `cs1-history` owns field timeline.
+- **This case:** endothelin-pathway **dose bridge** — ETA selectivity is the pharmacologic premise for matching adult AUC in pediatrics.
+- **Point order:** left narrow lumen → + ambrisentan → right open lumen → bottom selectivity card (>4000:1).
+- **Land:** "Other PAH pathways are context. This case is the endothelin-pathway dose bridge."
 
 ### `cs1-pkpd` (panels removed)
 - **On screen:** AUC bridge + Cmax safety only.

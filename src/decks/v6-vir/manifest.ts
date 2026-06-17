@@ -171,7 +171,7 @@ const manifest = {
 
     // CS 1
     { id: 'cs1-divider', title: 'Case 01 · Ambrisentan', component: Cs1Divider, isTitle: true, transition: 'fade', time: 20 },
-    { id: 'cs1-question', title: 'CS1 · the question', component: Cs1Question, isTitle: false, transition: 'fade', time: 45 },
+    { id: 'cs1-question', title: 'CS1 · setup + the question', component: Cs1Question, isTitle: false, transition: 'fade', time: 55 },
     { id: 'cs1-context', title: 'CS1 · why the question is hard', component: Cs1Context, isTitle: false, transition: 'fade', time: 45 },
     { id: 'cs1-mechanism', title: 'CS1 · pathway + drug', component: Cs1Mechanism, isTitle: false, transition: 'fade', time: 35 },
     { id: 'cs1-trial', title: 'CS1 · AMB112529 + LTE', component: Cs1Trial, isTitle: false, transition: 'fade', time: 50 },
@@ -186,7 +186,7 @@ const manifest = {
 
     // CS 2 — Asparlas efficient design
     { id: 'cs2-asp-divider', title: 'Case 02 · Calaspargase pegol', component: Cs2AspDivider, isTitle: true, transition: 'fade', time: 35 },
-    { id: 'cs2-asp-challenge', title: "CS2 · 94 adults isn't feasible", component: Cs2AspChallenge, isTitle: false, transition: 'fade', time: 70 },
+    { id: 'cs2-asp-challenge', title: 'CS2 · setup + 94 adults not feasible', component: Cs2AspChallenge, isTitle: false, transition: 'fade', time: 75 },
     { id: 'cs2-asp-strategy', title: 'CS2 · two innovations stacked', component: Cs2AspStrategy, isTitle: false, transition: 'fade', time: 75 },
     { id: 'cs2-asp-fda', title: 'CS2 · FDA Type A agreed N=60', component: Cs2AspFda, isTitle: false, transition: 'fade', time: 75 },
     { id: 'cs2-asp-fit', title: 'CS2 · sixty adults anchor the model', component: Cs2AspFit, isTitle: false, transition: 'fade', time: 75 },
@@ -195,7 +195,7 @@ const manifest = {
 
     // CS 3 — Ivosidenib / India reliance
     { id: 'cs3-ivosidenib-divider', title: "Case 03 · Ivosidenib in India", component: CS3IvosidenibDivider, isTitle: true, transition: 'fade', time: 25 },
-    { id: 'cs3-setup', title: 'CS3 · CDSCO normally demands a local trial', component: CS2Setup, isTitle: false, transition: 'fade', time: 55 },
+    { id: 'cs3-setup', title: 'CS3 · setup + SEC local PK/PD ask', component: CS2Setup, isTitle: false, transition: 'fade', time: 60 },
     { id: 'cs3-bg-regulatory', title: 'CS3 · Rule 101 · the wall and the opening', component: CS2BackgroundRegulatory, isTitle: false, transition: 'fade', time: 55 },
     { id: 'cs3-pillars', title: 'CS3 · six convergent evidence pillars', component: CS2Pillars, isTitle: false, transition: 'fade', time: 70 },
     { id: 'cs3-reversal', title: 'CS3 · CDSCO approved without a local trial', component: CS2Reversal, isTitle: false, transition: 'fade', time: 55 },
@@ -205,7 +205,7 @@ const manifest = {
 
     // CS 4 — AI / Pharazi hard cut
     { id: 'cs2-pharazi-divider', title: 'Case 04 · AI / Pharazi', component: CS2PharaziDivider, isTitle: true, transition: 'fade', time: 25 },
-    { id: 'cs2-regulatory-floor', title: 'CS4 · Regulatory floor', component: Cs3AiRegulatoryFloor, isTitle: false, time: 35 },
+    { id: 'cs2-regulatory-floor', title: 'CS4 · setup + regulatory floor', component: Cs3AiRegulatoryFloor, isTitle: false, time: 40 },
     { id: 'cs2-gap', title: 'CS4 · Traceability gap', component: Cs3AiGap, isTitle: false, time: 35 },
     { id: 'cs2-working-overview', title: 'CS4 · Working system overview', component: Cs3AiWorkingOverview, isTitle: false, time: 50 },
     { id: 'cs2-poppk-dashboard', title: 'CS4 · PopPK review dashboard', component: Cs3AiPoppkDashboard, isTitle: false, time: 50 },
@@ -217,9 +217,9 @@ const manifest = {
     { id: 'company-bridge-divider', title: 'Company bridge · two pillars, one discipline', component: CompanyBridgeDivider, isTitle: true, transition: 'fade', time: 45 },
     { id: 'company-bridge-oncology-problem', title: 'Company bridge · oncology problem', component: CompanyBridgeOncologyProblem, isTitle: false, transition: 'fade', time: 80 },
     { id: 'company-bridge-oncology-approach', title: 'Company bridge · assay to model to dose', component: CompanyBridgeOncologyApproach, isTitle: false, transition: 'fade', time: 95 },
-    { id: 'company-bridge-case-mapping', title: 'Company bridge · why the cases transfer', component: CompanyBridgeCaseMapping, isTitle: false, transition: 'fade', time: 65 },
-    { id: 'company-bridge-hbv-hdv', title: 'Company bridge · HBV/HDV fit', component: CompanyBridgeHbvHdv, isTitle: false, transition: 'fade', time: 65 },
-    { id: 'company-bridge-fit', title: 'Company bridge · what I would own', component: CompanyBridgeFit, isTitle: false, transition: 'fade', time: 90 },
+    { id: 'company-bridge-case-mapping', title: 'Company bridge · discipline transfer', component: CompanyBridgeCaseMapping, isTitle: false, transition: 'fade', time: 65 },
+    { id: 'company-bridge-hbv-hdv', title: 'Company bridge · HBV/HDV dose questions', component: CompanyBridgeHbvHdv, isTitle: false, transition: 'fade', time: 65 },
+    { id: 'company-bridge-fit', title: 'Company bridge · how I would start', component: CompanyBridgeFit, isTitle: false, transition: 'fade', time: 90 },
 
     // Close
     { id: 'closing-thread',  title: 'Closing · The common thread', component: ClosingThread, isTitle: false, transition: 'fade', time: 60 },

@@ -34,6 +34,17 @@ export const STANDARD_AREAS = [
 
 export const STANDARD_ROW_SIZES = 'auto auto auto auto minmax(0, 1fr) auto';
 
+/** Five-row preset — drops the subhead row when viz needs more vertical room. */
+export const STANDARD_AREAS_NO_SUBHEAD = [
+  'chrome-l chrome-l chrome-l chrome-l chrome-l chrome-l chrome-r chrome-r chrome-r chrome-r chrome-r chrome-r',
+  'eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow  eyebrow',
+  'headline headline headline headline headline headline headline headline headline headline headline headline',
+  'viz      viz      viz      viz      viz      viz      viz      viz      viz      viz      viz      viz',
+  'footer   footer   footer   footer   footer   footer   footer   footer   footer   footer   footer   footer',
+];
+
+export const STANDARD_ROW_SIZES_NO_SUBHEAD = 'auto auto auto minmax(0, 1fr) auto';
+
 // Extract the complete set of area names declared in a 2D areas array.
 function collectAreaNames(areas) {
   const set = new Set();

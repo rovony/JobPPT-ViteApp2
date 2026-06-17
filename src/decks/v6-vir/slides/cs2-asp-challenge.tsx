@@ -3,6 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
+import CaseOrientationStrip from '../_shared/CaseOrientationStrip';
 
 /**
  * Slide 24 · CS2 Challenge — Approved in pediatrics. Adults need a smarter design.
@@ -45,7 +46,7 @@ export default function Cs2AspChallenge() {
 
   return (
     <SlideGrid dataCase="teal" areas={STANDARD_AREAS}>
-      <Eyebrow color="var(--teal)" delay={D.eyebrow}>CS2 · The challenge</Eyebrow>
+      <Eyebrow color="var(--teal)" delay={D.eyebrow}>CS2 · Setup + challenge</Eyebrow>
       <Headline delay={D.headline} maxChars={50}>
         Approved in pediatrics.{' '}
         <span style={{ color: 'var(--teal)', fontStyle: 'italic', fontWeight: 700 }}>
@@ -61,16 +62,30 @@ export default function Cs2AspChallenge() {
 
       <Viz>
         <div
+          className="deck-viz-stack"
           style={{
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 'var(--space-5)',
             maxWidth: '56rem',
-            minHeight: 0,
           }}
         >
+          <CaseOrientationStrip
+            accent="var(--teal)"
+            delay={D.anchorsLabel}
+            items={[
+              {
+                kicker: 'Drug · disease',
+                body: <>Calaspargase pegol (Asparlas) · pegylated asparaginase · adult Ph-negative ALL</>,
+              },
+              {
+                kicker: 'Pediatric precedent',
+                body: <>FDA pediatric label <strong style={{ fontWeight: 600 }}>2018</strong> · NSAA surrogate ≥ 0.1 U/mL already agreed</>,
+              },
+              {
+                kicker: 'Adult constraint',
+                body: <>Original protocol needed <strong style={{ fontWeight: 600 }}>94 adults</strong> — endpoint-powered, operationally undeliverable</>,
+              },
+            ]}
+          />
+
           <motion.div
             className="deck-mono uppercase"
             style={{
@@ -80,7 +95,7 @@ export default function Cs2AspChallenge() {
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, ease, delay: D.anchorsLabel }}
+            transition={{ duration: 0.5, ease, delay: D.anchorsLabel + 0.25 }}
           >
             Three numbers that frame the problem
           </motion.div>

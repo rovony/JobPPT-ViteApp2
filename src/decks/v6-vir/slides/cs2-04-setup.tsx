@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import SlideFrame from '@/components/deck/SlideFrame';
+import CaseOrientationStrip from '../_shared/CaseOrientationStrip';
 
 /**
  * CS3 · Setup — the SEC challenge (Dec 2024).
@@ -67,7 +68,7 @@ export default function CS2Setup() {
     <SlideFrame
       dataCase="cyan"
       eyebrowColor="var(--cyan)"
-      eyebrow="Case 03 · The Challenge"
+      eyebrow="Case 03 · Setup + challenge"
       headline={
         <>
           December 2024 — the SEC asked for{' '}
@@ -79,13 +80,14 @@ export default function CS2Setup() {
       }
       headlineMaxChars={52}
       subhead={
-        <span style={{ fontStyle: 'italic' }}>
-          The science to answer existed. The science to comply did not.
-        </span>
+        <>
+          <strong style={{ fontWeight: 600 }}>Ivosidenib</strong> (Tibsovo) · IDH1-mutant AML &amp; cholangiocarcinoma — approved in{' '}
+          <strong style={{ fontWeight: 600 }}>42+ countries</strong>, blocked in India until a reliance dossier could answer the local-data question.
+        </>
       }
-      subheadMaxChars={80}
+      subheadMaxChars={130}
       subheadSize="lead"
-      footerKicker="Case 03 · The Challenge"
+      footerKicker="Case 03 · Setup + challenge"
       footerSource="CDSCO SEC public minutes · Dec 2024"
     >
       <div
@@ -98,6 +100,24 @@ export default function CS2Setup() {
           minHeight: 0,
         }}
       >
+        <CaseOrientationStrip
+          accent="var(--cyan)"
+          delay={0.9}
+          items={[
+            {
+              kicker: 'Global status',
+              body: <>Marketing authorization in 42+ reference countries · years of post-approval safety</>,
+            },
+            {
+              kicker: 'India gap',
+              body: <>No pre-approval local trial · SEC requested Indian PK/PD before registration</>,
+            },
+            {
+              kicker: 'Clin pharm move',
+              body: <>Prove the <strong style={{ fontWeight: 600 }}>global dossier</strong> answers the local-data question</>,
+            },
+          ]}
+        />
         <TimelineSVG />
         <QuoteCard />
         <AsymmetryPanel />

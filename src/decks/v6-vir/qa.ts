@@ -251,6 +251,38 @@ A: Case one — pediatric ambrisentan exposure bridge, EMA and PMDA approved, FD
 
 > **Move-forward:** ledger recap without re-teaching.`,
 
+  'cs1-mechanism': `## Q1: The slide says three pathways — are you going to teach all of PAH pharmacology?
+**From:** clinical panelist
+**Difficulty:** ★★ · **Topic:** scope
+
+A: No. The headline orients the room; this case is only the endothelin arm. Prostacyclin and NO/cGMP pathways are context — backup slide \`cs1-history\` if they want the full timeline. Here I only need ETA selectivity as the pharmacologic premise for matching adult exposure in pediatrics.
+
+> **Anchor:** three pathways on screen · one pathway in the case.
+
+## Q2: Why does ETA selectivity matter — why not block both ETA and ETB?
+**From:** clinical pharmacologist
+**Difficulty:** ★★★ · **Topic:** mechanism
+
+A: Dual blockade (bosentan-style) adds hepatotoxicity and fluid-retention monitoring burden. Ambrisentan's ETA bias preserves ETB-mediated NO signaling and ET-1 clearance. For this case, the registration logic is simpler: same selective drug, same target — match adult exposure in pediatrics.
+
+> **Move-forward:** same pathway in children → AUC matching is the bridge.`,
+
+  'cs1-question': `## Q1: Why jump to 380 adults before explaining the disease?
+**From:** clinical panelist
+**Difficulty:** ★★ · **Topic:** case setup
+
+A: The slide is ordered for clinical pharmacologists: drug, terminated pediatric program, then the PK-bridge question, then the adult–pediatric asymmetry. PAH 101 is the next slide. I would not lead with 380 adults in the room — I orient first, then name the asymmetry.
+
+> **Anchor:** setup row → question → numbers → disease on next slide.
+
+## Q2: What does "terminated trial" mean here?
+**From:** regulatory panelist
+**Difficulty:** ★★★ · **Topic:** program status
+
+A: The Phase IIb pediatric efficacy program stopped early. What remained was an open-label PK-anchored cohort of 39 patients — enough for exposure matching, not for a standalone efficacy re-proof in children.
+
+> **Move-forward:** dose-defense, not repeat-efficacy trial.`,
+
   'cs2-asp-divider': `## Q1: Why did Asparlas move from Case 03 to Case 02?
 **From:** narrative-fit panelist
 **Difficulty:** ★★ · **Topic:** story architecture

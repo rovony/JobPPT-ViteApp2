@@ -82,6 +82,7 @@ export default function Cs1Mechanism() {
       <Footer
         delay={reduced ? 0 : 1.6}
         kicker="07b · CS1 · Mechanism"
+        tagline="Context: three PAH pathways · This case: endothelin dose bridge."
         source="Sources · ESC/ERS 2022 · Letairis PI · Tracleer PI · Opsumit PI"
       />
     </SlideGrid>

@@ -7,7 +7,7 @@ export default function CompanyBridgeHbvHdv() {
   return (
     <BridgeBullets
       content={companyBridge.hbv}
-      footerTagline="This is breadth with humility: real HBV/antiviral touchpoints, no HDV overclaim."
+      footerTagline="Lead with Vir's dose questions — prior HBV touchpoints are supporting context only."
       iconOffset={3}
     />
   );

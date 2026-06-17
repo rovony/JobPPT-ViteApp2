@@ -7,7 +7,7 @@ export default function CompanyBridgeCaseMapping() {
   return (
     <BridgeBullets
       content={companyBridge.caseMapping}
-      footerTagline="The four cases are not a CV recap; they are the operating model for this pipeline."
+      footerTagline="Same discipline across constraints — not a claim that the biology is identical."
       iconOffset={2}
     />
   );

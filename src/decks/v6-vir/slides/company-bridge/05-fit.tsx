@@ -7,7 +7,7 @@ export default function CompanyBridgeFit() {
   return (
     <BridgeBullets
       content={companyBridge.fit}
-      footerTagline="Senior contribution: own the dose-defense function and grow the people around it."
+      footerTagline="Listen first — name open questions before proposing models or org design."
       iconOffset={4}
     />
   );

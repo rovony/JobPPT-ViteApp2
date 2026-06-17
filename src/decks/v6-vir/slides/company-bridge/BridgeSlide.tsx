@@ -16,9 +16,9 @@ export function BridgeDivider({ content }) {
       eyebrow={content.eyebrow}
       headline={<>Two pillars, <span style={{ color: 'var(--amber)', fontStyle: 'italic' }}>one discipline.</span></>}
       subhead={content.sub}
-      footerKicker="Company adapter · swappable bridge"
-      footerTagline="For the next company, rewrite only the adapter content and bridge slides."
-      footerSource="Vir Deck Content Pack · IncludeINPPT"
+      footerKicker="Company bridge · Vir"
+      footerTagline={content.payoff}
+      footerSource="Public pipeline · clinical pharmacology framing"
     >
       <div
         style={{
@@ -86,8 +86,8 @@ export function BridgeBullets({ content, footerTagline, iconOffset = 0 }) {
       dataCase="amber"
       eyebrow={content.eyebrow}
       headline={<>{highlightHeader(content.header)}</>}
-      subhead="This is the adapter section: the reusable core stays constant, and this section translates it to the company pipeline."
-      footerKicker="Company bridge · Vir pipeline"
+      subhead={content.subhead}
+      footerKicker="Company bridge · Vir"
       footerTagline={footerTagline}
       footerSource={content.source}
     >
@@ -150,21 +150,20 @@ function highlightHeader(text) {
 
 function emphasize(text) {
   const terms = [
-    'plasma does not equal tumor',
-    'latent compartment',
-    'assay->model->dose',
+    'plasma is not tumor',
+    'masked or total drug',
+    'decision-bearing',
     'OBD',
-    'not an MTD',
+    'maximum tolerated dose',
     'model precision',
-    'Ambrisentan',
-    'Asparlas',
-    'AI / DeepPK',
-    'Co-inventor',
-    'Sotrovimab',
-    'Dectova',
-    'cross-functional dose-defense function',
-    'First 90 days',
-    'judgment under uncertainty',
+    'target-exposure',
+    'model-anchored',
+    'convergent reliance',
+    'traceable review',
+    'public information only',
+    'not a claim',
+    'partner first',
+    'Player-coach',
   ];
 
   let nodes = [text];

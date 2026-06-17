@@ -7,7 +7,7 @@ import SlideFrame from '@/components/deck/SlideFrame';
 const EASE = [0.2, 0.7, 0.3, 1];
 const ICONS = { Bot, FileCheck2, GitBranch, LockKeyhole, PanelsTopLeft, ShieldCheck };
 
-export function AiEvidenceSlide({ eyebrow, headline, subhead, cards, footerTagline, footerSource }: any) {
+export function AiEvidenceSlide({ eyebrow, headline, subhead, subheadMaxChars = 116, cards, footerTagline, footerSource }: any) {
   const reduced = useReducedMotion();
   const go = !reduced;
 
@@ -18,7 +18,7 @@ export function AiEvidenceSlide({ eyebrow, headline, subhead, cards, footerTagli
       headline={headline}
       headlineMaxChars={68}
       subhead={subhead}
-      subheadMaxChars={116}
+      subheadMaxChars={subheadMaxChars}
       subheadSize="lead"
       footerKicker="AI / Pharazi"
       footerTagline={footerTagline}
