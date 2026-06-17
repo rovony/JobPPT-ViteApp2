@@ -94,14 +94,15 @@ export default function Cs1Context() {
         The lumen narrows. PVR rises. The right ventricle hypertrophies, dilates, then fails.
       </Subhead>
 
-      <Viz>
+      <Viz style={{ overflow: 'hidden', minHeight: 0 }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '1.2fr 1fr',
-          gap: 'var(--space-8)',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(18rem, 100%), 1fr))',
+          gap: 'clamp(var(--space-4), 2vw, var(--space-8))',
           width: '100%',
           height: '100%',
-          alignItems: 'center',
+          minHeight: 0,
+          alignItems: 'stretch',
         }}>
           
           {/* LEFT COLUMN: Data Dossier */}
@@ -116,10 +117,12 @@ export default function Cs1Context() {
               border: '1px solid var(--cream-hairline)',
               borderLeft: '4px solid var(--case)',
               borderRadius: 'var(--radius-lg)',
-              padding: 'var(--space-5) var(--space-6)',
+              padding: 'clamp(var(--space-3), 2vw, var(--space-5)) clamp(var(--space-4), 2.5vw, var(--space-6))',
               display: 'flex',
               flexDirection: 'column',
               boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+              minHeight: 0,
+              alignSelf: 'center',
             }}
           >
             {FACTS.map((fact, i) => (
@@ -132,40 +135,41 @@ export default function Cs1Context() {
             ))}
           </motion.div>
 
-          {/* RIGHT COLUMN: Anatomical Anchor & Conclusion */}
+          {/* RIGHT COLUMN: lung shrinks to leave room for endothelin callout */}
           <div style={{
-            position: 'relative',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
+            minHeight: 0,
             height: '100%',
+            minWidth: 0,
           }}>
             <div
               style={{
+                flex: '1 1 0',
+                minHeight: 0,
                 width: '100%',
-                maxWidth: '36rem',
                 display: 'flex',
+                alignItems: 'center',
                 justifyContent: 'center',
-                opacity: 0.8,
+                overflow: 'hidden',
               }}
             >
               <Lungs
                 layoutId="cs1-lung"
                 variant="foundation"
-                widthOverride="100%"
+                heightConstrained
               />
             </div>
 
-            {/* Conclusion badge — elevated and prominent */}
             <motion.div
               initial={reduced ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: reduced ? 0 : 0.6, delay: 1.3, ease: EASE }}
               style={{
-                marginTop: 'var(--space-6)',
+                flexShrink: 0,
+                marginTop: 'clamp(var(--space-2), 1.5vh, var(--space-4))',
                 width: '100%',
-                padding: 'var(--space-4) var(--space-5)',
+                padding: 'clamp(var(--space-3), 1.5vh, var(--space-4)) clamp(var(--space-4), 2vw, var(--space-5))',
                 background: 'color-mix(in srgb, var(--amber) 12%, var(--bg))',
                 border: '1px solid color-mix(in srgb, var(--amber) 30%, transparent)',
                 borderRadius: 'var(--radius-md)',
@@ -175,9 +179,9 @@ export default function Cs1Context() {
               <div 
                 className="deck-display italic" 
                 style={{
-                  fontSize: 'var(--fs-slide-tagline)',
+                  fontSize: 'var(--fs-slide-subhead)',
                   color: 'var(--cream)',
-                  lineHeight: 1.4,
+                  lineHeight: 1.45,
                   fontWeight: 500,
                   textAlign: 'center',
                 }}

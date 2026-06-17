@@ -70,6 +70,7 @@ export default function Lungs({
   color = 'var(--coral)',
   className = '',
   widthOverride,
+  heightConstrained = false,
   opacity,
   // V2 §0 additions:
   rotation = 0,            // degrees: 0 (upright) | 90 (trachea-as-axis) | -90
@@ -92,8 +93,17 @@ export default function Lungs({
       }}
       className={`lung-shared ${variantClass} ${className}`}
       style={{
-        width: widthOverride || dims.width,
-        maxHeight: '100%',
+        ...(heightConstrained
+          ? {
+              height: '100%',
+              width: 'auto',
+              maxHeight: '100%',
+              maxWidth: '100%',
+            }
+          : {
+              width: widthOverride || dims.width,
+              maxHeight: '100%',
+            }),
         aspectRatio: dims.aspectRatio,
         color,
         pointerEvents: 'none',
