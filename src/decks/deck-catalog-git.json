@@ -161,9 +161,9 @@
   },
   "v6-vir": {
     "firstCommittedAt": "2026-06-16T21:06:36-04:00",
-    "lastUpdatedAt": "2026-06-16T21:06:36-04:00",
-    "commitCount": 1,
-    "lastCommitSubject": "feat(deck): add v6 Vir seminar deck",
+    "lastUpdatedAt": "2026-06-16T21:22:19-04:00",
+    "commitCount": 2,
+    "lastCommitSubject": "fix(deck): keep career arc milestones in frame",
     "kind": "presentation",
     "versionFamily": "v6-vir",
     "versionLabel": null,
