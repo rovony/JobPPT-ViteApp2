@@ -21,7 +21,7 @@ const STOP_LAYOUT = [
   { x: 25.5, y: 61, width: 'clamp(11rem, 18vw, 17.25rem)', iconScale: 0.58 },
   { x: 45, y: 55, width: 'clamp(11rem, 17vw, 17rem)', iconScale: 0.58 },
   { x: 66.5, y: 42, width: 'clamp(11.5rem, 19vw, 18rem)', iconScale: 0.58 },
-  { x: 89, y: 29, width: 'clamp(11.5rem, 19vw, 18rem)', iconScale: 0.54 },
+  { x: 98.5, y: 29, width: 'clamp(11.5rem, 19vw, 18rem)', iconScale: 0.54, translateX: '-100%' },
 ];
 
 const STOPS = [
@@ -144,8 +144,8 @@ export default function CareerArc() {
                 <motion.div 
                   key={i}
                   data-career-stop={stop.years}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, x: layout.translateX ?? 0, y: 20 }}
+                  animate={go ? { opacity: 1, x: layout.translateX ?? 0, y: 0 } : { opacity: 1, x: layout.translateX ?? 0, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.8 + (i * 0.2), ease: EASE }}
                   style={{ 
                     position: 'absolute',
@@ -153,7 +153,6 @@ export default function CareerArc() {
                     top: `calc(${layout.y}% - var(--career-short-lift))`,
                     width: layout.width,
                     maxWidth: 'calc(100% - var(--space-2))',
-                    transform: 'translateX(-50%)',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'stretch',
