@@ -17,11 +17,11 @@ const EASE = [0.2, 0.7, 0.3, 1];
 const SPINE_PATH = 'M 80 360 C 170 352, 205 325, 270 305 C 350 286, 392 276, 460 275 C 555 274, 595 225, 670 210 C 770 188, 812 160, 900 145';
 
 const STOP_LAYOUT = [
-  { x: 10, y: 72, width: 'clamp(10.5rem, 15.5vw, 16.25rem)', iconScale: 0.58, translateX: 0 },
-  { x: 25.5, y: 61, width: 'clamp(11rem, 18vw, 17.25rem)', iconScale: 0.58 },
-  { x: 45, y: 55, width: 'clamp(11rem, 17vw, 17rem)', iconScale: 0.58 },
-  { x: 66.5, y: 42, width: 'clamp(11.5rem, 19vw, 18rem)', iconScale: 0.58 },
-  { x: 98.5, y: 29, width: 'clamp(11.5rem, 19vw, 18rem)', iconScale: 0.54, translateX: '-100%' },
+  { x: 10, y: 72, width: 'clamp(9.25rem, 13vw, 14rem)', iconScale: 0.58, translateX: 0 },
+  { x: 26.5, y: 61, width: 'clamp(10rem, 14vw, 15rem)', iconScale: 0.58, translateX: 0 },
+  { x: 44.5, y: 55, width: 'clamp(10rem, 15vw, 15.75rem)', iconScale: 0.58, translateX: 0 },
+  { x: 62, y: 42, width: 'clamp(10.5rem, 15.5vw, 16.5rem)', iconScale: 0.58, translateX: 0 },
+  { x: 98.5, y: 29, width: 'clamp(10.5rem, 16.5vw, 16.75rem)', iconScale: 0.54, translateX: '-100%' },
 ];
 
 const STOPS = [
