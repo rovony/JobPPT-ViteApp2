@@ -150,12 +150,22 @@
     "isLatestInFamily": true
   },
   "v5-ultragenyx": {
-    "firstCommittedAt": "2026-05-06T18:37:43.665Z",
-    "lastUpdatedAt": "2026-05-06T18:37:43.665Z",
-    "commitCount": 0,
-    "lastCommitSubject": null,
+    "firstCommittedAt": "2026-05-06T18:18:41-04:00",
+    "lastUpdatedAt": "2026-05-06T18:18:41-04:00",
+    "commitCount": 1,
+    "lastCommitSubject": "feat(deck): add v5-ultragenyx for Ultragenyx Sr Director Clin Pharm interview",
     "kind": "presentation",
     "versionFamily": "v5-ultragenyx",
+    "versionLabel": null,
+    "isLatestInFamily": true
+  },
+  "v6-vir": {
+    "firstCommittedAt": "2026-06-16T21:06:36-04:00",
+    "lastUpdatedAt": "2026-06-16T21:06:36-04:00",
+    "commitCount": 1,
+    "lastCommitSubject": "feat(deck): add v6 Vir seminar deck",
+    "kind": "presentation",
+    "versionFamily": "v6-vir",
     "versionLabel": null,
     "isLatestInFamily": true
   },
