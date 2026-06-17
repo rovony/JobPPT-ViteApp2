@@ -3,8 +3,6 @@ import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useDeck } from '@/lib/deck-store';
 import CASES from '../_shared/cases';
 import CaseCard from '../_shared/CaseCard';
-import UltragenyxLogo from '../components/UltragenyxLogo';
-
 /**
  * 01-title — V3-R2 cover (Kinetic PK Spine).
  *
@@ -97,23 +95,6 @@ export default function TitleSlide() {
           ].join(', '),
         }}
       />
-      {/* ---------- Ultragenyx logo · top-right (inset from edge) ---------- */}
-      <div
-        className="absolute z-[2] pointer-events-none"
-        style={{
-          top: 'calc(var(--deck-pad-top) + var(--space-3))',
-          right: 'calc(var(--deck-gutter) + var(--space-3))',
-        }}
-      >
-        <UltragenyxLogo
-          layoutId="ultragenyx-mark"
-          go={go}
-          color="var(--cream-muted)"
-          width="clamp(140px, 14vw, 220px)"
-          restOpacity={0.92}
-        />
-      </div>
-
       <div
         className="relative z-[1] w-full mx-auto flex flex-col"
         style={{ maxWidth: '1600px', rowGap: 'var(--space-6)' }}

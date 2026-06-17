@@ -2,7 +2,6 @@
 import React, { useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import TitleLayout from '@/components/deck/layouts/TitleLayout';
-import UltragenyxLogo from '../components/UltragenyxLogo';
 
 /**
  * 02-hook-A — "When the trial isn't the answer."  (~75 sec)
@@ -152,28 +151,6 @@ export default function HookATrialNotAnswer({ deck }) {
         className="relative h-full w-full"
         style={{ overflow: 'hidden' }}
       >
-        {/* ─── Ultragenyx logo — shared layoutId from slide 01.
-            FLIP-morphs from the small slide-1 corner mark up to ~2x size
-            here. persistent={true} skips the entry fade so the morph
-            isn't compounded with an opacity tween (per CLAUDE.md cross-
-            slide layout-morphing rule). ─── */}
-        <div
-          className="absolute z-[2] pointer-events-none"
-          style={{
-            top: 'calc(var(--deck-pad-top) + var(--space-3))',
-            right: 'calc(var(--deck-gutter) + var(--space-3))',
-          }}
-        >
-          <UltragenyxLogo
-            layoutId="ultragenyx-mark"
-            persistent
-            go={go}
-            color="var(--cream-muted)"
-            width="clamp(220px, 22vw, 360px)"
-            restOpacity={0.82}
-          />
-        </div>
-
         {/* ─── Zone 1 — Top-left CHAPTER MARK ─── */}
         <motion.div
           style={{
