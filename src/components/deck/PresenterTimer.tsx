@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Play, Pause, RotateCcw } from 'lucide-react';
+import { Play, Pause, RotateCcw, EyeOff } from 'lucide-react';
 
 /**
  * PresenterTimer — elapsed time since Play was pressed.
  * Auto-starts on mount so you don't need a click.
  */
-export default function PresenterTimer() {
+export default function PresenterTimer({ onHide }) {
   const [elapsed, setElapsed] = useState(0);
   const [running, setRunning] = useState(true);
   const startRef = useRef(Date.now());
@@ -60,6 +60,17 @@ export default function PresenterTimer() {
         >
           <RotateCcw className="w-3.5 h-3.5" />
         </button>
+        {onHide && (
+          <button
+            onClick={onHide}
+            aria-label="Hide timer"
+            title="Hide timer"
+            className="h-8 w-8 rounded-full flex items-center justify-center border transition-colors"
+            style={{ borderColor: 'var(--cream-hairline)', color: 'var(--cream-muted)' }}
+          >
+            <EyeOff className="w-3.5 h-3.5" />
+          </button>
+        )}
       </div>
     </div>
   );

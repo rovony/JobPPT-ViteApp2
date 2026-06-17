@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useCallback, useEffect, useState } from 'react';
-import { X, Eye, EyeOff, RotateCcw, GripVertical, LayoutGrid, Bookmark } from 'lucide-react';
+import { X, Eye, EyeOff, RotateCcw, GripVertical, LayoutGrid, Bookmark, Clock } from 'lucide-react';
 import {
   SECTION_LABEL,
   COLUMN_LABEL,
@@ -38,9 +38,11 @@ function layoutMatchesCurrent(presetLayout, visibility, columns) {
   return true;
 }
 
-export default function PresenterLayoutSettings({ open, onClose, layout }) {
+export default function PresenterLayoutSettings({ open, onClose, layout, chrome }) {
   const { visibility, columns, toggleVisibility, moveSectionToPosition, resetLayout, applyLayoutPreset } =
     layout;
+  const showTimer = chrome?.showTimer ?? true;
+  const toggleShowTimer = chrome?.toggleShowTimer;
 
   const [dragKey, setDragKey] = useState(null);
   const [hoverCol, setHoverCol] = useState(null);
@@ -189,6 +191,52 @@ export default function PresenterLayoutSettings({ open, onClose, layout }) {
             panel by the handle to put it in another lane or change stacking order. Drop on a card to place above it, or in the dashed area
             to add to the bottom of that lane.
           </p>
+
+          {toggleShowTimer && (
+            <div
+              className="mb-4 rounded-lg border p-3"
+              style={{
+                borderColor: 'var(--cream-hairline)',
+                background: 'color-mix(in srgb, var(--cream-ghost) 20%, transparent)',
+              }}
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <Clock className="w-3.5 h-3.5 shrink-0" style={{ color: 'var(--case, var(--amber))' }} aria-hidden />
+                <span
+                  className="deck-mono uppercase"
+                  style={{ fontSize: '0.55rem', letterSpacing: 'var(--ls-mono-wide)', color: 'var(--cream-faint)' }}
+                >
+                  Top bar
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={toggleShowTimer}
+                title={showTimer ? 'Hide elapsed timer' : 'Show elapsed timer'}
+                aria-label={showTimer ? 'Hide elapsed timer' : 'Show elapsed timer'}
+                className="w-full flex items-center gap-2 rounded-lg border px-3 py-2 text-left transition-colors hover:bg-[var(--cream-ghost)]"
+                style={{
+                  borderColor: showTimer ? 'var(--case, var(--amber))' : 'var(--cream-hairline)',
+                  background: showTimer ? 'color-mix(in srgb, var(--case, var(--amber)) 8%, transparent)' : 'transparent',
+                }}
+              >
+                <span
+                  className="h-7 w-7 rounded-md flex items-center justify-center shrink-0"
+                  style={{ color: showTimer ? 'var(--case, var(--amber))' : 'var(--cream-faint)' }}
+                >
+                  {showTimer ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                </span>
+                <span className="flex flex-col min-w-0">
+                  <span className="text-sm font-medium" style={{ color: 'var(--cream)' }}>
+                    Elapsed timer
+                  </span>
+                  <span className="text-xs" style={{ color: 'var(--cream-faint)' }}>
+                    {showTimer ? 'Visible in the top bar — click to hide' : 'Hidden — click to show'}
+                  </span>
+                </span>
+              </button>
+            </div>
+          )}
 
           <div
             className="mb-4 rounded-lg border p-3"

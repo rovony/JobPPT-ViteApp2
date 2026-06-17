@@ -86,7 +86,7 @@ export default function Cs1Question() {
       </Headline>
 
       <Viz>
-        <div className="deck-viz-stack" style={{ maxWidth: '52rem' }}>
+        <div className="deck-viz-stack">
           <CaseOrientationStrip
             accent="var(--case)"
             delay={reduced ? 0 : 0.65}

@@ -61,12 +61,7 @@ export default function Cs2AspChallenge() {
       </Subhead>
 
       <Viz>
-        <div
-          className="deck-viz-stack"
-          style={{
-            maxWidth: '56rem',
-          }}
-        >
+        <div className="deck-viz-stack">
           <CaseOrientationStrip
             accent="var(--teal)"
             delay={D.anchorsLabel}

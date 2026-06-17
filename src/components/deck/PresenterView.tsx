@@ -1,11 +1,12 @@
 // @ts-nocheck
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, X, MonitorPlay, Maximize, Minimize, HelpCircle, FolderOpen, BookOpen, LayoutPanelLeft, PanelLeftClose, PanelLeftOpen, PanelBottomClose, PanelBottomOpen, PanelRightClose, PanelRightOpen } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X, MonitorPlay, Maximize, Minimize, HelpCircle, FolderOpen, BookOpen, LayoutPanelLeft, PanelLeftClose, PanelLeftOpen, PanelBottomClose, PanelBottomOpen, PanelRightClose, PanelRightOpen, Clock } from 'lucide-react';
 import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels';
 import { useDeck } from '@/lib/deck-store';
 import { useSpeakerNotes } from '@/lib/useSpeakerNotes';
 import { useAnticipatedQA } from '@/lib/useAnticipatedQA';
 import { usePresenterLayout, COLUMN_KEYS } from '@/lib/usePresenterLayout';
+import { usePresenterChrome } from '@/lib/usePresenterChrome';
 import { makeChannel, broadcast, subscribe } from '@/lib/presenter-sync';
 import PresenterTimer from './PresenterTimer';
 import SlidePreview from './SlidePreview';
@@ -84,6 +85,7 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
   // Per-device section visibility + column assignment + within-column order.
   // Persisted under presenter:layout — survives reloads, scoped to device.
   const layout = usePresenterLayout();
+  const chrome = usePresenterChrome();
 
   /** Wrap a section in a flex-column with a thin "Hide" header strip
    *  above the content. Putting the Hide button in its own row prevents
@@ -325,7 +327,26 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
         style={{ borderColor: 'var(--cream-hairline)' }}
       >
         <div className="flex items-center gap-6 min-w-0">
-          <PresenterTimer />
+          {chrome.showTimer ? (
+            <PresenterTimer onHide={chrome.toggleShowTimer} />
+          ) : (
+            <button
+              type="button"
+              onClick={() => chrome.setShowTimer(true)}
+              title="Show elapsed timer"
+              aria-label="Show timer"
+              className="deck-mono uppercase flex items-center gap-2 px-3 py-1.5 rounded-full border transition-colors shrink-0"
+              style={{
+                borderColor: 'var(--cream-hairline)',
+                color: 'var(--cream-muted)',
+                letterSpacing: 'var(--ls-mono)',
+                fontSize: '0.62rem',
+              }}
+            >
+              <Clock className="w-3.5 h-3.5" />
+              Show timer
+            </button>
+          )}
           <div className="deck-mono uppercase shrink-0" style={{ color: 'var(--cream-faint)', letterSpacing: 'var(--ls-mono)' }}>
             <div style={{ fontSize: '0.6rem' }}>Slide</div>
             <div style={{ fontSize: '1.25rem', color: 'var(--cream)' }} className="tabular-nums">
@@ -526,6 +547,7 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
         open={layoutOpen}
         onClose={() => setLayoutOpen(false)}
         layout={layout}
+        chrome={chrome}
       />
       <NotesQAHelp
         open={notesQAHelpOpen}
