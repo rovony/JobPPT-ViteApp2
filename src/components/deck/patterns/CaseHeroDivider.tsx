@@ -100,7 +100,7 @@ export default function CaseHeroDivider({
         <motion.div
           className="deck-mono uppercase"
           style={{
-            fontSize: 'clamp(0.8rem, 1vw, 1.1rem)',
+            fontSize: 'clamp(0.85rem, min(1.1vw, 1.8vh), 1.15rem)',
             letterSpacing: 'var(--ls-mono-wide)',
             color: 'var(--case)',
             fontWeight: 700,

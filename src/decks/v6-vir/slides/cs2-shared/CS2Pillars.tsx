@@ -46,7 +46,7 @@ export function PillarTextCard({ delay = 0, eyebrow, name, children }) {
     >
       {/* Pillar number — high-contrast against the active theme. */}
       <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-pageno)',
+        fontSize: 'var(--fs-slide-tagline)',
         letterSpacing: 'var(--ls-mono-wide)',
         color: 'color-mix(in srgb, var(--cream) 78%, var(--cyan) 22%)',
         fontWeight: 800,
@@ -161,7 +161,7 @@ export function PillarBody({ children }) {
 export function PillarCite({ children }) {
   return (
     <div className="deck-mono" style={{
-      fontSize: 'var(--fs-slide-pageno)',
+      fontSize: 'var(--fs-slide-tagline)',
       letterSpacing: '0.04em',
       color: C.creamFaint,
       marginTop: 'var(--space-3)',

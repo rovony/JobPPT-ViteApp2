@@ -17,7 +17,7 @@ import SampleSizeWaterfall from './cs3-engagement/SampleSizeWaterfall';
  *     with the durable-methodology payoff inline as the last sentence.
  *
  * Removed (zaj-slides v2.1 / craft-bans-and-borders compliance):
- *   • borderRadius: 6 on PillarStatus and QuoteCard
+ *   • borderRadius: 6 on QuoteCard
  *   • borderRadius: 4 + tinted background on the closing "two frameworks"
  *     panel (was decorative chrome floating above the regulatory cards).
  *   • maxHeight: 38vh constraint on the waterfall area — at 1920×1080 it
@@ -32,28 +32,6 @@ import SampleSizeWaterfall from './cs3-engagement/SampleSizeWaterfall';
  * cite the public trial registry (NCT04817761) + the public meeting
  * date as the source.
  */
-
-const PILLARS = [
-  {
-    label: '3 / 4',
-    title: 'Pillars agreed',
-    sub: 'on the FDA Type A record',
-    color: 'violet',
-  },
-  {
-    label: '> 85%',
-    title: 'AE-detection probability',
-    sub: 'safety framework anchored — prepared in parallel with optimal design',
-    color: 'cream',
-  },
-  {
-    label: 'Repositioned',
-    title: 'Simulated primary',
-    sub: 'to dose confirmation in Cohorts 1 & 2 · Part 2 pending additional PopPK',
-    color: 'cream',
-    pill: true,
-  },
-];
 
 const POSITIONS = [
   {
@@ -113,100 +91,47 @@ export default function Cs2AspFda() {
             // block takes the rest. minmax(0,*) on both rows lets the
             // top row absorb but stops the bottom row from collapsing
             // to 0 if content is small.
-            gridTemplateRows: 'minmax(0, 1.35fr) minmax(0, 1fr)',
+            gridTemplateRows: 'minmax(0, 1fr) minmax(0, 1fr)',
             rowGap: 'var(--space-5)',
             minHeight: 0,
           }}
         >
-          {/* TOP — waterfall + pillars */}
+          {/* TOP — waterfall (full width; pillar summary in subhead) */}
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: '1.05fr 1fr',
-              gap: 'var(--space-7)',
-              alignItems: 'stretch',
+              gridTemplateRows: 'auto 1fr',
+              rowGap: 'var(--space-3)',
               minHeight: 0,
+              border: '1px solid var(--cream-hairline)',
+              borderRadius: 0,
+              padding: 'var(--space-3)',
             }}
           >
-            {/* Waterfall — hairline panel (zaj-slides v2.1). Square
-                corners, no fill, no shadow. Lets the chart breathe at
-                both 1366 and 1920. */}
+            <motion.div
+              className="deck-mono uppercase"
+              style={{
+                fontSize: 'var(--fs-card-label)',
+                letterSpacing: 'var(--ls-mono-wide)',
+                color: 'var(--cream-muted)',
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, ease, delay: D.waterfallLabel }}
+            >
+              Sample size · adult Ph-neg ALL · 3/4 pillars agreed
+            </motion.div>
             <div
               style={{
-                display: 'grid',
-                gridTemplateRows: 'auto 1fr',
-                rowGap: 'var(--space-3)',
+                width: '100%',
+                height: '100%',
                 minHeight: 0,
-                border: '1px solid var(--cream-hairline)',
-                borderRadius: 0,
-                padding: 'var(--space-3)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
-              <motion.div
-                className="deck-mono uppercase"
-                style={{
-                  fontSize: 'var(--fs-card-label)',
-                  letterSpacing: 'var(--ls-mono-wide)',
-                  color: 'var(--cream-muted)',
-                }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, ease, delay: D.waterfallLabel }}
-              >
-                Sample size · adult Ph-neg ALL · primary endpoint evaluable
-              </motion.div>
-              <div
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  minHeight: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <SampleSizeWaterfall delay={D.waterfall} />
-              </div>
-            </div>
-
-            {/* Pillar status — three rows, hairline borders, no fill,
-                no rounded corners. The accent rule on the left is the
-                only chrome (and only the agreed pillar carries the
-                violet rule + tint). */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateRows: 'auto 1fr',
-                rowGap: 'var(--space-3)',
-                minHeight: 0,
-              }}
-            >
-              <motion.div
-                className="deck-mono uppercase"
-                style={{
-                  fontSize: 'var(--fs-card-label)',
-                  letterSpacing: 'var(--ls-mono-wide)',
-                  color: 'var(--teal)',
-                  fontWeight: 700,
-                }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, ease, delay: D.waterfallLabel }}
-              >
-                Pillars agreed · pillars repositioned
-              </motion.div>
-              <div
-                style={{
-                  display: 'grid',
-                  gridAutoRows: '1fr',
-                  rowGap: 'var(--space-3)',
-                  minHeight: 0,
-                }}
-              >
-                {PILLARS.map((p, i) => (
-                  <PillarStatus key={p.label} pillar={p} delay={D.pillars + i * 0.15} />
-                ))}
-              </div>
+              <SampleSizeWaterfall delay={D.waterfall} />
             </div>
           </div>
 
@@ -290,7 +215,7 @@ export default function Cs2AspFda() {
               <span
                 className="deck-mono uppercase"
                 style={{
-                  fontSize: 'var(--fs-card-meta)',
+                  fontSize: 'var(--fs-slide-tagline)',
                   letterSpacing: 'var(--ls-mono-wide)',
                   color: 'var(--teal)',
                   fontWeight: 700,
@@ -323,76 +248,6 @@ export default function Cs2AspFda() {
         delay={D.source}
       />
     </SlideGrid>
-  );
-}
-
-/* ========================================================
-   PillarStatus — single status row (big numeral · title · sub).
-   Square-cornered, hairline border, accent rule on the left.
-   Only the "agreed" pillar carries the violet accent.
-   ======================================================== */
-function PillarStatus({ pillar, delay }) {
-  const ease = [0.2, 0.7, 0.3, 1];
-  const isViolet = pillar.color === 'violet';
-  return (
-    <motion.div
-      style={{
-        padding: 'var(--space-3) var(--space-4)',
-        borderRadius: 0,
-        border: '1px solid var(--cream-hairline)',
-        borderLeft: `3px solid ${isViolet ? 'var(--teal)' : 'var(--cream-faint)'}`,
-        background: isViolet
-          ? 'color-mix(in srgb, var(--teal) 8%, transparent)'
-          : 'transparent',
-        display: 'grid',
-        gridTemplateColumns: 'auto 1fr',
-        columnGap: 18,
-        alignItems: 'center',
-      }}
-      initial={{ opacity: 0, x: 10 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.55, ease, delay }}
-    >
-      <div
-        className="deck-display"
-        style={{
-          fontSize: pillar.pill ? 'var(--fs-card-title)' : 'var(--fs-card-numeral)',
-          fontWeight: 700,
-          color: isViolet ? 'var(--teal)' : 'var(--cream)',
-          letterSpacing: 'var(--ls-headline)',
-          lineHeight: 1,
-          minWidth: pillar.pill ? 'auto' : 110,
-          paddingRight: 8,
-          fontStyle: pillar.pill ? 'italic' : 'normal',
-        }}
-      >
-        {pillar.label}
-      </div>
-      <div>
-        <div
-          className="deck-mono uppercase"
-          style={{
-            fontSize: 'var(--fs-card-meta)',
-            letterSpacing: '0.22em',
-            color: isViolet ? 'var(--teal)' : 'var(--cream)',
-            fontWeight: 700,
-            marginBottom: 4,
-          }}
-        >
-          {pillar.title}
-        </div>
-        <div
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 'var(--fs-card-body)',
-            color: 'var(--cream-muted)',
-            lineHeight: 1.45,
-          }}
-        >
-          {pillar.sub}
-        </div>
-      </div>
-    </motion.div>
   );
 }
 
@@ -432,7 +287,7 @@ function PositionLine({ pos, delay, reduced }) {
       <div
         className="deck-mono uppercase"
         style={{
-          fontSize: 'var(--fs-card-meta)',
+          fontSize: 'var(--fs-slide-tagline)',
           letterSpacing: 'var(--ls-mono-wide)',
           color: 'var(--teal)',
           fontWeight: 700,

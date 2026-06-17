@@ -208,7 +208,7 @@ function AnchorTile({ yr, label, sub, delay, numeralLayoutId }) {
       <div
         className="deck-mono uppercase"
         style={{
-          fontSize: 'var(--fs-card-meta)', letterSpacing: '0.22em',
+          fontSize: 'var(--fs-slide-tagline)', letterSpacing: '0.22em',
           color: 'var(--teal)', fontWeight: 700, marginBottom: 4,
         }}
       >

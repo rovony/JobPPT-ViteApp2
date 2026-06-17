@@ -1,41 +1,57 @@
-# v6-vir · Four case studies audit
+# v6-vir · Live spine audit (48 slides)
 
 **Date:** 2026-06-16  
-**Rubrics:** (1) `## Spoken` = deliverable script, not meta briefing · (2) body copy ≥ `--fs-slide-subhead` · (3) one primary idea per slide · (4) problem → constraint → approach → outcome → bridge per case
+**Rubrics:** (1) `## Spoken` = deliverable script · (2) body ≥ `--fs-slide-subhead` / cites ≥ `--fs-slide-tagline` · (3) one primary idea · (4) problem → constraint → approach → outcome → bridge
 
-**Notes merge:** `qp2-seminar-v4/notes` → asparlas map → `cs3-notes.ts` → pharos map → **`override-notes.ts` wins**
+**Notes merge:** qp2 → asparlas → `cs3-notes.ts` → pharos → **`override-notes.ts` wins**
+
+**QC captures:** `audit/v6-vir-qc/<slide-id>/desktop.png` + `laptop.png` — run `node audit/v6-vir-qc-sweep.mjs` with dev server up.
 
 ---
 
 ## Status summary
 
-| Dimension | CS1 | CS2 Asparlas | CS3 India | CS4 AI |
-|-----------|-----|--------------|-----------|--------|
-| Spoken scripts | ✅ qp2 (+ override bridge) | ✅ override all live | ✅ cs3-notes | ✅ override all live |
-| Font pass | 🟡 pkpd + lesson remain | 🟡 strategy/fda/impact meta | 🟡 setup/regulatory/pillars | ✅ AiEvidenceSlide |
-| Busyness trim | 🟡 pkpd still dense | ✅ challenge + bridge trimmed | 🟡 setup/pillars/reversal | ✅ simplified cards |
-| Story flow | ✅ audited + fixes | ✅ bridge aligned | 🟡 setup chronology cue | ✅ |
+| Dimension | CS1 | CS2 Asparlas | CS3 India | CS4 AI | Tail |
+|-----------|-----|--------------|-----------|--------|------|
+| Spoken scripts | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Font pass | ✅ | ✅ | ✅ | ✅ | ✅ eyebrow global |
+| Busyness trim | ✅ pkpd 2-panel | ✅ fda waterfall-only | ✅ setup 2-beat · reversal 2-tick | ✅ | ✅ bridges sparse |
+| Story flow | ✅ | ✅ | ✅ chronology in notes + setup | ✅ | ✅ |
 
-**Legend:** ✅ done this pass or prior · 🟡 partial · ❌ not started
+**Documented exceptions (acceptable on live):**
+- `cs3-pillars` — six pillars is dense by design; type bumped to tagline; speaker compresses to top 3 in delivery.
+- `cs1-architecture` / `cs1-covariate-strategy` — busy score 4; constraint stack is the point.
+- Chart axis labels on `cs1-pkpd` / waterfall SVGs — chart-readable sizes, not body copy.
 
 ---
 
-## CS1 live spine (`cs1-question` → `cs1-bridge`)
+## Intro (`title` → `roadmap`)
 
 | Slide | Notes | Fonts | Busy | Flow |
 |-------|-------|-------|------|------|
-| `cs1-question` | ✅ qp2 Spoken | ✅ | 3 | Opens dose-defense question → context |
-| `cs1-context` | ✅ qp2 | ✅ | 3 | PAH 101 → mechanism |
+| `title` | ✅ override | ✅ | 2 | Opens thesis |
+| `hook-A-trial-not-answer` | ✅ override | ✅ | 2 | Trial ≠ answer → arc |
+| `career-arc` | ✅ override | ✅ | 3 | Credibility → roadmap |
+| `roadmap` | ✅ override | ✅ | 3 | Four cases framed |
+
+---
+
+## CS1 (`cs1-question` → `cs1-bridge`)
+
+| Slide | Notes | Fonts | Busy | Flow |
+|-------|-------|-------|------|------|
+| `cs1-question` | ✅ qp2 | ✅ | 3 | Question → context |
+| `cs1-context` | ✅ qp2 | ✅ | 3 | PAH → mechanism |
 | `cs1-mechanism` | ✅ qp2 | ✅ | 3 | Selectivity → trial |
-| `cs1-trial` | ✅ qp2 | ✅ | 3 | Hold/term/approve → architecture |
-| `cs1-architecture` | ✅ qp2 | ✅ | 4 | 5 constraints → covariates |
-| `cs1-covariate-strategy` | ✅ qp2 | ✅ | 4 | Anchor/constrain → PopPK |
-| `cs1-poppk` | ✅ qp2 | ✅ fixed meta | 4 | 380/39 → pkpd |
-| `cs1-pkpd` | ✅ qp2 | 🟡 pageno on chart labels | **5** | AUC/Cmax/ER → outcome |
-| `cs1-outcome` | ✅ qp2 | ✅ | 3 | 3 disruptions → bracket |
-| `cs1-bracket` | ✅ qp2 | ✅ fixed cite | 4 | 5-step match → lesson |
-| `cs1-lesson` | ✅ qp2 | 🟡 FDA header pageno | 4 | Codification → bridge |
-| `cs1-bridge` | ✅ override | ✅ | 3 | **Fixed:** Asparlas handoff (was ADC); notes cover principle 03 |
+| `cs1-trial` | ✅ qp2 | ✅ | 3 | Hold/term → architecture |
+| `cs1-architecture` | ✅ qp2 | ✅ | 4 | Five constraints |
+| `cs1-covariate-strategy` | ✅ qp2 | ✅ | 4 | Anchor model |
+| `cs1-poppk` | ✅ qp2 | ✅ | 4 | 380/39 → pkpd |
+| `cs1-pkpd` | ✅ qp2 | ✅ | **3** | **Trimmed:** AUC + Cmax only |
+| `cs1-outcome` | ✅ qp2 | ✅ | 3 | Three disruptions |
+| `cs1-bracket` | ✅ qp2 | ✅ | 4 | Ownership match |
+| `cs1-lesson` | ✅ qp2 | ✅ | 4 | **Fixed:** FDA caveat tagline |
+| `cs1-bridge` | ✅ override | ✅ | 3 | → Asparlas |
 
 ---
 
@@ -43,12 +59,12 @@
 
 | Slide | Notes | Fonts | Busy | Flow |
 |-------|-------|-------|------|------|
-| `cs2-asp-challenge` | ✅ override | 🟡 footer meta | 2 | 94 infeasible → strategy |
-| `cs2-asp-strategy` | ✅ override | 🟡 card-meta rails | 4 | Two-move stack → FDA |
-| `cs2-asp-fda` | ✅ override | 🟡 card-meta | 5 | Type A N=60 → fit |
-| `cs2-asp-fit` | ✅ override | ✅ | 4 | Prior precision → impact |
-| `cs2-asp-impact` | ✅ override | 🟡 ledger meta | 4 | −36% → bridge |
-| `cs2-asp-bridge` | ✅ override | ✅ | **2** | **Rewritten** sparse close → CS3 |
+| `cs2-asp-challenge` | ✅ override | ✅ | 2 | 94 infeasible |
+| `cs2-asp-strategy` | ✅ override | ✅ | 4 | Two-move stack |
+| `cs2-asp-fda` | ✅ override | ✅ | **3** | **Trimmed:** waterfall + positions |
+| `cs2-asp-fit` | ✅ override | ✅ | 4 | Prior precision |
+| `cs2-asp-impact` | ✅ override | ✅ | 4 | −36% precedent |
+| `cs2-asp-bridge` | ✅ override | ✅ | 2 | → CS3 access |
 
 ---
 
@@ -56,15 +72,14 @@
 
 | Slide | Notes | Fonts | Busy | Flow |
 |-------|-------|-------|------|------|
-| `cs3-setup` | ✅ cs3 | 🟡 timeline pageno | 5 | SEC ask → Rule 101 |
-| `cs3-bg-regulatory` | ✅ cs3 | 🟡 flow labels | 4 | Waiver opening → pillars |
-| `cs3-pillars` | ✅ cs3 | 🟡 pillar body | 5 | Six pillars → reversal |
-| `cs3-reversal` | ✅ cs3 | ✅ | 5 | May 2025 → reckoning |
-| `cs3-reckoning` | ✅ cs3 | 🟡 row cites | 3 | Honest gaps → leadership |
-| `cs3-leadership` | ✅ cs3 | ✅ | 3 | Cross-functional → recap |
+| `cs3-ivosidenib-divider` | ✅ cs3 | ✅ | 2 | **India map restored** |
+| `cs3-setup` | ✅ chronology spoken | ✅ | **3** | **Trimmed:** Rule 101 → SEC |
+| `cs3-bg-regulatory` | ✅ cs3 | ✅ | 4 | Waiver opening |
+| `cs3-pillars` | ✅ cs3 | ✅ | 4* | Six pillars (*exception) |
+| `cs3-reversal` | ✅ cs3 | ✅ | **3** | **Trimmed:** 2 ticks · 2 stats · map morph |
+| `cs3-reckoning` | ✅ cs3 | ✅ | 3 | Honest gaps |
+| `cs3-leadership` | ✅ cs3 | ✅ | 3 | Cross-functional |
 | `cs3-bridge-recap` | ✅ cs3 | ✅ | 2 | → CS4 |
-
-**Flow note:** `cs3-setup` dramatizes Dec 2024 SEC before Aug 2024 Rule 101 — add spoken time-anchor in notes if panel asks.
 
 ---
 
@@ -73,24 +88,44 @@
 | Slide | Notes | Fonts | Busy | Flow |
 |-------|-------|-------|------|------|
 | `cs2-regulatory-floor` | ✅ override | ✅ | 3 | Floor → gap |
-| `cs2-gap` | ✅ override | ✅ | 3 | Trace bottleneck → overview |
-| `cs2-working-overview` | ✅ override | ✅ | 4 | Plan/run/check/record → dashboard |
-| `cs2-poppk-dashboard` | ✅ override | ✅ | 3 | Review contract → close |
-| `cs2-publication-close` | ✅ override (**ADC → CS1**) | ✅ | 3 | → portfolio |
+| `cs2-gap` | ✅ override | ✅ | 3 | Trace bottleneck |
+| `cs2-working-overview` | ✅ override | ✅ | 4 | Plan/run/check |
+| `cs2-poppk-dashboard` | ✅ override | ✅ | 3 | Review contract |
+| `cs2-publication-close` | ✅ override | ✅ | 3 | → portfolio |
 
 ---
 
-## Remaining backlog (priority order)
+## Tail (`portfolio-01` → `closing-thanks`)
 
-1. **`cs1-pkpd`** — font tokens on chart-readable text; consider live trim to 2 panels (AUC + Cmax only).
-2. **`cs2-asp-strategy` / `cs2-asp-fda` / `cs2-asp-impact`** — bump `card-meta` narrative rails to `--fs-slide-tagline`.
-3. **`cs3-setup` / `cs3-bg-regulatory` / `cs3-pillars` / `cs3-reversal`** — font pass + busyness trim (6 pillars → 4 on live, or 2×3 larger type).
-4. **`cs1-lesson`** — FDA caveat label `pageno` → `eyebrow`.
-5. **`cs3-setup` notes** — one clause: “Rule 101 had already opened the door before the SEC PK/PD ask.”
+| Slide | Notes | Fonts | Busy | Flow |
+|-------|-------|-------|------|------|
+| `portfolio-01` | ✅ override | ✅ | 3 | Breadth proof |
+| `company-bridge-divider` | ✅ override | ✅ | 2 | Vir bridge open |
+| `company-bridge-oncology-problem` | ✅ override | ✅ | 3 | Oncology problem |
+| `company-bridge-oncology-approach` | ✅ override | ✅ | 4 | Assay → dose |
+| `company-bridge-case-mapping` | ✅ override | ✅ | 3 | Cases transfer |
+| `company-bridge-hbv-hdv` | ✅ override | ✅ | 3 | HBV/HDV fit |
+| `company-bridge-fit` | ✅ override | ✅ | 3 | What I'd own |
+| `closing-thread` | ✅ override | ✅ | 2 | Common thread |
+| `closing-fit` | ✅ override | ✅ | 3 | Why Vir |
+| `closing-thanks` | ✅ override | ✅ | 1 | Q&A |
+
+---
+
+## Global changes this pass
+
+1. `--fs-slide-eyebrow` bump + `Eyebrow` / `StaticEyebrow` / divider kickers (wayfinding).
+2. Busyness trims: `cs1-pkpd`, `cs2-asp-fda`, `cs3-setup` timeline, `cs3-reversal` timeline/stats.
+3. Font tokens: `card-meta` / `pageno` → `tagline` on CS2/CS3 regulatory rails.
+4. India map on `cs3-ivosidenib-divider`; `layoutId="india-cdsco"` on reversal for morph continuity.
+5. `cs3-setup` spoken bullets include Rule 101-before-SEC chronology anchor.
 
 ---
 
 ## Verification
 
-- `npm run build`
-- QC folder: `audit/v6-vir-qc/` (intro + CS1 partial captures)
+```bash
+npm run build
+npm run dev   # separate terminal
+node audit/v6-vir-qc-sweep.mjs
+```

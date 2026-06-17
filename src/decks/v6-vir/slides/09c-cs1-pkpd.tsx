@@ -260,19 +260,18 @@ export default function Cs1Pkpd() {
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
       <Eyebrow color="var(--coral)" delay={D.chrome}>Case 01 · PopPK · build & fit PART 2</Eyebrow>
       <Headline delay={D.headline} maxChars={50}>
-        Exposure bridged; no clear E-R gradient.
+        Pediatric exposures match adults — AUC and C<sub>max</sub>.
       </Headline>
-      <Subhead delay={D.subhead} maxChars={100} size="lead">
-        Pediatric exposures land inside the adult target envelope, with no clear efficacy or safety gradient across observed exposure.
+      <Subhead delay={D.subhead} maxChars={120} size="lead">
+        Target attainment held at both dose levels. No clear efficacy or safety gradient across observed exposure — detail in speaker notes and backup charts.
       </Subhead>
 
       <Viz>
-        <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', minHeight: 0, paddingTop: 'var(--space-2)' }}>
+        <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', minHeight: 0, paddingTop: 'var(--space-2)' }}>
           
-          <div className="deck-mono uppercase" style={{ background: 'color-mix(in srgb, var(--coral) 12%, transparent)', border: '1px solid color-mix(in srgb, var(--coral) 40%, transparent)', borderRadius: 'var(--radius-sm)', color: 'var(--coral)', padding: 'var(--space-2) var(--space-4)', fontSize: 'var(--fs-slide-eyebrow)', letterSpacing: '0.2em', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>PK MATCHING</div>
+          <div className="deck-mono uppercase" style={{ background: 'color-mix(in srgb, var(--coral) 12%, transparent)', border: '1px solid color-mix(in srgb, var(--coral) 40%, transparent)', borderRadius: 'var(--radius-sm)', color: 'var(--coral)', padding: 'var(--space-2) var(--space-4)', fontSize: 'var(--fs-slide-tagline)', letterSpacing: '0.2em', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', flexShrink: 0 }}>PK MATCHING · AUC + Cmax</div>
 
-          {/* Top Row: Exposure Match (AUC and Cmax) */}
-          <div style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 'var(--space-3)' }}>
+          <div style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 'var(--space-4)' }}>
             {zoomablePanel('auc', <>
               <PanelTitle label={PANELS.auc.label} right={PANELS.auc.right} delay={D.adultBand} />
               <div style={CHART_PANEL_BODY}><AUCPanel tk={tk} D={D} /></div>
@@ -283,34 +282,8 @@ export default function Cs1Pkpd() {
             </>)}
           </div>
 
-          <div className="deck-mono uppercase" style={{ background: 'color-mix(in srgb, var(--coral) 12%, transparent)', border: '1px solid color-mix(in srgb, var(--coral) 40%, transparent)', borderRadius: 'var(--radius-sm)', color: 'var(--coral)', padding: 'var(--space-2) var(--space-4)', fontSize: 'var(--fs-slide-eyebrow)', letterSpacing: '0.2em', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', marginTop: 'var(--space-1)' }}>PK-PD CONTEXT</div>
-
-          {/* Bottom Row: Efficacy & Safety E-R */}
-          <div style={{ flex: 1.3, minHeight: 0, display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: 'var(--space-3)' }}>
-            {zoomablePanel('efficacy', <>
-              <PanelTitle label={PANELS.efficacy.label} right={PANELS.efficacy.right} delay={D.axisA} />
-              <div style={CHART_PANEL_BODY}>
-                <EfficacyPanel tk={tk} D={D} />
-              </div>
-            </>)}
-            {zoomablePanel('safety', <>
-              <PanelTitle label={PANELS.safety.label} right={PANELS.safety.right} delay={D.axisB} />
-              <div style={{ ...CHART_PANEL_BODY, flexDirection: 'column', gap: 'var(--space-2)' }}>
-                <div style={{ flex: 1, minHeight: 0, width: '100%', position: 'relative' }}>
-                  <BoxPanel tk={tk} letter="" title="" unit={DATA.auc.unit} data={DATA.auc} axisDelay={D.axisA} boxDelay={D.boxA} guideDelay={D.guideA} deltaLabel="Δ ≈ -12%" />
-                  <div style={{ position: 'absolute', top: 4, left: 4, fontSize: 'var(--fs-slide-pageno)', fontWeight: 700, color: 'var(--cream)', opacity: 0.8 }} className="deck-mono">AUCss</div>
-                </div>
-                <div style={{ flex: 1, minHeight: 0, width: '100%', position: 'relative' }}>
-                  <BoxPanel tk={tk} letter="" title="" unit={DATA.cmax.unit} data={DATA.cmax} axisDelay={D.axisB} boxDelay={D.boxB} guideDelay={D.guideB} deltaLabel="Δ ≈ +1%" />
-                  <div style={{ position: 'absolute', top: 4, left: 4, fontSize: 'var(--fs-slide-pageno)', fontWeight: 700, color: 'var(--cream)', opacity: 0.8 }} className="deck-mono">Cmax,ss</div>
-                </div>
-              </div>
-            </>)}
-          </div>
-
-          {/* Summary Conclusion Card */}
-          <div style={{ flex: '0 0 auto', padding: '12px 24px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'color-mix(in srgb, var(--coral) 8%, transparent)', border: '1px solid var(--coral)', borderRadius: '4px', marginTop: 'var(--space-1)' }}>
-            <span className="deck-mono" style={{ fontSize: 'var(--fs-slide-eyebrow)', letterSpacing: '0.08em', color: 'var(--coral)', fontWeight: 600, textTransform: 'uppercase' }}>
+          <div style={{ flex: '0 0 auto', padding: '12px 24px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'color-mix(in srgb, var(--coral) 8%, transparent)', border: '1px solid var(--coral)', borderRadius: '4px' }}>
+            <span className="deck-mono" style={{ fontSize: 'var(--fs-slide-tagline)', letterSpacing: '0.08em', color: 'var(--coral)', fontWeight: 600, textTransform: 'uppercase' }}>
               CONCLUSION: PK MATCHING HELD; NO CLEAR EXPOSURE-RESPONSE GRADIENT IN OBSERVED RANGE
             </span>
           </div>

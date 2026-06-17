@@ -163,7 +163,7 @@ export default function Cs2AspImpact() {
             <span
               className="deck-mono uppercase"
               style={{
-                fontSize: 'var(--fs-card-meta)',
+                fontSize: 'var(--fs-slide-tagline)',
                 letterSpacing: 'var(--ls-mono-wide)',
                 color: 'var(--teal)',
                 fontWeight: 700,
@@ -246,7 +246,7 @@ function ImpactNumeral({ delay, metaDelay, ease, overshoot, reduce }) {
         <span
           className="deck-mono uppercase"
           style={{
-            fontSize: 'var(--fs-card-meta)',
+            fontSize: 'var(--fs-slide-tagline)',
             letterSpacing: 'var(--ls-mono-wide)',
             color: 'var(--teal)',
             fontWeight: 700,

@@ -443,7 +443,7 @@ function BottomPanels() {
           transition={{ duration: 0.3, ease: EASE, delay: D.qualifiers }}
           style={{
             marginTop: 'var(--space-2)',
-            fontSize: 'var(--fs-slide-pageno)',
+            fontSize: 'var(--fs-slide-tagline)',
             letterSpacing: '0.1em',
             color: 'var(--cyan)',
             fontWeight: 600,
@@ -488,7 +488,7 @@ function BottomPanels() {
               {a.name}{' '}
               <span
                 className="deck-mono"
-                style={{ fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-muted)' }}
+                style={{ fontSize: 'var(--fs-slide-tagline)', color: 'var(--cream-muted)' }}
               >
                 ({a.abbr})
               </span>
@@ -502,7 +502,7 @@ function BottomPanels() {
           transition={{ duration: 0.3, ease: EASE, delay: D.qualifiers }}
           style={{
             marginTop: 'var(--space-2)',
-            fontSize: 'var(--fs-slide-pageno)',
+            fontSize: 'var(--fs-slide-tagline)',
             letterSpacing: '0.1em',
             color: 'var(--cyan)',
             fontWeight: 600,

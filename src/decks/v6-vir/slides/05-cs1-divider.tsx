@@ -19,7 +19,7 @@ export default function Cs1Divider({ deck }) {
     <CaseHeroDivider
       caseToken="coral"
       caseNumber="01"
-      totalCases={3}
+      totalCases={4}
       kicker="CASE STUDY 01"
       title="Ambrisentan"
       subtitle="Pediatric PAH · 39 patients · two agency approvals"

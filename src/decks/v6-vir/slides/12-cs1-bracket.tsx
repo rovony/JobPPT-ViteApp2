@@ -272,10 +272,11 @@ function StaticEyebrow({ children }) {
         alignSelf: 'end',
         fontSize: 'var(--fs-slide-eyebrow)',
         letterSpacing: 'var(--ls-mono-wide)',
+        fontWeight: 600,
         color: 'var(--case)',
       }}
     >
-      <span style={{ width: 'clamp(1.5rem, 4vw, 2.5rem)', height: '1px', background: 'var(--case)' }} />
+      <span style={{ width: 'clamp(2rem, 5vw, 3rem)', height: '1px', background: 'var(--case)' }} />
       {children}
     </div>
   );

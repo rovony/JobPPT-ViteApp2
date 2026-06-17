@@ -11,16 +11,8 @@ const HERO_DATE = '14 May 2025';
 
 const TICKS = [
   {
-    date: '2018–2022', label: 'FDA labels',
-    sub: 'AML · CCA · AML + Aza',
-  },
-  {
-    date: '2023', label: 'EMA conditional MA',
-    sub: 'AML + CCA public EPAR',
-  },
-  {
     date: 'AUG 2024', label: 'Rule 101 order',
-    sub: 'Public waiver categories operationalized',
+    sub: 'Waiver categories operationalized',
   },
   {
     date: '14 MAY 2025', label: 'CDSCO approval',
@@ -29,9 +21,8 @@ const TICKS = [
 ];
 
 const STATS = [
-  { kicker: 'APPROVAL', value: '14 May 2025', detail: 'CDSCO marketing authorization · Rule 101', accent: true },
-  { kicker: 'PATHWAY', value: 'Rule 101', detail: 'Public waiver categories operationalized Aug 2024', accent: false },
-  { kicker: 'PUBLIC RECORD', value: 'FDA + EMA', detail: 'Four FDA labels/reviews plus EMA EPAR', accent: false },
+  { kicker: 'APPROVAL', value: '14 May 2025', detail: 'CDSCO marketing authorization · Rule 101 pathway', accent: true },
+  { kicker: 'PUBLIC RECORD', value: 'FDA + EMA', detail: 'Four FDA labels/reviews plus EMA EPAR underpin the dossier', accent: false },
 ];
 
 const D = {
@@ -41,7 +32,7 @@ const D = {
   cdscoEyebrow: 2.8,
   heroDate: 3.1,
   timeline: 3.9,
-  tick: [4.25, 4.5, 4.75, 5.05],
+  tick: [4.25, 4.75],
   stats: 5.5,
   amber: 6.2,
 };
@@ -64,7 +55,7 @@ export default function CS2Reversal() {
       </Headline>
 
       <Subhead delay={0.45} size="lead" maxChars={120}>
-        FDA labels, EMA EPAR, Rule 101, and India authorization in one timeline.
+        Rule 101 opened the door — CDSCO authorized without a local trial.
       </Subhead>
 
       <Viz>
@@ -116,7 +107,7 @@ export default function CS2Reversal() {
               </motion.div>
 
               <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <IndiaMap layoutId="cs2-india" variant="filled" delay={D.indiaStroke} />
+                <IndiaMap layoutId="india-cdsco" variant="filled" delay={D.indiaStroke} />
               </div>
             </motion.div>
 
@@ -234,7 +225,7 @@ export default function CS2Reversal() {
                           width: '100%',
                         }}>
                           <div className="deck-mono" style={{
-                            fontSize: '10px',
+                            fontSize: 'var(--fs-slide-tagline)',
                             color: 'var(--cyan)',
                             fontWeight: isLast ? 700 : 500,
                             letterSpacing: '0.08em',
@@ -243,7 +234,7 @@ export default function CS2Reversal() {
                             {tick.date}
                           </div>
                           <div className="deck-display" style={{
-                            fontSize: '14px',
+                            fontSize: 'var(--fs-slide-subhead)',
                             color: isLast ? 'var(--cyan)' : 'var(--cream)',
                             fontWeight: isLast ? 600 : 400,
                           }}>
@@ -251,7 +242,7 @@ export default function CS2Reversal() {
                           </div>
                           {tick.sub && (
                             <div className="deck-body" style={{
-                              fontSize: '10px',
+                              fontSize: 'var(--fs-slide-tagline)',
                               color: 'var(--cream-muted)',
                               fontStyle: 'italic',
                               marginTop: 'var(--space-1)'
@@ -290,7 +281,7 @@ export default function CS2Reversal() {
                 transition={{ duration: 0.5, delay: D.stats + i * 0.15, ease: EASE }}
               >
                 <div className="deck-mono uppercase" style={{
-                  fontSize: '10px',
+                  fontSize: 'var(--fs-slide-tagline)',
                   letterSpacing: '0.14em',
                   color: 'var(--cream-muted)',
                 }}>
@@ -306,7 +297,7 @@ export default function CS2Reversal() {
                   {s.value}
                 </div>
                 <div className="deck-body" style={{
-                  fontSize: '12px',
+                  fontSize: 'var(--fs-slide-tagline)',
                   color: 'var(--cream-muted)',
                   marginTop: 'var(--space-1)',
                   lineHeight: 1.3,

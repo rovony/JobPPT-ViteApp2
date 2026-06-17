@@ -120,33 +120,29 @@ function TimelineSVG() {
         width="100%"
         xmlns="http://www.w3.org/2000/svg"
         role="img"
-        aria-label="Regulatory timeline: EMA filing to SEC opinion"
+        aria-label="Regulatory timeline: Rule 101 order then SEC PK/PD opinion"
       >
         {/* Baseline — gray draws first, cyan trails */}
         <motion.line
-          x1="40" y1="44" x2="1140" y2="44"
+          x1="80" y1="44" x2="1140" y2="44"
           stroke="var(--cream-faint)" strokeWidth="1"
           initial={reduced ? false : { pathLength: 0 }}
           animate={{ pathLength: 1 }}
           transition={{ duration: 0.6, ease: EASE, delay: D.timelineDraw }}
         />
         <motion.line
-          x1="40" y1="44" x2="1100" y2="44"
+          x1="80" y1="44" x2="1100" y2="44"
           stroke="var(--cyan)" strokeWidth="1" strokeOpacity="0.35"
           initial={reduced ? false : { pathLength: 0 }}
           animate={{ pathLength: 1 }}
           transition={{ duration: 0.7, ease: EASE, delay: D.timelineDraw + 0.1 }}
         />
 
-        {/* Ticks 1–3: muted, simultaneous */}
-        <TimelineTick cx={80} date="MAR 2022" label="EMA filing"
-          delay={D.ticks123} reduced={reduced} />
-        <TimelineTick cx={380} date="MAY 2023" label="EMA approval · AML+CCA"
-          delay={D.ticks123} reduced={reduced} />
-        <TimelineTick cx={720} date="MAR 2024" label="CDSCO MAA filed"
-          delay={D.ticks123} reduced={reduced} />
+        {/* Rule 101 — chronology anchor before SEC */}
+        <TimelineTick cx={400} date="AUG 2024" label="Rule 101 order · waiver categories"
+          delay={D.ticks123} reduced={reduced} accent />
 
-        {/* Tick 4 — SEC opinion with overshoot + ambient pulsing ring */}
+        {/* SEC opinion — pulsing endpoint */}
         <motion.circle
           cx="1100" cy="44" r="7" fill="var(--cyan)"
           initial={reduced ? false : { scale: 0 }}
@@ -192,18 +188,22 @@ function TimelineSVG() {
   );
 }
 
-function TimelineTick({ cx, date, label, delay, reduced }) {
+function TimelineTick({ cx, date, label, delay, reduced, accent = false }) {
+  const fill = accent ? 'var(--cyan)' : 'var(--bg)';
+  const stroke = accent ? 'var(--cyan)' : 'var(--cream-faint)';
+  const dateFill = accent ? 'var(--cyan)' : 'var(--cream-faint)';
+  const labelFill = accent ? 'var(--cream)' : 'var(--cream-muted)';
   return (
     <motion.g
       initial={reduced ? false : { opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3, ease: EASE, delay }}
     >
-      <circle cx={cx} cy="44" r="5" fill="var(--bg)" stroke="var(--cream-faint)" strokeWidth="1.5" />
+      <circle cx={cx} cy="44" r="5" fill={fill} stroke={stroke} strokeWidth="1.5" />
       <text x={cx} y="22" textAnchor="middle" fontFamily="'JetBrains Mono', monospace"
-        fontSize="10" fill="var(--cream-faint)" letterSpacing="1.4">{date}</text>
+        fontSize="11" fill={dateFill} letterSpacing="1.4">{date}</text>
       <text x={cx} y="66" textAnchor="middle" fontFamily="'Fraunces', Georgia, serif"
-        fontSize="12" fill="var(--cream-muted)" fontStyle="italic">{label}</text>
+        fontSize="13" fill={labelFill} fontStyle="italic">{label}</text>
     </motion.g>
   );
 }
@@ -535,7 +535,7 @@ function CitationLink({ cite, href }) {
       onMouseLeave={() => setHovered(false)}
       onClick={href ? () => window.open(href, '_blank', 'noopener') : undefined}
       style={{
-        fontSize: 'var(--fs-slide-pageno)',
+        fontSize: 'var(--fs-slide-tagline)',
         fontStyle: 'italic',
         color: 'var(--cream-muted)',
         cursor: href ? 'pointer' : 'default',

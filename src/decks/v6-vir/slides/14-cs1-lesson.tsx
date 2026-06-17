@@ -216,9 +216,9 @@ export default function Cs1Lesson() {
             }}
           >
             <div className="deck-mono uppercase" style={{
-              fontSize: 'var(--fs-slide-pageno)',
+              fontSize: 'var(--fs-slide-tagline)',
               letterSpacing: 'var(--ls-mono-wide)',
-              color: 'var(--cream-faint)',
+              color: 'var(--cream-muted)',
               fontWeight: 700,
             }}>
               Note on FDA · proactive disclosure

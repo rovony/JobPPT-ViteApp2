@@ -89,13 +89,11 @@ Rule 101 does not guarantee approval. It opens the door. The scientific answer s
 → Six convergent pillars in that dossier.`,
 
   'cs3-setup': `## Spoken
-In December 2024 the SEC asked for a ==PK/PD study in India== before approval.
-
-Under the old framing, that request is reasonable. Under our evidence, it is a twelve-to-eighteen-month delay patients did not need.
-
-We already had PopPK on ==253 patients== with race not significant, PBPK-supported DDI labeling, and flat exposure-response.
-
-The strategy: prove the ==existing global clinical pharmacology package== answers the local-data question.
+- Chronology first: ==Rule 101== opened the waiver path in **August 2024** — before the December SEC meeting you see on this slide.
+- In December 2024 the SEC asked for a ==PK/PD study in India== before approval.
+- Under the old framing, that request is reasonable. Under our evidence, it is a twelve-to-eighteen-month delay patients did not need.
+- We already had PopPK on ==253 patients== with race not significant, PBPK-supported DDI labeling, and flat exposure-response.
+- The strategy: prove the ==existing global clinical pharmacology package== answers the local-data question.
 
 ## Cues
 - ⏱ 55 sec — thesis slide; steady conviction

@@ -157,7 +157,7 @@ export default function Cs2AspStrategy() {
             <span
               className="deck-mono uppercase"
               style={{
-                fontSize: 'var(--fs-card-meta)',
+                fontSize: 'var(--fs-slide-tagline)',
                 letterSpacing: 'var(--ls-mono-wide)',
                 color: 'var(--teal)',
                 fontWeight: 700,
@@ -497,7 +497,7 @@ function MoveRow({ data, delay, reduced, ease }) {
         <span
           className="deck-mono uppercase"
           style={{
-            fontSize: 'var(--fs-card-meta)',
+            fontSize: 'var(--fs-slide-tagline)',
             letterSpacing: '0.22em',
             color: 'var(--cream-faint)',
             fontWeight: 700,
@@ -529,7 +529,7 @@ function BaselineRow({ data, delay, reduced, ease }) {
       <span
         className="deck-mono uppercase"
         style={{
-          fontSize: 'var(--fs-card-meta)',
+          fontSize: 'var(--fs-slide-tagline)',
           letterSpacing: '0.22em',
           color: 'var(--cream-faint)',
           fontWeight: 700,
@@ -585,7 +585,7 @@ function OutcomeRow({ data, delay, reduced, ease }) {
       <span
         className="deck-mono uppercase"
         style={{
-          fontSize: 'var(--fs-card-meta)',
+          fontSize: 'var(--fs-slide-tagline)',
           letterSpacing: '0.22em',
           color: 'var(--teal)',
           fontWeight: 700,

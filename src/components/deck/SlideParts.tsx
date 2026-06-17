@@ -33,10 +33,11 @@ export function Eyebrow({ area = 'eyebrow', color = 'var(--case, var(--coral))',
       style={{
         fontSize: 'var(--fs-slide-eyebrow)',
         letterSpacing: 'var(--ls-mono-wide)',
+        fontWeight: 600,
         color,
       }}
     >
-      <span className="h-px w-6 sm:w-10" style={{ background: color }} />
+      <span className="h-px w-8 sm:w-12" style={{ background: color }} />
       {children}
     </GridSlot>
   );
