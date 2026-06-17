@@ -138,7 +138,12 @@ Intrinsic and extrinsic factors fully characterized. Global regulatory experienc
 - ✅ Land on "Convergence is the case"
 
 ## Bridge
-→ Did the strategy work? The public timeline.`,
+→ Did the strategy work? The public timeline.
+
+## Off-slide (if asked — not on screen)
+- **Pillar detail** (compressed on slide): (1) somatic IDH1 mechanism · (2) PopPK N=253, race NS · (3) flat E-R, 500 mg QD · (4) intrinsic/extrinsic factors · (5) 30+ global jurisdictions · (6) Phase 4 PK/PD commitment named upfront
+- **36-page justification** document — mechanism-first, not statistics-only ethnic bridging
+- Backup: \`cs3-B2-six-pillar-package\``,
 
   'cs3-reversal': `## Spoken
 The public arc: FDA approvals from 2018 through 2021, EMA in 2023, then ==August 2024== when Rule 101 opened the waiver pathway.
@@ -170,7 +175,13 @@ The dossier was ==explicit about what remained uncertain== — and the Phase 4 c
 - ✅ Land on explicit uncertainty + Phase 4
 
 ## Bridge
-→ How the team organized to execute under pressure.`,
+→ How the team organized to execute under pressure.
+
+## Off-slide (if asked — not on screen)
+- **Amber "honest accounting" band removed** — still deliver candor verbally
+- **Shipped:** mechanism-first defense · six-pillar package · CDSCO approval · Phase 4 commitment
+- **Not shipped pre-approval:** Indian PK/PD · Indian pivotal sites · India-specific peer-reviewed PK paper
+- **Residual uncertainty:** explicit in dossier; Phase 4 closes the PK gap post-approval`,
 
   'cs3-leadership': `## Spoken
 The operating model had four clear owners.
@@ -188,7 +199,13 @@ Quantitative pharmacology answered: can global evidence extrapolate? Partner fun
 - ✅ Land on "Both had to be true"
 
 ## Bridge
-→ Three portable lessons from this case.`,
+→ Three portable lessons from this case.
+
+## Off-slide (if asked — not on screen)
+- **Amber thesis removed from slide:** "Quantitative pharmacology answered whether global evidence extrapolated; partner functions answered whether the pathway could hold — both had to be true."
+- **Phase 4 owner:** quantitative pharmacology defined PK/PD commitment scope
+- **India affiliate:** in-country execution under SEC/CDSCO cadence
+- **Leadership signal:** translating science into a cross-functional operating model under deadline`,
 
   'cs3-bridge-recap': `## Spoken
 ==The science was the bridge.==

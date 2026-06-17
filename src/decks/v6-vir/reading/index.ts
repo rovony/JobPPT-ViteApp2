@@ -23,6 +23,7 @@ import cs2 from './02-cs2-asparlas.md?raw';
 import cs3 from './03-cs3-india.md?raw';
 import cs4 from './04-cs4-ai.md?raw';
 import companyBridge from './05-company-bridge.md?raw';
+import offSlideMemory from './06-off-slide-memory.md?raw';
 
 const reading = [
   { slug: '00-intro',                title: 'Overview',                       attachedTo: 'deck', minutes: 5, content: intro },
@@ -31,6 +32,7 @@ const reading = [
   { slug: '03-cs3-india',            title: 'CS3 · Ivosidenib India reliance', attachedTo: 'cs3',  minutes: 6, content: cs3 },
   { slug: '04-cs4-ai',               title: 'CS4 · AI / Pharazi workflows',    attachedTo: 'cs4',  minutes: 6, content: cs4 },
   { slug: '05-company-bridge',       title: 'Company bridge',                  attachedTo: 'deck', minutes: 5, content: companyBridge },
+  { slug: '06-off-slide-memory',     title: 'Off-slide memory · cheat sheet',  attachedTo: 'deck', minutes: 12, content: offSlideMemory },
 ];
 
 export default reading;

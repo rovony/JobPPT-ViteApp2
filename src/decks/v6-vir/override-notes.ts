@@ -1,11 +1,16 @@
-const note = (spoken: string, cues: string, bridge: string) => `## Spoken
+const note = (spoken: string, cues: string, bridge: string, offSlide?: string) => {
+  const off = offSlide
+    ? `\n\n## Off-slide (if asked — not on screen)\n${offSlide}`
+    : '';
+  return `## Spoken
 ${spoken}
 
 ## Cues
 ${cues}
 
 ## Bridge
-${bridge}`;
+${bridge}${off}`;
+};
 
 export const overrideNotes: Record<string, string> = {
   title: note(
@@ -18,7 +23,13 @@ One discipline at the center: ==when measurement falls short, clinical pharmacol
 - 🎚 Name four cases quickly; do not over-explain yet
 - ⚠ Do not preview slide details — save depth for each case
 - ✅ Land on the thesis sentence`,
-    `→ The hook states the premise every clinical pharmacologist eventually faces.`
+    `→ The hook states the premise every clinical pharmacologist eventually faces.`,
+    `- Cards are **compact** on screen — full one-liners if asked:
+  - **CS01:** Exposure-matched dose when the pediatric efficacy trial cannot carry the answer · EMA + PMDA approval
+  - **CS02:** Defensible adult design when the endpoint-powered trial is not feasible · FDA Type A agreement
+  - **CS03:** Local-trial waiver via convergent global evidence · cross-functional approval under pressure
+  - **CS04:** Audit-ready clin pharm workflows when evidence must scale · personal research (Pharazi)
+- Meta line: Vir Biotechnology candidate seminar · ==June 17, 2026== · ~45 min including Q&A`
   ),
 
   'hook-A-trial-not-answer': note(
@@ -83,7 +94,11 @@ I would not overclaim six-minute walk or exposure-response on this slide. The de
     `- ⏱ 55 sec — point left panel then right; do not narrate four charts
 - 🎚 Cautious verbs: "no clear gradient," "did not contradict"
 - ✅ Recovery line: "AUC carried the dose. Cmax checked safety."`,
-    `→ Three disruptions the program absorbed at once.`
+    `→ Three disruptions the program absorbed at once.`,
+    `- **Removed panels** (backup \`cs1-B6-6mwd\`, E-R scatter): AUC vs 6MWD supportive only — noisy in pediatrics, not load-bearing for registration
+- **Cmax detail:** ~11–18% higher Cmax,ss vs adult depending on dose band; no clear exposure-driven AE gradient in observed range
+- **Verbatim guardrail:** "No clear exposure-driven gradient in the observed range" — never say "flat E-R" or "no risk"
+- **If pressed on source:** Okour 2023 / published figures; chart is teaching visual, numbers are the receipt`
   ),
 
   'cs1-lesson': note(
@@ -187,7 +202,10 @@ The simulated primary was repositioned to dose confirmation in Cohorts 1 and 2 �
     `- ⏱ 75 sec — be precise: Type A, July 21 2023, N=60
 - 🎚 Convert a meeting into evidence
 - ✅ Land on "36% reduction"`,
-    `→ Why sixty adults could still anchor the model.`
+    `→ Why sixty adults could still anchor the model.`,
+    `- **Four pillars on slide (waterfall only):** (1) optimal design / precision anchor · (2) AE-detection ≥85% · (3) simulated primary repositioned to dose confirmation · (4) pediatric prior N=124 unchanged
+- **If "what didn't land":** simulated primary as sole registrational endpoint — agency wanted adult PopPK confirmation in early cohorts
+- **NSAA threshold:** same FDA-agreed 0.1 U/mL nadir asparaginase activity as pediatric label`
   ),
 
   'cs2-asp-fit': note(
@@ -201,7 +219,11 @@ The smaller sample does not weaken the science. It ==clarifies where the evidenc
     `- ⏱ 75 sec — make "precision" the word they remember
 - ⚠ Curves on slide may be illustrative; anchor on the argument shape
 - ✅ Land on "where the evidence actually lives"`,
-    `→ Impact — what travels beyond SPARK-ALL.`
+    `→ Impact — what travels beyond SPARK-ALL.`,
+    `- **Glyphs removed** — say aloud if probed: prior = N124 outer ring / N60 inner augmentation; sensitivity = three plateau tests on %RSE
+- **D-optimal framing:** sample size anchored on PK parameter precision (PopED-PFIM), not endpoint power against 90% NSAA target
+- **PopPK-simulated primary:** virtual patients from pooled model; trial validates model, model answers clinical question
+- **Backup depth:** \`cs3-B1-optimal-design\`, \`cs3-B2-simulated-endpoint\` (inherited backup IDs)`
   ),
 
   'cs2-asp-impact': note(
@@ -307,7 +329,12 @@ One discipline carried each decision. The ledger on screen is the recap; do not 
 ==Core proof complete.== Next we widen the aperture.`,
     `- ⏱ 25 sec — pause beat; name the four cases once, not ten minutes again
 - ✅ Land on "core proof complete"`,
-    `→ Portfolio — breadth across modality, area, and agency.`
+    `→ Portfolio — breadth across modality, area, and agency.`,
+    `- **Ledger one-liners if panel jumps back:**
+  - CS01: EMA/PMDA pediatric ambrisentan · exposure bridge · FDA never received package
+  - CS02: Asparlas Type A N=60 (−36%) · pediatric prior + optimal design stack
+  - CS03: Ivosidenib CDSCO May 14 2025 · six pillars · Phase 4 PK commitment
+  - CS04: Pharazi · auditability before autonomy · personal research`
   ),
 
   'portfolio-01': note(
@@ -319,7 +346,11 @@ If asked about ADC: I led and directed strategy, but ADC is ==breadth only== in 
     `- ⏱ 120 sec — do not walk every cell
 - 🎚 Highlight oncology, biologics, antiviral/ID, AI as bridge-relevant
 - ✅ Keep ADC as breadth-only honesty guardrail`,
-    `→ Company bridge — translate the discipline to Vir.`
+    `→ Company bridge — translate the discipline to Vir.`,
+    `- **Stats strip removed** (say if asked): ==12+ years== clin pharm · ==5+ approvals== · ==6+ agencies== · ==20+ publications== · oncology + biologic + antiviral breadth
+- **ADC honesty:** led/directed multi-analyte + FIH dose-projection strategy (BCLxL @ Servier; BCMA contribution @ GSK) — not hands-on every analyte
+- **HBV:** co-inventor AU2023213173A1 — combination therapy patent; not direct HDV program ownership
+- **Row highlights:** Tibsovo/Onivyde/Asparlas oncology; Sotrovimab biologics; Dectova antiviral; DosePredict/DeepPK/Pharazi AI tools`
   ),
 
   'company-bridge-divider': note(
@@ -413,8 +444,12 @@ I can lead under uncertainty without losing ==interpretability==.`,
 
 Happy to go deeper on pediatric PopPK, Asparlas efficient design, India reliance, or AI infrastructure — wherever the panel wants to spend the time.`,
     `- ⏱ 30 sec — stop after the invitation
-- ✅ Let the four chips guide depth if needed`,
-    `→ Q&A.`
+- ✅ Let the four chips guide depth if needed
+- 🧠 Open **Reading → Off-slide memory** or slide Q&A if a detail was trimmed from screen`,
+    `→ Q&A.`,
+    `- **Global honesty guardrails:** no Servier-confidential numbers · no VIR-5500 internal access claim · ADC breadth-only · Pharazi personal research not product transfer · HBV patent narrow scope
+- **Depth routing:** CS1 backups \`cs1-backup-*\` · CS2 asparlas \`cs3-backup-*\` (legacy IDs) · CS3 India \`cs3-backup-*\` · CS4 \`ai-backup-master\`
+- **One-sentence close:** When measurement falls short, I build the evidence bridge that makes the dose and the decision defensible.`
   ),
 
   'ai-backup-master': note(

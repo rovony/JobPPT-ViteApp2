@@ -29,6 +29,7 @@ audit-ready clinical pharmacology workflows.
 - ==Avoid Servier internal numbers== throughout.
 - Do not claim direct Vir or PRO-XTEN program ownership.
 - Keep ADC framed only as portfolio breadth if asked, not as a core case.
+- **Slides were de-busied on purpose.** Trimmed copy lives in **speaker notes → Off-slide** sections, per-slide **Q&A**, and **Reading → Off-slide memory · cheat sheet**.
 
 ## Open questions to revisit
 
