@@ -161,9 +161,9 @@
   },
   "v6-vir": {
     "firstCommittedAt": "2026-06-16T21:06:36-04:00",
-    "lastUpdatedAt": "2026-06-16T21:30:31-04:00",
-    "commitCount": 3,
-    "lastCommitSubject": "fix(deck): add left margin to career arc first milestone",
+    "lastUpdatedAt": "2026-06-16T21:38:58-04:00",
+    "commitCount": 4,
+    "lastCommitSubject": "fix(deck): make career arc stops collision-safe",
     "kind": "presentation",
     "versionFamily": "v6-vir",
     "versionLabel": null,
