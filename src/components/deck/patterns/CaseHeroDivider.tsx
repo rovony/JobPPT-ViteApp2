@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
+import { eyebrowBadgeStyle } from '@/components/deck/SlideParts';
 
 /**
  * CaseHeroDivider — large typographic divider with a neon-stroke
@@ -105,6 +106,7 @@ export default function CaseHeroDivider({
             color: 'var(--case)',
             fontWeight: 700,
             marginBottom: '3vh',
+            ...eyebrowBadgeStyle('var(--case)'),
           }}
           initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease, delay: D.kicker }}

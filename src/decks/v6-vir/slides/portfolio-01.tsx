@@ -36,8 +36,6 @@ const PORTFOLIO_ROWS = [
   },
 ];
 
-const NUMBERS = ['12+ years', '5+ approvals', '6+ agencies', '20+ publications', 'oncology + biologic + antiviral'];
-
 export default function Portfolio01() {
   const reduced = useReducedMotion();
   const go = !reduced;
@@ -58,77 +56,37 @@ export default function Portfolio01() {
           height: '100%',
           minHeight: 0,
           display: 'grid',
-          gridTemplateRows: 'minmax(0, 1fr) auto',
-          gap: 'var(--space-4)',
+          gridTemplateColumns: '0.85fr 1.55fr 1.65fr 1fr',
+          gap: '1px',
+          border: '1px solid color-mix(in srgb, var(--amber) 28%, transparent)',
+          background: 'color-mix(in srgb, var(--amber) 28%, transparent)',
+          overflow: 'hidden',
         }}
       >
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '0.85fr 1.55fr 1.65fr 1fr',
-            gap: '1px',
-            minHeight: 0,
-            border: '1px solid color-mix(in srgb, var(--amber) 28%, transparent)',
-            background: 'color-mix(in srgb, var(--amber) 28%, transparent)',
-            overflow: 'hidden',
-          }}
-        >
-          {['Area', 'Assets', 'What I did', 'Agencies'].map((heading) => (
-            <div
-              key={heading}
-              className="deck-mono uppercase"
-              style={{
-                padding: 'var(--space-3) var(--space-4)',
-                background: 'color-mix(in srgb, var(--amber) 16%, var(--panel))',
-                color: 'var(--amber)',
-                fontSize: 'var(--fs-slide-eyebrow)',
-                letterSpacing: 'var(--ls-mono-wide)',
-                fontWeight: 800,
-              }}
-            >
-              {heading}
-            </div>
-          ))}
-          {PORTFOLIO_ROWS.map((row, i) => (
-            <React.Fragment key={row.area}>
-              <Cell delay={0.65 + i * 0.08} go={go} strong>{row.area}</Cell>
-              <Cell delay={0.70 + i * 0.08} go={go}>{row.assets}</Cell>
-              <Cell delay={0.75 + i * 0.08} go={go}>{row.work}</Cell>
-              <Cell delay={0.80 + i * 0.08} go={go} mono>{row.agencies}</Cell>
-            </React.Fragment>
-          ))}
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1.25, ease: [0.2, 0.7, 0.3, 1] }}
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: 'var(--space-3)',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          {NUMBERS.map((item) => (
-            <span
-              key={item}
-              className="deck-mono uppercase"
-              style={{
-                color: item.includes('oncology') ? 'var(--cream)' : 'var(--amber)',
-                border: '1px solid color-mix(in srgb, var(--amber) 34%, transparent)',
-                background: 'color-mix(in srgb, var(--amber) 10%, transparent)',
-                padding: 'var(--space-2) var(--space-3)',
-                fontSize: 'var(--fs-slide-eyebrow)',
-                letterSpacing: 'var(--ls-mono)',
-                fontWeight: 800,
-              }}
-            >
-              {item}
-            </span>
-          ))}
-        </motion.div>
+        {['Area', 'Assets', 'What I did', 'Agencies'].map((heading) => (
+          <div
+            key={heading}
+            className="deck-mono uppercase"
+            style={{
+              padding: 'var(--space-3) var(--space-4)',
+              background: 'color-mix(in srgb, var(--amber) 16%, var(--panel))',
+              color: 'var(--amber)',
+              fontSize: 'var(--fs-slide-eyebrow)',
+              letterSpacing: 'var(--ls-mono-wide)',
+              fontWeight: 800,
+            }}
+          >
+            {heading}
+          </div>
+        ))}
+        {PORTFOLIO_ROWS.map((row, i) => (
+          <React.Fragment key={row.area}>
+            <Cell delay={0.65 + i * 0.08} go={go} strong>{row.area}</Cell>
+            <Cell delay={0.70 + i * 0.08} go={go}>{row.assets}</Cell>
+            <Cell delay={0.75 + i * 0.08} go={go}>{row.work}</Cell>
+            <Cell delay={0.80 + i * 0.08} go={go} mono>{row.agencies}</Cell>
+          </React.Fragment>
+        ))}
       </div>
     </SlideFrame>
   );

@@ -68,7 +68,7 @@ const DIMENSIONS = {
   // Marginalia on the divider — bumped up from the previous stylized
   // version so the audience can read the silhouette as "India" before
   // the slide 16 world map ever appears.
-  hero:    { width: 'clamp(260px, 32vw, 460px)', aspectRatio: ASPECT },
+  hero:    { width: 'clamp(300px, 36vw, 520px)', aspectRatio: ASPECT },
   // Backdrop sizing for any non-morphing usage in CS2.
   context: { width: 'clamp(280px, 36vw, 480px)', aspectRatio: ASPECT },
   // T8 origin/destination sizes — kept large so when India "fills

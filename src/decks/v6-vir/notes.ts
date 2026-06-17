@@ -45,7 +45,7 @@ const validNoteIds = [
   'cs1-bridge', 'cs2-asp-divider', 'cs2-asp-challenge', 'cs2-asp-strategy', 'cs2-asp-fda', 'cs2-asp-fit', 'cs2-asp-impact',
   'cs2-asp-bridge', 'cs3-ivosidenib-divider', 'cs3-setup', 'cs3-bg-regulatory', 'cs3-pillars', 'cs3-reversal', 'cs3-reckoning',
   'cs3-leadership', 'cs3-bridge-recap', 'cs2-pharazi-divider', 'cs2-regulatory-floor', 'cs2-gap', 'cs2-working-overview',
-  'cs2-poppk-dashboard', 'cs2-publication-close', 'portfolio-01', 'company-bridge-divider', 'company-bridge-oncology-problem',
+  'cs2-poppk-dashboard', 'cs2-publication-close', 'cs4-close-divider', 'portfolio-01', 'company-bridge-divider', 'company-bridge-oncology-problem',
   'company-bridge-oncology-approach', 'company-bridge-case-mapping', 'company-bridge-hbv-hdv', 'company-bridge-fit',
   'closing-thread', 'closing-fit', 'closing-thanks',
   'cs1-backup-master', 'cs1-backup-type-1-historical', 'cs1-backup-timeline-context', 'cs1-backup-timeline-amb-only', 'cs1-backup-timeline-program-detail', 'cs1-B10-endpoints', 'cs1-B20-full-story', 'cs1-backup-type-2-methodology',

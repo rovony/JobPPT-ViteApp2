@@ -267,7 +267,7 @@
        in mind — vh dominates on short/landscape phones; vw
        dominates on tall/portrait.
        ========================================================= */
-    --fs-slide-eyebrow:  clamp(0.72rem, min(1.05vw, 1.75vh), 0.95rem);
+    --fs-slide-eyebrow:  clamp(0.8rem, min(1.18vw, 1.95vh), 1.05rem);
     --fs-slide-topright: clamp(0.6rem,  min(0.78vw, 1.3vh), 0.78rem);
     --fs-slide-headline: clamp(1.5rem,  min(3.6vw, 6vh),    3.6rem);
     --fs-slide-subhead:  clamp(0.8rem,  min(1.1vw, 1.8vh),  1.1rem);

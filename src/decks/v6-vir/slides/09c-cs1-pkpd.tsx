@@ -258,19 +258,16 @@ export default function Cs1Pkpd() {
   return (
     <>
     <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
-      <Eyebrow color="var(--coral)" delay={D.chrome}>Case 01 · PopPK · build & fit PART 2</Eyebrow>
+      <Eyebrow color="var(--coral)" delay={D.chrome}>Case 01 · PK matching</Eyebrow>
       <Headline delay={D.headline} maxChars={50}>
         Pediatric exposures match adults — AUC and C<sub>max</sub>.
       </Headline>
-      <Subhead delay={D.subhead} maxChars={120} size="lead">
-        Target attainment held at both dose levels. No clear efficacy or safety gradient across observed exposure — detail in speaker notes and backup charts.
+      <Subhead delay={D.subhead} maxChars={110} size="lead">
+        AUC is the bridge; Cmax is the safety check. Detail on efficacy and safety E-R lives in backup — this slide stays on PK match.
       </Subhead>
 
       <Viz>
-        <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', minHeight: 0, paddingTop: 'var(--space-2)' }}>
-          
-          <div className="deck-mono uppercase" style={{ background: 'color-mix(in srgb, var(--coral) 12%, transparent)', border: '1px solid color-mix(in srgb, var(--coral) 40%, transparent)', borderRadius: 'var(--radius-sm)', color: 'var(--coral)', padding: 'var(--space-2) var(--space-4)', fontSize: 'var(--fs-slide-tagline)', letterSpacing: '0.2em', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'flex-start', flexShrink: 0 }}>PK MATCHING · AUC + Cmax</div>
-
+        <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', minHeight: 0, paddingTop: 'var(--space-1)' }}>
           <div style={{ flex: 1, minHeight: 0, display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 'var(--space-4)' }}>
             {zoomablePanel('auc', <>
               <PanelTitle label={PANELS.auc.label} right={PANELS.auc.right} delay={D.adultBand} />
@@ -281,13 +278,6 @@ export default function Cs1Pkpd() {
               <div style={CHART_PANEL_BODY}><CmaxPanel tk={tk} D={D} /></div>
             </>)}
           </div>
-
-          <div style={{ flex: '0 0 auto', padding: '12px 24px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'color-mix(in srgb, var(--coral) 8%, transparent)', border: '1px solid var(--coral)', borderRadius: '4px' }}>
-            <span className="deck-mono" style={{ fontSize: 'var(--fs-slide-tagline)', letterSpacing: '0.08em', color: 'var(--coral)', fontWeight: 600, textTransform: 'uppercase' }}>
-              CONCLUSION: PK MATCHING HELD; NO CLEAR EXPOSURE-RESPONSE GRADIENT IN OBSERVED RANGE
-            </span>
-          </div>
-
         </div>
 
       </Viz>

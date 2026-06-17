@@ -24,20 +24,37 @@ import SplitHeadline from './SplitHeadline';
 
 const EASE = [0.2, 0.7, 0.3, 1];
 
-export function Eyebrow({ area = 'eyebrow', color = 'var(--case, var(--coral))', children, delay = 0.15 }: any) {
+/** Pill badge shell for slide eyebrows — case-colored bg for wayfinding. */
+export function eyebrowBadgeStyle(color: string) {
+  return {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '0.35em',
+    padding: '0.42em 0.95em',
+    borderRadius: 'var(--radius-sm)',
+    background: `color-mix(in srgb, ${color} 16%, transparent)`,
+    border: `1px solid color-mix(in srgb, ${color} 42%, transparent)`,
+    width: 'fit-content',
+    maxWidth: '100%',
+    lineHeight: 1.2,
+  };
+}
+
+export function Eyebrow({ area = 'eyebrow', color = 'var(--case, var(--coral))', children, delay = 0.15, badge = true }: any) {
   return (
     <GridSlot
       area={area}
       motion={{ initial: { opacity: 0, x: -12 }, animate: { opacity: 1, x: 0 }, delay }}
-      className="flex items-center gap-2 sm:gap-4 deck-mono uppercase self-end"
+      className="flex items-center deck-mono uppercase self-end"
       style={{
         fontSize: 'var(--fs-slide-eyebrow)',
         letterSpacing: 'var(--ls-mono-wide)',
-        fontWeight: 600,
+        fontWeight: 700,
         color,
+        ...(badge ? eyebrowBadgeStyle(color) : {}),
       }}
     >
-      <span className="h-px w-8 sm:w-12" style={{ background: color }} />
+      {!badge && <span className="h-px w-8 sm:w-12 shrink-0" style={{ background: color }} />}
       {children}
     </GridSlot>
   );

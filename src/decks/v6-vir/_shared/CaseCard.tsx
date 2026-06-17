@@ -18,7 +18,7 @@ import { motion } from 'framer-motion';
  *                  On slide 02 we typically pass false so the card
  *                  sits quietly while the badges below do the work.
  */
-export default function CaseCard({ c, index, go, idleAtRest, persistent = false }) {
+export default function CaseCard({ c, index, go, idleAtRest, persistent = false, compact = false }) {
   // Stagger after the title slide's headline lands. On slide 02 the
   // cards are morphed in via layoutId so this entrance only fires
   // once on slide 01.
@@ -38,7 +38,9 @@ export default function CaseCard({ c, index, go, idleAtRest, persistent = false 
       layout
       className="relative h-full"
       style={{
-        padding: 'var(--space-4) var(--space-4) var(--space-4) var(--space-5)',
+        padding: compact
+          ? 'var(--space-3) var(--space-3) var(--space-3) var(--space-4)'
+          : 'var(--space-4) var(--space-4) var(--space-4) var(--space-5)',
         borderRadius: 'var(--radius-md)',
         border: '1px solid color-mix(in srgb, var(--cream) 10%, transparent)',
         background: 'color-mix(in srgb, var(--panel) 38%, transparent)',
@@ -98,47 +100,67 @@ export default function CaseCard({ c, index, go, idleAtRest, persistent = false 
         className="deck-mono uppercase"
         style={{
           margin: 0,
-          fontSize: 'var(--fs-slide-kicker)',
+          fontSize: compact ? 'var(--fs-slide-eyebrow)' : 'var(--fs-slide-kicker)',
           letterSpacing: 'var(--ls-mono)',
           fontWeight: 600,
           color: c.color,
-          marginBottom: 'var(--space-1)',
+          marginBottom: compact ? 'var(--space-2)' : 'var(--space-1)',
         }}
         initial={{ opacity: startOpacity, y: startY }}
         animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
         transition={{ duration: 0.25, delay: base + 0.08 }}
       >
-        {c.label}
+        {compact ? (c.shortLabel ?? c.label) : c.label}
       </motion.p>
-      <motion.h3
-        style={{
-          margin: 0,
-          fontFamily: 'var(--font-body)',
-          fontSize: 'var(--fs-card-title)',
-          fontWeight: 600,
-          lineHeight: 1.2,
-          color: 'var(--cream)',
-          marginBottom: 'var(--space-1)',
-        }}
-        initial={{ opacity: startOpacity, y: startY }}
-        animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-        transition={{ duration: 0.25, delay: base + 0.16 }}
-      >
-        {c.title}
-      </motion.h3>
-      <motion.p
-        style={{
-          margin: 0,
-          fontSize: 'var(--fs-slide-subhead)',
-          color: 'var(--cream-muted)',
-          lineHeight: 1.45,
-        }}
-        initial={{ opacity: startOpacity, y: startY }}
-        animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-        transition={{ duration: 0.25, delay: base + 0.24 }}
-      >
-        {c.note}
-      </motion.p>
+      {compact ? (
+        <motion.p
+          style={{
+            margin: 0,
+            fontFamily: 'var(--font-body)',
+            fontSize: 'var(--fs-slide-subhead)',
+            fontWeight: 500,
+            lineHeight: 1.25,
+            color: 'var(--cream-muted)',
+          }}
+          initial={{ opacity: startOpacity, y: startY }}
+          animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.25, delay: base + 0.16 }}
+        >
+          {c.shortTitle ?? c.title}
+        </motion.p>
+      ) : (
+        <>
+          <motion.h3
+            style={{
+              margin: 0,
+              fontFamily: 'var(--font-body)',
+              fontSize: 'var(--fs-card-title)',
+              fontWeight: 600,
+              lineHeight: 1.2,
+              color: 'var(--cream)',
+              marginBottom: 'var(--space-1)',
+            }}
+            initial={{ opacity: startOpacity, y: startY }}
+            animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.25, delay: base + 0.16 }}
+          >
+            {c.title}
+          </motion.h3>
+          <motion.p
+            style={{
+              margin: 0,
+              fontSize: 'var(--fs-slide-subhead)',
+              color: 'var(--cream-muted)',
+              lineHeight: 1.45,
+            }}
+            initial={{ opacity: startOpacity, y: startY }}
+            animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.25, delay: base + 0.24 }}
+          >
+            {c.note}
+          </motion.p>
+        </>
+      )}
     </motion.div>
   );
 }

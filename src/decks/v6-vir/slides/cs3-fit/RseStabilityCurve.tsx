@@ -19,7 +19,6 @@ export default function RseStabilityCurve({
   className,
 }) {
   const ease = [0.2, 0.7, 0.3, 1];
-  const overshoot = [0.34, 1.56, 0.64, 1];
 
   // viewBox 600 × 320 · plot area 90,40 → 540,260
   const x0 = 90;
@@ -195,10 +194,9 @@ export default function RseStabilityCurve({
 
       {/* HERO marker — N = 60 */}
       <motion.g
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.55, ease: overshoot, delay: delay + 1.7 }}
-        style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.55, ease, delay: delay + 1.7 }}
       >
         <circle cx={m60.x} cy={m60.y} r={9} fill={stroke} stroke="var(--bg)" strokeWidth={2} />
         <line
@@ -211,23 +209,25 @@ export default function RseStabilityCurve({
           strokeDasharray="3 3"
           opacity={0.65}
         />
+        {/* Badge sized to fully wrap label — prior 76×28 clipped "N = 60 · plateau" */}
         <rect
-          x={m60.x - 38}
-          y={y0 - 22}
-          width={76}
-          height={28}
-          rx={0}
+          x={m60.x - 62}
+          y={y0 - 26}
+          width={124}
+          height={30}
+          rx={2}
           fill="color-mix(in srgb, var(--teal) 18%, transparent)"
           stroke={stroke}
           strokeWidth={1}
         />
         <text
           x={m60.x}
-          y={y0 - 4}
+          y={y0 - 11}
           textAnchor="middle"
+          dominantBaseline="middle"
           fontFamily="var(--font-mono)"
-          fontSize={11}
-          letterSpacing="0.06em"
+          fontSize={10.5}
+          letterSpacing="0.04em"
           fontWeight={700}
           fill={stroke}
         >

@@ -253,10 +253,10 @@ export default function TitleSlide() {
         {/* ---------- Case cards (4 col desktop, 2 col tablet, 1 col mobile) ---------- */}
         <div
           className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4"
-          style={{ gap: 'var(--space-8)' }}
+          style={{ gap: 'var(--space-4)' }}
         >
           {CASES.map((c, i) => (
-            <CaseCard key={c.id} c={c} index={i} go={go} idleAtRest={idleAtRest} />
+            <CaseCard key={c.id} c={c} index={i} go={go} idleAtRest={idleAtRest} compact />
           ))}
         </div>
 

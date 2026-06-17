@@ -72,6 +72,54 @@ After the cases: portfolio breadth, then a Vir-specific bridge. This is not a me
     `→ Case 01 divider — ambrisentan.`
   ),
 
+  'cs1-pkpd': note(
+    `Two panels only — keep the story tight.
+
+Left: pediatric AUC sits inside the adult target envelope at both dose levels. ==AUC is the bridge.==
+
+Right: Cmax runs higher in children but stays interpretable against adult safety experience. ==Cmax is the safety check.==
+
+I would not overclaim six-minute walk or exposure-response on this slide. The defensible line is: ==the observed PK did not contradict the exposure bridge==. E-R detail is in backup if they want it.`,
+    `- ⏱ 55 sec — point left panel then right; do not narrate four charts
+- 🎚 Cautious verbs: "no clear gradient," "did not contradict"
+- ✅ Recovery line: "AUC carried the dose. Cmax checked safety."`,
+    `→ Three disruptions the program absorbed at once.`
+  ),
+
+  'cs1-lesson': note(
+    `EMA and PMDA approved pediatric ambrisentan in 2021. ICH E11A codified the extrapolation framework in 2024.
+
+**EMA, 2021** — Volibris, ages 8–17, three weight bands, two dose levels.
+
+**PMDA, 2021** — same exposure-matching framework; GSK Japan announced March 23.
+
+**ICH E11A, 2024** — where similarity is high, exposure matching can carry more of the inference.
+
+Proactive FDA caveat on the slide: FDA ==never received the package== — split-rights commercial outcome, not a regulatory rejection. The Letairis label states verbatim that ==safety and effectiveness in pediatric patients have not been established==. As of 2026, no formal FDA pediatric indication.
+
+The portable architecture: adult efficacy as anchor, pediatric PK as bridge, totality of evidence for submission.`,
+    `- ⏱ 50 sec — pins then FDA caveat once, calmly
+- 🎚 Do not sound defensive on FDA — disclose and move on
+- ✅ Land on "no formal FDA pediatric indication"`,
+    `→ Bridge to Case 02 — Asparlas.`
+  ),
+
+  'cs3-setup': note(
+    `Chronology first — this matters.
+
+==August 2024== — Rule 101 opened the waiver path before the December SEC meeting on this slide.
+
+==December 2024== — SEC asked for a PK/PD study in India before approval. Reasonable under the old framing; under our evidence, a twelve-to-eighteen-month delay patients did not need.
+
+We already had PopPK on ==253 patients== with race not significant, PBPK-supported DDI labeling, and flat exposure-response.
+
+The strategy: prove the ==existing global clinical pharmacology package== answers the local-data question.`,
+    `- ⏱ 55 sec — say August before December; steady conviction
+- 🎚 Contrast SEC request vs existing PopPK evidence
+- ✅ Land on "existing global package"`,
+    `→ Rule 101 and the regulatory opening.`
+  ),
+
   'cs1-bridge': note(
     `What travels beyond ambrisentan is simple.
 
@@ -219,10 +267,10 @@ The final claim must stay inspectable. ==The bottleneck is trusted review, not g
   'cs2-working-overview': note(
     `The working pattern is simple: ==plan, run, check, record==.
 
-Pharazi is framed here as architecture proof — deterministic tools under agent orchestration, with explicit review gates and a durable decision record.
+Pharazi is architecture proof — deterministic tools under agent orchestration, with explicit review gates and a durable decision record.
 
 Write the analysis intent first. Route to executable, replayable tools. Compare outputs before synthesis. Leave an audit trail the reviewer can follow.`,
-    `- ⏱ 35 sec — four beats match four cards
+    `- ⏱ 50 sec — four beats; point at the live architecture diagram
 - ✅ Land on agents plus deterministic tools`,
     `→ PopPK dashboard — the review contract in one surface.`
   ),
@@ -235,22 +283,31 @@ The user should see assumptions, diagnostics, covariate logic, simulation scenar
 Highlight what changed between versions. Name what still needs expert review — do not hide it behind confidence language.
 
 ==The interface is the review contract.==`,
-    `- ⏱ 35 sec — speak to the clinical pharmacology reviewer
+    `- ⏱ 50 sec — speak to the clinical pharmacology reviewer; walk one diagnostic row
 - ✅ Land on review contract`,
-    `→ Close — traceable acceleration, not automation for its own sake.`
+    `→ Close — traceable acceleration, live at pharazi.ai.`
   ),
 
   'cs2-publication-close': note(
-    `The AI lesson is not automation. It is ==traceable acceleration==.
+    `Three status lines on screen: regulatory floor defined, traceable workflow built, working system live.
 
-Use AI for routing, drafting, checking, and assembly where outputs stay inspectable. Set boundaries for data, privacy, and accountability.
+The capstone is the same discipline from Case 01: ==no black boxes== at the decision point. Fast is useful only when the evidence chain stays intact.
 
-The same standard from Case 01 applies: no black boxes at the decision point. The final claim belongs to the ==accountable scientist==, not the agent.
+pharazi.ai is the framework home — manuscript in prep, community at clinpharm.ai. This is personal research, not a sponsor deployment claim.`,
+    `- ⏱ 45 sec — status stack → capstone → QR/iframe; do not oversell product
+- ✅ Land on "no black boxes" + intact trail`,
+    `→ Cases complete divider — breathe; the four-case core is done.`
+  ),
 
-==Fast is useful only when the trail is intact.==`,
-    `- ⏱ 35 sec — tie back to CS1 black-box discipline
-- ✅ Land on intact trail`,
-    `→ Portfolio — widen the aperture beyond the four cases.`
+  'cs4-close-divider': note(
+    `That closes the four-case core. ==Cases 01 through 04== — pediatric dose, smarter trial, India dossier, traceable AI.
+
+One discipline carried each decision. The ledger on screen is the recap; do not re-walk every case.
+
+==Core proof complete.== Next we widen the aperture.`,
+    `- ⏱ 25 sec — pause beat; name the four cases once, not ten minutes again
+- ✅ Land on "core proof complete"`,
+    `→ Portfolio — breadth across modality, area, and agency.`
   ),
 
   'portfolio-01': note(

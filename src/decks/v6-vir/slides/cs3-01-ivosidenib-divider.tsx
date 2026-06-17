@@ -26,8 +26,8 @@ export default function CS3IvosidenibDivider() {
       ]}
       verdict="APPROVED"
       illustration={
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-          <IndiaMap layoutId="india-cdsco" variant="hero" />
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%' }}>
+          <IndiaMap layoutId="india-cdsco" variant="hero" fillIntensity={0.2} stroke="var(--cyan)" />
         </div>
       }
       source="CDSCO marketing authorization · 14 May 2025 · India commercial launch 5 June 2025"

@@ -63,6 +63,7 @@ import Cs3AiGap from './slides/cs3-ai-gap';
 import Cs3AiWorkingOverview from './slides/cs3-ai-working-overview';
 import Cs3AiPoppkDashboard from './slides/cs3-ai-poppk-dashboard';
 import Cs3AiPublicationClose from './slides/cs3-ai-publication-close';
+import Cs4CloseDivider from './slides/cs4-close-divider';
 
 // Portfolio + company adapter
 import Portfolio01 from './slides/portfolio-01';
@@ -209,6 +210,7 @@ const manifest = {
     { id: 'cs2-working-overview', title: 'CS4 · Working system overview', component: Cs3AiWorkingOverview, isTitle: false, time: 50 },
     { id: 'cs2-poppk-dashboard', title: 'CS4 · PopPK review dashboard', component: Cs3AiPoppkDashboard, isTitle: false, time: 50 },
     { id: 'cs2-publication-close', title: 'CS4 · Traceable acceleration', component: Cs3AiPublicationClose, isTitle: false, time: 45 },
+    { id: 'cs4-close-divider', title: 'Cases 01–04 · Core complete', component: Cs4CloseDivider, isTitle: true, transition: 'fade', time: 25 },
 
     // Portfolio + company bridge
     { id: 'portfolio-01', title: 'Portfolio · breadth across modality, area, and agency', component: Portfolio01, isTitle: false, transition: 'fade', time: 120 },

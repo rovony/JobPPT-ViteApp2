@@ -65,7 +65,6 @@ const D = {
   notCounter: 3.8,
   notRows: [4.1, 4.6, 4.85],
   anchor: 5.4,
-  amber: 5.8,
 };
 
 function AnimCounter({ target, go, delay, color }) {
@@ -126,7 +125,7 @@ export default function CS2Reckoning() {
       subhead="Naming the gap is the credibility move — not the disqualifying one."
       footerKicker="Case 03 · Honest reckoning"
       footerSource="Sources · ClinicalTrials.gov · CDSCO public record · Lancet RH SE Asia 2024"
-      delays={{ footer: reduced ? 0 : D.amber + 0.7 }}
+      delays={{ footer: reduced ? 0 : D.anchor + 0.9 }}
     >
       <div
         ref={ref}
