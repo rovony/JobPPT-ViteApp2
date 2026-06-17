@@ -21,14 +21,9 @@ const EASE = [0.2, 0.7, 0.3, 1];
  * "0 Indian patients" framing already on cs2-bg-disease. */
 const SHIPPED = [
   {
-    title: 'Mechanism-first defense',
-    date: 'somatic IDH1 R132',
-    cite: 'Tumor-acquired target · ICH E5 ethnic sensitivity argument',
-  },
-  {
-    title: 'Six-pillar dossier',
-    date: 'PK · ER · intrinsic · extrinsic · regulatory · MOA',
-    cite: 'Convergent evidence package · 36-page justification',
+    title: 'Dossier defense',
+    date: 'six pillars + mechanism-first rationale',
+    cite: 'ICH E5 convergent evidence · 36-page justification',
   },
   {
     title: 'Extrinsic factors characterized',
@@ -38,7 +33,7 @@ const SHIPPED = [
   {
     title: 'Waiver granted with Phase 4',
     date: 'CDSCO approval · 14 May 2025',
-    cite: 'Conditional, not categorical · post-marketing cohort committed',
+    cite: 'Conditional approval · post-marketing cohort committed',
   },
 ];
 
@@ -65,7 +60,7 @@ const NOT_SHIPPED = [
 const D = {
   shipped: 0.7,
   shippedCounter: 1.1,
-  shippedRows: [1.3, 1.55, 1.8, 2.05],
+  shippedRows: [1.3, 1.55, 1.8],
   notShipped: 3.4,
   notCounter: 3.8,
   notRows: [4.1, 4.6, 4.85],
@@ -95,7 +90,7 @@ function AnimCounter({ target, go, delay, color }) {
 
   return (
     <span className="deck-mono" style={{
-      fontSize: 'var(--fs-slide-pageno)',
+      fontSize: 'var(--fs-slide-tagline)',
       color,
       letterSpacing: '0.14em',
       fontVariantNumeric: 'tabular-nums',
@@ -177,11 +172,11 @@ export default function CS2Reckoning() {
                 What we shipped
               </span>
               <span className="deck-mono" style={{
-                fontSize: 'var(--fs-slide-pageno)',
+                fontSize: 'var(--fs-slide-tagline)',
                 color: 'var(--cyan)',
                 letterSpacing: '0.14em',
               }}>
-                ✓ <AnimCounter target={4} go={go} delay={D.shippedCounter} color="var(--cyan)" />
+                ✓ <AnimCounter target={3} go={go} delay={D.shippedCounter} color="var(--cyan)" />
               </span>
             </div>
 
@@ -202,12 +197,6 @@ export default function CS2Reckoning() {
                   initial={{ opacity: 0, x: -8 }}
                   animate={go ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: D.shippedRows[i], ease: EASE }}
-                  whileHover={{
-                    borderLeftWidth: 3,
-                    borderLeftColor: 'var(--cyan)',
-                    borderLeftStyle: 'solid',
-                    paddingLeft: 'var(--space-2)',
-                  }}
                 >
                   <motion.span
                     className="deck-mono"
@@ -230,20 +219,21 @@ export default function CS2Reckoning() {
                   </motion.span>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div className="deck-body" style={{
-                      fontSize: 'var(--fs-slide-subhead)',
+                      fontSize: 'var(--fs-slide-lead)',
                       color: 'var(--cream)',
-                      lineHeight: 1.4,
+                      lineHeight: 1.35,
                     }}>
-                      <span style={{ color: 'var(--cyan)', fontWeight: 500 }}>
+                      <span style={{ color: 'var(--cyan)', fontWeight: 600 }}>
                         {row.title}
                       </span>
                       {' — '}{row.date}
                     </div>
-                    <div className="deck-display" style={{
-                      fontSize: 'var(--fs-slide-pageno)',
+                    <div className="deck-body" style={{
+                      fontSize: 'var(--fs-slide-tagline)',
                       fontStyle: 'italic',
                       color: 'var(--cream-muted)',
-                      marginTop: 1,
+                      marginTop: 4,
+                      lineHeight: 1.4,
                     }}>
                       {row.cite}
                     </div>
@@ -282,7 +272,7 @@ export default function CS2Reckoning() {
                 What we did not ship
               </span>
               <span className="deck-mono" style={{
-                fontSize: 'var(--fs-slide-pageno)',
+                fontSize: 'var(--fs-slide-tagline)',
                 color: 'var(--cream-muted)',
                 letterSpacing: '0.14em',
               }}>
@@ -319,9 +309,9 @@ export default function CS2Reckoning() {
                   </span>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div className="deck-body" style={{
-                      fontSize: 'var(--fs-slide-subhead)',
+                      fontSize: 'var(--fs-slide-lead)',
                       color: 'var(--cream)',
-                      lineHeight: 1.4,
+                      lineHeight: 1.35,
                     }}>
                       {row.amber ? (
                         <span style={{
@@ -337,11 +327,12 @@ export default function CS2Reckoning() {
                       )}
                       {row.detail ? ` ${row.detail}` : ''}
                     </div>
-                    <div className="deck-display" style={{
-                      fontSize: 'var(--fs-slide-pageno)',
+                    <div className="deck-body" style={{
+                      fontSize: 'var(--fs-slide-tagline)',
                       fontStyle: 'italic',
                       color: 'var(--cream-muted)',
-                      marginTop: 1,
+                      marginTop: 4,
+                      lineHeight: 1.4,
                     }}>
                       {row.cite}
                     </div>
@@ -349,7 +340,7 @@ export default function CS2Reckoning() {
                 </motion.div>
               ))}
 
-              {/* Anchor note — "gaps are named on this slide" */}
+              {/* Anchor note */}
               <motion.div
                 style={{
                   marginTop: 'auto',
@@ -381,47 +372,6 @@ export default function CS2Reckoning() {
             </div>
           </motion.div>
         </div>
-
-        {/* ── AMBER MESSAGE BAND ── */}
-        <motion.div
-          style={{
-            flexShrink: 0,
-            background: 'color-mix(in srgb, var(--amber) 12%, transparent)',
-            borderTop: '1px solid color-mix(in srgb, var(--amber) 42%, transparent)',
-            borderBottom: '1px solid color-mix(in srgb, var(--amber) 42%, transparent)',
-            padding: 'var(--space-3) var(--space-5)',
-            borderRadius: 'var(--radius-sm)',
-          }}
-          initial={{ opacity: 0 }}
-          animate={go ? { opacity: 1 } : { opacity: 1 }}
-          transition={{ duration: 0.5, delay: D.amber, ease: EASE }}
-        >
-          <div style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            gap: 'var(--space-3)',
-          }}>
-            <span aria-hidden style={{
-              display: 'inline-block',
-              transform: 'rotate(45deg)',
-              width: 12, height: 12,
-              background: 'var(--amber)',
-              flex: '0 0 auto',
-            }} />
-            <span className="deck-display" style={{
-              fontSize: 'var(--fs-slide-tagline)',
-              lineHeight: 1.4,
-              textAlign: 'center',
-              fontStyle: 'italic',
-              color: 'var(--cream)',
-            }}>
-              The Clin Pharm dossier{' '}
-              <span style={{ color: 'var(--amber)', fontWeight: 500 }}>
-                carried what evidence it could
-              </span>
-              {' '}— and named what it could not.
-            </span>
-          </div>
-        </motion.div>
       </div>
     </SlideFrame>
   );

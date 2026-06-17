@@ -12,16 +12,14 @@ import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/Slide
 
 const QUANT_PHARM_SCOPE = [
   'Translate the ICH E5 question into testable evidence',
-  'Mechanism-first ethnic-sensitivity rationale',
-  'Integrate PopPK · E-R · PBPK · intrinsic/extrinsic factors',
+  'Integrate PopPK · E-R · intrinsic/extrinsic factors',
   'Define Phase 4 PK/PD as the residual-uncertainty plan',
 ];
 
 const PARTNER_SCOPE = [
   { who: 'Regulatory affairs', what: 'Agency pathway, filing mechanics, and formal responses' },
-  { who: 'Medical / PV', what: 'Post-marketing surveillance and local follow-up plan' },
-  { who: 'Regulatory writing', what: 'Submission narrative, response package, and traceable record' },
-  { who: 'India affiliate', what: 'In-country execution, meeting logistics, and access launch plan' },
+  { who: 'Medical / PV + India affiliate', what: 'Post-marketing surveillance, local execution, and access launch' },
+  { who: 'Regulatory writing', what: 'Submission narrative and traceable response package' },
 ];
 
 export default function CS2Leadership() {
@@ -39,8 +37,8 @@ export default function CS2Leadership() {
         <span style={{ color: 'var(--cyan)' }}>partners carried it through.</span>
       </Headline>
 
-      <Subhead delay={0.55} maxChars={100} size="lead">
-        The waiver worked because evidence ownership and execution ownership were separated clearly.
+      <Subhead delay={0.55} maxChars={120} size="lead">
+        Quant Pharm answered whether global evidence extrapolates; partners owned pathway, commitments, and execution.
       </Subhead>
 
       <Viz>
@@ -50,8 +48,7 @@ export default function CS2Leadership() {
             width: '100%', height: '100%',
             display: 'flex', flexDirection: 'column',
             justifyContent: 'center',
-            gap: 'clamp(var(--space-4), 2.5vh, var(--space-6))',
-            paddingTop: 'clamp(var(--space-2), 2vh, var(--space-4))',
+            gap: 'clamp(var(--space-3), 2vh, var(--space-5))',
           }}
         >
           <div style={{
@@ -68,7 +65,7 @@ export default function CS2Leadership() {
                   color-mix(in srgb, var(--cyan) 10%, transparent),
                   color-mix(in srgb, var(--panel) 75%, transparent) 70%)`,
                 padding: 'clamp(var(--space-3), 1.5vw, var(--space-5))',
-                display: 'flex', flexDirection: 'column', gap: 'var(--space-3)',
+                display: 'flex', flexDirection: 'column', gap: 'var(--space-2)',
               }}
               initial={{ opacity: 0, x: -16 }}
               animate={go ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
@@ -97,7 +94,7 @@ export default function CS2Leadership() {
                 borderRadius: 'var(--radius-md)',
                 background: 'color-mix(in srgb, var(--panel) 65%, transparent)',
                 padding: 'clamp(var(--space-3), 1.5vw, var(--space-5))',
-                display: 'flex', flexDirection: 'column', gap: 'var(--space-3)',
+                display: 'flex', flexDirection: 'column', gap: 'var(--space-2)',
               }}
               initial={{ opacity: 0, x: 16 }}
               animate={go ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
@@ -126,29 +123,6 @@ export default function CS2Leadership() {
               ))}
             </motion.div>
           </div>
-
-          {/* Bottom thesis line */}
-          <motion.div
-            style={{
-              textAlign: 'center',
-              padding: 'var(--space-2) var(--space-4)',
-              background: 'color-mix(in srgb, var(--amber) 8%, transparent)',
-              border: '1px solid color-mix(in srgb, var(--amber) 28%, transparent)',
-              borderRadius: 'var(--radius-md)',
-            }}
-            initial={{ opacity: 0 }}
-            animate={go ? { opacity: 1 } : { opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.6, ease: [0.2, 0.7, 0.3, 1] }}
-          >
-            <span className="deck-display italic" style={{
-              fontSize: 'var(--fs-slide-tagline)', color: 'var(--cream-muted)',
-            }}>
-              Quant Pharm answered: can global evidence extrapolate? Partners answered:{' '}
-              <span style={{ color: 'var(--amber)', fontWeight: 600 }}>
-                can the pathway, commitments, and execution hold?
-              </span>
-            </span>
-          </motion.div>
         </div>
       </Viz>
 

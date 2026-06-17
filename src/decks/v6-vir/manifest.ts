@@ -206,9 +206,9 @@ const manifest = {
     { id: 'cs2-pharazi-divider', title: 'Case 04 · AI / Pharazi', component: CS2PharaziDivider, isTitle: true, transition: 'fade', time: 25 },
     { id: 'cs2-regulatory-floor', title: 'CS4 · Regulatory floor', component: Cs3AiRegulatoryFloor, isTitle: false, time: 35 },
     { id: 'cs2-gap', title: 'CS4 · Traceability gap', component: Cs3AiGap, isTitle: false, time: 35 },
-    { id: 'cs2-working-overview', title: 'CS4 · Working system overview', component: Cs3AiWorkingOverview, isTitle: false, time: 35 },
-    { id: 'cs2-poppk-dashboard', title: 'CS4 · PopPK review dashboard', component: Cs3AiPoppkDashboard, isTitle: false, time: 35 },
-    { id: 'cs2-publication-close', title: 'CS4 · Traceable acceleration', component: Cs3AiPublicationClose, isTitle: false, time: 30 },
+    { id: 'cs2-working-overview', title: 'CS4 · Working system overview', component: Cs3AiWorkingOverview, isTitle: false, time: 50 },
+    { id: 'cs2-poppk-dashboard', title: 'CS4 · PopPK review dashboard', component: Cs3AiPoppkDashboard, isTitle: false, time: 50 },
+    { id: 'cs2-publication-close', title: 'CS4 · Traceable acceleration', component: Cs3AiPublicationClose, isTitle: false, time: 45 },
 
     // Portfolio + company bridge
     { id: 'portfolio-01', title: 'Portfolio · breadth across modality, area, and agency', component: Portfolio01, isTitle: false, transition: 'fade', time: 120 },

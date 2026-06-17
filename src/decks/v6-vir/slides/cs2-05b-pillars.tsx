@@ -6,7 +6,7 @@ import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/Slide
 import CS2MoaCard from './cs2-shared/CS2MoaCard';
 import {
   PillarTextCard, PillarHeroNumber, PillarHeroItalic, PillarSub,
-  PillarBody, PillarCite,
+  PillarBody,
 } from './cs2-shared/CS2Pillars';
 
 /**
@@ -38,12 +38,12 @@ export default function CS2Pillars() {
 
   return (
     <SlideGrid dataCase="cyan" areas={STANDARD_AREAS}>
-      <Eyebrow delay={0.10}>Case 03 · Architecture — Six convergent pillars</Eyebrow>
+      <Eyebrow delay={0.10}>Case 03 · Architecture — Five convergent pillars</Eyebrow>
 
       <Headline delay={0.25} maxChars={68}>
-        Six lines converge — across{' '}
+        Five lines converge — across{' '}
         <span style={{ color: C.cyan, fontStyle: 'italic', fontWeight: 500 }}>
-          PK, PD, intrinsic, extrinsic, regulatory, and mechanism.
+          PK, PD, intrinsic/extrinsic, regulatory, and mechanism.
         </span>
       </Headline>
 
@@ -62,8 +62,9 @@ export default function CS2Pillars() {
           <div style={{
             flex: 1, minHeight: 0, minWidth: 0,
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(8rem, 100%), 1fr))',
-            gap: 'clamp(8px, 1.1vw, 14px)',
+            gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+            gridTemplateRows: '1fr 1fr',
+            gap: 'clamp(10px, 1.2vw, 16px)',
             alignItems: 'stretch',
           }}>
             {/* Pillar 01 · MOA — the morphing card from slide 6 */}
@@ -76,10 +77,7 @@ export default function CS2Pillars() {
               <PillarTextCard delay={go ? D.p2 : 0} eyebrow="Pillar 02" name="PK Similarity">
                 <PillarHeroNumber>n = 253</PillarHeroNumber>
                 <PillarSub>race not significant</PillarSub>
-                <PillarBody>
-                  Pooled phase 1 + AGILE PK data, n=253. Linear PK confirmed across ethnic groups.
-                </PillarBody>
-                <PillarCite>Jiang et al.<br />CTS 2021</PillarCite>
+                <PillarBody>Pooled PK n=253 · race not significant.</PillarBody>
               </PillarTextCard>
             </div>
 
@@ -93,46 +91,25 @@ export default function CS2Pillars() {
                     color: C.creamMuted, fontWeight: 400,
                   }}>across range</span>
                 </PillarHeroItalic>
-                <PillarBody>
-                  No exposure-AE or exposure-efficacy relationship. Wide TI · 500 mg QD covers range.
-                </PillarBody>
-                <PillarCite>Phase 1 + AGILE pivotal</PillarCite>
+                <PillarBody>Flat E-R · wide TI · 500 mg QD.</PillarBody>
               </PillarTextCard>
             </div>
 
-            {/* Pillar 04 · Intrinsic */}
+            {/* Pillar 04 · Intrinsic + extrinsic (merged) */}
             <div style={{ display: 'flex', minHeight: 0, minWidth: 0 }}>
-              <PillarTextCard delay={go ? D.p4 : 0} eyebrow="Pillar 04" name="Intrinsic">
-                <PillarHeroItalic size="tag">No impact</PillarHeroItalic>
-                <PillarSub>organ fn · age · sex</PillarSub>
-                <PillarBody>
-                  No demographic dose adjustment. CYP polymorphism characterized in DDI program.
-                </PillarBody>
-                <PillarCite>Tibsovo USPI · EMA EPAR</PillarCite>
+              <PillarTextCard delay={go ? D.p4 : 0} eyebrow="Pillar 04" name="Intrinsic · Extrinsic">
+                <PillarHeroItalic size="tag">No dose change</PillarHeroItalic>
+                <PillarSub>demographics · food · DDIs</PillarSub>
+                <PillarBody>Characterized in label — no India-specific adjustment.</PillarBody>
               </PillarTextCard>
             </div>
 
-            {/* Pillar 05 · Extrinsic */}
+            {/* Pillar 05 · Global Reg */}
             <div style={{ display: 'flex', minHeight: 0, minWidth: 0 }}>
-              <PillarTextCard delay={go ? D.p5 : 0} eyebrow="Pillar 05" name="Extrinsic">
-                <PillarHeroItalic size="tag">No impact</PillarHeroItalic>
-                <PillarSub>food · DDIs · comeds</PillarSub>
-                <PillarBody>
-                  Extrinsic factors were characterized and managed; none required India-specific dose changes.
-                </PillarBody>
-                <PillarCite>Tibsovo USPI<br />EMA EPAR</PillarCite>
-              </PillarTextCard>
-            </div>
-
-            {/* Pillar 06 · Global Reg */}
-            <div style={{ display: 'flex', minHeight: 0, minWidth: 0 }}>
-              <PillarTextCard delay={go ? D.p6 : 0} eyebrow="Pillar 06" name="Global Reg">
+              <PillarTextCard delay={go ? D.p5 : 0} eyebrow="Pillar 05" name="Global Reg">
                 <PillarHeroNumber>30+</PillarHeroNumber>
                 <PillarSub>jurisdictions · 8 yrs</PillarSub>
-                <PillarBody>
-                  Multi-agency PV · 8 yrs surveillance · no ethnicity-specific signals.
-                </PillarBody>
-                <PillarCite>FDA Orange Book<br />EMA EPAR · multi-agency</PillarCite>
+                <PillarBody>30+ jurisdictions · 8 yrs PV · no ethnicity signal.</PillarBody>
               </PillarTextCard>
             </div>
           </div>
@@ -158,11 +135,11 @@ export default function CS2Pillars() {
               flex: '0 0 auto',
             }} />
             <div className="deck-display" style={{
-              fontStyle: 'italic', fontSize: 'var(--fs-slide-tagline)', color: C.cream,
-              lineHeight: 1.4, textAlign: 'center',
+              fontStyle: 'italic', fontSize: 'var(--fs-slide-subhead)', color: C.cream,
+              lineHeight: 1.35, textAlign: 'center',
             }}>
               <span style={{ color: C.amber, fontWeight: 500 }}>No single pillar is sufficient.</span>{' '}
-              Convergence across all six is the case.
+              Five lines converge — MOA through global regulatory record.
             </div>
           </motion.div>
         </div>
@@ -170,7 +147,7 @@ export default function CS2Pillars() {
 
       <Footer
         delay={reduced ? 0 : 2.0}
-        kicker="Case 03 · Six convergent pillars · ICH E5(R1)"
+        kicker="Case 03 · Five convergent pillars · ICH E5(R1)"
         tagline=""
         source="Jiang CTS 2021 · Bolleddula CPT:PSP 2021 · Dang Cancer Cell 2009 · Tibsovo USPI · ICH E5(R1)"
       />
