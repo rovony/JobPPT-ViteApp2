@@ -74,10 +74,10 @@ export default function SlideFrame({
   const riskValue = slideId ? riskValueContent[slideId] : null;
 
   const D = {
-    eyebrow:  delays.eyebrow  ?? 0.15,
-    headline: delays.headline ?? 0.30,
-    subhead:  delays.subhead  ?? 0.55,
-    footer:   delays.footer   ?? 2.6,
+    eyebrow:  delays.eyebrow  ?? 0.1,
+    headline: delays.headline ?? 0.16,
+    subhead:  delays.subhead  ?? 0.22,
+    footer:   delays.footer   ?? 0.32,
   };
 
   return (

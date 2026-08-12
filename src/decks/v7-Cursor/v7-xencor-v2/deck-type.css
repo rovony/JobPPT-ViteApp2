@@ -1,0 +1,31 @@
+/**
+ * v7-xencor-v2 presentation type — non-backup spine readability.
+ * Higher specificity than [data-deck-theme="light-editorial"] alone.
+ */
+[data-deck-id='v7-xencor-v2'][data-deck-theme='light-editorial'] {
+  --fs-slide-eyebrow: clamp(0.95rem, min(1.35vw, 2.25vh), 1.2rem);
+  --fs-slide-topright: clamp(0.75rem, min(1vw, 1.5vh), 0.95rem);
+  --fs-slide-headline: clamp(1.95rem, min(4vw, 6.5vh), 3.55rem);
+  --fs-slide-subhead: clamp(1.2rem, min(1.85vw, 2.85vh), 1.65rem);
+  --fs-slide-kicker: clamp(0.75rem, min(1vw, 1.55vh), 0.95rem);
+  --fs-slide-tagline: clamp(1.12rem, min(1.55vw, 2.5vh), 1.4rem);
+  --fs-slide-pageno: clamp(0.72rem, min(0.9vw, 1.3vh), 0.92rem);
+  --fs-slide-lead: clamp(1.3rem, min(2.15vw, 3.3vh), 2.05rem);
+  --fs-slide-name: clamp(1.1rem, min(1.55vw, 2.45vh), 1.5rem);
+
+  --fs-card-hero-num: clamp(3.1rem, min(6vw, 8.2vh), 5.6rem);
+  --fs-card-numeral: clamp(2.65rem, min(4vw, 5.5vh), 4.15rem);
+  --fs-card-quote: clamp(1.3rem, min(1.95vw, 2.8vh), 1.95rem);
+  --fs-card-title: clamp(1.25rem, min(1.7vw, 2.5vh), 1.6rem);
+  --fs-card-body: clamp(1.1rem, min(1.45vw, 2.3vh), 1.35rem);
+  --fs-card-label: clamp(0.82rem, min(1.05vw, 1.45vh), 1rem);
+  --fs-card-meta: clamp(0.76rem, min(0.95vw, 1.25vh), 0.9rem);
+}
+
+/* PharmAgent / dashboard chrome — lift Tailwind 10–11px floors */
+[data-deck-id='v7-xencor-v2'] .text-\[10px\] {
+  font-size: clamp(0.78rem, 1.15vh, 0.92rem) !important;
+}
+[data-deck-id='v7-xencor-v2'] .text-\[11px\] {
+  font-size: clamp(0.82rem, 1.25vh, 0.98rem) !important;
+}

@@ -114,25 +114,33 @@ export function Headline({ area = 'headline', children, delay = 0.3, maxChars = 
 
 export function Subhead({ area = 'subhead', children, delay = 0.55, maxChars = 100, size = 'default' }: any) {
   // `size` lets individual slides bump the subhead when the line is
-  // narrative/lead copy rather than a tight caption. 'lead' taps the
-  // lead token (~28pt) which scales fluidly across viewports.
+  // narrative/lead copy rather than a tight caption. 'lead' uses the
+  // cover lead token so subtitles stay readable under a display headline.
+  // Never start at opacity 0 — same presentation trap as SplitHeadline.
   const fontSize =
     size === 'lead'
-      ? 'clamp(1rem, min(1.5vw, 2.5vh), 1.5rem)'
+      ? 'var(--fs-slide-lead)'
       : 'var(--fs-slide-subhead)';
+  const safeDelay = Math.min(delay, 0.35);
   return (
     <GridSlot
       area={area}
       as="p"
-      motion={{ initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, delay }}
+      motion={{
+        initial: { opacity: 1, y: 8 },
+        animate: { opacity: 1, y: 0 },
+        delay: safeDelay,
+      }}
       className="deck-display italic self-start"
       style={{
         fontSize,
-        lineHeight: 'var(--lh-snug)',
+        lineHeight: size === 'lead' ? 1.4 : 'var(--lh-snug)',
         color: 'var(--cream-muted)',
         fontWeight: 400,
         maxWidth: `${maxChars}ch`,
         margin: 0,
+        paddingTop: size === 'lead' ? 'var(--space-2)' : 0,
+        paddingBottom: size === 'lead' ? 'var(--space-3)' : 0,
       }}
     >
       {children}
@@ -169,7 +177,7 @@ export function Viz({ area = 'viz', children, className, style }: any) {
  * a second row that may wrap, so 4-cite chains stay legible. The page
  * number is sourced from deck context so callers never hardcode "03 / 20".
  */
-export function Footer({ area = 'footer', kicker, tagline, source, delay = 2.6 }: any) {
+export function Footer({ area = 'footer', kicker, tagline, source, delay = 0.32 }: any) {
   const { index, total } = useDeck();
   return (
     <GridSlot
@@ -186,18 +194,19 @@ export function Footer({ area = 'footer', kicker, tagline, source, delay = 2.6 }
           className="deck-mono uppercase shrink-0"
           style={{
             fontSize: 'var(--fs-slide-kicker)',
-            letterSpacing: 'var(--ls-mono-wide)',
+            letterSpacing: 'var(--ls-mono)',
             color: 'var(--cream-faint)',
           }}
         >
           {kicker}
         </span>
         <span
-          className="deck-display italic sm:flex-1 sm:text-right min-w-0 truncate"
+          className="deck-display italic sm:flex-1 min-w-0"
           style={{
             fontSize: 'var(--fs-slide-tagline)',
-            color: 'var(--cream-muted)',
+            color: 'var(--cream)',
             fontWeight: 500,
+            lineHeight: 1.35,
           }}
         >
           {tagline}

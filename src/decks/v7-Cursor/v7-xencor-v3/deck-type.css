@@ -1,0 +1,131 @@
+/**
+ * v7-xencor-v3 presentation type + light/dark complementary system.
+ *
+ * Blueprint slides (01-title, 03-what-you-will-see) use `--bp-*` tokens keyed
+ * off deck-root `data-theme-mode` (set by DeckRunner). Body slides use cool
+ * paper + teal accents in light; blueprint navy when toggled dark.
+ *
+ * Higher specificity than [data-deck-theme="light-editorial"] alone.
+ */
+[data-deck-id='v7-xencor-v3'][data-deck-theme='light-editorial'] {
+  /* Cool paper — complements dark #0C1420 blueprint (avoid warm cream AI default) */
+  --bg: #F3F6F9;
+  --panel: #FFFFFF;
+  --panel-elevated: #EBF0F5;
+  --cream: #12181F;
+  --cream-muted: rgba(18, 24, 31, 0.78);
+  --cream-faint: rgba(18, 24, 31, 0.58);
+  --cream-dim: rgba(18, 24, 31, 0.36);
+  --cream-hairline: rgba(18, 24, 31, 0.16);
+  --cream-ghost: rgba(18, 24, 31, 0.07);
+
+  /* Teal/cyan case accent readable on light (≥4.5:1 on white) */
+  --case: #0E7490;
+  --cyan: #0891B2;
+  --teal: #0F766E;
+
+  /* Body: Source Sans 3; chrome labels: real mono (matches dark cover discipline) */
+  --font-display: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+  --ls-mono: 0.06em;
+  --ls-mono-tight: 0.04em;
+  --ls-mono-wide: 0.12em;
+
+  --fs-slide-eyebrow: clamp(0.95rem, min(1.35vw, 2.25vh), 1.2rem);
+  --fs-slide-topright: clamp(0.75rem, min(1vw, 1.5vh), 0.95rem);
+  --fs-slide-headline: clamp(1.95rem, min(4vw, 6.5vh), 3.55rem);
+  --fs-slide-subhead: clamp(1.2rem, min(1.85vw, 2.85vh), 1.65rem);
+  --fs-slide-kicker: clamp(0.75rem, min(1vw, 1.55vh), 0.95rem);
+  --fs-slide-tagline: clamp(1.12rem, min(1.55vw, 2.5vh), 1.4rem);
+  --fs-slide-pageno: clamp(0.72rem, min(0.9vw, 1.3vh), 0.92rem);
+  --fs-slide-lead: clamp(1.3rem, min(2.15vw, 3.3vh), 2.05rem);
+  --fs-slide-name: clamp(1.1rem, min(1.55vw, 2.45vh), 1.5rem);
+
+  --fs-card-hero-num: clamp(3.1rem, min(6vw, 8.2vh), 5.6rem);
+  --fs-card-numeral: clamp(2.65rem, min(4vw, 5.5vh), 4.15rem);
+  --fs-card-quote: clamp(1.3rem, min(1.95vw, 2.8vh), 1.95rem);
+  --fs-card-title: clamp(1.25rem, min(1.7vw, 2.5vh), 1.6rem);
+  --fs-card-body: clamp(1.1rem, min(1.45vw, 2.3vh), 1.35rem);
+  --fs-card-label: clamp(0.82rem, min(1.05vw, 1.45vh), 1rem);
+  --fs-card-meta: clamp(0.76rem, min(0.95vw, 1.25vh), 0.9rem);
+}
+
+/* ── Blueprint tokens (01-title + 03-what-you-will-see) — light complementary ── */
+[data-deck-id='v7-xencor-v3'][data-theme-mode='light'] [data-title-blueprint],
+[data-deck-id='v7-xencor-v3'][data-theme-mode='light'] [data-roadmap-blueprint] {
+  --bp-paper: #F3F6F9;
+  --bp-paper2: #FFFFFF;
+  --bp-panel-hi: #0C4A6E;
+  --bp-ink: #12181F;
+  --bp-ink2: #2A3544;
+  --bp-ink3: #5A6B7D;
+  --bp-ink4: #6B7C90;
+  --bp-hair: rgba(18, 24, 31, 0.18);
+  --bp-hair2: rgba(18, 24, 31, 0.1);
+  --bp-grid: rgba(14, 116, 144, 0.07);
+  --bp-cyan: #0E7490;
+  --bp-teal: #0F766E;
+  --bp-rose: #BE123C;
+  --bp-rose-wash: rgba(190, 18, 60, 0.08);
+  --bp-cyan-wash: rgba(14, 116, 144, 0.1);
+  --bp-band-bg: rgba(243, 246, 249, 0.94);
+  --bp-decision-ink: #FFFFFF;
+  --bp-decision-accent: #67E8F9;
+  --bp-marker-f: #334155;
+  --bp-marker-c: #0E7490;
+  --bp-x-stroke: #FFFFFF;
+}
+
+/* ── Blueprint tokens — dark (navy cover / roadmap) ── */
+[data-deck-id='v7-xencor-v3'][data-theme-mode='dark'] [data-title-blueprint],
+[data-deck-id='v7-xencor-v3']:not([data-theme-mode='light']) [data-title-blueprint],
+[data-deck-id='v7-xencor-v3'][data-theme-mode='dark'] [data-roadmap-blueprint],
+[data-deck-id='v7-xencor-v3']:not([data-theme-mode='light']) [data-roadmap-blueprint] {
+  --bp-paper: #0C1420;
+  --bp-paper2: #141E2E;
+  --bp-panel-hi: #1D2A3C;
+  --bp-ink: #EAF1F9;
+  --bp-ink2: #C4D2E4;
+  --bp-ink3: #93A6BE;
+  --bp-ink4: #8497AF;
+  --bp-hair: rgba(190, 215, 245, 0.2);
+  --bp-hair2: rgba(190, 215, 245, 0.1);
+  --bp-grid: rgba(130, 200, 255, 0.045);
+  --bp-cyan: #22D3EE;
+  --bp-teal: #5EEAD4;
+  --bp-rose: #F4737F;
+  --bp-rose-wash: rgba(244, 115, 127, 0.1);
+  --bp-cyan-wash: rgba(34, 211, 238, 0.12);
+  --bp-band-bg: rgba(20, 30, 46, 0.86);
+  --bp-decision-ink: #FFFFFF;
+  --bp-decision-accent: #0FB4D8;
+  --bp-marker-f: #12294C;
+  --bp-marker-c: #0FB4D8;
+  --bp-x-stroke: #FFFFFF;
+}
+
+/* When user toggles dark on this deck — cool blueprint-adjacent surfaces */
+[data-deck-id='v7-xencor-v3'][data-theme-mode='dark'] {
+  --bg: #0C1420;
+  --panel: #141E2E;
+  --panel-elevated: #1D2A3C;
+  --cream: #EAF1F9;
+  --cream-muted: rgba(234, 241, 249, 0.72);
+  --cream-faint: rgba(234, 241, 249, 0.48);
+  --cream-dim: rgba(234, 241, 249, 0.28);
+  --cream-hairline: rgba(190, 215, 245, 0.2);
+  --cream-ghost: rgba(190, 215, 245, 0.08);
+  --case: #22D3EE;
+  --amber: #22D3EE;
+  --cyan: #22D3EE;
+  --teal: #5EEAD4;
+}
+
+/* PharmAgent / dashboard chrome — lift Tailwind 10–11px floors */
+[data-deck-id='v7-xencor-v3'] .text-\[10px\] {
+  font-size: clamp(0.78rem, 1.15vh, 0.92rem) !important;
+}
+[data-deck-id='v7-xencor-v3'] .text-\[11px\] {
+  font-size: clamp(0.82rem, 1.25vh, 0.98rem) !important;
+}

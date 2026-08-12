@@ -4,13 +4,15 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { eyebrowBadgeStyle } from '@/components/deck/SlideParts';
 
 /**
- * CaseHeroDivider — large typographic divider with a neon-stroke
- * illustration anchored to the right side.
+ * CaseHeroDivider — large typographic divider for light-editorial paper.
  *
  * Layout (1920×1080 authoring):
  *   • Left column: CASE STUDY nn kicker · giant compound title ·
  *     case-color hairline · subhead · taglines
  *   • Right column: illustration slot (lung · India · etc.)
+ *
+ * Paper look: solid bg, hairlines, short entrance delays. Critical type
+ * is never gated behind opacity-0 / inView — titles stay readable at rest.
  *
  * Pass `illustration` as a React node (the actual SVG component).
  * Pass `caseToken` to drive the --case CSS variable.
@@ -43,25 +45,21 @@ export default function CaseHeroDivider({
 }: any) {
   const reduce = useReducedMotion();
   const ease = [0.2, 0.7, 0.3, 1];
+  const d = (ms) => (reduce ? 0 : ms);
   const D = {
-    chrome: 0.10,
-    kicker: 0.25,
-    title: 0.55,
-    rule: 1.10,
-    subtitle: 1.30,
-    illustration: 0.40,
-    tagline: 2.30,
-    meta: 2.50,
-    source: 2.80,
+    chrome: d(0.06),
+    kicker: d(0.08),
+    title: d(0.12),
+    rule: d(0.16),
+    subtitle: d(0.2),
+    illustration: d(0.14),
+    tagline: d(0.26),
+    meta: d(0.3),
+    source: d(0.32),
   };
 
   // The section MUST mount opaque. The slide-level fade is owned by
-  // SlideTransition (incoming opacity:1 always, exit opacity:0 over
-  // 0.4s). Adding our own initial:0/exit:0 here previously compounded
-  // the opacity -- during the 5->6 morph both the outgoing AND the
-  // incoming slide sections hit very low opacity at ~200ms, exposing
-  // the cream deck-root underneath and stranding the layoutId-morphing
-  // lung over a blank cream background. That's the "flicker."
+  // SlideTransition. Do not add section-level initial/exit opacity.
   return (
     <motion.section
       data-case={caseToken}
@@ -72,21 +70,14 @@ export default function CaseHeroDivider({
       <motion.div
         className="absolute top-[6vh] right-[var(--deck-gutter)] deck-mono uppercase"
         style={{ fontSize: '0.7rem', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, ease, delay: D.chrome }}
+        initial={reduce ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: reduce ? 0 : 0.35, ease, delay: D.chrome }}
       >
         Case Study {caseNumber} · {caseNumber} of {String(totalCases).padStart(2, '0')}
       </motion.div>
 
-      {/* ═══════════ LEFT · Type column ═══════════
-          Top anchor lowered from 18vh → 14vh so that on small viewports
-          (1366×768 → 14vh = 108px instead of 138px) the long tagline of
-          slide 23 ("...rare adult oncology population.") clears the new
-          ledger axis hairline. clamp() preserves the original visual at
-          large viewports (1920 → 151px instead of 194px, still well
-          below corner chrome). The previous clamp(96, 18vh, 220) was
-          ineffective because 18vh stays within range at every common
-          viewport size. */}
+      {/* ═══════════ LEFT · Type column ═══════════ */}
       <motion.div
         layoutId={`case-card-${caseToken}`}
         className="absolute"
@@ -97,7 +88,7 @@ export default function CaseHeroDivider({
           zIndex: 2,
         }}
       >
-        {/* Kicker */}
+        {/* Kicker — solid at rest */}
         <motion.div
           className="deck-mono uppercase"
           style={{
@@ -108,14 +99,15 @@ export default function CaseHeroDivider({
             marginBottom: '3vh',
             ...eyebrowBadgeStyle('var(--case)'),
           }}
-          initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, ease, delay: D.kicker }}
+          initial={reduce ? false : { opacity: 0, x: -8 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: reduce ? 0 : 0.35, ease, delay: D.kicker }}
         >
           {kicker || `CASE STUDY ${caseNumber}`}
         </motion.div>
 
-        {/* Giant title */}
-        <motion.h1
+        {/* Giant title — solid (no opacity gate) */}
+        <h1
           className="deck-display"
           style={{
             fontSize: 'clamp(3.2rem, 7.5vw, 9rem)',
@@ -125,23 +117,11 @@ export default function CaseHeroDivider({
             fontWeight: 700,
             marginBottom: '2.5vh',
           }}
-          initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease, delay: D.title }}
         >
           {title}
-        </motion.h1>
+        </h1>
 
-        {/* Case hairline.
-            layoutId pairs with the slide-01 PK landmark dot of the
-            same color (case-marker-coral|cyan|violet). When the user
-            advances title → this divider, framer-motion morphs the
-            small colored dot into this wide hairline. The morph is
-            partial (HTML <div> ↔ SVG <circle> animates the bbox
-            only), but the perceptual story is "the case marker
-            we showed at the start IS now the case we're opening."
-            ScaleX entrance still plays as the safety-net animation
-            when the layoutId match doesn't fire (e.g. user jumps to
-            this slide directly via deep-link). */}
+        {/* Case hairline */}
         <motion.div
           layoutId={`case-marker-${caseToken}`}
           style={{
@@ -151,13 +131,14 @@ export default function CaseHeroDivider({
             marginBottom: '2vh',
             width: 'clamp(120px, 12vw, 200px)',
           }}
-          initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
-          transition={{ duration: 0.8, ease, delay: D.rule }}
+          initial={reduce ? false : { scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: reduce ? 0 : 0.45, ease, delay: D.rule }}
         />
 
-        {/* Subtitle */}
+        {/* Subtitle — solid */}
         {subtitle && (
-          <motion.div
+          <div
             className="deck-display"
             style={{
               fontSize: 'clamp(1.3rem, 2.4vw, 2.8rem)',
@@ -168,11 +149,9 @@ export default function CaseHeroDivider({
               marginBottom: '4vh',
               maxWidth: '22ch',
             }}
-            initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease, delay: D.subtitle }}
           >
             {subtitle}
-          </motion.div>
+          </div>
         )}
 
         {/* Tagline */}
@@ -186,24 +165,16 @@ export default function CaseHeroDivider({
               fontWeight: 400,
               maxWidth: '54ch',
             }}
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, ease, delay: D.tagline }}
+            initial={reduce ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: reduce ? 0 : 0.35, ease, delay: D.tagline }}
           >
             {tagline}
           </motion.p>
         )}
       </motion.div>
 
-      {/* ═══════════ RIGHT · Illustration column ═══════════
-          The bottom anchor uses a clamp with a 160px floor (instead of a
-          raw 18vh) so that on small viewports (1366×768 → 18vh = 138px)
-          the column does NOT extend down into the new ledger axis zone.
-          Without the floor, slide 23's lymphocyte caption (which hangs
-          beneath its SVG inside the slot) lands on top of the hairline.
-          18vh is preserved as the typical value, and the upper bound
-          (240px) prevents pathologically tall viewports from leaving
-          dead space — the lung / India / lymphocyte still center fine
-          in the resulting column. */}
+      {/* ═══════════ RIGHT · Illustration column ═══════════ */}
       <motion.div
         className="absolute"
         style={{
@@ -216,37 +187,13 @@ export default function CaseHeroDivider({
           justifyContent: 'center',
           pointerEvents: 'none',
         }}
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, ease, delay: D.illustration }}
+        initial={reduce ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: reduce ? 0 : 0.4, ease, delay: D.illustration }}
       >
         {illustration}
       </motion.div>
 
-      {/* ═══════════ Case ledger ═══════════
-          Editorial horizontal timeline that fills the band between
-          the illustration and the source line. A 1px hairline axis
-          spans the full deck width (deck-gutter to deck-gutter); each
-          meta entry hangs from a square checkpoint marker that sits
-          ON the axis (case-color outlined for data, case-color filled
-          for the verdict). Labels are mono uppercase well above the
-          11pt ledger floor; values are display-weight large enough to
-          read as the slide's grounding facts.
-
-          The previous version placed values at clamp(0.95rem, 1.35vw,
-          1.55rem) (~10–25px) with vertical borderLeft separators that
-          made the strip read as a 50px-tall data table jammed against
-          the source line — the band above (lung-bottom → ledger-top
-          ~190px on 1080) sat empty. The redesign moves the ledger
-          higher up the band (calc(deck-pad-bottom + 0.5rem)) and
-          grows each cell vertically (paddingTop + label + value =
-          ~120px on 1080) so the strip occupies the void instead of
-          ignoring it.
-
-          Verdict alignment: when a verdict is present, its cell
-          right-aligns and its checkpoint marker docks to the slide's
-          right edge — the "approved stamp at the end of the timeline"
-          metaphor the user asked for. Data cells stay left-aligned,
-          giving the rhythm: start · checkpoint · checkpoint · destination. */}
       {(meta.length > 0 || verdict) && (
         <CaseLedger
           meta={meta}
@@ -270,8 +217,9 @@ export default function CaseHeroDivider({
           gap: '2rem',
           zIndex: 3,
         }}
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, ease, delay: D.source }}
+        initial={reduce ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: reduce ? 0 : 0.3, ease, delay: D.source }}
       >
         {source ? (
           <span
@@ -298,46 +246,25 @@ function CaseLedger({ meta, verdict, ease, delay, reduce }) {
     ...(verdict ? [{ label: 'Verdict', value: verdict, kind: 'verdict' }] : []),
   ];
 
-  // --axis-gap is the vertical distance from the hairline axis down to
-  // the first row of label text. Authored as a CSS custom property so
-  // the absolutely-positioned dot in each cell can lift itself onto the
-  // axis without re-declaring the clamp() expression.
-  //
-  // Tightened from the v1 clamp(28, 4.5vh, 60) so that on slide 23 at
-  // 1366×768 the OUTCOME value (which wraps to two lines because the
-  // text "N = 60 agreed (94 → 60 · −36%)" exceeds a 5-cell column) does
-  // not push the wrapper top up into the lymphocyte caption sitting
-  // inside the illustration slot. At 1920×1080 the gap stays generous.
   const axisGap = 'clamp(14px, 2.6vh, 42px)';
 
   return (
     <motion.div
       className="absolute"
       style={{
-        // Sit clear of the source/page-no row that pins to deck-pad-bottom.
-        // A naïve +0.5rem offset let the value text descender overlap the
-        // source italic; +2rem provides ~13px (1920) / ~17px (1366) of
-        // clean breathing space between the timeline values and the
-        // bottom citation row.
         bottom: 'calc(var(--deck-pad-bottom) + 2rem)',
         left: 'var(--deck-gutter)',
         right: 'var(--deck-gutter)',
         zIndex: 3,
       }}
-      initial={reduce ? { opacity: 1 } : { opacity: 0, y: 8 }}
+      initial={reduce ? false : { opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: reduce ? 0 : 0.55, ease, delay: reduce ? 0 : delay }}
+      transition={{ duration: reduce ? 0 : 0.35, ease, delay: reduce ? 0 : delay }}
     >
-      {/* Hairline axis — runs edge to edge across the deck gutters.
-          Checkpoint markers in the cells below dock onto this line via
-          absolute positioning, so the line and the dots read as one
-          continuous timeline rather than as a separate top border. */}
       <div style={{ height: 1, background: 'var(--cream-hairline)', width: '100%' }} />
 
       <div
         style={{
-          // CSS custom property used by each cell's checkpoint dot to
-          // compute its negative top offset back onto the axis.
           ['--axis-gap']: axisGap,
           display: 'grid',
           gridTemplateColumns: `repeat(${cells.length}, minmax(0, 1fr))`,
@@ -346,14 +273,8 @@ function CaseLedger({ meta, verdict, ease, delay, reduce }) {
           alignItems: 'start',
         }}
       >
-        {cells.map((cell, i) => {
+        {cells.map((cell) => {
           const isVerdict = cell.kind === 'verdict';
-          // Verdict cell right-aligns its content + docks its checkpoint
-          // to the right of its column so the dot lands on the slide's
-          // right edge. Data cells left-align with their dot on the
-          // column's left. This produces dot positions of (for 4 cells)
-          // 0% · 25% · 50% · 100% — the wider final gap reads as the
-          // "journey to verdict" instead of a uniform tabular grid.
           return (
               <div
               key={cell.label}
@@ -371,8 +292,6 @@ function CaseLedger({ meta, verdict, ease, delay, reduce }) {
                 aria-hidden
                 style={{
                   position: 'absolute',
-                  // Lift the 10×10 dot up by paddingTop + half-dot so its
-                  // center sits exactly on the 1px axis line.
                   top: 'calc(-1 * var(--axis-gap) - 5px)',
                   ...(isVerdict ? { right: 0 } : { left: 0 }),
                   width: 10,
@@ -403,9 +322,6 @@ function CaseLedger({ meta, verdict, ease, delay, reduce }) {
                   fontSize: isVerdict
                     ? 'clamp(1.45rem, min(1.95vw, 3vh), 2.4rem)'
                     : 'clamp(1.2rem, min(1.6vw, 2.55vh), 2rem)',
-                  // Tighter line-height so multi-line wraps (slide 23 OUTCOME
-                  // at 1366×768) stay inside the band between the lymphocyte
-                  // caption above and the source citation below.
                   lineHeight: 1.14,
                   letterSpacing: isVerdict
                     ? 'var(--ls-mono-wide)'

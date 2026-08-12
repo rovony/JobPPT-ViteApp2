@@ -1,6 +1,10 @@
 @import '@fontsource/jetbrains-mono/400.css';
 @import '@fontsource/jetbrains-mono/500.css';
+@import '@fontsource/jetbrains-mono/600.css';
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Source+Serif+4:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
+/* Blueprint title (v7-xencor-v3) — matches Xencor/deck-react */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 /* ============================================================
    Font stack — restored to prior HTML-deck pairing
@@ -468,6 +472,37 @@
     --cream-ghost:    rgba(27, 27, 30, 0.08);
     --amber:          #B5830A;
     --case:           var(--amber);
+    /* Readable presentation stack — Source Sans 3 throughout */
+    --font-display:   'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+    --font-body:      'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+    --font-mono:      'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+    --ls-mono:        0.04em;
+    --ls-mono-tight:  0.02em;
+    --ls-mono-wide:   0.06em;
+    --lh-snug:        1.45;
+    --lh-tight:       1.2;
+    --deck-grid-rowgap: clamp(0.55rem, 1.15vh, 1rem);
+
+    /* Presentation type scale — floors raised for room projection */
+    --fs-slide-eyebrow:  clamp(0.9rem,  min(1.3vw, 2.15vh), 1.15rem);
+    --fs-slide-topright: clamp(0.72rem, min(0.95vw, 1.45vh), 0.92rem);
+    --fs-slide-headline: clamp(1.85rem, min(3.8vw, 6.2vh), 3.45rem);
+    --fs-slide-subhead:  clamp(1.15rem, min(1.75vw, 2.7vh), 1.55rem);
+    --fs-slide-kicker:   clamp(0.72rem, min(0.95vw, 1.5vh), 0.92rem);
+    --fs-slide-tagline:  clamp(1.08rem, min(1.5vw, 2.4vh), 1.35rem);
+    --fs-slide-pageno:   clamp(0.68rem, min(0.85vw, 1.25vh), 0.88rem);
+    --fs-slide-display:  clamp(2.25rem, min(5.4vw, 8.8vh), 5.25rem);
+    --fs-slide-hook:     clamp(2.15rem, min(4.55vw, 7.3vh), 4.35rem);
+    --fs-slide-lead:     clamp(1.25rem, min(2.05vw, 3.15vh), 1.95rem);
+    --fs-slide-name:     clamp(1.05rem, min(1.5vw, 2.35vh), 1.45rem);
+
+    --fs-card-hero-num:  clamp(3rem,    min(5.8vw, 8vh),   5.5rem);
+    --fs-card-numeral:   clamp(2.55rem, min(3.9vw, 5.3vh), 4.05rem);
+    --fs-card-quote:     clamp(1.25rem, min(1.85vw, 2.7vh), 1.9rem);
+    --fs-card-title:     clamp(1.2rem,  min(1.6vw, 2.4vh), 1.55rem);
+    --fs-card-body:      clamp(1.05rem, min(1.4vw, 2.2vh), 1.3rem);
+    --fs-card-label:     clamp(0.8rem,  min(1vw, 1.4vh),   0.98rem);
+    --fs-card-meta:      clamp(0.74rem, min(0.9vw, 1.2vh), 0.88rem);
   }
 
   /* Clinical — the deck default; declared for clarity even though
@@ -954,4 +989,32 @@
     min-height: 100dvh;
     overflow: visible !important;
   }
+}
+
+/* v7-xencor-v2 presentation type — v3 lives in deck-type.css (cool complementary light) */
+[data-deck-id='v7-xencor-v2'][data-deck-theme='light-editorial'] {
+  --fs-slide-eyebrow: clamp(0.95rem, min(1.35vw, 2.25vh), 1.2rem);
+  --fs-slide-topright: clamp(0.75rem, min(1vw, 1.5vh), 0.95rem);
+  --fs-slide-headline: clamp(1.95rem, min(4vw, 6.5vh), 3.55rem);
+  --fs-slide-subhead: clamp(1.2rem, min(1.85vw, 2.85vh), 1.65rem);
+  --fs-slide-kicker: clamp(0.75rem, min(1vw, 1.55vh), 0.95rem);
+  --fs-slide-tagline: clamp(1.12rem, min(1.55vw, 2.5vh), 1.4rem);
+  --fs-slide-pageno: clamp(0.72rem, min(0.9vw, 1.3vh), 0.92rem);
+  --fs-slide-lead: clamp(1.3rem, min(2.15vw, 3.3vh), 2.05rem);
+  --fs-slide-name: clamp(1.1rem, min(1.55vw, 2.45vh), 1.5rem);
+
+  --fs-card-hero-num: clamp(3.1rem, min(6vw, 8.2vh), 5.6rem);
+  --fs-card-numeral: clamp(2.65rem, min(4vw, 5.5vh), 4.15rem);
+  --fs-card-quote: clamp(1.3rem, min(1.95vw, 2.8vh), 1.95rem);
+  --fs-card-title: clamp(1.25rem, min(1.7vw, 2.5vh), 1.6rem);
+  --fs-card-body: clamp(1.1rem, min(1.45vw, 2.3vh), 1.35rem);
+  --fs-card-label: clamp(0.82rem, min(1.05vw, 1.45vh), 1rem);
+  --fs-card-meta: clamp(0.76rem, min(0.95vw, 1.25vh), 0.9rem);
+}
+
+[data-deck-id='v7-xencor-v2'] .text-\[10px\] {
+  font-size: clamp(0.78rem, 1.15vh, 0.92rem) !important;
+}
+[data-deck-id='v7-xencor-v2'] .text-\[11px\] {
+  font-size: clamp(0.82rem, 1.25vh, 0.98rem) !important;
 }

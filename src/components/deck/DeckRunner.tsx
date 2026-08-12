@@ -278,7 +278,11 @@ function DeckStage({ deck, viewMode = 'default', sharePathBase = null, shareHasC
   const Slide = deck.slides[index]?.component;
   const slideMeta = deck.slides[index];
 
-  useEffect(() => { setSteps(slideMeta?.steps ?? 0); }, [index, slideMeta, setSteps]);
+  useEffect(() => {
+    // Prefer manifest.steps; fall back to 0. Runs after index changes /
+    // goto. Slides may also call setSteps via useSlideSteps.
+    setSteps(slideMeta?.steps ?? 0);
+  }, [index, slideMeta?.id, slideMeta?.steps, setSteps]);
 
   // Track slide views for analytics. Presenter sessions are tagged so
   // they can be filtered out of audience-only analytics.
@@ -329,6 +333,7 @@ function DeckStage({ deck, viewMode = 'default', sharePathBase = null, shareHasC
     <div
       ref={stageRef}
       data-deck-theme={deck.theme || 'clinical'}
+      data-deck-id={deck.id}
       data-theme-mode={effectiveMode /* 'light' | 'dark' | undefined */}
       className={cn(
         'deck-root relative h-[100dvh] overflow-hidden',

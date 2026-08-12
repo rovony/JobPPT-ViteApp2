@@ -1,0 +1,84 @@
+/**
+ * Deck-scoped token overrides — v7-claude-cs1.
+ *
+ * Applied via the `.cs1-tokens` class that `withTokens()` in slides/_parts.tsx
+ * wraps every slide in. Scoped deliberately: these are corrections for THIS
+ * deck, not edits to the shared theme other decks and other sessions rely on.
+ *
+ * ── Why ──────────────────────────────────────────────────────────────
+ * Measured on the rendered deck at 1280×720, light mode, 2026-08-11:
+ *
+ *   coral eyebrow / kicker  14.0px   contrast 2.04:1   (AA needs 4.5)
+ *   coral headline span     43.2px   contrast 2.04:1   (AA needs 3.0)
+ *   amber kicker            14.0px   contrast 3.04:1
+ *   sage kicker             14.0px   contrast 3.30:1
+ *   footer mono              8.8px   contrast 4.10:1   and below the 12px floor
+ *
+ * Eight distinct type sizes were in play (8.8 / 9.4 / 9.6 / 13.7 / 14 / 17.3
+ * / 18 / 43.2) with three pairs closer than 5% apart — near-duplicate steps
+ * read as noise rather than hierarchy — and a 2.4× jump from 18 to 43.2 with
+ * nothing between. That combination is what "overwhelming" actually is:
+ * saturated colour the eye cannot resolve, one element shouting, and seven
+ * sizes underneath it that all look the same.
+ *
+ * The shared light theme at src/index.css already darkens --amber for exactly
+ * this reason ("Amber is the biggest offender") but never got the same
+ * treatment for coral, sage, cyan or violet. That is a defect in the shared
+ * theme affecting every deck in light mode; fixing it there is the real
+ * remedy. Scoped here so it does not collide with concurrent work.
+ */
+
+.cs1-tokens {
+  /* ── Accent inks ────────────────────────────────────────────────────
+     Mixing an accent toward --cream always moves it toward the current
+     theme's text colour: near-black on light paper, near-white on dark.
+     So one expression raises contrast in BOTH themes without a media
+     query and without touching the accent tokens themselves — the bright
+     originals still carry rails, borders, and fills, where the 3:1 rule
+     for non-text UI applies rather than 4.5:1. */
+  --case-ink:  color-mix(in srgb, var(--case, var(--coral)) 50%, var(--cream));
+  --amber-ink: color-mix(in srgb, var(--amber) 58%, var(--cream));
+  --sage-ink:  color-mix(in srgb, var(--sage) 55%, var(--cream));
+
+  /* ── Type scale — five steps, each clearly separated ───────────────
+     Was eight steps spanning 8.8–43.2px. The headline drops from ~43px
+     to ~34px so the jump to the next step is 1.8× rather than 2.4×, and
+     chrome rises from 8.8–9.6px to 11–12px so it is legible at distance
+     instead of being texture. */
+  --fs-slide-headline: clamp(1.45rem, min(2.9vw, 4.4vh), 2.15rem);   /* ~23–34px */
+  --fs-slide-lead:     clamp(1rem,    min(1.45vw, 2.3vh), 1.2rem);   /* ~16–19px */
+  --fs-slide-subhead:  clamp(0.9rem,  min(1.15vw, 1.9vh), 1.05rem);  /* ~14–17px */
+  --fs-slide-tagline:  clamp(0.82rem, min(1.02vw, 1.7vh), 0.9rem);   /* ~13–14px */
+  --fs-slide-eyebrow:  clamp(0.68rem, min(0.8vw, 1.3vh), 0.75rem);   /* ~11–12px */
+  --fs-slide-kicker:   clamp(0.68rem, min(0.8vw, 1.3vh), 0.75rem);   /* ~11–12px */
+  --fs-slide-pageno:   clamp(0.65rem, min(0.75vw, 1.2vh), 0.72rem);  /* ~10–11.5px */
+  --fs-card-meta:      clamp(0.65rem, min(0.75vw, 1.2vh), 0.72rem);
+
+  /* Card title — one step between subhead and body so a panel's claim
+     separates from its supporting copy by size as well as by weight. */
+  --fs-cs1-card-title: clamp(0.95rem, min(1.22vw, 2vh), 1.12rem);    /* ~15–18px */
+}
+
+/* ── Accent text ───────────────────────────────────────────────────────
+   Anything coloured by an accent that is TEXT reads from the ink variant.
+   Kept as utility classes so a slide never has to remember the mix. */
+.cs1-tokens .ink-case  { color: var(--case-ink); }
+.cs1-tokens .ink-amber { color: var(--amber-ink); }
+.cs1-tokens .ink-sage  { color: var(--sage-ink); }
+
+/* ── Motion ────────────────────────────────────────────────────────────
+   The app budget is ≤3 concurrent entrance animations and ≤3s total.
+   Slide 1 was running eight staggered entrances across 1.9s. The timeline
+   is compressed in the slide components; this only guarantees that a
+   reduced-motion user gets the final state immediately, including for the
+   colour-shift span on the bridge slide, which framer-motion would
+   otherwise still run. */
+@media (prefers-reduced-motion: reduce) {
+  .cs1-tokens *,
+  .cs1-tokens *::before,
+  .cs1-tokens *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

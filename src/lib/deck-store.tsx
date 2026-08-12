@@ -9,8 +9,19 @@ const initial = { index: 0, total: 0, step: 0, steps: 0, mode: 'present', presen
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'init':
-      return { ...state, index: action.index ?? 0, total: action.total, step: 0, steps: action.steps ?? 0 };
+    case 'init': {
+      const nextIndex = action.index ?? 0;
+      const indexChanged = nextIndex !== state.index;
+      // Re-init on total/index bootstrap must not clobber in-slide steps
+      // when the slide index did not change (HMR / parent re-render).
+      return {
+        ...state,
+        index: nextIndex,
+        total: action.total,
+        step: indexChanged ? 0 : state.step,
+        steps: indexChanged ? (action.steps ?? 0) : state.steps,
+      };
+    }
     case 'setSteps':
       return { ...state, steps: action.steps, step: Math.min(state.step, action.steps) };
     case 'next': {

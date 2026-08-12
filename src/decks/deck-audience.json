@@ -91,11 +91,19 @@
   },
   "v7-xencor": {
     "audience": "Xencor",
-    "role": "Director Pharmacometrics",
+    "role": "Senior Director Pharmacometrics & Quantitative Medicine",
     "kind": "presentation",
     "deliveredAt": null,
-    "note": "Xencor Director Pharmacometrics — cloned from v6-vir as starting scaffold (company brand swapped). Rewrite company-bridge / closing for Xencor XmAb pipeline before delivery."
+    "note": "Full final deck under v7-Cursor/v7-xencor — story-flows order (CS1→India→Asparlas→Pharazi). Old src/decks/v7-xencor is read-only quarry."
   },
+  "v7-xencor-cs1": {
+    "audience": "Xencor",
+    "role": "Senior Director Pharmacometrics & Quantitative Medicine",
+    "kind": "section",
+    "deliveredAt": null,
+    "note": "CS1 section quarry under v7-Cursor — kept registered for isolated rehearsal."
+  },
+
   "cs4-flagship-v1": {
     "audience": "Internal",
     "role": null,
