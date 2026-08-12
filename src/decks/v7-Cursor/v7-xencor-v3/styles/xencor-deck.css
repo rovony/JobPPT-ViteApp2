@@ -269,6 +269,13 @@
   --xc-case-3-wash: rgba(180, 83, 9, 0.1);
   --xc-case-4: #1d4ed8;
   --xc-case-4-wash: rgba(29, 78, 216, 0.1);
+
+  /* Legacy named accents → case palette (lungs / CaseHeroDivider tokens) */
+  --coral: var(--xc-case-1);
+  --coral-highlight: color-mix(in srgb, var(--xc-case-1) 72%, white);
+  --coral-wash: var(--xc-case-1-wash);
+  --sage: var(--xc-case-2);
+  --violet: var(--xc-case-4);
 }
 
 /* Dark — cool navy (not warm charcoal / yellow amber from global dark) */
@@ -325,6 +332,12 @@
   --xc-case-3-wash: rgba(245, 185, 66, 0.14);
   --xc-case-4: #7aa2ff;
   --xc-case-4-wash: rgba(122, 162, 255, 0.14);
+
+  --coral: var(--xc-case-1);
+  --coral-highlight: color-mix(in srgb, var(--xc-case-1) 70%, white);
+  --coral-wash: var(--xc-case-1-wash);
+  --sage: var(--xc-case-2);
+  --violet: var(--xc-case-4);
 }
 
 /* Deck root always paints the themed page surface */
@@ -1015,23 +1028,28 @@
   font-weight: 700;
 }
 
-/* Per-case accent binding — section slides reuse [data-case="N"] */
-[data-deck-id='v7-xencor-v3'] [data-case='1'] {
+/* Per-case accent binding — numeric + legacy CaseHeroDivider names */
+[data-deck-id='v7-xencor-v3'] [data-case='1'],
+[data-deck-id='v7-xencor-v3'] [data-case='coral'] {
   --xc-case-accent: var(--xc-case-1);
   --xc-case-wash: var(--xc-case-1-wash);
   --case: var(--xc-case-1);
 }
-[data-deck-id='v7-xencor-v3'] [data-case='2'] {
+[data-deck-id='v7-xencor-v3'] [data-case='2'],
+[data-deck-id='v7-xencor-v3'] [data-case='cyan'],
+[data-deck-id='v7-xencor-v3'] [data-case='sage'] {
   --xc-case-accent: var(--xc-case-2);
   --xc-case-wash: var(--xc-case-2-wash);
   --case: var(--xc-case-2);
 }
-[data-deck-id='v7-xencor-v3'] [data-case='3'] {
+[data-deck-id='v7-xencor-v3'] [data-case='3'],
+[data-deck-id='v7-xencor-v3'] [data-case='amber'] {
   --xc-case-accent: var(--xc-case-3);
   --xc-case-wash: var(--xc-case-3-wash);
   --case: var(--xc-case-3);
 }
-[data-deck-id='v7-xencor-v3'] [data-case='4'] {
+[data-deck-id='v7-xencor-v3'] [data-case='4'],
+[data-deck-id='v7-xencor-v3'] [data-case='violet'] {
   --xc-case-accent: var(--xc-case-4);
   --xc-case-wash: var(--xc-case-4-wash);
   --case: var(--xc-case-4);

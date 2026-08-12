@@ -64,10 +64,22 @@ const VARIANT_CLASS = {
   exit:           'lung-exit',
 };
 
+type LungsProps = {
+  layoutId?: string;
+  variant?: string;
+  color?: string;
+  className?: string;
+  widthOverride?: string;
+  heightConstrained?: boolean;
+  opacity?: number;
+  rotation?: number;
+  bodyOpacity?: number;
+};
+
 export default function Lungs({
   layoutId = 'cs1-lung',
   variant = 'hero',
-  color = 'var(--coral)',
+  color = 'var(--xc-case-1, var(--coral))',
   className = '',
   widthOverride,
   heightConstrained = false,
@@ -75,7 +87,7 @@ export default function Lungs({
   // V2 §0 additions:
   rotation = 0,            // degrees: 0 (upright) | 90 (trachea-as-axis) | -90
   bodyOpacity,             // override lung-tissue opacity (default per variant CSS)
-}) {
+}: LungsProps) {
   const dims = DIMENSIONS[variant] || DIMENSIONS.hero;
   const isHero = variant === 'hero';
   const variantClass = VARIANT_CLASS[variant] || 'lung-context';
