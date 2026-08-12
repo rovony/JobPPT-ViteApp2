@@ -7,7 +7,7 @@ export default function CompanyBridgeHbvHdv() {
   return (
     <BridgeBullets
       content={companyBridge.hbv}
-      footerTagline="Lead with Vir's dose questions — prior HBV touchpoints are supporting context only."
+      footerTagline="Lead with the dose questions — prior HBV touchpoints are supporting context only."
       iconOffset={3}
     />
   );

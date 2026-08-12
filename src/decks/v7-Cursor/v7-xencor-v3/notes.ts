@@ -40,10 +40,10 @@ const asparlasIdMap: Record<string, string> = {
 };
 
 const validNoteIds = [
-  'title', 'hook-A-trial-not-answer', 'operating-lens', 'what-you-will-see', 'career-arc', 'roadmap', 'cs1-divider', 'cs1-question', 'cs1-context', 'cs1-mechanism',
-  'cs1-trial', 'cs1-architecture', 'cs1-covariate-strategy', 'cs1-poppk', 'cs1-pkpd', 'cs1-outcome', 'cs1-bracket', 'cs1-lesson',
-  'cs1-bridge', 'cs2-asp-divider', 'cs2-asp-challenge', 'cs2-asp-strategy', 'cs2-asp-fda', 'cs2-asp-fit', 'cs2-asp-impact',
-  'cs2-asp-bridge', 'cs3-ivosidenib-divider', 'cs3-setup', 'cs3-bg-regulatory', 'cs3-pillars', 'cs3-reversal', 'cs3-reckoning',
+  'title', 'hook-A-trial-not-answer', 'operating-lens', 'what-you-will-see', 'career-arc', 'roadmap', 'cs1-divider', 'cs1-question',
+  'cs1-evidence-gap', 'cs1-hypotheses', 'cs1-poppk', 'cs1-rejected-alt', 'cs1-boundary', 'cs1-pkpd', 'cs1-outcome', 'cs1-bridge',
+  'cs1-context', 'cs1-mechanism', 'cs1-trial', 'cs1-architecture', 'cs1-covariate-strategy', 'cs1-bracket', 'cs1-lesson', 'cs2-asp-divider', 'cs2-asp-challenge', 'cs2-asp-strategy', 'cs2-asp-fit', 'cs2-asp-fda', 'cs2-asp-impact',
+  'cs2-asp-bridge', 'cs3-ivosidenib-divider', 'cs3-setup', 'cs3-bg-regulatory', 'cs3-pillars', 'cs3-B4-population-evidence', 'cs3-reversal', 'cs3-reckoning',
   'cs3-leadership', 'cs3-bridge-recap', 'cs2-pharazi-divider', 'cs2-regulatory-floor', 'cs2-gap', 'cs2-working-overview',
   'cs2-poppk-dashboard', 'cs2-publication-close', 'cs4-close-divider', 'portfolio-01', 'company-bridge-divider', 'company-bridge-oncology-problem',
   'company-bridge-oncology-approach', 'company-bridge-case-mapping', 'company-bridge-hbv-hdv', 'company-bridge-fit',
@@ -56,7 +56,7 @@ const validNoteIds = [
   'cs2-component-audit', 'cs2-component-sop', 'cs2-regulatory-dashboard', 'cs2-e2e-audit', 'cs2-synthesis-dossier', 'cs2-synthesis-trace', 'cs2-interactive-dossier', 'cs3-backup-master',
   'cs3-ivosidenib-divider', 'cs3-bg-disease', 'cs3-disease', 'cs3-competitors', 'cs3-bg-regulatory', 'cs3-setup', 'cs3-architecture-v2', 'cs3-pillars',
   'cs3-reversal', 'cs3-reckoning', 'cs3-leadership', 'cs3-bridge-recap', 'cs3-backup-type-1-historical', 'cs3-B1-cdsco-timeline', 'cs3-backup-type-2-methodology', 'cs3-B2-six-pillar-package',
-  'cs3-B3-phase1-dose-rationale', 'cs3-backup-type-3-data-cuts', 'cs3-B4-population-evidence',
+  'cs3-B3-phase1-dose-rationale', 'cs3-backup-type-3-data-cuts',
 ];
 
 const mappedPharosNotes = Object.entries(pharosNotes).reduce((acc, [key, value]) => {

@@ -15,12 +15,6 @@ const DATA = [0.16, 1, 0.3, 1];
 
 const COV_LABELS = ['BILI', 'ALT', 'AST', 'ALP', 'GGT', 'CrCl', 'AGE', 'SEX', 'RACE', 'ETH', 'DOSE', 'TLAG'];
 
-const noteCardStyle = {
-  border: '1px solid var(--cream-hairline)',
-  background: 'color-mix(in srgb, var(--panel) 65%, transparent)',
-  borderRadius: 'var(--radius-lg)',
-  padding: 'var(--space-3) var(--space-4)',
-};
 const noteTitle = {
   letterSpacing: 'var(--ls-mono-wide)',
   fontWeight: 700,
@@ -70,10 +64,14 @@ function AnchorViz({ delay = 0 }) {
   ];
 
   return (
-    <motion.svg viewBox="0 0 280 440" preserveAspectRatio="xMidYMid meet"
-      style={{ width: '100%', height: '100%', display: 'block' }}
-      initial={r ? false : { opacity: 0 }} animate={{ opacity: 1 }}
-      transition={{ duration: 0.5, ease: ED, delay }}>
+    <motion.svg
+      className="cs1-cov-viz-svg"
+      viewBox="0 0 280 440"
+      preserveAspectRatio="xMidYMid meet"
+      initial={r ? false : { opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, ease: ED, delay }}
+    >
 
       {/* Adult cluster — dense cyan field */}
       {adultDots.map(([x, y], i) => (
@@ -82,10 +80,10 @@ function AnchorViz({ delay = 0 }) {
           initial={r ? false : { scale: 0 }} animate={{ scale: 1 }}
           transition={{ duration: 0.3, ease: ED, delay: delay + 0.3 + i * 0.012 }} />
       ))}
-      <text x={140} y={182} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="11"
+      <text x={140} y={182} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="14"
         letterSpacing="1.5" fill="var(--cyan, #7EC8C6)" fontWeight={600}>380 ADULTS</text>
-      <text x={140} y={196} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="9"
-        letterSpacing="0.8" fill="var(--cream-faint)">3,337 observations · structural anchor</text>
+      <text x={140} y={196} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="13"
+        letterSpacing="0.4" fill="var(--cream-muted)">3,337 observations · structural anchor</text>
 
       {/* Divider */}
       <line x1={30} x2={250} y1={218} y2={218} stroke="var(--cream-hairline)" strokeWidth={1} opacity={0.5} />
@@ -104,10 +102,10 @@ function AnchorViz({ delay = 0 }) {
           initial={r ? false : { scale: 0 }} animate={{ scale: 1 }}
           transition={{ duration: 0.35, ease: ED, delay: delay + 1.2 + i * 0.06 }} />
       ))}
-      <text x={140} y={348} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="11"
+      <text x={140} y={348} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="14"
         letterSpacing="1.5" fill="var(--coral)" fontWeight={600}>39 PEDIATRIC</text>
-      <text x={140} y={362} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="9"
-        letterSpacing="0.8" fill="var(--cream-faint)">sparse sampling · refit, not rebuild</text>
+      <text x={140} y={362} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="13"
+        letterSpacing="0.4" fill="var(--cream-muted)">sparse sampling · refit, not rebuild</text>
 
       {/* Outcome card */}
       <motion.g initial={r ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
@@ -117,7 +115,7 @@ function AnchorViz({ delay = 0 }) {
           stroke="var(--case)" strokeWidth={1.5} />
         <text x={140} y={404} textAnchor="middle" fontFamily="var(--font-display)" fontSize="14"
           fill="var(--cream)" fontWeight={600}>N = 419 combined</text>
-        <text x={140} y={418} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="9"
+        <text x={140} y={418} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="12"
           letterSpacing="0.8" fill="var(--case)">ANCHORED</text>
       </motion.g>
     </motion.svg>
@@ -132,14 +130,18 @@ function ConstrainViz({ delay = 0 }) {
   const slopes = [0.30, 0.45, 0.60, 0.75, 0.90, 1.05, 1.20];
 
   return (
-    <motion.svg viewBox="0 0 280 440" preserveAspectRatio="xMidYMid meet"
-      style={{ width: '100%', height: '100%', display: 'block' }}
-      initial={r ? false : { opacity: 0 }} animate={{ opacity: 1 }}
-      transition={{ duration: 0.5, ease: ED, delay }}>
+    <motion.svg
+      className="cs1-cov-viz-svg"
+      viewBox="0 0 280 440"
+      preserveAspectRatio="xMidYMid meet"
+      initial={r ? false : { opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, ease: ED, delay }}
+    >
 
       {/* Section label — BAD */}
-      <text x={20} y={30} fontFamily="var(--font-mono)" fontSize="10"
-        letterSpacing="1.2" fill="var(--cream-faint)" fontWeight={600}>ESTIMATED · N=39</text>
+      <text x={20} y={30} fontFamily="var(--font-mono)" fontSize="15"
+        letterSpacing="1" fill="var(--cream)" fontWeight={700}>ESTIMATED · N=39</text>
 
       {/* Slope fan — 7 wobbly candidates */}
       {slopes.map((s, i) => {
@@ -164,8 +166,8 @@ function ConstrainViz({ delay = 0 }) {
 
       {/* 70kg anchor */}
       <circle cx={ANCHOR_X} cy={ANCHOR_Y} r={4} fill="var(--coral)" stroke="var(--bg)" strokeWidth={1.5} />
-      <text x={ANCHOR_X + 8} y={ANCHOR_Y + 4} fontFamily="var(--font-mono)" fontSize="9"
-        fill="var(--cream-faint)">70 KG</text>
+      <text x={ANCHOR_X + 8} y={ANCHOR_Y + 4} fontFamily="var(--font-mono)" fontSize="12"
+        fill="var(--cream-muted)">70 KG</text>
 
       {/* Question mark */}
       <motion.text x={70} y={55} fontFamily="var(--font-mono)" fontSize="22"
@@ -176,23 +178,24 @@ function ConstrainViz({ delay = 0 }) {
         WT<tspan fontSize="14" dy="-6">?</tspan>
       </motion.text>
 
-      <text x={140} y={178} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="9"
-        letterSpacing="0.8" fill="var(--cream-faint)">exponents wobble · data-driven · unstable</text>
+      <text x={140} y={178} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="15"
+        letterSpacing="0.4" fill="var(--cream-muted)" fontWeight={500}>exponents wobble · data-driven · unstable</text>
 
       {/* Divider */}
       <line x1={20} x2={260} y1={198} y2={198} stroke="var(--cream-hairline)" strokeWidth={1} opacity={0.5} />
 
       {/* Section label — GOOD */}
-      <text x={20} y={224} fontFamily="var(--font-mono)" fontSize="10"
-        letterSpacing="1.2" fill="var(--cream-faint)" fontWeight={600}>FIXED · BIOLOGY-DRIVEN</text>
+      <text x={20} y={224} fontFamily="var(--font-mono)" fontSize="15"
+        letterSpacing="1" fill="var(--cream)" fontWeight={700}>FIXED · BIOLOGY-DRIVEN</text>
 
       {/* CL equation — big, clean */}
       <motion.g initial={r ? false : { opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, ease: ED, delay: delay + 1.5 }}>
         <rect x={20} y={238} width={116} height={68} rx={6}
-          fill="color-mix(in srgb, var(--case) 8%, transparent)"
-          stroke="var(--case)" strokeWidth={1} />
-        <text x={78} y={262} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="10"
+          fill="color-mix(in srgb, var(--case) 8%, var(--bp-paper2, var(--panel)))"
+          stroke="color-mix(in srgb, var(--case) 55%, var(--bp-hair, var(--cream-hairline)))"
+          strokeWidth={1.5} />
+        <text x={78} y={262} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="13"
           letterSpacing="1" fill="var(--case)" fontWeight={600}>CL · Q</text>
         <text x={78} y={290} textAnchor="middle" fontFamily="var(--font-display)" fontSize="22"
           fill="var(--cream)" fontWeight={600}>WT<tspan fontSize="14" dy="-8">0.75</tspan></text>
@@ -202,17 +205,18 @@ function ConstrainViz({ delay = 0 }) {
       <motion.g initial={r ? false : { opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, ease: ED, delay: delay + 1.7 }}>
         <rect x={148} y={238} width={116} height={68} rx={6}
-          fill="color-mix(in srgb, var(--case) 8%, transparent)"
-          stroke="var(--case)" strokeWidth={1} />
-        <text x={206} y={262} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="10"
+          fill="color-mix(in srgb, var(--case) 8%, var(--bp-paper2, var(--panel)))"
+          stroke="color-mix(in srgb, var(--case) 55%, var(--bp-hair, var(--cream-hairline)))"
+          strokeWidth={1.5} />
+        <text x={206} y={262} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="13"
           letterSpacing="1" fill="var(--case)" fontWeight={600}>Vc · Vp</text>
         <text x={206} y={290} textAnchor="middle" fontFamily="var(--font-display)" fontSize="22"
           fill="var(--cream)" fontWeight={600}>WT<tspan fontSize="14" dy="-8">1.0</tspan></text>
       </motion.g>
 
       {/* Citation */}
-      <text x={140} y={332} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="8"
-        letterSpacing="0.6" fill="var(--cream-faint)">Anderson-Holford 2008 · ICH E11A default</text>
+      <text x={140} y={332} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="12"
+        letterSpacing="0.4" fill="var(--cream-muted)">Anderson-Holford 2008 · ICH E11A default</text>
 
       {/* Outcome card */}
       <motion.g initial={r ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
@@ -222,7 +226,7 @@ function ConstrainViz({ delay = 0 }) {
           stroke="var(--case)" strokeWidth={1.5} />
         <text x={140} y={374} textAnchor="middle" fontFamily="var(--font-display)" fontSize="14"
           fill="var(--cream)" fontWeight={600}>Biology, not data</text>
-        <text x={140} y={388} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="9"
+        <text x={140} y={388} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="12"
           letterSpacing="0.8" fill="var(--case)">LOCKED</text>
       </motion.g>
     </motion.svg>
@@ -236,16 +240,20 @@ function ParsimonyViz({ delay = 0 }) {
   const gridX = 18, gridY = 50, cellW = 62, cellH = 34;
 
   return (
-    <motion.svg viewBox="0 0 280 440" preserveAspectRatio="xMidYMid meet"
-      style={{ width: '100%', height: '100%', display: 'block' }}
-      initial={r ? false : { opacity: 0 }} animate={{ opacity: 1 }}
-      transition={{ duration: 0.5, ease: ED, delay }}>
+    <motion.svg
+      className="cs1-cov-viz-svg"
+      viewBox="0 0 280 440"
+      preserveAspectRatio="xMidYMid meet"
+      initial={r ? false : { opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, ease: ED, delay }}
+    >
 
       {/* Header */}
-      <text x={20} y={28} fontFamily="var(--font-mono)" fontSize="10"
-        letterSpacing="1.2" fill="var(--cream-faint)" fontWeight={600}>12 TESTED</text>
-      <text x={260} y={28} textAnchor="end" fontFamily="var(--font-mono)" fontSize="10"
-        letterSpacing="1.2" fill="var(--coral)" fontWeight={700}>0 RETAINED</text>
+      <text x={20} y={28} fontFamily="var(--font-mono)" fontSize="15"
+        letterSpacing="1" fill="var(--cream)" fontWeight={700}>12 TESTED</text>
+      <text x={260} y={28} textAnchor="end" fontFamily="var(--font-mono)" fontSize="15"
+        letterSpacing="1" fill="var(--coral)" fontWeight={700}>0 RETAINED</text>
 
       {/* Covariate chip grid with animated X stamps */}
       {COV_LABELS.map((label, i) => {
@@ -260,9 +268,10 @@ function ParsimonyViz({ delay = 0 }) {
         return (
           <g key={label}>
             <rect x={cx - w / 2} y={cy - h / 2} width={w} height={h} rx={3}
-              fill="none" stroke="var(--cream-hairline)" strokeWidth={0.8} opacity={0.6} />
+              fill="color-mix(in srgb, var(--panel) 55%, transparent)"
+              stroke="var(--bp-hair, var(--cream-hairline))" strokeWidth={1.25} opacity={0.95} />
             <text x={cx} y={cy + 3} textAnchor="middle" fontFamily="var(--font-mono)"
-              fontSize="9" letterSpacing="0.5" fill="var(--cream-faint)" opacity={0.8}>{label}</text>
+              fontSize="12" letterSpacing="0.5" fill="var(--cream-muted)" opacity={0.8}>{label}</text>
             {r ? (
               <>
                 <line x1={x0} y1={y0} x2={x1} y2={y1} stroke="var(--coral)" strokeWidth={1.5} strokeLinecap="round" opacity={0.8} />
@@ -286,21 +295,21 @@ function ParsimonyViz({ delay = 0 }) {
       <motion.g initial={r ? false : { opacity: 0 }} animate={{ opacity: 1 }}
         transition={{ duration: 0.5, ease: ED, delay: delay + 2.2 }}>
         <line x1={16} x2={264} y1={172} y2={172} stroke="var(--amber)" strokeWidth={1.5} strokeDasharray="6 4" />
-        <text x={268} y={176} fontFamily="var(--font-mono)" fontSize="9"
+        <text x={268} y={176} fontFamily="var(--font-mono)" fontSize="12"
           letterSpacing="0.6" fill="var(--amber)" fontWeight={600}>ΔOFV {'>'} 10.83</text>
       </motion.g>
 
       {/* Type-I error explanation */}
       <motion.g initial={r ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: ED, delay: delay + 2.5 }}>
-        <text x={140} y={206} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="9"
-          letterSpacing="0.6" fill="var(--cream-faint)">Forward at α=0.05 with 12 covariates →</text>
+        <text x={140} y={206} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="13"
+          letterSpacing="0.4" fill="var(--cream-muted)">Forward at α=0.05 with 12 covariates →</text>
         <text x={140} y={234} textAnchor="middle" fontFamily="var(--font-display)" fontSize="36"
           fill="var(--coral)" fontWeight={700}>46%</text>
-        <text x={140} y={252} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="10"
+        <text x={140} y={252} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="13"
           letterSpacing="0.8" fill="var(--coral)">FALSE-POSITIVE RISK</text>
-        <text x={140} y={268} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="8"
-          letterSpacing="0.6" fill="var(--cream-faint)">1 − (1−0.05)¹² ≈ 0.46</text>
+        <text x={140} y={268} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="12"
+          letterSpacing="0.4" fill="var(--cream-muted)">1 − (1−0.05)¹² ≈ 0.46</text>
       </motion.g>
 
       {/* Divider */}
@@ -309,12 +318,12 @@ function ParsimonyViz({ delay = 0 }) {
       {/* The defense */}
       <motion.g initial={r ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: ED, delay: delay + 3.0 }}>
-        <text x={140} y={310} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="10"
-          letterSpacing="1" fill="var(--cream-faint)">FULL MODEL · BACKWARD DELETION</text>
+        <text x={140} y={310} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="14"
+          letterSpacing="0.8" fill="var(--cream)" fontWeight={600}>FULL MODEL · BACKWARD DELETION</text>
         <text x={140} y={340} textAnchor="middle" fontFamily="var(--font-display)" fontSize="28"
           fill="var(--amber)" fontWeight={700}>p {'<'} 0.001</text>
-        <text x={140} y={360} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="9"
-          letterSpacing="0.6" fill="var(--cream-faint)">χ² · df=1 · ΔOFV {'>'} 10.83</text>
+        <text x={140} y={360} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="13"
+          letterSpacing="0.4" fill="var(--cream-muted)">χ² · df=1 · ΔOFV {'>'} 10.83</text>
       </motion.g>
 
       {/* Outcome card */}
@@ -325,7 +334,7 @@ function ParsimonyViz({ delay = 0 }) {
           stroke="var(--case)" strokeWidth={1.5} />
         <text x={140} y={404} textAnchor="middle" fontFamily="var(--font-display)" fontSize="14"
           fill="var(--cream)" fontWeight={600}>Weight only</text>
-        <text x={140} y={418} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="9"
+        <text x={140} y={418} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="12"
           letterSpacing="0.8" fill="var(--case)">FILTERED</text>
       </motion.g>
     </motion.svg>
@@ -349,13 +358,7 @@ function LiveCovariateStrategy({ reduced }) {
       </Subhead>
 
       <Viz>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(16rem, 100%), 1fr))',
-          gap: 'var(--space-5)',
-          height: '100%',
-          minHeight: 0,
-        }}>
+        <div className="cs1-cov-grid">
           {[
             { num: '01', label: 'Anchor', action: 'Build on the adult model.', Viz: AnchorViz },
             { num: '02', label: 'Constrain', action: 'Fix allometric exponents.', Viz: ConstrainViz },
@@ -364,23 +367,25 @@ function LiveCovariateStrategy({ reduced }) {
             const delay = 0.50 + i * 0.20;
             const V = d.Viz;
             return (
-              <div key={d.num} style={{ display: 'flex', flexDirection: 'column', minWidth: 0, height: '100%' }}>
-                <motion.div className="deck-mono uppercase xc-slide-eyebrow xc-case" style={{
-                  letterSpacing: 'var(--ls-mono-wide)',
-                  fontWeight: 800, flexShrink: 0 }} initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5, ease: ED, delay }}>
-                  Decision {d.num} · {d.label}
-                </motion.div>
-                <motion.div className="deck-display xc-name xc-ink" style={{
-                  lineHeight: 1.15,
-                  letterSpacing: 'var(--ls-display)', fontWeight: 700, marginTop: 'var(--space-1)', marginBottom: 'var(--space-2)', flexShrink: 0 }} initial={reduced ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, ease: ED, delay: delay + 0.1 }}>
-                  {d.action}
-                </motion.div>
-                <div style={{ flex: '1 1 0', minHeight: 0 }}>
+              <motion.article
+                key={d.num}
+                className="cs1-cov-card"
+                initial={reduced ? false : { opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: ED, delay }}
+              >
+                <div className="cs1-cov-card__head">
+                  <div className="deck-mono uppercase xc-slide-eyebrow xc-case cs1-cov-card__eyebrow">
+                    Decision {d.num} · {d.label}
+                  </div>
+                  <div className="deck-display xc-name xc-ink cs1-cov-card__action">
+                    {d.action}
+                  </div>
+                </div>
+                <div className="cs1-cov-card__viz">
                   <V delay={delay + 0.15} />
                 </div>
-              </div>
+              </motion.article>
             );
           })}
         </div>
@@ -421,21 +426,13 @@ export default function Cs1BackupB17CovariateAnalysis({ live = false } = {}) {
       </Subhead>
 
       <Viz>
-        <div
-          ref={ref}
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(0, 1.2fr) minmax(0, 1fr)',
-            gap: 'var(--space-5)',
-            height: '100%',
-          }}
-        >
+        <div ref={ref} className="cs1-cov-backup">
           {/* Left · covariate table */}
           <motion.div
-            style={{ ...noteCardStyle, overflow: 'auto' }}
+            className="cs1-cov-panel cs1-cov-panel--table"
             initial={{ opacity: 0, y: 10 }}
             animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: EASE, delay: 0.55 }}
+            transition={{ duration: 0.55, ease: ED, delay: 0.55 }}
           >
             <div className="deck-mono uppercase xc-slide-eyebrow xc-case" style={noteTitle}>Covariates tested · outcomes</div>
             <table style={{ borderCollapse: 'collapse', width: '100%' }}>
@@ -476,12 +473,12 @@ export default function Cs1BackupB17CovariateAnalysis({ live = false } = {}) {
           </motion.div>
 
           {/* Right · methodology + parsimony notes */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+          <div className="cs1-cov-backup__notes">
             <motion.div
-              style={noteCardStyle}
+              className="cs1-cov-panel cs1-cov-panel--accent"
               initial={{ opacity: 0, y: 10 }}
               animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, ease: EASE, delay: 0.70 }}
+              transition={{ duration: 0.55, ease: ED, delay: 0.70 }}
             >
               <div className="deck-mono uppercase xc-slide-eyebrow xc-case" style={noteTitle}>Method</div>
               <div className="xc-slide-subhead xc-muted" style={noteBody}>
@@ -499,10 +496,10 @@ export default function Cs1BackupB17CovariateAnalysis({ live = false } = {}) {
             </motion.div>
 
             <motion.div
-              style={noteCardStyle}
+              className="cs1-cov-panel"
               initial={{ opacity: 0, y: 10 }}
               animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, ease: EASE, delay: 0.85 }}
+              transition={{ duration: 0.55, ease: ED, delay: 0.85 }}
             >
               <div className="deck-mono uppercase xc-slide-eyebrow xc-case" style={noteTitle}>Why parsimony strengthens the model</div>
               <div className="xc-slide-subhead xc-muted" style={noteBody}>
@@ -516,10 +513,10 @@ export default function Cs1BackupB17CovariateAnalysis({ live = false } = {}) {
             </motion.div>
 
             <motion.div
-              style={noteCardStyle}
+              className="cs1-cov-panel"
               initial={{ opacity: 0, y: 10 }}
               animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, ease: EASE, delay: 1.00 }}
+              transition={{ duration: 0.55, ease: ED, delay: 1.00 }}
             >
               <div className="deck-mono uppercase xc-slide-eyebrow xc-case" style={noteTitle}>Age range supports this</div>
               <div className="xc-slide-subhead xc-muted" style={noteBody}>

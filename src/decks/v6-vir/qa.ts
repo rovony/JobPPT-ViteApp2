@@ -55,7 +55,7 @@ A: Four cases let the panel test the same senior signal under different constrai
 **From:** clinical pharmacology leader
 **Difficulty:** ★★★ · **Topic:** honesty
 
-A: ADC work remains in the portfolio because it is real breadth, but it is not the cleanest core case for this Vir seminar. The final core cases have clearer public decision points and cleaner evidence-to-impact arcs. If asked about ADCs, I would frame my role accurately: I led and directed strategy; I am not presenting it as the main case in this talk.
+A: ADC work remains in the portfolio because it is real breadth, but it is not the cleanest core case for this candidate seminar. The final core cases have clearer public decision points and cleaner evidence-to-impact arcs. If asked about ADCs, I would frame my role accurately: I led and directed strategy; I am not presenting it as the main case in this talk.
 
 > **Anchor:** breadth credential, not showcase case.
 
@@ -71,7 +71,7 @@ A: The cards are intentionally compact on screen. The full lines are: Case 01 �
 **From:** framing panelist
 **Difficulty:** ★★ · **Topic:** taxonomy
 
-A: They are the four I chose to make the Vir story inspectable, not a taxonomy of every clin pharm problem. Untrialable, sample-limited, local-evidence, and unbuilt infrastructure cover the cases I will show. Other constraints exist — assay ambiguity, masked exposure, combination durability — and I address some of those in the Vir bridge.
+A: They are the four I chose to make the seminar story inspectable, not a taxonomy of every clin pharm problem. Untrialable, sample-limited, local-evidence, and unbuilt infrastructure cover the cases I will show. Other constraints exist — assay ambiguity, masked exposure, combination durability — and I address some of those in the company bridge.
 
 > **Move-forward:** four cases, four constraints, one discipline.
 
@@ -79,7 +79,7 @@ A: They are the four I chose to make the Vir story inspectable, not a taxonomy o
 **From:** skeptical panelist
 **Difficulty:** ★★★★ · **Topic:** Pharazi honesty
 
-A: No. Unbuilt means the review infrastructure has not caught up to generation speed. Pharazi is personal research demonstrating how I think about traceability — not a procurement pitch to Vir.
+A: No. Unbuilt means the review infrastructure has not caught up to generation speed. Pharazi is personal research demonstrating how I think about traceability — not a procurement pitch to the role.
 
 > **Anchor:** architecture judgment, not product transfer.`,
 
@@ -155,8 +155,8 @@ A: No. Closure was a sponsor portfolio decision independent of design quality. T
 
 > **Anchor:** methodology durable, trial N is program-specific.
 
-## Q2: What transfers to Vir oncology trials?
-**From:** Vir hiring manager
+## Q2: What transfers to the role oncology trials?
+**From:** hiring manager
 **Difficulty:** ★★★ · **Topic:** generalizability
 
 A: The transferable move is sizing for model precision and briefing the agency on the risk tradeoff before execution — especially when endpoint-powered enrollment is infeasible or sampling is sparse. That is directly relevant to masked engagers and step-up designs where dense early PK/PD may matter more than a powered efficacy count.
@@ -227,11 +227,11 @@ A: The public arc is Rule 101 opening in August 2024, SEC PK/PD request in Decem
 
 > **Anchor:** outcome on public record.`,
 
-  'cs3-bridge-recap': `## Q1: What is the one lesson you want from India for Vir?
+  'cs3-bridge-recap': `## Q1: What is the one lesson you want from India for this role?
 **From:** panel chair
 **Difficulty:** ★★ · **Topic:** transfer
 
-A: When local measurement is infeasible or unnecessary, a rigorous clinical pharmacology dossier can be the bridge — if mechanism, PK, exposure-response, and transparency converge. That is the same dose-defense instinct Vir needs in oncology and infectious disease, even when the disease changes.
+A: When local measurement is infeasible or unnecessary, a rigorous clinical pharmacology dossier can be the bridge — if mechanism, PK, exposure-response, and transparency converge. That is the same dose-defense instinct company needs in oncology and infectious disease, even when the disease changes.
 
 > **Move-forward:** dossier as bridge, not default local trial.`,
 
@@ -239,7 +239,7 @@ A: When local measurement is infeasible or unnecessary, a rigorous clinical phar
 **From:** panel chair
 **Difficulty:** ★ · **Topic:** pacing
 
-A: The four cases are the proof core. This beat lets the panel absorb that the evidentiary work is complete before we widen to portfolio breadth and the Vir bridge. It prevents the talk from feeling like a continuous catalog.
+A: The four cases are the proof core. This beat lets the panel absorb that the evidentiary work is complete before we widen to portfolio breadth and the company bridge. It prevents the talk from feeling like a continuous catalog.
 
 > **Anchor:** core proof complete, then aperture widens.
 
@@ -287,7 +287,7 @@ A: The Phase IIb pediatric efficacy program stopped early. What remained was an 
 **From:** narrative-fit panelist
 **Difficulty:** ★★ · **Topic:** story architecture
 
-A: Concession: in the source seminar it was Case 03, and I kept the case components rather than rebuilding them. Reframe: in this Vir version, Asparlas belongs immediately after ambrisentan because it is the second form of "measurement falls short": not pediatric extrapolation, but a sample-limited adult design. Move-forward: it sets up India by showing that model-informed evidence can earn agreement before the next case shows it earning access.
+A: Concession: in the source seminar it was Case 03, and I kept the case components rather than rebuilding them. Reframe: in this current version, Asparlas belongs immediately after ambrisentan because it is the second form of "measurement falls short": not pediatric extrapolation, but a sample-limited adult design. Move-forward: it sets up India by showing that model-informed evidence can earn agreement before the next case shows it earning access.
 
 > **Anchor:** same case, new position, cleaner logic.`,
 
@@ -315,11 +315,11 @@ A: The leadership signal was translating a scientific reliance argument into a c
 
 > **Move-forward:** senior value is aligning functions around the decision.`,
 
-  'cs2-pharazi-divider': `## Q1: Is Pharazi something you would transfer to Vir?
+  'cs2-pharazi-divider': `## Q1: Is Pharazi something you would transfer into a sponsor setting?
 **From:** IP / compliance panelist
 **Difficulty:** ★★★★★ · **Topic:** AI honesty
 
-A: No, not as a product transfer claim. Pharazi is personal research that demonstrates how I think about auditable clinical pharmacology workflows: deterministic tools, privacy boundaries, human review, and traceability. The transferable asset is the architecture judgment and operating discipline, not a promise to bring an external product into Vir.
+A: No, not as a product transfer claim. Pharazi is personal research that demonstrates how I think about auditable clinical pharmacology workflows: deterministic tools, privacy boundaries, human review, and traceability. The transferable asset is the architecture judgment and operating discipline, not a promise to bring an external product into the role.
 
 > **Anchor:** personal research, transferable judgment.`,
 
@@ -355,9 +355,9 @@ A: I removed the stats strip to reduce busyness on screen. The numbers are still
 
 > **Anchor:** table is substance; strip was summary.`,
 
-  'company-bridge-oncology-problem': `## Q1: Are you claiming to know confidential VIR-5500 or PRO-XTEN details?
-**From:** Vir program lead
-**Difficulty:** ★★★★★ · **Topic:** Vir humility
+  'company-bridge-oncology-problem': `## Q1: Are you claiming to know confidential priority oncology programs or masked engager details?
+**From:** program lead
+**Difficulty:** ★★★★★ · **Topic:** humility
 
 A: No. My bridge is deliberately based on public information and general clinical pharmacology logic for masked T-cell engagers. The useful question is not "I know your internal model." It is: what does the assay measure, where is active drug generated, which exposure metric links to safety, and which metric links to efficacy?
 
@@ -393,7 +393,7 @@ A: Listen first, then tighten the operating model. I would map the active dose d
 
 A: When measurement falls short, I build the evidence bridge that makes the dose and the decision defensible.
 
-> **Move-forward:** That is the common thread across the four cases and the Vir bridge.`,
+> **Move-forward:** That is the common thread across the four cases and the company bridge.`,
 
   'closing-thanks': `## Q1: We skipped detail on slide X — can you go deeper now?
 **From:** any panelist
@@ -407,7 +407,7 @@ A: Yes — the deck was intentionally trimmed for live pacing. I keep off-slide 
 **From:** compliance-minded panelist
 **Difficulty:** ★★★ · **Topic:** honesty guardrails
 
-A: No Servier-confidential data. No internal VIR-5500 access. ADC as breadth only. Pharazi as personal research, not a product transfer. HBV patent as narrow co-inventor scope, not HDV program ownership. FDA pediatric gap on ambrisentan disclosed proactively.
+A: No Servier-confidential data. No internal priority oncology programs access. ADC as breadth only. Pharazi as personal research, not a product transfer. HBV patent as narrow co-inventor scope, not HDV program ownership. FDA pediatric gap on ambrisentan disclosed proactively.
 
 > **Move-forward:** inspectable judgment over inflated scope.
 
@@ -415,7 +415,7 @@ A: No Servier-confidential data. No internal VIR-5500 access. ADC as breadth onl
 **From:** panel chair
 **Difficulty:** ★ · **Topic:** pacing
 
-A: Whichever case best tests the role you care about — pediatric extrapolation, efficient design, India reliance, AI governance, or Vir bridge fit. I can go deep on any of them using backups; the four-case spine is the map.
+A: Whichever case best tests the role you care about — pediatric extrapolation, efficient design, India reliance, AI governance, or company bridge fit. I can go deep on any of them using backups; the four-case spine is the map.
 
 > **Anchor:** panel picks the stress test.`,
 };

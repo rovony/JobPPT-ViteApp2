@@ -97,8 +97,8 @@ export default function CareerArc() {
       </Eyebrow>
 
       <Headline delay={0.25} maxChars={60}>
-        From espresso to IV drip,{' '}
-        <span className="xc-career-em">one question.</span>
+        Five stops,{' '}
+        <span className="xc-career-em">one operating question.</span>
       </Headline>
 
       <Subhead delay={0.45} maxChars={100} size="lead">
@@ -151,7 +151,7 @@ export default function CareerArc() {
                         ? { opacity: 1, x: layout.translateX ?? 0, y: 0 }
                         : { opacity: 1, x: layout.translateX ?? 0, y: 0 }
                     }
-                    transition={{ duration: 0.6, delay: 0.8 + i * 0.2, ease: EASE }}
+                    transition={{ duration: 0.5, delay: 0.55 + i * 0.1, ease: EASE }}
                     style={{
                       '--career-x': `${layout.x}%`,
                       '--career-y': `${layout.y}%`,

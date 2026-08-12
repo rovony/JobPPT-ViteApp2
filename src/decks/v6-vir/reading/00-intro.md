@@ -2,7 +2,7 @@
 
 > **Read time:** ~5 min · **For:** the presenter, before stepping on stage
 
-This briefing is for the Vir Biotechnology candidate seminar on June 17, 2026.
+This briefing is for a company-neutral candidate seminar on June 17, 2026.
 It is meant to keep the live story grounded while leaving detailed source
 defenses in backup slides.
 
@@ -25,9 +25,9 @@ audit-ready clinical pharmacology workflows.
 ## Things to remember before the room
 
 - Keep the main flow to ~45 minutes including Q&A.
-- The audience is Vir clinical pharmacology / translational PK/PD leadership.
+- The audience is company clinical pharmacology / translational PK/PD leadership.
 - ==Avoid Servier internal numbers== throughout.
-- Do not claim direct Vir or PRO-XTEN program ownership.
+- Do not claim direct company or masked engager program ownership.
 - Keep ADC framed only as portfolio breadth if asked, not as a core case.
 - **Slides were de-busied on purpose.** Trimmed copy lives in **speaker notes → Off-slide** sections, per-slide **Q&A**, and **Reading → Off-slide memory · cheat sheet**.
 

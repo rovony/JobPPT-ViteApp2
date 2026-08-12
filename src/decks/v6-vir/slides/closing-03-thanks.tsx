@@ -9,7 +9,7 @@ import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/Slide
  *
  * Added 2026-04-26. Final slide. Title-style centered composition with
  * Q&A invitation and contact strip. Lives at the end of the live arc;
- * preceded by closing-01 (synthesis) and closing-02 (Vir fit).
+ * preceded by closing-01 (synthesis) and closing-02 (role fit).
  */
 const EASE = [0.2, 0.7, 0.3, 1];
 
@@ -26,7 +26,7 @@ export default function ClosingThanks() {
       </Headline>
 
       <Subhead delay={0.45} size="lead" maxChars={120}>
-        Four cases, one discipline — I&rsquo;m here to discuss any of them in more depth, or to talk about how that translates to Vir&rsquo;s clinical pharmacology priorities.
+        Four cases, one discipline — I&rsquo;m here to discuss any of them in more depth, or how that translates to clinical pharmacology priorities for this role.
       </Subhead>
 
       <Viz>
@@ -123,8 +123,8 @@ export default function ClosingThanks() {
       <Footer
         delay={reduced ? 0 : 1.5}
         kicker="Thank you"
-        tagline="Malek Okour · Quantitative Pharmacology · Vir seminar · June 2026"
-        source="Sources: Okour 2023 JCP · FDA Type A 2023 · ICH E11A 2024 · ICH M15 2026 · Vir public pipeline materials · Vir Deck Content Pack"
+        tagline="Malek Okour · Quantitative Pharmacology · Candidate seminar · June 2026"
+        source="Sources: Okour 2023 JCP · FDA Type A 2023 · ICH E11A 2024 · ICH M15 2026 · public pipeline materials"
       />
     </SlideGrid>
   );

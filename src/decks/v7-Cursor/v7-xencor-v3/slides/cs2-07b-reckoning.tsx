@@ -57,14 +57,15 @@ const NOT_SHIPPED = [
   },
 ];
 
+/* Big panel entrances; short row cascade */
 const D = {
-  shipped: 0.7,
-  shippedCounter: 1.1,
-  shippedRows: [1.3, 1.55, 1.8],
-  notShipped: 3.4,
-  notCounter: 3.8,
-  notRows: [4.1, 4.6, 4.85],
-  anchor: 5.4,
+  shipped: 0.35,
+  shippedCounter: 0.55,
+  shippedRows: [0.65, 0.78, 0.9],
+  notShipped: 0.55,
+  notCounter: 0.75,
+  notRows: [0.85, 0.98, 1.1],
+  anchor: 1.35,
 };
 
 function AnimCounter({ target, go, delay, color }) {
@@ -106,22 +107,18 @@ export default function CS2Reckoning() {
   return (
     <SlideFrame
       dataCase="2"
-      eyebrow="Case 03 · Honest reckoning"
+      eyebrow="Case 02 · Honest reckoning"
       headline={
         <>
-          What we{' '}
+          What we shipped and what we did not — the gap was{' '}
           <span style={{ color: 'var(--xc-case-accent)', fontStyle: 'italic', fontWeight: 500 }}>
-            shipped
+            named
           </span>
-          , and what we did{' '}
-          <span style={{ color: 'var(--xc-case-accent)', fontStyle: 'italic', fontWeight: 500 }}>
-            not
-          </span>
-          .
+          , then committed to
         </>
       }
       subhead="Naming the gap is the credibility move — not the disqualifying one."
-      footerKicker="Case 03 · Honest reckoning"
+      footerKicker="Case 02 · Honest reckoning"
       footerSource="Sources · ClinicalTrials.gov · CDSCO public record · Lancet RH SE Asia 2024"
       delays={{ footer: reduced ? 0 : D.anchor + 0.9 }}
     >

@@ -1,7 +1,7 @@
 export const companyBridge = {
-  company: 'Vir',
+  company: 'Company',
   divider: {
-    eyebrow: 'Company bridge · Vir',
+    eyebrow: 'Company bridge',
     title: 'Two pillars, one discipline',
     sub: 'Public pipeline only — oncology (masked T-cell engagers) and infectious disease (HBV/HDV functional cure).',
     payoff: 'The question is always the same: which exposure metric makes the dose defensible?',
@@ -11,7 +11,7 @@ export const companyBridge = {
     header: 'The measurement problem - plasma is not tumor for masked engagers',
     subhead: 'Based on public information — not a claim of internal program access.',
     bullets: [
-      'For PRO-XTEN masked constructs, most circulating drug is inactive; the species that matters may form at the tumor.',
+      'For masked constructs, most circulating drug is inactive; the species that matters may form at the tumor.',
       'Assays often return masked or total drug — which may track neither efficacy nor the toxicity driver.',
       'Clinical pharmacology starts with three questions: what does the assay measure, where is active drug generated, and which metric is decision-bearing for safety versus efficacy?',
     ],
@@ -20,7 +20,7 @@ export const companyBridge = {
   oncologyApproach: {
     eyebrow: 'Company bridge · oncology',
     header: 'A working chain - assay, model, dose, and OBD',
-    subhead: 'Hypothesis from public information — to be tested with Vir teams and data.',
+    subhead: 'Hypothesis from public information — to be tested with the team and data.',
     bullets: [
       'Separate exposure metrics: CRS risk may be peak-driven on active species; efficacy may need sustained exposure in the tumor compartment.',
       'Step-up dosing can blunt early peaks while building efficacy exposure — if the pharmacology supports it.',
@@ -39,7 +39,7 @@ export const companyBridge = {
       'Locally constrained India → convergent reliance when a regulator asks for evidence you do not have locally.',
       'Workflow-unbuilt AI → traceable review when scale must not erase expert judgment.',
     ],
-    source: 'Four-case core · applied to Vir decision types',
+    source: 'Four-case core · applied to role decision types',
   },
   hbv: {
     eyebrow: 'Company bridge · infectious disease',

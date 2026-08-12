@@ -153,7 +153,7 @@ export default function HookATrialNotAnswer({ deck }) {
         className="relative h-full w-full"
         style={{ overflow: 'hidden' }}
       >
-        {/* ─── Vir wordmark — shared layoutId from slide 01.
+        {/* ─── company wordmark — shared layoutId from slide 01.
             FLIP-morphs from the small slide-1 corner mark up to ~2x size
             here. persistent={true} skips the entry fade so the morph
             isn't compounded with an opacity tween (per CLAUDE.md cross-

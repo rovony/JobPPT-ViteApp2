@@ -1,6 +1,6 @@
 // @ts-nocheck
 /**
- * Shared CASES data for the v6 Vir seminar deck.
+ * Shared CASES data for the v6 candidate seminar deck.
  *
  * The 4 case cards are rendered on slide 01 (title) and persist visually
  * onto slide 02 (hook-A) via shared layoutId="hook-mark-csN" — the

@@ -5,10 +5,7 @@ import SlideGrid, { STANDARD_AREAS_NO_SUBHEAD, STANDARD_ROW_SIZES_NO_SUBHEAD } f
 import { Eyebrow, Headline, Viz, Footer } from '@/components/deck/SlideParts';
 
 /**
- * Slide 28 · CS2 Impact — 36% enrollment reduction.
- *
- * Trimmed for delivery: one hero (−36% + patient grid), four compact
- * beats without body prose, one closing line. Detail lives in notes.
+ * CS2 Asparlas · Impact — precedent travels; honest SPARK coda; Pharazi seam.
  */
 
 const LEDGER = [
@@ -23,13 +20,14 @@ export default function Cs2AspImpact() {
   const overshoot = [0.34, 1.56, 0.64, 1];
   const reduce = useReducedMotion();
   const D = {
-    eyebrow: 0.20,
-    headline: 0.35,
-    pct: 0.75,
-    grid: 0.90,
-    ledger: 1.45,
-    payoff: 1.85,
-    source: 2.40,
+    eyebrow: 0.15,
+    headline: 0.25,
+    pct: 0.55,
+    grid: 0.7,
+    ledger: 1.15,
+    coda: 1.45,
+    seam: 1.7,
+    source: 2.0,
   };
 
   return (
@@ -38,17 +36,19 @@ export default function Cs2AspImpact() {
       areas={STANDARD_AREAS_NO_SUBHEAD}
       rowSizes={STANDARD_ROW_SIZES_NO_SUBHEAD}
     >
-      <Eyebrow color="var(--xc-case-3)" delay={D.eyebrow}>CS2 · Impact</Eyebrow>
+      <Eyebrow color="var(--xc-case-3)" delay={D.eyebrow}>
+        Case 03 · Impact
+      </Eyebrow>
       <Headline delay={D.headline} maxChars={52}>
-        A{' '}
+        The precedent travels{' '}
         <span style={{ color: 'var(--xc-case-3)', fontStyle: 'italic', fontWeight: 700 }}>
-          36% enrollment reduction
+          further than the program did
         </span>
-        . A documented precedent that travels.
+        .
       </Headline>
 
       <Viz>
-        <div className="deck-viz-stack">
+        <div className="asp-viz-stack">
           <div
             style={{
               display: 'grid',
@@ -73,8 +73,6 @@ export default function Cs2AspImpact() {
               display: 'grid',
               gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
               gap: 'var(--space-3)',
-              paddingTop: 'var(--space-3)',
-              borderTop: '1px solid var(--cream-hairline)',
             }}
             initial={reduce ? false : { opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
@@ -86,27 +84,35 @@ export default function Cs2AspImpact() {
           </motion.div>
 
           <motion.div
-            style={{
-              padding: 'var(--space-4)',
-              border: '1px solid color-mix(in srgb, var(--xc-case-3) 30%, transparent)',
-              background: 'color-mix(in srgb, var(--xc-case-3) 6%, transparent)',
-            }}
+            className="asp-coda"
             initial={reduce ? false : { opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease, delay: D.payoff }}
+            transition={{ duration: 0.5, ease, delay: D.coda }}
           >
-            <span className="xc-subhead xc-ink-muted">
-              SPARK-ALL closed at N = 42 on a sponsor portfolio decision —{' '}
-              <span style={{ color: 'var(--xc-case-3)', fontWeight: 700 }}>
-                the FDA-agreed methodology is durable beyond any single program.
-              </span>
-            </span>
+            SPARK-ALL later closed at forty-two patients on a sponsor portfolio decision,
+            independent of design quality.{' '}
+            <strong>The Type A methodology is durable beyond any single program.</strong>
           </motion.div>
+
+          <motion.p
+            className="asp-pharazi-seam"
+            initial={reduce ? false : { opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease, delay: D.seam }}
+          >
+            Size the cohort on the precision the next decision needs — not on endpoint power you
+            cannot afford. All three cases so far end the same way: someone had to reconstruct how a
+            number was produced before they would act on it.{' '}
+            <strong>
+              The last case asks whether that reconstruction survives when the analysis gets faster
+              than the review.
+            </strong>
+          </motion.p>
         </div>
       </Viz>
 
       <Footer
-        kicker="Case 02 · Impact"
+        kicker="Case 03 · Impact"
         source="Source · FDA Type A 21 Jul 2023 · NCT04817761"
         delay={D.source}
       />
@@ -181,7 +187,7 @@ function PatientGrid({ delay, ease, reduce }) {
         style={{
           width: '100%',
           height: 'auto',
-          maxHeight: 'clamp(160px, 24vh, 280px)',
+          maxHeight: 'clamp(140px, 20vh, 240px)',
           display: 'block',
         }}
       >

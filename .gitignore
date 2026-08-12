@@ -83,3 +83,4 @@ _Admin/
 # Playwright test output (auto-generated)
 test-results/
 playwright-report/
+.env*

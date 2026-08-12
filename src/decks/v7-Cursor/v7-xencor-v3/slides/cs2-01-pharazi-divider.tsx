@@ -1,22 +1,27 @@
 import React from 'react';
 import CaseHeroDivider from '@/components/deck/patterns/CaseHeroDivider';
 
+/**
+ * CS4 opener — not a drug case. Honesty banner lands in the first beat.
+ */
 export default function CS2PharaziDivider() {
   return (
     <div data-case="4" style={{ width: '100%', height: '100%' }}>
       <CaseHeroDivider
-        caseToken="sage"
+        caseToken="violet"
         caseNumber="04"
         totalCases={4}
-        kicker="CASE STUDY 04"
-        title="AI / Pharazi"
-        subtitle="Pharazi.ai · open-source project"
-        tagline="Audit-ready clinical pharmacology workflows, with deterministic tools and human accountability."
+        kicker="CASE STUDY 04 · EPILOGUE"
+        title="Not a drug — the system"
+        subtitle="Personal research · not a sponsor deployment"
+        tagline="What must be true before an AI-accelerated analysis can inform a dose — auditability before autonomy."
         meta={[
-          ['Topic', 'AI / ML Pharmacometrics'],
-          ['Setting', 'Personal research · 2024 –'],
+          ['Constraint', 'Unbuilt · prototype'],
+          ['Honesty', 'Not validated GxP · not a product pitch'],
+          ['Home', 'pharazi.ai · clinpharm.ai'],
         ]}
         verdict=""
+        source="Manuscript in preparation · CPT:PSP"
       />
     </div>
   );

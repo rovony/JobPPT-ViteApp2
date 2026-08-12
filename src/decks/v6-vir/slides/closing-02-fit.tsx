@@ -8,9 +8,8 @@ import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/Slide
 /**
  * CONCLUSION · Slide 02
  *
- * Repurposed from the prior fit close to a Vir fit close.
- * Summarizes the operating model that transfers from the four cases to
- * Vir's oncology and infectious-disease programs.
+ * Company-neutral fit close: operating model that transfers from the
+ * four cases to oncology and infectious-disease programs.
  */
 const EASE = [0.2, 0.7, 0.3, 1];
 
@@ -47,12 +46,12 @@ export default function ClosingConclusion() {
 
   return (
     <SlideGrid dataCase="amber" areas={STANDARD_AREAS}>
-      <Eyebrow delay={0.10}>Why Vir</Eyebrow>
+      <Eyebrow delay={0.10}>Role fit</Eyebrow>
 
       <Headline delay={0.25} maxChars={65}>
         This is the operating model I would bring to{' '}
         <span style={{ color: 'var(--amber)', fontStyle: 'italic', fontWeight: 600 }}>
-          Vir.
+          the role.
         </span>
       </Headline>
 
@@ -178,7 +177,7 @@ export default function ClosingConclusion() {
 
       <Footer
         delay={reduced ? 0 : 1.7}
-        kicker="Why Vir"
+        kicker="Role fit"
         tagline="Evidence discipline for fast, complex, high-consequence programs."
       />
     </SlideGrid>

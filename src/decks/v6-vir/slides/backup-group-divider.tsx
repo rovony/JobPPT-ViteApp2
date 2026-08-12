@@ -49,7 +49,7 @@ export function AiBackupDivider() {
       dataCase="violet"
       eyebrow="Backup · AI / Pharazi"
       headline={<>Extended AI workflow slides moved out of the main talk.</>}
-      subhead="The live Vir story uses only the regulatory floor, gap, working overview, PopPK dashboard, and publication close. The rest stays available for deeper technical discussion."
+      subhead="The live story uses only the regulatory floor, gap, working overview, PopPK dashboard, and publication close. The rest stays available for deeper technical discussion."
       label="Backup · AI"
       items={['Regulatory context', 'Five architecture principles', 'Component-level workflow views', 'Audit dashboards', 'Interactive dossier']}
     />
@@ -62,7 +62,7 @@ export function IvosidenibBackupDivider() {
       dataCase="sage"
       eyebrow="Backup · prior work"
       headline={<>Prior work · India reliance (Ivosidenib).</>}
-      subhead="These slides are preserved as supporting evidence for global-to-local reliance and regulatory dossier strategy, but they are not part of the Vir main flow."
+      subhead="These slides are preserved as supporting evidence for global-to-local reliance and regulatory dossier strategy, but they are not part of the main flow."
       label="Backup · Ivosidenib"
       items={['CDSCO Rule 101 pathway', 'Six-pillar dossier strategy', 'IDH1 disease and mechanism context', 'Local-data waiver outcome']}
     />

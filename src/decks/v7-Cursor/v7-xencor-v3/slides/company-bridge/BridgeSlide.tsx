@@ -41,8 +41,11 @@ export function BridgeDivider({ content }) {
             transition={{ duration: 0.55, delay: 0.7 + i * 0.18, ease: [0.2, 0.7, 0.3, 1] }}
             style={{
               minWidth: 0,
+              border: '1px solid color-mix(in srgb, var(--amber) 28%, transparent)',
               borderTop: '3px solid var(--amber)',
-              paddingTop: 'var(--space-5)',
+              borderRadius: 'var(--radius-md)',
+              padding: 'var(--space-5) var(--space-5) var(--space-4)',
+              background: 'color-mix(in srgb, var(--amber) 5%, var(--panel))',
             }}
           >
             <div className="xc-eyebrow xc-amber" style={{
@@ -110,9 +113,11 @@ export function BridgeBullets({ content, footerTagline, iconOffset = 0 }) {
                 gridTemplateColumns: 'auto minmax(0, 1fr)',
                 gap: 'var(--space-3)',
                 alignItems: 'start',
+                border: '1px solid color-mix(in srgb, var(--amber) 24%, transparent)',
                 borderLeft: '3px solid color-mix(in srgb, var(--amber) 70%, transparent)',
+                borderRadius: 'var(--radius-md)',
                 padding: 'var(--space-3) var(--space-4)',
-                background: 'linear-gradient(90deg, color-mix(in srgb, var(--amber) 10%, transparent), transparent)',
+                background: 'color-mix(in srgb, var(--amber) 6%, var(--panel))',
               }}
             >
               <Icon size={26} color="var(--amber)" strokeWidth={2.1} />

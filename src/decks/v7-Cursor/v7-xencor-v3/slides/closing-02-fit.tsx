@@ -78,7 +78,7 @@ export default function ClosingConclusion() {
                 key={p.n}
                 initial={{ opacity: 0, y: 20, scale: 0.98 }}
                 animate={go ? { opacity: 1, y: 0, scale: 1 } : { opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.6 + i * 0.15, ease: EASE }}
+                transition={{ duration: 0.45, delay: 0.5 + i * 0.08, ease: EASE }}
                 style={{
                   position: 'relative',
                   display: 'flex',
@@ -86,10 +86,9 @@ export default function ClosingConclusion() {
                   gap: 'var(--space-4)',
                   padding: 'var(--space-6) var(--space-5)',
                   background: 'color-mix(in srgb, var(--panel) 40%, transparent)',
-                  border: `1px solid color-mix(in srgb, var(--cream-hairline) 50%, transparent)`,
+                  border: `1px solid color-mix(in srgb, ${p.color} 28%, transparent)`,
                   borderTop: `3px solid ${p.color}`,
                   borderRadius: 'var(--radius-lg)',
-                  boxShadow: `0 8px 32px color-mix(in srgb, ${p.color} 5%, transparent)`,
                   overflow: 'hidden',
                   isolation: 'isolate',
                 }}
@@ -171,7 +170,7 @@ export default function ClosingConclusion() {
       </Viz>
 
       <Footer
-        delay={reduced ? 0 : 1.7}
+        delay={reduced ? 0 : 1.05}
         kicker="Why Xencor"
         tagline="Evidence discipline for fast, complex, high-consequence programs."
       />

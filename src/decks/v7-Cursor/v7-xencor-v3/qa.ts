@@ -47,7 +47,7 @@ const virQA: Record<string, string> = {
 **From:** panel chair
 **Difficulty:** ★★ · **Topic:** framing
 
-A: Four cases let the panel test the same senior signal under different constraints: pediatric extrapolation, efficient design, regional reliance, and AI-enabled workflow discipline. The portfolio slide gives breadth; the cases give proof.
+A: Four cases let the panel test the same senior signal under different constraints: pediatric extrapolation, regional reliance, efficient design, and AI-enabled workflow discipline. The portfolio slide gives breadth; the cases give proof.
 
 > **Move-forward:** The structure is designed to make my judgment inspectable, not to list everything I have done.
 
@@ -59,13 +59,13 @@ A: ADC work remains in the portfolio because it is real breadth, but it is not t
 
 > **Anchor:** breadth credential, not showcase case.
 
-## Q3: The title cards look abbreviated — what is the full case framing?
+## Q3: What is the presentation order of the four cases?
 **From:** detail-oriented panelist
-**Difficulty:** ★ · **Topic:** off-slide memory
+**Difficulty:** ★ · **Topic:** framing
 
-A: The cards are intentionally compact on screen. The full lines are: Case 01 — exposure-matched pediatric PAH dose when the efficacy trial cannot carry the answer, EMA and PMDA approved. Case 02 — defensible Asparlas adult design when the endpoint-powered trial is not feasible, FDA Type A at N equals 60. Case 03 — India ivosidenib waiver through convergent global evidence. Case 04 — audit-ready clin pharm workflows via Pharazi as personal research.
+A: Ambrisentan first — untrialable pediatric dose defense. Ivosidenib India second — transport across a missing local package. Asparlas third — change the study before it runs. Pharazi fourth — personal research on audit-ready workflows. Decision-first, unequal depth by design.
 
-> **Anchor:** short on slide, full lines in notes and Reading cheat sheet.`,
+> **Anchor:** Ambrisentan → India → Asparlas → Pharazi.`,
 
   'hook-A-trial-not-answer': `## Q1: Is Define → Challenge → Test → Act just a rebrand of the scientific method?
 **From:** framing panelist
@@ -98,6 +98,46 @@ A: The four verbs are the verbal lock. This slide is the operational detail: cos
 A: Four is memorable. Seven is inspectable. Peer panels care whether the threshold was pre-committed and whether a standard survived the project. I will not linger on every box — the walk is decision → risk → threshold → falsify → standard.
 
 > **Move-forward:** cases will show the same loop under different constraints.`,
+
+  'what-you-will-see': `## Q1: Why unequal case times — sixteen, eleven, seven, three?
+**From:** time-conscious panelist
+**Difficulty:** ★★ · **Topic:** pacing
+
+A: Depth follows proof weight, not biography. Ambrisentan carries the longest regulatory-tested bridge. India is the second-deepest reliance decision. Asparlas is a sharper design pivot. Pharazi is a short honesty-bounded systems epilogue. Same discipline; unequal depth by design.
+
+> **Anchor:** Ambrisentan → India → Asparlas → Pharazi.
+
+## Q2: Why India before Asparlas?
+**From:** narrative panelist
+**Difficulty:** ★★ · **Topic:** story architecture
+
+A: The first two cases argue from evidence that already exists. Asparlas flips upstream to redesign before the study runs. Putting India second makes that seam legible: interpolation, then transport, then design.
+
+> **Move-forward:** seam logic, not case-number nostalgia.`,
+
+  'cs1-outcome': `## Q1: FDA never received the package — is that a scientific failure?
+**From:** regulatory panelist
+**Difficulty:** ★★★★ · **Topic:** FDA caveat
+
+A: No. EMA and PMDA accepted the labeling bridge in 2021. FDA non-filing was a split-rights / commercial geography outcome, not a rejection of the exposure-matching science. I disclose it proactively so the claim boundary stays honest: dose labeling supported; pediatric efficacy not re-proven.
+
+> **Anchor:** disclose FDA gap; do not sound defensive.
+
+## Q2: What exactly did you own end-to-end?
+**From:** hiring manager
+**Difficulty:** ★★★ · **Topic:** ownership
+
+A: The exposure-matching argument — architecture, falsifiers, and claim boundary. I will not inflate that into owning every commercial or regional filing decision.
+
+> **Move-forward:** defendable ownership, not inflated scope.`,
+
+  'cs1-bridge': `## Q1: What travels from Ambrisentan into the India case?
+**From:** panel chair
+**Difficulty:** ★★ · **Topic:** transfer
+
+A: Not the fitted ambrisentan model. The architecture: pre-agree the threshold for the next action; adults build and children confirm only when disease similarity is written down first. Case one is interpolation inside a shared base. Case two removes the local anchor and asks whether the whole package can transport.
+
+> **Anchor:** interpolation → transport; do not preview CDSCO outcome here.`,
 
   'cs1-lesson': `## Q1: FDA never received the package — is that a failure?
 **From:** regulatory panelist
@@ -263,7 +303,7 @@ A: The four cases are the proof core. This beat lets the panel absorb that the e
 **From:** time-pressed panelist
 **Difficulty:** ★★ · **Topic:** synthesis
 
-A: Case one — pediatric ambrisentan exposure bridge, EMA and PMDA approved, FDA never received the package. Case two — Asparlas Type A at N equals 60, pediatric prior plus optimal design. Case three — ivosidenib India waiver May 2025, six pillars plus Phase 4. Case four — Pharazi traceable AI workflows as personal research. One discipline throughout: defensible dose when measurement falls short.
+A: Case one — pediatric ambrisentan exposure bridge, EMA and PMDA approved, FDA never received the package. Case two — ivosidenib India waiver May 2025, six pillars plus Phase 4. Case three — Asparlas Type A at N equals 60, pediatric prior plus optimal design. Case four — Pharazi traceable AI workflows as personal research. One discipline throughout: defensible dose when measurement falls short.
 
 > **Move-forward:** ledger recap without re-teaching.`,
 
@@ -283,13 +323,13 @@ A: Dual blockade (bosentan-style) adds hepatotoxicity and fluid-retention monito
 
 > **Move-forward:** same pathway in children → AUC matching is the bridge.`,
 
-  'cs1-question': `## Q1: Why jump to 380 adults before explaining the disease?
+  'cs1-question': `## Q1: Why open with decision and cost before methods?
 **From:** clinical panelist
 **Difficulty:** ★★ · **Topic:** case setup
 
-A: The slide is ordered for clinical pharmacologists: drug, terminated pediatric program, then the PK-bridge question, then the adult–pediatric asymmetry. PAH 101 is the next slide. I would not lead with 380 adults in the room — I orient first, then name the asymmetry.
+A: Because this talk is decision-first. The room needs the labeling decision, the cost of being wrong, and the 380-versus-39 asymmetry before any PopPK detail. Disease depth is backup if asked — it is not required to understand that this is a dose-defense story.
 
-> **Anchor:** setup row → question → numbers → disease on next slide.
+> **Anchor:** decision + stakes → evidence gap → methods.
 
 ## Q2: What does "terminated trial" mean here?
 **From:** regulatory panelist
@@ -297,15 +337,23 @@ A: The slide is ordered for clinical pharmacologists: drug, terminated pediatric
 
 A: The Phase IIb pediatric efficacy program stopped early. What remained was an open-label PK-anchored cohort of 39 patients — enough for exposure matching, not for a standalone efficacy re-proof in children.
 
-> **Move-forward:** dose-defense, not repeat-efficacy trial.`,
+> **Move-forward:** dose-defense, not repeat-efficacy trial.
 
-  'cs2-asp-divider': `## Q1: Why did Asparlas move from Case 03 to Case 02?
+## Q3: Why not force another efficacy design?
+**From:** skeptical clinician
+**Difficulty:** ★★★ · **Topic:** decision
+
+A: Enrollment, ethics, endpoint transfer, and STARTS-1 precedent made a repeat-efficacy path structurally unrealistic. Competing actions were force another efficacy design, accept an M&S exposure bridge, or abandon pediatrics. We chose the bridge with explicit falsifiers.
+
+> **Anchor:** structural impossibility, not diligence failure.`,
+
+  'cs2-asp-divider': `## Q1: Why is Asparlas Case 03 after India, not before?
 **From:** narrative-fit panelist
 **Difficulty:** ★★ · **Topic:** story architecture
 
-A: Concession: in the source seminar it was Case 03, and I kept the case components rather than rebuilding them. Reframe: in this Xencor version, Asparlas belongs immediately after ambrisentan because it is the second form of "measurement falls short": not pediatric extrapolation, but a sample-limited adult design. Move-forward: it sets up India by showing that model-informed evidence can earn agreement before the next case shows it earning access.
+A: Presentation order is Ambrisentan → India → Asparlas → Pharazi. The first two cases argue from evidence that already exists — interpolation inside a shared base, then transport across a missing package. Asparlas flips the problem upstream: the study has not run yet, and the design itself is undeliverable. That seam is spoken on the India close before this divider.
 
-> **Anchor:** same case, new position, cleaner logic.`,
+> **Anchor:** design after dossier; change the study before it runs.`,
 
   'cs2-asp-fda': `## Q1: Was FDA agreement on N=60 a methods win or a regulatory negotiation win?
 **From:** quantitative panelist
@@ -327,9 +375,25 @@ A: Concession: it is not the same as having local pre-approval PK/PD, and I woul
 **From:** hiring manager
 **Difficulty:** ★★★ · **Topic:** leadership
 
-A: The leadership signal was translating a scientific reliance argument into a cross-functional operating model. Quantitative pharmacology could answer whether global evidence extrapolated; regulatory, medical, PV, writing, and the local affiliate had to make the pathway and execution hold. Both had to be true.
+A: The leadership signal was translating a scientific reliance argument into a cross-functional operating model. On the quantitative pharmacology side I owned the extrapolation argument and scoped the Phase 4 PK/PD commitment. Regulatory, medical, PV, and the India affiliate owned pathway and in-country execution. Both conditions had to be true. I will not invent a private negotiation story beyond that function-level model.
 
-> **Move-forward:** senior value is aligning functions around the decision.`,
+> **Move-forward:** defendable QP ownership; no invented India leadership claim.
+
+## Q2: Did you personally lead the SEC / CDSCO negotiations?
+**From:** detail panelist
+**Difficulty:** ★★★★ · **Topic:** ownership
+
+A: I will not invent that claim. Partner functions owned the Rule 101 pathway and in-country execution. My defendable claim is the clinical pharmacology extrapolation package and Phase 4 scope. If you need named negotiation ownership, that remains a human-confirmed detail outside this talk.
+
+> **Anchor:** TODO(human) — do not invent India leadership ownership.`,
+
+  'cs3-B4-population-evidence': `## Q1: How do we know this was not commercial rationalization after the fact?
+**From:** skeptical panelist
+**Difficulty:** ★★★★★ · **Topic:** falsification
+
+A: Every pillar had a kill condition written as IF→THEN. Race covariate significant, steep exposure-response, unbounded DME impact, or germline rather than somatic biology would have forced a local study. Those tests could have failed. Naming Phase 4 as the residual-gap bound is part of that honesty.
+
+> **Anchor:** tests we could have failed, not post-hoc comfort.`,
 
   'cs2-pharazi-divider': `## Q1: Is Pharazi something you would transfer to Xencor?
 **From:** IP / compliance panelist
@@ -339,13 +403,37 @@ A: No, not as a product transfer claim. Pharazi is personal research that demons
 
 > **Anchor:** personal research, transferable judgment.`,
 
+  'cs2-regulatory-floor': `## Q1: Is this a product pitch for Pharazi?
+**From:** compliance panelist
+**Difficulty:** ★★★★★ · **Topic:** AI honesty
+
+A: No. Standing disclosure: personal research, not a sponsor deployment, not a validated GxP system. The slide owns the floor conditions that must be true before an accelerated result informs a dose — traceable inputs, deterministic computation, explicit assumptions, named human owner.
+
+> **Anchor:** auditability before autonomy; no product transfer claim.
+
+## Q2: Isn't model explainability enough?
+**From:** ML-curious panelist
+**Difficulty:** ★★★★ · **Topic:** AI governance
+
+A: No. Explaining a prediction is not the same as reconstructing an analysis — which input, which version, which tool, which assumption. Clinical pharmacology decisions need the latter.
+
+> **Move-forward:** reconstruction, not post-hoc XAI theater.`,
+
   'cs2-publication-close': `## Q1: How do you avoid AI making the evidence less trustworthy?
 **From:** senior reviewer
 **Difficulty:** ★★★★ · **Topic:** AI governance
 
 A: Concession: badly designed AI can absolutely weaken trust. Reframe: the architecture has to make the expert more accountable, not less. That means deterministic computation where possible, immutable provenance, explicit review checkpoints, and outputs that a clinical pharmacologist can defend without pointing to a black box.
 
-> **Move-forward:** speed is useful only when traceability survives.`,
+> **Move-forward:** speed is useful only when traceability survives.
+
+## Q2: Are you claiming a validated production system?
+**From:** QA / compliance panelist
+**Difficulty:** ★★★★★ · **Topic:** AI honesty
+
+A: Explicitly no. Personal research. No sponsor deployment. No validated-system claim. The transferable asset is the review standard I would define before a function scales AI-assisted analysis.
+
+> **Anchor:** honesty reprise before the portfolio widen.`,
 
   'portfolio-01': `## Q1: Are you overclaiming breadth by including ADCs if ADC is no longer a case?
 **From:** skeptical panelist

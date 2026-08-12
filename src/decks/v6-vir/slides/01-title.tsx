@@ -12,10 +12,10 @@ import VirWordmark from '../components/VirWordmark';
  * authoring decision (Apr 2026). The v3-R2 cover adopts the v1 kinetic
  * composition: amber PK curve with four landmark dots, four case
  * cards anchored to Cmax / precision / reliance / audit, presenter
- * card + framed meta spec (4 cases / Vir fit / 45 min), soft ambient
+ * card + framed meta spec (4 cases / role fit / 45 min), soft ambient
  * gradient.
  *
- * Locked talk identity (V6-Vir):
+ * Locked talk identity (v6 company-neutral):
  *   Title:    "When measurement falls short"
  *   Subtitle: "Clinical pharmacology makes the dose defensible"
  *
@@ -98,7 +98,7 @@ export default function TitleSlide() {
           ].join(', '),
         }}
       />
-      {/* ---------- Vir wordmark · top-right (inset from edge) ---------- */}
+      {/* ---------- company wordmark · top-right (inset from edge) ---------- */}
       <div
         className="absolute z-[2] pointer-events-none"
         style={{
@@ -152,7 +152,7 @@ export default function TitleSlide() {
             animate={go ? { opacity: 1 } : { opacity: 1 }}
             transition={{ duration: 0.35, delay: 0.35 }}
           >
-            VIR BIOTECHNOLOGY · SENIOR DIRECTOR CLINICAL PHARMACOLOGY CANDIDATE
+            SENIOR DIRECTOR CLINICAL PHARMACOLOGY · CANDIDATE SEMINAR
           </motion.span>
         </motion.div>
 
@@ -360,7 +360,7 @@ export default function TitleSlide() {
             transition={{ duration: 0.3, delay: 2.7 }}
           >
             <div>SEMINAR · JUNE 17 2026</div>
-            <div>4 CASES · VIR FIT · 45 MIN</div>
+            <div>4 CASES · ROLE FIT · 45 MIN</div>
           </motion.div>
         </div>
       </div>

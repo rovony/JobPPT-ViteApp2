@@ -8,7 +8,7 @@ could be made decision-grade without an endpoint-powered adult trial.
 Presenter guardrail:
 
 - Say this was imported from the prior Asparlas source case and re-keyed as
-  Case 02 for the Vir story.
+  Case 02 for the seminar story.
 - Keep the claim to the public decision arc: FDA Type A engagement, N=60,
   simulated primary, optimal design, and a 36% adult trial-size reduction.
 - Do not turn this into a general claim that small trials are automatically

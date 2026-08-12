@@ -1,0 +1,217 @@
+/**
+ * CaseHeroDivider — layout + type for the shared case divider.
+ * Deck tokens (`--fs-case-*` in v7-xencor-v3 xencor-deck.css) override
+ * the fallbacks below when present. Cream / case tokens adapt light+dark.
+ */
+
+.xc-case-hero__chrome {
+  font-size: var(--fs-case-chrome, var(--fs-slide-topright, 0.85rem));
+  letter-spacing: var(--ls-mono);
+  color: var(--cream-faint);
+}
+
+.xc-case-hero__kicker {
+  font-size: var(--fs-case-kicker, clamp(0.95rem, min(1.2vw, 1.9vh), 1.2rem));
+  letter-spacing: var(--ls-mono-wide);
+  font-weight: 700;
+  margin-bottom: 3vh;
+}
+
+.xc-case-hero__title {
+  font-size: var(--fs-case-title, clamp(3.2rem, 7.5vw, 9rem));
+  line-height: var(--lh-tight, 1.05);
+  letter-spacing: var(--ls-display, -0.022em);
+  color: var(--cream);
+  font-weight: 700;
+  margin: 0 0 2.5vh;
+}
+
+.xc-case-hero__rule {
+  height: 3px;
+  margin-bottom: 2vh;
+  width: clamp(120px, 12vw, 200px);
+}
+
+.xc-case-hero__subtitle {
+  font-size: var(--fs-case-subtitle, clamp(1.35rem, min(2.35vw, 3.2vh), 2.4rem));
+  line-height: var(--lh-snug, 1.25);
+  letter-spacing: var(--ls-headline, -0.01em);
+  color: var(--cream);
+  font-weight: 500;
+  margin: 0 0 2.5vh;
+  max-width: 38ch;
+}
+
+.xc-case-hero__tagline {
+  font-size: var(--fs-case-tagline, clamp(1.05rem, min(1.45vw, 2.2vh), 1.45rem));
+  line-height: var(--lh-base, 1.4);
+  color: var(--cream-muted);
+  font-weight: 400;
+  margin: 0;
+  max-width: 54ch;
+}
+
+.xc-case-hero__foot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--xc-case-foot-gap, clamp(1.1rem, 2vh, 1.65rem));
+  min-width: 0;
+}
+
+.xc-case-hero__source-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.xc-case-hero__source {
+  font-size: var(--fs-case-source, clamp(1.15rem, min(1.45vw, 2.2vh), 1.4rem));
+  color: var(--cream-muted);
+  font-weight: 400;
+  line-height: 1.4;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+/* ── Case counter (talk-path chrome · bordered separator) ─────────────── */
+
+.xc-case-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  font-size: var(--fs-case-counter, clamp(1.05rem, min(1.35vw, 2vh), 1.25rem));
+  letter-spacing: var(--ls-mono-wide, 0.1em);
+  color: var(--cream-faint);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  padding: 0.28em 0.55em;
+  border: 1px solid var(--cream-hairline);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--panel, var(--bg)) 60%, transparent);
+}
+
+.xc-case-counter__n {
+  font-weight: 700;
+}
+
+.xc-case-counter__sep {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.15em;
+  min-height: 1.15em;
+  padding: 0 0.2em;
+  border: 1px solid var(--cream-hairline);
+  border-radius: 3px;
+  color: var(--cream-muted);
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* ── CaseLedger ───────────────────────────────────────────────────────── */
+
+.xc-case-ledger {
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  border-style: solid;
+  border-width: var(--xc-case-ledger-border-width, 1.5px);
+  border-color: var(
+    --xc-case-ledger-border,
+    color-mix(in srgb, var(--cream) 28%, transparent)
+  );
+  padding: var(
+    --xc-case-ledger-pad,
+    clamp(1rem, 1.8vh, 1.4rem) clamp(1.15rem, 2vw, 1.65rem)
+  );
+  background: color-mix(in srgb, var(--panel, var(--bg)) 70%, transparent);
+}
+
+.xc-case-ledger__axis {
+  height: 1px;
+  width: 100%;
+  background: var(--cream-hairline);
+}
+
+.xc-case-ledger__grid {
+  display: grid;
+  column-gap: clamp(1.25rem, 2.4vw, 2.5rem);
+  padding-top: var(--xc-case-ledger-axis, clamp(1rem, 2.2vh, 1.75rem));
+  align-items: start;
+}
+
+.xc-case-ledger__cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: var(--xc-case-ledger-gap, clamp(0.55rem, 1vh, 0.85rem));
+  min-width: 0;
+}
+
+.xc-case-ledger__cell--verdict {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.xc-case-ledger__tick {
+  position: absolute;
+  top: calc(-1 * var(--xc-case-ledger-axis, 1.25rem) - 5px);
+  left: 0;
+  width: 10px;
+  height: 10px;
+  box-sizing: border-box;
+  border: 2px solid var(--case);
+  background: var(--bg);
+}
+
+.xc-case-ledger__cell--verdict .xc-case-ledger__tick {
+  left: auto;
+  right: 0;
+}
+
+.xc-case-ledger__tick--filled {
+  background: var(--case);
+}
+
+.xc-case-ledger__label {
+  font-size: var(--fs-case-ledger-label, clamp(1.05rem, min(1.25vw, 2vh), 1.25rem));
+  letter-spacing: var(--ls-mono-wide, 0.12em);
+  color: var(--cream-faint);
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  line-height: 1.2;
+}
+
+.xc-case-ledger__cell--verdict .xc-case-ledger__label {
+  color: var(--case);
+}
+
+.xc-case-ledger__value {
+  font-size: var(--fs-case-ledger-value, clamp(1.05rem, min(1.3vw, 2vh), 1.5rem));
+  line-height: 1.3;
+  letter-spacing: var(--ls-headline, -0.01em);
+  color: var(--cream);
+  font-weight: 500;
+  overflow-wrap: break-word;
+  word-break: normal;
+  max-width: 100%;
+}
+
+.xc-case-ledger__value--verdict {
+  font-size: var(--fs-case-ledger-verdict, clamp(1.25rem, min(1.65vw, 2.5vh), 1.9rem));
+  letter-spacing: var(--ls-mono-wide, 0.12em);
+  font-family: var(--font-mono, var(--font-mono-bp, ui-monospace, monospace));
+  color: var(--case);
+  font-weight: 700;
+  text-transform: uppercase;
+  overflow-wrap: normal;
+  word-break: normal;
+}

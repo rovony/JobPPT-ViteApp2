@@ -57,7 +57,7 @@ export default function ClosingThanks() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={go ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.7, ease: EASE }}
+            transition={{ duration: 0.45, delay: 0.55, ease: EASE }}
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(min(13rem, 100%), 1fr))',
@@ -67,10 +67,10 @@ export default function ClosingThanks() {
             }}
           >
             {[
-              { c: 'var(--coral)', cs: 'CS1', label: 'Pediatric PopPK · ETA antagonism · ICH E11A' },
-              { c: 'var(--teal)', cs: 'CS2', label: 'Asparlas · optimal design · FDA Type A alignment' },
-              { c: 'var(--cyan)', cs: 'CS3', label: 'Ivosidenib India · reliance · cross-functional leadership' },
-              { c: 'var(--sage)', cs: 'CS4', label: 'AI / ML platforms · ICH M15 audit · agent design' },
+              { c: 'var(--xc-case-1)', cs: 'Case 01', label: 'Ambrisentan · pediatric PopPK · ICH E11A' },
+              { c: 'var(--xc-case-2)', cs: 'Case 02', label: 'Ivosidenib India · reliance · cross-functional leadership' },
+              { c: 'var(--xc-case-3)', cs: 'Case 03', label: 'Asparlas · optimal design · FDA Type A alignment' },
+              { c: 'var(--xc-case-4)', cs: 'Case 04', label: 'Pharazi · ICH M15 audit · agent design' },
             ].map((chip) => (
               <div key={chip.cs} style={{
                 padding: 'clamp(var(--space-3), 1.5vw, var(--space-4))',
@@ -110,7 +110,7 @@ export default function ClosingThanks() {
       <Footer
         delay={reduced ? 0 : 1.5}
         kicker="Thank you"
-        tagline="Malek Okour · Quantitative Pharmacology · Xencor seminar · June 2026"
+        tagline="Malek Okour · Pharmacometrics & Clinical Pharmacology · Xencor seminar · August 2026"
         source="Sources: Okour 2023 JCP · FDA Type A 2023 · ICH E11A 2024 · ICH M15 2026 · Xencor public pipeline materials · Xencor Deck Content Pack"
       />
     </SlideGrid>

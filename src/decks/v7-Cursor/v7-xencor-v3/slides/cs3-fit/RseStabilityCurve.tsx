@@ -140,17 +140,57 @@ export default function RseStabilityCurve({
         ADULT SAMPLE SIZE · N
       </text>
 
-      {/* Plateau zone shading */}
+      {/* Plateau band — horizontal wash around the flat %RSE region +
+          vertical gate at N≈50–60 (blueprint composition). */}
       <motion.rect
         x={x0 + ((50 - 20) / 80) * (x1 - x0)}
-        y={y0}
+        y={yPlateau - 36}
         width={((100 - 50) / 80) * (x1 - x0)}
-        height={y1 - y0}
-        fill="color-mix(in srgb, var(--teal) 8%, transparent)"
+        height={72}
+        fill={`color-mix(in srgb, ${stroke} 14%, transparent)`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, ease, delay: delay + 1.4 }}
+        transition={{ duration: 0.6, ease, delay: delay + 1.2 }}
       />
+      <motion.line
+        x1={x0 + ((50 - 20) / 80) * (x1 - x0)}
+        y1={y0}
+        x2={x0 + ((50 - 20) / 80) * (x1 - x0)}
+        y2={y1}
+        stroke={stroke}
+        strokeWidth={1.5}
+        strokeDasharray="6 5"
+        opacity={0.55}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.55 }}
+        transition={{ duration: 0.45, ease, delay: delay + 1.35 }}
+      />
+      <motion.text
+        x={x0 + ((50 - 20) / 80) * (x1 - x0) + 10}
+        y={y0 + 18}
+        fontFamily="var(--font-mono)"
+        fontSize={10}
+        fontWeight={700}
+        fill={stroke}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, ease, delay: delay + 1.45 }}
+      >
+        plateau begins ≈ 50–60
+      </motion.text>
+      <motion.text
+        x={(x0 + ((50 - 20) / 80) * (x1 - x0) + x1) / 2}
+        y={yPlateau + 8}
+        textAnchor="middle"
+        fontFamily="var(--font-mono)"
+        fontSize={9}
+        fill="var(--cream-muted)"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, ease, delay: delay + 1.55 }}
+      >
+        34 more patients buy almost nothing
+      </motion.text>
 
       {/* Curve */}
       <motion.path
@@ -216,7 +256,7 @@ export default function RseStabilityCurve({
           width={124}
           height={30}
           rx={2}
-          fill="color-mix(in srgb, var(--teal) 18%, transparent)"
+          fill={`color-mix(in srgb, ${stroke} 18%, transparent)`}
           stroke={stroke}
           strokeWidth={1}
         />

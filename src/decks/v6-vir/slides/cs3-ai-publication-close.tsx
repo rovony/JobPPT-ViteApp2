@@ -22,7 +22,7 @@ const ECOSYSTEM = [
 ];
 
 /**
- * CS4 close — pharos 22-publication-close pattern adapted for Vir interview:
+ * CS4 close — pharos 22-publication-close pattern adapted for candidate seminar:
  * status stack + capstone + live iframe/QR (not the generic 3-card abstract).
  */
 export default function Cs3AiPublicationClose() {

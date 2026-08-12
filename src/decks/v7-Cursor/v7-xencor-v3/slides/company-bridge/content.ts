@@ -35,8 +35,8 @@ export const companyBridge = {
     subhead: 'The four cases name an operating model — not a credentials recap.',
     bullets: [
       'Untrialable pediatric PAH → target-exposure defense when the efficacy trial cannot carry the answer.',
-      'Sample-limited Asparlas → efficient, model-anchored design when the powered trial is not feasible.',
       'Locally constrained India → convergent reliance when a regulator asks for evidence you do not have locally.',
+      'Sample-limited Asparlas → efficient, model-anchored design when the powered trial is not feasible.',
       'Workflow-unbuilt AI → traceable review when scale must not erase expert judgment.',
     ],
     source: 'Four-case core · applied to Xencor decision types',

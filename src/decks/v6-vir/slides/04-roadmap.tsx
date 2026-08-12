@@ -266,14 +266,14 @@ export default function Roadmap({ deck }) {
           className="deck-display"
           style={CONCLUSION_TEXT_STYLE}
         >
-          One discipline carrying the decision in each case — then portfolio breadth and the Vir bridge.
+          One discipline carrying the decision in each case — then portfolio breadth and the company bridge.
         </div>
       </GridSlot>
 
       <Footer
         delay={reduced ? 0 : 1.8}
-        kicker="Roadmap · four cases · portfolio · Vir bridge · Q&A"
-        tagline="Four cases build the core; the portfolio and bridge translate it to Vir."
+        kicker="Roadmap · four cases · portfolio · company bridge · Q&A"
+        tagline="Four cases build the core; the portfolio and bridge translate it to the role."
       />
     </SlideGrid>
   );

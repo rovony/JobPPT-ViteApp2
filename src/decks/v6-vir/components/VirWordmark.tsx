@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+/** Neutral seminar mark — no company branding. */
 export default function VirWordmark({
   layoutId = 'vir-wordmark',
   color = 'var(--cream-muted)',
@@ -25,10 +26,10 @@ export default function VirWordmark({
         lineHeight: 1,
         textAlign: 'right',
       }}
-      aria-label="Vir Biotechnology"
+      aria-label="Clinical Pharmacology seminar"
     >
-      <span style={{ display: 'block', fontSize: 'clamp(1.6rem, 2.4vw, 3.1rem)' }}>
-        Vir
+      <span style={{ display: 'block', fontSize: 'clamp(1.1rem, 1.6vw, 1.85rem)' }}>
+        Clinical
       </span>
       <span
         className="deck-mono uppercase"
@@ -40,7 +41,7 @@ export default function VirWordmark({
           color: 'color-mix(in srgb, currentColor 76%, transparent)',
         }}
       >
-        Biotechnology
+        Pharmacology
       </span>
     </motion.div>
   );

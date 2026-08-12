@@ -47,8 +47,8 @@ export default function Portfolio01() {
       headline={<>Breadth across <span style={{ color: 'var(--amber)', fontStyle: 'italic' }}>modality, therapeutic area, and agency.</span></>}
       subhead="The four cases are the spine; the broader portfolio is why the bridge can cover oncology, biologics, antiviral, respiratory, PAH, and AI-enabled dose prediction."
       footerKicker="Stable core · portfolio breadth"
-      footerTagline="The bridge to Vir starts from a portfolio, not a single case."
-      footerSource="Vir Deck Content Pack · master CV · public publication/regulatory record"
+      footerTagline="The company bridge starts from a portfolio, not a single case."
+      footerSource="Master CV · public publication/regulatory record"
     >
       <div
         style={{

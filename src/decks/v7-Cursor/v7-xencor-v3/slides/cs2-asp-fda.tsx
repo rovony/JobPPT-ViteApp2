@@ -1,268 +1,112 @@
 // @ts-nocheck
 import React from 'react';
-import { motion } from 'framer-motion';
-import { useTokens } from '@/lib/token';
+import { motion, useReducedMotion } from 'framer-motion';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
-import SampleSizeWaterfall from './cs3-engagement/SampleSizeWaterfall';
 
 /**
- * Slide 26 · CS2 FDA Engagement — N = 60 agreed.
- *
- * 2026-04-24 redesign (Agent D · CS2 cluster fix):
- *   • Top half: hairline panel for the waterfall (left, ~58%) + three pillar
- *     status rows (right, ~42%). Both square-cornered, no fills.
- *   • Bottom half: a SINGLE editorial regulatory-position block — eyebrow +
- *     two paraphrased FDA positions side-by-side connected by a hairline,
- *     with the durable-methodology payoff inline as the last sentence.
- *
- * Removed (zaj-slides v2.1 / craft-bans-and-borders compliance):
- *   • borderRadius: 6 on QuoteCard
- *   • borderRadius: 4 + tinted background on the closing "two frameworks"
- *     panel (was decorative chrome floating above the regulatory cards).
- *   • maxHeight: 38vh constraint on the waterfall area — at 1920×1080 it
- *     created a parking-lot of empty space above the bottom rows that
- *     visually collapsed the layout (both labels overlapped).
- *
- * Confidentiality: prior version paraphrased FDA Type A meeting minutes
- * verbatim and cited line numbers (L497, L571–572). Per zaj-slides
- * HARD RULES (no internal correspondence pasted verbatim, no line-
- * numbered extractions from non-public documents), both positions now
- * paraphrase the regulatory exchange in the speaker's own voice and
- * cite the public trial registry (NCT04817761) + the public meeting
- * date as the source.
+ * CS2 Asparlas · FDA — Type A 94→60 · −36%.
+ * Decluttered: bordered numeral hero + two frameworks + what did not land.
+ * Waterfall / dual quote chrome removed.
  */
 
-const POSITIONS = [
-  {
-    text: 'Sixty patients delivered the >85% AE-detection probability the agency was looking for — the same threshold the safety framework was sized against.',
-    cite: 'FDA Type A · 21 Jul 2023',
-  },
-  {
-    text: 'The simulated primary was not rejected — repositioned. FDA required additional PopPK in Cohorts 1 & 2 before Part 2 could rely on it.',
-    cite: 'FDA Type A · 21 Jul 2023',
-  },
-];
-
 export default function Cs2AspFda() {
+  const reduce = useReducedMotion();
   const ease = [0.2, 0.7, 0.3, 1];
   const D = {
-    eyebrow: 0.20,
-    headline: 0.35,
-    subhead: 0.65,
-    waterfallLabel: 0.95,
-    waterfall: 1.05,
-    pillars: 1.40,
-    positionsLabel: 3.20,
-    positions: 3.35,
-    payoff: 4.00,
-    source: 2.80,
+    eyebrow: 0.15,
+    headline: 0.25,
+    subhead: 0.45,
+    hero: 0.7,
+    frameworks: 0.95,
+    miss: 1.35,
+    source: 1.65,
   };
-
-  const T = useTokens(['--teal', '--cream', '--cream-muted', '--cream-faint', '--cream-hairline']);
-  const tk = (n, fb = 'transparent') => (T ? T[n] || fb : fb);
 
   return (
     <SlideGrid dataCase="3" areas={STANDARD_AREAS}>
-      <Eyebrow color="var(--xc-case-3)" delay={D.eyebrow}>CS2 · FDA engagement</Eyebrow>
-      <Headline delay={D.headline} maxChars={50}>
-        FDA agreed to{' '}
+      <Eyebrow color="var(--xc-case-3)" delay={D.eyebrow}>
+        Case 03 · FDA engagement
+      </Eyebrow>
+      <Headline delay={D.headline} maxChars={54}>
+        FDA Type A agreed sixty evaluable adults —{' '}
         <span style={{ color: 'var(--xc-case-3)', fontStyle: 'italic', fontWeight: 700 }}>
-          N = 60
-        </span>{' '}
-        — a 36% reduction in adult enrollment.
-      </Headline>
-      <Subhead delay={D.subhead} maxChars={120}>
-        FDA Type A · 21 July 2023 · pharmacometrics-anchored briefing in a rare adult oncology
-        population —{' '}
-        <span style={{ color: 'var(--xc-case-3)', fontWeight: 600 }}>
-          three of four pillars agreed on the record
+          a 36% reduction on the formal record
         </span>
         .
+      </Headline>
+      <Subhead delay={D.subhead} maxChars={120}>
+        21 July 2023 · three of four pillars on the record. Two frameworks briefed in parallel —
+        pharmacometrics precision and biostatistics AE-detection — converging on one N.
       </Subhead>
 
       <Viz>
-        <div
-          style={{
-            width: '100%',
-            height: '100%',
-            display: 'grid',
-            // Top: chart + pillars take ~58% of viz, bottom regulatory
-            // block takes the rest. minmax(0,*) on both rows lets the
-            // top row absorb but stops the bottom row from collapsing
-            // to 0 if content is small.
-            gridTemplateRows: 'minmax(0, 1fr) minmax(0, 1fr)',
-            rowGap: 'var(--space-5)',
-            minHeight: 0,
-          }}
-        >
-          {/* TOP — waterfall (full width; pillar summary in subhead) */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateRows: 'auto 1fr',
-              rowGap: 'var(--space-3)',
-              minHeight: 0,
-              border: '1px solid var(--cream-hairline)',
-              borderRadius: 0,
-              padding: 'var(--space-3)',
-            }}
-          >
+        <div className="asp-viz-stack">
+          <div className="asp-fda-grid">
             <motion.div
-              className="xc-card-label xc-ink-muted"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, ease, delay: D.waterfallLabel }}
+              className="asp-fda-hero"
+              initial={reduce ? false : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease, delay: D.hero }}
             >
-              Sample size · adult Ph-neg ALL · 3/4 pillars agreed
+              <div className="asp-n-card__kick" style={{ color: 'var(--xc-case-3)' }}>
+                Primary-endpoint-evaluable adults
+              </div>
+              <div className="asp-fda-hero__arrow">
+                94 <span>→</span> 60
+              </div>
+              <div className="asp-n-card__body">
+                <strong style={{ color: 'var(--xc-case-3)' }}>−36%</strong> enrollment · FDA Type A
+                · 21 Jul 2023 · a citable methodology precedent, not a one-program favour.
+              </div>
             </motion.div>
-            <div
-              style={{
-                width: '100%',
-                height: '100%',
-                minHeight: 0,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
+
+            <motion.div
+              className="asp-framework-pair"
+              initial={reduce ? false : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease, delay: D.frameworks }}
             >
-              <SampleSizeWaterfall delay={D.waterfall} />
-            </div>
+              <div className="asp-framework-card">
+                <div className="asp-framework-card__kick">Pharmacometrics</div>
+                <p className="asp-framework-card__body">
+                  Reached N = 60 via D-optimal design under an informative pediatric prior.
+                </p>
+              </div>
+              <div className="asp-framework-join">↓ one N ↑</div>
+              <div className="asp-framework-card">
+                <div className="asp-framework-card__kick">Biostatistics</div>
+                <p className="asp-framework-card__body">
+                  Reached a compatible N via FDA&apos;s own AE-detection probability framework at
+                  &gt;85%.
+                </p>
+              </div>
+            </motion.div>
           </div>
 
-          {/* BOTTOM — single editorial regulatory-position block.
-              Replaces previous (rounded · violet-tinted · floating)
-              QuoteCard pair + (rounded · panel-tinted · floating)
-              payoff card. Now: one hairline-topped block with a label
-              eyebrow, two side-by-side positions split by a vertical
-              hairline, and a payoff sentence anchored at the bottom. */}
           <motion.div
-            style={{
-              display: 'grid',
-              gridTemplateRows: 'auto minmax(0, 1fr) auto',
-              rowGap: 'var(--space-3)',
-              borderTop: '1px solid var(--cream-hairline)',
-              paddingTop: 'var(--space-4)',
-              minHeight: 0,
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, ease, delay: D.positionsLabel }}
+            className="asp-reject-card asp-reject-card--alt"
+            initial={reduce ? false : { opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, ease, delay: D.miss }}
           >
-            <div className="xc-card-label xc-ink-muted">
-              Regulatory position · Type A meeting record
-            </div>
-
-            {/* Two positions, split by a vertical hairline. No
-                cards, no fills, no rounded corners. Typography is the
-                only structure: each position is a paraphrased prose
-                line + a mono cite. */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1px 1fr',
-                columnGap: 'var(--space-6)',
-                alignItems: 'start',
-                minHeight: 0,
-              }}
-            >
-              <PositionLine pos={POSITIONS[0]} delay={D.positions} reduced={false} />
-              <div
-                aria-hidden
-                style={{
-                  width: 1,
-                  height: '100%',
-                  background: 'var(--cream-hairline)',
-                  alignSelf: 'stretch',
-                }}
-              />
-              <PositionLine
-                pos={POSITIONS[1]}
-                delay={D.positions + 0.15}
-                reduced={false}
-              />
-            </div>
-
-            {/* Closing payoff sentence — inline with the regulatory
-                block instead of floating in its own panel. The kicker
-                grounds it as a deck-wide claim, the prose carries the
-                weight. */}
-            <motion.div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'baseline',
-                gap: '8px 18px',
-                paddingTop: 'var(--space-3)',
-                borderTop: '1px solid var(--cream-hairline)',
-              }}
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, ease, delay: D.payoff }}
-            >
-              <span
-                className="xc-tagline-mono"
-                style={{ color: 'var(--xc-case-3)' }}
-              >
-                Pharmacometric methodology
-              </span>
-              <span
-                className="bp-card-body xc-ink"
-                style={{ flex: '1 1 480px' }}
-              >
-                Two frameworks prepared · one sample size agreed —{' '}
-                <span style={{ color: 'var(--xc-case-3)', fontWeight: 700 }}>
-                  the methodology now travels independent of trial outcome.
-                </span>
-              </span>
-            </motion.div>
+            <div className="asp-reject-card__kick">What did not land — said before being asked</div>
+            <p className="asp-reject-card__body">
+              FDA did not accept the simulated primary as the{' '}
+              <strong style={{ color: 'var(--cream)' }}>sole registrational endpoint</strong>. It
+              was repositioned to dose confirmation in Cohorts 1 and 2, conditioned on additional
+              adult PopPK.{' '}
+              <strong style={{ color: 'var(--cream)' }}>The sample-size reduction held anyway.</strong>
+            </p>
           </motion.div>
         </div>
       </Viz>
 
       <Footer
-        kicker="Case 02 · FDA engagement"
+        kicker="Case 03 · FDA engagement"
         source="Source · FDA Type A meeting · 21 Jul 2023 · NCT04817761"
         delay={D.source}
       />
     </SlideGrid>
-  );
-}
-
-/* ========================================================
-   PositionLine — paraphrased regulatory position. No card chrome:
-   just italic display prose + mono cite, separated from the
-   neighbour by a vertical hairline rendered by the parent grid.
-   The display body bumps from --fs-card-body → --fs-card-title
-   (per user feedback "font sizes") so the regulatory exchange
-   reads as the bottom-half headline it is.
-   ======================================================== */
-function PositionLine({ pos, delay, reduced }) {
-  const ease = [0.2, 0.7, 0.3, 1];
-  return (
-    <motion.div
-      initial={reduced ? false : { opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, ease, delay }}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 'var(--space-3)',
-        minWidth: 0,
-      }}
-    >
-      <div
-        className="xc-title xc-ink italic"
-        style={{ fontWeight: 400 }}
-      >
-        {pos.text}
-      </div>
-      <div
-        className="xc-tagline-mono"
-        style={{ color: 'var(--xc-case-3)' }}
-      >
-        — {pos.cite}
-      </div>
-    </motion.div>
   );
 }

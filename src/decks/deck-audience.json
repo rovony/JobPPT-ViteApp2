@@ -83,11 +83,11 @@
     "note": "Ultragenyx Sr Director Clin Pharm — cloned from v5-pharazi as starting scaffold. Title: 'When the trial can’t answer — three cases where clinical pharmacology closed the gap.' deliveredAt = placeholder so deck appears in Final Delivered folder; update to actual interview/delivery date when scheduled. CS2 to interleave pharos-seminar slides; PharmAgent visual flows to be added. Backup pool will share with V5-Gilead + V5-Merck."
   },
   "v6-vir": {
-    "audience": "Vir Biotechnology",
+    "audience": "Company-neutral",
     "role": "Senior Director Clinical Pharmacology & Translational PK/PD",
     "kind": "presentation",
     "deliveredAt": "2026-06-17T15:00:00-04:00",
-    "note": "Vir Biotechnology candidate seminar — rebuilt from v5-ultragenyx without modifying the source deck. Main flow: intro, Ambrisentan, ADC multi-analyte PK, AI / Pharazi hard cut, Vir landing, close; old Ivosidenib and extended AI material retained as backups."
+    "note": "Company-neutral candidate seminar — rebuilt from v5-ultragenyx. Main flow: intro, Ambrisentan, Asparlas, AI / Pharazi, company bridge, close; prior Ivosidenib and extended AI material retained as backups. No company-specific branding."
   },
   "v7-xencor": {
     "audience": "Xencor",

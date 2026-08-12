@@ -71,7 +71,6 @@ export default function HookATrialNotAnswer({ deck }) {
           <div className="xc-min0" style={{ flex: '0 1 auto' }}>
             <motion.h1
               className="xc-hook"
-              style={{ maxWidth: '22ch' }}
               initial={{ opacity: 0 }}
               animate={go ? { opacity: 1 } : { opacity: 1 }}
               transition={{ duration: 0.45, delay: 0.08, ease: [0.22, 0.7, 0.2, 1] }}
@@ -87,7 +86,6 @@ export default function HookATrialNotAnswer({ deck }) {
               className="xc-lead"
               style={{
                 marginTop: 'var(--space-4)',
-                maxWidth: '40ch',
               }}
               {...fade(0.55)}
             >
@@ -97,10 +95,10 @@ export default function HookATrialNotAnswer({ deck }) {
 
           <motion.div
             className="xc-stack-fill__grow xc-min0"
-            style={{ display: 'flex', alignItems: 'stretch', width: '100%' }}
+            style={{ display: 'flex', alignItems: 'flex-end', width: '100%' }}
             {...fade(0.85)}
           >
-            <DecisionStepFlow go={go} style={{ width: '100%', alignSelf: 'stretch' }} />
+            <DecisionStepFlow go={go} style={{ width: '100%', alignSelf: 'flex-end' }} />
           </motion.div>
         </div>
       </div>

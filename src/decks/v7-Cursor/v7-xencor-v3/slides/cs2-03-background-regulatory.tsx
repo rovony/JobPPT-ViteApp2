@@ -16,24 +16,25 @@ import SlideFrame from '@/components/deck/SlideFrame';
 const EASE = [0.2, 0.7, 0.3, 1];
 const POP = [0.34, 1.56, 0.64, 1];
 
+/* Compressed cascade — keep big path draw, cut micro-stagger budget */
 const D = {
-  start: 0.80,
-  pivotLine: 1.10,
-  pivotLabel: 1.40,
-  beforeLabel: 1.60,
-  beforeBase: 1.90,
-  beforeStagger: 0.20,
-  beforeFinal: 3.10,
-  outcome: 3.30,
-  afterLabel: 3.90,
-  afterBase: 4.20,
-  afterStagger: 0.25,
-  afterFinal: 5.10,
-  outcomePulse: 5.10,
-  panels: 5.50,
-  eligDots: 5.90,
-  qualifiers: 6.40,
-  amber: 6.80,
+  start: 0.45,
+  pivotLine: 0.6,
+  pivotLabel: 0.75,
+  beforeLabel: 0.85,
+  beforeBase: 1.0,
+  beforeStagger: 0.1,
+  beforeFinal: 1.55,
+  outcome: 1.7,
+  afterLabel: 1.95,
+  afterBase: 2.15,
+  afterStagger: 0.12,
+  afterFinal: 2.65,
+  outcomePulse: 2.65,
+  panels: 2.9,
+  eligDots: 3.1,
+  qualifiers: 3.35,
+  amber: 3.55,
 };
 
 export default function CS2BackgroundRegulatory() {
@@ -41,25 +42,25 @@ export default function CS2BackgroundRegulatory() {
     <SlideFrame
       dataCase="2"
       eyebrowColor="var(--xc-case-accent)"
-      eyebrow="Case 03 · Background — Regulatory Regime"
+      eyebrow="Case 02 · Rule 101 · the turn"
       headline={
         <>
-          India's regulatory path got{' '}
+          Rule 101 opened the door in August —{' '}
           <span style={{ color: 'var(--xc-case-accent)', fontStyle: 'italic', fontWeight: 500 }}>
-            shorter
-          </span>{' '}
-          on 7&nbsp;August&nbsp;2024.
+            it did not answer the question
+          </span>
+          .
         </>
       }
-      headlineMaxChars={52}
+      headlineMaxChars={58}
       subhead={
         <span style={{ fontStyle: 'italic' }}>
-          Rule 101 created a Clin-Pharm-led waiver pathway. Ivosidenib qualified.
+          7 Aug 2024 DCGI order came first; Dec 2024 SEC still asked for local PK/PD. Science still had to walk through.
         </span>
       }
-      subheadMaxChars={80}
+      subheadMaxChars={110}
       subheadSize="lead"
-      footerKicker="Case 03 · Rule 101"
+      footerKicker="Case 02 · Rule 101"
       footerSource="ClinRegs · DIA Global Forum · CDSCO public record"
     >
       <div
@@ -558,11 +559,11 @@ function AmberBand() {
           marginRight: 10,
           verticalAlign: 'middle',
         }} />
-        The waiver is{' '}
-        <span style={{ color: 'var(--amber)', fontWeight: 500 }}>conditional, not categorical</span>
-        {' '}— every Rule 101 approval carries a{' '}
-        <span style={{ color: 'var(--amber)', fontWeight: 500 }}>Phase 4 commitment</span>
-        {' '}in lieu of pre-approval local data.
+        Rule 101 does not guarantee approval — it{' '}
+        <span style={{ color: 'var(--amber)', fontWeight: 500 }}>opens the door</span>
+        . The scientific answer still had to come from the{' '}
+        <span style={{ color: 'var(--amber)', fontWeight: 500 }}>dossier</span>
+        , with a Phase 4 commitment bounding the residual gap.
       </p>
     </motion.div>
   );

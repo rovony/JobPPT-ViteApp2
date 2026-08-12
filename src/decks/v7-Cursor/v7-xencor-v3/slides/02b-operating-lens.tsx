@@ -204,8 +204,8 @@ function FlowCanvas({ go, reduced }: { go: boolean; reduced: boolean | null }) {
     return () => ro.disconnect();
   }, []);
 
-  const pathBase = 0.28;
-  const pathStagger = 0.09;
+  const pathBase = 0.22;
+  const pathStagger = 0.05;
 
   return (
     <div
@@ -274,7 +274,7 @@ function FlowCanvas({ go, reduced }: { go: boolean; reduced: boolean | null }) {
             step={step}
             go={go}
             reduced={reduced}
-            delay={0.2 + i * 0.09}
+            delay={0.16 + i * 0.05}
           />
         ))}
       </div>
@@ -333,7 +333,7 @@ export default function OperatingLens() {
               animate={go || reduced ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
               transition={{
                 duration: reduced ? 0 : 0.4,
-                delay: reduced ? 0 : 0.72 + i * 0.09,
+                delay: reduced ? 0 : 0.55 + i * 0.06,
                 ease: EASE,
               }}
             >

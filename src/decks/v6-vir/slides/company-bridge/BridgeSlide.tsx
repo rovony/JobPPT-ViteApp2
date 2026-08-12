@@ -16,7 +16,7 @@ export function BridgeDivider({ content }) {
       eyebrow={content.eyebrow}
       headline={<>Two pillars, <span style={{ color: 'var(--amber)', fontStyle: 'italic' }}>one discipline.</span></>}
       subhead={content.sub}
-      footerKicker="Company bridge · Vir"
+      footerKicker="Company bridge"
       footerTagline={content.payoff}
       footerSource="Public pipeline · clinical pharmacology framing"
     >
@@ -87,7 +87,7 @@ export function BridgeBullets({ content, footerTagline, iconOffset = 0 }) {
       eyebrow={content.eyebrow}
       headline={<>{highlightHeader(content.header)}</>}
       subhead={content.subhead}
-      footerKicker="Company bridge · Vir"
+      footerKicker="Company bridge"
       footerTagline={footerTagline}
       footerSource={content.source}
     >

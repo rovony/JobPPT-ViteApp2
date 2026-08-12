@@ -153,7 +153,7 @@ const manifest = {
     enabled: true,
     footer: {
       line: true,
-      text: 'Vir Biotechnology seminar · June 17 2026',
+      text: 'Candidate seminar · June 17 2026',
       showSlideNumber: true,
       showTime: false,
     },
@@ -223,7 +223,7 @@ const manifest = {
 
     // Close
     { id: 'closing-thread',  title: 'Closing · The common thread', component: ClosingThread, isTitle: false, transition: 'fade', time: 60 },
-    { id: 'closing-fit',     title: 'Closing · Why Vir',         component: ClosingFit,    isTitle: false, transition: 'fade', time: 75 },
+    { id: 'closing-fit',     title: 'Closing · Role fit',         component: ClosingFit,    isTitle: false, transition: 'fade', time: 75 },
     { id: 'closing-thanks',  title: 'Thank you · Q&A',           component: ClosingThanks, isTitle: true,  transition: 'fade', time: 30 },
 
     // Backups

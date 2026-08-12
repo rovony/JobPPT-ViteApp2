@@ -18,7 +18,7 @@ const EASE = [0.2, 0.7, 0.3, 1];
 
 const LANES = [
   {
-    color: 'var(--coral)',
+    color: 'var(--xc-case-1)',
     cs: 'Case 01',
     drug: 'Ambrisentan',
     obstacle: 'Trial untrialable.',
@@ -26,27 +26,27 @@ const LANES = [
     verdict: 'EMA + PMDA · 2021 · pediatric PAH label',
   },
   {
-    color: 'var(--teal)',
+    color: 'var(--xc-case-2)',
     cs: 'Case 02',
+    drug: 'Ivosidenib · India',
+    obstacle: 'Local trial pressure.',
+    move: 'Six-pillar reliance package + cross-functional dose defense.',
+    verdict: 'CDSCO approval without local trial · uncertainty owned',
+  },
+  {
+    color: 'var(--xc-case-3)',
+    cs: 'Case 03',
     drug: 'Asparlas',
     obstacle: 'Endpoint-powered trial infeasible.',
     move: 'Simulated primary + optimal design + FDA Type A alignment.',
     verdict: '36% smaller adult trial · precedent for efficient design',
   },
   {
-    color: 'var(--cyan)',
-    cs: 'Case 03',
-    drug: 'Ivosidenib',
-    obstacle: 'Local trial pressure.',
-    move: 'Six-pillar reliance package + cross-functional dose defense.',
-    verdict: 'CDSCO approval without local trial · uncertainty owned',
-  },
-  {
-    color: 'var(--sage)',
+    color: 'var(--xc-case-4)',
     cs: 'Case 04',
     drug: 'AI / Pharazi',
     obstacle: 'Workflow unbuilt.',
-    move: '13 agents · 151 tools · privacy + audit by construction.',
+    move: 'Agents orchestrate · deterministic tools compute · audit by construction.',
     verdict: 'Replayable evidence trail · M15-aligned documentation',
   },
 ];
@@ -90,9 +90,9 @@ export default function ClosingThread() {
                 key={l.cs}
                 initial={{ opacity: 0, y: 12 }}
                 animate={go ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.55, delay: 0.7 + i * 0.15, ease: EASE }}
+                transition={{ duration: 0.45, delay: 0.55 + i * 0.08, ease: EASE }}
                 style={{
-                  border: `1px solid color-mix(in srgb, ${l.color} 28%, transparent)`,
+                  border: `1px solid color-mix(in srgb, ${l.color} 32%, transparent)`,
                   borderTop: `3px solid ${l.color}`,
                   borderRadius: 'var(--radius-lg)',
                   background: `color-mix(in srgb, ${l.color} 5%, var(--panel))`,
@@ -129,7 +129,7 @@ export default function ClosingThread() {
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={go ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.55, delay: 1.4, ease: EASE }}
+            transition={{ duration: 0.45, delay: 0.95, ease: EASE }}
             style={{
               alignSelf: 'center',
               maxWidth: 'min(74ch, 92%)',
@@ -154,9 +154,9 @@ export default function ClosingThread() {
       </Viz>
 
       <Footer
-        delay={reduced ? 0 : 1.7}
+        delay={reduced ? 0 : 1.15}
         kicker="Closing · Synthesis"
-        tagline="Untrialable. Sample-limited. Local-evidence constrained. Workflow unbuilt. One discipline."
+        tagline="Untrialable. Local-evidence constrained. Sample-limited. Workflow unbuilt. One discipline."
       />
     </SlideGrid>
   );

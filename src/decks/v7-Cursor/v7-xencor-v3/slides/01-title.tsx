@@ -68,20 +68,15 @@ export default function TitleSlide({
           <motion.h1
             id="s01-title"
             className="xc-h1"
-            style={{ marginTop: 'clamp(1rem, 2.2vh, 1.6rem)', maxWidth: '16ch' }}
             {...enter(0.14)}
           >
-            Quantitative decisions
-            <br />
-            when the{' '}
+            Quantitative decisions when the{' '}
             <span className="xc-em">clean experiment</span>
-            <br />
-            is unavailable
+            {' '}is unavailable
           </motion.h1>
 
           <motion.p
             className="xc-subtitle xc-teal"
-            style={{ marginTop: 'clamp(0.85rem, 1.8vh, 1.35rem)', maxWidth: '36ch' }}
             {...enter(0.26)}
           >
             Four decisions. Four different reasons the obvious study
@@ -93,7 +88,7 @@ export default function TitleSlide({
               Malek Okour, BDS, Ph.D.
             </div>
             <div className="xc-meta xc-ink3" style={{ marginTop: 6 }}>
-              Xencor interview panel · 12 August 2026
+              12 August 2026
             </div>
             {setThemeMode ? (
               <ThemePreferenceFootnote mode={mode} onChange={setThemeMode} />

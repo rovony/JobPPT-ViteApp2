@@ -78,14 +78,17 @@ export default function Portfolio01() {
             {heading}
           </div>
         ))}
-        {PORTFOLIO_ROWS.map((row, i) => (
-          <React.Fragment key={row.area}>
-            <Cell delay={0.65 + i * 0.08} go={go} strong>{row.area}</Cell>
-            <Cell delay={0.70 + i * 0.08} go={go}>{row.assets}</Cell>
-            <Cell delay={0.75 + i * 0.08} go={go}>{row.work}</Cell>
-            <Cell delay={0.80 + i * 0.08} go={go} mono>{row.agencies}</Cell>
-          </React.Fragment>
-        ))}
+        {PORTFOLIO_ROWS.map((row, i) => {
+          const delay = 0.45 + i * 0.07;
+          return (
+            <React.Fragment key={row.area}>
+              <Cell delay={delay} go={go} strong>{row.area}</Cell>
+              <Cell delay={delay} go={go}>{row.assets}</Cell>
+              <Cell delay={delay} go={go}>{row.work}</Cell>
+              <Cell delay={delay} go={go} mono>{row.agencies}</Cell>
+            </React.Fragment>
+          );
+        })}
       </div>
     </SlideFrame>
   );

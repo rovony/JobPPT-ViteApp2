@@ -2,27 +2,27 @@ import React from 'react';
 import CaseHeroDivider from '@/components/deck/patterns/CaseHeroDivider';
 
 /**
- * CS4 close divider — punctuation beat after publication-close.
- * Signals the four-case core is complete before portfolio widens the aperture.
+ * CS4 close divider — four-case core complete before portfolio widens.
  */
 export default function Cs4CloseDivider() {
   return (
     <div data-case="4" style={{ width: '100%', height: '100%' }}>
       <CaseHeroDivider
-        caseToken="sage"
+        caseToken="violet"
         caseNumber="04"
         totalCases={4}
         kicker="CASES 01–04 · COMPLETE"
-        title="Core proof"
-        subtitle="Beyond these four · the portfolio"
-        tagline="Pediatric dose · smarter trial · India dossier · traceable AI — one discipline carrying four regulatory decisions."
+        title="One discipline"
+        subtitle="Four settings · one reconstruction standard"
+        tagline="Pediatric bridge · trial design · India dossier · workflow architecture — methods changed; the leadership pattern did not."
         meta={[
-          ['Case 01', 'Pediatric PAH dose'],
-          ['Case 02', 'Asparlas N = 60'],
-          ['Case 03', 'Ivosidenib · India'],
+          ['Case 01', 'Ambrisentan · pediatric dose'],
+          ['Case 02', 'Ivosidenib · India'],
+          ['Case 03', 'Asparlas · N = 60'],
           ['Case 04', 'Pharazi · traceable AI'],
         ]}
         verdict="COMPLETE"
+        source="Next · portfolio aperture + company bridge"
       />
     </div>
   );

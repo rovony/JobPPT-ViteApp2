@@ -14,12 +14,12 @@ export default function CS3IvosidenibDivider() {
     <div data-case="2" style={{ width: '100%', height: '100%' }}>
       <CaseHeroDivider
         caseToken="cyan"
-        caseNumber="03"
+        caseNumber="02"
         totalCases={4}
-        kicker="CASE STUDY 03"
+        kicker="CASE STUDY 02 · POSITION 2"
         title="Ivosidenib"
-        subtitle="Regulatory strategy in India"
-        tagline="Approved in 42+ countries. Pre-approval blocked at India's border. A global Clin Pharm dossier as the regulatory bridge."
+        subtitle="Approved in forty-two countries — not in India"
+        tagline="Local-evidence gap. A global Clin Pharm dossier had to justify transport — not interpolation."
         meta={[
           ['Compound', 'Ivosidenib (IDH1i)'],
           ['Indication', 'IDH1-mutant AML & CCA'],
@@ -31,7 +31,7 @@ export default function CS3IvosidenibDivider() {
             <IndiaMap layoutId="india-cdsco" variant="hero" fillIntensity={0.2} stroke="var(--xc-case-accent)" />
           </div>
         }
-        source="CDSCO marketing authorization · 14 May 2025 · India commercial launch 5 June 2025"
+        source="CDSCO marketing authorization · 14 May 2025"
       />
     </div>
   );

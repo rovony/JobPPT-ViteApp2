@@ -12,7 +12,7 @@ const URL = 'https://pharazi.ai';
 const STATUS = [
   { label: 'Regulatory floor?', accent: 'Defined.', tone: 'cyan' },
   { label: 'Traceable workflow?', accent: 'Built.', tone: 'sage' },
-  { label: 'Working system?', accent: 'Live.', tone: 'case' },
+  { label: 'Working system?', accent: 'Live at pharazi.ai.', tone: 'case' },
 ];
 
 const ECOSYSTEM = [
@@ -22,8 +22,7 @@ const ECOSYSTEM = [
 ];
 
 /**
- * CS4 close — pharos 22-publication-close pattern adapted for Xencor interview:
- * status stack + capstone + live iframe/QR (not the generic 3-card abstract).
+ * CS4 close — bounded outcome + honesty reprise + transfer line.
  */
 export default function Cs3AiPublicationClose() {
   const ref = useRef(null);
@@ -34,117 +33,98 @@ export default function Cs3AiPublicationClose() {
   return (
     <SlideFrame
       dataCase="4"
-      eyebrow="Case 04 · Publication + ecosystem"
+      eyebrow="Case 04 · Outcome + transfer"
       headline={
         <>
           Traceable acceleration —{' '}
-          <span className="italic" style={{ color: 'var(--xc-case-accent)' }}>live at pharazi.ai</span>
+          <span className="italic" style={{ color: 'var(--xc-case-accent)' }}>
+            auditability before autonomy
+          </span>
         </>
       }
-      subhead="The reference architecture, the working system, and the open ecosystem — addressable in one place."
+      subhead="Floor defined · workflow built · system inspectable. Personal research — no sponsor deployment claim."
       footerKicker="Case 04 · Traceable acceleration"
-      footerTagline="Fast is useful only when the evidence chain stays intact."
-      footerSource="pharazi.ai · live deployment · April 2026"
+      footerTagline="Same discipline as Case 01: no black boxes at the decision point."
+      footerSource="pharazi.ai · clinpharm.ai · manuscript in preparation"
+      delays={{ footer: 2.6 }}
     >
       <div
         ref={ref}
         className="grid grid-cols-12 gap-4 h-full px-2 pt-2 xc-min0 xc-chrome-clear"
       >
-        <div className="col-span-7 flex flex-col gap-5 pr-2 xc-min0">
+        <div className="col-span-7 flex flex-col gap-4 pr-2 xc-min0">
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            className="cs4-honesty"
+            initial={{ opacity: 0, y: 8 }}
             animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
-            className="inline-flex items-center gap-3 self-start px-3 py-2"
-            style={{
-              border: '1px solid var(--xc-case-accent)',
-              borderRadius: 'var(--radius-sm)',
-              background: 'color-mix(in srgb, var(--xc-case-accent) 8%, transparent)',
-            }}
+            transition={{ duration: 0.45, delay: 0.25, ease: EASE }}
           >
-            <span
-              aria-hidden
-              style={{
-                width: 6,
-                height: 6,
-                borderRadius: '50%',
-                background: 'var(--xc-case-accent)',
-                boxShadow: '0 0 6px var(--xc-case-accent)',
-              }}
-            />
-            <span
-              className="xc-tagline-mono"
-              style={{ color: 'var(--xc-case-accent)' }}
-            >
-              MANUSCRIPT · CPT:PSP · IN PREP
+            <span className="cs4-honesty__kick">Honesty</span>
+            <span className="cs4-honesty__body">
+              Personal research. <b>No sponsor deployment. No validated-system claim. Not production-ready.</b>
             </span>
           </motion.div>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-2.5">
             {STATUS.map((s, i) => (
-              <StatusLine key={s.accent} delay={0.6 + i * 0.4} go={go} {...s} />
+              <StatusLine key={s.accent} delay={0.55 + i * 0.28} go={go} {...s} />
             ))}
           </div>
 
-          <div className="xc-min0 xc-clip-none pb-2 mt-2">
+          <div className="xc-min0 xc-clip-none pb-1 mt-1">
             <motion.h2
               className="xc-h2 xc-ink"
-              style={{
-                fontWeight: 600,
-                maxWidth: '24ch',
-              }}
-              initial={{ opacity: 0, y: '36%' }}
+              style={{ fontWeight: 600, maxWidth: '28ch' }}
+              initial={{ opacity: 0, y: '28%' }}
               animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-              transition={{ delay: 2.0, ...SPRING }}
+              transition={{ delay: 1.55, ...SPRING }}
             >
-              Same standard as the ADC case:{' '}
-              <span className="italic" style={{ color: 'var(--xc-case-accent)' }}>no black boxes</span>{' '}
-              at the decision point.
+              Transfer:{' '}
+              <span className="italic" style={{ color: 'var(--xc-case-accent)' }}>
+                set the review standard before the function scales AI use
+              </span>
+              — not after.
             </motion.h2>
           </div>
 
           <motion.div
             initial={{ opacity: 0 }}
             animate={go ? { opacity: 1 } : { opacity: 1 }}
-            transition={{ duration: 0.6, delay: 2.8 }}
+            transition={{ duration: 0.5, delay: 2.0 }}
             className="flex flex-wrap gap-2 mt-auto"
           >
             {ECOSYSTEM.map((e, i) => (
-              <EcosystemChip key={e.label} delay={2.9 + i * 0.08} {...e} />
+              <EcosystemChip key={e.label} delay={2.1 + i * 0.08} {...e} />
             ))}
           </motion.div>
         </div>
 
         <div className="col-span-5 flex flex-col gap-3 xc-min0">
-          <span className="xc-tagline-mono xc-ink-faint">
-            LIVE · pharazi.ai
-          </span>
+          <span className="xc-tagline-mono xc-ink-faint">INSPECTABLE · pharazi.ai</span>
           <motion.div
             initial={{ opacity: 0, scale: 0.97 }}
             animate={go ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.85, ease: EASE }}
+            transition={{ duration: 0.65, delay: 0.7, ease: EASE }}
             className="flex-1 min-h-0"
           >
             <BrowserFrame src={URL} title="Pharazi" mode="iframe" height="100%" />
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 16, scale: 0.92 }}
+            initial={{ opacity: 0, y: 12, scale: 0.94 }}
             animate={go ? { opacity: 1, y: 0, scale: 1 } : { opacity: 1, y: 0, scale: 1 }}
-            transition={{ delay: 1.8, ...SPRING }}
+            transition={{ delay: 1.35, ...SPRING }}
             className="self-end shrink-0"
             style={{
               padding: 12,
               background: 'var(--bg)',
               border: '1px solid var(--xc-case-accent)',
               borderRadius: 'var(--radius-sm)',
-              boxShadow:
-                '0 12px 36px rgba(0,0,0,0.45), 0 0 28px color-mix(in srgb, var(--xc-case-accent) 30%, transparent)',
             }}
           >
             <QRCodeSVG
               value={URL}
-              size={104}
+              size={96}
               bgColor="transparent"
               fgColor="var(--bp-ink)"
               level="Q"
@@ -170,7 +150,7 @@ function StatusLine({ label, accent, tone, delay, go }) {
     sage: 'var(--xc-case-accent)',
   };
   return (
-    <div className="xc-min0 xc-clip-none pb-2">
+    <div className="xc-min0 xc-clip-none pb-1">
       <motion.p
         className="xc-subtitle xc-ink-muted"
         style={{
@@ -181,7 +161,7 @@ function StatusLine({ label, accent, tone, delay, go }) {
         }}
         initial={{ y: '110%', opacity: 0 }}
         animate={go ? { y: 0, opacity: 1 } : { y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, delay, ease: EASE }}
+        transition={{ duration: 0.6, delay, ease: EASE }}
       >
         {label}{' '}
         <span className="italic" style={{ color: palette[tone] ?? palette.case }}>
@@ -204,7 +184,7 @@ function EcosystemChip({ label, state, tone, delay }) {
     <motion.div
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay, ease: EASE }}
+      transition={{ duration: 0.45, delay, ease: EASE }}
       className="flex items-center gap-2 px-3 py-1.5"
       style={{
         background: `color-mix(in srgb, ${c} 12%, transparent)`,
@@ -227,10 +207,7 @@ function EcosystemChip({ label, state, tone, delay }) {
       >
         {label}
       </span>
-      <span
-        className="xc-tagline-mono"
-        style={{ color: c }}
-      >
+      <span className="xc-tagline-mono" style={{ color: c }}>
         · {state}
       </span>
     </motion.div>

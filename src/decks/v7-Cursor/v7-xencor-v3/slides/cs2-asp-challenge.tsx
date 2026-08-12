@@ -1,208 +1,111 @@
 // @ts-nocheck
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Eyebrow, Headline, Subhead, Viz, Footer } from '@/components/deck/SlideParts';
-import CaseOrientationStrip from '../_shared/CaseOrientationStrip';
 
 /**
- * Slide 24 · CS2 Challenge — Approved in pediatrics. Adults need a smarter design.
- *
- * v7-xencor-v3 trim: three anchor tiles + closing question + one meta line.
- * Enrollment curve and screen-fail funnel removed — one primary idea per slide.
+ * CS2 Asparlas · Challenge — 94 clean / undeliverable.
+ * Conclusion title · bordered 94-vs-60 · inbound seam named.
  */
 
-const ANCHORS = [
-  {
-    yr: '2018',
-    label: 'FDA Pediatric Approval',
-    sub: 'Ages 1 mo – 21 yr · NSAA surrogate · 2,500 U/m² q21d',
-  },
-  {
-    yr: '94',
-    label: 'Original sample size',
-    sub: 'Endpoint-powered · target lower 95% CI ≥ 90% NSAA achievement',
-  },
-  {
-    yr: '~2028',
-    label: 'If design unchanged',
-    sub: 'SPARK-ALL projected enrollment under endpoint-powered design',
-  },
-];
-
 export default function Cs2AspChallenge() {
+  const reduce = useReducedMotion();
   const ease = [0.2, 0.7, 0.3, 1];
   const D = {
-    eyebrow: 0.20,
-    headline: 0.35,
-    subhead: 0.65,
-    anchorsLabel: 0.95,
-    anchors: 1.10,
-    question: 1.55,
-    body: 1.85,
-    meta: 2.25,
-    source: 2.80,
+    eyebrow: 0.15,
+    headline: 0.25,
+    subhead: 0.45,
+    seam: 0.7,
+    compare: 0.95,
+    question: 1.35,
+    source: 1.7,
   };
 
   return (
     <SlideGrid dataCase="3" areas={STANDARD_AREAS}>
-      <Eyebrow color="var(--xc-case-3)" delay={D.eyebrow}>CS2 · Setup + challenge</Eyebrow>
-      <Headline delay={D.headline} maxChars={50}>
-        Approved in pediatrics.{' '}
+      <Eyebrow color="var(--xc-case-3)" delay={D.eyebrow}>
+        Case 03 · Challenge
+      </Eyebrow>
+      <Headline delay={D.headline} maxChars={56}>
+        Ninety-four patients was mathematically clean and{' '}
         <span style={{ color: 'var(--xc-case-3)', fontStyle: 'italic', fontWeight: 700 }}>
-          Adults needed a smarter design.
+          operationally undeliverable
         </span>
+        .
       </Headline>
       <Subhead delay={D.subhead} maxChars={120}>
-        Same drug, same biology, same FDA-validated NSAA surrogate. The constraint wasn't scientific
-        doubt — it was{' '}
+        Adult Ph− ALL · pediatric label already approved (2018) · NSAA surrogate settled.
+        Not scientific doubt —{' '}
         <span style={{ color: 'var(--xc-case-3)', fontWeight: 600 }}>operational feasibility</span>.
-        Ninety-four was deliverable in the protocol and undeliverable in practice.
+        At the observed enrollment rate, the endpoint-powered plan pushed the answer to ~2028.
       </Subhead>
 
       <Viz>
-        <div className="deck-viz-stack">
-          <CaseOrientationStrip
-            accent="var(--xc-case-3)"
-            delay={D.anchorsLabel}
-            items={[
-              {
-                kicker: 'Drug · disease',
-                body: <>Calaspargase pegol (Asparlas) · pegylated asparaginase · adult Ph-negative ALL</>,
-              },
-              {
-                kicker: 'Pediatric precedent',
-                body: <>FDA pediatric label <strong style={{ fontWeight: 600 }}>2018</strong> · NSAA surrogate ≥ 0.1 U/mL already agreed</>,
-              },
-              {
-                kicker: 'Adult constraint',
-                body: <>Original protocol needed <strong style={{ fontWeight: 600 }}>94 adults</strong> — endpoint-powered, operationally undeliverable</>,
-              },
-            ]}
-          />
-
+        <div className="asp-viz-stack">
           <motion.div
-            className="xc-card-label xc-ink-muted"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, ease, delay: D.anchorsLabel + 0.25 }}
-          >
-            Three numbers that frame the problem
-          </motion.div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-3)' }}>
-            {ANCHORS.map((a, i) => (
-              <AnchorTile
-                key={a.yr}
-                yr={a.yr}
-                label={a.label}
-                sub={a.sub}
-                delay={D.anchors + i * 0.15}
-                numeralLayoutId={a.yr === '94' ? 'cs3-n-94' : undefined}
-              />
-            ))}
-          </div>
-
-          <motion.div
-            style={{
-              padding: 'var(--space-5)',
-              border: '1px solid color-mix(in srgb, var(--xc-case-3) 35%, transparent)',
-              background: 'color-mix(in srgb, var(--xc-case-3) 8%, transparent)',
-            }}
-            initial={{ opacity: 0, y: 8 }}
+            className="asp-seam-strip"
+            initial={reduce ? false : { opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease, delay: D.question }}
+            transition={{ duration: 0.45, ease, delay: D.seam }}
           >
-            <div
-              className="xc-tagline xc-ink italic"
-              style={{
-                lineHeight: 1.25,
-                fontWeight: 500,
-                marginBottom: 10,
-              }}
-            >
-              Could a{' '}
-              <span style={{ color: 'var(--xc-case-3)', fontWeight: 700, fontStyle: 'normal' }}>
-                smaller, smarter study
-              </span>{' '}
-              still be defensible to FDA?
-            </div>
-            <motion.div
-              className="xc-subhead xc-ink-muted"
-              style={{ lineHeight: 1.5 }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, ease, delay: D.body }}
-            >
-              Pediatric PopPK was{' '}
-              <span style={{ color: 'var(--cream)', fontWeight: 600 }}>FDA-reviewed and label-supporting</span>.
-              The question was whether the same scientific question could be answered with{' '}
-              <span style={{ color: 'var(--xc-case-3)', fontWeight: 600 }}>fewer adults and more model</span>.
-            </motion.div>
+            <span className="asp-seam-strip__label">Inbound</span>
+            <span>
+              <strong>Interpolation</strong> → <strong>transport</strong> →{' '}
+              <strong>design</strong> — the first two cases argued from evidence that already
+              existed; this one changes the study before it runs.
+            </span>
           </motion.div>
 
-          <motion.p
-            className="xc-eyebrow xc-ink-muted"
-            style={{ margin: 0 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, ease, delay: D.meta }}
+          <motion.div
+            className="asp-n-compare"
+            initial={reduce ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, ease, delay: D.compare }}
           >
-            SPARK-ALL · NCT04817761 · pediatric N = 124 · ~46% screen-fail
-          </motion.p>
+            <div className="asp-n-card asp-n-card--muted">
+              <div className="asp-n-card__kick">Endpoint-powered protocol</div>
+              <div className="asp-n-card__value" style={{ color: 'var(--cream)' }}>
+                94
+              </div>
+              <div className="asp-n-card__body">
+                Primary-endpoint-evaluable adults · powered against a 90% NSAA target —
+                correct arithmetic, wrong decision if the trial cannot enrol.
+              </div>
+            </div>
+
+            <div className="asp-n-vs" aria-hidden>
+              vs
+            </div>
+
+            <div className="asp-n-card asp-n-card--accent">
+              <div className="asp-n-card__kick">Precision-anchored redesign</div>
+              <div className="asp-n-card__value">60</div>
+              <div className="asp-n-card__body">
+                Design target under an informative pediatric prior (N = 124) — adults augment
+                the model; they do not rebuild it.
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="asp-coda"
+            initial={reduce ? false : { opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease, delay: D.question }}
+          >
+            Could a{' '}
+            <strong>smaller, precision-anchored design</strong> still be defensible to FDA —
+            when most of the information already existed in children?
+          </motion.div>
         </div>
       </Viz>
 
       <Footer
-        kicker="Case 02 · Challenge"
-        source="Source · FDA label 761102 (Dec 2018) · NCT04817761"
+        kicker="Case 03 · Challenge"
+        source="Source · FDA label 761102 (Dec 2018) · NCT04817761 · pediatric PopPK N = 124"
         delay={D.source}
       />
     </SlideGrid>
-  );
-}
-
-/* ================================================================
-   AnchorTile
-   ================================================================ */
-function AnchorTile({ yr, label, sub, delay, numeralLayoutId }) {
-  const ease = [0.2, 0.7, 0.3, 1];
-  return (
-    <motion.div
-      style={{
-        padding: '16px 16px 18px',
-        border: '1px solid var(--cream-hairline)',
-        background: 'color-mix(in srgb, var(--panel) 45%, transparent)',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-      initial={{ opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease, delay }}
-    >
-      <span
-        aria-hidden
-        style={{
-          position: 'absolute', top: 0, left: 0, width: '100%', height: 2,
-          background: 'linear-gradient(to right, var(--xc-case-3), color-mix(in srgb, var(--xc-case-3) 30%, transparent))',
-        }}
-      />
-      <motion.div
-        layoutId={numeralLayoutId}
-        className="xc-numeral xc-ink"
-        style={{ marginBottom: 8 }}
-      >
-        {yr}
-      </motion.div>
-      <div
-        className="xc-tagline-mono"
-        style={{ color: 'var(--xc-case-3)', marginBottom: 4 }}
-      >
-        {label}
-      </div>
-      <div className="bp-card-body xc-ink-muted">
-        {sub}
-      </div>
-    </motion.div>
   );
 }

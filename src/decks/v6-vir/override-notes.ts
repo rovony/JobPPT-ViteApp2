@@ -29,7 +29,7 @@ One discipline sits at the center of all four: **==when measurement falls short,
   - **CS02:** Defensible adult design when the endpoint-powered trial is not feasible · FDA Type A agreement
   - **CS03:** Local-trial waiver via convergent global evidence · cross-functional approval under pressure
   - **CS04:** Audit-ready clin pharm workflows when evidence must scale · personal research (Pharazi)
-- Meta line: Vir Biotechnology candidate seminar · ==June 17, 2026== · ~45 min including Q&A`
+- Meta line: Candidate seminar · ==June 17, 2026== · ~45 min including Q&A`
   ),
 
   'hook-A-trial-not-answer': note(
@@ -66,9 +66,9 @@ The operating question across all of it is simple: **==how do we turn incomplete
 
 Case one is regulatory-tested pediatric extrapolation with ambrisentan. Case two is efficient design with Asparlas. Case three is India reliance under pressure with ivosidenib. Case four is audit-ready AI workflows with Pharazi.
 
-After the cases I will widen the aperture to portfolio breadth, then close with a Vir-specific bridge. This is not a methods catalog — it is a sequence of decision constraints and how clinical pharmacology answered each one.`,
+After the cases I will widen the aperture to portfolio breadth, then close with a company-specific bridge. This is not a methods catalog — it is a sequence of decision constraints and how clinical pharmacology answered each one.`,
     `- ⏱ 75 sec — point to each case card as you name it
-- ⚠ Portfolio and Vir bridge come after the four cases
+- ⚠ Portfolio and company bridge come after the four cases
 - ✅ Say "four cases and one discipline" plainly`,
     `→ Case 01 divider — ambrisentan.`,
     `- Each case opens with a **divider beat** then a **setup slide** before numbers or quotes — do not skip the setup row on screen`
@@ -607,7 +607,7 @@ pharazi.ai is the framework home. A manuscript is in preparation, and the commun
 
 **==One discipline carried each decision==**. The ledger on screen is a recap; I will not re-walk every case in detail.
 
-The core proof is complete. Next we widen the aperture to portfolio breadth and the Vir bridge.`,
+The core proof is complete. Next we widen the aperture to portfolio breadth and the company bridge.`,
     `- ⏱ 25 sec — pause beat; name the four cases once, not ten minutes again
 - ✅ Land on "core proof complete"`,
     `→ Portfolio — breadth across modality, area, and agency.`,
@@ -621,11 +621,11 @@ The core proof is complete. Next we widen the aperture to portfolio breadth and 
   'portfolio-01': note(
     `The four cases are the deep proof points. This slide widens the aperture to breadth across oncology, biologics, antiviral and infectious disease, respiratory and PAH, and dose-prediction or AI work — ==without turning the talk into a fifth case study==.
 
-If asked about antibody-drug conjugates, I led and directed strategy in that space, but **==ADC is breadth only in this Vir talk==** — not a core case study I will teach today.`,
+If asked about antibody-drug conjugates, I led and directed strategy in that space, but **==ADC is breadth only in this talk==** — not a core case study I will teach today.`,
     `- ⏱ 120 sec — do not walk every cell
 - 🎚 Highlight oncology, biologics, antiviral/ID, AI as bridge-relevant
 - ✅ Keep ADC as breadth-only honesty guardrail`,
-    `→ Company bridge — translate the discipline to Vir.`,
+    `→ Company bridge — translate the discipline to the role.`,
     `- **Stats strip removed** (say if asked): ==12+ years== clin pharm · ==5+ approvals== · ==6+ agencies== · ==20+ publications== · oncology + biologic + antiviral breadth
 - **ADC honesty:** led/directed multi-analyte + FIH dose-projection strategy (BCLxL @ Servier; BCMA contribution @ GSK) — not hands-on every analyte
 - **HBV:** co-inventor AU2023213173A1 — combination therapy patent; not direct HDV program ownership
@@ -633,17 +633,17 @@ If asked about antibody-drug conjugates, I led and directed strategy in that spa
   ),
 
   'company-bridge-divider': note(
-    `Now I translate the four-case core to Vir — using **==public pipeline information only, not confidential program access==**.
+    `Now I translate the four-case core to the role — using **==public pipeline information only, not confidential program access==**.
 
 Two pillars share one discipline: oncology masked T-cell engagers, and infectious disease HBV and HDV functional cure. In both, the clinical pharmacology question is **==which exposure metric makes the dose defensible when plasma is not the whole story==**.`,
     `- ⏱ 45 sec — humble, specific; say "public information" if pressed
-- ⚠ No claim of VIR-5500 internal access
+- ⚠ No claim of priority oncology programs internal access
 - ✅ Name both pillars and the shared dose question`,
     `→ Oncology — start with the measurement problem.`
   ),
 
   'company-bridge-oncology-problem': note(
-    `For a masked PRO-XTEN engager, **==plasma concentration is not the same as tumor exposure==**.
+    `For a masked engager, **==plasma concentration is not the same as tumor exposure==**.
 
 Assays may return masked drug, total drug, or active drug depending on the platform. The decision needs an exposure metric that is ==decision-bearing for safety and for efficacy== — and those may differ.
 
@@ -664,11 +664,11 @@ For T-cell engagers, step-up dosing and bell-shaped pharmacodynamics can make **
 When sampling is limited, the design goal is **==model precision and identifiability — not statistical power alone==**.`,
     `- ⏱ 95 sec — concrete chain; conditional language ("may", "if")
 - ✅ Land on precision under sparse sampling`,
-    `→ Map the four-case discipline to Vir decision types.`
+    `→ Map the four-case discipline to the role decision types.`
   ),
 
   'company-bridge-case-mapping': note(
-    `The diseases are not the same across Vir's portfolio. **==The decision discipline transfers.==**
+    `The diseases are not the same across the company's portfolio. **==The decision discipline transfers.==**
 
 When the trial cannot carry the answer, you defend target exposure. When the powered trial is not feasible, you use model-anchored efficient design. When a regulator asks for ==local evidence==, you build convergent reliance. When review must scale, you preserve traceability.
 
@@ -713,14 +713,14 @@ Case one was ==untrialable==. Case two was ==sample-limited==. Case three was ==
 In each case, the model or evidence system **==made the dose or decision defensible==**.`,
     `- ⏱ 60 sec — say the headline nearly verbatim
 - ✅ Four constraints, one discipline`,
-    `→ Why Vir — operating model in practice.`
+    `→ Role fit — operating model in practice.`
   ),
 
   'closing-fit': note(
-    `For Vir, the operating model is practical: start from the decision, make the dose defensible, and **==keep expert judgment visible across functions==**.
+    `For this role, the operating model is practical: start from the decision, make the dose defensible, and **==keep expert judgment visible across functions==**.
 
 That is what the four cases demonstrated — and what I would bring to your pipeline if we work together. **==I am not claiming I already know your internal answers==**.`,
-    `- ⏱ 75 sec — Vir-facing, conditional, not self-congratulatory
+    `- ⏱ 75 sec — role-facing, conditional, not self-congratulatory
 - ✅ Land on "visible judgment across functions"`,
     `→ Thank you and Q&A.`
   ),
@@ -733,7 +733,7 @@ I am happy to go deeper on pediatric PopPK, Asparlas efficient design, India rel
 - ✅ Let the four chips guide depth if needed
 - 🧠 Open **Reading → Off-slide memory** or slide Q&A if a detail was trimmed from screen`,
     `→ Q&A.`,
-    `- **Global honesty guardrails:** no Servier-confidential numbers · no VIR-5500 internal access claim · ADC breadth-only · Pharazi personal research not product transfer · HBV patent narrow scope
+    `- **Global honesty guardrails:** no Servier-confidential numbers · no priority oncology programs internal access claim · ADC breadth-only · Pharazi personal research not product transfer · HBV patent narrow scope
 - **Depth routing:** CS1 backups \`cs1-backup-*\` · CS2 asparlas \`cs3-backup-*\` (legacy IDs) · CS3 India \`cs3-backup-*\` · CS4 \`ai-backup-master\`
 - **One-sentence close:** When measurement falls short, I build the evidence bridge that makes the dose and the decision defensible.`
   ),

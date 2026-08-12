@@ -11,11 +11,15 @@ import Roadmap from './slides/04-roadmap';
 // CS1
 import Cs1Divider from './slides/05-cs1-divider';
 import Cs1Question from './slides/06-cs1-question';
+import Cs1EvidenceGap from './slides/cs1-evidence-gap';
+import Cs1Hypotheses from './slides/cs1-hypotheses';
 import Cs1Context from './slides/07-cs1-context';
 import Cs1Mechanism from './slides/07b-cs1-mechanism';
 import Cs1Trial from './slides/08-cs1-trial';
 import Cs1Architecture from './slides/09-cs1-architecture';
 import Cs1Poppk from './slides/09b-cs1-poppk';
+import Cs1RejectedAlt from './slides/cs1-rejected-alt';
+import Cs1Boundary from './slides/cs1-boundary';
 import Cs1Pkpd from './slides/09c-cs1-pkpd';
 import Cs1Outcome from './slides/11-cs1-outcome';
 import Cs1Bracket from './slides/12-cs1-bracket';
@@ -179,48 +183,55 @@ const manifest = {
     { id: 'career-arc', title: 'Career arc', component: CareerArc, isTitle: false, time: 75 },
     // roadmap (04) — hidden from talk path; kept in Backups below
 
-    // CS 1
+    // CS 1 — live spine (≈15–16′)
     { id: 'cs1-divider', title: 'Case 01 · Ambrisentan', component: Cs1Divider, isTitle: true, transition: 'fade', time: 20 },
-    { id: 'cs1-question', title: 'CS1 · setup + the question', component: Cs1Question, isTitle: false, transition: 'fade', time: 55 },
-    { id: 'cs1-context', title: 'CS1 · why the question is hard', component: Cs1Context, isTitle: false, transition: 'fade', time: 45 },
-    { id: 'cs1-mechanism', title: 'CS1 · pathway + drug', component: Cs1Mechanism, isTitle: false, transition: 'fade', time: 35 },
-    { id: 'cs1-trial', title: 'CS1 · AMB112529 + LTE', component: Cs1Trial, isTitle: false, transition: 'fade', time: 50 },
-    { id: 'cs1-architecture', title: 'CS1 · drug + 5 constraints', component: Cs1Architecture, isTitle: false, transition: 'fade', time: 55 },
-    { id: 'cs1-covariate-strategy', title: 'CS1 · full covariate model', component: Cs1CovariateStrategy, isTitle: false, transition: 'fade', time: 55 },
-    { id: 'cs1-poppk', title: 'CS1 · PopPK · build + fit', component: Cs1Poppk, isTitle: false, transition: 'fade', time: 65 },
-    { id: 'cs1-pkpd', title: 'CS1 · PopPK · build + fit PART 2', component: Cs1Pkpd, isTitle: false, transition: 'fade', time: 55 },
-    { id: 'cs1-outcome', title: 'CS1 · three disruptions', component: Cs1Outcome, isTitle: false, transition: 'fade', time: 45 },
-    { id: 'cs1-bracket', title: 'CS1 · ownership', component: Cs1Bracket, isTitle: false, transition: 'fade', time: 45 },
-    { id: 'cs1-lesson', title: 'CS1 · what this case proves', component: Cs1Lesson, isTitle: false, transition: 'fade', time: 50 },
-    { id: 'cs1-bridge', title: 'CS1 → CS2 bridge', component: Cs1Bridge, isTitle: false, transition: 'fade', time: 30 },
+    { id: 'cs1-question', title: 'CS1 · Decision + stakes', component: Cs1Question, isTitle: false, transition: 'fade', time: 75 },
+    { id: 'cs1-evidence-gap', title: 'CS1 · Evidence gap', component: Cs1EvidenceGap, isTitle: false, transition: 'fade', time: 90 },
+    { id: 'cs1-hypotheses', title: 'CS1 · Competing hypotheses', component: Cs1Hypotheses, isTitle: false, transition: 'fade', time: 60 },
+    { id: 'cs1-poppk', title: 'CS1 · Strategy · build + confirm', component: Cs1Poppk, isTitle: false, transition: 'fade', time: 150 },
+    { id: 'cs1-rejected-alt', title: 'CS1 · Rejected alternative', component: Cs1RejectedAlt, isTitle: false, transition: 'fade', time: 60 },
+    { id: 'cs1-boundary', title: 'CS1 · Decision boundary', component: Cs1Boundary, isTitle: false, transition: 'fade', time: 75 },
+    { id: 'cs1-pkpd', title: 'CS1 · Result · exposure band', component: Cs1Pkpd, isTitle: false, transition: 'fade', time: 90 },
+    { id: 'cs1-outcome', title: 'CS1 · Outcome · claim boundary', component: Cs1Outcome, isTitle: false, transition: 'fade', time: 90 },
+    { id: 'cs1-bridge', title: 'CS1 → India bridge', component: Cs1Bridge, isTitle: false, transition: 'fade', time: 60 },
 
-    // CS 2 — Asparlas efficient design
-    { id: 'cs2-asp-divider', title: 'Case 02 · Calaspargase pegol', component: Cs2AspDivider, isTitle: true, transition: 'fade', time: 35 },
-    { id: 'cs2-asp-challenge', title: 'CS2 · setup + 94 adults not feasible', component: Cs2AspChallenge, isTitle: false, transition: 'fade', time: 75 },
-    { id: 'cs2-asp-strategy', title: 'CS2 · two innovations stacked', component: Cs2AspStrategy, isTitle: false, transition: 'fade', time: 75 },
-    { id: 'cs2-asp-fda', title: 'CS2 · FDA Type A agreed N=60', component: Cs2AspFda, isTitle: false, transition: 'fade', time: 75 },
-    { id: 'cs2-asp-fit', title: 'CS2 · sixty adults anchor the model', component: Cs2AspFit, isTitle: false, transition: 'fade', time: 75 },
-    { id: 'cs2-asp-impact', title: 'CS2 · 36% reduction · precedent travels', component: Cs2AspImpact, isTitle: false, transition: 'fade', time: 65 },
-    { id: 'cs2-asp-bridge', title: 'CS2 → CS3 bridge · efficient design to access', component: Cs2AspBridge, isTitle: false, transition: 'fade', time: 45 },
+    // CS1 hidden from live path (backup:true — deep links retained)
+    { id: 'cs1-context', title: 'Backup · CS1 · disease context', component: Cs1Context, isTitle: false, transition: 'fade', time: 45, backup: true },
+    { id: 'cs1-mechanism', title: 'Backup · CS1 · pathway + drug', component: Cs1Mechanism, isTitle: false, transition: 'fade', time: 35, backup: true },
+    { id: 'cs1-trial', title: 'Backup · CS1 · AMB112529 + LTE', component: Cs1Trial, isTitle: false, transition: 'fade', time: 50, backup: true },
+    { id: 'cs1-architecture', title: 'Backup · CS1 · 5 constraints', component: Cs1Architecture, isTitle: false, transition: 'fade', time: 55, backup: true },
+    { id: 'cs1-covariate-strategy', title: 'Backup · CS1 · full covariate model', component: Cs1CovariateStrategy, isTitle: false, transition: 'fade', time: 55, backup: true },
+    { id: 'cs1-bracket', title: 'Backup · CS1 · ownership bracket', component: Cs1Bracket, isTitle: false, transition: 'fade', time: 45, backup: true },
+    { id: 'cs1-lesson', title: 'Backup · CS1 · lesson (merged into outcome)', component: Cs1Lesson, isTitle: false, transition: 'fade', time: 50, backup: true },
 
-    // CS 3 — Ivosidenib / India reliance
-    { id: 'cs3-ivosidenib-divider', title: "Case 03 · Ivosidenib in India", component: CS3IvosidenibDivider, isTitle: true, transition: 'fade', time: 25 },
-    { id: 'cs3-setup', title: 'CS3 · setup + SEC local PK/PD ask', component: CS2Setup, isTitle: false, transition: 'fade', time: 60 },
-    { id: 'cs3-bg-regulatory', title: 'CS3 · Rule 101 · the wall and the opening', component: CS2BackgroundRegulatory, isTitle: false, transition: 'fade', time: 55 },
-    { id: 'cs3-pillars', title: 'CS3 · six convergent evidence pillars', component: CS2Pillars, isTitle: false, transition: 'fade', time: 70 },
-    { id: 'cs3-reversal', title: 'CS3 · CDSCO approved without a local trial', component: CS2Reversal, isTitle: false, transition: 'fade', time: 55 },
-    { id: 'cs3-reckoning', title: 'CS3 · what we shipped and what we did not', component: CS2Reckoning, isTitle: false, transition: 'fade', time: 55 },
-    { id: 'cs3-leadership', title: 'CS3 · leading cross-functionally under pressure', component: CS2Leadership, isTitle: false, transition: 'fade', time: 55 },
-    { id: 'cs3-bridge-recap', title: 'CS3 → CS4 bridge · the science was the bridge', component: CS2BridgeRecap, isTitle: false, transition: 'fade', time: 40 },
+    // Case 02 (presentation) — Ivosidenib / India reliance · ~11′ (660s clock)
+    { id: 'cs3-ivosidenib-divider', title: 'Case 02 · Ivosidenib — 42 countries, not India', component: CS3IvosidenibDivider, isTitle: true, transition: 'fade', time: 30 },
+    { id: 'cs3-setup', title: 'No local anchor of any kind', component: CS2Setup, isTitle: false, transition: 'fade', time: 85 },
+    { id: 'cs3-bg-regulatory', title: 'Rule 101 opened the door — not the answer', component: CS2BackgroundRegulatory, isTitle: false, transition: 'fade', time: 80 },
+    { id: 'cs3-pillars', title: 'Six pillars — no single pillar wins alone', component: CS2Pillars, isTitle: false, transition: 'fade', time: 90 },
+    { id: 'cs3-B4-population-evidence', title: 'Every pillar was a test we could have failed', component: Cs2BackupB4PopulationEvidence, isTitle: false, transition: 'fade', time: 85 },
+    { id: 'cs3-reversal', title: 'CDSCO 14 May 2025 — no pre-approval local trial', component: CS2Reversal, isTitle: false, transition: 'fade', time: 80 },
+    { id: 'cs3-reckoning', title: 'Gap named, then committed to', component: CS2Reckoning, isTitle: false, transition: 'fade', time: 80 },
+    { id: 'cs3-leadership', title: 'Science and pathway — both had to hold', component: CS2Leadership, isTitle: false, transition: 'fade', time: 90 },
+    { id: 'cs3-bridge-recap', title: 'Seam → Asparlas (design)', component: CS2BridgeRecap, isTitle: false, transition: 'fade', time: 55 },
 
-    // CS 4 — AI / Pharazi hard cut
-    { id: 'cs2-pharazi-divider', title: 'Case 04 · AI / Pharazi', component: CS2PharaziDivider, isTitle: true, transition: 'fade', time: 25 },
-    { id: 'cs2-regulatory-floor', title: 'CS4 · setup + regulatory floor', component: Cs3AiRegulatoryFloor, isTitle: false, time: 40 },
-    { id: 'cs2-gap', title: 'CS4 · Traceability gap', component: Cs3AiGap, isTitle: false, time: 35 },
-    { id: 'cs2-working-overview', title: 'CS4 · Working system overview', component: Cs3AiWorkingOverview, isTitle: false, time: 50 },
-    { id: 'cs2-poppk-dashboard', title: 'CS4 · PopPK review dashboard', component: Cs3AiPoppkDashboard, isTitle: false, time: 50 },
-    { id: 'cs2-publication-close', title: 'CS4 · Traceable acceleration', component: Cs3AiPublicationClose, isTitle: false, time: 45 },
-    { id: 'cs4-close-divider', title: 'Cases 01–04 · Core complete', component: Cs4CloseDivider, isTitle: true, transition: 'fade', time: 25 },
+    // Case 03 (presentation) — Asparlas efficient design · ~7′
+    { id: 'cs2-asp-divider', title: 'Case 03 · Calaspargase pegol — design case', component: Cs2AspDivider, isTitle: true, transition: 'fade', time: 30 },
+    { id: 'cs2-asp-challenge', title: 'CS3 · 94 clean / operationally undeliverable', component: Cs2AspChallenge, isTitle: false, transition: 'fade', time: 75 },
+    { id: 'cs2-asp-strategy', title: 'CS3 · two precedented moves stacked', component: Cs2AspStrategy, isTitle: false, transition: 'fade', time: 85 },
+    { id: 'cs2-asp-fit', title: 'CS3 · precision lives in the prior', component: Cs2AspFit, isTitle: false, transition: 'fade', time: 70 },
+    { id: 'cs2-asp-fda', title: 'CS3 · Type A 94→60 · −36%', component: Cs2AspFda, isTitle: false, transition: 'fade', time: 75 },
+    { id: 'cs2-asp-impact', title: 'CS3 · precedent travels · SPARK coda', component: Cs2AspImpact, isTitle: false, transition: 'fade', time: 75 },
+    { id: 'cs2-asp-bridge', title: 'Backup · CS2 → CS3 bridge · efficient design to access', component: Cs2AspBridge, isTitle: false, transition: 'fade', time: 45, backup: true },
+
+    // Case 04 (presentation) — AI / Pharazi epilogue · ~3′ (cut path: drop gap + overview)
+    { id: 'cs2-pharazi-divider', title: 'Case 04 · Not a drug — the system', component: CS2PharaziDivider, isTitle: true, transition: 'fade', time: 20 },
+    { id: 'cs2-regulatory-floor', title: 'CS4 · Four floor conditions', component: Cs3AiRegulatoryFloor, isTitle: false, time: 35 },
+    { id: 'cs2-gap', title: 'CS4 · Trusted review is the bottleneck', component: Cs3AiGap, isTitle: false, time: 25 },
+    { id: 'cs2-working-overview', title: 'CS4 · Plan → run → check → record', component: Cs3AiWorkingOverview, isTitle: false, time: 40 },
+    { id: 'cs2-poppk-dashboard', title: 'CS4 · Interface is the review contract', component: Cs3AiPoppkDashboard, isTitle: false, time: 40 },
+    { id: 'cs2-publication-close', title: 'CS4 · Auditability before autonomy', component: Cs3AiPublicationClose, isTitle: false, time: 30 },
+    { id: 'cs4-close-divider', title: 'Cases 01–04 · One discipline', component: Cs4CloseDivider, isTitle: true, transition: 'fade', time: 20 },
 
     // Portfolio + company bridge
     { id: 'portfolio-01', title: 'Portfolio · breadth across modality, area, and agency', component: Portfolio01, isTitle: false, transition: 'fade', time: 120 },
@@ -297,7 +308,6 @@ const manifest = {
     { id: 'cs3-B2-six-pillar-package',           title: 'Backup B2 · Six-Pillar Package',                             component: Cs2BackupB2SixPillarPackage,        isTitle: false, transition: 'fade' },
     { id: 'cs3-B3-phase1-dose-rationale',        title: 'Backup B3 · Phase 1 dose rationale (500 mg QD)',             component: Cs2BackupB3Phase1DoseRationale,     isTitle: false, transition: 'fade' },
     { id: 'cs3-backup-type-3-data-cuts',         title: 'BACKUP TYPE 3 · Data Cuts',                                  component: Cs2BackupTypeDataCuts,              isTitle: true,  transition: 'fade' },
-    { id: 'cs3-B4-population-evidence',          title: 'Backup B4 · Population evidence (IDH1 + DME polymorphisms)', component: Cs2BackupB4PopulationEvidence,      isTitle: false, transition: 'fade' },
   ],
 };
 

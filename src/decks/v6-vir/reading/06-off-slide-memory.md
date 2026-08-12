@@ -26,10 +26,10 @@ Every case follows: **divider reset** → **first content slide orients** (drug 
 ## Global guardrails (every answer)
 
 - **No Servier-confidential numbers** anywhere in the talk.
-- **No claim of direct VIR-5500 / PRO-XTEN internal access** — bridge is public-info + clin pharm logic.
+- **No claim of direct internal access to masked engager programs** — bridge is public-info + clin pharm logic.
 - **ADC** = led/directed multi-analyte + FIH dose-projection strategy (BCLxL @ Servier; BCMA contribution @ GSK) — **breadth only**, not a core case.
 - **HBV patent** = co-inventor AU2023213173A1 — real, narrow scope; **not** direct HDV program ownership.
-- **Pharazi** = personal research platform — transferable **judgment**, not a product transfer to Vir.
+- **Pharazi** = personal research platform — transferable **judgment**, not a product transfer to the role.
 
 **One-sentence thesis:** When measurement falls short, clinical pharmacology makes the dose — and the decision — defensible.
 
@@ -46,7 +46,7 @@ On slide 01 the cards show **short** labels only. Full copy if asked:
 | CS03 · Ivosidenib | Local-trial waiver defended through convergent global evidence | CDSCO May 14, 2025 · Phase 4 PK |
 | CS04 · Pharazi | Audit-ready clin pharm workflows when the evidence system must scale | Personal research · pharazi.ai |
 
-Meta: Vir Biotechnology candidate seminar · **June 17, 2026** · ~45 min including Q&A.
+Meta: Candidate seminar · **June 17, 2026** · ~45 min including Q&A.
 
 ---
 
@@ -140,7 +140,7 @@ Inference rested on global PopPK — **uncertainty named explicitly**.
 - Gap: speed without lineage is the risk — **trusted review** is the bottleneck.
 - Pattern: plan → run → check → record.
 - Publication close: pharazi.ai · manuscript in prep · clinpharm.ai community.
-- **Not** a sponsor deployment or Vir product transfer claim.
+- **Not** a sponsor deployment or company product transfer claim.
 
 ---
 
@@ -157,7 +157,7 @@ Table rows are on slide; do not read every cell unless asked.
 
 ---
 
-## Vir bridge · public-info only
+## company bridge · public-info only
 
 ### Oncology (masked T-cell engagers)
 - Plasma ≠ tumor · assay sees masked/total, not active species at tumor.
@@ -171,7 +171,7 @@ Table rows are on slide; do not read every cell unless asked.
 
 ### First 90 days
 - Listen · map dose decisions / assay gaps / model gaps.
-- VIR-5500: backward from filing · defensible OBD package — **conditional on public info**.
+- priority oncology programs: backward from filing · defensible OBD package — **conditional on public info**.
 
 ---
 
