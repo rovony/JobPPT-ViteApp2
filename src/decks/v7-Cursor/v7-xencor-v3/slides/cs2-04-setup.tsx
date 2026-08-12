@@ -91,13 +91,9 @@ export default function CS2Setup() {
       footerSource="CDSCO SEC public minutes · Dec 2024"
     >
       <div
+        className="xc-stack-fill xc-chrome-clear"
         style={{
-          position: 'absolute',
-          inset: 0,
-          display: 'flex',
-          flexDirection: 'column',
           gap: 'clamp(10px, 1.6vh, 20px)',
-          minHeight: 0,
         }}
       >
         <CaseOrientationStrip
@@ -138,6 +134,7 @@ function TimelineSVG() {
       <svg
         viewBox="0 0 1180 82"
         width="100%"
+        height="auto"
         xmlns="http://www.w3.org/2000/svg"
         role="img"
         aria-label="Regulatory timeline: Rule 101 order then SEC PK/PD opinion"
@@ -237,6 +234,7 @@ function QuoteCard() {
 
   return (
     <motion.div
+      className="xc-clip-none"
       initial={reduced ? false : { opacity: 0, scale: 0.94 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.6, ease: EASE, delay: D.quoteCard }}
@@ -249,7 +247,6 @@ function QuoteCard() {
         border: '1px solid var(--cream-hairline)',
         borderRadius: 'var(--radius-lg)',
         background: 'color-mix(in srgb, var(--panel) 70%, transparent)',
-        overflow: 'hidden',
         transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
         boxShadow: hovered
           ? '0 8px 32px rgba(0,0,0,0.3)'
@@ -271,6 +268,7 @@ function QuoteCard() {
       />
 
       <div
+        className="xc-min0"
         style={{
           flex: 1,
           padding: 'clamp(16px, 2.5vh, 36px) clamp(20px, 2.5vw, 40px)',
@@ -412,14 +410,16 @@ function AsymmetryPanel() {
    * the v2 deck's case-build pattern. */
   return (
     <div
+      className="xc-min0"
       style={{
         display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
+        gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
         gap: 'var(--space-4)',
       }}
     >
       {/* LEFT — Asked (muted panel card, dashed border, cascades first) */}
       <motion.div
+        className="xc-min0"
         initial={reduced ? false : { opacity: 0, x: -8 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4, ease: EASE, delay: D.asked }}
@@ -461,6 +461,7 @@ function AsymmetryPanel() {
 
       {/* RIGHT — Already in hand (cyan panel card, cascades after) */}
       <motion.div
+        className="xc-min0"
         initial={reduced ? false : { opacity: 0, x: 8 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4, ease: EASE, delay: D.inHand }}

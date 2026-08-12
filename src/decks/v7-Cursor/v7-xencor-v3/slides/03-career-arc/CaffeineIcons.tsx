@@ -23,7 +23,7 @@ function Steam({ width = 40, height = 60, delay = 0 }) {
 
 export function SmallCoffee({ reduced }) {
   return (
-    <div style={{ position: 'relative', width: 80, height: 60, margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: 'clamp(3.25rem, 4vw, 5rem)', aspectRatio: '4 / 3', margin: '0 auto' }}>
       {!reduced && <Steam delay={0} />}
       <svg viewBox="0 0 100 80" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
         {/* Saucer */}
@@ -53,7 +53,7 @@ export function SmallCoffee({ reduced }) {
 
 export function TallCoffee({ reduced }) {
   return (
-    <div style={{ position: 'relative', width: 90, height: 120, margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: 'clamp(3.5rem, 4.5vw, 5.5rem)', aspectRatio: '3 / 4', margin: '0 auto' }}>
       {!reduced && <Steam delay={1} height={80} />}
       <svg viewBox="0 0 100 140" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
         {/* Cup Body */}
@@ -80,7 +80,7 @@ export function TallCoffee({ reduced }) {
 
 export function Thermos({ reduced }) {
   return (
-    <div style={{ position: 'relative', width: 100, height: 160, margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: 'clamp(3.75rem, 5vw, 6.25rem)', aspectRatio: '5 / 8', margin: '0 auto' }}>
       {!reduced && <Steam delay={2} height={100} />}
       <svg viewBox="0 0 120 180" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
         {/* Handle */}
@@ -107,7 +107,7 @@ export function Thermos({ reduced }) {
 
 export function EspressoMachine({ reduced }) {
   return (
-    <div style={{ position: 'relative', width: 160, height: 180, margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: 'clamp(5rem, 8vw, 9rem)', aspectRatio: '8 / 9', margin: '0 auto' }}>
       <svg viewBox="0 0 200 220" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
         {/* Base */}
         <rect x="20" y="190" width="160" height="20" rx="4" fill="var(--panel)" stroke="var(--cream-hairline)" />
@@ -155,7 +155,7 @@ export function EspressoMachine({ reduced }) {
 
 export function IVBag({ reduced }) {
   return (
-    <div style={{ position: 'relative', width: 140, height: 260, margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: 'clamp(4.5rem, 7vw, 7.5rem)', aspectRatio: '7 / 13', margin: '0 auto' }}>
       <svg viewBox="0 0 160 300" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
         {/* IV Pole */}
         <rect x="130" y="0" width="6" height="300" fill="var(--cream-muted)" />

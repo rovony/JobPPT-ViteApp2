@@ -28,12 +28,18 @@
  *           .xc-wyws__kick .xc-wyws__meta .xc-wyws__teaser
  *           .xc-wyws__frame .xc-wyws__frame-label .xc-wyws__frame-text
  *           (teaser hairline: border-top on .xc-wyws__teaser)
+ * Lens:     .xc-lens .xc-lens__title .xc-lens__kicker .xc-lens__body
+ *           .xc-lens__flow .xc-lens__steps .xc-lens__step
+ *           .xc-lens__connectors .xc-lens__principles .xc-lens__loop
  * Theme UI: .xc-theme-pref (+ __box __label __track __opt)
  * Steps:    .bp-step-flow .bp-step-card .bp-step-eyebrow .bp-step-box
  *           .bp-step-label .bp-step-body .bp-step-arrow .xc-step-box
  * Roadmap:  .bp-roadmap-kicker .bp-roadmap-principle
  * Chrome:   .xc-hook .xc-lead .xc-card-title (alias) .xc-card-body
  *           .deck-layout header/footer overrides · .xc-dashed
+ * Layout:   .xc-stack-fill .xc-stack-fill__grow .xc-min0 .xc-chrome-clear
+ *           .xc-chrome-clear--deep .xc-clip-media .xc-clip-none .xc-card-floor
+ *           .xc-frame-safe (absolute packs that clear chrome)
  */
 
 @import '@fontsource/poppins/400.css';
@@ -122,6 +128,26 @@
   --fs-slide-name: var(--bp-fs-name);
   --fs-slide-hook: clamp(2.2rem, min(3.8vw, 5.8vh), 3.4rem);
 
+  /* CaseHeroDivider — ledger / source / case counter (rem, FitStage-safe) */
+  --fs-case-chrome: var(--fs-slide-topright);
+  --fs-case-kicker: clamp(0.95rem, min(1.2vw, 1.9vh), 1.2rem);
+  --fs-case-title: clamp(3.2rem, 7.5vw, 9rem);
+  --fs-case-subtitle: clamp(1.35rem, min(2.35vw, 3.2vh), 2.4rem);
+  --fs-case-tagline: clamp(1.05rem, min(1.45vw, 2.2vh), 1.45rem);
+  --fs-case-ledger-label: clamp(1.05rem, min(1.25vw, 2vh), 1.25rem);
+  /* Value line — slightly quieter than the previous hero-scale size */
+  --fs-case-ledger-value: clamp(1.05rem, min(1.3vw, 2vh), 1.5rem);
+  --fs-case-ledger-verdict: clamp(1.25rem, min(1.65vw, 2.5vh), 1.9rem);
+  --fs-case-source: clamp(1.15rem, min(1.45vw, 2.2vh), 1.4rem);
+  --fs-case-counter: clamp(1.05rem, min(1.35vw, 2vh), 1.25rem);
+  --fs-case-illust-clearance: clamp(14rem, 28vh, 20rem);
+  --xc-case-ledger-gap: clamp(0.55rem, 1vh, 0.85rem);
+  --xc-case-ledger-axis: clamp(1rem, 2.2vh, 1.75rem);
+  --xc-case-ledger-pad: clamp(1rem, 1.8vh, 1.4rem) clamp(1.15rem, 2vw, 1.65rem);
+  --xc-case-ledger-border-width: 1.5px;
+  --xc-case-ledger-border: color-mix(in srgb, var(--cream) 28%, transparent);
+  --xc-case-foot-gap: clamp(1.1rem, 2vh, 1.65rem);
+
   --fs-card-hero-num: clamp(3.25rem, min(6.2vw, 8.4vh), 5.75rem);
   --fs-card-numeral: clamp(2.8rem, min(4.2vw, 5.7vh), 4.25rem);
   --fs-card-quote: clamp(1.4rem, min(2.05vw, 2.9vh), 2rem);
@@ -208,7 +234,8 @@
 
 [data-deck-id='v7-xencor-v3'][data-theme-mode='light'],
 [data-deck-id='v7-xencor-v3'][data-theme-mode='light'] [data-title-blueprint],
-[data-deck-id='v7-xencor-v3'][data-theme-mode='light'] [data-roadmap-blueprint] {
+[data-deck-id='v7-xencor-v3'][data-theme-mode='light'] [data-roadmap-blueprint],
+[data-deck-id='v7-xencor-v3'][data-theme-mode='light'] [data-operating-lens] {
   --bp-paper: #f3f6f9;
   --bp-paper2: #ffffff;
   --bp-panel-hi: #0c4a6e;
@@ -244,7 +271,9 @@
 [data-deck-id='v7-xencor-v3'][data-theme-mode='dark'] [data-title-blueprint],
 [data-deck-id='v7-xencor-v3']:not([data-theme-mode='light']) [data-title-blueprint],
 [data-deck-id='v7-xencor-v3'][data-theme-mode='dark'] [data-roadmap-blueprint],
-[data-deck-id='v7-xencor-v3']:not([data-theme-mode='light']) [data-roadmap-blueprint] {
+[data-deck-id='v7-xencor-v3']:not([data-theme-mode='light']) [data-roadmap-blueprint],
+[data-deck-id='v7-xencor-v3'][data-theme-mode='dark'] [data-operating-lens],
+[data-deck-id='v7-xencor-v3']:not([data-theme-mode='light']) [data-operating-lens] {
   --bp-paper: #0c1420;
   --bp-paper2: #141e2e;
   --bp-panel-hi: #1d2a3c;
@@ -631,11 +660,11 @@
     var(--bp-step-accent) 7%,
     var(--panel, transparent)
   );
-  padding: 1.15rem 1.2rem;
+  padding: clamp(0.85rem, 1.4vh, 1.15rem) clamp(0.9rem, 1.2vw, 1.2rem);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  min-height: 7.25rem;
+  min-height: 0;
   justify-content: center;
   flex: 1 1 auto;
 }
@@ -722,9 +751,13 @@
 }
 
 [data-deck-id='v7-xencor-v3'] .xc-viz-frame {
-  flex: 0 0 auto;
-  height: clamp(88px, 12vh, 130px);
+  flex: 0 1 auto;
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  max-height: clamp(5.5rem, 14vh, 8.125rem);
+  height: auto;
   margin-bottom: var(--xc-space-sm);
+  min-height: 0;
 }
 
 /* Content-sized case row — cards stretch equally within the row */
@@ -1001,6 +1034,253 @@
   z-index: 2;
 }
 
+/* ── Operating lens (02b) ───────────────────────────────────────────────── */
+[data-deck-id='v7-xencor-v3'] .xc-lens {
+  --lens-pad-x: clamp(2.25rem, 3.2vw, 3.5rem);
+  --lens-pad-y: clamp(1.5rem, 2.4vh, 2.25rem);
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  gap: clamp(0.55rem, 1.2vh, 0.9rem);
+  padding: var(--lens-pad-y) var(--lens-pad-x);
+  box-sizing: border-box;
+  color: var(--bp-ink);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__kicker {
+  position: relative;
+  z-index: 2;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bp-ink3);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__title {
+  position: relative;
+  z-index: 2;
+  max-width: 28ch;
+  margin: 0;
+  line-height: 1.15;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__body {
+  position: relative;
+  z-index: 2;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(16rem, 0.85fr);
+  gap: clamp(0.85rem, 1.6vw, 1.5rem);
+  align-items: stretch;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__flow {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__connectors {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+  color: var(--bp-ink3);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__path {
+  color: var(--bp-ink);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__path--loop {
+  color: var(--bp-ink4);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__step {
+  z-index: 1;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px 18px;
+  border: 2.5px solid var(--bp-ink);
+  background: var(--bp-paper2);
+  pointer-events: auto;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__step--decision {
+  background: var(--bp-cyan);
+  border-color: var(--bp-cyan);
+  color: var(--bp-decision-ink, #fff);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__step--decision .xc-lens__step-n,
+[data-deck-id='v7-xencor-v3'] .xc-lens__step--decision .xc-lens__step-body {
+  color: inherit;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__step--break {
+  border-color: var(--bp-rose);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__step--break .xc-lens__step-n {
+  color: var(--bp-rose);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__step--standard {
+  border-color: var(--bp-teal);
+  background: color-mix(in srgb, var(--bp-teal) 12%, var(--bp-paper2));
+  justify-content: flex-start;
+  padding-top: 20px;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__step--standard .xc-lens__step-n {
+  color: var(--bp-teal);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__step-n {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--font-mono-bp, var(--font-mono));
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--bp-ink);
+  line-height: 1.2;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__step-body {
+  margin: 0;
+  font-family: var(--font-sans-bp, var(--font-sans));
+  font-size: 18px;
+  line-height: 1.3;
+  color: var(--bp-ink2);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__step-list {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__step-list li {
+  position: relative;
+  padding-left: 14px;
+  font-family: var(--font-sans-bp, var(--font-sans));
+  font-size: 17px;
+  line-height: 1.3;
+  color: var(--bp-ink2);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__step-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--bp-teal);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__principles {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.45rem, 1vh, 0.7rem);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__principle {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: clamp(0.55rem, 1.1vh, 0.85rem) clamp(0.7rem, 1.1vw, 1rem);
+  border: 1px solid var(--bp-hair);
+  border-left: 3px solid var(--bp-cyan);
+  background: var(--bp-paper2);
+  box-sizing: border-box;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__principle-kick {
+  font-family: var(--font-mono-bp, var(--font-mono));
+  font-size: clamp(0.8rem, min(1.05vw, 1.5vh), 0.95rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bp-cyan);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__principle-title {
+  font-family: var(--font-sans-bp, var(--font-sans));
+  font-size: clamp(1.1rem, min(1.45vw, 2.15vh), 1.3rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--bp-ink);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__principle-body {
+  margin: 0;
+  font-family: var(--font-sans-bp, var(--font-sans));
+  font-size: clamp(1rem, min(1.3vw, 1.95vh), 1.15rem);
+  line-height: 1.35;
+  color: var(--bp-ink2);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__loop {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.55rem 1rem;
+  padding: clamp(0.45rem, 1vh, 0.7rem) clamp(0.75rem, 1.2vw, 1.1rem);
+  border: 1px dashed var(--bp-ink4);
+  background: color-mix(in srgb, var(--bp-paper2) 88%, transparent);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__loop-label {
+  font-family: var(--font-mono-bp, var(--font-mono));
+  font-size: clamp(0.8rem, min(1.05vw, 1.5vh), 0.95rem);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bp-teal);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lens__loop-text {
+  font-family: var(--font-sans-bp, var(--font-sans));
+  font-size: clamp(1.1rem, min(1.45vw, 2.15vh), 1.3rem);
+  font-weight: 500;
+  color: var(--bp-ink);
+  line-height: 1.25;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-deck-id='v7-xencor-v3'] .xc-lens__connectors path {
+    opacity: 1 !important;
+  }
+}
+
 /* Title slide helpers */
 [data-deck-id='v7-xencor-v3'] .xc-title-grid {
   position: relative;
@@ -1051,10 +1331,12 @@
 
 /* Career arc — contained viz timeline (FitStage 1920×1080) */
 [data-deck-id='v7-xencor-v3'] .xc-career {
-  --career-short-lift: max(0px, calc((900px - 100vh) * 0.35));
+  --career-short-lift: clamp(0px, calc((780px - 100vh) * 0.08), 0.5rem);
+  --career-stage-pad: clamp(0.25rem, 1vh, 0.75rem);
   width: 100%;
   height: 100%;
   min-height: 0;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-2, 0.5rem);
@@ -1064,15 +1346,18 @@
   flex: 1 1 auto;
   position: relative;
   margin-top: var(--space-1, 0.25rem);
+  padding-top: var(--career-stage-pad);
+  box-sizing: border-box;
   min-height: 0;
-  overflow: hidden;
+  min-width: 0;
+  overflow: visible;
 }
 
 [data-deck-id='v7-xencor-v3'] .xc-career__spine {
   position: absolute;
-  inset: 0;
+  inset: var(--career-stage-pad) 0 0;
   width: 100%;
-  height: 100%;
+  height: auto;
   pointer-events: none;
   z-index: 0;
   transform: translateY(calc(-1 * var(--career-short-lift)));
@@ -1080,8 +1365,10 @@
 
 [data-deck-id='v7-xencor-v3'] .xc-career__stops {
   position: absolute;
-  inset: 0;
+  inset: var(--career-stage-pad) 0 0;
   z-index: 1;
+  min-height: 0;
+  min-width: 0;
 }
 
 [data-deck-id='v7-xencor-v3'] .xc-career__stop {
@@ -1094,6 +1381,7 @@
   flex-direction: column;
   align-items: stretch;
   gap: clamp(0.2rem, 0.7vh, 0.45rem);
+  min-width: 0;
 }
 
 [data-deck-id='v7-xencor-v3'] .xc-career__icon {
@@ -1613,4 +1901,112 @@
   padding-top: var(--space-2);
   border-top: 1px solid var(--cream-hairline);
   line-height: 1.4;
+}
+
+/* CaseHeroDivider — deck-scoped token hook (layout lives in CaseHeroDivider.css) */
+[data-deck-id='v7-xencor-v3'] .xc-case-hero__subtitle {
+  max-width: min(42ch, 100%);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Responsive / no-overlap layout utilities (FitStage-safe)
+   Prefer .xc-stack-fill over position:absolute; inset:0 for primary content.
+   Never clip primary copy with overflow:hidden — use .xc-clip-media for art only.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+[data-deck-id='v7-xencor-v3'] .xc-min0 {
+  min-width: 0;
+  min-height: 0;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-stack-fill {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  gap: var(--xc-space-md);
+  box-sizing: border-box;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-stack-fill > * {
+  min-width: 0;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-stack-fill__grow {
+  flex: 1 1 0;
+  min-height: 0;
+  min-width: 0;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-chrome-clear {
+  padding-bottom: var(--xc-control-clearance);
+  box-sizing: border-box;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-chrome-clear--deep {
+  padding-bottom: var(--xc-slide-number-clearance);
+  box-sizing: border-box;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-frame-safe {
+  position: absolute;
+  inset: 0;
+  bottom: var(--xc-control-clearance);
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-clip-media {
+  overflow: hidden;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-clip-none {
+  overflow: visible;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-card-floor {
+  min-height: 0;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-hook-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: clamp(1.25rem, 3.5vh, 2.5rem);
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding-top: clamp(3.5rem, 8vh, 5.5rem);
+  padding-bottom: var(--xc-control-clearance);
+  padding-left: clamp(var(--space-4, 1rem), 10%, 10%);
+  padding-right: clamp(var(--space-4, 1rem), 8%, 10%);
+  box-sizing: border-box;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-timeline {
+  position: relative;
+  width: 100%;
+  min-height: clamp(12rem, 28vh, 18rem);
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-timeline__track {
+  position: relative;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: clamp(10rem, 24vh, 16rem);
+  overflow: visible;
+}
+
+[data-deck-id='v7-xencor-v3'] .deck-layout > .flex-1 {
+  min-height: 0;
+  min-width: 0;
 }

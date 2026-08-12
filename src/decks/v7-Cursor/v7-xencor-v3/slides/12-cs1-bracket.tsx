@@ -62,9 +62,10 @@ export default function Cs1Bracket() {
           </div>
 
           <div
+            className="xc-min0 xc-clip-none"
             style={{
               minHeight: 0,
-              overflow: 'hidden',
+              overflow: 'visible',
               border: '1px solid var(--cream-hairline)',
               borderRadius: 'var(--radius-lg)',
               background: 'color-mix(in srgb, var(--panel) 56%, transparent)',
@@ -308,10 +309,11 @@ function StaticFooter({ kicker, tagline, source }) {
 function ReceiptCard({ item }) {
   return (
     <div
+      className="xc-min0 xc-clip-none"
       style={{
         position: 'relative',
         minWidth: 0,
-        overflow: 'hidden',
+        overflow: 'visible',
         border: item.isHero ? '1px solid color-mix(in srgb, var(--case) 40%, transparent)' : '1px solid var(--cream-hairline)',
         borderTop: item.isHero ? '3px solid var(--case)' : '1px solid var(--cream-hairline)',
         borderRadius: 'var(--radius-lg)',

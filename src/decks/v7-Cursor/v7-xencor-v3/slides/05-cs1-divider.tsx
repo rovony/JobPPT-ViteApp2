@@ -23,8 +23,8 @@ export default function Cs1Divider({ deck }) {
         totalCases={4}
         kicker="CASE STUDY 01"
         title="Ambrisentan"
-        subtitle="Pediatric PAH · 39 patients · two agency approvals"
-        tagline="8 to <18 years · Phase IIb terminated mid-program · 2021 regulatory verdict"
+        subtitle="A pediatric dose had to be chosen after the efficacy trial became structurally untrialable"
+        tagline="Pediatric PAH · ages 8 to <18 · EMA + PMDA · 2021 verdict"
         meta={[
           ['Compound', 'Ambrisentan · selective ETA antagonist'],
           ['Indication', 'Pediatric PAH'],

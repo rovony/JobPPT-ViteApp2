@@ -63,16 +63,11 @@ export default function CS2BackgroundRegulatory() {
       footerSource="ClinRegs · DIA Global Forum · CDSCO public record"
     >
       <div
+        className="xc-stack-fill xc-chrome-clear"
         style={{
-          position: 'absolute',
-          inset: 0,
-          display: 'flex',
-          flexDirection: 'column',
           justifyContent: 'space-between',
           gap: 'var(--space-3)',
           paddingTop: 'var(--space-4)',
-          paddingBottom: 'var(--space-3)', // tightened 2026-04-26: bring amber band closer to footer per user feedback
-          minHeight: 0,
         }}
       >
         <FlowchartSVG />
@@ -116,10 +111,15 @@ function FlowchartSVG() {
   const arrowDelay = (pathDelay, dur = PATH_DUR) => pathDelay + dur - 0.02;
 
   return (
-    <div style={{ flexShrink: 0 }}>
+    <div
+      className="xc-stack-fill__grow"
+      style={{ display: 'flex', alignItems: 'center' }}
+    >
       <svg
         viewBox="0 0 1180 240"
         width="100%"
+        height="auto"
+        style={{ display: 'block', maxHeight: '100%', minHeight: 0 }}
         xmlns="http://www.w3.org/2000/svg"
         role="img"
         aria-label="Dual-path regulatory flowchart: before Rule 101 vs after"
@@ -383,13 +383,14 @@ function BottomPanels() {
       transition={{ duration: 0.4, ease: EASE, delay: D.panels }}
       style={{
         display: 'grid',
-        gridTemplateColumns: '7fr 5fr',
+        gridTemplateColumns: 'minmax(0, 7fr) minmax(0, 5fr)',
         gap: 'clamp(10px, 1.2vw, 20px)',
         flexShrink: 0,
       }}
     >
       {/* Left — Eligibility */}
       <div
+        className="xc-min0"
         style={{
           border: '1px solid var(--cream-hairline)',
           borderRadius: 'var(--radius-lg)',
@@ -444,6 +445,7 @@ function BottomPanels() {
 
       {/* Right — Reference agencies */}
       <div
+        className="xc-min0"
         style={{
           border: '1px solid color-mix(in srgb, var(--xc-case-accent) 22%, transparent)',
           borderRadius: 'var(--radius-lg)',

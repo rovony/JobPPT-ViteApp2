@@ -40,7 +40,7 @@ const asparlasIdMap: Record<string, string> = {
 };
 
 const validNoteIds = [
-  'title', 'hook-A-trial-not-answer', 'what-you-will-see', 'career-arc', 'roadmap', 'cs1-divider', 'cs1-question', 'cs1-context', 'cs1-mechanism',
+  'title', 'hook-A-trial-not-answer', 'operating-lens', 'what-you-will-see', 'career-arc', 'roadmap', 'cs1-divider', 'cs1-question', 'cs1-context', 'cs1-mechanism',
   'cs1-trial', 'cs1-architecture', 'cs1-covariate-strategy', 'cs1-poppk', 'cs1-pkpd', 'cs1-outcome', 'cs1-bracket', 'cs1-lesson',
   'cs1-bridge', 'cs2-asp-divider', 'cs2-asp-challenge', 'cs2-asp-strategy', 'cs2-asp-fda', 'cs2-asp-fit', 'cs2-asp-impact',
   'cs2-asp-bridge', 'cs3-ivosidenib-divider', 'cs3-setup', 'cs3-bg-regulatory', 'cs3-pillars', 'cs3-reversal', 'cs3-reckoning',

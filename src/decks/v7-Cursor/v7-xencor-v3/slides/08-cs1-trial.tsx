@@ -156,16 +156,16 @@ export default function Cs1Trial() {
         FUTURE-1 set the PK-matching precedent in 2009. Ambrisentan&rsquo;s arc: eight years, three disruptions, EMA + PMDA in 2021 — ICH E11A codified the logic in 2024.
       </Subhead>
 
-      <Viz>
-        <div style={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          gap: 'var(--space-5)',
-        }}>
+      <Viz className="xc-min0">
+        <div
+          className="xc-stack-fill xc-min0"
+          style={{
+            justifyContent: 'center',
+            gap: 'var(--space-5)',
+          }}
+        >
           <motion.div
+            className="xc-timeline xc-clip-none"
             initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
             style={{
@@ -177,7 +177,6 @@ export default function Cs1Trial() {
               padding: 'var(--space-6) 0',
               boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
               position: 'relative',
-              overflow: 'hidden',
             }}
           >
             <div style={{
@@ -192,7 +191,10 @@ export default function Cs1Trial() {
               <Lungs layoutId="cs1-lung" variant="trachea-axis" rotation={90} widthOverride="400px" />
             </div>
 
-            <div style={{ position: 'relative', zIndex: 1, height: 'clamp(14rem, 28vh, 18rem)', margin: '0 var(--space-6)' }}>
+            <div
+              className="xc-timeline__track xc-min0"
+              style={{ zIndex: 1, margin: '0 var(--space-6)' }}
+            >
               <div style={{
                 position: 'absolute',
                 left: 0,

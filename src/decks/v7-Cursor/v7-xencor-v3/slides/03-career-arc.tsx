@@ -14,6 +14,11 @@ import { SmallCoffee, TallCoffee, Thermos, EspressoMachine, IVBag } from './03-c
  */
 
 const EASE = [0.2, 0.7, 0.3, 1];
+/* BOUNDING-BOX AUDIT — FitStage 1920×1080
+ * Stop cards occupy x≈10–96% and y≈23–59% of the stage.
+ * Adjacent cards retain >3rem horizontal clearance at their widest clamps.
+ * The final stop anchors rightward so its card and IV icon stay inside chrome.
+ */
 /* viewBox 0 0 1000 500 — y/500 ≈ STOP_LAYOUT.y% (cards + icons clear stage edges) */
 const SPINE_PATH =
   'M 80 295 C 170 280, 205 260, 270 250 C 350 235, 392 220, 460 210 C 555 195, 595 175, 670 160 C 770 142, 812 125, 900 115';
@@ -23,7 +28,7 @@ const STOP_LAYOUT = [
   { x: 26.5, y: 50, width: 'clamp(9rem, 12.5vw, 13.5rem)', iconScale: 0.5, translateX: 0 },
   { x: 44.5, y: 42, width: 'clamp(9rem, 13vw, 14rem)', iconScale: 0.5, translateX: 0 },
   { x: 62, y: 32, width: 'clamp(9.5rem, 13.5vw, 14.5rem)', iconScale: 0.48, translateX: 0 },
-  { x: 98.5, y: 23, width: 'clamp(9.5rem, 14vw, 15rem)', iconScale: 0.42, translateX: '-100%' },
+  { x: 96, y: 23, width: 'clamp(9.5rem, 14vw, 15rem)', iconScale: 0.42, translateX: '-100%' },
 ];
 
 const STOPS = [
@@ -100,9 +105,9 @@ export default function CareerArc() {
         How do we turn incomplete evidence into a defensible clinical pharmacology decision?
       </Subhead>
 
-      <Viz>
-        <div ref={ref} className="xc-career">
-          <div className="xc-career__stage">
+      <Viz className="xc-min0">
+        <div ref={ref} className="xc-career xc-min0">
+          <div className="xc-career__stage xc-min0">
             <svg
               className="xc-career__spine"
               viewBox="0 0 1000 500"
@@ -131,7 +136,7 @@ export default function CareerArc() {
               />
             </svg>
 
-            <div className="xc-career__stops">
+            <div className="xc-career__stops xc-min0">
               {STOPS.map((stop, i) => {
                 const layout = STOP_LAYOUT[i];
 

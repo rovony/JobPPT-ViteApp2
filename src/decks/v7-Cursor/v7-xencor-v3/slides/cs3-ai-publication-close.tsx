@@ -48,9 +48,9 @@ export default function Cs3AiPublicationClose() {
     >
       <div
         ref={ref}
-        className="grid grid-cols-12 gap-4 h-full px-2 pt-2 pb-2 min-h-0"
+        className="grid grid-cols-12 gap-4 h-full px-2 pt-2 xc-min0 xc-chrome-clear"
       >
-        <div className="col-span-7 flex flex-col gap-5 min-h-0 pr-2">
+        <div className="col-span-7 flex flex-col gap-5 pr-2 xc-min0">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
@@ -86,7 +86,7 @@ export default function Cs3AiPublicationClose() {
             ))}
           </div>
 
-          <div className="overflow-hidden pb-2 -mb-2 mt-2">
+          <div className="xc-min0 xc-clip-none pb-2 mt-2">
             <motion.h2
               className="xc-h2 xc-ink"
               style={{
@@ -115,7 +115,7 @@ export default function Cs3AiPublicationClose() {
           </motion.div>
         </div>
 
-        <div className="col-span-5 flex flex-col gap-3 min-h-0 relative">
+        <div className="col-span-5 flex flex-col gap-3 xc-min0">
           <span className="xc-tagline-mono xc-ink-faint">
             LIVE · pharazi.ai
           </span>
@@ -132,10 +132,8 @@ export default function Cs3AiPublicationClose() {
             initial={{ opacity: 0, y: 16, scale: 0.92 }}
             animate={go ? { opacity: 1, y: 0, scale: 1 } : { opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: 1.8, ...SPRING }}
-            className="absolute"
+            className="self-end shrink-0"
             style={{
-              right: -8,
-              bottom: -8,
               padding: 12,
               background: 'var(--bg)',
               border: '1px solid var(--xc-case-accent)',
@@ -172,7 +170,7 @@ function StatusLine({ label, accent, tone, delay, go }) {
     sage: 'var(--xc-case-accent)',
   };
   return (
-    <div className="overflow-hidden pb-2 -mb-2">
+    <div className="xc-min0 xc-clip-none pb-2">
       <motion.p
         className="xc-subtitle xc-ink-muted"
         style={{

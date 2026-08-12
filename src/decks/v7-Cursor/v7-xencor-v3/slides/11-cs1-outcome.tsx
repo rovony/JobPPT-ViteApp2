@@ -54,9 +54,10 @@ const DISRUPTIONS = [
   },
 ];
 
-function DisruptionCard({ d, delay, reduced, step }) {
+function DisruptionCard({ d, delay, reduced }) {
   return (
     <motion.div
+      className="xc-card-floor"
       initial={reduced ? false : { opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={reduced ? {} : { y: -4, boxShadow: '0 12px 32px color-mix(in srgb, var(--coral) 12%, transparent)' }}
@@ -64,7 +65,6 @@ function DisruptionCard({ d, delay, reduced, step }) {
       style={{
         position: 'relative',
         minWidth: 0,
-        marginTop: step,
         border: '1px solid color-mix(in srgb, var(--coral) 30%, transparent)',
         borderLeft: '4px solid var(--case)',
         borderRadius: 'var(--radius-lg)',
@@ -75,7 +75,6 @@ function DisruptionCard({ d, delay, reduced, step }) {
         display: 'grid',
         gridTemplateRows: 'auto auto auto minmax(0, 1fr) auto',
         gap: 'clamp(var(--space-2), 1.1vw, var(--space-3))',
-        minHeight: 'clamp(13.5rem, 28vh, 17.5rem)',
         boxShadow: 'inset 0 1px 0 color-mix(in srgb, var(--cream) 8%, transparent)',
       }}
     >
@@ -150,7 +149,6 @@ function DisruptionCard({ d, delay, reduced, step }) {
 
 export default function Cs1Outcome() {
   const reduced = useReducedMotion();
-  const steps = ['0rem', 'clamp(2rem, 6vh, 4rem)', 'clamp(4rem, 12vh, 7rem)'];
   return (
     <SlideGrid dataCase="1" areas={STANDARD_AREAS}>
       {/* V2-S7 lung-anchor treatment · stress · background presence
@@ -195,19 +193,19 @@ export default function Cs1Outcome() {
         away from a conventional pediatric efficacy trial.
       </Subhead>
 
-      <Viz>
-        <div style={{
+      <Viz className="xc-min0">
+        <div className="xc-min0 xc-chrome-clear" style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(min(18rem, 100%), 1fr))',
           gap: 'clamp(var(--space-4), 2.4vw, var(--space-6))',
           paddingTop: 'clamp(var(--space-2), 1.2vh, var(--space-3))',
-          paddingBottom: 'clamp(var(--space-6), 10vh, var(--space-12, 6rem))',
-          alignItems: 'start',
+          minHeight: 0,
+          alignItems: 'stretch',
           position: 'relative',
           zIndex: 1,
         }}>
           {DISRUPTIONS.map((d, i) => (
-            <DisruptionCard key={d.n} d={d} delay={0.85 + i * 0.18} reduced={reduced} step={steps[i]} />
+            <DisruptionCard key={d.n} d={d} delay={0.85 + i * 0.18} reduced={reduced} />
           ))}
         </div>
       </Viz>

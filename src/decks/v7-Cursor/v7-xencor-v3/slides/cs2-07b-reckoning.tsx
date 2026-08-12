@@ -143,13 +143,16 @@ export default function CS2Reckoning() {
           {/* SHIPPED column (cyan wash) */}
           <motion.div
             style={{
-              flex: '1 1 18rem', minWidth: 0,
+              flex: '1 1 18rem',
+              minWidth: 0,
+              minHeight: 0,
               border: '1px solid color-mix(in srgb, var(--xc-case-accent) 18%, transparent)',
               background: 'color-mix(in srgb, var(--xc-case-accent) 8%, transparent)',
               borderRadius: 'var(--radius-lg)',
               padding: 'var(--space-3) var(--space-4)',
-              display: 'flex', flexDirection: 'column',
-              overflow: 'hidden',
+              overflow: 'visible',
+              display: 'flex',
+              flexDirection: 'column',
             }}
             initial={{ opacity: 0 }}
             animate={go ? { opacity: 1 } : { opacity: 1 }}
@@ -227,13 +230,16 @@ export default function CS2Reckoning() {
           {/* DID NOT SHIP column (muted) */}
           <motion.div
             style={{
-              flex: '1 1 18rem', minWidth: 0,
+              flex: '1 1 18rem',
+              minWidth: 0,
+              minHeight: 0,
               border: '1px solid var(--cream-hairline)',
               background: 'color-mix(in srgb, var(--panel) 55%, transparent)',
               borderRadius: 'var(--radius-lg)',
               padding: 'var(--space-3) var(--space-4)',
-              display: 'flex', flexDirection: 'column',
-              overflow: 'hidden',
+              overflow: 'visible',
+              display: 'flex',
+              flexDirection: 'column',
             }}
             initial={{ opacity: 0 }}
             animate={go ? { opacity: 1 } : { opacity: 1 }}

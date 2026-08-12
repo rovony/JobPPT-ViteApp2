@@ -79,9 +79,25 @@ A: It is an operating sequence for decisions under incomplete evidence, not a me
 **From:** skeptical panelist
 **Difficulty:** ★★ · **Topic:** slide job
 
-A: This slide owns the decision sequence. The next slide names the four cases and their constraints. Mixing both here would collapse two jobs into one dense card.
+A: This slide owns the decision sequence. The operating-lens slide expands how that order runs (threshold, falsify, standard). The what-you-will-see slide names the four cases. Mixing those jobs here would collapse three beats into one dense card.
 
-> **Anchor:** throughline first; cases second.`,
+> **Anchor:** throughline first; method next; cases third.`,
+
+  'operating-lens': `## Q1: How is this different from Define → Challenge → Test → Act on the prior slide?
+**From:** framing panelist
+**Difficulty:** ★★ · **Topic:** operating model
+
+A: The four verbs are the verbal lock. This slide is the operational detail: cost of being wrong sets the evidence threshold before any result is seen; the least complex model that can clear it; deliberate falsification; alignment on the action; and leaving a standard so the next decision costs less. The principles are what I will keep returning to across the cases — complexity is a cost, threshold first, bound the uncertainty that moves the decision.
+
+> **Anchor:** same discipline; this is how it runs under risk.
+
+## Q2: Why seven steps instead of four?
+**From:** time-conscious panelist
+**Difficulty:** ★ · **Topic:** pacing
+
+A: Four is memorable. Seven is inspectable. Peer panels care whether the threshold was pre-committed and whether a standard survived the project. I will not linger on every box — the walk is decision → risk → threshold → falsify → standard.
+
+> **Move-forward:** cases will show the same loop under different constraints.`,
 
   'cs1-lesson': `## Q1: FDA never received the package — is that a failure?
 **From:** regulatory panelist

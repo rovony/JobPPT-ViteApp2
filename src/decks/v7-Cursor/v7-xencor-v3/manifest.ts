@@ -3,6 +3,7 @@ import { createElement } from 'react';
 import './styles/xencor-deck.css';
 import TitleSlide from './slides/01-title';
 import HookATrialNotAnswer from './slides/02-hook-A-trial-not-answer';
+import OperatingLens from './slides/02b-operating-lens';
 import WhatYouWillSee from './slides/03-what-you-will-see';
 import CareerArc from './slides/03-career-arc';
 import Roadmap from './slides/04-roadmap';
@@ -164,14 +165,18 @@ const manifest = {
   },
   export: {
     defaultSettleMs: 1300,
-    slideSettleMs: {},
+    slideSettleMs: {
+      'operating-lens': 1400,
+    },
   },
   slides: [
     // Intro
+    // Intro · opening budget ~5–5.5 min (classic plan 4:30; recover later if needed)
     { id: 'title', title: 'Quantitative decisions when the clean experiment is unavailable', component: TitleSlide, isTitle: true, time: 45 },
     { id: 'hook-A-trial-not-answer', title: 'Hook · sequence of decisions', component: HookATrialNotAnswer, isTitle: true, transition: 'fade', time: 75 },
+    { id: 'operating-lens', title: 'Operating lens · method follows decision and risk', component: OperatingLens, isTitle: true, transition: 'fade', time: 90 },
     { id: 'what-you-will-see', title: 'What you will see · four cases', component: WhatYouWillSee, isTitle: true, time: 90 },
-    { id: 'career-arc', title: 'Career arc', component: CareerArc, isTitle: false, time: 90 },
+    { id: 'career-arc', title: 'Career arc', component: CareerArc, isTitle: false, time: 75 },
     // roadmap (04) — hidden from talk path; kept in Backups below
 
     // CS 1

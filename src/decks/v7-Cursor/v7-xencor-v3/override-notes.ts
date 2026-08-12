@@ -46,6 +46,21 @@ The method changed every time. The order did not.
 - 🧷 Verbal-lock: Define · Challenge · Test · Act
 - ⚠ Do NOT name drugs here — drugs come next
 - ✅ Land on "the order did not"`,
+    `→ Operating lens — how that order actually runs.`
+  ),
+
+  'operating-lens': note(
+    `That four-step order is the verbal lock. Here is how it runs when the stakes are real.
+
+**==The method follows the decision and the risk — never the reverse.==**
+
+Start with the decision and the cost of being wrong. That cost sets the evidence threshold — written down before anyone sees an answer. Then choose the least complex model that can clear that threshold. Try to break it. Align the team on the action, not on the model. And leave a standard so the next decision costs less.
+
+Three principles I will keep returning to: complexity is a cost, not a credential; the threshold goes first; uncertainty is not the enemy — bound the uncertainty that moves the decision.`,
+    `- ⏱ ~90 sec — walk the flow left→right / top→bottom; do not recite every box
+- 🧷 Differentiator vs hook: threshold-before-result · falsify · leave a standard · feedback loop
+- ⚠ Do NOT say Senior Director; do not invent numbers
+- ✅ Land on "the standard changes what the next decision costs"`,
     `→ What you will see — four cases, four constraints.`
   ),
 
@@ -70,7 +85,7 @@ I trained as a dentist in Jordan, then completed a PhD at Minnesota with Dr. Bru
 At GSK I led pediatric ambrisentan, which is the first case you will see. At Servier I worked on oncology, India reliance, and the portfolio breadth that follows the four cases.
 
 The operating question across all of it is simple: **==how do we turn incomplete evidence into a defensible clinical pharmacology decision?==**`,
-    `- ⏱ 75-90 sec — one sentence per stop on the timeline
+    `- ⏱ ~75 sec — one sentence per stop on the timeline
 - 🎚 Do not linger on awards unless asked; innovation tools are backup/Q&A
 - ✅ Land on the operating question`,
     `→ Case 01 divider — ambrisentan.`

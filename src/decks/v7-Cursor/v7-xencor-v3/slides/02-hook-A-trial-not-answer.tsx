@@ -9,9 +9,7 @@ import DecisionStepFlow from '../components/DecisionStepFlow';
  * 02-hook-A — Throughline: decisions, not models. (~75 sec)
  *
  * Chrome: OPEN · 02 + Xencor wordmark (TitleLayout).
- * Body: thesis + subtitle + 4-step DecisionStepFlow
- * (Define → Challenge → Test → Act).
- *
+ * Body: flow column (not absolute %) — thesis + DecisionStepFlow.
  * Theme: --cream / --panel / case accents (light + dark via deck-root).
  */
 
@@ -29,12 +27,7 @@ export default function HookATrialNotAnswer({ deck }) {
 
   return (
     <TitleLayout deck={deck}>
-      {/* slide purpose: throughline hook · duration: 75 sec · prev: title · next: what-you-will-see */}
-      <div
-        ref={ref}
-        className="relative h-full w-full"
-        style={{ overflow: 'hidden' }}
-      >
+      <div ref={ref} className="relative h-full w-full xc-min0 xc-clip-none">
         <div
           className="absolute z-[2] pointer-events-none"
           style={{
@@ -52,47 +45,30 @@ export default function HookATrialNotAnswer({ deck }) {
           />
         </div>
 
-        {/* Chapter mark */}
-        <motion.div
-          style={{ position: 'absolute', top: 0, left: 0 }}
-          {...fade(0.1)}
-        >
-          <div
-            className="xc-tag"
-            style={{
-              color: 'var(--cream-muted)',
-              fontVariantNumeric: 'tabular-nums',
-              letterSpacing: '0.08em',
-            }}
-          >
-            OPEN · 02
-          </div>
-          <div
-            aria-hidden
-            style={{
-              width: 64,
-              height: 'var(--stroke-hair)',
-              background: 'var(--cream-faint)',
-              marginTop: 'var(--space-2)',
-            }}
-          />
-        </motion.div>
+        <div className="xc-hook-body">
+          <motion.div className="shrink-0" {...fade(0.1)}>
+            <div
+              className="xc-tag"
+              style={{
+                color: 'var(--cream-muted)',
+                fontVariantNumeric: 'tabular-nums',
+                letterSpacing: '0.08em',
+              }}
+            >
+              OPEN · 02
+            </div>
+            <div
+              aria-hidden
+              style={{
+                width: 64,
+                height: 'var(--stroke-hair)',
+                background: 'var(--cream-faint)',
+                marginTop: 'var(--space-2)',
+              }}
+            />
+          </motion.div>
 
-        {/* Thesis band — lifted so the 4-step flow sits cleanly below */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 'clamp(18%, 22%, 26%)',
-            left: 'clamp(var(--space-4), 10%, 10%)',
-            right: 'clamp(var(--space-4), 8%, 10%)',
-            bottom: 'clamp(var(--space-6), 6%, 8%)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'flex-start',
-            gap: 'clamp(var(--space-5), 3.5vh, var(--space-8))',
-          }}
-        >
-          <div>
+          <div className="xc-min0" style={{ flex: '0 1 auto' }}>
             <motion.h1
               className="xc-hook"
               style={{ maxWidth: '22ch' }}
@@ -119,19 +95,13 @@ export default function HookATrialNotAnswer({ deck }) {
             </motion.p>
           </div>
 
-          <motion.div {...fade(0.85)} style={{ width: '100%' }}>
-            <DecisionStepFlow go={go} />
+          <motion.div
+            className="xc-stack-fill__grow xc-min0"
+            style={{ display: 'flex', alignItems: 'stretch', width: '100%' }}
+            {...fade(0.85)}
+          >
+            <DecisionStepFlow go={go} style={{ width: '100%', alignSelf: 'stretch' }} />
           </motion.div>
-
-          {/* Placeholder for unfinished “and below …” content from user */}
-          <div
-            aria-hidden
-            data-placeholder="below-flow"
-            style={{
-              minHeight: 0,
-              flex: '0 0 auto',
-            }}
-          />
         </div>
       </div>
     </TitleLayout>

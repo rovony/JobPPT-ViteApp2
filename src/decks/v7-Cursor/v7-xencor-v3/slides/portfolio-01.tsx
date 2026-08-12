@@ -51,27 +51,28 @@ export default function Portfolio01() {
       footerSource="Xencor Deck Content Pack · master CV · public publication/regulatory record"
     >
       <div
+        className="xc-min0 xc-clip-none"
         style={{
           width: '100%',
           height: '100%',
-          minHeight: 0,
           display: 'grid',
-          gridTemplateColumns: '0.85fr 1.55fr 1.65fr 1fr',
+          gridTemplateColumns:
+            'minmax(0, 0.85fr) minmax(0, 1.55fr) minmax(0, 1.65fr) minmax(0, 1fr)',
           gap: '1px',
           border: '1px solid color-mix(in srgb, var(--amber) 28%, transparent)',
           background: 'color-mix(in srgb, var(--amber) 28%, transparent)',
-          overflow: 'hidden',
         }}
       >
         {['Area', 'Assets', 'What I did', 'Agencies'].map((heading) => (
           <div
             key={heading}
-            className="xc-eyebrow"
+            className="xc-eyebrow xc-min0"
             style={{
               padding: 'var(--space-3) var(--space-4)',
               background: 'color-mix(in srgb, var(--amber) 16%, var(--panel))',
               color: 'var(--amber)',
               fontWeight: 800,
+              overflowWrap: 'anywhere',
             }}
           >
             {heading}
@@ -96,10 +97,8 @@ function Cell({ children, delay, go, strong = false, mono = false }) {
       initial={{ opacity: 0 }}
       animate={go ? { opacity: 1 } : { opacity: 1 }}
       transition={{ duration: 0.35, delay }}
-      className={mono ? 'xc-eyebrow' : 'xc-subhead'}
+      className={`${mono ? 'xc-eyebrow' : 'xc-subhead'} xc-min0`}
       style={{
-        minWidth: 0,
-        minHeight: 0,
         padding: 'var(--space-3) var(--space-4)',
         background: 'color-mix(in srgb, var(--panel) 92%, transparent)',
         color: strong ? 'var(--amber)' : 'var(--cream-muted)',
@@ -107,6 +106,7 @@ function Cell({ children, delay, go, strong = false, mono = false }) {
         fontWeight: strong ? 800 : 500,
         letterSpacing: mono ? '0.02em' : 0,
         textTransform: mono ? 'none' : undefined,
+        overflowWrap: 'anywhere',
       }}
     >
       {children}
