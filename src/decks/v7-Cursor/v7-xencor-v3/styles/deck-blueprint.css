@@ -1,0 +1,4 @@
+/**
+ * @deprecated Prefer `styles/xencor-deck.css` — thin re-export for older imports.
+ */
+@import './xencor-deck.css';

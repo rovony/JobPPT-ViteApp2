@@ -172,48 +172,30 @@ export default function CareerArc() {
                   </div>
 
                   {/* Info Card */}
-                  <div style={{
-                    marginTop: 'clamp(0.45rem, 1.1vh, 0.85rem)',
-                    background: 'color-mix(in srgb, var(--panel) 60%, transparent)',
-                    backdropFilter: 'blur(12px)',
-                    WebkitBackdropFilter: 'blur(12px)',
-                    border: '1px solid var(--cream-hairline)',
-                    borderTop: `3px solid ${stop.color}`,
-                    borderRadius: 'var(--radius-md)',
-                    padding: 'clamp(0.6rem, 1.2vw, 1.1rem)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 'var(--space-2)',
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
-                  }}>
+                  <div
+                    className="xc-career-card"
+                    style={{ borderTop: `3px solid ${stop.color}` }}
+                  >
                     <div style={{ borderBottom: '1px solid var(--cream-hairline)', paddingBottom: 'var(--space-2)' }}>
-                      <div className="deck-display" style={{ fontSize: 'var(--fs-slide-tagline)', color: stop.color, fontWeight: 700, lineHeight: 1.2 }}>
+                      <div className="xc-career-card__years" style={{ color: stop.color }}>
                         {stop.years}
                       </div>
-                      <div className="deck-body" style={{ fontSize: 'var(--fs-slide-subhead)', color: 'var(--cream)', fontWeight: 600, lineHeight: 1.3, marginTop: 'var(--space-1)' }}>
+                      <div className="xc-career-card__title">
                         {stop.title}
                       </div>
                     </div>
-                    <ul style={{ 
-                      margin: 0, 
-                      padding: 0, 
-                      paddingLeft: '1rem', 
-                      color: 'var(--cream-muted)', 
-                      fontSize: 'var(--fs-slide-subhead)', 
-                      lineHeight: 1.4, 
-                      fontFamily: 'var(--font-body)' 
-                    }}>
+                    <ul className="xc-career-card__list">
                       {stop.items.map((item, j) => {
                         const parts = item.split(': ');
                         if (parts.length > 1) {
                           return (
-                            <li key={j} style={{ marginBottom: 4 }}>
+                            <li key={j}>
                               <span style={{ color: stop.color, fontWeight: 600 }}>{parts[0]}: </span>
                               {parts[1]}
                             </li>
                           );
                         }
-                        return <li key={j} style={{ marginBottom: 4 }}>{item}</li>;
+                        return <li key={j}>{item}</li>;
                       })}
                     </ul>
                   </div>

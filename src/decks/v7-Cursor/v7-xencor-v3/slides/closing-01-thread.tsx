@@ -101,38 +101,23 @@ export default function ClosingThread() {
                   minWidth: 0,
                 }}
               >
-                <div className="deck-mono uppercase" style={{
-                  fontSize: 'var(--fs-slide-eyebrow)',
-                  letterSpacing: 'var(--ls-mono-wide)',
-                  color: l.color,
-                  fontWeight: 700,
-                }}>
+                <div className="xc-eyebrow" style={{ color: l.color }}>
                   {l.cs} · {l.drug}
                 </div>
-                <div className="deck-display" style={{
-                  fontSize: 'var(--fs-slide-tagline)',
-                  color: 'var(--cream)',
-                  fontWeight: 700,
-                  fontStyle: 'italic',
-                }}>
+                <div className="xc-tagline xc-ink italic" style={{ fontWeight: 700 }}>
                   {l.obstacle}
                 </div>
-                <div className="deck-body" style={{
-                  fontSize: 'var(--fs-slide-subhead)',
-                  color: 'var(--cream)',
-                  opacity: 0.9,
-                  lineHeight: 1.45,
-                }}>
+                <div className="xc-subhead xc-ink" style={{ opacity: 0.9 }}>
                   {l.move}
                 </div>
-                <div className="deck-mono" style={{
-                  fontSize: 'var(--fs-slide-pageno)',
-                  letterSpacing: 'var(--ls-mono-wide)',
+                <div className="xc-pageno" style={{
                   color: l.color,
                   opacity: 0.86,
                   marginTop: 'auto',
                   paddingTop: 'var(--space-2)',
                   borderTop: '1px solid var(--cream-hairline)',
+                  letterSpacing: 'var(--ls-mono-wide)',
+                  textTransform: 'uppercase',
                 }}>
                   {l.verdict}
                 </div>
@@ -155,9 +140,7 @@ export default function ClosingThread() {
               textAlign: 'center',
             }}
           >
-            <div className="deck-body" style={{
-              fontSize: 'var(--fs-slide-tagline)',
-              color: 'var(--cream)',
+            <div className="xc-tagline xc-ink" style={{
               opacity: 0.9,
               lineHeight: 1.5,
               fontWeight: 500,

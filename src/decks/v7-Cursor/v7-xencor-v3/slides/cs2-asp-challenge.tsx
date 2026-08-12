@@ -82,12 +82,7 @@ export default function Cs2AspChallenge() {
           />
 
           <motion.div
-            className="deck-mono uppercase"
-            style={{
-              fontSize: 'var(--fs-card-label)',
-              letterSpacing: 'var(--ls-mono-wide)',
-              color: 'var(--cream-muted)',
-            }}
+            className="xc-card-label xc-ink-muted"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, ease, delay: D.anchorsLabel + 0.25 }}
@@ -119,11 +114,9 @@ export default function Cs2AspChallenge() {
             transition={{ duration: 0.6, ease, delay: D.question }}
           >
             <div
-              className="deck-display italic"
+              className="xc-tagline xc-ink italic"
               style={{
-                fontSize: 'var(--fs-slide-tagline)',
                 lineHeight: 1.25,
-                color: 'var(--cream)',
                 fontWeight: 500,
                 marginBottom: 10,
               }}
@@ -135,12 +128,8 @@ export default function Cs2AspChallenge() {
               still be defensible to FDA?
             </div>
             <motion.div
-              className="deck-body"
-              style={{
-                fontSize: 'var(--fs-slide-subhead)',
-                color: 'var(--cream-muted)',
-                lineHeight: 1.5,
-              }}
+              className="xc-subhead xc-ink-muted"
+              style={{ lineHeight: 1.5 }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, ease, delay: D.body }}
@@ -153,13 +142,8 @@ export default function Cs2AspChallenge() {
           </motion.div>
 
           <motion.p
-            className="deck-mono"
-            style={{
-              fontSize: 'var(--fs-slide-eyebrow)',
-              letterSpacing: 'var(--ls-mono-wide)',
-              color: 'var(--cream-muted)',
-              margin: 0,
-            }}
+            className="xc-eyebrow xc-ink-muted"
+            style={{ margin: 0 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, ease, delay: D.meta }}
@@ -205,31 +189,18 @@ function AnchorTile({ yr, label, sub, delay, numeralLayoutId }) {
       />
       <motion.div
         layoutId={numeralLayoutId}
-        className="deck-display"
-        style={{
-          fontSize: 'var(--fs-card-numeral)',
-          fontWeight: 700, color: 'var(--cream)',
-          letterSpacing: 'var(--ls-headline)',
-          lineHeight: 1, marginBottom: 8,
-        }}
+        className="xc-numeral xc-ink"
+        style={{ marginBottom: 8 }}
       >
         {yr}
       </motion.div>
       <div
-        className="deck-mono uppercase"
-        style={{
-          fontSize: 'var(--fs-slide-tagline)', letterSpacing: '0.22em',
-          color: 'var(--teal)', fontWeight: 700, marginBottom: 4,
-        }}
+        className="xc-tagline-mono"
+        style={{ color: 'var(--teal)', marginBottom: 4 }}
       >
         {label}
       </div>
-      <div
-        style={{
-          fontFamily: 'var(--font-body)', fontSize: 'var(--fs-card-body)',
-          lineHeight: 1.4, color: 'var(--cream-muted)',
-        }}
-      >
+      <div className="bp-card-body xc-ink-muted">
         {sub}
       </div>
     </motion.div>

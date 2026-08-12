@@ -73,12 +73,8 @@ export default function Cs3AiPublicationClose() {
               }}
             />
             <span
-              className="deck-mono uppercase"
-              style={{
-                fontSize: 'var(--fs-slide-tagline)',
-                letterSpacing: 'var(--ls-mono-wide)',
-                color: 'var(--case)',
-              }}
+              className="xc-tagline-mono"
+              style={{ color: 'var(--case)' }}
             >
               MANUSCRIPT · CPT:PSP · IN PREP
             </span>
@@ -92,13 +88,9 @@ export default function Cs3AiPublicationClose() {
 
           <div className="overflow-hidden pb-2 -mb-2 mt-2">
             <motion.h2
-              className="deck-display"
+              className="xc-h2 xc-ink"
               style={{
-                margin: 0,
                 fontSize: 'clamp(2rem, 3.6vw, 3.8rem)',
-                lineHeight: 1.08,
-                letterSpacing: '-0.02em',
-                color: 'var(--cream)',
                 fontWeight: 600,
                 maxWidth: '24ch',
               }}
@@ -125,14 +117,7 @@ export default function Cs3AiPublicationClose() {
         </div>
 
         <div className="col-span-5 flex flex-col gap-3 min-h-0 relative">
-          <span
-            className="deck-mono uppercase"
-            style={{
-              fontSize: 'var(--fs-slide-tagline)',
-              letterSpacing: 'var(--ls-mono-wide)',
-              color: 'var(--cream-faint)',
-            }}
-          >
+          <span className="xc-tagline-mono xc-ink-faint">
             LIVE · pharazi.ai
           </span>
           <motion.div
@@ -169,12 +154,8 @@ export default function Cs3AiPublicationClose() {
               includeMargin={false}
             />
             <div
-              className="deck-mono uppercase mt-2 text-center"
-              style={{
-                fontSize: 'var(--fs-slide-tagline)',
-                letterSpacing: 'var(--ls-mono-wide)',
-                color: 'var(--case)',
-              }}
+              className="xc-tagline-mono mt-2 text-center"
+              style={{ color: 'var(--case)' }}
             >
               SCAN · pharazi.ai
             </div>
@@ -188,18 +169,17 @@ export default function Cs3AiPublicationClose() {
 function StatusLine({ label, accent, tone, delay, go }) {
   const palette = {
     case: 'var(--case)',
-    cyan: '#67e8f9',
-    sage: '#86efac',
+    cyan: 'var(--cyan)',
+    sage: 'var(--sage)',
   };
   return (
     <div className="overflow-hidden pb-2 -mb-2">
       <motion.p
-        className="deck-display"
+        className="xc-sans xc-ink-muted"
         style={{
           margin: 0,
           fontSize: 'clamp(1.5rem, 2.2vw, 2.2rem)',
           lineHeight: 1.15,
-          color: 'var(--cream-muted)',
           fontWeight: 500,
           letterSpacing: '-0.005em',
         }}
@@ -218,10 +198,10 @@ function StatusLine({ label, accent, tone, delay, go }) {
 
 function EcosystemChip({ label, state, tone, delay }) {
   const palette = {
-    amber: '#f5b042',
-    cyan: '#67e8f9',
-    violet: '#c4b5fd',
-    coral: '#fda4af',
+    amber: 'var(--amber)',
+    cyan: 'var(--cyan)',
+    violet: 'var(--violet, var(--case))',
+    coral: 'var(--coral)',
   };
   const c = palette[tone] ?? palette.amber;
   return (
@@ -246,24 +226,14 @@ function EcosystemChip({ label, state, tone, delay }) {
         }}
       />
       <span
-        className="deck-mono"
-        style={{
-          fontSize: 'var(--fs-slide-tagline)',
-          color: 'var(--cream)',
-          letterSpacing: '0.04em',
-          fontWeight: 500,
-        }}
+        className="xc-tagline xc-mono xc-ink"
+        style={{ letterSpacing: '0.04em', fontWeight: 500 }}
       >
         {label}
       </span>
       <span
-        className="deck-mono uppercase"
-        style={{
-          fontSize: 'var(--fs-slide-tagline)',
-          letterSpacing: 'var(--ls-mono-wide)',
-          color: c,
-          fontWeight: 700,
-        }}
+        className="xc-tagline-mono"
+        style={{ color: c }}
       >
         · {state}
       </span>

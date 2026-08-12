@@ -66,13 +66,11 @@ export default function Portfolio01() {
         {['Area', 'Assets', 'What I did', 'Agencies'].map((heading) => (
           <div
             key={heading}
-            className="deck-mono uppercase"
+            className="xc-eyebrow"
             style={{
               padding: 'var(--space-3) var(--space-4)',
               background: 'color-mix(in srgb, var(--amber) 16%, var(--panel))',
               color: 'var(--amber)',
-              fontSize: 'var(--fs-slide-eyebrow)',
-              letterSpacing: 'var(--ls-mono-wide)',
               fontWeight: 800,
             }}
           >
@@ -98,17 +96,17 @@ function Cell({ children, delay, go, strong = false, mono = false }) {
       initial={{ opacity: 0 }}
       animate={go ? { opacity: 1 } : { opacity: 1 }}
       transition={{ duration: 0.35, delay }}
-      className={mono ? 'deck-mono' : 'deck-body'}
+      className={mono ? 'xc-eyebrow' : 'xc-subhead'}
       style={{
         minWidth: 0,
         minHeight: 0,
         padding: 'var(--space-3) var(--space-4)',
         background: 'color-mix(in srgb, var(--panel) 92%, transparent)',
         color: strong ? 'var(--amber)' : 'var(--cream-muted)',
-        fontSize: mono ? 'var(--fs-slide-eyebrow)' : 'var(--fs-slide-subhead)',
         lineHeight: 1.35,
         fontWeight: strong ? 800 : 500,
         letterSpacing: mono ? '0.02em' : 0,
+        textTransform: mono ? 'none' : undefined,
       }}
     >
       {children}

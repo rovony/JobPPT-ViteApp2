@@ -80,7 +80,7 @@ function DisruptionCard({ d, delay, reduced, step }) {
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
-        <span className="deck-mono" style={{
+        <span className="deck-mono xc-slide-eyebrow xc-case" style={{
           display: 'inline-grid',
           placeItems: 'center',
           width: 'clamp(2.15rem, 3vw, 2.8rem)',
@@ -88,34 +88,27 @@ function DisruptionCard({ d, delay, reduced, step }) {
           border: '1px solid color-mix(in srgb, var(--case) 42%, transparent)',
           borderRadius: '999px',
           background: 'color-mix(in srgb, var(--case) 10%, transparent)',
-          fontSize: 'var(--fs-slide-eyebrow)',
           letterSpacing: 'var(--ls-mono-wide)',
-          color: 'var(--case)',
           fontWeight: 800,
           fontVariantNumeric: 'tabular-nums',
         }}>
           {d.n}
         </span>
-        <span className="deck-mono uppercase" style={{
-          fontSize: 'var(--fs-slide-eyebrow)',
+        <span className="deck-mono uppercase xc-slide-eyebrow xc-case" style={{
           letterSpacing: 'var(--ls-mono-wide)',
-          color: 'var(--case)',
           fontWeight: 800,
         }}>
           {d.label}
         </span>
       </div>
-      <div className="deck-display" style={{
-        fontSize: 'var(--fs-slide-name)',
-        color: 'var(--cream)',
+      <div className="deck-display xc-name xc-ink" style={{
         fontWeight: 700,
         lineHeight: 1.12,
         letterSpacing: 'var(--ls-display)',
       }}>
         {d.headline}
       </div>
-      <div className="deck-mono" style={{
-        fontSize: 'var(--fs-slide-eyebrow)',
+      <div className="deck-mono xc-slide-eyebrow" style={{
         color: 'color-mix(in srgb, var(--case) 88%, transparent)',
         letterSpacing: '0.08em',
         lineHeight: 1.35,
@@ -124,9 +117,7 @@ function DisruptionCard({ d, delay, reduced, step }) {
       }}>
         {d.timestamps}
       </div>
-      <div className="deck-body" style={{
-        fontSize: 'var(--fs-slide-subhead)',
-        color: 'var(--cream)',
+      <div className="deck-body xc-slide-subhead xc-ink" style={{
         opacity: 0.9,
         lineHeight: 1.38,
         alignSelf: 'start',
@@ -139,18 +130,14 @@ function DisruptionCard({ d, delay, reduced, step }) {
         borderRadius: 'var(--radius-md)',
         padding: 'clamp(var(--space-2), 1vw, var(--space-3))',
       }}>
-        <div className="deck-mono uppercase" style={{
-          fontSize: 'var(--fs-slide-eyebrow)',
+        <div className="deck-mono uppercase xc-slide-eyebrow xc-faint" style={{
           letterSpacing: 'var(--ls-mono-wide)',
-          color: 'var(--cream-faint)',
           fontWeight: 800,
           marginBottom: 'var(--space-1)',
         }}>
           So what
         </div>
-        <div className="deck-body" style={{
-          fontSize: 'var(--fs-slide-subhead)',
-          color: 'var(--cream)',
+        <div className="deck-body xc-slide-subhead xc-ink" style={{
           opacity: 0.98,
           lineHeight: 1.35,
         }}>
@@ -198,7 +185,7 @@ export default function Cs1Outcome() {
 
       <Headline delay={0.25} maxChars={62}>
         AMB112529 survived three disruptions —{' '}
-        <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 600 }}>
+        <span className="xc-em-case" style={{ fontWeight: 600 }}>
           the dose bridge still held.
         </span>
       </Headline>

@@ -1,5 +1,6 @@
 import { createElement } from 'react';
-import './deck-type.css';
+/** Single design-system SoT for this deck — edit styles/xencor-deck.css */
+import './styles/xencor-deck.css';
 import TitleSlide from './slides/01-title';
 import HookATrialNotAnswer from './slides/02-hook-A-trial-not-answer';
 import WhatYouWillSee from './slides/03-what-you-will-see';

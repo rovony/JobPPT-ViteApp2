@@ -114,12 +114,10 @@ export default function Cs2AspBridge() {
                 }}
               >
                 <motion.span
-                  className="deck-mono"
+                  className="xc-eyebrow"
                   style={{
-                    fontSize: 'var(--fs-slide-eyebrow)',
-                    letterSpacing: '0.18em',
-                    color: accent,
                     fontWeight: 500,
+                    color: accent,
                     width: '1.75rem',
                     flexShrink: 0,
                   }}
@@ -145,14 +143,9 @@ export default function Cs2AspBridge() {
                 />
 
                 <span
-                  className="deck-display"
+                  className="xc-h1 xc-ink italic"
                   style={{
-                    fontSize: 'var(--fs-slide-headline)',
-                    fontStyle: 'italic',
                     fontWeight: 400,
-                    lineHeight: 1.15,
-                    letterSpacing: '-0.012em',
-                    color: 'var(--cream)',
                     flex: 1,
                     minWidth: 0,
                   }}
@@ -208,7 +201,7 @@ export default function Cs2AspBridge() {
               background: 'var(--amber)',
             }}
           />
-          <div className="deck-display" style={{ fontSize: 'var(--fs-slide-tagline)', lineHeight: 1.4 }}>
+          <div className="xc-tagline" style={{ lineHeight: 1.4 }}>
             Case three shifts the constraint: not sample size, but{' '}
             <span style={{ color: 'var(--cyan)', fontWeight: 500, fontStyle: 'italic' }}>
               local evidence
@@ -226,12 +219,8 @@ export default function Cs2AspBridge() {
           marginTop: 'var(--space-2)',
         }}>
           <motion.span
-            className="deck-mono uppercase"
-            style={{
-              fontSize: 'var(--fs-slide-pageno)',
-              letterSpacing: '0.14em',
-              color: 'var(--cream-faint)',
-            }}
+            className="xc-pageno xc-ink-faint"
+            style={{ letterSpacing: '0.14em', textTransform: 'uppercase' }}
             initial={{ opacity: 0 }}
             animate={go ? { opacity: 1 } : { opacity: 1 }}
             transition={{ duration: 0.3, delay: D.footer }}

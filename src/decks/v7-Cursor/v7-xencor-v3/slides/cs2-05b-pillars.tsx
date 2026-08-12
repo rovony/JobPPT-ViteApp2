@@ -42,7 +42,7 @@ export default function CS2Pillars() {
 
       <Headline delay={0.25} maxChars={68}>
         Five lines converge — across{' '}
-        <span style={{ color: C.cyan, fontStyle: 'italic', fontWeight: 500 }}>
+        <span className="xc-em xc-cyan">
           PK, PD, intrinsic/extrinsic, regulatory, and mechanism.
         </span>
       </Headline>
@@ -86,9 +86,9 @@ export default function CS2Pillars() {
               <PillarTextCard delay={go ? D.p3 : 0} eyebrow="Pillar 03" name="ER Similarity">
                 <PillarHeroItalic>
                   Flat<br />
-                  <span style={{
-                    fontSize: 'var(--fs-slide-subhead)', fontStyle: 'italic',
-                    color: C.creamMuted, fontWeight: 400,
+                  <span className="xc-slide-subhead xc-muted" style={{
+                    fontStyle: 'italic',
+                    fontWeight: 400,
                   }}>across range</span>
                 </PillarHeroItalic>
                 <PillarBody>Flat E-R · wide TI · 500 mg QD.</PillarBody>
@@ -134,10 +134,9 @@ export default function CS2Pillars() {
               background: C.amber,
               flex: '0 0 auto',
             }} />
-            <div className="deck-display" style={{
-              fontStyle: 'italic', fontSize: 'var(--fs-slide-subhead)', color: C.cream,
-              lineHeight: 1.35, textAlign: 'center',
-            }}>
+            <div className="deck-display xc-slide-subhead" style={{
+              fontStyle: 'italic', color: C.cream,
+              lineHeight: 1.35, textAlign: 'center' }}>
               <span style={{ color: C.amber, fontWeight: 500 }}>No single pillar is sufficient.</span>{' '}
               Five lines converge — MOA through global regulatory record.
             </div>

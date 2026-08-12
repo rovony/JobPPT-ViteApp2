@@ -71,8 +71,7 @@ function PinCard({ pin, delay, reduced }) {
         gap: 'var(--space-2)',
       }}
     >
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-eyebrow)',
+      <div className="deck-mono uppercase xc-slide-eyebrow" style={{
         letterSpacing: 'var(--ls-mono-wide)',
         color: pin.accent,
         fontWeight: 700,
@@ -81,17 +80,14 @@ function PinCard({ pin, delay, reduced }) {
         Pin {pin.n}
       </div>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
-        <div className="deck-display" style={{
-          fontSize: 'var(--fs-card-numeral)',
-          color: 'var(--cream)',
+        <div className="deck-display xc-numeral" style={{
           fontWeight: 700,
           lineHeight: 1.0,
           letterSpacing: '-0.015em',
         }}>
           {pin.agency}
         </div>
-        <div className="deck-mono" style={{
-          fontSize: 'var(--fs-slide-subhead)',
+        <div className="deck-mono xc-slide-subhead" style={{
           color: pin.accent,
           fontWeight: 600,
           fontVariantNumeric: 'tabular-nums',
@@ -99,9 +95,7 @@ function PinCard({ pin, delay, reduced }) {
           {pin.date}
         </div>
       </div>
-      <div className="deck-body" style={{
-        fontSize: 'var(--fs-slide-subhead)',
-        color: 'var(--cream)',
+      <div className="deck-body xc-slide-subhead xc-ink" style={{
         opacity: 0.86,
         lineHeight: 1.45,
       }}>
@@ -150,7 +144,7 @@ export default function Cs1Lesson() {
 
       <Headline delay={0.25} maxChars={62}>
         EMA and PMDA approved pediatric ambrisentan in 2021.{' '}
-        <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 600 }}>
+        <span className="xc-em-case">
           ICH E11A codified the framework in 2024.
         </span>
       </Headline>
@@ -184,10 +178,8 @@ export default function Cs1Lesson() {
             initial={reduced ? false : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : 1.50, ease: EASE }}
-            className="deck-body"
+            className="deck-body xc-tagline xc-ink"
             style={{
-              fontSize: 'var(--fs-slide-tagline)',
-              color: 'var(--cream)',
               opacity: 0.92,
               lineHeight: 1.55,
               maxWidth: '70ch',
@@ -195,9 +187,9 @@ export default function Cs1Lesson() {
             }}
           >
             Same architecture is the working template for current pediatric PAH programs &mdash;{' '}
-            <span style={{ fontWeight: 600, color: 'var(--case)' }}>adult efficacy as anchor</span>,{' '}
-            <span style={{ fontWeight: 600, color: 'var(--case)' }}>pediatric PK as bridge</span>,{' '}
-            <span style={{ fontWeight: 600, color: 'var(--case)' }}>totality of evidence</span> for submission. The methodological insight travels.
+            <span className="xc-strong-case">adult efficacy as anchor</span>,{' '}
+            <span className="xc-strong-case">pediatric PK as bridge</span>,{' '}
+            <span className="xc-strong-case">totality of evidence</span> for submission. The methodological insight travels.
           </motion.div>
 
           {/* FDA honesty caveat — A2.5 v2-final amendment, on-slide proactive disclosure */}
@@ -215,17 +207,13 @@ export default function Cs1Lesson() {
               gap: 'var(--space-1)',
             }}
           >
-            <div className="deck-mono uppercase" style={{
-              fontSize: 'var(--fs-slide-tagline)',
+            <div className="deck-mono uppercase xc-tagline xc-muted" style={{
               letterSpacing: 'var(--ls-mono-wide)',
-              color: 'var(--cream-muted)',
               fontWeight: 700,
             }}>
               Note on FDA · proactive disclosure
             </div>
-            <div className="deck-body" style={{
-              fontSize: 'var(--fs-slide-subhead)',
-              color: 'var(--cream)',
+            <div className="deck-body xc-slide-subhead xc-ink" style={{
               opacity: 0.82,
               lineHeight: 1.5,
             }}>

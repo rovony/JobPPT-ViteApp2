@@ -34,23 +34,15 @@ export default function Cs1Question() {
       <GridSlot
         area="headline"
         as="h1"
-        className="deck-display self-center"
-        style={{
-          fontSize: 'clamp(1.85rem, min(3.4vw, 5.2vh), 2.85rem)',
-          lineHeight: 1.2,
-          letterSpacing: '-0.015em',
-          color: 'var(--cream)',
-          fontWeight: 600,
-          maxWidth: '28ch',
-          margin: 0,
-        }}
+        className="deck-display xc-hook self-center"
+        style={{ maxWidth: '28ch' }}
       >
         When the pediatric trial is terminated
       </GridSlot>
 
       <Subhead delay={0.15} size="lead" maxChars={70}>
         Can an exposure bridge still support a pediatric label —{' '}
-        <span style={{ color: 'var(--case)', fontStyle: 'normal', fontWeight: 600 }}>
+        <span className="xc-strong-case" style={{ fontStyle: 'normal' }}>
           without repeating efficacy?
         </span>
       </Subhead>
@@ -82,60 +74,33 @@ export default function Cs1Question() {
               value="380"
               unit="adults"
               detail="Six studies · mature PK / safety"
-              accent="var(--case)"
+              accentClass="xc-case"
             />
-            <div
-              className="deck-mono"
-              style={{
-                fontSize: 'clamp(1.1rem, 2vh, 1.4rem)',
-                color: 'var(--cream-faint)',
-                fontWeight: 700,
-                letterSpacing: '0.08em',
-              }}
-            >
-              vs
-            </div>
+            <div className="deck-mono xc-vs">vs</div>
             <Stat
               label="Pediatric data"
               value="39"
               unit="patients"
               detail="Open-label PK · no placebo arm"
-              accent="var(--amber)"
+              accentClass="xc-amber"
             />
           </div>
 
           {/* One context line — not three chips */}
           <div
-            className="deck-body"
+            className="deck-body xc-tagline xc-ink"
             style={{
-              fontSize: 'clamp(1.15rem, min(1.55vw, 2.5vh), 1.35rem)',
-              lineHeight: 1.45,
-              color: 'var(--cream)',
               fontWeight: 500,
               maxWidth: '48ch',
               paddingTop: '0.25rem',
             }}
           >
             Ambrisentan · pediatric PAH (8–17) · Phase IIb{' '}
-            <strong style={{ color: 'var(--case)' }}>terminated</strong> mid-study.
+            <strong className="xc-case">terminated</strong> mid-study.
           </div>
 
-          <aside
-            style={{
-              marginTop: 'auto',
-              padding: 'clamp(1.1rem, 2.2vh, 1.4rem) clamp(1.25rem, 2.4vw, 1.65rem)',
-              borderRadius: 'var(--radius-md)',
-              border: '1px solid var(--cream-hairline)',
-              borderLeft: '4px solid var(--case)',
-              background: 'var(--panel)',
-              fontSize: 'clamp(1.2rem, min(1.65vw, 2.6vh), 1.4rem)',
-              lineHeight: 1.45,
-              color: 'var(--cream)',
-              fontWeight: 500,
-              maxWidth: '52ch',
-            }}
-          >
-            A <strong style={{ color: 'var(--case)' }}>dose-defense</strong> story via PK bridge — not a
+          <aside className="xc-callout" style={{ marginTop: 'auto', maxWidth: '52ch' }}>
+            A <strong className="xc-case">dose-defense</strong> story via PK bridge — not a
             repeat-efficacy trial.
           </aside>
         </div>
@@ -146,58 +111,17 @@ export default function Cs1Question() {
   );
 }
 
-function Stat({ label, value, unit, detail, accent }) {
+function Stat({ label, value, unit, detail, accentClass }) {
   return (
     <div style={{ minWidth: 0 }}>
-      <div
-        className="deck-mono uppercase"
-        style={{
-          fontSize: 'clamp(0.85rem, 1.3vh, 1rem)',
-          letterSpacing: 'var(--ls-mono-wide)',
-          color: accent,
-          fontWeight: 800,
-          marginBottom: 8,
-        }}
-      >
+      <div className={`deck-mono uppercase xc-stat-label ${accentClass}`}>
         {label}
       </div>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.45rem', flexWrap: 'wrap' }}>
-        <span
-          className="deck-display"
-          style={{
-            fontSize: 'clamp(3rem, min(5.5vw, 9vh), 4.5rem)',
-            lineHeight: 0.95,
-            color: 'var(--cream)',
-            fontWeight: 800,
-            letterSpacing: '-0.03em',
-            fontVariantNumeric: 'tabular-nums',
-          }}
-        >
-          {value}
-        </span>
-        <span
-          className="deck-body"
-          style={{
-            fontSize: 'clamp(1.15rem, min(1.6vw, 2.5vh), 1.4rem)',
-            color: 'var(--cream-muted)',
-            fontWeight: 600,
-          }}
-        >
-          {unit}
-        </span>
+        <span className="deck-display xc-hero-num">{value}</span>
+        <span className="deck-body xc-stat-unit">{unit}</span>
       </div>
-      <div
-        className="deck-body"
-        style={{
-          marginTop: 10,
-          fontSize: 'clamp(1.05rem, min(1.4vw, 2.2vh), 1.22rem)',
-          lineHeight: 1.4,
-          color: 'var(--cream-muted)',
-          fontWeight: 500,
-        }}
-      >
-        {detail}
-      </div>
+      <div className="deck-body xc-stat-detail">{detail}</div>
     </div>
   );
 }

@@ -45,22 +45,10 @@ export function PillarTextCard({ delay = 0, eyebrow, name, children }) {
       }}
     >
       {/* Pillar number — high-contrast against the active theme. */}
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-tagline)',
-        letterSpacing: 'var(--ls-mono-wide)',
-        color: 'color-mix(in srgb, var(--cream) 78%, var(--cyan) 22%)',
-        fontWeight: 800,
-      }}>{eyebrow}</div>
+      <div className="deck-mono uppercase xc-pillar-eyebrow">{eyebrow}</div>
 
       {/* Pillar name — the cyan section label, matches StatCard's `label` */}
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-eyebrow)',
-        letterSpacing: 'var(--ls-mono-wide)',
-        color: C.cyan,
-        fontWeight: 700,
-        marginTop: 'var(--space-1)',
-        lineHeight: 1.3,
-      }}>{name}</div>
+      <div className="deck-mono uppercase xc-pillar-name">{name}</div>
 
       {children}
     </motion.div>
@@ -92,42 +80,21 @@ export function PillarVizCard({ delay = 0, children }) {
  * Smaller floor than --fs-card-numeral so 6-across fits at 1280. */
 export function PillarHeroNumber({ children }) {
   return (
-    <div className="deck-display" style={{
-      fontSize: 'var(--fs-slide-headline)',
-      color: C.cream,
-      fontWeight: 700,
-      lineHeight: 0.95,
-      letterSpacing: '-0.03em',
-      marginTop: 'var(--space-3)',
-      fontVariantNumeric: 'tabular-nums',
-    }}>{children}</div>
+    <div className="deck-display xc-pillar-num">{children}</div>
   );
 }
 
 /* Hero italic phrase — Fraunces italic 500 in cyan. */
 export function PillarHeroItalic({ children }) {
   return (
-    <div className="deck-display" style={{
-      fontSize: 'var(--fs-slide-lead)',
-      fontStyle: 'italic', fontWeight: 500,
-      color: C.cyan,
-      lineHeight: 1,
-      letterSpacing: '-0.018em',
-      marginTop: 'var(--space-3)',
-    }}>{children}</div>
+    <div className="deck-display xc-pillar-italic">{children}</div>
   );
 }
 
 /* Sub-hero qualifier — Fraunces italic small, cream-muted. */
 export function PillarSub({ children }) {
   return (
-    <div className="deck-display" style={{
-      fontStyle: 'italic',
-      fontSize: 'var(--fs-slide-subhead)',
-      color: C.creamMuted,
-      marginTop: 'var(--space-1)',
-      lineHeight: 1.3,
-    }}>{children}</div>
+    <div className="deck-display xc-pillar-sub">{children}</div>
   );
 }
 
@@ -147,28 +114,14 @@ export function PillarVizWrap({ children }) {
 /* Body prose — Inter, cream-muted, lineHeight 1.45. */
 export function PillarBody({ children }) {
   return (
-    <div style={{
-      fontFamily: 'var(--font-body)',
-      fontSize: 'var(--fs-slide-subhead)',
-      color: C.creamMuted,
-      lineHeight: 1.45,
-      flex: 1,
-    }}>{children}</div>
+    <div className="xc-pillar-body">{children}</div>
   );
 }
 
 /* Citation — mono, cream-faint, separated by hairline border-top. */
 export function PillarCite({ children }) {
   return (
-    <div className="deck-mono" style={{
-      fontSize: 'var(--fs-slide-tagline)',
-      letterSpacing: '0.04em',
-      color: C.creamFaint,
-      marginTop: 'var(--space-3)',
-      paddingTop: 'var(--space-2)',
-      borderTop: `1px solid ${C.hairline}`,
-      lineHeight: 1.4,
-    }}>{children}</div>
+    <div className="deck-mono xc-pillar-cite">{children}</div>
   );
 }
 

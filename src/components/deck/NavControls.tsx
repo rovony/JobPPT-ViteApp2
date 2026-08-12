@@ -174,8 +174,8 @@ export default function NavControls({
           </div>
         </div>
 
-        {/* Top bar offset — keep controls below the bar */}
-        <div className="fixed bottom-3 right-3 md:bottom-5 md:right-5 z-deck-chrome flex items-center gap-1.5 md:gap-2 flex-wrap justify-end max-w-[calc(100vw-1.5rem)]">
+        {/* Top bar offset — slide# above nav controls */}
+        <div className="fixed bottom-3 right-3 md:bottom-5 md:right-5 z-deck-chrome flex flex-col items-end gap-1.5 max-w-[calc(100vw-1.5rem)]">
           <div
             className="deck-mono text-xs px-3 py-1 rounded-full border whitespace-nowrap"
             style={{
@@ -186,14 +186,16 @@ export default function NavControls({
           >
             {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
           </div>
-          <div className="flex items-center gap-2">
-            <Btn onClick={onToggleFullscreen} label={isFullscreen ? 'Exit fullscreen · F' : 'Fullscreen · F'}>
-              {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
-            </Btn>
-            <Btn onClick={toggleMode} label="Overview · O"><LayoutGrid className="w-4 h-4" /></Btn>
+          <div className="flex items-center gap-1.5 md:gap-2 flex-wrap justify-end">
+            <div className="flex items-center gap-2">
+              <Btn onClick={onToggleFullscreen} label={isFullscreen ? 'Exit fullscreen · F' : 'Fullscreen · F'}>
+                {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
+              </Btn>
+              <Btn onClick={toggleMode} label="Overview · O"><LayoutGrid className="w-4 h-4" /></Btn>
+            </div>
+            <Btn onClick={prev} label="Previous"><ChevronLeft className="w-4 h-4" /></Btn>
+            <Btn onClick={next} label="Next"><ChevronRight className="w-4 h-4" /></Btn>
           </div>
-          <Btn onClick={prev} label="Previous"><ChevronLeft className="w-4 h-4" /></Btn>
-          <Btn onClick={next} label="Next"><ChevronRight className="w-4 h-4" /></Btn>
         </div>
       </>
     );
@@ -209,15 +211,8 @@ export default function NavControls({
         onOpenShare={onOpenShare}
       />
 
-      {/* Bottom-right presentation chrome — modes, page no., overview, fullscreen, nav */}
-      <div className="fixed bottom-3 right-3 md:bottom-5 md:right-5 z-deck-chrome flex items-center gap-1.5 md:gap-2 flex-wrap justify-end max-w-[calc(100vw-1.5rem)]">
-        <ModeSwitcher
-          mode={mode}
-          onNormal={goNormal}
-          onSlideShow={goSlideShow}
-          onPresenter={goPresenter}
-          onDualScreen={goDualScreen}
-        />
+      {/* Bottom-right presentation chrome — slide# above mode/controls row */}
+      <div className="fixed bottom-3 right-3 md:bottom-5 md:right-5 z-deck-chrome flex flex-col items-end gap-1.5 max-w-[calc(100vw-1.5rem)]">
         <div
           className="deck-mono text-xs px-3 py-1 rounded-full border whitespace-nowrap"
           style={{
@@ -228,14 +223,23 @@ export default function NavControls({
         >
           {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
         </div>
-        <div className="hidden md:flex items-center gap-2">
-          <Btn onClick={onToggleFullscreen} label={isFullscreen ? 'Exit fullscreen · F' : 'Fullscreen · F'}>
-            {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
-          </Btn>
-          <Btn onClick={toggleMode} label="Overview · O"><LayoutGrid className="w-4 h-4" /></Btn>
+        <div className="flex items-center gap-1.5 md:gap-2 flex-wrap justify-end">
+          <ModeSwitcher
+            mode={mode}
+            onNormal={goNormal}
+            onSlideShow={goSlideShow}
+            onPresenter={goPresenter}
+            onDualScreen={goDualScreen}
+          />
+          <div className="hidden md:flex items-center gap-2">
+            <Btn onClick={onToggleFullscreen} label={isFullscreen ? 'Exit fullscreen · F' : 'Fullscreen · F'}>
+              {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
+            </Btn>
+            <Btn onClick={toggleMode} label="Overview · O"><LayoutGrid className="w-4 h-4" /></Btn>
+          </div>
+          <Btn onClick={prev} label="Previous"><ChevronLeft className="w-4 h-4" /></Btn>
+          <Btn onClick={next} label="Next"><ChevronRight className="w-4 h-4" /></Btn>
         </div>
-        <Btn onClick={prev} label="Previous"><ChevronLeft className="w-4 h-4" /></Btn>
-        <Btn onClick={next} label="Next"><ChevronRight className="w-4 h-4" /></Btn>
       </div>
     </>
   );

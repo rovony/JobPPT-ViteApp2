@@ -108,12 +108,7 @@ export default function Cs2AspFit() {
               }}
             >
               <motion.div
-                className="deck-mono uppercase"
-                style={{
-                  fontSize: 'var(--fs-card-label)',
-                  letterSpacing: 'var(--ls-mono-wide)',
-                  color: 'var(--cream-muted)',
-                }}
+                className="xc-card-label xc-ink-muted"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, ease, delay: D.leftLabel }}
@@ -144,13 +139,8 @@ export default function Cs2AspFit() {
               }}
             >
               <motion.div
-                className="deck-mono uppercase"
-                style={{
-                  fontSize: 'var(--fs-card-label)',
-                  letterSpacing: 'var(--ls-mono-wide)',
-                  color: 'var(--teal)',
-                  fontWeight: 700,
-                }}
+                className="xc-card-label"
+                style={{ color: 'var(--teal)' }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, ease, delay: D.rightLabel }}
@@ -188,14 +178,8 @@ export default function Cs2AspFit() {
             transition={{ duration: 0.55, ease, delay: D.ribbon }}
           >
             <span
-              className="deck-display italic"
-              style={{
-                fontSize: 'var(--fs-card-title)',
-                color: 'var(--cream)',
-                fontWeight: 500,
-                letterSpacing: 'var(--ls-headline)',
-                textAlign: 'center',
-              }}
+              className="xc-title xc-ink italic"
+              style={{ fontWeight: 500, textAlign: 'center' }}
             >
               The smaller sample size doesn’t weaken the science — it{' '}
               <span style={{ color: 'var(--teal)', fontWeight: 700, fontStyle: 'normal' }}>
@@ -243,6 +227,7 @@ function EvidenceBlock({ n, label, tag, bullets, delay }) {
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <span
+            className="xc-card-label"
             style={{
               width: 28,
               height: 28,
@@ -252,34 +237,21 @@ function EvidenceBlock({ n, label, tag, bullets, delay }) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontFamily: 'var(--font-mono)',
-              fontSize: 'var(--fs-card-label)',
-              fontWeight: 700,
               color: 'var(--teal)',
             }}
           >
             {n}
           </span>
           <span
-            className="deck-mono uppercase"
-            style={{
-              fontSize: 'var(--fs-card-label)',
-              letterSpacing: 'var(--ls-mono-wide)',
-              color: 'var(--teal)',
-              fontWeight: 700,
-            }}
+            className="xc-card-label"
+            style={{ color: 'var(--teal)' }}
           >
             {label}
           </span>
         </div>
         <div
-          className="deck-display italic"
-          style={{
-            fontSize: 'var(--fs-card-title)',
-            color: 'var(--cream)',
-            fontWeight: 500,
-            lineHeight: 1.3,
-          }}
+          className="xc-title xc-ink italic"
+          style={{ fontWeight: 500 }}
         >
           {tag}
         </div>
@@ -297,22 +269,19 @@ function EvidenceBlock({ n, label, tag, bullets, delay }) {
           {bullets.map((b, i) => (
             <li
               key={i}
+              className="xc-tagline xc-ink-muted"
               style={{
                 display: 'grid',
                 gridTemplateColumns: '14px 1fr',
                 columnGap: 8,
                 alignItems: 'baseline',
-                fontFamily: 'var(--font-body)',
-                fontSize: 'var(--fs-slide-tagline)',
-                lineHeight: 1.4,
-                color: 'var(--cream-muted)',
               }}
             >
               <span
                 aria-hidden
+                className="xc-mono"
                 style={{
                   color: 'var(--teal)',
-                  fontFamily: 'var(--font-mono)',
                   fontWeight: 700,
                 }}
               >

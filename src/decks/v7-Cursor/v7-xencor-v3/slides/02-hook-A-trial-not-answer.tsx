@@ -58,12 +58,11 @@ export default function HookATrialNotAnswer({ deck }) {
           {...fade(0.1)}
         >
           <div
-            className="deck-mono uppercase"
+            className="xc-tag"
             style={{
-              fontSize: 'var(--fs-slide-eyebrow)',
-              letterSpacing: '0.08em',
               color: 'var(--cream-muted)',
               fontVariantNumeric: 'tabular-nums',
+              letterSpacing: '0.08em',
             }}
           >
             OPEN · 02
@@ -95,16 +94,8 @@ export default function HookATrialNotAnswer({ deck }) {
         >
           <div>
             <motion.h1
-              className="deck-display"
-              style={{
-                fontSize: 'clamp(1.85rem, min(3.4vw, 5.2vh), 3.05rem)',
-                lineHeight: 1.12,
-                fontWeight: 'var(--fw-display-md)',
-                color: 'var(--cream)',
-                letterSpacing: '-0.015em',
-                margin: 0,
-                maxWidth: '22ch',
-              }}
+              className="xc-hook"
+              style={{ maxWidth: '22ch' }}
               initial={{ opacity: 0 }}
               animate={go ? { opacity: 1 } : { opacity: 1 }}
               transition={{ duration: 0.45, delay: 0.08, ease: [0.22, 0.7, 0.2, 1] }}
@@ -123,12 +114,8 @@ export default function HookATrialNotAnswer({ deck }) {
             </motion.h1>
 
             <motion.p
-              className="deck-body"
+              className="xc-lead"
               style={{
-                fontSize: 'var(--fs-slide-lead)',
-                color: 'color-mix(in srgb, var(--amber) 78%, var(--cream))',
-                lineHeight: 1.4,
-                margin: 0,
                 marginTop: 'var(--space-4)',
                 maxWidth: '40ch',
               }}

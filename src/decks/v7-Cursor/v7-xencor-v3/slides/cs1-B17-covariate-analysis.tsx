@@ -22,20 +22,13 @@ const noteCardStyle = {
   padding: 'var(--space-3) var(--space-4)',
 };
 const noteTitle = {
-  fontFamily: 'var(--font-mono)',
-  fontSize: 'var(--fs-slide-eyebrow)',
   letterSpacing: 'var(--ls-mono-wide)',
-  color: 'var(--case)',
-  textTransform: 'uppercase',
   fontWeight: 700,
   marginBottom: 'var(--space-2)',
 };
 const noteBody = {
-  fontSize: 'var(--fs-slide-subhead)',
-  color: 'var(--cream-muted)',
   lineHeight: 1.55,
 };
-const monoSpan = { fontFamily: 'var(--font-mono)', color: 'var(--case)' };
 
 const COV_ROWS_CL = [
   'Bilirubin', 'ALT', 'AST', 'Alkaline phosphatase', 'GGT',
@@ -45,26 +38,22 @@ const COV_ROWS_CL = [
 const COV_ROWS_VC = ['Bilirubin', 'Alkaline phosphatase', 'Creatinine clearance'];
 const COV_ROWS_TLAG = ['Dose (low / high)'];
 const cellHead = {
-  fontFamily: 'var(--font-mono)', fontSize: 'var(--fs-slide-eyebrow)',
-  letterSpacing: 'var(--ls-mono-wide)', color: 'var(--cream-faint)',
-  textTransform: 'uppercase', padding: 'var(--space-2) var(--space-3)',
+  letterSpacing: 'var(--ls-mono-wide)',
+  padding: 'var(--space-2) var(--space-3)',
   textAlign: 'left', borderBottom: '1px solid var(--cream-hairline)', fontWeight: 700,
 };
 const sectRow = {
-  fontFamily: 'var(--font-mono)', fontSize: 'var(--fs-slide-eyebrow)',
-  letterSpacing: 'var(--ls-mono-wide)', color: 'var(--case)',
-  textTransform: 'uppercase', padding: 'var(--space-2) var(--space-3)',
+  letterSpacing: 'var(--ls-mono-wide)',
+  padding: 'var(--space-2) var(--space-3)',
   borderBottom: '1px solid color-mix(in srgb, var(--case) 28%, transparent)',
   background: 'color-mix(in srgb, var(--case) 6%, transparent)', fontWeight: 700,
 };
 const cellLabel = {
-  fontFamily: 'var(--font-body)', fontSize: 'var(--fs-slide-subhead)',
-  color: 'var(--cream)', padding: 'var(--space-2) var(--space-3)',
+  padding: 'var(--space-2) var(--space-3)',
   borderBottom: '1px solid var(--cream-hairline)',
 };
 const cellOut = {
-  ...cellLabel, color: 'var(--cream-muted)', fontFamily: 'var(--font-mono)',
-  fontSize: 'var(--fs-slide-eyebrow)', textTransform: 'uppercase',
+  ...cellLabel,
   letterSpacing: 'var(--ls-mono-wide)',
 };
 
@@ -376,18 +365,15 @@ function LiveCovariateStrategy({ reduced }) {
             const V = d.Viz;
             return (
               <div key={d.num} style={{ display: 'flex', flexDirection: 'column', minWidth: 0, height: '100%' }}>
-                <motion.div className="deck-mono uppercase" style={{
-                  fontSize: 'var(--fs-slide-eyebrow)', letterSpacing: 'var(--ls-mono-wide)',
-                  color: 'var(--case)', fontWeight: 800, flexShrink: 0,
-                }} initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }}
+                <motion.div className="deck-mono uppercase xc-slide-eyebrow xc-case" style={{
+                  letterSpacing: 'var(--ls-mono-wide)',
+                  fontWeight: 800, flexShrink: 0 }} initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }}
                   transition={{ duration: 0.5, ease: ED, delay }}>
                   Decision {d.num} · {d.label}
                 </motion.div>
-                <motion.div className="deck-display" style={{
-                  fontSize: 'var(--fs-slide-name)', lineHeight: 1.15,
-                  letterSpacing: 'var(--ls-display)', color: 'var(--cream)',
-                  fontWeight: 700, marginTop: 'var(--space-1)', marginBottom: 'var(--space-2)', flexShrink: 0,
-                }} initial={reduced ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                <motion.div className="deck-display xc-name xc-ink" style={{
+                  lineHeight: 1.15,
+                  letterSpacing: 'var(--ls-display)', fontWeight: 700, marginTop: 'var(--space-1)', marginBottom: 'var(--space-2)', flexShrink: 0 }} initial={reduced ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, ease: ED, delay: delay + 0.1 }}>
                   {d.action}
                 </motion.div>
@@ -451,38 +437,38 @@ export default function Cs1BackupB17CovariateAnalysis({ live = false } = {}) {
             animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: EASE, delay: 0.55 }}
           >
-            <div style={noteTitle}>Covariates tested · outcomes</div>
+            <div className="deck-mono uppercase xc-slide-eyebrow xc-case" style={noteTitle}>Covariates tested · outcomes</div>
             <table style={{ borderCollapse: 'collapse', width: '100%' }}>
               <thead>
                 <tr>
-                  <th style={cellHead}>Covariate</th>
-                  <th style={cellHead}>Parameter</th>
-                  <th style={cellHead}>Outcome</th>
+                  <th className="deck-mono uppercase xc-slide-eyebrow xc-faint" style={cellHead}>Covariate</th>
+                  <th className="deck-mono uppercase xc-slide-eyebrow xc-faint" style={cellHead}>Parameter</th>
+                  <th className="deck-mono uppercase xc-slide-eyebrow xc-faint" style={cellHead}>Outcome</th>
                 </tr>
               </thead>
               <tbody>
-                <tr><td colSpan={3} style={sectRow}>Tested on CL/F</td></tr>
+                <tr><td colSpan={3} className="deck-mono uppercase xc-slide-eyebrow xc-case" style={sectRow}>Tested on CL/F</td></tr>
                 {COV_ROWS_CL.map((c) => (
                   <tr key={c}>
-                    <td style={cellLabel}>{c}</td>
-                    <td style={{ ...cellLabel, fontFamily: 'var(--font-mono)' }}>CL/F</td>
-                    <td style={cellOut}>Not significant</td>
+                    <td className="xc-slide-subhead xc-ink" style={cellLabel}>{c}</td>
+                    <td className="deck-mono xc-slide-subhead xc-ink" style={cellLabel}>CL/F</td>
+                    <td className="deck-mono uppercase xc-slide-eyebrow xc-muted" style={cellOut}>Not significant</td>
                   </tr>
                 ))}
-                <tr><td colSpan={3} style={sectRow}>Tested on Vc/F</td></tr>
+                <tr><td colSpan={3} className="deck-mono uppercase xc-slide-eyebrow xc-case" style={sectRow}>Tested on Vc/F</td></tr>
                 {COV_ROWS_VC.map((c) => (
                   <tr key={c}>
-                    <td style={cellLabel}>{c}</td>
-                    <td style={{ ...cellLabel, fontFamily: 'var(--font-mono)' }}>Vc/F</td>
-                    <td style={cellOut}>Not significant</td>
+                    <td className="xc-slide-subhead xc-ink" style={cellLabel}>{c}</td>
+                    <td className="deck-mono xc-slide-subhead xc-ink" style={cellLabel}>Vc/F</td>
+                    <td className="deck-mono uppercase xc-slide-eyebrow xc-muted" style={cellOut}>Not significant</td>
                   </tr>
                 ))}
-                <tr><td colSpan={3} style={sectRow}>Tested on t_lag</td></tr>
+                <tr><td colSpan={3} className="deck-mono uppercase xc-slide-eyebrow xc-case" style={sectRow}>Tested on t_lag</td></tr>
                 {COV_ROWS_TLAG.map((c) => (
                   <tr key={c}>
-                    <td style={cellLabel}>{c}</td>
-                    <td style={{ ...cellLabel, fontFamily: 'var(--font-mono)' }}>t_lag</td>
-                    <td style={cellOut}>Not significant</td>
+                    <td className="xc-slide-subhead xc-ink" style={cellLabel}>{c}</td>
+                    <td className="deck-mono xc-slide-subhead xc-ink" style={cellLabel}>t_lag</td>
+                    <td className="deck-mono uppercase xc-slide-eyebrow xc-muted" style={cellOut}>Not significant</td>
                   </tr>
                 ))}
               </tbody>
@@ -497,17 +483,17 @@ export default function Cs1BackupB17CovariateAnalysis({ live = false } = {}) {
               animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
               transition={{ duration: 0.55, ease: EASE, delay: 0.70 }}
             >
-              <div style={noteTitle}>Method</div>
-              <div style={noteBody}>
-                <strong style={{ color: 'var(--cream)' }}>Full-model approach</strong> with{' '}
-                <strong style={{ color: 'var(--cream)' }}>backward deletion</strong> — all
+              <div className="deck-mono uppercase xc-slide-eyebrow xc-case" style={noteTitle}>Method</div>
+              <div className="xc-slide-subhead xc-muted" style={noteBody}>
+                <strong className="xc-ink">Full-model approach</strong> with{' '}
+                <strong className="xc-ink">backward deletion</strong> — all
                 covariates entered simultaneously, then removed one at a time.<br />
-                Retention threshold: <span style={monoSpan}>ΔOFV {'>'} 10.83</span> (χ², df=1,{' '}
-                <strong style={{ color: 'var(--cream)' }}>p {'<'} 0.001</strong>).<br />
-                <strong style={{ color: 'var(--cream)' }}>Why p {'<'} 0.001?</strong> Stringent
+                Retention threshold: <span className="xc-mono xc-case">ΔOFV {'>'} 10.83</span> (χ², df=1,{' '}
+                <strong className="xc-ink">p {'<'} 0.001</strong>).<br />
+                <strong className="xc-ink">Why p {'<'} 0.001?</strong> Stringent
                 threshold controls{' '}
-                <strong style={{ color: 'var(--cream)' }}>type-I error inflation</strong> and{' '}
-                <strong style={{ color: 'var(--cream)' }}>winner's-curse</strong> effects in a
+                <strong className="xc-ink">type-I error inflation</strong> and{' '}
+                <strong className="xc-ink">winner's-curse</strong> effects in a
                 39-patient dataset.
               </div>
             </motion.div>
@@ -518,14 +504,14 @@ export default function Cs1BackupB17CovariateAnalysis({ live = false } = {}) {
               animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
               transition={{ duration: 0.55, ease: EASE, delay: 0.85 }}
             >
-              <div style={noteTitle}>Why parsimony strengthens the model</div>
-              <div style={noteBody}>
-                In a <strong style={{ color: 'var(--cream)' }}>39-patient</strong> pediatric dataset
-                where <strong style={{ color: 'var(--cream)' }}>body weight dominates</strong>{' '}
+              <div className="deck-mono uppercase xc-slide-eyebrow xc-case" style={noteTitle}>Why parsimony strengthens the model</div>
+              <div className="xc-slide-subhead xc-muted" style={noteBody}>
+                In a <strong className="xc-ink">39-patient</strong> pediatric dataset
+                where <strong className="xc-ink">body weight dominates</strong>{' '}
                 between-subject variability, allometric scaling absorbs variance that would
                 otherwise be attributed to age, organ function, or demographics. Retaining weak
                 covariates would have{' '}
-                <strong style={{ color: 'var(--cream)' }}>added parameter uncertainty without improving exposure inference.</strong>
+                <strong className="xc-ink">added parameter uncertainty without improving exposure inference.</strong>
               </div>
             </motion.div>
 
@@ -535,13 +521,13 @@ export default function Cs1BackupB17CovariateAnalysis({ live = false } = {}) {
               animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
               transition={{ duration: 0.55, ease: EASE, delay: 1.00 }}
             >
-              <div style={noteTitle}>Age range supports this</div>
-              <div style={noteBody}>
-                Enrolled <strong style={{ color: 'var(--cream)' }}>ages 8–17</strong>. Metabolic
+              <div className="deck-mono uppercase xc-slide-eyebrow xc-case" style={noteTitle}>Age range supports this</div>
+              <div className="xc-slide-subhead xc-muted" style={noteBody}>
+                Enrolled <strong className="xc-ink">ages 8–17</strong>. Metabolic
                 pathway maturation:
                 <ul style={{ margin: 'var(--space-2) 0 0 var(--space-4)', padding: 0 }}>
-                  <li>UGT1A9, UGT2B7 — near-adult activity by <strong style={{ color: 'var(--cream)' }}>~2–3 years</strong></li>
-                  <li>CYP3A4 — adult activity by <strong style={{ color: 'var(--cream)' }}>~1 year</strong></li>
+                  <li>UGT1A9, UGT2B7 — near-adult activity by <strong className="xc-ink">~2–3 years</strong></li>
+                  <li>CYP3A4 — adult activity by <strong className="xc-ink">~1 year</strong></li>
                 </ul>
                 All metabolic pathways at or near adult maturity in this age band →{' '}
                 <strong style={{ color: 'var(--cream)' }}>weight-based allometric scaling is mechanistically sufficient.</strong>

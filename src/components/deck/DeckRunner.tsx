@@ -108,6 +108,11 @@ function DeckStage({ deck, viewMode = 'default', sharePathBase = null, shareHasC
   const { mode: appMode } = useTheme();
   const [deckOverride, setDeckOverride] = useState(() => loadOverride(deck.id));
   const effectiveMode = deckOverride ?? deck.themeMode ?? appMode;
+  const setDeckMode = (next) => {
+    if (next !== 'light' && next !== 'dark') return;
+    setDeckOverride(next);
+    saveOverride(deck.id, next);
+  };
   const toggleDeckMode = () => {
     setDeckOverride((prev) => {
       const current = prev ?? deck.themeMode ?? appMode;
@@ -380,7 +385,12 @@ function DeckStage({ deck, viewMode = 'default', sharePathBase = null, shareHasC
                     removed because scale-to-fit + fixed pt sizes produced
                     heavy letterboxing on portrait phones; fluid tokens fill
                     the viewport correctly at any aspect. */}
-                <Slide step={step} deck={deck} />
+                <Slide
+                  step={step}
+                  deck={deck}
+                  themeMode={effectiveMode}
+                  setThemeMode={setDeckMode}
+                />
               </SlideTransition>
             )}
           </AnimatePresence>

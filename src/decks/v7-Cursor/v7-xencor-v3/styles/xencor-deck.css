@@ -1,0 +1,1313 @@
+/**
+ * v7-xencor-v3 — single design-system source of truth.
+ *
+ * Import once from `manifest.ts`. Thin re-exports: `deck-type.css`,
+ * `styles/deck-blueprint.css`. Do not duplicate tokens elsewhere.
+ *
+ * Fonts: Poppins (sans) + JetBrains Mono. FitStage 1920×1080.
+ * Theme: `.deck-root[data-theme-mode=light|dark]` → `--bp-*`.
+ *
+ * ── Class index (stable for case-slide agents) ───────────────────────────
+ * Type:     .xc-h1 .xc-h2 .xc-title .xc-subtitle .xc-body .xc-band
+ *           .xc-tag .xc-tag-chip .xc-meta .xc-name .xc-mono .xc-pageno
+ *           .xc-sans .bp-* mirrors of the above
+ * Color:    .xc-ink .xc-ink2 .xc-ink3 .xc-ink4 .xc-accent .xc-teal
+ *           .xc-em (cyan emphasis span)
+ * Cases:    --xc-case-1…4 (+ -wash) · [data-case="1|2|3|4"] → --xc-case-accent
+ * Surfaces: .xc-card .xc-case-card .xc-case-card__accent
+ *           .xc-blueprint-surface .xc-frame-inner .xc-viz-frame
+ * Bands:    .xc-statement-band .xc-band (type) .bp-band
+ * Layout:   .xc-roadmap-row .xc-slide-pad .xc-slide-pad--tight
+ *           .xc-mt-sm .xc-mt-md .xc-mt-lg .xc-stack
+ * WYWS:     .xc-wyws .xc-wyws__title .xc-wyws__kicker .xc-wyws__row
+ *           .xc-wyws__kick .xc-wyws__meta .xc-wyws__teaser
+ *           .xc-wyws__frame .xc-wyws__frame-label .xc-wyws__frame-text
+ *           (teaser hairline: border-top on .xc-wyws__teaser)
+ * Theme UI: .xc-theme-pref (+ __label __track __opt)
+ * Steps:    .xc-step-box .bp-step-label .bp-step-body
+ * Roadmap:  .bp-roadmap-kicker .bp-roadmap-principle
+ * Chrome:   .xc-hook .xc-lead .xc-card-title (alias) .xc-card-body
+ */
+
+@import '@fontsource/poppins/400.css';
+@import '@fontsource/poppins/500.css';
+@import '@fontsource/poppins/600.css';
+@import '@fontsource/poppins/700.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+@import '@fontsource/jetbrains-mono/600.css';
+@import '@fontsource/jetbrains-mono/700.css';
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Deck-scoped fonts + type scale (FitStage 1920×1080)
+   Hierarchy: h1 → h2 → deck/subtitle → body → tag → meta → mono
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+[data-deck-id='v7-xencor-v3'] {
+  --font-sans-bp: 'Poppins', 'Avenir Next', Futura, 'Segoe UI', system-ui, -apple-system,
+    sans-serif;
+  --font-mono-bp: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, 'Courier New', monospace;
+
+  --font-display: var(--font-sans-bp);
+  --font-body: var(--font-sans-bp);
+  --font-mono: var(--font-mono-bp);
+
+  --ls-display: -0.022em;
+  --ls-mono: 0.06em;
+  --ls-mono-tight: 0.04em;
+  --ls-mono-wide: 0.12em;
+  --ls-tag: 0.16em;
+
+  /*
+   * Type scale — rem only (FitStage scales the canvas). Seminar-readable.
+   * Hierarchy: tag < meta/mono < body/teaser < card-title < deck < h2 < h1
+   */
+  --bp-fs-h1: clamp(2.35rem, min(4.1vw, 5.8vh), 3.5rem);
+  --bp-fs-h2: clamp(1.75rem, min(3vw, 4.5vh), 2.55rem);
+  --bp-fs-deck: clamp(1.15rem, min(1.7vw, 2.5vh), 1.5rem);
+  --bp-fs-body: clamp(1.05rem, min(1.4vw, 2.1vh), 1.2rem);
+  --bp-fs-teaser: clamp(1.05rem, min(1.35vw, 2vh), 1.2rem);
+  --bp-fs-tag: clamp(0.9rem, min(1.15vw, 1.85vh), 1.05rem);
+  --bp-fs-meta: clamp(0.8rem, min(1.05vw, 1.5vh), 0.95rem);
+  --bp-fs-mono: clamp(0.8rem, min(1.05vw, 1.5vh), 0.95rem);
+  --bp-fs-name: clamp(1.2rem, min(1.75vw, 2.55vh), 1.55rem);
+  --bp-fs-card-title: clamp(1.25rem, min(1.85vw, 2.8vh), 1.65rem);
+  --bp-fs-card-body: clamp(1.05rem, min(1.35vw, 2vh), 1.2rem);
+  --bp-fs-card-meta: clamp(0.75rem, min(1vw, 1.4vh), 0.9rem);
+  --bp-fs-band: clamp(1.1rem, min(1.5vw, 2.3vh), 1.35rem);
+  --bp-fs-frame: clamp(0.75rem, min(1vw, 1.35vh), 0.9rem);
+  --bp-fs-frame-label: clamp(0.7rem, min(0.95vw, 1.25vh), 0.85rem);
+  --bp-fs-svg: 0.875rem;
+  --bp-fs-svg-decision: 1.0625rem;
+
+  /* Aliases used by some utilities */
+  --xc-fs-h1: var(--bp-fs-h1);
+  --xc-fs-h2: var(--bp-fs-h2);
+  --xc-fs-title: var(--bp-fs-card-title);
+  --xc-fs-subtitle: var(--bp-fs-deck);
+  --xc-fs-body: var(--bp-fs-body);
+  --xc-fs-teaser: var(--bp-fs-teaser);
+  --xc-fs-tag: var(--bp-fs-tag);
+  --xc-fs-meta: var(--bp-fs-meta);
+  --xc-fs-name: var(--bp-fs-name);
+  --xc-fs-mono: var(--bp-fs-mono);
+  --xc-fs-pageno: var(--bp-fs-mono);
+
+  /* Slide chrome — aligned to bumped tag / body scale */
+  --fs-slide-eyebrow: var(--bp-fs-tag);
+  --fs-slide-topright: clamp(0.8rem, min(1.05vw, 1.5vh), 0.95rem);
+  --fs-slide-headline: var(--bp-fs-h1);
+  --fs-slide-subhead: var(--bp-fs-deck);
+  --fs-slide-kicker: var(--bp-fs-tag);
+  --fs-slide-tagline: clamp(1.15rem, min(1.55vw, 2.4vh), 1.4rem);
+  --fs-slide-pageno: var(--bp-fs-mono);
+  --fs-slide-lead: clamp(1.3rem, min(2.1vw, 3.2vh), 2rem);
+  --fs-slide-name: var(--bp-fs-name);
+  --fs-slide-hook: clamp(2rem, min(3.5vw, 5.4vh), 3.15rem);
+
+  --fs-card-hero-num: clamp(3.25rem, min(6.2vw, 8.4vh), 5.75rem);
+  --fs-card-numeral: clamp(2.8rem, min(4.2vw, 5.7vh), 4.25rem);
+  --fs-card-quote: clamp(1.4rem, min(2.05vw, 2.9vh), 2rem);
+  --fs-card-title: var(--bp-fs-card-title);
+  --fs-card-body: var(--bp-fs-card-body);
+  --fs-card-label: clamp(0.9rem, min(1.15vw, 1.55vh), 1.05rem);
+  --fs-card-meta: clamp(0.85rem, min(1.05vw, 1.4vh), 1rem);
+
+  /* Spacing tokens (FitStage-safe) */
+  --xc-space-xs: clamp(4px, 0.6vh, 8px);
+  --xc-space-sm: clamp(8px, 1vh, 12px);
+  --xc-space-md: clamp(12px, 1.5vh, 18px);
+  --xc-space-lg: clamp(20px, 2.8vh, 36px);
+  --xc-space-xl: clamp(28px, 3.6vh, 44px);
+  --xc-control-clearance: clamp(36px, 4.5vh, 56px);
+
+  /* Dark blueprint defaults (overridden by theme-mode selectors) */
+  --bp-paper: #0c1420;
+  --bp-paper2: #141e2e;
+  --bp-panel-hi: #1d2a3c;
+  --bp-ink: #eaf1f9;
+  --bp-ink2: #c4d2e4;
+  --bp-ink3: #93a6be;
+  --bp-ink4: #8497af;
+  --bp-hair: rgba(190, 215, 245, 0.2);
+  --bp-hair2: rgba(190, 215, 245, 0.1);
+  --bp-grid: rgba(130, 200, 255, 0.045);
+  --bp-cyan: #22d3ee;
+  --bp-teal: #5eead4;
+  --bp-rose: #f4737f;
+  --bp-rose-wash: rgba(244, 115, 127, 0.1);
+  --bp-cyan-wash: rgba(34, 211, 238, 0.12);
+  --bp-band-bg: rgba(20, 30, 46, 0.86);
+  --bp-decision-ink: #ffffff;
+  --bp-decision-accent: #0fb4d8;
+  --bp-marker-f: #12294c;
+  --bp-marker-c: #0fb4d8;
+  --bp-x-stroke: #ffffff;
+
+  /*
+   * Case section accents — reuse on case slides via [data-case="N"].
+   * 01 Ambrisentan UNTRIALABLE · cyan (primary)
+   * 02 India LOCAL-EVIDENCE · teal (secondary)
+   * 03 Asparlas SAMPLE-LIMITED · amber (warm complement)
+   * 04 Pharazi UNBUILT · azure (cool blue, not purple)
+   */
+  --xc-case-1: #22d3ee;
+  --xc-case-1-wash: rgba(34, 211, 238, 0.14);
+  --xc-case-2: #5eead4;
+  --xc-case-2-wash: rgba(94, 234, 212, 0.14);
+  --xc-case-3: #f5b942;
+  --xc-case-3-wash: rgba(245, 185, 66, 0.14);
+  --xc-case-4: #7aa2ff;
+  --xc-case-4-wash: rgba(122, 162, 255, 0.14);
+  --xc-case-accent: var(--xc-case-1);
+  --xc-case-wash: var(--xc-case-1-wash);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Light-editorial surface remap (complements dark navy blueprint)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+[data-deck-id='v7-xencor-v3'][data-deck-theme='light-editorial'] {
+  --bg: #f3f6f9;
+  --panel: #ffffff;
+  --panel-elevated: #ebf0f5;
+  --cream: #12181f;
+  --cream-muted: rgba(18, 24, 31, 0.78);
+  --cream-faint: rgba(18, 24, 31, 0.58);
+  --cream-dim: rgba(18, 24, 31, 0.36);
+  --cream-hairline: rgba(18, 24, 31, 0.16);
+  --cream-ghost: rgba(18, 24, 31, 0.07);
+  --case: #0e7490;
+  --cyan: #0891b2;
+  --teal: #0f766e;
+  --amber: #0e7490;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Blueprint `--bp-*` — light + dark on deck-root theme mode
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+[data-deck-id='v7-xencor-v3'][data-theme-mode='light'],
+[data-deck-id='v7-xencor-v3'][data-theme-mode='light'] [data-title-blueprint],
+[data-deck-id='v7-xencor-v3'][data-theme-mode='light'] [data-roadmap-blueprint] {
+  --bp-paper: #f3f6f9;
+  --bp-paper2: #ffffff;
+  --bp-panel-hi: #0c4a6e;
+  --bp-ink: #12181f;
+  --bp-ink2: #2a3544;
+  --bp-ink3: #5a6b7d;
+  --bp-ink4: #6b7c90;
+  --bp-hair: rgba(18, 24, 31, 0.18);
+  --bp-hair2: rgba(18, 24, 31, 0.1);
+  --bp-grid: rgba(14, 116, 144, 0.07);
+  --bp-cyan: #0e7490;
+  --bp-teal: #0f766e;
+  --bp-rose: #be123c;
+  --bp-rose-wash: rgba(190, 18, 60, 0.08);
+  --bp-cyan-wash: rgba(14, 116, 144, 0.1);
+  --bp-band-bg: rgba(243, 246, 249, 0.94);
+  --bp-decision-ink: #ffffff;
+  --bp-decision-accent: #67e8f9;
+  --bp-marker-f: #334155;
+  --bp-marker-c: #0e7490;
+  --bp-x-stroke: #ffffff;
+
+  --xc-case-1: #0e7490;
+  --xc-case-1-wash: rgba(14, 116, 144, 0.12);
+  --xc-case-2: #0f766e;
+  --xc-case-2-wash: rgba(15, 118, 110, 0.12);
+  --xc-case-3: #b45309;
+  --xc-case-3-wash: rgba(180, 83, 9, 0.1);
+  --xc-case-4: #1d4ed8;
+  --xc-case-4-wash: rgba(29, 78, 216, 0.1);
+}
+[data-deck-id='v7-xencor-v3']:not([data-theme-mode='light']),
+[data-deck-id='v7-xencor-v3'][data-theme-mode='dark'] [data-title-blueprint],
+[data-deck-id='v7-xencor-v3']:not([data-theme-mode='light']) [data-title-blueprint],
+[data-deck-id='v7-xencor-v3'][data-theme-mode='dark'] [data-roadmap-blueprint],
+[data-deck-id='v7-xencor-v3']:not([data-theme-mode='light']) [data-roadmap-blueprint] {
+  --bp-paper: #0c1420;
+  --bp-paper2: #141e2e;
+  --bp-panel-hi: #1d2a3c;
+  --bp-ink: #eaf1f9;
+  --bp-ink2: #c4d2e4;
+  --bp-ink3: #93a6be;
+  --bp-ink4: #8497af;
+  --bp-hair: rgba(190, 215, 245, 0.2);
+  --bp-hair2: rgba(190, 215, 245, 0.1);
+  --bp-grid: rgba(130, 200, 255, 0.045);
+  --bp-cyan: #22d3ee;
+  --bp-teal: #5eead4;
+  --bp-rose: #f4737f;
+  --bp-rose-wash: rgba(244, 115, 127, 0.1);
+  --bp-cyan-wash: rgba(34, 211, 238, 0.12);
+  --bp-band-bg: rgba(20, 30, 46, 0.86);
+  --bp-decision-ink: #ffffff;
+  --bp-decision-accent: #0fb4d8;
+  --bp-marker-f: #12294c;
+  --bp-marker-c: #0fb4d8;
+  --bp-x-stroke: #ffffff;
+
+  --xc-case-1: #22d3ee;
+  --xc-case-1-wash: rgba(34, 211, 238, 0.14);
+  --xc-case-2: #5eead4;
+  --xc-case-2-wash: rgba(94, 234, 212, 0.14);
+  --xc-case-3: #f5b942;
+  --xc-case-3-wash: rgba(245, 185, 66, 0.14);
+  --xc-case-4: #7aa2ff;
+  --xc-case-4-wash: rgba(122, 162, 255, 0.14);
+}
+
+[data-deck-id='v7-xencor-v3'][data-theme-mode='dark'] {
+  --bg: #0c1420;
+  --panel: #141e2e;
+  --panel-elevated: #1d2a3c;
+  --cream: #eaf1f9;
+  --cream-muted: rgba(234, 241, 249, 0.72);
+  --cream-faint: rgba(234, 241, 249, 0.48);
+  --cream-dim: rgba(234, 241, 249, 0.28);
+  --cream-hairline: rgba(190, 215, 245, 0.2);
+  --cream-ghost: rgba(190, 215, 245, 0.08);
+  --case: #22d3ee;
+  --amber: #22d3ee;
+  --cyan: #22d3ee;
+  --teal: #5eead4;
+}
+
+/* PharmAgent / dashboard chrome — lift Tailwind 10–11px floors */
+[data-deck-id='v7-xencor-v3'] .text-\[10px\] {
+  font-size: clamp(0.78rem, 1.15vh, 0.92rem) !important;
+}
+[data-deck-id='v7-xencor-v3'] .text-\[11px\] {
+  font-size: clamp(0.82rem, 1.25vh, 0.98rem) !important;
+}
+
+/* Force deck chrome classes onto Poppins / JetBrains for this deck */
+[data-deck-id='v7-xencor-v3'] .deck-display,
+[data-deck-id='v7-xencor-v3'] .deck-body {
+  font-family: var(--font-sans-bp);
+}
+[data-deck-id='v7-xencor-v3'] .deck-mono {
+  font-family: var(--font-mono-bp);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Shared utilities — `.bp-*` (primary) + `.xc-*` (aliases)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+[data-deck-id='v7-xencor-v3'] .bp-sans,
+[data-deck-id='v7-xencor-v3'] .xc-sans {
+  font-family: var(--font-sans-bp);
+}
+[data-deck-id='v7-xencor-v3'] .bp-mono,
+[data-deck-id='v7-xencor-v3'] .xc-mono {
+  font-family: var(--font-mono-bp);
+  letter-spacing: var(--ls-mono);
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-tag,
+[data-deck-id='v7-xencor-v3'] .xc-tag {
+  font-family: var(--font-mono-bp);
+  font-size: var(--bp-fs-tag);
+  font-weight: 700;
+  letter-spacing: var(--ls-tag);
+  text-transform: uppercase;
+  line-height: 1.25;
+  color: var(--bp-ink3);
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-h1,
+[data-deck-id='v7-xencor-v3'] .xc-h1 {
+  font-family: var(--font-sans-bp);
+  font-size: var(--bp-fs-h1);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.022em;
+  margin: 0;
+  color: var(--bp-ink, var(--cream));
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-h2,
+[data-deck-id='v7-xencor-v3'] .xc-h2 {
+  font-family: var(--font-sans-bp);
+  font-size: var(--bp-fs-h2);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--bp-ink, var(--cream));
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-deck,
+[data-deck-id='v7-xencor-v3'] .bp-subtitle,
+[data-deck-id='v7-xencor-v3'] .xc-subtitle {
+  font-family: var(--font-sans-bp);
+  font-size: var(--bp-fs-deck);
+  font-weight: 600;
+  line-height: 1.38;
+  margin: 0;
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-body,
+[data-deck-id='v7-xencor-v3'] .xc-body {
+  font-family: var(--font-sans-bp);
+  font-size: var(--bp-fs-body);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-meta,
+[data-deck-id='v7-xencor-v3'] .xc-meta {
+  font-family: var(--font-mono-bp);
+  font-size: var(--bp-fs-meta);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-name,
+[data-deck-id='v7-xencor-v3'] .xc-name {
+  font-family: var(--font-sans-bp);
+  font-size: var(--bp-fs-name);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-pageno,
+[data-deck-id='v7-xencor-v3'] .xc-pageno {
+  font-family: var(--font-mono-bp);
+  font-size: var(--bp-fs-mono);
+  letter-spacing: var(--ls-mono-wide);
+  color: var(--bp-ink4, var(--cream-faint));
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-card-title,
+[data-deck-id='v7-xencor-v3'] .xc-title,
+[data-deck-id='v7-xencor-v3'] .xc-card-title {
+  font-family: var(--font-sans-bp);
+  font-size: var(--bp-fs-card-title);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0;
+  color: var(--bp-ink, var(--cream));
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-card-body,
+[data-deck-id='v7-xencor-v3'] .xc-card-body {
+  font-family: var(--font-sans-bp);
+  font-size: var(--bp-fs-card-body);
+  line-height: 1.4;
+  margin: 0;
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-card-meta {
+  font-family: var(--font-mono-bp);
+  font-size: var(--bp-fs-card-meta);
+  letter-spacing: var(--ls-mono);
+  line-height: 1.3;
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-band,
+[data-deck-id='v7-xencor-v3'] .xc-band {
+  font-family: var(--font-sans-bp);
+  font-size: var(--bp-fs-band);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+/* Hook / lead sizes (chrome slides using --cream tokens) */
+[data-deck-id='v7-xencor-v3'] .xc-hook {
+  font-family: var(--font-sans-bp);
+  font-size: var(--fs-slide-hook);
+  font-weight: var(--fw-display-md, 600);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin: 0;
+  color: var(--cream);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lead {
+  font-family: var(--font-sans-bp);
+  font-size: var(--fs-slide-lead);
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  color: color-mix(in srgb, var(--amber) 78%, var(--cream));
+}
+
+/* ── Color helpers ──────────────────────────────────────────────────────── */
+
+[data-deck-id='v7-xencor-v3'] .xc-ink {
+  color: var(--bp-ink);
+}
+[data-deck-id='v7-xencor-v3'] .xc-ink2 {
+  color: var(--bp-ink2);
+}
+[data-deck-id='v7-xencor-v3'] .xc-ink3 {
+  color: var(--bp-ink3);
+}
+[data-deck-id='v7-xencor-v3'] .xc-ink4 {
+  color: var(--bp-ink4);
+}
+[data-deck-id='v7-xencor-v3'] .xc-accent,
+[data-deck-id='v7-xencor-v3'] .xc-cyan {
+  color: var(--bp-cyan);
+}
+[data-deck-id='v7-xencor-v3'] .xc-teal {
+  color: var(--bp-teal);
+}
+[data-deck-id='v7-xencor-v3'] .xc-em {
+  color: var(--bp-cyan);
+  font-style: inherit;
+  font-weight: inherit;
+}
+
+/* ── Spacing helpers ────────────────────────────────────────────────────── */
+
+[data-deck-id='v7-xencor-v3'] .xc-mt-sm {
+  margin-top: var(--xc-space-sm);
+}
+[data-deck-id='v7-xencor-v3'] .xc-mt-md {
+  margin-top: var(--xc-space-md);
+}
+[data-deck-id='v7-xencor-v3'] .xc-mt-lg {
+  margin-top: var(--xc-space-lg);
+}
+[data-deck-id='v7-xencor-v3'] .xc-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--xc-space-sm);
+  min-width: 0;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-slide-pad {
+  padding: clamp(36px, 4.2vh, 48px) clamp(40px, 3.5vw, 64px) clamp(28px, 3.2vh, 40px);
+}
+[data-deck-id='v7-xencor-v3'] .xc-slide-pad--tight {
+  padding: 48px 64px 56px;
+}
+
+/* ── Tags / chips ───────────────────────────────────────────────────────── */
+
+[data-deck-id='v7-xencor-v3'] .bp-tag-outline,
+[data-deck-id='v7-xencor-v3'] .xc-tag-chip {
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  font-family: var(--font-mono-bp);
+  font-size: var(--bp-fs-tag);
+  font-weight: 600;
+  letter-spacing: var(--ls-tag);
+  text-transform: uppercase;
+  border: 1.5px solid var(--bp-cyan, #22d3ee);
+  color: var(--bp-cyan, #22d3ee);
+  padding: 5px 11px;
+}
+
+/* ── Cards / surfaces ───────────────────────────────────────────────────── */
+
+[data-deck-id='v7-xencor-v3'] .xc-card {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bp-paper2, var(--panel));
+  border: 1.5px solid var(--bp-hair, var(--cream-hairline));
+  padding: clamp(12px, 1.4vh, 18px) clamp(14px, 1.2vw, 20px);
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-step-box,
+[data-deck-id='v7-xencor-v3'] .xc-step-box {
+  border: 1.5px solid
+    color-mix(in srgb, var(--bp-step-accent, var(--case)) 55%, var(--cream-hairline));
+  border-radius: var(--radius-md, 8px);
+  background: color-mix(
+    in srgb,
+    var(--bp-step-accent, var(--case)) 7%,
+    var(--panel, transparent)
+  );
+  padding: clamp(0.7rem, 1.4vh, 1rem) clamp(0.75rem, 1.2vw, 1.1rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-height: clamp(4.5rem, 9vh, 5.75rem);
+  justify-content: center;
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-step-label {
+  font-family: var(--font-mono-bp);
+  font-size: var(--fs-card-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-step-body {
+  font-family: var(--font-sans-bp);
+  font-size: var(--fs-card-meta);
+  line-height: 1.35;
+  color: var(--cream-muted);
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-roadmap-kicker {
+  font-family: var(--font-mono-bp);
+  font-size: var(--bp-fs-card-meta);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-roadmap-principle {
+  font-family: var(--font-mono-bp);
+  font-size: clamp(0.58rem, 1vh, 0.72rem);
+  letter-spacing: var(--ls-mono);
+  line-height: 1.35;
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-paper-surface,
+[data-deck-id='v7-xencor-v3'] .xc-blueprint-surface {
+  color: var(--bp-ink2, #c4d2e4);
+  font-family: var(--font-sans-bp);
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 39px,
+      var(--bp-grid, rgba(130, 200, 255, 0.045)) 39px 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 39px,
+      var(--bp-grid, rgba(130, 200, 255, 0.045)) 39px 40px
+    ),
+    var(--bp-paper, #0c1420);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-frame-inner {
+  position: absolute;
+  inset: 5px;
+  border: 1px solid var(--bp-hair2);
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-viz-frame {
+  flex: 0 0 auto;
+  height: clamp(88px, 12vh, 130px);
+  margin-bottom: var(--xc-space-sm);
+  border: 1.25px dashed var(--bp-hair);
+  box-sizing: border-box;
+}
+
+/* Content-sized case row — cards stretch equally within the row */
+[data-deck-id='v7-xencor-v3'] .bp-roadmap-row,
+[data-deck-id='v7-xencor-v3'] .xc-roadmap-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 22px);
+  align-content: center;
+  align-items: stretch;
+  min-height: 0;
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-case-card,
+[data-deck-id='v7-xencor-v3'] .xc-case-card {
+  position: relative;
+  min-width: 0;
+  flex: 1 1 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bp-paper2);
+  border: 2px solid var(--bp-ink);
+  padding: clamp(14px, 1.4vh, 22px) clamp(14px, 1.2vw, 22px) clamp(14px, 1.4vh, 22px)
+    clamp(22px, 1.6vw, 30px);
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-case-card__accent,
+[data-deck-id='v7-xencor-v3'] .xc-case-card__accent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  background: var(--bp-cyan);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Statement / conclusion band (under cards; clears slide# + controls) */
+[data-deck-id='v7-xencor-v3'] .xc-statement-band {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  border: 2.5px solid var(--bp-ink);
+  background: var(--bp-band-bg);
+  padding: clamp(12px, 1.5vh, 18px) clamp(18px, 2vw, 28px);
+  color: var(--bp-ink);
+  text-align: center;
+  font-family: var(--font-sans-bp);
+  font-size: var(--bp-fs-deck);
+  font-weight: 500;
+  line-height: 1.38;
+  margin: 0;
+  /* Band sits under cards; leave gap for chrome slide# + mode controls */
+  margin-bottom: clamp(4.5rem, 7.5vh, 6.5rem);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-statement-band__inner {
+  position: relative;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   What you will see (slide 03) — layout + equal cards
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+[data-deck-id='v7-xencor-v3'] .xc-wyws {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: clamp(36px, 4.2vh, 48px) clamp(40px, 3.5vw, 64px)
+    clamp(20px, 2.4vh, 32px);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-wyws__kicker {
+  position: relative;
+  z-index: 1;
+  color: var(--bp-ink3);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-wyws__title {
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(10px, 1.4vh, 16px);
+  max-width: 42ch;
+  color: var(--bp-ink);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-wyws__row {
+  position: relative;
+  z-index: 1;
+  /* Content-sized — do not flex-fill the slide (avoids tall empty cards) */
+  flex: 0 0 auto;
+  /* Clear space above/below the card row (title ↔ cards ↔ statement band) */
+  margin-top: var(--xc-space-xl);
+  margin-bottom: var(--xc-space-lg);
+  min-height: 0;
+  align-content: start;
+  align-items: stretch;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-wyws__col {
+  align-self: stretch;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Equal-height cards via grid stretch; height follows tallest content, not slide flex */
+[data-deck-id='v7-xencor-v3'] .xc-wyws__col .xc-case-card {
+  flex: 1 1 auto;
+  height: auto;
+  align-self: stretch;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-wyws__kick {
+  font-family: var(--font-mono-bp);
+  font-size: var(--xc-fs-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: var(--xc-space-sm);
+  padding-left: 2px;
+  line-height: 1.2;
+  color: var(--xc-case-accent);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-wyws__meta {
+  font-family: var(--font-mono-bp);
+  font-size: var(--xc-fs-mono);
+  letter-spacing: var(--ls-mono);
+  color: var(--bp-ink4);
+  margin-top: 6px;
+  margin-bottom: var(--xc-space-sm);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-wyws__teaser {
+  font-family: var(--font-sans-bp);
+  font-size: var(--bp-fs-teaser);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  color: var(--bp-ink2);
+  margin: 0;
+  flex: 0 0 auto;
+  min-height: 2.6em;
+  /* Hairline divider above teaser (between viz and description) */
+  padding-top: var(--xc-space-sm);
+  border-top: 1px solid var(--bp-hair2);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-wyws__frame {
+  /* Snug under teaser — do not pin to stretched card bottom */
+  margin-top: var(--xc-space-sm);
+  flex: 0 0 auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--bp-hair2);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-wyws__frame-label {
+  font-family: var(--font-mono-bp);
+  font-size: var(--bp-fs-frame-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bp-ink4);
+  font-weight: 600;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-wyws__frame-text {
+  font-family: var(--font-mono-bp);
+  font-size: var(--bp-fs-frame);
+  letter-spacing: var(--ls-mono);
+  line-height: 1.35;
+  color: var(--xc-case-accent);
+  min-height: 2.7em;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-wyws__frame-text b {
+  color: var(--xc-case-accent);
+  font-weight: 700;
+}
+
+/* Per-case accent binding — section slides reuse [data-case="N"] */
+[data-deck-id='v7-xencor-v3'] [data-case='1'] {
+  --xc-case-accent: var(--xc-case-1);
+  --xc-case-wash: var(--xc-case-1-wash);
+}
+[data-deck-id='v7-xencor-v3'] [data-case='2'] {
+  --xc-case-accent: var(--xc-case-2);
+  --xc-case-wash: var(--xc-case-2-wash);
+}
+[data-deck-id='v7-xencor-v3'] [data-case='3'] {
+  --xc-case-accent: var(--xc-case-3);
+  --xc-case-wash: var(--xc-case-3-wash);
+}
+[data-deck-id='v7-xencor-v3'] [data-case='4'] {
+  --xc-case-accent: var(--xc-case-4);
+  --xc-case-wash: var(--xc-case-4-wash);
+}
+
+[data-deck-id='v7-xencor-v3'] [data-case] .xc-case-card__accent {
+  background: var(--xc-case-accent);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-wyws__card-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 auto;
+  min-height: 0;
+  gap: 0;
+  justify-content: flex-start;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-wyws__pageno {
+  position: absolute;
+  right: clamp(40px, 3.5vw, 64px);
+  bottom: clamp(14px, 1.8vh, 22px);
+  z-index: 2;
+}
+
+/* Title slide helpers */
+[data-deck-id='v7-xencor-v3'] .xc-title-grid {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.15fr);
+  gap: clamp(20px, 2.5vw, 40px);
+  align-items: stretch;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-title-byline {
+  margin-top: auto;
+  padding-top: clamp(0.85rem, 2vh, 1.5rem);
+  border-top: 3px solid var(--bp-ink);
+  max-width: 36ch;
+  flex-shrink: 0;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-blueprint-frame {
+  pointer-events: none;
+  position: absolute;
+  inset: 28px;
+  border: 1px solid var(--bp-hair2);
+}
+
+/* Agenda / chrome case card (04-roadmap) */
+[data-deck-id='v7-xencor-v3'] .xc-agenda-card {
+  position: relative;
+  min-width: 0;
+  border-radius: var(--radius-md, 8px);
+  padding: clamp(var(--space-3, 0.75rem), 1.6vw, var(--space-5, 1.25rem));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+  height: 100%;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-agenda-card__drug {
+  font-family: var(--font-sans-bp);
+  font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+  color: var(--cream);
+  line-height: 1.1;
+  font-weight: 600;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-career-card {
+  margin-top: clamp(0.45rem, 1.1vh, 0.85rem);
+  background: color-mix(in srgb, var(--panel) 60%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--cream-hairline);
+  border-radius: var(--radius-md, 8px);
+  padding: clamp(0.6rem, 1.2vw, 1.1rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-career-card__years {
+  font-family: var(--font-sans-bp);
+  font-size: var(--fs-slide-tagline);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-career-card__title {
+  font-family: var(--font-sans-bp);
+  font-size: var(--fs-slide-subhead);
+  color: var(--cream);
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: var(--space-1, 0.25rem);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-career-card__list {
+  margin: 0;
+  padding: 0;
+  padding-left: 1rem;
+  color: var(--cream-muted);
+  font-size: var(--fs-slide-subhead);
+  line-height: 1.4;
+  font-family: var(--font-sans-bp);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-career-card__list li {
+  margin-bottom: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Theme preference footnote (title slide)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+[data-deck-id='v7-xencor-v3'] .xc-theme-pref {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-theme-pref__label {
+  font-family: var(--font-mono-bp);
+  font-size: var(--bp-fs-meta);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bp-ink4);
+  line-height: 1.2;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-theme-pref__track {
+  display: inline-flex;
+  gap: 0;
+  border: 1.5px solid var(--bp-hair);
+  background: var(--bp-paper2);
+  padding: 2px;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-theme-pref__opt {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  min-height: 44px;
+  min-width: 72px;
+  padding: 0 14px;
+  font-family: var(--font-mono-bp);
+  font-size: var(--bp-fs-tag);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bp-ink3);
+  transition:
+    color 0.18s ease,
+    background 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-theme-pref__opt[data-active] {
+  color: var(--bp-ink);
+  background: color-mix(in srgb, var(--bp-cyan) 14%, var(--bp-paper2));
+  box-shadow: inset 0 0 0 1.5px var(--bp-cyan);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-theme-pref__opt:focus-visible {
+  outline: 2px solid var(--bp-cyan);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-deck-id='v7-xencor-v3'] .xc-enter,
+  [data-deck-id='v7-xencor-v3'] .xc-motion,
+  [data-deck-id='v7-xencor-v3'] .bp-enter,
+  [data-deck-id='v7-xencor-v3'] .xc-theme-pref__opt {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Case / close slide type aliases — wrap existing --fs-slide-* / --fs-card-*
+   (Asparlas · Pharazi · synthesis · why-Xencor · close)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+[data-deck-id='v7-xencor-v3'] .xc-eyebrow {
+  font-family: var(--font-mono-bp);
+  font-size: var(--fs-slide-eyebrow);
+  font-weight: 700;
+  letter-spacing: var(--ls-mono-wide);
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-card-label {
+  font-family: var(--font-mono-bp);
+  font-size: var(--fs-card-label);
+  font-weight: 700;
+  letter-spacing: var(--ls-mono-wide);
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-tagline {
+  font-family: var(--font-sans-bp);
+  font-size: var(--fs-slide-tagline);
+  line-height: 1.4;
+  margin: 0;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-tagline-mono {
+  font-family: var(--font-mono-bp);
+  font-size: var(--fs-slide-tagline);
+  font-weight: 700;
+  letter-spacing: var(--ls-mono-wide);
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-subhead {
+  font-family: var(--font-sans-bp);
+  font-size: var(--fs-slide-subhead);
+  font-weight: 400;
+  line-height: 1.45;
+  margin: 0;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-lead {
+  font-family: var(--font-sans-bp);
+  font-size: var(--fs-slide-lead);
+  line-height: 1.4;
+  margin: 0;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-numeral {
+  font-family: var(--font-sans-bp);
+  font-size: var(--fs-card-numeral);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: var(--ls-display, -0.022em);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-ink {
+  color: var(--cream);
+}
+[data-deck-id='v7-xencor-v3'] .xc-ink-muted {
+  color: var(--cream-muted);
+}
+[data-deck-id='v7-xencor-v3'] .xc-ink-faint {
+  color: var(--cream-faint);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CS1 Ambrisentan / India story utilities (append — do not rewrite token block)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+[data-deck-id='v7-xencor-v3'] .xc-muted {
+  color: var(--cream-muted);
+}
+[data-deck-id='v7-xencor-v3'] .xc-faint {
+  color: var(--cream-faint);
+}
+[data-deck-id='v7-xencor-v3'] .xc-case {
+  color: var(--case);
+}
+[data-deck-id='v7-xencor-v3'] .xc-amber {
+  color: var(--amber);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-em-strong,
+[data-deck-id='v7-xencor-v3'] .xc-em-case {
+  color: var(--case);
+  font-style: italic;
+  font-weight: 700;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-strong-case {
+  color: var(--case);
+  font-weight: 600;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-slide-eyebrow {
+  font-family: var(--font-mono-bp);
+  font-size: var(--fs-slide-eyebrow);
+  letter-spacing: var(--ls-mono);
+  line-height: 1.3;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-slide-subhead {
+  font-family: var(--font-sans-bp);
+  font-size: var(--fs-slide-subhead);
+  line-height: 1.4;
+  margin: 0;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-slide-kicker {
+  font-family: var(--font-mono-bp);
+  font-size: var(--fs-slide-kicker);
+  letter-spacing: var(--ls-mono-wide);
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-slide-body {
+  font-family: var(--font-sans-bp);
+  font-size: var(--bp-fs-body);
+  line-height: 1.45;
+  margin: 0;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-card-meta {
+  font-family: var(--font-mono-bp);
+  font-size: var(--fs-card-meta);
+  letter-spacing: var(--ls-mono);
+  line-height: 1.3;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-hero-num {
+  font-family: var(--font-sans-bp);
+  font-size: var(--fs-card-hero-num);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: var(--cream);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-vs {
+  font-family: var(--font-mono-bp);
+  font-size: clamp(1.1rem, 2vh, 1.4rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--cream-faint);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-callout {
+  padding: clamp(1.1rem, 2.2vh, 1.4rem) clamp(1.25rem, 2.4vw, 1.65rem);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--cream-hairline);
+  border-left: 4px solid var(--case);
+  background: var(--panel);
+  font-family: var(--font-sans-bp);
+  font-size: var(--fs-slide-tagline);
+  line-height: 1.45;
+  color: var(--cream);
+  font-weight: 500;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-fact-card {
+  padding: clamp(1.15rem, 2.3vh, 1.55rem) clamp(1.2rem, 2vw, 1.55rem);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--cream-hairline);
+  border-left: 4px solid var(--case);
+  background: var(--panel);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-fact-kicker {
+  font-family: var(--font-mono-bp);
+  font-size: var(--fs-card-label);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  color: var(--case);
+  font-weight: 800;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-fact-body {
+  font-family: var(--font-sans-bp);
+  font-size: var(--fs-slide-tagline);
+  line-height: 1.45;
+  color: var(--cream);
+  font-weight: 500;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-stat-label {
+  font-family: var(--font-mono-bp);
+  font-size: var(--fs-card-label);
+  letter-spacing: var(--ls-mono-wide);
+  text-transform: uppercase;
+  font-weight: 800;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-stat-unit {
+  font-family: var(--font-sans-bp);
+  font-size: var(--bp-fs-name);
+  color: var(--cream-muted);
+  font-weight: 600;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-stat-detail {
+  font-family: var(--font-sans-bp);
+  margin-top: 10px;
+  font-size: var(--bp-fs-deck);
+  line-height: 1.4;
+  color: var(--cream-muted);
+  font-weight: 500;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-family: var(--font-mono-bp);
+  font-size: var(--fs-slide-pageno);
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-panel-overlay-label {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-family: var(--font-mono-bp);
+  font-size: var(--fs-slide-eyebrow);
+  font-weight: 700;
+  color: var(--cream);
+  opacity: 0.8;
+  line-height: 1.2;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-region-label {
+  text-align: center;
+  font-family: var(--font-mono-bp);
+  font-size: var(--fs-slide-eyebrow);
+  letter-spacing: 0.14em;
+  color: var(--cream-muted);
+  margin-bottom: 4px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-pillar-eyebrow {
+  font-family: var(--font-mono-bp);
+  font-size: var(--fs-slide-tagline);
+  letter-spacing: var(--ls-mono-wide);
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--cream) 78%, var(--cyan) 22%);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-pillar-name {
+  font-family: var(--font-mono-bp);
+  font-size: var(--fs-slide-eyebrow);
+  letter-spacing: var(--ls-mono-wide);
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 700;
+  margin-top: var(--space-1);
+  line-height: 1.3;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-pillar-num {
+  font-family: var(--font-sans-bp);
+  font-size: var(--fs-slide-headline);
+  color: var(--cream);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin-top: var(--space-3);
+  font-variant-numeric: tabular-nums;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-pillar-italic {
+  font-family: var(--font-sans-bp);
+  font-size: var(--fs-slide-lead);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--cyan);
+  line-height: 1;
+  letter-spacing: -0.018em;
+  margin-top: var(--space-3);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-pillar-sub {
+  font-family: var(--font-sans-bp);
+  font-style: italic;
+  font-size: var(--fs-slide-subhead);
+  color: var(--cream-muted);
+  margin-top: var(--space-1);
+  line-height: 1.3;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-pillar-body {
+  font-family: var(--font-sans-bp);
+  font-size: var(--fs-slide-subhead);
+  color: var(--cream-muted);
+  line-height: 1.45;
+  flex: 1;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-pillar-cite {
+  font-family: var(--font-mono-bp);
+  font-size: var(--fs-slide-tagline);
+  letter-spacing: 0.04em;
+  color: var(--cream-faint);
+  margin-top: var(--space-3);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--cream-hairline);
+  line-height: 1.4;
+}

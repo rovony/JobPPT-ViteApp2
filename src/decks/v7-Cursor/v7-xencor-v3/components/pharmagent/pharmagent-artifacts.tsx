@@ -46,7 +46,7 @@ const ArtifactPopPKOFV = () => {
         <ResponsiveContainer>
           <BarChart data={data} layout="vertical" margin={{ top: 4, right: 12, left: 8, bottom: 4 }}>
             <XAxis type="number" domain={[4500, 4900]} hide />
-            <YAxis type="category" dataKey="model" width={42} stroke="#a8a29e" tick={{ fill:'#d6d3d1', fontFamily:'JetBrains Mono', fontSize:10 }} axisLine={false} tickLine={false} />
+            <YAxis type="category" dataKey="model" width={42} stroke="#a8a29e" tick={{ fill:'#d6d3d1', fontFamily:'var(--font-mono)', fontSize:10 }} axisLine={false} tickLine={false} />
             <Bar dataKey="ofv" fill="#34d399" radius={[0,2,2,0]} barSize={18}>
               {data.map((d: any, i: number) => (
                 <Rch.Cell key={i} fill={d.model === '2-CMT' ? '#34d399' : '#57534e'} />
@@ -232,14 +232,14 @@ const ArtifactPediatricRibbon = () => {
         <svg viewBox="0 0 200 100" preserveAspectRatio="none" className="w-full h-full">
           {/* adult ref dashed */}
           <line x1="0" y1="50" x2="200" y2="50" stroke="#a8a29e" strokeDasharray="3 3" strokeWidth="0.6" />
-          <text x="2" y="46" fontSize="6" fill="#a8a29e" fontFamily="JetBrains Mono">adult ref</text>
+          <text x="2" y="46" fontSize="6" fill="#a8a29e" fontFamily="var(--font-mono)">adult ref</text>
           {bands.map((b: any, i: number) => {
             /* draw a ribbon centered at b.y with width 6 */
             const top = b.y - 4, bot = b.y + 4;
             return (
               <g key={i}>
                 <path d={`M0 ${top} Q 50 ${top-3}, 100 ${top} T 200 ${top} L 200 ${bot} Q 150 ${bot+3}, 100 ${bot} T 0 ${bot} Z`} fill={b.color} fillOpacity="0.3" stroke={b.color} strokeWidth="0.6" />
-                <text x="2" y={b.y+1} fontSize="5.5" fill={b.color} fontFamily="JetBrains Mono">{b.name}</text>
+                <text x="2" y={b.y+1} fontSize="5.5" fill={b.color} fontFamily="var(--font-mono)">{b.name}</text>
               </g>
             );
           })}

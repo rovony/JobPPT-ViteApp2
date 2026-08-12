@@ -45,25 +45,17 @@ export default function CaseOrientationStrip({
           }}
         >
           <div
-            className="deck-mono uppercase"
+            className="xc-eyebrow"
             style={{
-              fontSize: 'var(--fs-slide-eyebrow)',
-              letterSpacing: 'var(--ls-mono-wide)',
               color: accent,
-              fontWeight: 700,
               marginBottom: 'var(--space-2)',
             }}
           >
             {item.kicker}
           </div>
           <div
-            className="deck-body"
-            style={{
-              fontSize: 'var(--fs-slide-tagline)',
-              lineHeight: 1.45,
-              color: 'var(--cream)',
-              opacity: 0.9,
-            }}
+            className="xc-tagline xc-ink"
+            style={{ opacity: 0.9 }}
           >
             {item.body}
           </div>

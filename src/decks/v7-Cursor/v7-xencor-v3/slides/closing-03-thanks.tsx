@@ -44,7 +44,7 @@ export default function ClosingThanks() {
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={go ? { opacity: 1, scale: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4, ease: EASE }}
-            className="deck-display"
+            className="xc-sans"
             style={{
               fontSize: 'clamp(5rem, 12vw, 10rem)',
               fontWeight: 800,
@@ -85,17 +85,12 @@ export default function ClosingThanks() {
                 background: `color-mix(in srgb, ${chip.c} 5%, var(--panel))`,
                 display: 'flex', flexDirection: 'column', gap: 'var(--space-2)',
               }}>
-                <span className="deck-mono uppercase" style={{
-                  fontSize: 'var(--fs-slide-eyebrow)',
-                  letterSpacing: 'var(--ls-mono-wide)',
-                  color: chip.c,
-                  fontWeight: 700,
-                }}>{chip.cs} · ready</span>
-                <span className="deck-body" style={{
-                  fontSize: 'var(--fs-slide-pageno)',
-                  color: 'var(--cream)',
+                <span className="xc-eyebrow" style={{ color: chip.c }}>{chip.cs} · ready</span>
+                <span className="xc-pageno xc-ink" style={{
                   opacity: 0.85,
                   lineHeight: 1.4,
+                  textTransform: 'none',
+                  letterSpacing: '0.02em',
                 }}>{chip.label}</span>
               </div>
             ))}
@@ -106,12 +101,10 @@ export default function ClosingThanks() {
             initial={{ opacity: 0 }}
             animate={go ? { opacity: 1 } : {}}
             transition={{ duration: 0.6, delay: 1.2, ease: EASE }}
-            className="deck-display italic"
+            className="xc-lead italic"
             style={{
-              fontSize: 'var(--fs-slide-lead)',
               color: 'var(--amber)',
               fontWeight: 500,
-              lineHeight: 1.4,
               maxWidth: 'min(60ch, 92%)',
             }}
           >

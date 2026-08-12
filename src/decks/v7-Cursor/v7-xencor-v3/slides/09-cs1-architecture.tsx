@@ -63,7 +63,7 @@ export default function Cs1Architecture() {
 
       <Headline delay={0.25} maxChars={64}>
         Adult evidence existed.{' '}
-        <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 600 }}>
+        <span className="xc-em-case">
           The pediatric efficacy-trial path did not.
         </span>
       </Headline>
@@ -90,10 +90,8 @@ export default function Cs1Architecture() {
             initial={{ opacity: 0, y: 10 }}
             animate={go ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 1.3, ease: EASE }}
-            className="deck-body"
-            style={{
+            className="deck-body xc-ink" style={{
               fontSize: 'calc(var(--fs-slide-tagline) * 1.1)',
-              color: 'var(--cream)',
               lineHeight: 1.5,
               fontWeight: 400,
               maxWidth: '90ch',
@@ -102,11 +100,10 @@ export default function Cs1Architecture() {
               background: 'color-mix(in srgb, var(--case) 8%, transparent)',
               borderRadius: 'var(--radius-md)',
               alignSelf: 'center',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-            }}
+              boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}
           >
             The clinical question wasn&rsquo;t <em style={{ fontStyle: 'italic', opacity: 0.8 }}>can we repeat ARIES in children?</em> The question was:{' '}
-            <strong style={{ color: 'var(--case)', fontWeight: 700 }}>how do you defend a pediatric dose under these constraints?</strong>
+            <strong className="xc-case" style={{ fontWeight: 700 }}>how do you defend a pediatric dose under these constraints?</strong>
           </motion.div>
         </div>
       </Viz>
@@ -141,31 +138,22 @@ function FoundationStrip({ go }) {
         background: 'color-mix(in srgb, var(--case) 7%, var(--panel))',
       }}
     >
-      <div className="deck-mono uppercase" style={{
+      <div className="deck-mono uppercase xc-slide-eyebrow xc-case" style={{
         gridColumn: '1 / -1',
-        fontSize: 'var(--fs-slide-eyebrow)',
         letterSpacing: 'var(--ls-mono-wide)',
-        color: 'var(--case)',
-        fontWeight: 700,
-      }}>
+        fontWeight: 700 }}>
         Adult foundation · anchor, not repeat
       </div>
       {ADULT_FOUNDATION.map((it) => (
         <div key={it.label} style={{ minWidth: 0 }}>
-          <div className="deck-mono uppercase" style={{
-            fontSize: 'var(--fs-slide-eyebrow)',
+          <div className="deck-mono uppercase xc-slide-eyebrow xc-muted" style={{
             letterSpacing: 'var(--ls-mono)',
-            color: 'var(--cream-muted)',
             fontWeight: 700,
-            marginBottom: 'var(--space-1)',
-          }}>
+            marginBottom: 'var(--space-1)' }}>
             {it.label}
           </div>
-          <div className="deck-body" style={{
-            fontSize: 'var(--fs-slide-tagline)',
-            color: 'var(--cream)',
-            lineHeight: 1.35,
-          }}>
+          <div className="deck-body xc-tagline xc-ink" style={{
+            lineHeight: 1.35 }}>
             {it.value}
           </div>
         </div>
@@ -209,29 +197,20 @@ function ConstraintCard({ item, index, go }) {
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: 'var(--space-2)' }}>
-        <span className="deck-mono uppercase" style={{
-          fontSize: 'var(--fs-slide-eyebrow)',
+        <span className="deck-mono uppercase xc-slide-eyebrow xc-case" style={{
           letterSpacing: 'var(--ls-mono-wide)',
-          color: 'var(--case)',
-          fontWeight: 700,
-        }}>
+          fontWeight: 700 }}>
           {item.n} · {item.label}
         </span>
       </div>
-      <div className="deck-display" style={{
-        fontSize: 'var(--fs-slide-tagline)',
-        color: 'var(--cream)',
+      <div className="deck-display xc-tagline xc-ink" style={{
         fontWeight: 650,
-        lineHeight: 1.2,
-      }}>
+        lineHeight: 1.2 }}>
         {item.broken}
       </div>
-      <div className="deck-body" style={{
-        fontSize: 'var(--fs-slide-subhead)',
-        color: 'var(--cream)',
+      <div className="deck-body xc-slide-subhead xc-ink" style={{
         opacity: 0.78,
-        lineHeight: 1.35,
-      }}>
+        lineHeight: 1.35 }}>
         {item.value}
       </div>
     </motion.div>

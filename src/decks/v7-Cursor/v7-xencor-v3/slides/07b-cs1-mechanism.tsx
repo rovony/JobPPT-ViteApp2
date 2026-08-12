@@ -33,7 +33,7 @@ export default function Cs1Mechanism() {
 
       <Headline delay={0.65} maxChars={64}>
         Three pathways drive PAH.{' '}
-        <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 700 }}>
+        <span className="xc-em-strong">
           Ambrisentan selectively blocks the endothelin arm.
         </span>
       </Headline>
@@ -108,16 +108,16 @@ function SelectivityCard() {
         minWidth: '240px',
       }}
     >
-      <div className="deck-mono uppercase" style={{ fontSize: 'var(--fs-slide-subhead)', color: 'var(--amber)', letterSpacing: 'var(--ls-mono-wide)', fontWeight: 700 }}>
+      <div className="deck-mono uppercase xc-slide-subhead xc-amber" style={{ letterSpacing: 'var(--ls-mono-wide)', fontWeight: 700 }}>
         ETA Selectivity
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
         {ERA_SELECTIVITY.map((era) => (
           <div key={era.name} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 'var(--space-4)' }}>
-            <span className="deck-display" style={{ fontSize: 'var(--fs-slide-name)', color: era.isThisCase ? 'var(--case)' : 'var(--cream)', fontWeight: era.isThisCase ? 700 : 500 }}>
+            <span className={`deck-display xc-name ${era.isThisCase ? 'xc-case' : 'xc-ink'}`} style={{ fontWeight: era.isThisCase ? 700 : 500 }}>
               {era.name}
             </span>
-            <span className="deck-mono" style={{ fontSize: 'var(--fs-slide-subhead)', color: era.isThisCase ? 'var(--case)' : 'var(--cream-faint)', fontVariantNumeric: 'tabular-nums', fontWeight: 700 }}>
+            <span className={`deck-mono xc-slide-subhead ${era.isThisCase ? 'xc-case' : 'xc-faint'}`} style={{ fontVariantNumeric: 'tabular-nums', fontWeight: 700 }}>
               {era.ratio}
             </span>
           </div>

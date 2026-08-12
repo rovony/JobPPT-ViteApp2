@@ -97,12 +97,12 @@ export default function ClosingConclusion() {
                 {/* Massive Ambient Number */}
                 <div
                   aria-hidden
-                  className="deck-display"
+                  className="xc-sans"
                   style={{
                     position: 'absolute',
                     top: '-5%',
                     right: '-10%',
-                    fontSize: 'var(--fs-slide-display)',
+                    fontSize: 'var(--fs-slide-display, clamp(4rem, 10vw, 8rem))',
                     fontWeight: 900,
                     color: p.color,
                     opacity: 0.04,
@@ -129,11 +129,11 @@ export default function ClosingConclusion() {
                   }}>
                     <Icon size={16} color={p.color} strokeWidth={2.5} />
                   </div>
-                  <span className="deck-mono uppercase" style={{
-                    fontSize: 'var(--fs-slide-pageno)',
+                  <span className="xc-pageno" style={{
                     letterSpacing: 'var(--ls-mono-wide)',
                     color: p.color,
                     fontWeight: 700,
+                    textTransform: 'uppercase',
                   }}>
                     {p.label}
                   </span>
@@ -141,20 +141,15 @@ export default function ClosingConclusion() {
 
                 {/* Typography Group */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', marginTop: 'var(--space-2)' }}>
-                  <h3 className="deck-display" style={{
-                    fontSize: 'var(--fs-card-title)',
-                    color: 'var(--cream)',
+                  <h3 className="xc-title xc-ink" style={{
                     fontWeight: 600,
                     lineHeight: 1.1,
-                    margin: 0,
                   }}>
                     {p.headline}
                   </h3>
-                  <p className="deck-body" style={{
-                    fontSize: 'var(--fs-slide-subhead)',
+                  <p className="xc-subhead" style={{
                     color: 'color-mix(in srgb, var(--cream) 70%, transparent)',
                     lineHeight: 1.5,
-                    margin: 0,
                     maxWidth: '32ch',
                   }}>
                     {p.body}

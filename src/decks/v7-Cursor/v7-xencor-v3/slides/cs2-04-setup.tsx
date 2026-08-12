@@ -185,7 +185,7 @@ function TimelineSVG() {
         />
 
         <motion.text
-          x="1100" y="20" textAnchor="middle" fontFamily="'JetBrains Mono', monospace"
+          x="1100" y="20" textAnchor="middle" fontFamily="var(--font-mono)"
           fontSize="11" fill="var(--cyan)" letterSpacing="1.4" fontWeight="600"
           initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -220,7 +220,7 @@ function TimelineTick({ cx, date, label, delay, reduced, accent = false }) {
       transition={{ duration: 0.3, ease: EASE, delay }}
     >
       <circle cx={cx} cy="44" r="5" fill={fill} stroke={stroke} strokeWidth="1.5" />
-      <text x={cx} y="22" textAnchor="middle" fontFamily="'JetBrains Mono', monospace"
+      <text x={cx} y="22" textAnchor="middle" fontFamily="var(--font-mono)"
         fontSize="11" fill={dateFill} letterSpacing="1.4">{date}</text>
       <text x={cx} y="66" textAnchor="middle" fontFamily="'Fraunces', Georgia, serif"
         fontSize="13" fill={labelFill} fontStyle="italic">{label}</text>
@@ -291,24 +291,16 @@ function QuoteCard() {
           transition={{ duration: 0.3, ease: EASE, delay: D.quoteAttrTop }}
         >
           <div
-            className="deck-mono uppercase"
-            style={{
-              fontSize: 'var(--fs-slide-subhead)',
+            className="deck-mono uppercase xc-slide-subhead xc-cyan" style={{
               letterSpacing: 'var(--ls-mono-wide)',
-              color: 'var(--cyan)',
-              fontWeight: 700,
-            }}
+              fontWeight: 700 }}
           >
             CDSCO · Subject Expert Committee for Oncology
           </div>
           <div
-            className="deck-mono uppercase"
-            style={{
+            className="deck-mono uppercase xc-slide-eyebrow xc-muted" style={{
               marginTop: 'var(--space-1)',
-              fontSize: 'var(--fs-slide-eyebrow)',
-              letterSpacing: '0.14em',
-              color: 'var(--cream-muted)',
-            }}
+              letterSpacing: '0.14em'}}
           >
             December 2024 · Meeting Minutes (Public Record)
           </div>
@@ -316,16 +308,12 @@ function QuoteCard() {
 
         {/* Quote text — word-by-word reveal */}
         <div
-          className="deck-display"
-          style={{
+          className="deck-display xc-h1 xc-ink" style={{
             margin: 0,
-            fontSize: 'var(--fs-slide-headline)',
             lineHeight: 1.15,
             letterSpacing: '-0.012em',
-            color: 'var(--cream)',
             fontWeight: 400,
-            fontStyle: 'italic',
-          }}
+            fontStyle: 'italic' }}
         >
           {/* Line 1 */}
           <span>
@@ -397,24 +385,16 @@ function QuoteCard() {
           style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}
         >
           <span
-            className="deck-mono uppercase"
-            style={{
-              fontSize: 'var(--fs-slide-eyebrow)',
+            className="deck-mono uppercase xc-slide-eyebrow xc-muted" style={{
               letterSpacing: '0.14em',
-              color: 'var(--cream-muted)',
-              fontWeight: 600,
-            }}
+              fontWeight: 600 }}
           >
             Verbatim · Committee opinion
           </span>
           <span
-            className="deck-mono uppercase"
-            style={{
-              fontSize: 'var(--fs-slide-eyebrow)',
+            className="deck-mono uppercase xc-slide-eyebrow xc-muted" style={{
               letterSpacing: '0.14em',
-              color: 'var(--cream-muted)',
-              fontWeight: 600,
-            }}
+              fontWeight: 600 }}
           >
             ~9 mo post-filing
           </span>
@@ -456,12 +436,9 @@ function AsymmetryPanel() {
           gap: 'var(--space-2)',
         }}
       >
-        <div className="deck-mono uppercase" style={{
-          fontSize: 'var(--fs-slide-subhead)',
+        <div className="deck-mono uppercase xc-slide-subhead xc-muted" style={{
           letterSpacing: 'var(--ls-mono-wide)',
-          color: 'var(--cream-muted)',
-          fontWeight: 700,
-        }}>
+          fontWeight: 700 }}>
           Asked · what SEC requested
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
@@ -478,12 +455,7 @@ function AsymmetryPanel() {
                 borderLeft: `2px solid var(--cream-faint)`,
               }}
             >
-              <span style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 'var(--fs-slide-subhead)',
-                color: 'var(--cream-muted)',
-                lineHeight: 1.45,
-              }}>
+              <span className="xc-slide-subhead xc-muted">
                 {item}
               </span>
             </motion.div>
@@ -505,12 +477,9 @@ function AsymmetryPanel() {
           gap: 'var(--space-2)',
         }}
       >
-        <div className="deck-mono uppercase" style={{
-          fontSize: 'var(--fs-slide-subhead)',
+        <div className="deck-mono uppercase xc-slide-subhead xc-cyan" style={{
           letterSpacing: 'var(--ls-mono-wide)',
-          color: 'var(--cyan)',
-          fontWeight: 700,
-        }}>
+          fontWeight: 700 }}>
           Already in hand · global Clin Pharm record
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
@@ -527,12 +496,7 @@ function AsymmetryPanel() {
                 borderLeft: `2px solid var(--cyan)`,
               }}
             >
-              <span style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 'var(--fs-slide-subhead)',
-                color: 'var(--cream)',
-                lineHeight: 1.45,
-              }}>
+              <span className="xc-slide-subhead xc-ink">
                 {item.text}
                 {item.cite && (
                   <CitationLink cite={item.cite} href={item.pmcUrl} />
@@ -550,14 +514,12 @@ function CitationLink({ cite, href }) {
   const [hovered, setHovered] = useState(false);
   return (
     <span
-      className="deck-display"
+      className="deck-display xc-tagline xc-muted"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={href ? () => window.open(href, '_blank', 'noopener') : undefined}
       style={{
-        fontSize: 'var(--fs-slide-tagline)',
         fontStyle: 'italic',
-        color: 'var(--cream-muted)',
         cursor: href ? 'pointer' : 'default',
         textDecoration: hovered ? 'underline' : 'none',
         transition: 'text-decoration 0.15s',
@@ -594,15 +556,11 @@ function AmberBand() {
       }}
     >
       <p
-        className="deck-display"
-        style={{
+        className="deck-display xc-tagline xc-ink" style={{
           margin: 0,
           fontStyle: 'italic',
-          fontSize: 'var(--fs-slide-tagline)',
           lineHeight: 1.4,
-          color: 'var(--cream)',
-          textAlign: 'center',
-        }}
+          textAlign: 'center' }}
       >
         <span aria-hidden style={{
           display: 'inline-block',

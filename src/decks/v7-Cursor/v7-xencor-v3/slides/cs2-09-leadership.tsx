@@ -71,17 +71,13 @@ export default function CS2Leadership() {
               animate={go ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
               transition={{ duration: 0.55, delay: 0.85, ease: [0.2, 0.7, 0.3, 1] }}
             >
-              <div className="deck-mono uppercase" style={{
-                fontSize: 'var(--fs-slide-eyebrow)', color: 'var(--cyan)',
-                letterSpacing: '0.1em', fontWeight: 700,
-              }}>Quantitative Pharmacology</div>
+              <div className="deck-mono uppercase xc-slide-eyebrow xc-cyan" style={{
+                letterSpacing: '0.1em', fontWeight: 700 }}>Quantitative Pharmacology</div>
 
               {QUANT_PHARM_SCOPE.map((item) => (
-                <div key={item} className="deck-body" style={{
-                  fontSize: 'var(--fs-slide-subhead)', color: 'var(--cream)',
+                <div key={item} className="deck-body xc-slide-subhead xc-ink" style={{
                   lineHeight: 1.4, paddingLeft: 'var(--space-3)',
-                  borderLeft: '2px solid var(--cyan)',
-                }}>
+                  borderLeft: '2px solid var(--cyan)' }}>
                   {item}
                 </div>
               ))}
@@ -100,10 +96,8 @@ export default function CS2Leadership() {
               animate={go ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
               transition={{ duration: 0.55, delay: 1.0, ease: [0.2, 0.7, 0.3, 1] }}
             >
-              <div className="deck-mono uppercase" style={{
-                fontSize: 'var(--fs-slide-eyebrow)', color: 'var(--cream-faint)',
-                letterSpacing: '0.1em', fontWeight: 700,
-              }}>Partner Functions</div>
+              <div className="deck-mono uppercase xc-slide-eyebrow xc-faint" style={{
+                letterSpacing: '0.1em', fontWeight: 700 }}>Partner Functions</div>
 
               {PARTNER_SCOPE.map((item) => (
                 <div key={item.who} style={{
@@ -111,14 +105,10 @@ export default function CS2Leadership() {
                   paddingLeft: 'var(--space-3)',
                   borderLeft: '2px solid var(--cream-hairline)',
                 }}>
-                  <span className="deck-mono" style={{
-                    fontSize: 'var(--fs-slide-eyebrow)', color: 'var(--cream-muted)',
-                    fontWeight: 600,
-                  }}>{item.who}</span>
-                  <span className="deck-body" style={{
-                    fontSize: 'var(--fs-slide-subhead)', color: 'var(--cream)',
-                    lineHeight: 1.4,
-                  }}>{item.what}</span>
+                  <span className="deck-mono xc-slide-eyebrow xc-muted" style={{
+                    fontWeight: 600 }}>{item.who}</span>
+                  <span className="deck-body xc-slide-subhead xc-ink" style={{
+                    lineHeight: 1.4 }}>{item.what}</span>
                 </div>
               ))}
             </motion.div>

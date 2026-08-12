@@ -109,12 +109,7 @@ export default function Cs2AspFda() {
             }}
           >
             <motion.div
-              className="deck-mono uppercase"
-              style={{
-                fontSize: 'var(--fs-card-label)',
-                letterSpacing: 'var(--ls-mono-wide)',
-                color: 'var(--cream-muted)',
-              }}
+              className="xc-card-label xc-ink-muted"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, ease, delay: D.waterfallLabel }}
@@ -154,14 +149,7 @@ export default function Cs2AspFda() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, ease, delay: D.positionsLabel }}
           >
-            <div
-              className="deck-mono uppercase"
-              style={{
-                fontSize: 'var(--fs-card-label)',
-                letterSpacing: 'var(--ls-mono-wide)',
-                color: 'var(--cream-muted)',
-              }}
-            >
+            <div className="xc-card-label xc-ink-muted">
               Regulatory position · Type A meeting record
             </div>
 
@@ -213,24 +201,14 @@ export default function Cs2AspFda() {
               transition={{ duration: 0.55, ease, delay: D.payoff }}
             >
               <span
-                className="deck-mono uppercase"
-                style={{
-                  fontSize: 'var(--fs-slide-tagline)',
-                  letterSpacing: 'var(--ls-mono-wide)',
-                  color: 'var(--teal)',
-                  fontWeight: 700,
-                }}
+                className="xc-tagline-mono"
+                style={{ color: 'var(--teal)' }}
               >
                 Pharmacometric methodology
               </span>
               <span
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: 'var(--fs-card-body)',
-                  color: 'var(--cream)',
-                  lineHeight: 1.45,
-                  flex: '1 1 480px',
-                }}
+                className="bp-card-body xc-ink"
+                style={{ flex: '1 1 480px' }}
               >
                 Two frameworks prepared · one sample size agreed —{' '}
                 <span style={{ color: 'var(--teal)', fontWeight: 700 }}>
@@ -274,24 +252,14 @@ function PositionLine({ pos, delay, reduced }) {
       }}
     >
       <div
-        className="deck-display italic"
-        style={{
-          fontSize: 'var(--fs-card-title)',
-          color: 'var(--cream)',
-          lineHeight: 1.4,
-          fontWeight: 400,
-        }}
+        className="xc-title xc-ink italic"
+        style={{ fontWeight: 400 }}
       >
         {pos.text}
       </div>
       <div
-        className="deck-mono uppercase"
-        style={{
-          fontSize: 'var(--fs-slide-tagline)',
-          letterSpacing: 'var(--ls-mono-wide)',
-          color: 'var(--teal)',
-          fontWeight: 700,
-        }}
+        className="xc-tagline-mono"
+        style={{ color: 'var(--teal)' }}
       >
         — {pos.cite}
       </div>

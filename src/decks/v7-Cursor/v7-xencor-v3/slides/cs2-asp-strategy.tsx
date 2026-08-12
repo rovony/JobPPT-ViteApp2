@@ -155,24 +155,14 @@ export default function Cs2AspStrategy() {
             transition={{ duration: 0.55, ease, delay: D.closing }}
           >
             <span
-              className="deck-mono uppercase"
-              style={{
-                fontSize: 'var(--fs-slide-tagline)',
-                letterSpacing: 'var(--ls-mono-wide)',
-                color: 'var(--teal)',
-                fontWeight: 700,
-              }}
+              className="xc-tagline-mono"
+              style={{ color: 'var(--teal)' }}
             >
               The stack
             </span>
             <span
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 'var(--fs-card-body)',
-                color: 'var(--cream)',
-                lineHeight: 1.45,
-                flex: '1 1 480px',
-              }}
+              className="bp-card-body xc-ink"
+              style={{ flex: '1 1 480px' }}
             >
               PK-precision sample size{' '}
               <span style={{ color: 'var(--teal)', fontWeight: 700 }}>+</span>{' '}
@@ -356,7 +346,7 @@ function StackTower({ delays, reduced, ease }) {
           x={TOWER.baseX + 24 + TOWER.slabW * 0.5}
           y={TOWER.outcomeY - 24 + TOWER.slabH * 0.5 + 4}
           textAnchor="middle"
-          fontFamily="var(--font-mono)"
+          className="xc-mono"
           fontSize={16}
           letterSpacing="0.05em"
           fontWeight={800}
@@ -393,7 +383,7 @@ function SlabLabel({ x, y, kicker, value }) {
       <text
         x={x}
         y={y - 4}
-        fontFamily="var(--font-mono)"
+        className="xc-mono"
         fontSize={8.5}
         letterSpacing="0.22em"
         fontWeight={700}
@@ -404,7 +394,7 @@ function SlabLabel({ x, y, kicker, value }) {
       <text
         x={x}
         y={y + 9}
-        fontFamily="var(--font-mono)"
+        className="xc-mono"
         fontSize={11}
         letterSpacing="0.06em"
         fontWeight={700}
@@ -438,10 +428,9 @@ function MoveRow({ data, delay, reduced, ease }) {
       transition={{ duration: 0.55, ease, delay }}
     >
       <span
+        className="bp-card-body xc-mono"
         style={{
           width: 32,
-          fontFamily: 'var(--font-mono)',
-          fontSize: 'var(--fs-card-body)',
           fontWeight: 700,
           color: 'var(--teal)',
           letterSpacing: '0.04em',
@@ -451,58 +440,26 @@ function MoveRow({ data, delay, reduced, ease }) {
       </span>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         <span
-          className="deck-mono uppercase"
-          style={{
-            fontSize: 'var(--fs-card-label)',
-            letterSpacing: 'var(--ls-mono-wide)',
-            color: 'var(--teal)',
-            fontWeight: 700,
-          }}
+          className="xc-card-label"
+          style={{ color: 'var(--teal)' }}
         >
           {data.kicker}
         </span>
         <span
-          className="deck-display"
-          style={{
-            fontSize: 'var(--fs-card-title)',
-            color: 'var(--cream)',
-            lineHeight: 1.25,
-            fontStyle: 'italic',
-            fontWeight: 500,
-            letterSpacing: 'var(--ls-headline)',
-          }}
+          className="xc-title xc-ink italic"
+          style={{ fontWeight: 500 }}
         >
           {data.title}
         </span>
-        <span
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 'var(--fs-card-body)',
-            color: 'var(--cream-muted)',
-            lineHeight: 1.4,
-          }}
-        >
+        <span className="bp-card-body xc-ink-muted">
           {data.method}
         </span>
-        <span
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 'var(--fs-card-body)',
-            color: 'var(--cream)',
-            lineHeight: 1.4,
-          }}
-        >
+        <span className="bp-card-body xc-ink">
           {data.anchor}
         </span>
         <span
-          className="deck-mono uppercase"
-          style={{
-            fontSize: 'var(--fs-slide-tagline)',
-            letterSpacing: '0.22em',
-            color: 'var(--cream-faint)',
-            fontWeight: 700,
-            paddingTop: 2,
-          }}
+          className="xc-tagline-mono xc-ink-faint"
+          style={{ paddingTop: 2 }}
         >
           FDA precedent · {data.precedent}
         </span>
@@ -527,39 +484,20 @@ function BaselineRow({ data, delay, reduced, ease }) {
       transition={{ duration: 0.55, ease, delay }}
     >
       <span
-        className="deck-mono uppercase"
-        style={{
-          fontSize: 'var(--fs-slide-tagline)',
-          letterSpacing: '0.22em',
-          color: 'var(--cream-faint)',
-          fontWeight: 700,
-          width: 96,
-        }}
+        className="xc-tagline-mono xc-ink-faint"
+        style={{ width: 96 }}
       >
         {data.label}
       </span>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
         <span
-          className="deck-display"
-          style={{
-            fontSize: 'var(--fs-card-title)',
-            color: 'var(--cream)',
-            lineHeight: 1.25,
-            fontWeight: 500,
-            letterSpacing: 'var(--ls-headline)',
-          }}
+          className="xc-title xc-ink"
+          style={{ fontWeight: 500 }}
         >
           {data.title} ·{' '}
           <span style={{ color: 'var(--teal)', fontWeight: 700 }}>{data.n}</span>
         </span>
-        <span
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 'var(--fs-card-body)',
-            color: 'var(--cream-muted)',
-            lineHeight: 1.4,
-          }}
-        >
+        <span className="bp-card-body xc-ink-muted">
           {data.note}
         </span>
       </div>
@@ -583,20 +521,14 @@ function OutcomeRow({ data, delay, reduced, ease }) {
       transition={{ duration: 0.55, ease, delay }}
     >
       <span
-        className="deck-mono uppercase"
-        style={{
-          fontSize: 'var(--fs-slide-tagline)',
-          letterSpacing: '0.22em',
-          color: 'var(--teal)',
-          fontWeight: 700,
-          width: 96,
-        }}
+        className="xc-tagline-mono"
+        style={{ color: 'var(--teal)', width: 96 }}
       >
         {data.label}
       </span>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, flexWrap: 'wrap' }}>
         <span
-          className="deck-display"
+          className="xc-sans"
           style={{
             fontSize: 'var(--fs-numeral-md, var(--fs-display-sm, 2.4rem))',
             color: 'var(--teal)',
@@ -607,14 +539,7 @@ function OutcomeRow({ data, delay, reduced, ease }) {
         >
           {data.n}
         </span>
-        <span
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 'var(--fs-card-body)',
-            color: 'var(--cream-muted)',
-            lineHeight: 1.4,
-          }}
-        >
+        <span className="bp-card-body xc-ink-muted">
           {data.note}
         </span>
       </div>

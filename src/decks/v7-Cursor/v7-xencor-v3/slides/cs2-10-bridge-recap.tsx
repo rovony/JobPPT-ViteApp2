@@ -121,15 +121,11 @@ export default function CS2BridgeRecap() {
               >
                 {/* Number */}
                 <motion.span
-                  className="deck-mono"
-                  style={{
-                    fontSize: 'var(--fs-slide-eyebrow)',
+                  className="deck-mono xc-slide-eyebrow xc-cyan" style={{
                     letterSpacing: '0.18em',
-                    color: 'var(--cyan)',
                     fontWeight: 500,
                     width: '1.75rem',
-                    flexShrink: 0,
-                  }}
+                    flexShrink: 0 }}
                   initial={{ opacity: 0 }}
                   animate={go ? { opacity: 1 } : { opacity: 1 }}
                   transition={{ duration: 0.2, delay: D.p[i].num }}
@@ -162,16 +158,12 @@ export default function CS2BridgeRecap() {
 
                 {/* Principle text — word-by-word */}
                 <span
-                  className="deck-display"
-                  style={{
-                    fontSize: 'var(--fs-slide-headline)',
+                  className="deck-display xc-h1 xc-ink" style={{
                     fontStyle: 'italic',
                     fontWeight: 400,
                     lineHeight: 1.15,
                     letterSpacing: '-0.012em',
-                    color: 'var(--cream)',
-                    flex: 1, minWidth: 0,
-                  }}
+                    flex: 1, minWidth: 0 }}
                 >
                   <WordReveal
                     em={p.em}
@@ -223,10 +215,8 @@ export default function CS2BridgeRecap() {
           animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: D.amber, ease: EASE }}
         >
-          <span className="deck-display" style={{
-            fontSize: 'var(--fs-slide-tagline)',
-            lineHeight: 1.4,
-          }}>
+          <span className="deck-display xc-tagline" style={{
+            lineHeight: 1.4 }}>
             <span aria-hidden style={{
               display: 'inline-block',
               transform: 'rotate(45deg)',
@@ -252,12 +242,8 @@ export default function CS2BridgeRecap() {
           marginTop: 'var(--space-2)',
         }}>
           <motion.span
-            className="deck-mono uppercase"
-            style={{
-              fontSize: 'var(--fs-slide-pageno)',
-              letterSpacing: '0.14em',
-              color: 'var(--cream-faint)',
-            }}
+            className="deck-mono uppercase xc-pageno xc-faint" style={{
+              letterSpacing: '0.14em'}}
             initial={{ opacity: 0 }}
             animate={go ? { opacity: 1 } : { opacity: 1 }}
             transition={{ duration: 0.3, delay: D.footer }}
@@ -269,11 +255,7 @@ export default function CS2BridgeRecap() {
             {['·', '·', '·'].map((dot, i) => (
               <motion.span
                 key={i}
-                className="deck-mono"
-                style={{
-                  fontSize: 'var(--fs-slide-pageno)',
-                  color: 'var(--cream-faint)',
-                }}
+                className="deck-mono xc-pageno xc-faint"
                 initial={{ opacity: 0 }}
                 animate={go ? { opacity: 1 } : { opacity: 1 }}
                 transition={{ duration: 0.2, delay: D.footer + 0.2 + i * 0.2 }}

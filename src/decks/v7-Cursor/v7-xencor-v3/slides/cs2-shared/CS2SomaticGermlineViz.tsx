@@ -49,11 +49,9 @@ export default function CS2SomaticGermlineViz({ delay = 0.85 }) {
       }}
     >
       {/* Section header — names what the audience is about to read */}
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-eyebrow)',
+      <div className="deck-mono uppercase xc-slide-eyebrow" style={{
         letterSpacing: 'var(--ls-mono-wide)',
-        color: C.cyan, fontWeight: 700,
-      }}>
+        color: C.cyan, fontWeight: 700 }}>
         Why ethnic-independent
       </div>
 
@@ -90,20 +88,16 @@ function CellRowPanel({ variant }) {
         display: 'flex', alignItems: 'baseline', justifyContent: 'space-between',
         gap: 'var(--space-3)',
       }}>
-        <span className="deck-mono uppercase" style={{
-          fontSize: 'var(--fs-slide-eyebrow)',
+        <span className="deck-mono uppercase xc-slide-eyebrow" style={{
           letterSpacing: 'var(--ls-mono-wide)',
           color: isSomatic ? C.cyan : C.creamFaint,
-          fontWeight: 700,
-        }}>
+          fontWeight: 700 }}>
           {isSomatic ? 'Somatic · this case' : 'If germline · counterfactual'}
         </span>
-        <span className="deck-display" style={{
+        <span className="deck-display xc-slide-subhead" style={{
           fontStyle: 'italic',
-          fontSize: 'var(--fs-slide-subhead)',
           color: isSomatic ? C.cyan : C.creamFaint,
-          fontWeight: 600,
-        }}>
+          fontWeight: 600 }}>
           {isSomatic ? 'IDH1 R132' : 'e.g. CYP2C19 *2'}
         </span>
       </div>
@@ -121,23 +115,18 @@ function CellRowPanel({ variant }) {
         <div style={{ flex: 1, minWidth: 0,
           display: 'flex', flexDirection: 'column', gap: 'var(--space-1)',
         }}>
-          <div style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 'var(--fs-slide-subhead)',
-            color: isSomatic ? C.cream : C.creamMuted,
+          <div className={`xc-slide-subhead ${isSomatic ? 'xc-ink' : 'xc-muted'}`} style={{
             lineHeight: 1.45,
           }}>
             {isSomatic
-              ? <><span style={{ color: C.cyan, fontWeight: 600 }}>Tumor cell only.</span> Acquired during tumorigenesis, not in germline DNA.</>
+              ? <><span className="xc-cyan" style={{ fontWeight: 600 }}>Tumor cell only.</span> Acquired during tumorigenesis, not in germline DNA.</>
               : <>Inherited variant present in every cell — frequency varies by ancestry.</>}
           </div>
-          <div className="deck-mono uppercase" style={{
-            fontSize: 'var(--fs-slide-pageno)',
+          <div className="deck-mono uppercase xc-pageno" style={{
             letterSpacing: 'var(--ls-mono-wide)',
             color: isSomatic ? C.cyan : C.creamFaint,
             fontWeight: 600,
-            lineHeight: 1.3,
-          }}>
+            lineHeight: 1.3 }}>
             {isSomatic
               ? '↳ Drug-target identical across populations'
               : '↳ Drug response would track ancestry'}

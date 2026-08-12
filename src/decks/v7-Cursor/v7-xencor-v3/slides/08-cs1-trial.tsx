@@ -79,14 +79,14 @@ function TimelineEvent({ entry, delay, reduced }) {
           boxShadow: isAmb ? '0 4px 16px rgba(0,0,0,0.18)' : 'none',
         }}
       >
-        <span className="deck-mono" style={{ fontSize: 'var(--fs-slide-tagline)', fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>
+        <span className="deck-mono xc-tagline" style={{ fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>
           {yearLabel(entry.year)}
         </span>
-        <div className="deck-display" style={{ fontSize: 'var(--fs-slide-subhead)', fontWeight: 600, marginTop: '4px' }}>
+        <div className="deck-display xc-slide-subhead" style={{ fontWeight: 600, marginTop: '4px' }}>
           {entry.label}
         </div>
         {entry.sub && (
-          <div className="deck-mono" style={{ fontSize: 'var(--fs-slide-tagline)', opacity: 0.85, marginTop: '4px' }}>
+          <div className="deck-mono xc-tagline" style={{ opacity: 0.85, marginTop: '4px' }}>
             {entry.sub}
           </div>
         )}
@@ -147,7 +147,7 @@ export default function Cs1Trial() {
 
       <Headline delay={0.25} maxChars={66}>
         Pediatric PAH moves slowly —{' '}
-        <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 600 }}>
+        <span className="xc-em-case">
           held, terminated, then approved.
         </span>
       </Headline>
@@ -213,7 +213,7 @@ export default function Cs1Trial() {
                       transform: 'translate(-50%, -140%)',
                     }}
                   >
-                    <span className="deck-mono" style={{ fontSize: 'var(--fs-slide-tagline)', color: 'var(--cream)', opacity: 0.55 }}>
+                    <span className="deck-mono xc-tagline xc-ink" style={{ opacity: 0.55 }}>
                       {y}
                     </span>
                   </div>
@@ -231,17 +231,15 @@ export default function Cs1Trial() {
             initial={reduced ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : 1.6, ease: EASE }}
-            className="deck-body"
+            className="deck-body xc-slide-subhead xc-muted"
             style={{
-              fontSize: 'var(--fs-slide-subhead)',
-              color: 'var(--cream-muted)',
               margin: 0,
               maxWidth: '52rem',
               lineHeight: 1.5,
             }}
           >
-            <strong style={{ color: 'var(--case)' }}>Dashed arc:</strong> program hold → termination.
-            {' '}<strong style={{ color: 'var(--case)' }}>Solid arc:</strong> exposure bridge → EMA + PMDA approval.
+            <strong className="xc-case">Dashed arc:</strong> program hold → termination.
+            {' '}<strong className="xc-case">Solid arc:</strong> exposure bridge → EMA + PMDA approval.
           </motion.p>
         </div>
       </Viz>

@@ -102,19 +102,13 @@ export default function Roadmap() {
             return (
               <motion.div
                 key={c.n}
+                className="xc-agenda-card"
                 style={{
-                  position: 'relative',
-                  minWidth: 0,
                   border: `1.5px solid ${accent}`,
                   borderLeft: `4px solid ${accent}`,
-                  borderRadius: 'var(--radius-md)',
                   background: `linear-gradient(180deg,
                     color-mix(in srgb, ${accent} 12%, transparent),
                     color-mix(in srgb, var(--panel) 75%, transparent) 70%)`,
-                  padding: 'clamp(var(--space-3), 1.6vw, var(--space-5))',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 'var(--space-2)',
                 }}
                 initial={{ opacity: 0, y: 10 }}
                 animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
@@ -124,30 +118,12 @@ export default function Roadmap() {
                   ease: [0.2, 0.7, 0.3, 1],
                 }}
               >
-                <div
-                  className="deck-mono"
-                  style={{
-                    fontSize: 'var(--fs-slide-eyebrow)',
-                    color: accent,
-                    letterSpacing: '0.08em',
-                    fontWeight: 700,
-                  }}
-                >
+                <div className="xc-tag" style={{ color: accent, letterSpacing: '0.08em' }}>
                   CASE {c.n}
                 </div>
+                <div className="xc-agenda-card__drug">{c.drug}</div>
                 <div
-                  className="deck-display"
-                  style={{
-                    fontSize: 'clamp(1.2rem, 2.2vw, 1.7rem)',
-                    color: 'var(--cream)',
-                    lineHeight: 1.1,
-                    fontWeight: 600,
-                  }}
-                >
-                  {c.drug}
-                </div>
-                <div
-                  className="deck-body"
+                  className="xc-body"
                   style={{
                     fontSize: 'var(--fs-slide-subhead)',
                     color: 'var(--cream)',
@@ -158,12 +134,8 @@ export default function Roadmap() {
                   {c.indication}
                 </div>
                 <div
-                  className="deck-mono uppercase"
-                  style={{
-                    fontSize: 'var(--fs-slide-eyebrow)',
-                    color: 'var(--cream-muted)',
-                    letterSpacing: '0.08em',
-                  }}
+                  className="xc-meta"
+                  style={{ color: 'var(--cream-muted)', letterSpacing: '0.08em' }}
                 >
                   {c.setting}
                 </div>
@@ -177,7 +149,7 @@ export default function Roadmap() {
                   }}
                 />
                 <div
-                  className="deck-body"
+                  className="xc-body"
                   style={{
                     fontSize: 'var(--fs-slide-subhead)',
                     color: 'var(--cream-muted)',
@@ -210,14 +182,7 @@ export default function Roadmap() {
           textAlign: 'center',
         }}
       >
-        <div
-          className="deck-display"
-          style={{
-            fontSize: 'var(--fs-slide-tagline)',
-            color: 'var(--cream)',
-            lineHeight: 1.25,
-          }}
-        >
+        <div className="xc-band" style={{ color: 'var(--cream)', lineHeight: 1.25 }}>
           Cases first — then portfolio breadth and the Xencor bridge.
         </div>
       </GridSlot>

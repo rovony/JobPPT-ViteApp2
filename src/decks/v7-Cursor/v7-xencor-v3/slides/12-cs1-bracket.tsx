@@ -28,7 +28,7 @@ export default function Cs1Bracket() {
 
       <Headline delay={0.25} maxChars={62}>
         The dose was defended by{' '}
-        <span style={{ color: 'var(--case)', fontStyle: 'italic', fontWeight: 600 }}>
+        <span className="xc-em-case">
           exposure matching, not a repeat efficacy trial.
         </span>
       </Headline>
@@ -86,31 +86,23 @@ export default function Cs1Bracket() {
                 transition={{ duration: reduced ? 0 : 0.7, delay: reduced ? 0 : 0.85, ease: EASE }}
                 style={{ textAlign: 'center' }}
               >
-                <div className="deck-display" style={{
+                <div className="deck-display xc-case" style={{
                   fontSize: 'clamp(3rem, 6vw, 4.5rem)',
-                  color: 'var(--case)',
                   fontWeight: 700,
                   lineHeight: 1,
                   fontVariantNumeric: 'tabular-nums',
-                  letterSpacing: '-0.02em',
-                }}>
+                  letterSpacing: '-0.02em' }}>
                   −3%
                 </div>
-                <div className="deck-mono uppercase" style={{
-                  fontSize: 'var(--fs-slide-eyebrow)',
-                  color: 'var(--cream-faint)',
+                <div className="deck-mono uppercase xc-slide-eyebrow xc-faint" style={{
                   letterSpacing: 'var(--ls-mono-wide)',
                   marginTop: 'var(--space-2)',
-                  fontWeight: 700,
-                }}>
+                  fontWeight: 700 }}>
                   Low dose
                 </div>
-                <div className="deck-mono" style={{
-                  fontSize: 'var(--fs-slide-eyebrow)',
-                  color: 'var(--cream-muted)',
+                <div className="deck-mono xc-slide-eyebrow xc-muted" style={{
                   letterSpacing: 'var(--ls-mono)',
-                  marginTop: 'var(--space-1)',
-                }}>
+                  marginTop: 'var(--space-1)' }}>
                   AUCss 4.82 vs 4.98 μg·h/mL
                 </div>
               </motion.div>
@@ -121,31 +113,23 @@ export default function Cs1Bracket() {
                 transition={{ duration: reduced ? 0 : 0.7, delay: reduced ? 0 : 1.10, ease: EASE }}
                 style={{ textAlign: 'center' }}
               >
-                <div className="deck-display" style={{
+                <div className="deck-display xc-case" style={{
                   fontSize: 'clamp(3rem, 6vw, 4.5rem)',
-                  color: 'var(--case)',
                   fontWeight: 700,
                   lineHeight: 1,
                   fontVariantNumeric: 'tabular-nums',
-                  letterSpacing: '-0.02em',
-                }}>
+                  letterSpacing: '-0.02em' }}>
                   +0.3%
                 </div>
-                <div className="deck-mono uppercase" style={{
-                  fontSize: 'var(--fs-slide-eyebrow)',
-                  color: 'var(--cream-faint)',
+                <div className="deck-mono uppercase xc-slide-eyebrow xc-faint" style={{
                   letterSpacing: 'var(--ls-mono-wide)',
                   marginTop: 'var(--space-2)',
-                  fontWeight: 700,
-                }}>
+                  fontWeight: 700 }}>
                   High dose
                 </div>
-                <div className="deck-mono" style={{
-                  fontSize: 'var(--fs-slide-eyebrow)',
-                  color: 'var(--cream-muted)',
+                <div className="deck-mono xc-slide-eyebrow xc-muted" style={{
                   letterSpacing: 'var(--ls-mono)',
-                  marginTop: 'var(--space-1)',
-                }}>
+                  marginTop: 'var(--space-1)' }}>
                   AUCss 9.15 vs 9.12 μg·h/mL
                 </div>
               </motion.div>
@@ -153,13 +137,10 @@ export default function Cs1Bracket() {
 
             <DensityCurve reduced={reduced} />
 
-            <div className="deck-mono" style={{
-              fontSize: 'var(--fs-slide-eyebrow)',
-              color: 'var(--cream-faint)',
+            <div className="deck-mono xc-slide-eyebrow xc-faint" style={{
               letterSpacing: 'var(--ls-mono)',
               textAlign: 'center',
-              opacity: 0.75,
-            }}>
+              opacity: 0.75 }}>
               Illustrative AUCss densities · means per Okour 2023 · not extracted figure
             </div>
           </div>
@@ -263,18 +244,14 @@ function buildDensityPath(center, spread, w, h) {
 function StaticEyebrow({ children }) {
   return (
     <div
-      className="deck-mono uppercase"
-      style={{
+      className="deck-mono uppercase xc-slide-eyebrow xc-case" style={{
         gridArea: 'eyebrow',
         display: 'flex',
         alignItems: 'center',
         gap: 'var(--space-4)',
         alignSelf: 'end',
-        fontSize: 'var(--fs-slide-eyebrow)',
         letterSpacing: 'var(--ls-mono-wide)',
-        fontWeight: 600,
-        color: 'var(--case)',
-      }}
+        fontWeight: 600}}
     >
       <span style={{ width: 'clamp(2rem, 5vw, 3rem)', height: '1px', background: 'var(--case)' }} />
       {children}
@@ -285,16 +262,13 @@ function StaticEyebrow({ children }) {
 function StaticSubhead({ children }) {
   return (
     <p
-      className="deck-display italic"
-      style={{
+      className="deck-display italic xc-muted" style={{
         gridArea: 'subhead',
         fontSize: 'clamp(1rem, min(1.5vw, 2.5vh), 1.5rem)',
         lineHeight: 'var(--lh-snug)',
-        color: 'var(--cream-muted)',
         fontWeight: 400,
         maxWidth: '96ch',
-        margin: 0,
-      }}
+        margin: 0 }}
     >
       {children}
     </p>
@@ -316,17 +290,17 @@ function StaticFooter({ kicker, tagline, source }) {
       }}
     >
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-6)' }}>
-        <span className="deck-mono uppercase" style={{ fontSize: 'var(--fs-slide-kicker)', letterSpacing: 'var(--ls-mono-wide)', color: 'var(--cream-faint)' }}>
+        <span className="deck-mono uppercase xc-slide-kicker xc-faint" style={{ letterSpacing: 'var(--ls-mono-wide)'}}>
           {kicker}
         </span>
-        <span className="deck-display italic" style={{ flex: 1, textAlign: 'right', fontSize: 'var(--fs-slide-tagline)', color: 'var(--cream-muted)', fontWeight: 500 }}>
+        <span className="deck-display italic xc-tagline xc-muted" style={{ flex: 1, textAlign: 'right', fontWeight: 500 }}>
           {tagline}
         </span>
-        <span className="deck-mono uppercase" style={{ fontSize: 'var(--fs-slide-pageno)', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)' }}>
+        <span className="deck-mono uppercase xc-pageno xc-faint" style={{ letterSpacing: 'var(--ls-mono)'}}>
           {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
         </span>
       </div>
-      <span className="deck-mono" style={{ fontSize: 'var(--fs-slide-eyebrow)', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-faint)', lineHeight: 1.45 }}>
+      <span className="deck-mono xc-slide-eyebrow xc-faint" style={{ letterSpacing: 'var(--ls-mono)', lineHeight: 1.45 }}>
         {source}
       </span>
     </div>
@@ -353,39 +327,33 @@ function ReceiptCard({ item }) {
         gap: 'var(--space-2)',
       }}
     >
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-eyebrow)',
+      <div className="deck-mono uppercase xc-slide-eyebrow" style={{
         letterSpacing: 'var(--ls-mono-wide)',
         color: item.isHero ? 'var(--case)' : 'var(--cream-faint)',
         fontWeight: 700,
-        whiteSpace: 'nowrap',
-      }}>
+        whiteSpace: 'nowrap' }}>
         {item.id} · {item.kicker}
       </div>
 
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-1)' }}>
-        <span className="deck-display" style={{
-          fontSize: item.isHero ? 'var(--fs-slide-display)' : 'var(--fs-slide-headline)',
-          color: item.isHero ? 'var(--case)' : 'var(--cream)',
+        <span className={`deck-display xc-h1 ${item.isHero ? 'xc-case' : 'xc-ink'}`} style={{
+          fontSize: item.isHero ? 'var(--fs-slide-display)' : undefined,
           fontWeight: 700,
           lineHeight: 1,
           fontVariantNumeric: 'tabular-nums',
         }}>
           {item.hero}
         </span>
-        <span className="deck-body" style={{ fontSize: 'var(--fs-slide-subhead)', color: 'var(--cream-muted)' }}>
+        <span className="deck-body xc-slide-subhead xc-muted">
           {item.unit}
         </span>
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
         {item.lines.map((line) => (
-          <div key={line} className="deck-body" style={{
-            fontSize: 'var(--fs-slide-subhead)',
-            color: 'var(--cream)',
+          <div key={line} className="deck-body xc-slide-subhead xc-ink" style={{
             opacity: 0.82,
-            lineHeight: 1.3,
-          }}>
+            lineHeight: 1.3 }}>
             {line}
           </div>
         ))}

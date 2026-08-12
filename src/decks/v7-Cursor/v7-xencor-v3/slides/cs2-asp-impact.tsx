@@ -95,14 +95,7 @@ export default function Cs2AspImpact() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease, delay: D.payoff }}
           >
-            <span
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 'var(--fs-slide-subhead)',
-                color: 'var(--cream-muted)',
-                lineHeight: 1.45,
-              }}
-            >
+            <span className="xc-subhead xc-ink-muted">
               SPARK-ALL closed at N = 42 on a sponsor portfolio decision —{' '}
               <span style={{ color: 'var(--teal)', fontWeight: 700 }}>
                 the FDA-agreed methodology is durable beyond any single program.
@@ -135,7 +128,7 @@ function ImpactNumeral({ delay, ease, overshoot, reduce }) {
     >
       <motion.div
         layoutId="cs3-pct-36"
-        className="deck-display italic"
+        className="xc-sans italic"
         style={{
           fontSize: 'clamp(4.5rem, 11vw, 12rem)',
           fontWeight: 800,
@@ -150,13 +143,8 @@ function ImpactNumeral({ delay, ease, overshoot, reduce }) {
         −36%
       </motion.div>
       <motion.div
-        className="deck-mono uppercase"
-        style={{
-          fontSize: 'var(--fs-slide-tagline)',
-          letterSpacing: 'var(--ls-mono-wide)',
-          color: 'var(--teal)',
-          fontWeight: 700,
-        }}
+        className="xc-tagline-mono"
+        style={{ color: 'var(--teal)' }}
         initial={reduce ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.45, ease, delay: delay + 0.2 }}
@@ -231,14 +219,11 @@ function PatientGrid({ delay, ease, reduce }) {
         })}
       </svg>
       <div
-        className="deck-mono uppercase"
+        className="xc-card-label xc-ink-muted"
         style={{
           display: 'flex',
           justifyContent: 'flex-end',
           gap: '12px',
-          fontSize: 'var(--fs-card-label)',
-          letterSpacing: 'var(--ls-mono-wide)',
-          color: 'var(--cream-muted)',
         }}
       >
         <span style={{ color: 'var(--teal)', fontWeight: 700 }}>60 enrolled</span>
@@ -273,19 +258,16 @@ function LedgerChip({ kicker, big, suffix, accent }) {
       }}
     >
       <div
-        className="deck-mono uppercase"
+        className="xc-card-label"
         style={{
-          fontSize: 'var(--fs-card-label)',
-          letterSpacing: 'var(--ls-mono-wide)',
           color: accent ? 'var(--teal)' : 'var(--cream-muted)',
-          fontWeight: 700,
           marginBottom: 6,
         }}
       >
         {kicker}
       </div>
       <div
-        className="deck-display"
+        className="xc-sans"
         style={{
           fontSize: 'clamp(1.25rem, 2vw, 2rem)',
           fontWeight: 700,

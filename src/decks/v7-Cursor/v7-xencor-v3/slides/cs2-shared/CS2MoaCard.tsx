@@ -62,42 +62,31 @@ function FoundationContent() {
       {/* Eyebrow row */}
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
         <div>
-          <div className="deck-mono uppercase" style={{
-            fontSize: 'var(--fs-slide-pageno)',
-            letterSpacing: 'var(--ls-mono-wide)', color: C.creamFaint,
-          }}>
+          <div className="deck-mono uppercase xc-pageno" style={{
+            letterSpacing: 'var(--ls-mono-wide)', color: C.creamFaint }}>
             Pillar 01 · Foundation
           </div>
-          <div className="deck-mono uppercase" style={{
-            fontSize: 'var(--fs-slide-eyebrow)',
+          <div className="deck-mono uppercase xc-slide-eyebrow" style={{
             letterSpacing: 'var(--ls-mono-wide)',
             color: C.cyan, fontWeight: 700,
-            marginTop: 'var(--space-1)',
-          }}>
+            marginTop: 'var(--space-1)' }}>
             Mechanism of Action
           </div>
         </div>
-        <div className="deck-mono uppercase" style={{
-          fontSize: 'var(--fs-slide-pageno)',
-          letterSpacing: 'var(--ls-mono-wide)', color: C.cyan, fontWeight: 600,
-        }}>
+        <div className="deck-mono uppercase xc-pageno" style={{
+          letterSpacing: 'var(--ls-mono-wide)', color: C.cyan, fontWeight: 600 }}>
           Somatic
         </div>
       </div>
 
       {/* Hero typographic treatment — uses fluid display token for scaling */}
       <div style={{ marginTop: 'var(--space-4)' }}>
-        <div className="deck-display" style={{
-          fontSize: 'var(--fs-slide-display)',
+        <div className="deck-display xc-h1" style={{
           fontStyle: 'italic', fontWeight: 600,
-          color: C.cyan, lineHeight: 0.95, letterSpacing: '-0.022em',
-        }}>
+          color: C.cyan, lineHeight: 0.95, letterSpacing: '-0.022em' }}>
           IDH1 R132
         </div>
-        <div style={{
-          fontFamily: 'var(--font-body)',
-          fontSize: 'var(--fs-slide-subhead)',
-          color: C.creamMuted,
+        <div className="xc-slide-subhead xc-muted" style={{
           marginTop: 'var(--space-2)',
           lineHeight: 1.4,
         }}>
@@ -126,12 +115,10 @@ function FoundationSchematic() {
       overflow: 'hidden',
     }}>
       {/* DISEASE PATHWAY — 3 stacked boxes with downward arrows */}
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-pageno)',
+      <div className="deck-mono uppercase xc-pageno" style={{
         letterSpacing: 'var(--ls-mono-wide)',
         color: C.creamFaint,
-        marginBottom: '2px',
-      }}>
+        marginBottom: '2px' }}>
         Disease pathway
       </div>
       <PathwayBox kicker="Source" main="tumor cell" italic="IDH1 R132" tone="disease" />
@@ -149,12 +136,10 @@ function FoundationSchematic() {
           flex: 1, height: 0,
           borderTop: `1px dashed ${C.cyan}`,
         }} />
-        <span className="deck-mono uppercase" style={{
-          fontSize: 'var(--fs-slide-pageno)',
+        <span className="deck-mono uppercase xc-pageno" style={{
           letterSpacing: 'var(--ls-mono-wide)',
           color: C.cyan,
-          flex: '0 0 auto',
-        }}>
+          flex: '0 0 auto' }}>
           Ivosidenib intervenes
         </span>
         <span style={{
@@ -164,12 +149,10 @@ function FoundationSchematic() {
       </div>
 
       {/* DRUG PATHWAY — 3 stacked boxes mirroring disease */}
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-pageno)',
+      <div className="deck-mono uppercase xc-pageno" style={{
         letterSpacing: 'var(--ls-mono-wide)',
         color: C.cyan,
-        marginBottom: '2px',
-      }}>
+        marginBottom: '2px' }}>
         Drug pathway
       </div>
       <PathwayBox kicker="Drug" main="ivosidenib" sub="500 mg QD oral" tone="drug" />
@@ -201,39 +184,30 @@ function PathwayBox({ kicker, main, sub, italic, tone }) {
       gap: 0,
       minWidth: 0,
     }}>
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-pageno)',
+      <div className="deck-mono uppercase xc-pageno" style={{
         letterSpacing: 'var(--ls-mono-wide)',
         color: isDrug ? C.cyan : C.creamFaint,
-        fontWeight: 600,
-      }}>
+        fontWeight: 600 }}>
         {kicker}
       </div>
-      <div className="deck-display" style={{
-        fontSize: 'var(--fs-slide-subhead)',
+      <div className="deck-display xc-slide-subhead" style={{
         color: C.cream,
         lineHeight: 1.25,
-        fontWeight: 500,
-      }}>
+        fontWeight: 500 }}>
         {main}
       </div>
       {sub && (
-        <div style={{
-          fontFamily: 'var(--font-body)',
-          fontSize: 'var(--fs-slide-pageno)',
-          color: C.creamMuted,
+        <div className="xc-pageno xc-muted" style={{
           lineHeight: 1.3,
         }}>
           {sub}
         </div>
       )}
       {italic && (
-        <div className="deck-display" style={{
+        <div className="deck-display xc-pageno" style={{
           fontStyle: 'italic',
-          fontSize: 'var(--fs-slide-pageno)',
           color: isDrug ? C.cyan : C.creamMuted,
-          lineHeight: 1.3,
-        }}>
+          lineHeight: 1.3 }}>
           {italic}
         </div>
       )}
@@ -263,36 +237,28 @@ function LeadContent() {
       padding: 'var(--space-4)',
       flex: 1, display: 'flex', flexDirection: 'column',
     }}>
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-pageno)',
-        letterSpacing: 'var(--ls-mono-wide)', color: C.creamFaint,
-      }}>
+      <div className="deck-mono uppercase xc-pageno" style={{
+        letterSpacing: 'var(--ls-mono-wide)', color: C.creamFaint }}>
         Pillar 01
       </div>
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-eyebrow)',
+      <div className="deck-mono uppercase xc-slide-eyebrow" style={{
         letterSpacing: 'var(--ls-mono-wide)',
         color: C.cyan, fontWeight: 700,
         marginTop: 'var(--space-1)',
-        lineHeight: 1.3,
-      }}>
+        lineHeight: 1.3 }}>
         MOA
       </div>
 
-      <div className="deck-display" style={{
-        fontSize: 'var(--fs-slide-lead)',
+      <div className="deck-display xc-lead" style={{
         fontStyle: 'italic', fontWeight: 600,
         color: C.cyan, lineHeight: 1, letterSpacing: '-0.018em',
-        marginTop: 'var(--space-3)',
-      }}>
+        marginTop: 'var(--space-3)' }}>
         IDH1<br />R132
       </div>
-      <div className="deck-display" style={{
+      <div className="deck-display xc-slide-subhead" style={{
         fontStyle: 'italic',
-        fontSize: 'var(--fs-slide-subhead)',
         color: C.creamMuted,
-        marginTop: 'var(--space-1)',
-      }}>
+        marginTop: 'var(--space-1)' }}>
         somatic mutation
       </div>
 
@@ -307,19 +273,14 @@ function LeadContent() {
         </div>
       </div>
 
-      <div style={{
-        fontFamily: 'var(--font-body)',
-        fontSize: 'var(--fs-slide-subhead)',
-        color: C.cream,
+      <div className="xc-slide-subhead xc-ink" style={{
         lineHeight: 1.45,
         flex: 1,
       }}>
-        Drug binds mutant enzyme directly. <span style={{ color: C.cyan }}>Biology conserved.</span>
+        Drug binds mutant enzyme directly. <span className="xc-cyan">Biology conserved.</span>
       </div>
-      <div className="deck-mono" style={{
-        fontSize: 'var(--fs-slide-pageno)',
+      <div className="deck-mono xc-pageno xc-faint" style={{
         letterSpacing: '0.04em',
-        color: C.creamFaint,
         marginTop: 'var(--space-3)',
         paddingTop: 'var(--space-2)',
         borderTop: `1px solid ${C.hairline}`,

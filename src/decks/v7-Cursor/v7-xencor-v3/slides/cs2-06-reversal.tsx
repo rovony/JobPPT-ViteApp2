@@ -90,15 +90,11 @@ export default function CS2Reversal() {
               transition={{ duration: 0.3 }}
             >
               <motion.div
-                className="deck-mono uppercase"
-                style={{
-                  fontSize: 'var(--fs-slide-eyebrow)',
+                className="deck-mono uppercase xc-slide-eyebrow xc-cyan" style={{
                   letterSpacing: '0.14em',
-                  color: 'var(--cyan)',
                   whiteSpace: 'nowrap',
                   marginBottom: 'var(--space-4)',
-                  textAlign: 'center',
-                }}
+                  textAlign: 'center' }}
                 initial={{ opacity: 0 }}
                 animate={go ? { opacity: 1 } : { opacity: 1 }}
                 transition={{ duration: 0.3, delay: D.indiaEyebrow, ease: EASE }}
@@ -120,12 +116,8 @@ export default function CS2Reversal() {
             }}>
               <div>
                 <motion.div
-                  className="deck-mono uppercase"
-                  style={{
-                    fontSize: 'var(--fs-slide-eyebrow)',
-                    letterSpacing: '0.14em',
-                    color: 'var(--cyan)',
-                  }}
+                  className="deck-mono uppercase xc-slide-eyebrow xc-cyan" style={{
+                    letterSpacing: '0.14em'}}
                   initial={{ opacity: 0 }}
                   animate={go ? { opacity: 1 } : { opacity: 1 }}
                   transition={{ duration: 0.3, delay: D.cdscoEyebrow, ease: EASE }}
@@ -134,16 +126,13 @@ export default function CS2Reversal() {
                 </motion.div>
 
                 <div
-                  className="deck-display"
-                  style={{
+                  className="deck-display xc-cyan" style={{
                     fontSize: 'clamp(4rem, 8vw, 6rem)',
                     fontWeight: 500,
-                    color: 'var(--cyan)',
                     lineHeight: 0.95,
                     letterSpacing: '-0.02em',
                     fontVariantNumeric: 'tabular-nums',
-                    marginTop: 'var(--space-2)',
-                  }}
+                    marginTop: 'var(--space-2)' }}
                 >
                   {HERO_DATE.split('').map((char, i) => (
                     <motion.span
@@ -160,12 +149,9 @@ export default function CS2Reversal() {
 
               {/* Horizontal Timeline */}
               <div style={{ position: 'relative', marginTop: 'var(--space-4)' }}>
-                <div className="deck-mono uppercase" style={{
-                  fontSize: 'var(--fs-slide-eyebrow)',
+                <div className="deck-mono uppercase xc-slide-eyebrow xc-muted" style={{
                   letterSpacing: '0.14em',
-                  color: 'var(--cream-muted)',
-                  marginBottom: 'var(--space-6)',
-                }}>
+                  marginBottom: 'var(--space-6)' }}>
                   Public regulatory timeline · merged from prior velocity slide
                 </div>
 
@@ -224,26 +210,20 @@ export default function CS2Reversal() {
                           padding: 'var(--space-3)',
                           width: '100%',
                         }}>
-                          <div className="deck-mono" style={{
-                            fontSize: 'var(--fs-slide-tagline)',
-                            color: 'var(--cyan)',
+                          <div className="deck-mono xc-tagline xc-cyan" style={{
                             fontWeight: isLast ? 700 : 500,
                             letterSpacing: '0.08em',
                             marginBottom: 'var(--space-1)'
                           }}>
                             {tick.date}
                           </div>
-                          <div className="deck-display" style={{
-                            fontSize: 'var(--fs-slide-subhead)',
+                          <div className="deck-display xc-slide-subhead" style={{
                             color: isLast ? 'var(--cyan)' : 'var(--cream)',
-                            fontWeight: isLast ? 600 : 400,
-                          }}>
+                            fontWeight: isLast ? 600 : 400 }}>
                             {tick.label}
                           </div>
                           {tick.sub && (
-                            <div className="deck-body" style={{
-                              fontSize: 'var(--fs-slide-tagline)',
-                              color: 'var(--cream-muted)',
+                            <div className="deck-body xc-tagline xc-muted" style={{
                               fontStyle: 'italic',
                               marginTop: 'var(--space-1)'
                             }}>
@@ -280,11 +260,8 @@ export default function CS2Reversal() {
                 animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: D.stats + i * 0.15, ease: EASE }}
               >
-                <div className="deck-mono uppercase" style={{
-                  fontSize: 'var(--fs-slide-tagline)',
-                  letterSpacing: '0.14em',
-                  color: 'var(--cream-muted)',
-                }}>
+                <div className="deck-mono uppercase xc-tagline xc-muted" style={{
+                  letterSpacing: '0.14em'}}>
                   {s.kicker}
                 </div>
                 <div className="deck-display" style={{
@@ -296,12 +273,9 @@ export default function CS2Reversal() {
                 }}>
                   {s.value}
                 </div>
-                <div className="deck-body" style={{
-                  fontSize: 'var(--fs-slide-tagline)',
-                  color: 'var(--cream-muted)',
+                <div className="deck-body xc-tagline xc-muted" style={{
                   marginTop: 'var(--space-1)',
-                  lineHeight: 1.3,
-                }}>
+                  lineHeight: 1.3 }}>
                   {s.detail}
                 </div>
               </motion.div>

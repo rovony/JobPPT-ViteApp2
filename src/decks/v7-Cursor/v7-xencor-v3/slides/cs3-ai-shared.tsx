@@ -57,26 +57,14 @@ export function AiEvidenceSlide({ eyebrow, headline, subhead, subheadMaxChars = 
               }}
             >
               <Icon size={28} color="var(--sage)" strokeWidth={2.2} />
-              <div className="deck-mono uppercase" style={{
-                fontSize: 'var(--fs-slide-eyebrow)',
-                letterSpacing: 'var(--ls-mono-wide)',
-                color: 'var(--sage)',
-                fontWeight: 700,
-              }}>
+              <div className="xc-eyebrow" style={{ color: 'var(--sage)' }}>
                 {card.label}
               </div>
-              <div className="deck-display" style={{
-                fontSize: 'var(--fs-slide-tagline)',
-                color: 'var(--cream)',
-                fontWeight: 700,
-                lineHeight: 1.14,
-              }}>
+              <div className="xc-tagline xc-ink" style={{ fontWeight: 700, lineHeight: 1.14 }}>
                 {card.title}
               </div>
-              <div className="deck-body" style={{
-                fontSize: 'var(--fs-slide-subhead)',
+              <div className="xc-subhead" style={{
                 color: 'color-mix(in srgb, var(--cream) 78%, transparent)',
-                lineHeight: 1.45,
               }}>
                 {card.body}
               </div>

@@ -94,24 +94,16 @@ function StepCard({ step, delay, go }) {
       </div>
 
       <div
+        className="bp-step-box"
         style={{
           border: `1.5px solid color-mix(in srgb, ${step.accent} 55%, var(--cream-hairline))`,
-          borderRadius: 'var(--radius-md, 8px)',
           background: `color-mix(in srgb, ${step.accent} 7%, var(--panel, transparent))`,
-          padding: 'clamp(0.7rem, 1.4vh, 1rem) clamp(0.75rem, 1.2vw, 1.1rem)',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.35rem',
           minHeight: 'clamp(4.5rem, 9vh, 5.75rem)',
-          justifyContent: 'center',
         }}
       >
         <div
-          className="deck-mono uppercase"
+          className="bp-step-label"
           style={{
-            fontSize: 'var(--fs-card-label)',
-            letterSpacing: '0.1em',
-            lineHeight: 1.15,
             display: 'flex',
             alignItems: 'baseline',
             gap: '0.4rem',
@@ -122,16 +114,7 @@ function StepCard({ step, delay, go }) {
           <span style={{ color: 'var(--cream-muted)' }}>·</span>
           <span style={{ color: 'var(--cream)', fontWeight: 600 }}>{step.verb}</span>
         </div>
-        <div
-          className="deck-body"
-          style={{
-            fontSize: 'var(--fs-card-meta)',
-            lineHeight: 1.35,
-            color: 'var(--cream-muted)',
-          }}
-        >
-          {step.body}
-        </div>
+        <div className="bp-step-body">{step.body}</div>
       </div>
     </motion.div>
   );

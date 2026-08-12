@@ -88,12 +88,10 @@ function AnimCounter({ target, go, delay, color }) {
   }, [go, target, delay, reduced]);
 
   return (
-    <span className="deck-mono" style={{
-      fontSize: 'var(--fs-slide-tagline)',
+    <span className="deck-mono xc-tagline" style={{
       color,
       letterSpacing: '0.14em',
-      fontVariantNumeric: 'tabular-nums',
-    }}>
+      fontVariantNumeric: 'tabular-nums' }}>
       {count}
     </span>
   );
@@ -163,18 +161,12 @@ export default function CS2Reckoning() {
               justifyContent: 'space-between',
               marginBottom: 'var(--space-3)',
             }}>
-              <span className="deck-mono uppercase" style={{
-                fontSize: 'var(--fs-slide-eyebrow)',
-                letterSpacing: '0.14em',
-                color: 'var(--cyan)',
-              }}>
+              <span className="deck-mono uppercase xc-slide-eyebrow xc-cyan" style={{
+                letterSpacing: '0.14em'}}>
                 What we shipped
               </span>
-              <span className="deck-mono" style={{
-                fontSize: 'var(--fs-slide-tagline)',
-                color: 'var(--cyan)',
-                letterSpacing: '0.14em',
-              }}>
+              <span className="deck-mono xc-tagline xc-cyan" style={{
+                letterSpacing: '0.14em' }}>
                 ✓ <AnimCounter target={3} go={go} delay={D.shippedCounter} color="var(--cyan)" />
               </span>
             </div>
@@ -198,14 +190,10 @@ export default function CS2Reckoning() {
                   transition={{ duration: 0.4, delay: D.shippedRows[i], ease: EASE }}
                 >
                   <motion.span
-                    className="deck-mono"
-                    style={{
-                      fontSize: 'var(--fs-slide-body)',
-                      color: 'var(--cyan)',
+                    className="deck-mono xc-cyan xc-slide-body" style={{
                       fontWeight: 500,
                       flexShrink: 0,
-                      width: '1.2em',
-                    }}
+                      width: '1.2em' }}
                     initial={{ opacity: 0 }}
                     animate={go ? { opacity: 1 } : { opacity: 1 }}
                     transition={{
@@ -217,23 +205,17 @@ export default function CS2Reckoning() {
                     ✓
                   </motion.span>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div className="deck-body" style={{
-                      fontSize: 'var(--fs-slide-lead)',
-                      color: 'var(--cream)',
-                      lineHeight: 1.35,
-                    }}>
+                    <div className="deck-body xc-lead xc-ink" style={{
+                      lineHeight: 1.35 }}>
                       <span style={{ color: 'var(--cyan)', fontWeight: 600 }}>
                         {row.title}
                       </span>
                       {' — '}{row.date}
                     </div>
-                    <div className="deck-body" style={{
-                      fontSize: 'var(--fs-slide-tagline)',
+                    <div className="deck-body xc-tagline xc-muted" style={{
                       fontStyle: 'italic',
-                      color: 'var(--cream-muted)',
                       marginTop: 4,
-                      lineHeight: 1.4,
-                    }}>
+                      lineHeight: 1.4 }}>
                       {row.cite}
                     </div>
                   </div>
@@ -263,18 +245,12 @@ export default function CS2Reckoning() {
               justifyContent: 'space-between',
               marginBottom: 'var(--space-3)',
             }}>
-              <span className="deck-mono uppercase" style={{
-                fontSize: 'var(--fs-slide-eyebrow)',
-                letterSpacing: '0.14em',
-                color: 'var(--cream-muted)',
-              }}>
+              <span className="deck-mono uppercase xc-slide-eyebrow xc-muted" style={{
+                letterSpacing: '0.14em'}}>
                 What we did not ship
               </span>
-              <span className="deck-mono" style={{
-                fontSize: 'var(--fs-slide-tagline)',
-                color: 'var(--cream-muted)',
-                letterSpacing: '0.14em',
-              }}>
+              <span className="deck-mono xc-tagline xc-muted" style={{
+                letterSpacing: '0.14em' }}>
                 ⊘ <AnimCounter target={3} go={go} delay={D.notCounter} color="var(--cream-muted)" />
               </span>
             </div>
@@ -298,20 +274,14 @@ export default function CS2Reckoning() {
                   animate={go ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: D.notRows[i], ease: EASE }}
                 >
-                  <span className="deck-mono" style={{
-                    fontSize: 'var(--fs-slide-body)',
-                    color: 'var(--cream-muted)',
+                  <span className="deck-mono xc-muted xc-slide-body" style={{
                     flexShrink: 0,
-                    width: '1.2em',
-                  }}>
+                    width: '1.2em' }}>
                     ⊘
                   </span>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div className="deck-body" style={{
-                      fontSize: 'var(--fs-slide-lead)',
-                      color: 'var(--cream)',
-                      lineHeight: 1.35,
-                    }}>
+                    <div className="deck-body xc-lead xc-ink" style={{
+                      lineHeight: 1.35 }}>
                       {row.amber ? (
                         <span style={{
                           background: 'color-mix(in srgb, var(--amber) 18%, transparent)',
@@ -326,13 +296,10 @@ export default function CS2Reckoning() {
                       )}
                       {row.detail ? ` ${row.detail}` : ''}
                     </div>
-                    <div className="deck-body" style={{
-                      fontSize: 'var(--fs-slide-tagline)',
+                    <div className="deck-body xc-tagline xc-muted" style={{
                       fontStyle: 'italic',
-                      color: 'var(--cream-muted)',
                       marginTop: 4,
-                      lineHeight: 1.4,
-                    }}>
+                      lineHeight: 1.4 }}>
                       {row.cite}
                     </div>
                   </div>
@@ -355,11 +322,8 @@ export default function CS2Reckoning() {
                   padding: 'var(--space-2) var(--space-3)',
                   borderRadius: '0 var(--radius-sm) var(--radius-sm) 0',
                 }}>
-                  <span className="deck-body" style={{
-                    fontSize: 'var(--fs-slide-subhead)',
-                    color: 'var(--cream)',
-                    lineHeight: 1.4,
-                  }}>
+                  <span className="deck-body xc-slide-subhead xc-ink" style={{
+                    lineHeight: 1.4 }}>
                     The gaps are{' '}
                     <span style={{ color: 'var(--amber)', fontWeight: 500 }}>
                       named on this slide

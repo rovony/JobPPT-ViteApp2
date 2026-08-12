@@ -127,23 +127,12 @@ function LymphocyteHero({ reduced }) {
         }}
       >
         <span
-          className="deck-mono uppercase"
-          style={{
-            fontSize: 'var(--fs-card-label)',
-            letterSpacing: 'var(--ls-mono-wide)',
-            color: 'var(--teal)',
-            fontWeight: 700,
-          }}
+          className="xc-card-label"
+          style={{ color: 'var(--teal)' }}
         >
           Lymphocyte · cell of origin
         </span>
-        <span
-          style={{
-            fontSize: 'var(--fs-card-meta)',
-            color: 'var(--cream-muted)',
-            letterSpacing: '0.02em',
-          }}
-        >
+        <span className="bp-card-meta xc-ink-muted">
           The lymphoblast clone in adult Ph-negative ALL
         </span>
       </motion.div>

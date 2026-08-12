@@ -1,95 +1,49 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
+import { BP } from '../_shared/blueprint';
 
 /**
  * 01-title — Blueprint-inspired cover for v7-xencor-v3.
  *
- * Theme: follows `.deck-root[data-theme-mode]` via `--bp-*` tokens in
- * `deck-type.css` (light complementary paper + dark navy blueprint).
- * Aesthetic reference: Xencor/deck-react — adapt sizes for FitStage; do not
- * blind-copy 58pt. Tag: Pharmacometrics & Clinical Pharmacology (no Senior Director).
+ * Theme: `.deck-root[data-theme-mode]` via `--bp-*` in
+ * `styles/xencor-deck.css`. Type via `.xc-*` utilities.
+ * Tag: Pharmacometrics & Clinical Pharmacology (no Senior Director).
  * isTitle: true suppresses the standard footer.
+ *
+ * Theme preference: footnote Light|Dark radiogroup wired to DeckRunner
+ * `setThemeMode` (same `deck-theme-override:{id}` path as chrome toggle).
  */
 
 const FONT = {
-  sans: "'Poppins', 'Avenir Next', Futura, 'Segoe UI', system-ui, -apple-system, sans-serif",
-  mono: "'JetBrains Mono', 'SF Mono', Menlo, Consolas, 'Courier New', monospace",
+  sans: 'var(--font-display)',
+  mono: 'var(--font-mono)',
 } as const;
 
-/** Fallbacks = dark blueprint; CSS vars override when light/dark tokens load. */
-const bp = (name: string, fallback: string) => `var(--bp-${name}, ${fallback})`;
+type ThemeMode = 'light' | 'dark';
 
-const BP = {
-  paper: bp('paper', '#0C1420'),
-  paper2: bp('paper2', '#141E2E'),
-  panelHi: bp('panel-hi', '#1D2A3C'),
-  ink: bp('ink', '#EAF1F9'),
-  ink2: bp('ink2', '#C4D2E4'),
-  ink3: bp('ink3', '#93A6BE'),
-  ink4: bp('ink4', '#8497AF'),
-  hair: bp('hair', 'rgba(190,215,245,.20)'),
-  hair2: bp('hair2', 'rgba(190,215,245,.10)'),
-  grid: bp('grid', 'rgba(130,200,255,.045)'),
-  cyan: bp('cyan', '#22D3EE'),
-  teal: bp('teal', '#5EEAD4'),
-  rose: bp('rose', '#F4737F'),
-  roseWash: bp('rose-wash', 'rgba(244,115,127,.10)'),
-  decisionInk: bp('decision-ink', '#FFFFFF'),
-  decisionAccent: bp('decision-accent', '#0FB4D8'),
-  markerF: bp('marker-f', '#12294C'),
-  markerC: bp('marker-c', '#0FB4D8'),
-  xStroke: bp('x-stroke', '#FFFFFF'),
-} as const;
+type TitleSlideProps = {
+  themeMode?: ThemeMode;
+  setThemeMode?: (mode: ThemeMode) => void;
+};
 
-/** Adapted for this canvas — blueprint is reference, not a size lock. */
-const TYPE = {
-  tag: {
-    fontSize: 'clamp(0.72rem, 1.2vh, 0.88rem)',
-    letterSpacing: '0.16em',
-    fontWeight: 600 as const,
-  },
-  h1: {
-    fontSize: 'clamp(2.15rem, min(3.9vw, 5.6vh), 3.25rem)',
-    lineHeight: 1.08,
-    fontWeight: 700 as const,
-    letterSpacing: '-0.022em',
-  },
-  subtitle: {
-    fontSize: 'clamp(1.05rem, min(1.55vw, 2.35vh), 1.4rem)',
-    lineHeight: 1.38,
-    fontWeight: 600 as const,
-  },
-  name: {
-    fontSize: 'clamp(1.1rem, min(1.6vw, 2.4vh), 1.45rem)',
-    fontWeight: 700 as const,
-    lineHeight: 1.2,
-  },
-  meta: {
-    fontSize: 'clamp(0.68rem, 1.15vh, 0.82rem)',
-    letterSpacing: '0.08em',
-  },
-  slideNum: {
-    fontSize: 'clamp(0.68rem, 1.1vh, 0.8rem)',
-    letterSpacing: '0.12em',
-  },
-  svgAxis: { fontSize: 14, letterSpacing: '0.06em' },
-  svgAnnot: { fontSize: 14, letterSpacing: '0.12em' },
-  svgLabel: { fontSize: 14, fontWeight: 600 as const },
-  svgDecision: { fontSize: 17, fontWeight: 700 as const },
-} as const;
+const THEME_OPTIONS = ['light', 'dark'] as const;
 
-export default function TitleSlide() {
+export default function TitleSlide({
+  themeMode = 'light',
+  setThemeMode,
+}: TitleSlideProps = {}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.25 });
   const prefersReducedMotion = useReducedMotion();
   const go = isInView && !prefersReducedMotion;
+  const mode: ThemeMode = themeMode === 'dark' ? 'dark' : 'light';
 
   const enter = (delay: number) => ({
     initial: { opacity: 0, y: 10 },
     animate: go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 },
     transition: {
-      duration: 0.45,
-      delay,
+      duration: prefersReducedMotion ? 0 : 0.45,
+      delay: prefersReducedMotion ? 0 : delay,
       ease: [0.22, 0.7, 0.2, 1] as const,
     },
   });
@@ -100,86 +54,39 @@ export default function TitleSlide() {
       data-slide="01"
       data-title-blueprint=""
       aria-labelledby="s01-title"
-      className="relative w-full h-full overflow-hidden"
-      style={{
-        color: BP.ink2,
-        padding: '48px 64px 56px',
-        background: [
-          `repeating-linear-gradient(0deg, transparent 0 39px, ${BP.grid} 39px 40px)`,
-          `repeating-linear-gradient(90deg, transparent 0 39px, ${BP.grid} 39px 40px)`,
-          BP.paper,
-        ].join(', '),
-        fontFamily: FONT.sans,
-      }}
+      className="xc-blueprint-surface xc-slide-pad--tight relative w-full h-full overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.2 }}
+      transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute"
-        style={{
-          inset: 28,
-          border: `1px solid ${BP.hair2}`,
-        }}
-      />
+      <div aria-hidden className="xc-blueprint-frame" />
 
-      <div
-        className="relative z-[1] h-full w-full min-h-0 grid"
-        style={{
-          gridTemplateColumns: 'minmax(0, 0.95fr) minmax(0, 1.15fr)',
-          gap: 'clamp(20px, 2.5vw, 40px)',
-          alignItems: 'stretch',
-        }}
-      >
+      <div className="xc-title-grid">
         <div
           className="flex flex-col min-w-0 min-h-0"
           style={{ paddingTop: 'clamp(8px, 1.5vh, 24px)' }}
         >
-          <motion.div
-            style={{
-              display: 'inline-block',
-              width: 'fit-content',
-              maxWidth: '100%',
-              fontFamily: FONT.mono,
-              textTransform: 'uppercase',
-              ...TYPE.tag,
-              color: BP.cyan,
-              border: `1.5px solid ${BP.cyan}`,
-              padding: '5px 11px',
-            }}
-            {...enter(0.06)}
-          >
+          <motion.div className="xc-tag-chip" {...enter(0.06)}>
             Pharmacometrics &amp; Clinical Pharmacology
           </motion.div>
 
           <motion.h1
             id="s01-title"
-            style={{
-              margin: 'clamp(1rem, 2.2vh, 1.6rem) 0 0 0',
-              fontFamily: FONT.sans,
-              ...TYPE.h1,
-              color: BP.ink,
-              maxWidth: '16ch',
-            }}
+            className="xc-h1"
+            style={{ marginTop: 'clamp(1rem, 2.2vh, 1.6rem)', maxWidth: '16ch' }}
             {...enter(0.14)}
           >
             Quantitative decisions
             <br />
             when the{' '}
-            <span style={{ color: BP.cyan }}>clean experiment</span>
+            <span className="xc-em">clean experiment</span>
             <br />
             is unavailable
           </motion.h1>
 
           <motion.p
-            style={{
-              margin: 'clamp(0.85rem, 1.8vh, 1.35rem) 0 0 0',
-              fontFamily: FONT.sans,
-              ...TYPE.subtitle,
-              color: BP.teal,
-              maxWidth: '36ch',
-            }}
+            className="xc-subtitle xc-teal"
+            style={{ marginTop: 'clamp(0.85rem, 1.8vh, 1.35rem)', maxWidth: '36ch' }}
             {...enter(0.26)}
           >
             Four decisions. Four different reasons the obvious study
@@ -187,34 +94,14 @@ export default function TitleSlide() {
           </motion.p>
 
           <motion.div
-            style={{
-              marginTop: 'auto',
-              paddingTop: 'clamp(0.85rem, 2vh, 1.5rem)',
-              borderTop: `3px solid ${BP.ink}`,
-              maxWidth: '36ch',
-              flexShrink: 0,
-            }}
+            className="xc-title-byline"
+            style={{ paddingBottom: setThemeMode ? 56 : 0 }}
             {...enter(0.38)}
           >
-            <div
-              style={{
-                fontFamily: FONT.sans,
-                ...TYPE.name,
-                color: BP.ink,
-                whiteSpace: 'nowrap',
-              }}
-            >
+            <div className="xc-name xc-ink" style={{ whiteSpace: 'nowrap' }}>
               Malek Okour, BDS, Ph.D.
             </div>
-            <div
-              style={{
-                marginTop: 6,
-                fontFamily: FONT.mono,
-                ...TYPE.meta,
-                color: BP.ink3,
-                textTransform: 'uppercase',
-              }}
-            >
+            <div className="xc-meta xc-ink3" style={{ marginTop: 6 }}>
               Xencor interview panel · 12 August 2026
             </div>
           </motion.div>
@@ -229,15 +116,19 @@ export default function TitleSlide() {
         </motion.div>
       </div>
 
+      {setThemeMode ? (
+        <motion.div
+          className="absolute z-[2]"
+          style={{ left: 64, bottom: 28 }}
+          {...enter(0.42)}
+        >
+          <ThemePreferenceFootnote mode={mode} onChange={setThemeMode} />
+        </motion.div>
+      ) : null}
+
       <div
-        className="absolute z-[2]"
-        style={{
-          right: 64,
-          bottom: 28,
-          fontFamily: FONT.mono,
-          ...TYPE.slideNum,
-          color: BP.ink4,
-        }}
+        className="xc-pageno absolute z-[2]"
+        style={{ right: 64, bottom: 28 }}
       >
         01
       </div>
@@ -245,9 +136,87 @@ export default function TitleSlide() {
   );
 }
 
+/**
+ * Seminar-safe theme ask: secondary footnote, not a hero CTA.
+ * Labeled radiogroup (Light | Dark), ≥44px targets, theme-aware cyan
+ * glow ring, keyboard arrows, reduced-motion-safe transitions in CSS.
+ */
+function ThemePreferenceFootnote({
+  mode,
+  onChange,
+}: {
+  mode: ThemeMode;
+  onChange: (mode: ThemeMode) => void;
+}) {
+  const onKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      const i = THEME_OPTIONS.indexOf(mode);
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        onChange(THEME_OPTIONS[(i + 1) % THEME_OPTIONS.length]);
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        onChange(THEME_OPTIONS[(i - 1 + THEME_OPTIONS.length) % THEME_OPTIONS.length]);
+      }
+    },
+    [mode, onChange],
+  );
+
+  return (
+    <div
+      className="xc-theme-pref"
+      role="radiogroup"
+      aria-label="Preferred slide appearance"
+      onKeyDown={onKeyDown}
+    >
+      <span className="xc-theme-pref__label" id="s01-theme-pref-label">
+        Preferred view
+      </span>
+      <div
+        className="xc-theme-pref__track"
+        aria-labelledby="s01-theme-pref-label"
+      >
+        {THEME_OPTIONS.map((opt) => {
+          const selected = mode === opt;
+          return (
+            <button
+              key={opt}
+              type="button"
+              role="radio"
+              aria-checked={selected}
+              tabIndex={selected ? 0 : -1}
+              className="xc-theme-pref__opt"
+              data-active={selected ? '' : undefined}
+              onClick={() => onChange(opt)}
+            >
+              {opt === 'light' ? 'Light' : 'Dark'}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function DecisionLattice() {
   const mono = FONT.mono;
   const sans = FONT.sans;
+  const svgAxis = {
+    fontSize: 14,
+    letterSpacing: '0.06em',
+  } as const;
+  const svgAnnot = {
+    fontSize: 14,
+    letterSpacing: '0.12em',
+  } as const;
+  const svgLabel = {
+    fontSize: 14,
+    fontWeight: 600 as const,
+  };
+  const svgDecision = {
+    fontSize: 17,
+    fontWeight: 700 as const,
+  };
 
   return (
     <svg
@@ -310,11 +279,7 @@ function DecisionLattice() {
         x="440"
         y="28"
         textAnchor="middle"
-        style={{
-          fill: BP.ink4,
-          ...TYPE.svgAxis,
-          fontFamily: mono,
-        }}
+        style={{ fill: BP.ink4, ...svgAxis, fontFamily: mono }}
       >
         DECISION SPACE
       </text>
@@ -323,11 +288,7 @@ function DecisionLattice() {
         y="400"
         textAnchor="middle"
         transform="rotate(-90 28 400)"
-        style={{
-          fill: BP.ink4,
-          ...TYPE.svgAxis,
-          fontFamily: mono,
-        }}
+        style={{ fill: BP.ink4, ...svgAxis, fontFamily: mono }}
       >
         EVIDENCE AVAILABLE
       </text>
@@ -348,7 +309,7 @@ function DecisionLattice() {
         textAnchor="middle"
         style={{
           fill: BP.ink3,
-          ...TYPE.svgLabel,
+          ...svgLabel,
           letterSpacing: '0.1em',
           fontFamily: mono,
         }}
@@ -361,7 +322,7 @@ function DecisionLattice() {
         textAnchor="middle"
         style={{
           fill: BP.ink3,
-          ...TYPE.svgLabel,
+          ...svgLabel,
           letterSpacing: '0.1em',
           fontFamily: mono,
         }}
@@ -372,11 +333,7 @@ function DecisionLattice() {
         x="460"
         y="196"
         textAnchor="middle"
-        style={{
-          fill: BP.rose,
-          ...TYPE.svgAnnot,
-          fontFamily: mono,
-        }}
+        style={{ fill: BP.rose, ...svgAnnot, fontFamily: mono }}
       >
         not available
       </text>
@@ -426,11 +383,7 @@ function DecisionLattice() {
               x={n.cx}
               y="238"
               textAnchor="middle"
-              style={{
-                fill: BP.ink4,
-                ...TYPE.svgAnnot,
-                fontFamily: mono,
-              }}
+              style={{ fill: BP.ink4, ...svgAnnot, fontFamily: mono }}
             >
               {n.caseN}
             </text>
@@ -449,7 +402,7 @@ function DecisionLattice() {
               textAnchor="middle"
               style={{
                 fill: BP.ink,
-                ...TYPE.svgLabel,
+                ...svgLabel,
                 letterSpacing: '0.1em',
                 fontFamily: mono,
               }}
@@ -473,11 +426,7 @@ function DecisionLattice() {
         x="460"
         y="548"
         textAnchor="middle"
-        style={{
-          ...TYPE.svgDecision,
-          fill: BP.decisionInk,
-          fontFamily: sans,
-        }}
+        style={{ ...svgDecision, fill: BP.decisionInk, fontFamily: sans }}
       >
         A DEFENDABLE
       </text>
@@ -485,11 +434,7 @@ function DecisionLattice() {
         x="460"
         y="578"
         textAnchor="middle"
-        style={{
-          ...TYPE.svgDecision,
-          fill: BP.decisionAccent,
-          fontFamily: sans,
-        }}
+        style={{ ...svgDecision, fill: BP.decisionAccent, fontFamily: sans }}
       >
         DECISION
       </text>
@@ -505,11 +450,7 @@ function DecisionLattice() {
         x="700"
         y="666"
         textAnchor="middle"
-        style={{
-          fill: BP.ink4,
-          ...TYPE.svgAnnot,
-          fontFamily: mono,
-        }}
+        style={{ fill: BP.ink4, ...svgAnnot, fontFamily: mono }}
       >
         the method changed
       </text>
@@ -517,11 +458,7 @@ function DecisionLattice() {
         x="700"
         y="688"
         textAnchor="middle"
-        style={{
-          fill: BP.ink4,
-          ...TYPE.svgAnnot,
-          fontFamily: mono,
-        }}
+        style={{ fill: BP.ink4, ...svgAnnot, fontFamily: mono }}
       >
         every time
       </text>
@@ -529,11 +466,7 @@ function DecisionLattice() {
         x="700"
         y="716"
         textAnchor="middle"
-        style={{
-          fill: BP.cyan,
-          ...TYPE.svgAnnot,
-          fontFamily: mono,
-        }}
+        style={{ fill: BP.cyan, ...svgAnnot, fontFamily: mono }}
       >
         the route did not
       </text>

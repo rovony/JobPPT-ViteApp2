@@ -33,18 +33,11 @@ const CHART_PANEL_BODY = {
 function ConclusionPill({ children, color = 'var(--coral)' }) {
   return (
     <span
+      className="xc-pill"
       style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        padding: '3px 10px',
         border: `1px solid ${color}`,
         backgroundColor: `color-mix(in srgb, ${color} 15%, transparent)`,
         color: color,
-        borderRadius: '3px',
-        fontSize: 'var(--fs-slide-pageno)',
-        letterSpacing: '0.08em',
-        fontWeight: 700,
-        textTransform: 'uppercase',
       }}
     >
       {children}
@@ -61,14 +54,12 @@ function PanelTitle({ label, right, delay }) {
       transition={{ duration: 0.5, ease: [0.2, 0.7, 0.3, 1], delay }}
     >
       <span
-        className="deck-mono uppercase"
-        style={{ fontSize: 'var(--fs-card-label)', letterSpacing: 'var(--ls-mono-wide)', color: 'var(--coral)' }}
+        className="deck-mono uppercase xc-card-label xc-case"
       >
         {label}
       </span>
       <span
-        className="deck-mono"
-        style={{ fontSize: 'var(--fs-card-meta)', letterSpacing: '0.14em', color: 'var(--cream-faint)' }}
+        className="deck-mono xc-card-meta xc-faint" style={{ letterSpacing: '0.14em' }}
       >
         {right}
       </span>
@@ -155,7 +146,7 @@ function EfficacyPanel({ tk, D }) {
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
-       <div className="flex items-center justify-center gap-4 mb-2 deck-mono" style={{ fontSize: 'var(--fs-slide-pageno)', color: 'var(--cream-muted)' }}>
+       <div className="flex items-center justify-center gap-4 mb-2 deck-mono xc-pageno xc-muted">
           <div className="flex items-center gap-1"><div style={{ width: 6, height: 6, border: '1.5px solid var(--coral)', borderRadius: '50%' }}/> Pediatric low dose</div>
           <div className="flex items-center gap-1"><div style={{ width: 6, height: 6, border: '1.5px solid #8CC63F', borderRadius: '50%' }}/> Pediatric high dose</div>
           <div className="flex items-center gap-1"><div style={{ width: 6, height: 6, border: '1.5px solid #2E3192', borderRadius: '50%' }}/> 5 mg adult dose</div>
@@ -233,11 +224,11 @@ export default function Cs1Pkpd() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: '100%', height: '100%' }}>
         <div style={{ flex: 1, minHeight: 0, width: '100%', position: 'relative' }}>
           <BoxPanel tk={tk} letter="" title="" unit={DATA.auc.unit} data={DATA.auc} axisDelay={0} boxDelay={0} guideDelay={0.5} deltaLabel="Δ ≈ -12%" />
-          <div style={{ position: 'absolute', top: 8, left: 8, fontSize: 'var(--fs-slide-eyebrow)', fontWeight: 700, color: 'var(--cream)', opacity: 0.8 }} className="deck-mono">AUCss</div>
+          <div className="deck-mono xc-panel-overlay-label">AUCss</div>
         </div>
         <div style={{ flex: 1, minHeight: 0, width: '100%', position: 'relative' }}>
           <BoxPanel tk={tk} letter="" title="" unit={DATA.cmax.unit} data={DATA.cmax} axisDelay={0} boxDelay={0} guideDelay={0.5} deltaLabel="Δ ≈ +1%" />
-          <div style={{ position: 'absolute', top: 8, left: 8, fontSize: 'var(--fs-slide-eyebrow)', fontWeight: 700, color: 'var(--cream)', opacity: 0.8 }} className="deck-mono">Cmax,ss</div>
+          <div className="deck-mono xc-panel-overlay-label">Cmax,ss</div>
         </div>
       </div>
     )},
@@ -379,7 +370,7 @@ function AUCPanel({ tk, D }) {
         const dots = pedDots.filter((d) => (i === 0 ? d.i < 20 : d.i >= 20));
         return (
           <div key={`panel-${i}`} style={{ flex: 1, position: 'relative', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ textAlign: 'center', fontFamily: 'var(--font-mono)', fontSize: 'var(--fs-slide-eyebrow)', letterSpacing: '0.14em', color: tk('--cream-muted'), marginBottom: '4px', fontWeight: 700 }}>
+            <div className="xc-region-label">
               {reg.label}
             </div>
             <svg
@@ -929,20 +920,16 @@ function HeroDelta({ value, label, accent }) {
   return (
     <div>
       <div
-        className="deck-display"
-        style={{
-          fontSize: 'var(--fs-card-numeral)',
+        className="deck-display xc-numeral" style={{
           lineHeight: 1,
           letterSpacing: '-0.03em',
           color: accent ? 'var(--coral)' : 'var(--cream)',
-          fontWeight: 700,
-        }}
+          fontWeight: 700 }}
       >
         {value}
       </div>
       <div
-        className="deck-mono uppercase mt-1"
-        style={{ fontSize: 'var(--fs-card-meta)', letterSpacing: 'var(--ls-mono)', color: 'var(--cream-muted)' }}
+        className="deck-mono uppercase mt-1 xc-card-meta xc-muted" style={{ letterSpacing: 'var(--ls-mono)'}}
       >
         {label}
       </div>

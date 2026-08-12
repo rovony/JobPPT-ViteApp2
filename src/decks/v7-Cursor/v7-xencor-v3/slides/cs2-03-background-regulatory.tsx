@@ -128,7 +128,7 @@ function FlowchartSVG() {
         {/* ── BEFORE row label ── */}
         <AnimFade delay={D.beforeLabel} reduced={r}>
           <text x="200" y="16"
-            fontFamily="'JetBrains Mono', monospace" fontSize="11"
+            fontFamily="var(--font-mono)" fontSize="11"
             fill="var(--cream-faint)" letterSpacing="1.6" fontWeight="500">
             BEFORE — NDCTR 2019 · LOCAL-TRIAL DEFAULT
           </text>
@@ -139,7 +139,7 @@ function FlowchartSVG() {
           <AnimScale delay={D.start} reduced={r} cx={78} cy={30}>
             <rect x="0" y="0" width="155" height="60" rx="4"
               fill="var(--bg)" stroke="var(--cream-faint)" strokeWidth="1" />
-            <text x="78" y="22" textAnchor="middle" fontFamily="'JetBrains Mono', monospace"
+            <text x="78" y="22" textAnchor="middle" fontFamily="var(--font-mono)"
               fill="var(--cream-muted)" fontSize="10" letterSpacing="1.6" fontWeight="600">START</text>
             <text x="78" y="42" textAnchor="middle" fontFamily="'Fraunces', Georgia, serif"
               fontSize="15" fill="var(--cream)" fontWeight="500">Indian MAA filed</text>
@@ -158,7 +158,7 @@ function FlowchartSVG() {
           <AnimSlideY delay={D.pivotLabel} reduced={r}>
             <rect x="-92" y="-11" width="184" height="22" rx="3"
               fill="var(--bg)" stroke="var(--cyan)" strokeWidth="1" />
-            <text x="0" y="4" textAnchor="middle" fontFamily="'JetBrains Mono', monospace"
+            <text x="0" y="4" textAnchor="middle" fontFamily="var(--font-mono)"
               fill="var(--cyan)" fontSize="10" letterSpacing="1.6" fontWeight="600">
               AUG 2024 · DCGI ORDER
             </text>
@@ -207,7 +207,7 @@ function FlowchartSVG() {
           <AnimScale delay={D.outcome} reduced={r} cx={58} cy={30}>
             <rect x="0" y="0" width="115" height="60" rx="4"
               fill="none" stroke="var(--cream)" strokeWidth="1.5" />
-            <text x="58" y="26" textAnchor="middle" fontFamily="'JetBrains Mono', monospace"
+            <text x="58" y="26" textAnchor="middle" fontFamily="var(--font-mono)"
               fill="var(--cream-muted)" fontSize="10" letterSpacing="1.6" fontWeight="600">OUTCOME</text>
             <text x="58" y="46" textAnchor="middle" fontFamily="'Fraunces', Georgia, serif"
               fontSize="13" fill="var(--cream)" fontWeight="500">Indian approval</text>
@@ -229,7 +229,7 @@ function FlowchartSVG() {
         {/* ── AFTER row label ── */}
         <AnimFade delay={D.afterLabel} reduced={r}>
           <text x="200" y="232"
-            fontFamily="'JetBrains Mono', monospace" fontSize="11"
+            fontFamily="var(--font-mono)" fontSize="11"
             fill="var(--cyan)" letterSpacing="1.6" fontWeight="500">
             AFTER — RULE 101 OPERATIONAL · DOSSIER-LED PATH
           </text>
@@ -347,7 +347,7 @@ function FlowNode({ x, y, w, h, label, text, muted, cyan, delay, reduced }) {
         <rect x="0" y="0" width={w} height={h} rx="4"
           fill={hovered ? hoverFill : fill} stroke={stroke} strokeWidth="1"
           style={{ transition: 'fill 0.2s' }} />
-        <text x={cx} y="20" textAnchor="middle" fontFamily="'JetBrains Mono', monospace"
+        <text x={cx} y="20" textAnchor="middle" fontFamily="var(--font-mono)"
           fill={labelColor} fontSize="10" letterSpacing="1.6" fontWeight="600">{label}</text>
         <text x={cx} y="40" textAnchor="middle" fontFamily="'Fraunces', Georgia, serif"
           fontSize="14" fill={textColor} fontWeight="400">{text}</text>
@@ -401,14 +401,10 @@ function BottomPanels() {
         }}
       >
         <div
-          className="deck-mono uppercase"
-          style={{
-            fontSize: 'var(--fs-slide-eyebrow)',
+          className="deck-mono uppercase xc-slide-eyebrow xc-cyan" style={{
             letterSpacing: 'var(--ls-mono-wide)',
-            color: 'var(--cyan)',
             fontWeight: 700,
-            marginBottom: 'var(--space-2)',
-          }}
+            marginBottom: 'var(--space-2)' }}
         >
           Rule 101 · 5 eligible categories
         </div>
@@ -420,13 +416,11 @@ function BottomPanels() {
               initial={reduced ? false : { opacity: 0, x: -6 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.2, ease: EASE, delay: D.eligDots + i * 0.08 }}
-              style={{
+                className={`xc-slide-subhead ${cat.qualifies ? 'xc-ink' : 'xc-muted'}`}
+                style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: 'clamp(5px, 0.5vw, 10px)',
-                fontSize: 'var(--fs-slide-subhead)',
-                fontFamily: 'var(--font-body)',
-                color: cat.qualifies ? 'var(--cream)' : 'var(--cream-muted)',
                 fontWeight: cat.qualifies ? 600 : 400,
                 cursor: cat.tip ? 'help' : 'default',
               }}
@@ -437,15 +431,13 @@ function BottomPanels() {
           ))}
         </div>
         <motion.div
-          className="deck-mono"
+          className="deck-mono xc-tagline xc-cyan"
           initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3, ease: EASE, delay: D.qualifiers }}
           style={{
             marginTop: 'var(--space-2)',
-            fontSize: 'var(--fs-slide-tagline)',
             letterSpacing: '0.1em',
-            color: 'var(--cyan)',
             fontWeight: 600,
           }}
         >
@@ -463,14 +455,10 @@ function BottomPanels() {
         }}
       >
         <div
-          className="deck-mono uppercase"
-          style={{
-            fontSize: 'var(--fs-slide-eyebrow)',
+          className="deck-mono uppercase xc-slide-eyebrow xc-cyan" style={{
             letterSpacing: 'var(--ls-mono-wide)',
-            color: 'var(--cyan)',
             fontWeight: 700,
-            marginBottom: 'var(--space-2)',
-          }}
+            marginBottom: 'var(--space-2)' }}
         >
           Rule 101 · 6 reference countries
         </div>
@@ -478,17 +466,14 @@ function BottomPanels() {
           {AGENCIES.map((a) => (
             <span
               key={a.abbr}
+              className={`xc-slide-subhead ${a.used ? 'xc-ink' : 'xc-muted'}`}
               style={{
-                fontSize: 'var(--fs-slide-subhead)',
-                fontFamily: 'var(--font-body)',
-                color: a.used ? 'var(--cream)' : 'var(--cream-muted)',
                 fontWeight: a.used ? 600 : 400,
               }}
             >
               {a.name}{' '}
               <span
-                className="deck-mono"
-                style={{ fontSize: 'var(--fs-slide-tagline)', color: 'var(--cream-muted)' }}
+                className="deck-mono xc-tagline xc-muted"
               >
                 ({a.abbr})
               </span>
@@ -496,15 +481,13 @@ function BottomPanels() {
           ))}
         </div>
         <motion.div
-          className="deck-mono"
+          className="deck-mono xc-tagline xc-cyan"
           initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3, ease: EASE, delay: D.qualifiers }}
           style={{
             marginTop: 'var(--space-2)',
-            fontSize: 'var(--fs-slide-tagline)',
             letterSpacing: '0.1em',
-            color: 'var(--cyan)',
             fontWeight: 600,
           }}
         >
@@ -562,15 +545,11 @@ function AmberBand() {
       }}
     >
       <p
-        className="deck-display italic"
-        style={{
+        className="deck-display italic xc-tagline xc-ink" style={{
           margin: 0,
-          fontSize: 'var(--fs-slide-tagline)',
           lineHeight: 'var(--lh-base)',
-          color: 'var(--cream)',
           fontWeight: 400,
-          textAlign: 'center',
-        }}
+          textAlign: 'center' }}
       >
         <span aria-hidden style={{
           display: 'inline-block',
