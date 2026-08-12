@@ -180,7 +180,7 @@ export default function Cs1Poppk() {
   const go = !reduce;
 
   return (
-    <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
+    <SlideGrid dataCase="1" areas={STANDARD_AREAS}>
       <Eyebrow color="var(--coral)" delay={D.chrome}>Case 01 · PopPK · build & fit</Eyebrow>
       <Headline delay={D.headline} maxChars={50}>
         Extensive simulation, tight parsimony.
@@ -408,44 +408,44 @@ function PcVpcChart({ tk, D, compact = false }) {
         {/* Y tick labels */}
         {yTicks.map((v) => (
           <text key={`yl-${v}`} x={-10} y={y(v) + 4} textAnchor="end"
-                fontFamily="var(--font-mono)" fontSize="10" fill={tk('--cream-muted')}>
+                className="xc-mono xc-svg-label" fill={tk('--cream-muted')}>
             {v >= 1000 ? `${v / 1000}k` : v}
           </text>
         ))}
         {/* X tick labels */}
         {xTicks.map((v) => (
           <text key={`xl-${v}`} x={x(v)} y={ih + 20} textAnchor="middle"
-                fontFamily="var(--font-mono)" fontSize="10" fill={tk('--cream-muted')}>
+                className="xc-mono xc-svg-label" fill={tk('--cream-muted')}>
             {v}
           </text>
         ))}
 
         {/* Axis titles */}
         <text x={iw / 2} y={ih + 42} textAnchor="middle"
-              fontFamily="var(--font-mono)" fontSize="10" letterSpacing="0.18em" fill={tk('--cream-faint')}>
+              className="xc-mono xc-svg-label" letterSpacing="0.18em" fill={tk('--cream-faint')}>
           TIME AFTER DOSE (H)
         </text>
         <text transform={`translate(-60, ${ih / 2}) rotate(-90)`} textAnchor="middle"
-              fontFamily="var(--font-mono)" fontSize="10" letterSpacing="0.18em" fill={tk('--cream-faint')}>
+              className="xc-mono xc-svg-label" letterSpacing="0.18em" fill={tk('--cream-faint')}>
           AMBRISENTAN CONCENTRATION (NG/ML)
         </text>
 
         {/* Legend — top-right */}
         <g transform={`translate(${iw - 460}, 6)`}>
           <rect x={0} y={0} width={14} height={10} fill={tk('--coral')} fillOpacity={0.32} />
-          <text x={20} y={9} fontFamily="var(--font-mono)" fontSize="9" fill={tk('--cream-muted')}>
+          <text x={20} y={9} className="xc-mono xc-svg-compact" fill={tk('--cream-muted')}>
             SIM CI · MEDIAN
           </text>
           <rect x={115} y={0} width={14} height={10} fill={tk('--coral')} fillOpacity={0.14} />
-          <text x={135} y={9} fontFamily="var(--font-mono)" fontSize="9" fill={tk('--cream-muted')}>
+          <text x={135} y={9} className="xc-mono xc-svg-compact" fill={tk('--cream-muted')}>
             SIM CI · 5 / 95
           </text>
           <circle cx={237} cy={5} r={2.6} fill={tk('--cream')} fillOpacity={0.78} />
-          <text x={247} y={9} fontFamily="var(--font-mono)" fontSize="9" fill={tk('--cream-muted')}>
+          <text x={247} y={9} className="xc-mono xc-svg-compact" fill={tk('--cream-muted')}>
             OBS · INDIVIDUAL
           </text>
           <circle cx={323} cy={5} r={3.6} fill={tk('--coral')} stroke={tk('--cream')} strokeWidth={1.2} />
-          <text x={333} y={9} fontFamily="var(--font-mono)" fontSize="9" fill={tk('--cream-muted')}>
+          <text x={333} y={9} className="xc-mono xc-svg-compact" fill={tk('--cream-muted')}>
             OBS · MEDIAN
           </text>
         </g>

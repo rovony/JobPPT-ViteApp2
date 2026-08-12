@@ -105,16 +105,16 @@ export default function CS2Reckoning() {
 
   return (
     <SlideFrame
-      dataCase="cyan"
+      dataCase="2"
       eyebrow="Case 03 · Honest reckoning"
       headline={
         <>
           What we{' '}
-          <span style={{ color: 'var(--cyan)', fontStyle: 'italic', fontWeight: 500 }}>
+          <span style={{ color: 'var(--xc-case-accent)', fontStyle: 'italic', fontWeight: 500 }}>
             shipped
           </span>
           , and what we did{' '}
-          <span style={{ color: 'var(--cyan)', fontStyle: 'italic', fontWeight: 500 }}>
+          <span style={{ color: 'var(--xc-case-accent)', fontStyle: 'italic', fontWeight: 500 }}>
             not
           </span>
           .
@@ -144,8 +144,8 @@ export default function CS2Reckoning() {
           <motion.div
             style={{
               flex: '1 1 18rem', minWidth: 0,
-              border: '1px solid color-mix(in srgb, var(--cyan) 18%, transparent)',
-              background: 'color-mix(in srgb, var(--cyan) 8%, transparent)',
+              border: '1px solid color-mix(in srgb, var(--xc-case-accent) 18%, transparent)',
+              background: 'color-mix(in srgb, var(--xc-case-accent) 8%, transparent)',
               borderRadius: 'var(--radius-lg)',
               padding: 'var(--space-3) var(--space-4)',
               display: 'flex', flexDirection: 'column',
@@ -167,7 +167,7 @@ export default function CS2Reckoning() {
               </span>
               <span className="deck-mono xc-tagline xc-cyan" style={{
                 letterSpacing: '0.14em' }}>
-                ✓ <AnimCounter target={3} go={go} delay={D.shippedCounter} color="var(--cyan)" />
+                ✓ <AnimCounter target={3} go={go} delay={D.shippedCounter} color="var(--xc-case-accent)" />
               </span>
             </div>
 
@@ -180,7 +180,7 @@ export default function CS2Reckoning() {
                     display: 'flex', gap: 'var(--space-3)',
                     padding: 'var(--space-2) 0',
                     borderTop: i > 0
-                      ? '1px solid color-mix(in srgb, var(--cyan) 12%, transparent)'
+                      ? '1px solid color-mix(in srgb, var(--xc-case-accent) 12%, transparent)'
                       : 'none',
                     alignItems: 'baseline',
                     cursor: 'default',
@@ -207,7 +207,7 @@ export default function CS2Reckoning() {
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div className="deck-body xc-lead xc-ink" style={{
                       lineHeight: 1.35 }}>
-                      <span style={{ color: 'var(--cyan)', fontWeight: 600 }}>
+                      <span style={{ color: 'var(--xc-case-accent)', fontWeight: 600 }}>
                         {row.title}
                       </span>
                       {' — '}{row.date}

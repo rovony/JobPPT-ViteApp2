@@ -148,9 +148,9 @@ function EfficacyPanel({ tk, D }) {
     <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
        <div className="flex items-center justify-center gap-4 mb-2 deck-mono xc-pageno xc-muted">
           <div className="flex items-center gap-1"><div style={{ width: 6, height: 6, border: '1.5px solid var(--coral)', borderRadius: '50%' }}/> Pediatric low dose</div>
-          <div className="flex items-center gap-1"><div style={{ width: 6, height: 6, border: '1.5px solid #8CC63F', borderRadius: '50%' }}/> Pediatric high dose</div>
-          <div className="flex items-center gap-1"><div style={{ width: 6, height: 6, border: '1.5px solid #2E3192', borderRadius: '50%' }}/> 5 mg adult dose</div>
-          <div className="flex items-center gap-1"><div style={{ width: 6, height: 6, border: '1.5px solid #00AEEF', borderRadius: '50%' }}/> 10 mg adult dose</div>
+          <div className="flex items-center gap-1"><div style={{ width: 6, height: 6, border: '1.5px solid var(--bp-series-ped-high)', borderRadius: '50%' }}/> Pediatric high dose</div>
+          <div className="flex items-center gap-1"><div style={{ width: 6, height: 6, border: '1.5px solid var(--bp-series-adult-low)', borderRadius: '50%' }}/> 5 mg adult dose</div>
+          <div className="flex items-center gap-1"><div style={{ width: 6, height: 6, border: '1.5px solid var(--bp-series-adult-high)', borderRadius: '50%' }}/> 10 mg adult dose</div>
        </div>
        
        <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" style={{ flex: 1, minHeight: 0 }}>
@@ -158,45 +158,45 @@ function EfficacyPanel({ tk, D }) {
            {yTicks.map((v) => (
              <g key={`ty-${v}`}>
                <line x1={0} x2={-4} y1={y(v)} y2={y(v)} stroke="var(--cream-faint)" strokeWidth={0.5} />
-               <text x={-6} y={y(v) + 4} textAnchor="end" fill={tk('--cream-muted')} fontSize={10} fontFamily="var(--font-mono)">
+               <text x={-6} y={y(v) + 4} textAnchor="end" fill={tk('--cream-muted')} className="xc-mono xc-svg-label">
                  {v}
                </text>
              </g>
            ))}
-           <text x={-32} y={ih/2} transform={`rotate(-90, -32, ${ih/2})`} textAnchor="middle" fill="var(--cream-muted)" fontSize={8.5} fontWeight={600} fontFamily="var(--font-mono)">6MWD change (meters)</text>
+           <text x={-32} y={ih/2} transform={`rotate(-90, -32, ${ih/2})`} textAnchor="middle" fill="var(--cream-muted)" className="xc-mono xc-svg-compact" fontWeight={600}>6MWD change (meters)</text>
          </g>
 
          <g transform={`translate(${m.left}, ${m.top})`}>
            <rect x={0} y={0} width={panelW} height={ih} fill="none" stroke="var(--cream-hairline)" strokeWidth={1} />
-           <text x={panelW/2} y={-6} textAnchor="middle" fill="var(--cream-muted)" fontSize={9} fontFamily="var(--font-mono)">8-&lt;18 years</text>
+           <text x={panelW/2} y={-6} textAnchor="middle" fill="var(--cream-muted)" className="xc-mono xc-svg-compact">8-&lt;18 years</text>
            <line x1={0} x2={panelW} y1={y(0)} y2={y(0)} stroke="var(--cream-faint)" strokeWidth={0.8} />
            {xTicks.map(v => (
              <g key={`px-${v}`}>
                <line x1={x(v)} x2={x(v)} y1={ih} y2={ih+4} stroke="var(--cream-faint)" strokeWidth={0.5} />
-               <text x={x(v)} y={ih+14} textAnchor="middle" fill="var(--cream-muted)" fontSize={8} fontFamily="var(--font-mono)">{v}</text>
+               <text x={x(v)} y={ih+14} textAnchor="middle" fill="var(--cream-muted)" className="xc-mono xc-svg-compact">{v}</text>
              </g>
            ))}
            {peds.map((d, i) => (
-             <circle key={`p-${i}`} cx={x(d.x)} cy={y(d.y)} r={2.5} fill="none" stroke={d.type === 'low' ? 'var(--coral)' : '#8CC63F'} strokeWidth={1.5} />
+             <circle key={`p-${i}`} cx={x(d.x)} cy={y(d.y)} r={2.5} fill="none" stroke={d.type === 'low' ? 'var(--coral)' : 'var(--bp-series-ped-high)'} strokeWidth={1.5} />
            ))}
          </g>
 
          <g transform={`translate(${m.left + panelW + 12}, ${m.top})`}>
            <rect x={0} y={0} width={panelW} height={ih} fill="none" stroke="var(--cream-hairline)" strokeWidth={1} />
-           <text x={panelW/2} y={-6} textAnchor="middle" fill="var(--cream-muted)" fontSize={9} fontFamily="var(--font-mono)">Adult</text>
+           <text x={panelW/2} y={-6} textAnchor="middle" fill="var(--cream-muted)" className="xc-mono xc-svg-compact">Adult</text>
            <line x1={0} x2={panelW} y1={y(0)} y2={y(0)} stroke="var(--cream-faint)" strokeWidth={0.8} />
            {xTicks.map(v => (
              <g key={`ax-${v}`}>
                <line x1={x(v)} x2={x(v)} y1={ih} y2={ih+4} stroke="var(--cream-faint)" strokeWidth={0.5} />
-               <text x={x(v)} y={ih+14} textAnchor="middle" fill="var(--cream-muted)" fontSize={8} fontFamily="var(--font-mono)">{v}</text>
+               <text x={x(v)} y={ih+14} textAnchor="middle" fill="var(--cream-muted)" className="xc-mono xc-svg-compact">{v}</text>
              </g>
            ))}
            {adults.map((d, i) => (
-             <circle key={`a-${i}`} cx={x(d.x)} cy={y(d.y)} r={2.5} fill="none" stroke={d.type === 'low' ? '#2E3192' : '#00AEEF'} strokeWidth={1.5} />
+             <circle key={`a-${i}`} cx={x(d.x)} cy={y(d.y)} r={2.5} fill="none" stroke={d.type === 'low' ? 'var(--bp-series-adult-low)' : 'var(--bp-series-adult-high)'} strokeWidth={1.5} />
            ))}
          </g>
 
-         <text x={m.left + panelW + 6} y={H - 4} textAnchor="middle" fill="var(--cream-muted)" fontSize={9} fontWeight={600} fontFamily="var(--font-mono)">Ambrisentan AUCss (μg·h/mL)</text>
+         <text x={m.left + panelW + 6} y={H - 4} textAnchor="middle" fill="var(--cream-muted)" className="xc-mono xc-svg-compact" fontWeight={600}>Ambrisentan AUCss (μg·h/mL)</text>
        </svg>
     </div>
   )
@@ -248,7 +248,7 @@ export default function Cs1Pkpd() {
 
   return (
     <>
-    <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
+    <SlideGrid dataCase="1" areas={STANDARD_AREAS}>
       <Eyebrow color="var(--coral)" delay={D.chrome}>Case 01 · PK matching</Eyebrow>
       <Headline delay={D.headline} maxChars={50}>
         Pediatric exposures match adults — AUC and C<sub>max</sub>.
@@ -395,7 +395,7 @@ function AUCPanel({ tk, D }) {
                 />
                 <text
                   x={iw - 6} y={y(reg.adHi) - 6}
-                  textAnchor="end" fontFamily="var(--font-mono)" fontSize="9"
+                  textAnchor="end" className="xc-mono xc-svg-compact"
                   letterSpacing="0.1em" fill={tk('--cream-faint')}
                 >
                   ADULT 5–95%
@@ -419,7 +419,7 @@ function AUCPanel({ tk, D }) {
                 {/* Δ label at right edge of the median line */}
                 <motion.text
                   x={x(78)} y={y(reg.pedAUC) - 10}
-                  textAnchor="end" fontFamily="var(--font-mono)" fontSize="9"
+                  textAnchor="end" className="xc-mono xc-svg-compact"
                   letterSpacing="0.1em" fill={tk('--coral')} fontWeight={700}
                   initial={reduce ? { opacity: 1 } : { opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -448,25 +448,25 @@ function AUCPanel({ tk, D }) {
                 {/* Y axis labels */}
                 {yTicks.map((v) => (
                   <text key={`yl-${v}`} x={-8} y={y(v) + 3} textAnchor="end"
-                        fontFamily="var(--font-mono)" fontSize="10" fill={tk('--cream-muted')}>
+                        className="xc-mono xc-svg-label" fill={tk('--cream-muted')}>
                     {v}
                   </text>
                 ))}
                 {/* X axis labels */}
                 {xTicks.map((v) => (
                   <text key={`xl-${v}`} x={x(v)} y={ih + 16} textAnchor="middle"
-                        fontFamily="var(--font-mono)" fontSize="10" fill={tk('--cream-muted')}>
+                        className="xc-mono xc-svg-label" fill={tk('--cream-muted')}>
                     {v}
                   </text>
                 ))}
 
                 {/* Axis titles */}
                 <text x={iw / 2} y={ih + 36} textAnchor="middle"
-                      fontFamily="var(--font-mono)" fontSize="9" letterSpacing="0.14em" fill={tk('--cream-faint')}>
+                      className="xc-mono xc-svg-compact" letterSpacing="0.14em" fill={tk('--cream-faint')}>
                   BODY WEIGHT (KG)
                 </text>
                 <text transform={`translate(-36, ${ih / 2}) rotate(-90)`} textAnchor="middle"
-                      fontFamily="var(--font-mono)" fontSize="9" letterSpacing="0.14em" fill={tk('--cream-faint')}>
+                      className="xc-mono xc-svg-compact" letterSpacing="0.14em" fill={tk('--cream-faint')}>
                   AUCss (μg·h/mL)
                 </text>
               </g>
@@ -556,7 +556,7 @@ function CmaxPanel({ tk, D }) {
                     stroke={stroke} strokeOpacity={strokeOp} strokeWidth={2.2} />
               {/* Who label */}
               <text x={cx} y={ih + 18} textAnchor="middle"
-                    fontFamily="var(--font-mono)" fontSize="9.5" letterSpacing="0.14em"
+                    className="xc-mono xc-svg-compact" letterSpacing="0.14em"
                     fill={isPeds ? tk('--coral') : tk('--cream-muted')}>
                 {b.who}
               </text>
@@ -625,12 +625,12 @@ function CmaxPanel({ tk, D }) {
 
         {/* Group labels (LOW DOSE · HIGH DOSE) */}
         <text x={(CMAX_BOXES[0].xPct + CMAX_BOXES[1].xPct) / 2 * iw} y={ih + 40}
-              textAnchor="middle" fontFamily="var(--font-mono)" fontSize="10"
+              textAnchor="middle" className="xc-mono xc-svg-label"
               letterSpacing="0.22em" fill={tk('--cream-faint')}>
           LOW DOSE
         </text>
         <text x={(CMAX_BOXES[2].xPct + CMAX_BOXES[3].xPct) / 2 * iw} y={ih + 40}
-              textAnchor="middle" fontFamily="var(--font-mono)" fontSize="10"
+              textAnchor="middle" className="xc-mono xc-svg-label"
               letterSpacing="0.22em" fill={tk('--cream-faint')}>
           HIGH DOSE
         </text>
@@ -657,7 +657,7 @@ function CmaxPanel({ tk, D }) {
               />
               <motion.text
                 x={(x1 + x2) / 2} y={br.topY - 6} textAnchor="middle"
-                fontFamily="var(--font-mono)" fontSize="11" letterSpacing="0.14em"
+                className="xc-mono xc-svg-em" letterSpacing="0.14em"
                 fill={tk('--coral')} fontWeight={700}
                 initial={reduce ? { opacity: 1 } : { opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -672,12 +672,12 @@ function CmaxPanel({ tk, D }) {
         {/* Y labels */}
         {yTicks.map((v) => (
           <text key={`yl-${v}`} x={-10} y={yAt(v) + 4} textAnchor="end"
-                fontFamily="var(--font-mono)" fontSize="10" fill={tk('--cream-muted')}>
+                className="xc-mono xc-svg-label" fill={tk('--cream-muted')}>
             {v}
           </text>
         ))}
         <text transform={`translate(-46, ${ih / 2}) rotate(-90)`} textAnchor="middle"
-              fontFamily="var(--font-mono)" fontSize="10" letterSpacing="0.18em" fill={tk('--cream-faint')}>
+              className="xc-mono xc-svg-label" letterSpacing="0.18em" fill={tk('--cream-faint')}>
           Cmax,ss (ng/mL)
         </text>
       </g>
@@ -727,7 +727,7 @@ function BoxPanel({ tk, letter, title, unit, data, axisDelay, boxDelay, guideDel
             <text
               key={`yl-${v}`}
               x={-10} y={y(v) + 4} textAnchor="end"
-              fontFamily="var(--font-mono)" fontSize="11"
+              className="xc-mono xc-svg-em"
               fill={tk('--cream-muted')}
             >
               {v}
@@ -766,7 +766,7 @@ function BoxPanel({ tk, letter, title, unit, data, axisDelay, boxDelay, guideDel
             <g key={`xl-${i}`}>
               <text
                 x={xs[i]} y={ih + 26} textAnchor="middle"
-                fontFamily="var(--font-mono)" fontSize="11" letterSpacing="0.18em"
+                className="xc-mono xc-svg-em" letterSpacing="0.18em"
                 fontWeight={700}
                 fill={i === 1 ? tk('--coral') : tk('--cream')}
               >
@@ -774,7 +774,7 @@ function BoxPanel({ tk, letter, title, unit, data, axisDelay, boxDelay, guideDel
               </text>
               <text
                 x={xs[i]} y={ih + 44} textAnchor="middle"
-                fontFamily="var(--font-mono)" fontSize="10"
+                className="xc-mono xc-svg-label"
                 fill={tk('--cream-faint')}
               >
                 n = {g.n}
@@ -906,7 +906,7 @@ function MedianGuide({ tk, xs, y, medA, medB, delay, deltaLabel }) {
         />
         <text
           x={0} y={4} textAnchor="middle"
-          fontFamily="var(--font-mono)" fontSize="10.5"
+          className="xc-mono xc-svg-label"
           letterSpacing="0.12em" fill={tk('--cream')} fontWeight={600}
         >
           {deltaLabel}

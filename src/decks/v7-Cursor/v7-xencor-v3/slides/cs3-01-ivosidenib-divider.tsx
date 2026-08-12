@@ -11,26 +11,28 @@ import IndiaMap from '@/components/deck/illustrations/IndiaMap';
  */
 export default function CS3IvosidenibDivider() {
   return (
-    <CaseHeroDivider
-      caseToken="cyan"
-      caseNumber="03"
-      totalCases={4}
-      kicker="CASE STUDY 03"
-      title="Ivosidenib"
-      subtitle="Regulatory strategy in India"
-      tagline="Approved in 42+ countries. Pre-approval blocked at India's border. A global Clin Pharm dossier as the regulatory bridge."
-      meta={[
-        ['Compound', 'Ivosidenib (IDH1i)'],
-        ['Indication', 'IDH1-mutant AML & CCA'],
-        ['Agency', 'CDSCO India'],
-      ]}
-      verdict="APPROVED"
-      illustration={
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%' }}>
-          <IndiaMap layoutId="india-cdsco" variant="hero" fillIntensity={0.2} stroke="var(--cyan)" />
-        </div>
-      }
-      source="CDSCO marketing authorization · 14 May 2025 · India commercial launch 5 June 2025"
-    />
+    <div data-case="2" style={{ width: '100%', height: '100%' }}>
+      <CaseHeroDivider
+        caseToken="cyan"
+        caseNumber="03"
+        totalCases={4}
+        kicker="CASE STUDY 03"
+        title="Ivosidenib"
+        subtitle="Regulatory strategy in India"
+        tagline="Approved in 42+ countries. Pre-approval blocked at India's border. A global Clin Pharm dossier as the regulatory bridge."
+        meta={[
+          ['Compound', 'Ivosidenib (IDH1i)'],
+          ['Indication', 'IDH1-mutant AML & CCA'],
+          ['Agency', 'CDSCO India'],
+        ]}
+        verdict="APPROVED"
+        illustration={
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%' }}>
+            <IndiaMap layoutId="india-cdsco" variant="hero" fillIntensity={0.2} stroke="var(--xc-case-accent)" />
+          </div>
+        }
+        source="CDSCO marketing authorization · 14 May 2025 · India commercial launch 5 June 2025"
+      />
+    </div>
   );
 }

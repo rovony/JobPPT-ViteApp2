@@ -35,7 +35,7 @@ export default function Cs1Architecture() {
   const go = !reduced;
 
   return (
-    <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
+    <SlideGrid dataCase="1" areas={STANDARD_AREAS}>
       {/* PERFECTLY CENTERED BACKGROUND WATERMARK */}
       <div
         aria-hidden
@@ -90,8 +90,7 @@ export default function Cs1Architecture() {
             initial={{ opacity: 0, y: 10 }}
             animate={go ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 1.3, ease: EASE }}
-            className="deck-body xc-ink" style={{
-              fontSize: 'calc(var(--fs-slide-tagline) * 1.1)',
+            className="deck-body xc-tagline xc-ink" style={{
               lineHeight: 1.5,
               fontWeight: 400,
               maxWidth: '90ch',

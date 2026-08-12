@@ -470,6 +470,7 @@ function DeckRunnerInner({ deck, paramSlideIndex }) {
   return (
     <DeckProvider
       total={orderedDeck.slides.length}
+      slides={orderedDeck.slides}
       initialIndex={initialIndex}
       initialPresenter={initialRole === 'speaker'}
     >

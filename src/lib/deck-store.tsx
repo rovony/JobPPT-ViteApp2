@@ -5,7 +5,7 @@ import React, { createContext, useContext, useReducer, useEffect, useMemo } from
 
 const DeckCtx = createContext<any>(null);
 
-const initial = { index: 0, total: 0, step: 0, steps: 0, mode: 'present', presenter: false };
+const initial = { index: 0, total: 0, step: 0, steps: 0, mode: 'present', presenter: false, slides: [] };
 
 function reducer(state, action) {
   switch (action.type) {
@@ -18,6 +18,7 @@ function reducer(state, action) {
         ...state,
         index: nextIndex,
         total: action.total,
+        slides: action.slides ?? state.slides,
         step: indexChanged ? 0 : state.step,
         steps: indexChanged ? (action.steps ?? 0) : state.steps,
       };
@@ -47,7 +48,7 @@ function reducer(state, action) {
   }
 }
 
-export function DeckProvider({ total, initialIndex = 0, initialPresenter = false, children }) {
+export function DeckProvider({ total, initialIndex = 0, initialPresenter = false, slides = [], children }) {
   // initialPresenter is derived from the URL path segment (/speaker) at
   // mount, so the store starts in lock-step with the URL. This is what
   // kills the URL↔store race that previously stripped ?presenter=1 on
@@ -57,11 +58,15 @@ export function DeckProvider({ total, initialIndex = 0, initialPresenter = false
     total,
     index: initialIndex,
     presenter: !!initialPresenter,
+    slides,
   });
 
+  const slidesKey = slides.map((s) => s?.id).join('\0');
   useEffect(() => {
-    dispatch({ type: 'init', total, index: initialIndex });
-  }, [total, initialIndex]);
+    dispatch({ type: 'init', total, index: initialIndex, slides });
+    // Intentionally key on slide ids, not array identity (reorder/HMR-safe).
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- slidesKey proxies slides
+  }, [total, initialIndex, slidesKey]);
 
   // Actions are stable — their identities never change. This is essential
   // so consumers like DeckStage can put `setSteps` in a useEffect dep list

@@ -50,11 +50,11 @@ export default function Cs2AspBridge() {
   const inView = useInView(ref, { once: true, amount: 0.3 });
   const reduced = useReducedMotion();
   const go = inView && !reduced;
-  const accent = 'var(--teal)';
+  const accent = 'var(--xc-case-3)';
 
   return (
     <SlideFrame
-      dataCase="teal"
+      dataCase="3"
       eyebrow="Case 02 · Close"
       headline={
         <>

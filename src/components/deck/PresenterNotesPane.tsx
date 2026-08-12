@@ -6,6 +6,7 @@ import {
   SlidersHorizontal, Eye, EyeOff, BookOpen, Pencil, ChevronLeft, ChevronRight,
 } from 'lucide-react';
 import { useDeck } from '@/lib/deck-store';
+import { formatTalkSlideCounter } from '@/lib/slide-counter';
 import { parseStructuredNotes } from '@/lib/parseStructuredContent';
 import { transformNotesInlineChildren } from '@/lib/notesInlineTransform';
 import {
@@ -236,7 +237,7 @@ export default function PresenterNotesPane({
    scrolling back up to the main nav bar.
    ======================================================== */
 function InlineNav() {
-  const { prev, next, index, total } = useDeck();
+  const { prev, next, index, total, slides } = useDeck();
   return (
     <div
       className="flex items-center justify-between gap-3 mt-6 pt-4 border-t"
@@ -256,7 +257,7 @@ function InlineNav() {
         className="deck-mono tabular-nums"
         style={{ fontSize: '0.6rem', color: 'var(--cream-faint)', letterSpacing: 'var(--ls-mono)' }}
       >
-        {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+        {formatTalkSlideCounter(slides, index)}
       </span>
       <button
         type="button"

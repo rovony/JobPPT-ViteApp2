@@ -8,11 +8,6 @@ import { BP } from '../_shared/blueprint';
  * Order: Ambrisentan → Ivosidenib India → Asparlas → Pharazi (15–17 · 11 · 7 · 3).
  */
 
-const FONT = {
-  sans: 'var(--font-display)',
-  mono: 'var(--font-mono)',
-} as const;
-
 const EASE = [0.22, 0.7, 0.2, 1] as const;
 
 type CaseId = 1 | 2 | 3 | 4;
@@ -38,11 +33,12 @@ function VizAmbrisentan() {
     <svg viewBox="0 0 300 120" aria-hidden style={{ width: '100%', height: '100%' }}>
       <rect x="12" y="36" width="276" height="48" fill="var(--xc-case-wash)" rx="1" />
       <text
+        className="xc-svg"
         x="150"
         y="26"
         textAnchor="middle"
         fill="var(--xc-case-accent)"
-        style={{ fontFamily: FONT.mono, fontSize: 'var(--bp-fs-svg)', letterSpacing: 'var(--ls-mono)' }}
+        style={{ letterSpacing: 'var(--ls-mono)' }}
       >
         ADULT BAND
       </text>
@@ -54,11 +50,12 @@ function VizAmbrisentan() {
         <circle cx="255" cy="64" r="4.5" />
       </g>
       <text
+        className="xc-svg"
         x="150"
         y="110"
         textAnchor="middle"
         fill={BP.ink4}
-        style={{ fontFamily: FONT.mono, fontSize: '0.75rem', letterSpacing: 'var(--ls-mono)' }}
+        style={{ letterSpacing: 'var(--ls-mono)' }}
       >
         PEDIATRIC EXPOSURES
       </text>
@@ -79,20 +76,21 @@ function VizIvosidenib() {
       </g>
       <circle cx="150" cy="60" r="22" fill="none" stroke="var(--xc-case-accent)" strokeWidth="2.5" />
       <text
+        className="xc-svg-decision"
         x="150"
         y="66"
         textAnchor="middle"
         fill="var(--xc-case-accent)"
-        style={{ fontFamily: FONT.mono, fontSize: '1.125rem', fontWeight: 700 }}
       >
         6
       </text>
       <text
+        className="xc-svg"
         x="150"
         y="112"
         textAnchor="middle"
         fill={BP.ink4}
-        style={{ fontFamily: FONT.mono, fontSize: '0.75rem', letterSpacing: 'var(--ls-mono)' }}
+        style={{ letterSpacing: 'var(--ls-mono)' }}
       >
         CONVERGENT PILLARS
       </text>
@@ -120,19 +118,21 @@ function VizAsparlas() {
       />
       <circle cx="112" cy="80" r="6" fill="var(--xc-case-accent)" />
       <text
+        className="xc-svg"
         x="126"
         y="34"
         fill={BP.ink3}
-        style={{ fontFamily: FONT.mono, fontSize: '0.75rem', letterSpacing: 'var(--ls-mono)' }}
+        style={{ letterSpacing: 'var(--ls-mono)' }}
       >
         PLATEAU
       </text>
       <text
+        className="xc-svg"
         x="150"
         y="116"
         textAnchor="middle"
         fill={BP.ink4}
-        style={{ fontFamily: FONT.mono, fontSize: '0.75rem', letterSpacing: 'var(--ls-mono)' }}
+        style={{ letterSpacing: 'var(--ls-mono)' }}
       >
         PRECISION vs N
       </text>
@@ -174,22 +174,24 @@ function VizPharazi() {
         ] as const
       ).map(([x, label]) => (
         <text
+          className="xc-svg-compact"
           key={label}
           x={x}
           y="66"
           textAnchor="middle"
           fill={BP.ink2}
-          style={{ fontFamily: FONT.mono, fontSize: '0.6875rem', fontWeight: 600 }}
+          style={{ fontWeight: 600 }}
         >
           {label}
         </text>
       ))}
       <text
+        className="xc-svg"
         x="150"
         y="110"
         textAnchor="middle"
         fill={BP.ink4}
-        style={{ fontFamily: FONT.mono, fontSize: '0.75rem', letterSpacing: 'var(--ls-mono)' }}
+        style={{ letterSpacing: 'var(--ls-mono)' }}
       >
         AUDIT TRAIL
       </text>
@@ -360,7 +362,7 @@ export default function WhatYouWillSee() {
         <div className="xc-frame-inner" aria-hidden />
         <span className="xc-statement-band__inner">
           The cases are evidence. The argument is that{' '}
-          <b className="xc-em" style={{ fontWeight: 700 }}>
+          <b className="xc-em">
             the same discipline carried all four.
           </b>
         </span>

@@ -60,18 +60,18 @@ export default function Cs2AspFit() {
   const tk = (n, fb = 'transparent') => (T ? T[n] || fb : fb);
 
   return (
-    <SlideGrid dataCase="teal" areas={STANDARD_AREAS}>
-      <Eyebrow color="var(--teal)" delay={D.eyebrow}>CS2 · Fit</Eyebrow>
+    <SlideGrid dataCase="3" areas={STANDARD_AREAS}>
+      <Eyebrow color="var(--xc-case-3)" delay={D.eyebrow}>CS2 · Fit</Eyebrow>
       <Headline delay={D.headline} maxChars={56}>
         Sixty adults anchor a model that{' '}
-        <span style={{ color: 'var(--teal)', fontStyle: 'italic', fontWeight: 700 }}>
+        <span style={{ color: 'var(--xc-case-3)', fontStyle: 'italic', fontWeight: 700 }}>
           already knows
         </span>{' '}
         most of the answer.
       </Headline>
       <Subhead delay={D.subhead} maxChars={130}>
         At N = 60 the model is{' '}
-        <span style={{ color: 'var(--teal)', fontWeight: 600 }}>
+        <span style={{ color: 'var(--xc-case-3)', fontWeight: 600 }}>
           as precise as at N = 94
         </span>{' '}
         for the parameters that drive dose decisions — because the information lives in the
@@ -140,7 +140,7 @@ export default function Cs2AspFit() {
             >
               <motion.div
                 className="xc-card-label"
-                style={{ color: 'var(--teal)' }}
+                style={{ color: 'var(--xc-case-3)' }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, ease, delay: D.rightLabel }}
@@ -182,7 +182,7 @@ export default function Cs2AspFit() {
               style={{ fontWeight: 500, textAlign: 'center' }}
             >
               The smaller sample size doesn’t weaken the science — it{' '}
-              <span style={{ color: 'var(--teal)', fontWeight: 700, fontStyle: 'normal' }}>
+              <span style={{ color: 'var(--xc-case-3)', fontWeight: 700, fontStyle: 'normal' }}>
                 clarifies where the scientific evidence actually lives
               </span>
               .
@@ -213,7 +213,7 @@ function EvidenceBlock({ n, label, tag, bullets, delay }) {
         padding: '14px 18px 14px 16px',
         borderRadius: 0,
         border: '1px solid var(--cream-hairline)',
-        borderLeft: '3px solid var(--teal)',
+        borderLeft: '3px solid var(--xc-case-3)',
         background: 'transparent',
         display: 'grid',
         gridTemplateRows: 'auto auto auto',
@@ -232,19 +232,19 @@ function EvidenceBlock({ n, label, tag, bullets, delay }) {
               width: 28,
               height: 28,
               borderRadius: 0,
-              border: '1.5px solid var(--teal)',
+              border: '1.5px solid var(--xc-case-3)',
               background: 'transparent',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: 'var(--teal)',
+              color: 'var(--xc-case-3)',
             }}
           >
             {n}
           </span>
           <span
             className="xc-card-label"
-            style={{ color: 'var(--teal)' }}
+            style={{ color: 'var(--xc-case-3)' }}
           >
             {label}
           </span>
@@ -281,7 +281,7 @@ function EvidenceBlock({ n, label, tag, bullets, delay }) {
                 aria-hidden
                 className="xc-mono"
                 style={{
-                  color: 'var(--teal)',
+                  color: 'var(--xc-case-3)',
                   fontWeight: 700,
                 }}
               >

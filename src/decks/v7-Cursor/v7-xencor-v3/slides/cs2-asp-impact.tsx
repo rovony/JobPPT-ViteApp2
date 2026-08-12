@@ -34,14 +34,14 @@ export default function Cs2AspImpact() {
 
   return (
     <SlideGrid
-      dataCase="teal"
+      dataCase="3"
       areas={STANDARD_AREAS_NO_SUBHEAD}
       rowSizes={STANDARD_ROW_SIZES_NO_SUBHEAD}
     >
-      <Eyebrow color="var(--teal)" delay={D.eyebrow}>CS2 · Impact</Eyebrow>
+      <Eyebrow color="var(--xc-case-3)" delay={D.eyebrow}>CS2 · Impact</Eyebrow>
       <Headline delay={D.headline} maxChars={52}>
         A{' '}
-        <span style={{ color: 'var(--teal)', fontStyle: 'italic', fontWeight: 700 }}>
+        <span style={{ color: 'var(--xc-case-3)', fontStyle: 'italic', fontWeight: 700 }}>
           36% enrollment reduction
         </span>
         . A documented precedent that travels.
@@ -88,8 +88,8 @@ export default function Cs2AspImpact() {
           <motion.div
             style={{
               padding: 'var(--space-4)',
-              border: '1px solid color-mix(in srgb, var(--teal) 30%, transparent)',
-              background: 'color-mix(in srgb, var(--teal) 6%, transparent)',
+              border: '1px solid color-mix(in srgb, var(--xc-case-3) 30%, transparent)',
+              background: 'color-mix(in srgb, var(--xc-case-3) 6%, transparent)',
             }}
             initial={reduce ? false : { opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
@@ -97,7 +97,7 @@ export default function Cs2AspImpact() {
           >
             <span className="xc-subhead xc-ink-muted">
               SPARK-ALL closed at N = 42 on a sponsor portfolio decision —{' '}
-              <span style={{ color: 'var(--teal)', fontWeight: 700 }}>
+              <span style={{ color: 'var(--xc-case-3)', fontWeight: 700 }}>
                 the FDA-agreed methodology is durable beyond any single program.
               </span>
             </span>
@@ -128,11 +128,10 @@ function ImpactNumeral({ delay, ease, overshoot, reduce }) {
     >
       <motion.div
         layoutId="cs3-pct-36"
-        className="xc-sans italic"
+        className="xc-hero-num italic"
         style={{
-          fontSize: 'clamp(4.5rem, 11vw, 12rem)',
           fontWeight: 800,
-          color: 'var(--teal)',
+          color: 'var(--xc-case-3)',
           letterSpacing: '-0.02em',
           lineHeight: 0.9,
         }}
@@ -144,7 +143,7 @@ function ImpactNumeral({ delay, ease, overshoot, reduce }) {
       </motion.div>
       <motion.div
         className="xc-tagline-mono"
-        style={{ color: 'var(--teal)' }}
+        style={{ color: 'var(--xc-case-3)' }}
         initial={reduce ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.45, ease, delay: delay + 0.2 }}
@@ -226,7 +225,7 @@ function PatientGrid({ delay, ease, reduce }) {
           gap: '12px',
         }}
       >
-        <span style={{ color: 'var(--teal)', fontWeight: 700 }}>60 enrolled</span>
+        <span style={{ color: 'var(--xc-case-3)', fontWeight: 700 }}>60 enrolled</span>
         <span style={{ color: 'var(--cream-faint)' }}>34 not enrolled</span>
       </div>
     </div>
@@ -234,7 +233,7 @@ function PatientGrid({ delay, ease, reduce }) {
 }
 
 function PatientFigure({ cx, cy, kept }) {
-  const color = kept ? 'var(--teal)' : 'var(--cream-faint)';
+  const color = kept ? 'var(--xc-case-3)' : 'var(--cream-faint)';
   const opacity = kept ? 1 : 0.35;
   return (
     <g opacity={opacity}>
@@ -260,18 +259,17 @@ function LedgerChip({ kicker, big, suffix, accent }) {
       <div
         className="xc-card-label"
         style={{
-          color: accent ? 'var(--teal)' : 'var(--cream-muted)',
+          color: accent ? 'var(--xc-case-3)' : 'var(--cream-muted)',
           marginBottom: 6,
         }}
       >
         {kicker}
       </div>
       <div
-        className="xc-sans"
+        className="xc-title"
         style={{
-          fontSize: 'clamp(1.25rem, 2vw, 2rem)',
           fontWeight: 700,
-          color: accent ? 'var(--teal)' : 'var(--cream)',
+          color: accent ? 'var(--xc-case-3)' : 'var(--cream)',
           lineHeight: 1,
           fontStyle: accent ? 'italic' : 'normal',
         }}
@@ -279,8 +277,8 @@ function LedgerChip({ kicker, big, suffix, accent }) {
         {big}
         {suffix && (
           <span
+            className="xc-stat-unit"
             style={{
-              fontSize: '0.42em',
               color: 'var(--cream-muted)',
               fontWeight: 500,
               fontStyle: 'normal',

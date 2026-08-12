@@ -66,13 +66,13 @@ const IN_HAND_ITEMS = [
 export default function CS2Setup() {
   return (
     <SlideFrame
-      dataCase="cyan"
-      eyebrowColor="var(--cyan)"
+      dataCase="2"
+      eyebrowColor="var(--xc-case-accent)"
       eyebrow="Case 03 · Setup + challenge"
       headline={
         <>
           December 2024 — the SEC asked for{' '}
-          <span style={{ color: 'var(--cyan)', fontStyle: 'italic', fontWeight: 500 }}>
+          <span style={{ color: 'var(--xc-case-accent)', fontStyle: 'italic', fontWeight: 500 }}>
             local PK/PD
           </span>
           .
@@ -101,7 +101,7 @@ export default function CS2Setup() {
         }}
       >
         <CaseOrientationStrip
-          accent="var(--cyan)"
+          accent="var(--xc-case-accent)"
           delay={0.9}
           items={[
             {
@@ -152,7 +152,7 @@ function TimelineSVG() {
         />
         <motion.line
           x1="80" y1="44" x2="1100" y2="44"
-          stroke="var(--cyan)" strokeWidth="1" strokeOpacity="0.35"
+          stroke="var(--xc-case-accent)" strokeWidth="1" strokeOpacity="0.35"
           initial={reduced ? false : { pathLength: 0 }}
           animate={{ pathLength: 1 }}
           transition={{ duration: 0.7, ease: EASE, delay: D.timelineDraw + 0.1 }}
@@ -164,7 +164,7 @@ function TimelineSVG() {
 
         {/* SEC opinion — pulsing endpoint */}
         <motion.circle
-          cx="1100" cy="44" r="7" fill="var(--cyan)"
+          cx="1100" cy="44" r="7" fill="var(--xc-case-accent)"
           initial={reduced ? false : { scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5, ease: EASE_OVER, delay: D.tickSec }}
@@ -173,7 +173,7 @@ function TimelineSVG() {
         {/* Ambient pulsing ring — 3s infinite loop */}
         <motion.circle
           cx="1100" cy="44" r="11" fill="none"
-          stroke="var(--cyan)" strokeWidth="1"
+          stroke="var(--xc-case-accent)" strokeWidth="1"
           initial={reduced ? { opacity: 0.4 } : { opacity: 0, scale: 1 }}
           animate={reduced
             ? { opacity: 0.4 }
@@ -185,8 +185,7 @@ function TimelineSVG() {
         />
 
         <motion.text
-          x="1100" y="20" textAnchor="middle" fontFamily="var(--font-mono)"
-          fontSize="11" fill="var(--cyan)" letterSpacing="1.4" fontWeight="600"
+          x="1100" y="20" textAnchor="middle" className="xc-svg-title" fill="var(--xc-case-accent)" letterSpacing="1.4" fontWeight="600"
           initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.2, ease: EASE, delay: D.tickSec }}
@@ -195,8 +194,7 @@ function TimelineSVG() {
         </motion.text>
 
         <motion.text
-          x="1100" y="66" textAnchor="middle" fontFamily="'Fraunces', Georgia, serif"
-          fontSize="12" fill="var(--cyan)" fontStyle="italic" fontWeight="500"
+          x="1100" y="66" textAnchor="middle" className="xc-svg-body-sm" fill="var(--xc-case-accent)" fontStyle="italic" fontWeight="500"
           initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.2, ease: EASE, delay: D.tickCaption }}
@@ -209,9 +207,9 @@ function TimelineSVG() {
 }
 
 function TimelineTick({ cx, date, label, delay, reduced, accent = false }) {
-  const fill = accent ? 'var(--cyan)' : 'var(--bg)';
-  const stroke = accent ? 'var(--cyan)' : 'var(--cream-faint)';
-  const dateFill = accent ? 'var(--cyan)' : 'var(--cream-faint)';
+  const fill = accent ? 'var(--xc-case-accent)' : 'var(--bg)';
+  const stroke = accent ? 'var(--xc-case-accent)' : 'var(--cream-faint)';
+  const dateFill = accent ? 'var(--xc-case-accent)' : 'var(--cream-faint)';
   const labelFill = accent ? 'var(--cream)' : 'var(--cream-muted)';
   return (
     <motion.g
@@ -220,10 +218,8 @@ function TimelineTick({ cx, date, label, delay, reduced, accent = false }) {
       transition={{ duration: 0.3, ease: EASE, delay }}
     >
       <circle cx={cx} cy="44" r="5" fill={fill} stroke={stroke} strokeWidth="1.5" />
-      <text x={cx} y="22" textAnchor="middle" fontFamily="var(--font-mono)"
-        fontSize="11" fill={dateFill} letterSpacing="1.4">{date}</text>
-      <text x={cx} y="66" textAnchor="middle" fontFamily="'Fraunces', Georgia, serif"
-        fontSize="13" fill={labelFill} fontStyle="italic">{label}</text>
+      <text x={cx} y="22" textAnchor="middle" className="xc-svg-title" fill={dateFill} letterSpacing="1.4">{date}</text>
+      <text x={cx} y="66" textAnchor="middle" className="xc-svg-body" fill={labelFill} fontStyle="italic">{label}</text>
     </motion.g>
   );
 }
@@ -269,7 +265,7 @@ function QuoteCard() {
         style={{
           width: 5,
           flexShrink: 0,
-          background: 'var(--cyan)',
+          background: 'var(--xc-case-accent)',
           transformOrigin: 'top',
         }}
       />
@@ -352,7 +348,7 @@ function QuoteCard() {
               return (
                 <motion.span
                   key={idx}
-                  style={{ color: 'var(--cyan)', fontWeight: 500 }}
+                  style={{ color: 'var(--xc-case-accent)', fontWeight: 500 }}
                   initial={reduced ? false : { opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.15, ease: EASE, delay: wordDelay(idx) }}
@@ -469,8 +465,8 @@ function AsymmetryPanel() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4, ease: EASE, delay: D.inHand }}
         style={{
-          border: `1px solid color-mix(in srgb, var(--cyan) 28%, transparent)`,
-          background: 'color-mix(in srgb, var(--cyan) 8%, transparent)',
+          border: `1px solid color-mix(in srgb, var(--xc-case-accent) 28%, transparent)`,
+          background: 'color-mix(in srgb, var(--xc-case-accent) 8%, transparent)',
           borderRadius: 'var(--radius-lg)',
           padding: 'var(--space-3) var(--space-4)',
           display: 'flex', flexDirection: 'column',
@@ -493,7 +489,7 @@ function AsymmetryPanel() {
                 display: 'flex', alignItems: 'baseline',
                 gap: 'var(--space-3)',
                 paddingLeft: 'var(--space-2)',
-                borderLeft: `2px solid var(--cyan)`,
+                borderLeft: `2px solid var(--xc-case-accent)`,
               }}
             >
               <span className="xc-slide-subhead xc-ink">

@@ -32,9 +32,9 @@ const DISRUPTIONS = [
     n: '01',
     label: 'TRIAL',
     headline: 'Enrollment stopped before efficacy could close.',
-    timestamps: <>Hold 2013–2017 · termination 2019 · <span style={{ color: 'var(--coral)', fontWeight: 600 }}>39 / 66</span> evaluable</>,
+    timestamps: <>Hold 2013–2017 · termination 2019 · <span className="xc-case" style={{ fontWeight: 600 }}>39 / 66</span> evaluable</>,
     body: <>Pediatric dataset became confirmatory.</>,
-    outcome: <>Dose rationale: <span style={{ color: 'var(--coral)', fontWeight: 600 }}>adult anchor + pediatric PK</span>.</>,
+    outcome: <>Dose rationale: <span className="xc-case" style={{ fontWeight: 600 }}>adult anchor + pediatric PK</span>.</>,
   },
   {
     n: '02',
@@ -42,7 +42,7 @@ const DISRUPTIONS = [
     headline: 'Pediatric dosing was under caution.',
     timestamps: <>Review 2017–2021</>,
     body: <>Empirical escalation was hard to defend.</>,
-    outcome: <>Exposure matching was the <span style={{ color: 'var(--coral)', fontWeight: 600 }}>cleaner lane</span>.</>,
+    outcome: <>Exposure matching was the <span className="xc-case" style={{ fontWeight: 600 }}>cleaner lane</span>.</>,
   },
   {
     n: '03',
@@ -50,7 +50,7 @@ const DISRUPTIONS = [
     headline: 'Label outcomes followed filing geography.',
     timestamps: <>EMA + PMDA proceeded</>,
     body: <>Submissions diverged; labels diverged.</>,
-    outcome: <>Public outcome: <span style={{ color: 'var(--coral)', fontWeight: 600 }}>EMA + PMDA pediatric approvals</span>.</>,
+    outcome: <>Public outcome: <span className="xc-case" style={{ fontWeight: 600 }}>EMA + PMDA pediatric approvals</span>.</>,
   },
 ];
 
@@ -152,7 +152,7 @@ export default function Cs1Outcome() {
   const reduced = useReducedMotion();
   const steps = ['0rem', 'clamp(2rem, 6vh, 4rem)', 'clamp(4rem, 12vh, 7rem)'];
   return (
-    <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
+    <SlideGrid dataCase="1" areas={STANDARD_AREAS}>
       {/* V2-S7 lung-anchor treatment · stress · background presence
           with tension. Sized larger than ambient (variant CSS opacity
           0.14 tissue / 0.55 detail / 0.38 stroke) — meant to feel

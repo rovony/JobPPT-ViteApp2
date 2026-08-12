@@ -6,7 +6,7 @@ export default function Cs3AiRegulatoryFloor() {
   return (
     <AiEvidenceSlide
       eyebrow="Case 04 · Setup + regulatory floor"
-      headline={<>AI is useful in clinical pharmacology only when the workflow can be <span style={{ color: 'var(--sage)', fontStyle: 'italic' }}>reviewed.</span></>}
+      headline={<>AI is useful in clinical pharmacology only when the workflow can be <span style={{ color: 'var(--xc-case-accent)', fontStyle: 'italic' }}>reviewed.</span></>}
       subhead={<>After three drug dossiers, the constraint shifts to the <strong style={{ fontWeight: 600 }}>evidence system itself</strong> — Pharazi is personal research into audit-ready clin pharm workflows, not a sponsor deployment claim.</>}
       subheadMaxChars={140}
       cards={[

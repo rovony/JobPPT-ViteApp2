@@ -64,7 +64,7 @@ export default function Cs1Bridge() {
 
   return (
     <SlideFrame
-      dataCase="coral"
+      dataCase="1"
       eyebrow="Case 01 · Close"
       headline={
         <>

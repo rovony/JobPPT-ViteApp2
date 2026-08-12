@@ -44,7 +44,7 @@ function WordReveal({ em, rest, baseDelay, go }) {
         <motion.span
           key={i}
           style={i === 0 ? {
-            color: 'var(--cyan)', fontWeight: 500,
+            color: 'var(--xc-case-accent)', fontWeight: 500,
           } : undefined}
           initial={{ opacity: 0 }}
           animate={go ? { opacity: 1 } : { opacity: 1 }}
@@ -65,12 +65,12 @@ export default function CS2BridgeRecap() {
 
   return (
     <SlideFrame
-      dataCase="cyan"
+      dataCase="2"
       eyebrow="Case 03 · Close"
       headline={
         <>
           The science{' '}
-          <span style={{ color: 'var(--cyan)', fontStyle: 'italic', fontWeight: 500 }}>
+          <span style={{ color: 'var(--xc-case-accent)', fontStyle: 'italic', fontWeight: 500 }}>
             was the bridge
           </span>
           .
@@ -143,15 +143,15 @@ export default function CS2BridgeRecap() {
                     marginTop: -2,
                     transformOrigin: 'left',
                   }}
-                  initial={{ scaleX: 0, background: 'color-mix(in srgb, var(--cyan) 28%, transparent)' }}
+                  initial={{ scaleX: 0, background: 'color-mix(in srgb, var(--xc-case-accent) 28%, transparent)' }}
                   animate={go
                     ? {
                         scaleX: 1,
-                        background: 'color-mix(in srgb, var(--cyan) 28%, transparent)',
+                        background: 'color-mix(in srgb, var(--xc-case-accent) 28%, transparent)',
                       }
                     : {
                         scaleX: 1,
-                        background: 'color-mix(in srgb, var(--cyan) 28%, transparent)',
+                        background: 'color-mix(in srgb, var(--xc-case-accent) 28%, transparent)',
                       }}
                   transition={{ duration: 0.3, delay: D.p[i].rule, ease: EASE }}
                 />
@@ -185,16 +185,16 @@ export default function CS2BridgeRecap() {
               }}
               initial={{
                 scaleX: 0,
-                background: 'color-mix(in srgb, var(--cyan) 28%, transparent)',
+                background: 'color-mix(in srgb, var(--xc-case-accent) 28%, transparent)',
               }}
               animate={go
                 ? {
                     scaleX: 1,
-                    background: 'color-mix(in srgb, var(--cyan) 28%, transparent)',
+                    background: 'color-mix(in srgb, var(--xc-case-accent) 28%, transparent)',
                   }
                 : {
                     scaleX: 1,
-                    background: 'color-mix(in srgb, var(--cyan) 28%, transparent)',
+                    background: 'color-mix(in srgb, var(--xc-case-accent) 28%, transparent)',
                   }}
               transition={{ duration: 0.3, delay: D.endMark, ease: EASE }}
             />

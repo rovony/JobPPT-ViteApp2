@@ -109,7 +109,7 @@ export default function Cs1Lesson() {
   const reduced = useReducedMotion();
 
   return (
-    <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
+    <SlideGrid dataCase="1" areas={STANDARD_AREAS}>
       {/* V2-S10 lung-anchor treatment · closure · full presence,
           anatomy-pinable. The lung returns to the center as the case
           closes — same visual subject the case opened with, now

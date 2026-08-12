@@ -7,21 +7,23 @@ import CaseHeroDivider from '@/components/deck/patterns/CaseHeroDivider';
  */
 export default function Cs4CloseDivider() {
   return (
-    <CaseHeroDivider
-      caseToken="sage"
-      caseNumber="04"
-      totalCases={4}
-      kicker="CASES 01–04 · COMPLETE"
-      title="Core proof"
-      subtitle="Beyond these four · the portfolio"
-      tagline="Pediatric dose · smarter trial · India dossier · traceable AI — one discipline carrying four regulatory decisions."
-      meta={[
-        ['Case 01', 'Pediatric PAH dose'],
-        ['Case 02', 'Asparlas N = 60'],
-        ['Case 03', 'Ivosidenib · India'],
-        ['Case 04', 'Pharazi · traceable AI'],
-      ]}
-      verdict="COMPLETE"
-    />
+    <div data-case="4" style={{ width: '100%', height: '100%' }}>
+      <CaseHeroDivider
+        caseToken="sage"
+        caseNumber="04"
+        totalCases={4}
+        kicker="CASES 01–04 · COMPLETE"
+        title="Core proof"
+        subtitle="Beyond these four · the portfolio"
+        tagline="Pediatric dose · smarter trial · India dossier · traceable AI — one discipline carrying four regulatory decisions."
+        meta={[
+          ['Case 01', 'Pediatric PAH dose'],
+          ['Case 02', 'Asparlas N = 60'],
+          ['Case 03', 'Ivosidenib · India'],
+          ['Case 04', 'Pharazi · traceable AI'],
+        ]}
+        verdict="COMPLETE"
+      />
+    </div>
   );
 }

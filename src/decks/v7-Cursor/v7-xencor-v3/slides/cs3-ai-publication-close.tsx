@@ -33,12 +33,12 @@ export default function Cs3AiPublicationClose() {
 
   return (
     <SlideFrame
-      dataCase="amber"
+      dataCase="4"
       eyebrow="Case 04 · Publication + ecosystem"
       headline={
         <>
           Traceable acceleration —{' '}
-          <span className="italic" style={{ color: 'var(--case)' }}>live at pharazi.ai</span>
+          <span className="italic" style={{ color: 'var(--xc-case-accent)' }}>live at pharazi.ai</span>
         </>
       }
       subhead="The reference architecture, the working system, and the open ecosystem — addressable in one place."
@@ -57,9 +57,9 @@ export default function Cs3AiPublicationClose() {
             transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
             className="inline-flex items-center gap-3 self-start px-3 py-2"
             style={{
-              border: '1px solid var(--case)',
+              border: '1px solid var(--xc-case-accent)',
               borderRadius: 'var(--radius-sm)',
-              background: 'color-mix(in srgb, var(--case) 8%, transparent)',
+              background: 'color-mix(in srgb, var(--xc-case-accent) 8%, transparent)',
             }}
           >
             <span
@@ -68,13 +68,13 @@ export default function Cs3AiPublicationClose() {
                 width: 6,
                 height: 6,
                 borderRadius: '50%',
-                background: 'var(--case)',
-                boxShadow: '0 0 6px var(--case)',
+                background: 'var(--xc-case-accent)',
+                boxShadow: '0 0 6px var(--xc-case-accent)',
               }}
             />
             <span
               className="xc-tagline-mono"
-              style={{ color: 'var(--case)' }}
+              style={{ color: 'var(--xc-case-accent)' }}
             >
               MANUSCRIPT · CPT:PSP · IN PREP
             </span>
@@ -90,7 +90,6 @@ export default function Cs3AiPublicationClose() {
             <motion.h2
               className="xc-h2 xc-ink"
               style={{
-                fontSize: 'clamp(2rem, 3.6vw, 3.8rem)',
                 fontWeight: 600,
                 maxWidth: '24ch',
               }}
@@ -99,7 +98,7 @@ export default function Cs3AiPublicationClose() {
               transition={{ delay: 2.0, ...SPRING }}
             >
               Same standard as the ADC case:{' '}
-              <span className="italic" style={{ color: 'var(--case)' }}>no black boxes</span>{' '}
+              <span className="italic" style={{ color: 'var(--xc-case-accent)' }}>no black boxes</span>{' '}
               at the decision point.
             </motion.h2>
           </div>
@@ -139,23 +138,23 @@ export default function Cs3AiPublicationClose() {
               bottom: -8,
               padding: 12,
               background: 'var(--bg)',
-              border: '1px solid var(--case)',
+              border: '1px solid var(--xc-case-accent)',
               borderRadius: 'var(--radius-sm)',
               boxShadow:
-                '0 12px 36px rgba(0,0,0,0.45), 0 0 28px color-mix(in srgb, var(--case) 30%, transparent)',
+                '0 12px 36px rgba(0,0,0,0.45), 0 0 28px color-mix(in srgb, var(--xc-case-accent) 30%, transparent)',
             }}
           >
             <QRCodeSVG
               value={URL}
               size={104}
               bgColor="transparent"
-              fgColor="var(--cream, #f5f5f4)"
+              fgColor="var(--bp-ink)"
               level="Q"
               includeMargin={false}
             />
             <div
               className="xc-tagline-mono mt-2 text-center"
-              style={{ color: 'var(--case)' }}
+              style={{ color: 'var(--xc-case-accent)' }}
             >
               SCAN · pharazi.ai
             </div>
@@ -168,17 +167,16 @@ export default function Cs3AiPublicationClose() {
 
 function StatusLine({ label, accent, tone, delay, go }) {
   const palette = {
-    case: 'var(--case)',
-    cyan: 'var(--cyan)',
-    sage: 'var(--sage)',
+    case: 'var(--xc-case-accent)',
+    cyan: 'var(--bp-cyan)',
+    sage: 'var(--xc-case-accent)',
   };
   return (
     <div className="overflow-hidden pb-2 -mb-2">
       <motion.p
-        className="xc-sans xc-ink-muted"
+        className="xc-subtitle xc-ink-muted"
         style={{
           margin: 0,
-          fontSize: 'clamp(1.5rem, 2.2vw, 2.2rem)',
           lineHeight: 1.15,
           fontWeight: 500,
           letterSpacing: '-0.005em',
@@ -199,8 +197,8 @@ function StatusLine({ label, accent, tone, delay, go }) {
 function EcosystemChip({ label, state, tone, delay }) {
   const palette = {
     amber: 'var(--amber)',
-    cyan: 'var(--cyan)',
-    violet: 'var(--violet, var(--case))',
+    cyan: 'var(--bp-cyan)',
+    violet: 'var(--violet, var(--xc-case-accent))',
     coral: 'var(--coral)',
   };
   const c = palette[tone] ?? palette.amber;

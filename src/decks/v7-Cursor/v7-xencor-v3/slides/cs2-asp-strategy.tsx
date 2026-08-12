@@ -79,18 +79,18 @@ export default function Cs2AspStrategy() {
   };
 
   return (
-    <SlideGrid dataCase="teal" areas={STANDARD_AREAS}>
-      <Eyebrow color="var(--teal)" delay={D.eyebrow}>CS2 · Strategy</Eyebrow>
+    <SlideGrid dataCase="3" areas={STANDARD_AREAS}>
+      <Eyebrow color="var(--xc-case-3)" delay={D.eyebrow}>CS2 · Strategy</Eyebrow>
       <Headline delay={D.headline} maxChars={48}>
         Two innovations,{' '}
-        <span style={{ color: 'var(--teal)', fontStyle: 'italic', fontWeight: 700 }}>
+        <span style={{ color: 'var(--xc-case-3)', fontStyle: 'italic', fontWeight: 700 }}>
           individually precedented
         </span>{' '}
         — stacked for adult oncology.
       </Headline>
       <Subhead delay={D.subhead} maxChars={110}>
         Each move is{' '}
-        <span style={{ color: 'var(--teal)', fontWeight: 600 }}>FDA-precedented on its own</span>.
+        <span style={{ color: 'var(--xc-case-3)', fontWeight: 600 }}>FDA-precedented on its own</span>.
         Combined here for the first time in this clinical context.
       </Subhead>
 
@@ -156,7 +156,7 @@ export default function Cs2AspStrategy() {
           >
             <span
               className="xc-tagline-mono"
-              style={{ color: 'var(--teal)' }}
+              style={{ color: 'var(--xc-case-3)' }}
             >
               The stack
             </span>
@@ -165,7 +165,7 @@ export default function Cs2AspStrategy() {
               style={{ flex: '1 1 480px' }}
             >
               PK-precision sample size{' '}
-              <span style={{ color: 'var(--teal)', fontWeight: 700 }}>+</span>{' '}
+              <span style={{ color: 'var(--xc-case-3)', fontWeight: 700 }}>+</span>{' '}
               informative pediatric prior — two FDA precedents combined for the
               first time in this clinical context, returning the same evidence
               quality at a smaller sample.
@@ -298,7 +298,7 @@ function StackTower({ delays, reduced, ease }) {
           y1={TOWER.move2Y + TOWER.depthDy}
           x2={TOWER.baseX + TOWER.slabW / 2 + TOWER.depthDx / 2}
           y2={TOWER.outcomeY + 6}
-          stroke="var(--teal)"
+          stroke="var(--xc-case-3)"
           strokeWidth={1.5}
           strokeDasharray="4 5"
           opacity={0.65}
@@ -309,7 +309,7 @@ function StackTower({ delays, reduced, ease }) {
           y1={TOWER.move2Y + TOWER.depthDy}
           x2={TOWER.baseX + TOWER.slabW / 2 + TOWER.depthDx / 2}
           y2={TOWER.outcomeY + 6}
-          stroke="var(--teal)"
+          stroke="var(--xc-case-3)"
           strokeWidth={1.5}
           strokeDasharray="4 5"
           opacity={0.65}
@@ -325,7 +325,7 @@ function StackTower({ delays, reduced, ease }) {
           [TOWER.baseX + TOWER.slabW / 2 + TOWER.depthDx / 2 + 5, TOWER.outcomeY + 12].join(','),
           [TOWER.baseX + TOWER.slabW / 2 + TOWER.depthDx / 2,     TOWER.outcomeY + 4].join(','),
         ].join(' ')}
-        fill="var(--teal)"
+        fill="var(--xc-case-3)"
         opacity={0.85}
         initial={reduced ? false : { opacity: 0 }}
         animate={{ opacity: 0.85 }}
@@ -346,8 +346,7 @@ function StackTower({ delays, reduced, ease }) {
           x={TOWER.baseX + 24 + TOWER.slabW * 0.5}
           y={TOWER.outcomeY - 24 + TOWER.slabH * 0.5 + 4}
           textAnchor="middle"
-          className="xc-mono"
-          fontSize={16}
+          className="xc-svg-value"
           letterSpacing="0.05em"
           fontWeight={800}
           fill="var(--bg)"
@@ -369,9 +368,9 @@ function Slab({ polys, tone = 0.2, edge = 0.6, children, initial, animate, trans
       transition={transition}
       style={scale ? { transformBox: 'fill-box', transformOrigin: 'center', scale } : undefined}
     >
-      <polygon points={polys.side} fill="var(--teal)" fillOpacity={tone * 0.55} stroke="var(--teal)" strokeOpacity={edge * 0.6} strokeWidth={1} />
-      <polygon points={polys.front} fill="var(--teal)" fillOpacity={tone * 0.85} stroke="var(--teal)" strokeOpacity={edge} strokeWidth={1.2} />
-      <polygon points={polys.top} fill="var(--teal)" fillOpacity={tone} stroke="var(--teal)" strokeOpacity={edge * 0.9} strokeWidth={1} />
+      <polygon points={polys.side} fill="var(--xc-case-3)" fillOpacity={tone * 0.55} stroke="var(--xc-case-3)" strokeOpacity={edge * 0.6} strokeWidth={1} />
+      <polygon points={polys.front} fill="var(--xc-case-3)" fillOpacity={tone * 0.85} stroke="var(--xc-case-3)" strokeOpacity={edge} strokeWidth={1.2} />
+      <polygon points={polys.top} fill="var(--xc-case-3)" fillOpacity={tone} stroke="var(--xc-case-3)" strokeOpacity={edge * 0.9} strokeWidth={1} />
       {children}
     </motion.g>
   );
@@ -383,8 +382,7 @@ function SlabLabel({ x, y, kicker, value }) {
       <text
         x={x}
         y={y - 4}
-        className="xc-mono"
-        fontSize={8.5}
+        className="xc-svg-label"
         letterSpacing="0.22em"
         fontWeight={700}
         fill="var(--cream-faint)"
@@ -394,8 +392,7 @@ function SlabLabel({ x, y, kicker, value }) {
       <text
         x={x}
         y={y + 9}
-        className="xc-mono"
-        fontSize={11}
+        className="xc-svg-label"
         letterSpacing="0.06em"
         fontWeight={700}
         fill="var(--cream)"
@@ -432,7 +429,7 @@ function MoveRow({ data, delay, reduced, ease }) {
         style={{
           width: 32,
           fontWeight: 700,
-          color: 'var(--teal)',
+          color: 'var(--xc-case-3)',
           letterSpacing: '0.04em',
         }}
       >
@@ -441,7 +438,7 @@ function MoveRow({ data, delay, reduced, ease }) {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         <span
           className="xc-card-label"
-          style={{ color: 'var(--teal)' }}
+          style={{ color: 'var(--xc-case-3)' }}
         >
           {data.kicker}
         </span>
@@ -495,7 +492,7 @@ function BaselineRow({ data, delay, reduced, ease }) {
           style={{ fontWeight: 500 }}
         >
           {data.title} ·{' '}
-          <span style={{ color: 'var(--teal)', fontWeight: 700 }}>{data.n}</span>
+          <span style={{ color: 'var(--xc-case-3)', fontWeight: 700 }}>{data.n}</span>
         </span>
         <span className="bp-card-body xc-ink-muted">
           {data.note}
@@ -514,7 +511,7 @@ function OutcomeRow({ data, delay, reduced, ease }) {
         columnGap: 14,
         alignItems: 'baseline',
         paddingBottom: 'var(--space-2)',
-        borderBottom: '1px solid var(--teal)',
+        borderBottom: '1px solid var(--xc-case-3)',
       }}
       initial={reduced ? false : { opacity: 0, x: 8 }}
       animate={{ opacity: 1, x: 0 }}
@@ -522,16 +519,15 @@ function OutcomeRow({ data, delay, reduced, ease }) {
     >
       <span
         className="xc-tagline-mono"
-        style={{ color: 'var(--teal)', width: 96 }}
+        style={{ color: 'var(--xc-case-3)', width: 96 }}
       >
         {data.label}
       </span>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, flexWrap: 'wrap' }}>
         <span
-          className="xc-sans"
+          className="xc-numeral"
           style={{
-            fontSize: 'var(--fs-numeral-md, var(--fs-display-sm, 2.4rem))',
-            color: 'var(--teal)',
+            color: 'var(--xc-case-3)',
             lineHeight: 1,
             fontWeight: 800,
             letterSpacing: '0.02em',

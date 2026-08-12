@@ -44,12 +44,12 @@ export default function CS2Reversal() {
   const go = inView && !reduced;
 
   return (
-    <SlideGrid dataCase="cyan" areas={STANDARD_AREAS}>
+    <SlideGrid dataCase="2" areas={STANDARD_AREAS}>
       <Eyebrow delay={0.10}>Case 03 · The reversal</Eyebrow>
 
       <Headline delay={0.25} maxChars={80}>
         Public record, then the reversal —{' '}
-        <span style={{ color: 'var(--cyan)', fontStyle: 'italic', fontWeight: 500 }}>
+        <span style={{ color: 'var(--xc-case-accent)', fontStyle: 'italic', fontWeight: 500 }}>
           14 May 2025
         </span>.
       </Headline>
@@ -86,7 +86,7 @@ export default function CS2Reversal() {
                 display: 'flex', flexDirection: 'column',
                 position: 'relative', overflow: 'hidden',
               }}
-              whileHover={{ scale: 1.02, filter: 'drop-shadow(0 0 8px var(--cyan))' }}
+              whileHover={{ scale: 1.02, filter: 'drop-shadow(0 0 8px var(--xc-case-accent))' }}
               transition={{ duration: 0.3 }}
             >
               <motion.div
@@ -126,8 +126,7 @@ export default function CS2Reversal() {
                 </motion.div>
 
                 <div
-                  className="deck-display xc-cyan" style={{
-                    fontSize: 'clamp(4rem, 8vw, 6rem)',
+                  className="deck-display xc-hero-num xc-cyan" style={{
                     fontWeight: 500,
                     lineHeight: 0.95,
                     letterSpacing: '-0.02em',
@@ -164,7 +163,7 @@ export default function CS2Reversal() {
                       left: '2rem',
                       right: '2rem',
                       height: '2px',
-                      background: 'color-mix(in srgb, var(--cyan) 30%, transparent)',
+                      background: 'color-mix(in srgb, var(--xc-case-accent) 30%, transparent)',
                       transformOrigin: 'left',
                     }}
                     initial={{ scaleX: 0 }}
@@ -197,15 +196,15 @@ export default function CS2Reversal() {
                           width: isLast ? 24 : 16,
                           height: isLast ? 24 : 16,
                           borderRadius: '50%',
-                          background: isLast ? 'var(--cyan)' : 'var(--bg)',
-                          border: `2px solid var(--cyan)`,
+                          background: isLast ? 'var(--xc-case-accent)' : 'var(--bg)',
+                          border: `2px solid var(--xc-case-accent)`,
                           zIndex: 2,
-                          boxShadow: isLast ? '0 0 15px color-mix(in srgb, var(--cyan) 50%, transparent)' : 'none',
+                          boxShadow: isLast ? '0 0 15px color-mix(in srgb, var(--xc-case-accent) 50%, transparent)' : 'none',
                         }} />
                         
                         <div style={{
-                          background: isLast ? 'color-mix(in srgb, var(--cyan) 15%, transparent)' : 'color-mix(in srgb, var(--panel) 40%, transparent)',
-                          border: `1px ${isLast ? 'solid' : 'dashed'} ${isLast ? 'var(--cyan)' : 'var(--cream-hairline)'}`,
+                          background: isLast ? 'color-mix(in srgb, var(--xc-case-accent) 15%, transparent)' : 'color-mix(in srgb, var(--panel) 40%, transparent)',
+                          border: `1px ${isLast ? 'solid' : 'dashed'} ${isLast ? 'var(--xc-case-accent)' : 'var(--cream-hairline)'}`,
                           borderRadius: 'var(--radius-md)',
                           padding: 'var(--space-3)',
                           width: '100%',
@@ -218,7 +217,7 @@ export default function CS2Reversal() {
                             {tick.date}
                           </div>
                           <div className="deck-display xc-slide-subhead" style={{
-                            color: isLast ? 'var(--cyan)' : 'var(--cream)',
+                            color: isLast ? 'var(--xc-case-accent)' : 'var(--cream)',
                             fontWeight: isLast ? 600 : 400 }}>
                             {tick.label}
                           </div>
@@ -264,10 +263,9 @@ export default function CS2Reversal() {
                   letterSpacing: '0.14em'}}>
                   {s.kicker}
                 </div>
-                <div className="deck-display" style={{
-                  fontSize: 'clamp(1rem, 1.5vw, 1.5rem)',
+                <div className="deck-display xc-title" style={{
                   fontWeight: 500,
-                  color: s.accent ? 'var(--cyan)' : 'var(--cream)',
+                  color: s.accent ? 'var(--xc-case-accent)' : 'var(--cream)',
                   fontVariantNumeric: 'tabular-nums',
                   marginTop: 'var(--space-1)',
                 }}>
@@ -296,8 +294,7 @@ export default function CS2Reversal() {
             animate={go ? { opacity: 1 } : { opacity: 1 }}
             transition={{ duration: 0.5, delay: D.amber, ease: EASE }}
           >
-            <span className="deck-display" style={{
-              fontSize: '16px',
+            <span className="deck-display xc-body" style={{
               lineHeight: 1.4,
             }}>
               <span aria-hidden style={{

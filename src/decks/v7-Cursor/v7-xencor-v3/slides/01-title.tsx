@@ -14,11 +14,6 @@ import { BP } from '../_shared/blueprint';
  * `setThemeMode` (same `deck-theme-override:{id}` path as chrome toggle).
  */
 
-const FONT = {
-  sans: 'var(--font-display)',
-  mono: 'var(--font-mono)',
-} as const;
-
 type ThemeMode = 'light' | 'dark';
 
 type TitleSlideProps = {
@@ -93,17 +88,16 @@ export default function TitleSlide({
             could not be run. One discipline.
           </motion.p>
 
-          <motion.div
-            className="xc-title-byline"
-            style={{ paddingBottom: setThemeMode ? 56 : 0 }}
-            {...enter(0.38)}
-          >
+          <motion.div className="xc-title-byline" {...enter(0.38)}>
             <div className="xc-name xc-ink" style={{ whiteSpace: 'nowrap' }}>
               Malek Okour, BDS, Ph.D.
             </div>
             <div className="xc-meta xc-ink3" style={{ marginTop: 6 }}>
               Xencor interview panel · 12 August 2026
             </div>
+            {setThemeMode ? (
+              <ThemePreferenceFootnote mode={mode} onChange={setThemeMode} />
+            ) : null}
           </motion.div>
         </div>
 
@@ -116,16 +110,6 @@ export default function TitleSlide({
         </motion.div>
       </div>
 
-      {setThemeMode ? (
-        <motion.div
-          className="absolute z-[2]"
-          style={{ left: 64, bottom: 28 }}
-          {...enter(0.42)}
-        >
-          <ThemePreferenceFootnote mode={mode} onChange={setThemeMode} />
-        </motion.div>
-      ) : null}
-
       <div
         className="xc-pageno absolute z-[2]"
         style={{ right: 64, bottom: 28 }}
@@ -137,9 +121,9 @@ export default function TitleSlide({
 }
 
 /**
- * Seminar-safe theme ask: secondary footnote, not a hero CTA.
- * Labeled radiogroup (Light | Dark), ≥44px targets, theme-aware cyan
- * glow ring, keyboard arrows, reduced-motion-safe transitions in CSS.
+ * Seminar-safe theme ask: compact boxed footnote under byline meta.
+ * Hairline divider above; labeled radiogroup (Light | Dark); usable
+ * hit targets; cyan active ring; keyboard arrows; reduced-motion in CSS.
  */
 function ThemePreferenceFootnote({
   mode,
@@ -169,53 +153,46 @@ function ThemePreferenceFootnote({
       aria-label="Preferred slide appearance"
       onKeyDown={onKeyDown}
     >
-      <span className="xc-theme-pref__label" id="s01-theme-pref-label">
-        Preferred view
-      </span>
-      <div
-        className="xc-theme-pref__track"
-        aria-labelledby="s01-theme-pref-label"
-      >
-        {THEME_OPTIONS.map((opt) => {
-          const selected = mode === opt;
-          return (
-            <button
-              key={opt}
-              type="button"
-              role="radio"
-              aria-checked={selected}
-              tabIndex={selected ? 0 : -1}
-              className="xc-theme-pref__opt"
-              data-active={selected ? '' : undefined}
-              onClick={() => onChange(opt)}
-            >
-              {opt === 'light' ? 'Light' : 'Dark'}
-            </button>
-          );
-        })}
+      <div className="xc-theme-pref__box">
+        <span className="xc-theme-pref__label" id="s01-theme-pref-label">
+          Preferred view
+        </span>
+        <div
+          className="xc-theme-pref__track"
+          aria-labelledby="s01-theme-pref-label"
+        >
+          {THEME_OPTIONS.map((opt) => {
+            const selected = mode === opt;
+            return (
+              <button
+                key={opt}
+                type="button"
+                role="radio"
+                aria-checked={selected}
+                tabIndex={selected ? 0 : -1}
+                className="xc-theme-pref__opt"
+                data-active={selected ? '' : undefined}
+                onClick={() => onChange(opt)}
+              >
+                {opt === 'light' ? 'Light' : 'Dark'}
+              </button>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
 }
 
 function DecisionLattice() {
-  const mono = FONT.mono;
-  const sans = FONT.sans;
   const svgAxis = {
-    fontSize: 14,
     letterSpacing: '0.06em',
   } as const;
   const svgAnnot = {
-    fontSize: 14,
     letterSpacing: '0.12em',
   } as const;
   const svgLabel = {
-    fontSize: 14,
     fontWeight: 600 as const,
-  };
-  const svgDecision = {
-    fontSize: 17,
-    fontWeight: 700 as const,
   };
 
   return (
@@ -276,19 +253,21 @@ function DecisionLattice() {
         />
       </g>
       <text
+        className="xc-svg"
         x="440"
         y="28"
         textAnchor="middle"
-        style={{ fill: BP.ink4, ...svgAxis, fontFamily: mono }}
+        style={{ fill: BP.ink4, ...svgAxis }}
       >
         DECISION SPACE
       </text>
       <text
+        className="xc-svg"
         x="28"
         y="400"
         textAnchor="middle"
         transform="rotate(-90 28 400)"
-        style={{ fill: BP.ink4, ...svgAxis, fontFamily: mono }}
+        style={{ fill: BP.ink4, ...svgAxis }}
       >
         EVIDENCE AVAILABLE
       </text>
@@ -304,6 +283,7 @@ function DecisionLattice() {
         strokeDasharray="9 7"
       />
       <text
+        className="xc-svg"
         x="460"
         y="142"
         textAnchor="middle"
@@ -311,12 +291,12 @@ function DecisionLattice() {
           fill: BP.ink3,
           ...svgLabel,
           letterSpacing: '0.1em',
-          fontFamily: mono,
         }}
       >
         THE CLEAN
       </text>
       <text
+        className="xc-svg"
         x="460"
         y="168"
         textAnchor="middle"
@@ -324,16 +304,16 @@ function DecisionLattice() {
           fill: BP.ink3,
           ...svgLabel,
           letterSpacing: '0.1em',
-          fontFamily: mono,
         }}
       >
         EXPERIMENT
       </text>
       <text
+        className="xc-svg"
         x="460"
         y="196"
         textAnchor="middle"
-        style={{ fill: BP.rose, ...svgAnnot, fontFamily: mono }}
+        style={{ fill: BP.rose, ...svgAnnot }}
       >
         not available
       </text>
@@ -380,10 +360,11 @@ function DecisionLattice() {
         ).map((n) => (
           <g key={n.label}>
             <text
+              className="xc-svg"
               x={n.cx}
               y="238"
               textAnchor="middle"
-              style={{ fill: BP.ink4, ...svgAnnot, fontFamily: mono }}
+              style={{ fill: BP.ink4, ...svgAnnot }}
             >
               {n.caseN}
             </text>
@@ -397,6 +378,7 @@ function DecisionLattice() {
               strokeWidth="2"
             />
             <text
+              className="xc-svg"
               x={n.cx}
               y="282"
               textAnchor="middle"
@@ -404,7 +386,6 @@ function DecisionLattice() {
                 fill: BP.ink,
                 ...svgLabel,
                 letterSpacing: '0.1em',
-                fontFamily: mono,
               }}
             >
               {n.label}
@@ -423,18 +404,20 @@ function DecisionLattice() {
         />
       </g>
       <text
+        className="xc-svg-decision"
         x="460"
         y="548"
         textAnchor="middle"
-        style={{ ...svgDecision, fill: BP.decisionInk, fontFamily: sans }}
+        style={{ fill: BP.decisionInk }}
       >
         A DEFENDABLE
       </text>
       <text
+        className="xc-svg-decision"
         x="460"
         y="578"
         textAnchor="middle"
-        style={{ ...svgDecision, fill: BP.decisionAccent, fontFamily: sans }}
+        style={{ fill: BP.decisionAccent }}
       >
         DECISION
       </text>
@@ -447,26 +430,29 @@ function DecisionLattice() {
       />
       <circle cx="600" cy="556" r="4" fill={BP.cyan} />
       <text
+        className="xc-svg"
         x="700"
         y="666"
         textAnchor="middle"
-        style={{ fill: BP.ink4, ...svgAnnot, fontFamily: mono }}
+        style={{ fill: BP.ink4, ...svgAnnot }}
       >
         the method changed
       </text>
       <text
+        className="xc-svg"
         x="700"
         y="688"
         textAnchor="middle"
-        style={{ fill: BP.ink4, ...svgAnnot, fontFamily: mono }}
+        style={{ fill: BP.ink4, ...svgAnnot }}
       >
         every time
       </text>
       <text
+        className="xc-svg"
         x="700"
         y="716"
         textAnchor="middle"
-        style={{ fill: BP.cyan, ...svgAnnot, fontFamily: mono }}
+        style={{ fill: BP.cyan, ...svgAnnot }}
       >
         the route did not
       </text>

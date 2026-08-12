@@ -134,24 +134,24 @@ export function PkSimilarityViz() {
   return (
     <svg viewBox="0 0 140 64" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
       <line x1="6" y1="58" x2="134" y2="58" style={{ stroke: C.creamFaint, strokeWidth: 0.5 }} />
-      <text x="6" y="9" fontSize="7" letterSpacing="0.5" style={{ fill: C.creamFaint, fontFamily: 'var(--font-mono)' }}>CMAX · POOLED</text>
+      <text x="6" y="9" className="xc-svg-meta" letterSpacing="0.5" style={{ fill: C.creamFaint }}>CMAX · POOLED</text>
 
       <rect x="22" y="18" width="100" height="6" rx="3" style={{ fill: 'color-mix(in srgb, var(--cream) 18%, transparent)' }} />
       <line x1="48" y1="21" x2="98" y2="21" style={{ stroke: C.creamMuted, strokeWidth: 0.7 }} />
       <circle cx="72" cy="21" r="2.5" style={{ fill: C.creamMuted }} />
-      <text x="0" y="24" fontSize="6.5" style={{ fill: C.creamMuted, fontFamily: 'var(--font-mono)' }}>W</text>
+      <text x="0" y="24" className="xc-svg-meta" style={{ fill: C.creamMuted }}>W</text>
 
       <rect x="20" y="30" width="98" height="6" rx="3" style={{ fill: 'color-mix(in srgb, var(--cyan) 22%, transparent)' }} />
       <line x1="46" y1="33" x2="98" y2="33" style={{ stroke: C.cyan, strokeWidth: 0.7 }} />
       <circle cx="71" cy="33" r="2.5" style={{ fill: C.cyan }} />
-      <text x="0" y="36" fontSize="6.5" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>A</text>
+      <text x="0" y="36" className="xc-svg-meta" style={{ fill: C.cyan }}>A</text>
 
       <rect x="24" y="42" width="102" height="6" rx="3" style={{ fill: 'color-mix(in srgb, var(--cream) 18%, transparent)' }} />
       <line x1="50" y1="45" x2="100" y2="45" style={{ stroke: C.creamMuted, strokeWidth: 0.7 }} />
       <circle cx="74" cy="45" r="2.5" style={{ fill: C.creamMuted }} />
-      <text x="0" y="48" fontSize="6.5" style={{ fill: C.creamMuted, fontFamily: 'var(--font-mono)' }}>B</text>
+      <text x="0" y="48" className="xc-svg-meta" style={{ fill: C.creamMuted }}>B</text>
 
-      <text x="70" y="56" textAnchor="middle" fontSize="6.5" letterSpacing="0.5" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>OVERLAP</text>
+      <text x="70" y="56" textAnchor="middle" className="xc-svg-meta" letterSpacing="0.5" style={{ fill: C.cyan }}>OVERLAP</text>
     </svg>
   );
 }
@@ -162,11 +162,11 @@ export function ErSimilarityViz() {
     <svg viewBox="0 0 140 64" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
       <line x1="14" y1="54" x2="130" y2="54" style={{ stroke: C.creamFaint, strokeWidth: 0.5 }} />
       <line x1="14" y1="8" x2="14" y2="54" style={{ stroke: C.creamFaint, strokeWidth: 0.5 }} />
-      <text x="14" y="62" fontSize="6" letterSpacing="0.5" style={{ fill: C.creamFaint, fontFamily: 'var(--font-mono)' }}>EXPOSURE →</text>
-      <text x="0" y="13" fontSize="6" letterSpacing="0.5" style={{ fill: C.creamFaint, fontFamily: 'var(--font-mono)' }}>RESP</text>
+      <text x="14" y="62" className="xc-svg-meta" letterSpacing="0.5" style={{ fill: C.creamFaint }}>EXPOSURE →</text>
+      <text x="0" y="13" className="xc-svg-meta" letterSpacing="0.5" style={{ fill: C.creamFaint }}>RESP</text>
 
       <line x1="14" y1="28" x2="130" y2="28" strokeDasharray="2 2" style={{ stroke: C.cyan, strokeWidth: 1.5 }} />
-      <text x="105" y="24" fontSize="6" letterSpacing="0.5" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>FLAT</text>
+      <text x="105" y="24" className="xc-svg-meta" letterSpacing="0.5" style={{ fill: C.cyan }}>FLAT</text>
 
       {[28, 40, 52, 64, 76, 88, 100, 112, 124].map((cx, i) => (
         <circle key={cx} cx={cx} cy={i % 2 === 0 ? 30 : 27} r="1.5" style={{ fill: C.creamMuted }} />
@@ -189,8 +189,8 @@ export function IntrinsicViz() {
         <g key={c.label}>
           <rect x={c.x} y={c.y} width="64" height="22" rx="2"
             style={{ fill: 'color-mix(in srgb, var(--cyan) 8%, transparent)', stroke: 'color-mix(in srgb, var(--cyan) 25%, transparent)', strokeWidth: 0.7 }} />
-          <text x={c.x + 6} y={c.y + 14} fontSize="8" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>✓</text>
-          <text x={c.x + 16} y={c.y + 14} fontSize="9" style={{ fill: C.cream, fontFamily: 'var(--font-display)' }}>{c.label}</text>
+          <text x={c.x + 6} y={c.y + 14} className="xc-svg-label" style={{ fill: C.cyan }}>✓</text>
+          <text x={c.x + 16} y={c.y + 14} className="xc-svg-label" style={{ fill: C.cream }}>{c.label}</text>
         </g>
       ))}
     </svg>
@@ -215,11 +215,11 @@ export function ExtrinsicViz() {
           <circle cx={factor.x + 9} cy={factor.y + 9} r="3.3" style={{ fill: C.cyan }} />
           <path d={`M ${factor.x + 7.3} ${factor.y + 8.9} L ${factor.x + 8.8} ${factor.y + 10.6} L ${factor.x + 12.0} ${factor.y + 6.9}`}
             fill="none" stroke="var(--panel)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-          <text x={factor.x + 18} y={factor.y + 12} fontSize="7.2" letterSpacing="0.55" style={{ fill: C.cream, fontFamily: 'var(--font-mono)' }}>{factor.label}</text>
+          <text x={factor.x + 18} y={factor.y + 12} className="xc-svg-label" letterSpacing="0.55" style={{ fill: C.cream }}>{factor.label}</text>
         </g>
       ))}
       <line x1="10" y1="32" x2="130" y2="32" strokeDasharray="2 3" style={{ stroke: C.creamFaint, strokeWidth: 0.5 }} />
-      <text x="70" y="60" textAnchor="middle" fontSize="6.8" letterSpacing="0.5" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>CHARACTERIZED · MANAGED</text>
+      <text x="70" y="60" textAnchor="middle" className="xc-svg-meta" letterSpacing="0.5" style={{ fill: C.cyan }}>CHARACTERIZED · MANAGED</text>
     </svg>
   );
 }
@@ -244,7 +244,7 @@ export function GlobalRegViz() {
       {lead.map((d) => (
         <g key={d.label}>
           <circle cx={d.cx} cy={d.cy} r="3" style={{ fill: C.cyan }} />
-          <text x={d.cx - 6} y={d.cy - 8} fontSize="5.5" letterSpacing="0.3" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>{d.label}</text>
+          <text x={d.cx - 6} y={d.cy - 8} className="xc-svg-meta" letterSpacing="0.3" style={{ fill: C.cyan }}>{d.label}</text>
         </g>
       ))}
       {dims.map(([cx, cy]) => (

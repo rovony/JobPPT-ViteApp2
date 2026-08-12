@@ -9,7 +9,7 @@ import Lungs from '../components/Lungs';
 
 export default function Cs1Question() {
   return (
-    <SlideGrid dataCase="coral" areas={STANDARD_AREAS} rowSizes={STANDARD_ROW_SIZES}>
+    <SlideGrid dataCase="1" areas={STANDARD_AREAS} rowSizes={STANDARD_ROW_SIZES}>
       <div
         aria-hidden
         style={{

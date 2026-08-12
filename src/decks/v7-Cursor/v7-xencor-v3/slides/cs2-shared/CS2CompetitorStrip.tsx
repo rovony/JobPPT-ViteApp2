@@ -71,10 +71,8 @@ export default function CS2CompetitorStrip({ delay = 1.0 }) {
       }}
     >
       {/* Strip kicker — names what this row IS so the audience parses it fast */}
-      <div className="deck-mono uppercase" style={{
-        fontSize: 'var(--fs-slide-pageno)',
+      <div className="xc-meta xc-ink-faint" style={{
         letterSpacing: 'var(--ls-mono-wide)',
-        color: C.creamFaint,
       }}>
         IDH-inhibitor landscape · public approvals
       </div>
@@ -119,17 +117,15 @@ function CompetitorCard({ c }) {
         display: 'flex', alignItems: 'baseline', justifyContent: 'space-between',
         gap: 'var(--space-2)',
       }}>
-        <span className="deck-display" style={{
+        <span className="xc-subhead" style={{
           fontStyle: 'italic',
-          fontSize: 'var(--fs-slide-subhead)',
           fontWeight: 600,
           color: c.isThisCase ? C.cyan : C.cream,
           lineHeight: 1.1,
         }}>
           {c.drug}
         </span>
-        <span className="deck-mono uppercase" style={{
-          fontSize: 'var(--fs-slide-pageno)',
+        <span className="xc-meta" style={{
           letterSpacing: '0.06em',
           color: accent,
           fontWeight: 600,
@@ -140,9 +136,7 @@ function CompetitorCard({ c }) {
       </div>
 
       {/* Indication + approval year */}
-      <div style={{
-        fontFamily: 'var(--font-body)',
-        fontSize: 'var(--fs-slide-pageno)',
+      <div className="xc-meta xc-ink-muted" style={{
         color: C.creamMuted,
         lineHeight: 1.3,
       }}>
@@ -150,9 +144,8 @@ function CompetitorCard({ c }) {
       </div>
 
       {/* Note — italicized differentiator phrase */}
-      <div className="deck-display" style={{
+      <div className="xc-meta" style={{
         fontStyle: 'italic',
-        fontSize: 'var(--fs-slide-pageno)',
         color: c.isThisCase ? C.cyan : C.creamFaint,
         lineHeight: 1.3,
         marginTop: '2px',

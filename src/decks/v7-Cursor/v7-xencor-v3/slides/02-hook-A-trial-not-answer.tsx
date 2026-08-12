@@ -29,7 +29,7 @@ export default function HookATrialNotAnswer({ deck }) {
 
   return (
     <TitleLayout deck={deck}>
-      {/* slide purpose: throughline hook · duration: 75 sec · prev: title · next: roadmap */}
+      {/* slide purpose: throughline hook · duration: 75 sec · prev: title · next: what-you-will-see */}
       <div
         ref={ref}
         className="relative h-full w-full"
@@ -101,13 +101,7 @@ export default function HookATrialNotAnswer({ deck }) {
               transition={{ duration: 0.45, delay: 0.08, ease: [0.22, 0.7, 0.2, 1] }}
             >
               My work has been a sequence of{' '}
-              <em
-                style={{
-                  color: 'var(--amber)',
-                  fontStyle: 'italic',
-                  fontWeight: 500,
-                }}
-              >
+              <em className="xc-em" style={{ fontStyle: 'italic', fontWeight: 500 }}>
                 decisions
               </em>
               , not a sequence of models

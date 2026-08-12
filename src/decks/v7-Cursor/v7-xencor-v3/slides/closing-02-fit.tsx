@@ -51,7 +51,7 @@ export default function ClosingConclusion() {
 
       <Headline delay={0.25} maxChars={65}>
         This is the operating model I would bring to{' '}
-        <span style={{ color: 'var(--amber)', fontStyle: 'italic', fontWeight: 600 }}>
+        <span className="xc-amber" style={{ fontStyle: 'italic', fontWeight: 600 }}>
           Xencor.
         </span>
       </Headline>
@@ -97,12 +97,11 @@ export default function ClosingConclusion() {
                 {/* Massive Ambient Number */}
                 <div
                   aria-hidden
-                  className="xc-sans"
+                  className="xc-hero-num"
                   style={{
                     position: 'absolute',
                     top: '-5%',
                     right: '-10%',
-                    fontSize: 'var(--fs-slide-display, clamp(4rem, 10vw, 8rem))',
                     fontWeight: 900,
                     color: p.color,
                     opacity: 0.04,

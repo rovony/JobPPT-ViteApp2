@@ -14,7 +14,7 @@ export function BridgeDivider({ content }) {
     <SlideFrame
       dataCase="amber"
       eyebrow={content.eyebrow}
-      headline={<>Two pillars, <span style={{ color: 'var(--amber)', fontStyle: 'italic' }}>one discipline.</span></>}
+      headline={<>Two pillars, <span className="xc-amber" style={{ fontStyle: 'italic' }}>one discipline.</span></>}
       subhead={content.sub}
       footerKicker="Company bridge · Xencor"
       footerTagline={content.payoff}
@@ -45,27 +45,21 @@ export function BridgeDivider({ content }) {
               paddingTop: 'var(--space-5)',
             }}
           >
-            <div className="deck-mono uppercase" style={{
-              color: 'var(--amber)',
-              fontSize: 'var(--fs-slide-eyebrow)',
+            <div className="xc-eyebrow xc-amber" style={{
               letterSpacing: 'var(--ls-mono-wide)',
               fontWeight: 800,
               marginBottom: 'var(--space-3)',
             }}>
               {label}
             </div>
-            <div className="deck-display" style={{
-              color: 'var(--cream)',
-              fontSize: 'var(--fs-slide-headline)',
+            <div className="xc-h1 xc-ink" style={{
               lineHeight: 1.08,
               fontWeight: 700,
               marginBottom: 'var(--space-3)',
             }}>
               {title}
             </div>
-            <div className="deck-body" style={{
-              color: 'var(--cream-muted)',
-              fontSize: 'var(--fs-slide-tagline)',
+            <div className="xc-tagline xc-muted" style={{
               lineHeight: 1.35,
             }}>
               {body}
@@ -122,9 +116,7 @@ export function BridgeBullets({ content, footerTagline, iconOffset = 0 }) {
               }}
             >
               <Icon size={26} color="var(--amber)" strokeWidth={2.1} />
-              <div className="deck-body" style={{
-                color: 'var(--cream)',
-                fontSize: 'var(--fs-slide-subhead)',
+              <div className="xc-subhead xc-ink" style={{
                 lineHeight: 1.42,
               }}>
                 {emphasize(bullet)}
@@ -143,7 +135,7 @@ function highlightHeader(text) {
   return (
     <>
       {parts[0]}{' '}
-      <span style={{ color: 'var(--amber)', fontStyle: 'italic' }}>{parts.slice(1).join(' - ')}</span>
+      <span className="xc-amber" style={{ fontStyle: 'italic' }}>{parts.slice(1).join(' - ')}</span>
     </>
   );
 }
@@ -175,7 +167,7 @@ function emphasize(text) {
       return pieces.flatMap((piece, i) => (
         i === pieces.length - 1
           ? [piece]
-          : [piece, <span key={`${term}-${i}-${piece.length}`} style={{ color: 'var(--amber)', fontWeight: 800 }}>{term}</span>]
+          : [piece, <span className="xc-amber" key={`${term}-${i}-${piece.length}`} style={{ fontWeight: 800 }}>{term}</span>]
       ));
     });
   }

@@ -23,7 +23,7 @@ Today: four decisions, four different reasons the obvious study could not be run
 **==Quantitative decisions when the clean experiment is unavailable.==**`,
     `- ⏱ ~45–60 sec — calm greeting; land the thesis; do not catalog drugs here
 - 🎚 Preview narrative jobs, not constraints or methods
-- ⚠ Roadmap names the four cases; this slide only owns the open
+- ⚠ what-you-will-see names the four cases; this slide only owns the open
 - ✅ Land on the thesis sentence before advancing`,
     `→ The hook: decisions, not models — Define · Challenge · Test · Act.`,
     `- Cover is minimal by design (no case cards). If asked for the four cases early:
@@ -59,7 +59,7 @@ The cases are evidence. The argument is that **==the same discipline carried all
 - 🧷 Order lock: Ambrisentan → India → Asparlas → Pharazi
 - ⚠ Do not open methods — constraints and principles only
 - ✅ Land on "the same discipline carried all four"`,
-    `→ Quick career arc, then the compact agenda.`
+    `→ Quick career arc, then Case 01.`
   ),
 
   'career-arc': note(
@@ -73,19 +73,19 @@ The operating question across all of it is simple: **==how do we turn incomplete
     `- ⏱ 75-90 sec — one sentence per stop on the timeline
 - 🎚 Do not linger on awards unless asked; innovation tools are backup/Q&A
 - ✅ Land on the operating question`,
-    `→ Case agenda next — four cards, one discipline.`
+    `→ Case 01 divider — ambrisentan.`
   ),
 
   roadmap: note(
-    `Compact agenda before Case 01: **==four cases, unequal depth, one discipline==**.
+    `Optional backup agenda (not on the live talk path). **==Four cases, unequal depth, one discipline.==**
 
 Ambrisentan fifteen to seventeen minutes. Ivosidenib India eleven. Asparlas seven. Pharazi three. Then portfolio and the Xencor bridge.
 
 **==Same discipline. Unequal depth by design.==**`,
-    `- ⏱ 60–75 sec — quick pass; do not re-argue the principles from slide 03
+    `- Hidden from main deck — deep-link or backup nav only
 - 🧷 Same order lock as what-you-will-see
-- ✅ Advance into Case 01`,
-    `→ Case 01 divider — ambrisentan.`,
+- ✅ Do not volunteer live; cases already previewed on what-you-will-see`,
+    `→ Return to Case 01 divider — ambrisentan.`,
     `- Each case opens with a **divider beat** then a **setup slide** before numbers or quotes`
   ),
 

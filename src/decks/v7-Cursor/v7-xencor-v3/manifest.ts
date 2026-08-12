@@ -172,7 +172,7 @@ const manifest = {
     { id: 'hook-A-trial-not-answer', title: 'Hook · sequence of decisions', component: HookATrialNotAnswer, isTitle: true, transition: 'fade', time: 75 },
     { id: 'what-you-will-see', title: 'What you will see · four cases', component: WhatYouWillSee, isTitle: true, time: 90 },
     { id: 'career-arc', title: 'Career arc', component: CareerArc, isTitle: false, time: 90 },
-    { id: 'roadmap', title: 'Roadmap · four cases, one discipline', component: Roadmap, isTitle: false, time: 75 },
+    // roadmap (04) — hidden from talk path; kept in Backups below
 
     // CS 1
     { id: 'cs1-divider', title: 'Case 01 · Ambrisentan', component: Cs1Divider, isTitle: true, transition: 'fade', time: 20 },
@@ -232,6 +232,7 @@ const manifest = {
     { id: 'closing-thanks',  title: 'Thank you · Q&A',           component: ClosingThanks, isTitle: true,  transition: 'fade', time: 30 },
 
     // Backups
+    { id: 'roadmap', title: 'Backup · Roadmap · four cases, one discipline', component: Roadmap, isTitle: false, time: 75, backup: true },
     { id: 'cs1-backup-master',                   title: 'BACKUP · Case Study 01 · Ambrisentan',                       component: Cs1BackupMasterDivider,             isTitle: true,  transition: 'fade' },
     { id: 'cs1-backup-type-1-historical',        title: 'BACKUP TYPE 1 · Historical Context',                         component: Cs1BackupTypeHistorical,            isTitle: true,  transition: 'fade' },
     { id: 'cs1-backup-timeline-context',         title: 'Backup · CS1 timeline · 1995–2026',                          component: Cs1BackupTimelineContext,           isTitle: false, transition: 'fade' },

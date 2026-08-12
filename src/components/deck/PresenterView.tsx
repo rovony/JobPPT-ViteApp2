@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, X, MonitorPlay, Maximize, Minimize, HelpCircle, FolderOpen, BookOpen, LayoutPanelLeft, PanelLeftClose, PanelLeftOpen, PanelBottomClose, PanelBottomOpen, PanelRightClose, PanelRightOpen, Clock } from 'lucide-react';
 import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels';
 import { useDeck } from '@/lib/deck-store';
+import { getTalkSlideCounter } from '@/lib/slide-counter';
 import { useSpeakerNotes } from '@/lib/useSpeakerNotes';
 import { useAnticipatedQA } from '@/lib/useAnticipatedQA';
 import { usePresenterLayout, COLUMN_KEYS } from '@/lib/usePresenterLayout';
@@ -63,7 +64,8 @@ const COLUMN_DEFAULT_SIZE = {
  * Cross-tab BroadcastChannel still keeps a dual-screen audience in sync.
  */
 export default function PresenterView({ deck, onClose, onToggleFullscreen, isFullscreen }) {
-  const { index, total, prev, next, goto } = useDeck();
+  const { index, total, prev, next, goto, slides } = useDeck();
+  const talkCounter = getTalkSlideCounter(deck?.slides ?? slides, index);
   const { getNote, saveNote, clearNote, hasOverride, saving, loaded } = useSpeakerNotes(
     deck.id,
     deck.notes,
@@ -161,7 +163,8 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
                 Speaker notes
                 {current?.title && (
                   <span className="ml-2" style={{ color: 'var(--cream-faint)', letterSpacing: 'var(--ls-mono)' }}>
-                    · Slide {String(index + 1).padStart(2, '0')}
+                    · Slide {String(talkCounter.displayIndex).padStart(2, '0')}
+                    {talkCounter.isBackup ? ' · backup' : ''}
                   </span>
                 )}
               </div>
@@ -348,10 +351,10 @@ export default function PresenterView({ deck, onClose, onToggleFullscreen, isFul
             </button>
           )}
           <div className="deck-mono uppercase shrink-0" style={{ color: 'var(--cream-faint)', letterSpacing: 'var(--ls-mono)' }}>
-            <div style={{ fontSize: '0.6rem' }}>Slide</div>
+            <div style={{ fontSize: '0.6rem' }}>{talkCounter.isBackup ? 'Backup' : 'Slide'}</div>
             <div style={{ fontSize: '1.25rem', color: 'var(--cream)' }} className="tabular-nums">
-              {String(index + 1).padStart(2, '0')}
-              <span style={{ color: 'var(--cream-faint)' }}> / {String(total).padStart(2, '0')}</span>
+              {String(talkCounter.displayIndex).padStart(2, '0')}
+              <span style={{ color: 'var(--cream-faint)' }}> / {String(talkCounter.displayTotal).padStart(2, '0')}</span>
             </div>
             {current?.time != null && (
               <div style={{ fontSize: '0.6rem', color: 'var(--cream-muted)', marginTop: 2 }}>

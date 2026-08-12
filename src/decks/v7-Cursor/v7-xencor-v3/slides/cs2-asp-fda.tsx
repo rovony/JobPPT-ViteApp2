@@ -63,11 +63,11 @@ export default function Cs2AspFda() {
   const tk = (n, fb = 'transparent') => (T ? T[n] || fb : fb);
 
   return (
-    <SlideGrid dataCase="teal" areas={STANDARD_AREAS}>
-      <Eyebrow color="var(--teal)" delay={D.eyebrow}>CS2 · FDA engagement</Eyebrow>
+    <SlideGrid dataCase="3" areas={STANDARD_AREAS}>
+      <Eyebrow color="var(--xc-case-3)" delay={D.eyebrow}>CS2 · FDA engagement</Eyebrow>
       <Headline delay={D.headline} maxChars={50}>
         FDA agreed to{' '}
-        <span style={{ color: 'var(--teal)', fontStyle: 'italic', fontWeight: 700 }}>
+        <span style={{ color: 'var(--xc-case-3)', fontStyle: 'italic', fontWeight: 700 }}>
           N = 60
         </span>{' '}
         — a 36% reduction in adult enrollment.
@@ -75,7 +75,7 @@ export default function Cs2AspFda() {
       <Subhead delay={D.subhead} maxChars={120}>
         FDA Type A · 21 July 2023 · pharmacometrics-anchored briefing in a rare adult oncology
         population —{' '}
-        <span style={{ color: 'var(--teal)', fontWeight: 600 }}>
+        <span style={{ color: 'var(--xc-case-3)', fontWeight: 600 }}>
           three of four pillars agreed on the record
         </span>
         .
@@ -202,7 +202,7 @@ export default function Cs2AspFda() {
             >
               <span
                 className="xc-tagline-mono"
-                style={{ color: 'var(--teal)' }}
+                style={{ color: 'var(--xc-case-3)' }}
               >
                 Pharmacometric methodology
               </span>
@@ -211,7 +211,7 @@ export default function Cs2AspFda() {
                 style={{ flex: '1 1 480px' }}
               >
                 Two frameworks prepared · one sample size agreed —{' '}
-                <span style={{ color: 'var(--teal)', fontWeight: 700 }}>
+                <span style={{ color: 'var(--xc-case-3)', fontWeight: 700 }}>
                   the methodology now travels independent of trial outcome.
                 </span>
               </span>
@@ -259,7 +259,7 @@ function PositionLine({ pos, delay, reduced }) {
       </div>
       <div
         className="xc-tagline-mono"
-        style={{ color: 'var(--teal)' }}
+        style={{ color: 'var(--xc-case-3)' }}
       >
         — {pos.cite}
       </div>

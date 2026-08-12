@@ -29,14 +29,14 @@ const FACTS = [
 
 export default function Cs1Context() {
   return (
-    <SlideGrid dataCase="coral" areas={STANDARD_AREAS} rowSizes={STANDARD_ROW_SIZES}>
+    <SlideGrid dataCase="1" areas={STANDARD_AREAS} rowSizes={STANDARD_ROW_SIZES}>
       <Eyebrow delay={0.08}>Case 01 · Disease foundation</Eyebrow>
 
       <GridSlot
         area="headline"
         as="h1"
-        className="deck-display xc-hook self-center"
-        style={{ maxWidth: '28ch', fontSize: 'clamp(1.75rem, min(3.2vw, 5vh), 2.7rem)' }}
+        className="deck-display xc-h2 self-center"
+        style={{ maxWidth: '28ch' }}
       >
         PAH is{' '}
         <span className="xc-em-case">small-vessel lung disease</span>{' '}

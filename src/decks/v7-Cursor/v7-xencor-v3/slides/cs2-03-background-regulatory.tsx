@@ -39,13 +39,13 @@ const D = {
 export default function CS2BackgroundRegulatory() {
   return (
     <SlideFrame
-      dataCase="cyan"
-      eyebrowColor="var(--cyan)"
+      dataCase="2"
+      eyebrowColor="var(--xc-case-accent)"
       eyebrow="Case 03 · Background — Regulatory Regime"
       headline={
         <>
           India's regulatory path got{' '}
-          <span style={{ color: 'var(--cyan)', fontStyle: 'italic', fontWeight: 500 }}>
+          <span style={{ color: 'var(--xc-case-accent)', fontStyle: 'italic', fontWeight: 500 }}>
             shorter
           </span>{' '}
           on 7&nbsp;August&nbsp;2024.
@@ -128,7 +128,7 @@ function FlowchartSVG() {
         {/* ── BEFORE row label ── */}
         <AnimFade delay={D.beforeLabel} reduced={r}>
           <text x="200" y="16"
-            fontFamily="var(--font-mono)" fontSize="11"
+            className="xc-svg-title"
             fill="var(--cream-faint)" letterSpacing="1.6" fontWeight="500">
             BEFORE — NDCTR 2019 · LOCAL-TRIAL DEFAULT
           </text>
@@ -139,17 +139,16 @@ function FlowchartSVG() {
           <AnimScale delay={D.start} reduced={r} cx={78} cy={30}>
             <rect x="0" y="0" width="155" height="60" rx="4"
               fill="var(--bg)" stroke="var(--cream-faint)" strokeWidth="1" />
-            <text x="78" y="22" textAnchor="middle" fontFamily="var(--font-mono)"
-              fill="var(--cream-muted)" fontSize="10" letterSpacing="1.6" fontWeight="600">START</text>
-            <text x="78" y="42" textAnchor="middle" fontFamily="'Fraunces', Georgia, serif"
-              fontSize="15" fill="var(--cream)" fontWeight="500">Indian MAA filed</text>
+            <text x="78" y="22" textAnchor="middle" className="xc-svg-title"
+              fill="var(--cream-muted)" letterSpacing="1.6" fontWeight="600">START</text>
+            <text x="78" y="42" textAnchor="middle" className="xc-svg-body-lg" fill="var(--cream)" fontWeight="500">Indian MAA filed</text>
           </AnimScale>
         </g>
 
         {/* ── Pivot cyan hairline ── */}
         <motion.line
           x1="310" y1="88" x2="310" y2="148"
-          stroke="var(--cyan)" strokeWidth="1" strokeDasharray="2 3" strokeOpacity="0.5"
+          stroke="var(--xc-case-accent)" strokeWidth="1" strokeDasharray="2 3" strokeOpacity="0.5"
           {...drawPath(D.pivotLine, 0.5)}
         />
 
@@ -157,9 +156,9 @@ function FlowchartSVG() {
         <g transform="translate(310, 118)">
           <AnimSlideY delay={D.pivotLabel} reduced={r}>
             <rect x="-92" y="-11" width="184" height="22" rx="3"
-              fill="var(--bg)" stroke="var(--cyan)" strokeWidth="1" />
-            <text x="0" y="4" textAnchor="middle" fontFamily="var(--font-mono)"
-              fill="var(--cyan)" fontSize="10" letterSpacing="1.6" fontWeight="600">
+              fill="var(--bg)" stroke="var(--xc-case-accent)" strokeWidth="1" />
+            <text x="0" y="4" textAnchor="middle" className="xc-svg-title"
+              fill="var(--xc-case-accent)" letterSpacing="1.6" fontWeight="600">
               AUG 2024 · DCGI ORDER
             </text>
           </AnimSlideY>
@@ -207,10 +206,9 @@ function FlowchartSVG() {
           <AnimScale delay={D.outcome} reduced={r} cx={58} cy={30}>
             <rect x="0" y="0" width="115" height="60" rx="4"
               fill="none" stroke="var(--cream)" strokeWidth="1.5" />
-            <text x="58" y="26" textAnchor="middle" fontFamily="var(--font-mono)"
-              fill="var(--cream-muted)" fontSize="10" letterSpacing="1.6" fontWeight="600">OUTCOME</text>
-            <text x="58" y="46" textAnchor="middle" fontFamily="'Fraunces', Georgia, serif"
-              fontSize="13" fill="var(--cream)" fontWeight="500">Indian approval</text>
+            <text x="58" y="26" textAnchor="middle" className="xc-svg-title"
+              fill="var(--cream-muted)" letterSpacing="1.6" fontWeight="600">OUTCOME</text>
+            <text x="58" y="46" textAnchor="middle" className="xc-svg-body" fill="var(--cream)" fontWeight="500">Indian approval</text>
           </AnimScale>
         </g>
 
@@ -218,7 +216,7 @@ function FlowchartSVG() {
         <g transform="translate(1060, 74)">
           <motion.rect
             x="-3" y="-3" width="121" height="66" rx="6"
-            fill="none" stroke="var(--cyan)" strokeWidth="1.5"
+            fill="none" stroke="var(--xc-case-accent)" strokeWidth="1.5"
             initial={r ? { opacity: 0 } : { opacity: 0, scale: 1 }}
             animate={r ? {} : { opacity: [0, 0.6, 0], scale: [1, 1.12, 1.18] }}
             transition={{ duration: 0.5, delay: D.outcomePulse, ease: EASE }}
@@ -229,8 +227,8 @@ function FlowchartSVG() {
         {/* ── AFTER row label ── */}
         <AnimFade delay={D.afterLabel} reduced={r}>
           <text x="200" y="232"
-            fontFamily="var(--font-mono)" fontSize="11"
-            fill="var(--cyan)" letterSpacing="1.6" fontWeight="500">
+            className="xc-svg-title"
+            fill="var(--xc-case-accent)" letterSpacing="1.6" fontWeight="500">
             AFTER — RULE 101 OPERATIONAL · DOSSIER-LED PATH
           </text>
         </AnimFade>
@@ -238,8 +236,8 @@ function FlowchartSVG() {
         {/* ── AFTER path ── */}
         <motion.path {...drawPath(D.afterBase - 0.1)}
           d="M 165 132 Q 185 132 185 180 L 210 180" fill="none"
-          stroke="var(--cyan)" strokeWidth="1.5" />
-        <ArrowEnd x={210} y={180} color="var(--cyan)"
+          stroke="var(--xc-case-accent)" strokeWidth="1.5" />
+        <ArrowEnd x={210} y={180} color="var(--xc-case-accent)"
           delay={arrowDelay(D.afterBase - 0.1)} fade={ARROW_FADE} reduced={r} />
 
         {AFTER_NODES.map((n, i) => {
@@ -254,8 +252,8 @@ function FlowchartSVG() {
                 <>
                   <motion.path {...drawPath(arrowPathDelay)}
                     d={`M ${n.x + n.w} 180 L ${nextX} 180`} fill="none"
-                    stroke="var(--cyan)" strokeWidth="1.5" />
-                  <ArrowEnd x={nextX} y={180} color="var(--cyan)"
+                    stroke="var(--xc-case-accent)" strokeWidth="1.5" />
+                  <ArrowEnd x={nextX} y={180} color="var(--xc-case-accent)"
                     delay={arrowDelay(arrowPathDelay)} fade={ARROW_FADE} reduced={r} />
                 </>
               )}
@@ -266,8 +264,8 @@ function FlowchartSVG() {
         {/* AFTER → OUTCOME curve */}
         <motion.path {...drawPath(D.afterFinal, 0.4)}
           d="M 910 180 Q 1050 180 1050 132 L 1060 132" fill="none"
-          stroke="var(--cyan)" strokeWidth="1.5" />
-        <ArrowEnd x={1060} y={132} color="var(--cyan)"
+          stroke="var(--xc-case-accent)" strokeWidth="1.5" />
+        <ArrowEnd x={1060} y={132} color="var(--xc-case-accent)"
           delay={arrowDelay(D.afterFinal, 0.4)} fade={ARROW_FADE} reduced={r} />
       </svg>
     </div>
@@ -327,11 +325,11 @@ function ArrowEnd({ x, y, color, delay, fade, reduced }) {
 
 function FlowNode({ x, y, w, h, label, text, muted, cyan, delay, reduced }) {
   const [hovered, setHovered] = useState(false);
-  const fill = cyan ? 'color-mix(in srgb, var(--cyan) 8%, transparent)' : 'var(--bg)';
-  const stroke = cyan ? 'color-mix(in srgb, var(--cyan) 22%, transparent)' : 'var(--cream-faint)';
-  const labelColor = cyan ? 'var(--cyan)' : 'var(--cream-faint)';
+  const fill = cyan ? 'color-mix(in srgb, var(--xc-case-accent) 8%, transparent)' : 'var(--bg)';
+  const stroke = cyan ? 'color-mix(in srgb, var(--xc-case-accent) 22%, transparent)' : 'var(--cream-faint)';
+  const labelColor = cyan ? 'var(--xc-case-accent)' : 'var(--cream-faint)';
   const textColor = muted ? 'var(--cream-muted)' : 'var(--cream)';
-  const hoverFill = cyan ? 'color-mix(in srgb, var(--cyan) 14%, transparent)' : 'color-mix(in srgb, var(--bg) 60%, transparent)';
+  const hoverFill = cyan ? 'color-mix(in srgb, var(--xc-case-accent) 14%, transparent)' : 'color-mix(in srgb, var(--bg) 60%, transparent)';
   const cx = w / 2;
 
   return (
@@ -347,10 +345,9 @@ function FlowNode({ x, y, w, h, label, text, muted, cyan, delay, reduced }) {
         <rect x="0" y="0" width={w} height={h} rx="4"
           fill={hovered ? hoverFill : fill} stroke={stroke} strokeWidth="1"
           style={{ transition: 'fill 0.2s' }} />
-        <text x={cx} y="20" textAnchor="middle" fontFamily="var(--font-mono)"
-          fill={labelColor} fontSize="10" letterSpacing="1.6" fontWeight="600">{label}</text>
-        <text x={cx} y="40" textAnchor="middle" fontFamily="'Fraunces', Georgia, serif"
-          fontSize="14" fill={textColor} fontWeight="400">{text}</text>
+        <text x={cx} y="20" textAnchor="middle" className="xc-svg-title"
+          fill={labelColor} letterSpacing="1.6" fontWeight="600">{label}</text>
+        <text x={cx} y="40" textAnchor="middle" className="xc-svg-body" fill={textColor} fontWeight="400">{text}</text>
       </motion.g>
     </g>
   );
@@ -448,9 +445,9 @@ function BottomPanels() {
       {/* Right — Reference agencies */}
       <div
         style={{
-          border: '1px solid color-mix(in srgb, var(--cyan) 22%, transparent)',
+          border: '1px solid color-mix(in srgb, var(--xc-case-accent) 22%, transparent)',
           borderRadius: 'var(--radius-lg)',
-          background: 'color-mix(in srgb, var(--cyan) 6%, transparent)',
+          background: 'color-mix(in srgb, var(--xc-case-accent) 6%, transparent)',
           padding: 'clamp(12px, 1.8vh, 22px) clamp(16px, 2vw, 28px)',
         }}
       >
@@ -512,7 +509,7 @@ function EligDot({ qualifies, delay, reduced }) {
         height: 7,
         borderRadius: '50%',
         flexShrink: 0,
-        background: qualifies ? 'var(--cyan)' : 'transparent',
+        background: qualifies ? 'var(--xc-case-accent)' : 'transparent',
         border: qualifies ? 'none' : '1.5px solid var(--cream-faint)',
       }}
     />

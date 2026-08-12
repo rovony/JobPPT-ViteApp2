@@ -45,25 +45,25 @@ export default function Cs2AspChallenge() {
   };
 
   return (
-    <SlideGrid dataCase="teal" areas={STANDARD_AREAS}>
-      <Eyebrow color="var(--teal)" delay={D.eyebrow}>CS2 · Setup + challenge</Eyebrow>
+    <SlideGrid dataCase="3" areas={STANDARD_AREAS}>
+      <Eyebrow color="var(--xc-case-3)" delay={D.eyebrow}>CS2 · Setup + challenge</Eyebrow>
       <Headline delay={D.headline} maxChars={50}>
         Approved in pediatrics.{' '}
-        <span style={{ color: 'var(--teal)', fontStyle: 'italic', fontWeight: 700 }}>
+        <span style={{ color: 'var(--xc-case-3)', fontStyle: 'italic', fontWeight: 700 }}>
           Adults needed a smarter design.
         </span>
       </Headline>
       <Subhead delay={D.subhead} maxChars={120}>
         Same drug, same biology, same FDA-validated NSAA surrogate. The constraint wasn't scientific
         doubt — it was{' '}
-        <span style={{ color: 'var(--teal)', fontWeight: 600 }}>operational feasibility</span>.
+        <span style={{ color: 'var(--xc-case-3)', fontWeight: 600 }}>operational feasibility</span>.
         Ninety-four was deliverable in the protocol and undeliverable in practice.
       </Subhead>
 
       <Viz>
         <div className="deck-viz-stack">
           <CaseOrientationStrip
-            accent="var(--teal)"
+            accent="var(--xc-case-3)"
             delay={D.anchorsLabel}
             items={[
               {
@@ -106,8 +106,8 @@ export default function Cs2AspChallenge() {
           <motion.div
             style={{
               padding: 'var(--space-5)',
-              border: '1px solid color-mix(in srgb, var(--teal) 35%, transparent)',
-              background: 'color-mix(in srgb, var(--teal) 8%, transparent)',
+              border: '1px solid color-mix(in srgb, var(--xc-case-3) 35%, transparent)',
+              background: 'color-mix(in srgb, var(--xc-case-3) 8%, transparent)',
             }}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -122,7 +122,7 @@ export default function Cs2AspChallenge() {
               }}
             >
               Could a{' '}
-              <span style={{ color: 'var(--teal)', fontWeight: 700, fontStyle: 'normal' }}>
+              <span style={{ color: 'var(--xc-case-3)', fontWeight: 700, fontStyle: 'normal' }}>
                 smaller, smarter study
               </span>{' '}
               still be defensible to FDA?
@@ -137,7 +137,7 @@ export default function Cs2AspChallenge() {
               Pediatric PopPK was{' '}
               <span style={{ color: 'var(--cream)', fontWeight: 600 }}>FDA-reviewed and label-supporting</span>.
               The question was whether the same scientific question could be answered with{' '}
-              <span style={{ color: 'var(--teal)', fontWeight: 600 }}>fewer adults and more model</span>.
+              <span style={{ color: 'var(--xc-case-3)', fontWeight: 600 }}>fewer adults and more model</span>.
             </motion.div>
           </motion.div>
 
@@ -184,7 +184,7 @@ function AnchorTile({ yr, label, sub, delay, numeralLayoutId }) {
         aria-hidden
         style={{
           position: 'absolute', top: 0, left: 0, width: '100%', height: 2,
-          background: 'linear-gradient(to right, var(--teal), color-mix(in srgb, var(--teal) 30%, transparent))',
+          background: 'linear-gradient(to right, var(--xc-case-3), color-mix(in srgb, var(--xc-case-3) 30%, transparent))',
         }}
       />
       <motion.div
@@ -196,7 +196,7 @@ function AnchorTile({ yr, label, sub, delay, numeralLayoutId }) {
       </motion.div>
       <div
         className="xc-tagline-mono"
-        style={{ color: 'var(--teal)', marginBottom: 4 }}
+        style={{ color: 'var(--xc-case-3)', marginBottom: 4 }}
       >
         {label}
       </div>

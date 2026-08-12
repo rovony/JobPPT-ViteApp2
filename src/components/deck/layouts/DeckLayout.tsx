@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDeck } from '@/lib/deck-store';
+import { formatTalkSlideCounter, getTalkSlideCounter } from '@/lib/slide-counter';
 
 /**
  * DeckLayout — the base layout primitive for v3+ decks.
@@ -49,6 +50,7 @@ export default function DeckLayout({
 
   const cfg = deck.standardLayout || {};
   const fcfg = cfg.footer || {};
+  const talkCounter = getTalkSlideCounter(deck?.slides, index);
 
   // Resolve slot — slide prop has priority. `null` from caller = hide.
   // `undefined` = fall through to deck default. Booleans pass through.
@@ -133,9 +135,18 @@ export default function DeckLayout({
                 letterSpacing: 'var(--ls-mono)',
                 color: 'var(--cream-muted)',
               }}
-              aria-label={`Slide ${index + 1} of ${total}`}
+              aria-label={
+                talkCounter.isBackup
+                  ? `Backup slide ${talkCounter.displayIndex} of ${talkCounter.displayTotal}`
+                  : `Slide ${talkCounter.displayIndex} of ${talkCounter.displayTotal}`
+              }
             >
-              {formatFn(index, total, deck.slides[index])}
+              {formatFn(
+                talkCounter.displayIndex - 1,
+                talkCounter.displayTotal,
+                deck.slides[index],
+                { absoluteIndex: index, absoluteTotal: total, talkCounter, slides: deck.slides },
+              )}
             </span>
           )}
         </footer>
@@ -154,6 +165,10 @@ export default function DeckLayout({
  *    (i, n) => `${String(i+1).padStart(2,'0')}`  // just the number · "12"
  *    (i, n) => Math.round(((i+1)/n)*100)+'%' // progress · "34%"
  */
-export function defaultPageFormat(index, total) {
+export function defaultPageFormat(index, total, slide, meta) {
+  // Prefer talk-path numbering (excludes backup) when slides are available.
+  if (meta?.slides && typeof meta.absoluteIndex === 'number') {
+    return formatTalkSlideCounter(meta.slides, meta.absoluteIndex);
+  }
   return `${String(index + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
 }

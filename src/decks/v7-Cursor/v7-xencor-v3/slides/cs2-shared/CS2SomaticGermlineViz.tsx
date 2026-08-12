@@ -122,7 +122,7 @@ function CellRowPanel({ variant }) {
               ? <><span className="xc-cyan" style={{ fontWeight: 600 }}>Tumor cell only.</span> Acquired during tumorigenesis, not in germline DNA.</>
               : <>Inherited variant present in every cell — frequency varies by ancestry.</>}
           </div>
-          <div className="deck-mono uppercase xc-pageno" style={{
+          <div className="xc-meta" style={{
             letterSpacing: 'var(--ls-mono-wide)',
             color: isSomatic ? C.cyan : C.creamFaint,
             fontWeight: 600,
@@ -200,10 +200,10 @@ function CellRow({ variant }) {
             <text
               x={cx} y={56}
               textAnchor="middle"
-              fontSize="7" letterSpacing="0.4"
+              className="xc-svg-meta"
+              letterSpacing="0.4"
               style={{
                 fill: isTumorCell ? C.cyan : (isMutated && !isSomatic ? C.creamFaint : C.creamFaint),
-                fontFamily: 'var(--font-mono)',
               }}
             >
               {isTumorCell ? 'TUMOR' : (isSomatic ? 'WT' : 'mut')}

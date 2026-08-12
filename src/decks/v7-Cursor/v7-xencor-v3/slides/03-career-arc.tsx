@@ -6,22 +6,24 @@ import { Eyebrow, Headline, Subhead, Viz } from '@/components/deck/SlideParts';
 import { SmallCoffee, TallCoffee, Thermos, EspressoMachine, IVBag } from './03-career-arc/CaffeineIcons';
 
 /**
- * Slide 03 · Career arc — "Five stops, one operating question"
+ * Slide 04 · Career arc — "Five stops, one operating question"
  *
  * Professional timeline spanning 15+ years, from practicing clinician to
- * clinical pharmacology director.
- * Layout optimized to prevent bottom card overflow and fix text sizing.
+ * clinical pharmacology director. Layout CSS lives in xencor-deck.css
+ * (.xc-career* / .xc-career-card*). Stop anchors stay in sync with SPINE_PATH.
  */
 
 const EASE = [0.2, 0.7, 0.3, 1];
-const SPINE_PATH = 'M 80 360 C 170 352, 205 325, 270 305 C 350 286, 392 276, 460 275 C 555 274, 595 225, 670 210 C 770 188, 812 160, 900 145';
+/* viewBox 0 0 1000 500 — y/500 ≈ STOP_LAYOUT.y% (cards + icons clear stage edges) */
+const SPINE_PATH =
+  'M 80 295 C 170 280, 205 260, 270 250 C 350 235, 392 220, 460 210 C 555 195, 595 175, 670 160 C 770 142, 812 125, 900 115';
 
 const STOP_LAYOUT = [
-  { x: 10, y: 72, width: 'clamp(9.25rem, 13vw, 14rem)', iconScale: 0.58, translateX: 0 },
-  { x: 26.5, y: 61, width: 'clamp(10rem, 14vw, 15rem)', iconScale: 0.58, translateX: 0 },
-  { x: 44.5, y: 55, width: 'clamp(10rem, 15vw, 15.75rem)', iconScale: 0.58, translateX: 0 },
-  { x: 62, y: 42, width: 'clamp(10.5rem, 15.5vw, 16.5rem)', iconScale: 0.58, translateX: 0 },
-  { x: 98.5, y: 29, width: 'clamp(10.5rem, 16.5vw, 16.75rem)', iconScale: 0.54, translateX: '-100%' },
+  { x: 10, y: 59, width: 'clamp(8.5rem, 12vw, 13rem)', iconScale: 0.5, translateX: 0 },
+  { x: 26.5, y: 50, width: 'clamp(9rem, 12.5vw, 13.5rem)', iconScale: 0.5, translateX: 0 },
+  { x: 44.5, y: 42, width: 'clamp(9rem, 13vw, 14rem)', iconScale: 0.5, translateX: 0 },
+  { x: 62, y: 32, width: 'clamp(9.5rem, 13.5vw, 14.5rem)', iconScale: 0.48, translateX: 0 },
+  { x: 98.5, y: 23, width: 'clamp(9.5rem, 14vw, 15rem)', iconScale: 0.42, translateX: '-100%' },
 ];
 
 const STOPS = [
@@ -91,7 +93,7 @@ export default function CareerArc() {
 
       <Headline delay={0.25} maxChars={60}>
         From espresso to IV drip,{' '}
-        <span style={{ color: 'var(--amber)', fontWeight: 700 }}>one question.</span>
+        <span className="xc-career-em">one question.</span>
       </Headline>
 
       <Subhead delay={0.45} maxChars={100} size="lead">
@@ -99,16 +101,13 @@ export default function CareerArc() {
       </Subhead>
 
       <Viz>
-        <div ref={ref} style={{ '--career-short-lift': 'max(0px, calc((900px - 100vh) * 0.35))', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-          {/* Main Timeline Area — shared stop anchors keep the cards, cups,
-              and amber spine on the same responsive coordinate system. */}
-          <div style={{ flex: 1, position: 'relative', marginTop: 'var(--space-2)', minHeight: 0, overflow: 'hidden' }}>
-
-            {/* Ascending amber spine SVG behind the cards */}
+        <div ref={ref} className="xc-career">
+          <div className="xc-career__stage">
             <svg
+              className="xc-career__spine"
               viewBox="0 0 1000 500"
               preserveAspectRatio="none"
-              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0, transform: 'translateY(calc(-1 * var(--career-short-lift)))' }}
+              aria-hidden
             >
               <motion.path
                 d={SPINE_PATH}
@@ -132,75 +131,57 @@ export default function CareerArc() {
               />
             </svg>
 
-            <div style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
+            <div className="xc-career__stops">
               {STOPS.map((stop, i) => {
                 const layout = STOP_LAYOUT[i];
 
                 return (
-                <motion.div 
-                  key={i}
-                  data-career-stop={stop.years}
-                  initial={{ opacity: 0, x: layout.translateX ?? 0, y: 20 }}
-                  animate={go ? { opacity: 1, x: layout.translateX ?? 0, y: 0 } : { opacity: 1, x: layout.translateX ?? 0, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.8 + (i * 0.2), ease: EASE }}
-                  style={{ 
-                    position: 'absolute',
-                    left: `${layout.x}%`,
-                    top: `calc(${layout.y}% - var(--career-short-lift))`,
-                    width: layout.width,
-                    maxWidth: 'calc(100% - var(--space-2))',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'stretch',
-                    gap: 'clamp(var(--space-1), 1vh, var(--space-2))',
-                  }}
-                >
-                  {/* Icon base sits on the amber spine; card top follows the
-                      same anchor with a small responsive breathing gap. */}
-                  <div style={{
-                    filter: 'drop-shadow(0 6px 10px color-mix(in srgb, var(--bg) 35%, transparent))',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    position: 'absolute',
-                    left: '50%',
-                    top: 0,
-                    transform: `translateX(-50%) translateY(-100%) scale(${layout.iconScale})`,
-                    transformOrigin: 'bottom center',
-                    pointerEvents: 'none',
-                  }}>
-                    <stop.Icon reduced={reduced} />
-                  </div>
-
-                  {/* Info Card */}
-                  <div
-                    className="xc-career-card"
-                    style={{ borderTop: `3px solid ${stop.color}` }}
+                  <motion.div
+                    key={i}
+                    data-career-stop={stop.years}
+                    className="xc-career__stop"
+                    initial={{ opacity: 0, x: layout.translateX ?? 0, y: 20 }}
+                    animate={
+                      go
+                        ? { opacity: 1, x: layout.translateX ?? 0, y: 0 }
+                        : { opacity: 1, x: layout.translateX ?? 0, y: 0 }
+                    }
+                    transition={{ duration: 0.6, delay: 0.8 + i * 0.2, ease: EASE }}
+                    style={{
+                      '--career-x': `${layout.x}%`,
+                      '--career-y': `${layout.y}%`,
+                      '--career-w': layout.width,
+                      '--career-icon-scale': layout.iconScale,
+                      '--career-accent': stop.color,
+                    }}
                   >
-                    <div style={{ borderBottom: '1px solid var(--cream-hairline)', paddingBottom: 'var(--space-2)' }}>
-                      <div className="xc-career-card__years" style={{ color: stop.color }}>
-                        {stop.years}
-                      </div>
-                      <div className="xc-career-card__title">
-                        {stop.title}
-                      </div>
+                    <div className="xc-career__icon">
+                      <stop.Icon reduced={reduced} />
                     </div>
-                    <ul className="xc-career-card__list">
-                      {stop.items.map((item, j) => {
-                        const parts = item.split(': ');
-                        if (parts.length > 1) {
-                          return (
-                            <li key={j}>
-                              <span style={{ color: stop.color, fontWeight: 600 }}>{parts[0]}: </span>
-                              {parts[1]}
-                            </li>
-                          );
-                        }
-                        return <li key={j}>{item}</li>;
-                      })}
-                    </ul>
-                  </div>
-                </motion.div>
-              )})}
+
+                    <div className="xc-career-card">
+                      <div className="xc-career-card__head">
+                        <div className="xc-career-card__years">{stop.years}</div>
+                        <div className="xc-career-card__title">{stop.title}</div>
+                      </div>
+                      <ul className="xc-career-card__list">
+                        {stop.items.map((item, j) => {
+                          const parts = item.split(': ');
+                          if (parts.length > 1) {
+                            return (
+                              <li key={j}>
+                                <span className="xc-career-card__em">{parts[0]}: </span>
+                                {parts[1]}
+                              </li>
+                            );
+                          }
+                          return <li key={j}>{item}</li>;
+                        })}
+                      </ul>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>

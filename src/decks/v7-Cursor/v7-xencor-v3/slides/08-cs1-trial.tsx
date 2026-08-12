@@ -142,7 +142,7 @@ export default function Cs1Trial() {
   const reduced = useReducedMotion();
 
   return (
-    <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
+    <SlideGrid dataCase="1" areas={STANDARD_AREAS}>
       <Eyebrow delay={0.10}>Case 01 · Pediatric program arc</Eyebrow>
 
       <Headline delay={0.25} maxChars={66}>

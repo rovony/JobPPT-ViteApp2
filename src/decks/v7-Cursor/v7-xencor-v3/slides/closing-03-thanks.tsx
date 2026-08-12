@@ -44,13 +44,8 @@ export default function ClosingThanks() {
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={go ? { opacity: 1, scale: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4, ease: EASE }}
-            className="xc-sans"
+            className="xc-thanks-display xc-amber"
             style={{
-              fontSize: 'clamp(5rem, 12vw, 10rem)',
-              fontWeight: 800,
-              color: 'var(--amber)',
-              lineHeight: 0.9,
-              letterSpacing: '-0.03em',
               textShadow: '0 12px 40px color-mix(in srgb, var(--amber) 25%, transparent)',
               marginBottom: 'var(--space-2)',
             }}
@@ -101,9 +96,8 @@ export default function ClosingThanks() {
             initial={{ opacity: 0 }}
             animate={go ? { opacity: 1 } : {}}
             transition={{ duration: 0.6, delay: 1.2, ease: EASE }}
-            className="xc-lead italic"
+            className="xc-lead xc-amber italic"
             style={{
-              color: 'var(--amber)',
               fontWeight: 500,
               maxWidth: 'min(60ch, 92%)',
             }}

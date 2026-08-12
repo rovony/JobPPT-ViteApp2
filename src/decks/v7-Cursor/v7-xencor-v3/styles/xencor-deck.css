@@ -10,7 +10,8 @@
  * ── Class index (stable for case-slide agents) ───────────────────────────
  * Type:     .xc-h1 .xc-h2 .xc-title .xc-subtitle .xc-body .xc-band
  *           .xc-tag .xc-tag-chip .xc-meta .xc-name .xc-mono .xc-pageno
- *           .xc-sans .bp-* mirrors of the above
+ *           .xc-sans .xc-svg .xc-svg-decision .xc-svg-compact
+ *           .xc-thanks-display .bp-* mirrors of the above
  * Color:    .xc-ink .xc-ink2 .xc-ink3 .xc-ink4 .xc-accent .xc-teal
  *           .xc-em (cyan emphasis span)
  * Cases:    --xc-case-1…4 (+ -wash) · [data-case="1|2|3|4"] → --xc-case-accent
@@ -19,14 +20,20 @@
  * Bands:    .xc-statement-band .xc-band (type) .bp-band
  * Layout:   .xc-roadmap-row .xc-slide-pad .xc-slide-pad--tight
  *           .xc-mt-sm .xc-mt-md .xc-mt-lg .xc-stack
+ * Career:   .xc-career .xc-career__stage .xc-career__spine
+ *           .xc-career__stops .xc-career__stop .xc-career__icon
+ *           .xc-career-card (+ __head __years __title __list __em)
+ *           .xc-career-em
  * WYWS:     .xc-wyws .xc-wyws__title .xc-wyws__kicker .xc-wyws__row
  *           .xc-wyws__kick .xc-wyws__meta .xc-wyws__teaser
  *           .xc-wyws__frame .xc-wyws__frame-label .xc-wyws__frame-text
  *           (teaser hairline: border-top on .xc-wyws__teaser)
- * Theme UI: .xc-theme-pref (+ __label __track __opt)
- * Steps:    .xc-step-box .bp-step-label .bp-step-body
+ * Theme UI: .xc-theme-pref (+ __box __label __track __opt)
+ * Steps:    .bp-step-flow .bp-step-card .bp-step-eyebrow .bp-step-box
+ *           .bp-step-label .bp-step-body .bp-step-arrow .xc-step-box
  * Roadmap:  .bp-roadmap-kicker .bp-roadmap-principle
  * Chrome:   .xc-hook .xc-lead .xc-card-title (alias) .xc-card-body
+ *           .deck-layout header/footer overrides · .xc-dashed
  */
 
 @import '@fontsource/poppins/400.css';
@@ -59,26 +66,36 @@
   --ls-tag: 0.16em;
 
   /*
-   * Type scale — rem only (FitStage scales the canvas). Seminar-readable.
+   * Type scale — rem only (FitStage scales the canvas). Match title-slide presence.
    * Hierarchy: tag < meta/mono < body/teaser < card-title < deck < h2 < h1
+   * ≤5 active steps; claim text never uses meta size.
    */
-  --bp-fs-h1: clamp(2.35rem, min(4.1vw, 5.8vh), 3.5rem);
-  --bp-fs-h2: clamp(1.75rem, min(3vw, 4.5vh), 2.55rem);
-  --bp-fs-deck: clamp(1.15rem, min(1.7vw, 2.5vh), 1.5rem);
-  --bp-fs-body: clamp(1.05rem, min(1.4vw, 2.1vh), 1.2rem);
-  --bp-fs-teaser: clamp(1.05rem, min(1.35vw, 2vh), 1.2rem);
-  --bp-fs-tag: clamp(0.9rem, min(1.15vw, 1.85vh), 1.05rem);
-  --bp-fs-meta: clamp(0.8rem, min(1.05vw, 1.5vh), 0.95rem);
-  --bp-fs-mono: clamp(0.8rem, min(1.05vw, 1.5vh), 0.95rem);
-  --bp-fs-name: clamp(1.2rem, min(1.75vw, 2.55vh), 1.55rem);
-  --bp-fs-card-title: clamp(1.25rem, min(1.85vw, 2.8vh), 1.65rem);
-  --bp-fs-card-body: clamp(1.05rem, min(1.35vw, 2vh), 1.2rem);
-  --bp-fs-card-meta: clamp(0.75rem, min(1vw, 1.4vh), 0.9rem);
-  --bp-fs-band: clamp(1.1rem, min(1.5vw, 2.3vh), 1.35rem);
-  --bp-fs-frame: clamp(0.75rem, min(1vw, 1.35vh), 0.9rem);
-  --bp-fs-frame-label: clamp(0.7rem, min(0.95vw, 1.25vh), 0.85rem);
-  --bp-fs-svg: 0.875rem;
-  --bp-fs-svg-decision: 1.0625rem;
+  --bp-fs-h1: clamp(2.65rem, min(4.5vw, 6.2vh), 3.85rem);
+  --bp-fs-h2: clamp(1.95rem, min(3.3vw, 4.9vh), 2.85rem);
+  --bp-fs-deck: clamp(1.3rem, min(1.95vw, 2.85vh), 1.7rem);
+  --bp-fs-body: clamp(1.15rem, min(1.55vw, 2.35vh), 1.35rem);
+  --bp-fs-teaser: clamp(1.15rem, min(1.5vw, 2.25vh), 1.35rem);
+  --bp-fs-tag: clamp(0.95rem, min(1.25vw, 2vh), 1.15rem);
+  --bp-fs-meta: clamp(0.9rem, min(1.15vw, 1.7vh), 1.05rem);
+  --bp-fs-mono: clamp(0.9rem, min(1.15vw, 1.7vh), 1.05rem);
+  --bp-fs-name: clamp(1.35rem, min(1.95vw, 2.85vh), 1.75rem);
+  --bp-fs-card-title: clamp(1.4rem, min(2.05vw, 3.1vh), 1.85rem);
+  --bp-fs-card-body: clamp(1.15rem, min(1.5vw, 2.25vh), 1.35rem);
+  --bp-fs-card-meta: clamp(0.85rem, min(1.1vw, 1.55vh), 1rem);
+  --bp-fs-band: clamp(1.25rem, min(1.7vw, 2.55vh), 1.55rem);
+  --bp-fs-frame: clamp(0.85rem, min(1.1vw, 1.55vh), 1rem);
+  --bp-fs-frame-label: clamp(0.8rem, min(1.05vw, 1.4vh), 0.95rem);
+  --bp-fs-svg: 0.95rem;
+  --bp-fs-svg-decision: 1.125rem;
+  --bp-fs-svg-compact: 0.5625rem;
+  --bp-fs-svg-label: 0.625rem;
+  --bp-fs-svg-em: 0.6875rem;
+  --bp-fs-svg-title: 0.75rem;
+  --bp-fs-svg-value: 1rem;
+
+  --bp-series-ped-high: #8cc63f;
+  --bp-series-adult-low: #2e3192;
+  --bp-series-adult-high: #00aeef;
 
   /* Aliases used by some utilities */
   --xc-fs-h1: var(--bp-fs-h1);
@@ -99,11 +116,11 @@
   --fs-slide-headline: var(--bp-fs-h1);
   --fs-slide-subhead: var(--bp-fs-deck);
   --fs-slide-kicker: var(--bp-fs-tag);
-  --fs-slide-tagline: clamp(1.15rem, min(1.55vw, 2.4vh), 1.4rem);
+  --fs-slide-tagline: clamp(1.3rem, min(1.75vw, 2.65vh), 1.55rem);
   --fs-slide-pageno: var(--bp-fs-mono);
-  --fs-slide-lead: clamp(1.3rem, min(2.1vw, 3.2vh), 2rem);
+  --fs-slide-lead: clamp(1.45rem, min(2.3vw, 3.5vh), 2.2rem);
   --fs-slide-name: var(--bp-fs-name);
-  --fs-slide-hook: clamp(2rem, min(3.5vw, 5.4vh), 3.15rem);
+  --fs-slide-hook: clamp(2.2rem, min(3.8vw, 5.8vh), 3.4rem);
 
   --fs-card-hero-num: clamp(3.25rem, min(6.2vw, 8.4vh), 5.75rem);
   --fs-card-numeral: clamp(2.8rem, min(4.2vw, 5.7vh), 4.25rem);
@@ -119,7 +136,9 @@
   --xc-space-md: clamp(12px, 1.5vh, 18px);
   --xc-space-lg: clamp(20px, 2.8vh, 36px);
   --xc-space-xl: clamp(28px, 3.6vh, 44px);
-  --xc-control-clearance: clamp(36px, 4.5vh, 56px);
+  /* Clears DeckLayout footer (slide#) + NavControls above bottom chrome */
+  --xc-control-clearance: clamp(3.25rem, 5.5vh, 4.75rem);
+  --xc-slide-number-clearance: clamp(5.5rem, 9vh, 7.5rem);
 
   /* Dark blueprint defaults (overridden by theme-mode selectors) */
   --bp-paper: #0c1420;
@@ -303,6 +322,46 @@
 [data-deck-id='v7-xencor-v3'] .xc-mono {
   font-family: var(--font-mono-bp);
   letter-spacing: var(--ls-mono);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-svg-compact {
+  font-size: var(--bp-fs-svg-compact);
+}
+[data-deck-id='v7-xencor-v3'] .xc-svg-label {
+  font-family: var(--font-mono-bp);
+  font-size: var(--bp-fs-svg-label);
+}
+[data-deck-id='v7-xencor-v3'] .xc-svg-meta {
+  font-family: var(--font-mono-bp);
+  font-size: var(--bp-fs-svg-em);
+}
+[data-deck-id='v7-xencor-v3'] .xc-svg-em {
+  font-size: var(--bp-fs-svg-em);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-svg,
+[data-deck-id='v7-xencor-v3'] .xc-svg-decision,
+[data-deck-id='v7-xencor-v3'] .xc-svg-compact {
+  font-family: var(--font-mono-bp);
+  font-size: var(--bp-fs-svg);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-svg-decision {
+  font-family: var(--font-sans-bp);
+  font-size: var(--bp-fs-svg-decision);
+  font-weight: 700;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-svg-compact {
+  font-size: var(--bp-fs-svg-compact);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-thanks-display {
+  font-family: var(--font-sans-bp);
+  font-size: clamp(5rem, 12vw, 10rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
 }
 
 [data-deck-id='v7-xencor-v3'] .bp-tag,
@@ -518,36 +577,99 @@
   padding: clamp(12px, 1.4vh, 18px) clamp(14px, 1.2vw, 20px);
 }
 
+/* Horizontal 4-step decision flow — equal columns, clear gutters */
+[data-deck-id='v7-xencor-v3'] .bp-step-flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0.65rem;
+  width: 100%;
+  max-width: min(100%, 1180px);
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-step-flow__item {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-step-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 0;
+  height: 100%;
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-step-eyebrow {
+  font-family: var(--font-mono-bp);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--xc-case-accent, var(--bp-step-accent, var(--case)));
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-step-arrow {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  color: var(--cream-faint);
+  padding-top: 1.75rem;
+}
+
 [data-deck-id='v7-xencor-v3'] .bp-step-box,
 [data-deck-id='v7-xencor-v3'] .xc-step-box {
+  --bp-step-accent: var(--xc-case-accent, var(--case));
   border: 1.5px solid
-    color-mix(in srgb, var(--bp-step-accent, var(--case)) 55%, var(--cream-hairline));
+    color-mix(in srgb, var(--bp-step-accent) 55%, var(--cream-hairline));
   border-radius: var(--radius-md, 8px);
   background: color-mix(
     in srgb,
-    var(--bp-step-accent, var(--case)) 7%,
+    var(--bp-step-accent) 7%,
     var(--panel, transparent)
   );
-  padding: clamp(0.7rem, 1.4vh, 1rem) clamp(0.75rem, 1.2vw, 1.1rem);
+  padding: 1.15rem 1.2rem;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  min-height: clamp(4.5rem, 9vh, 5.75rem);
+  gap: 0.5rem;
+  min-height: 7.25rem;
   justify-content: center;
+  flex: 1 1 auto;
 }
 
 [data-deck-id='v7-xencor-v3'] .bp-step-label {
   font-family: var(--font-mono-bp);
-  font-size: var(--fs-card-label);
-  letter-spacing: 0.1em;
+  font-size: 1.2rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  line-height: 1.15;
+  line-height: 1.2;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-step-label__n {
+  color: var(--xc-case-accent, var(--bp-step-accent, var(--case)));
+  font-weight: 600;
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-step-label__sep {
+  color: var(--cream-muted);
+}
+
+[data-deck-id='v7-xencor-v3'] .bp-step-label__verb {
+  color: var(--cream);
+  font-weight: 600;
 }
 
 [data-deck-id='v7-xencor-v3'] .bp-step-body {
   font-family: var(--font-sans-bp);
-  font-size: var(--fs-card-meta);
-  line-height: 1.35;
+  font-size: 1.15rem;
+  line-height: 1.4;
   color: var(--cream-muted);
 }
 
@@ -562,7 +684,7 @@
 
 [data-deck-id='v7-xencor-v3'] .bp-roadmap-principle {
   font-family: var(--font-mono-bp);
-  font-size: clamp(0.58rem, 1vh, 0.72rem);
+  font-size: var(--bp-fs-frame);
   letter-spacing: var(--ls-mono);
   line-height: 1.35;
 }
@@ -593,12 +715,16 @@
   z-index: 0;
 }
 
+[data-deck-id='v7-xencor-v3'] .xc-dashed,
+[data-deck-id='v7-xencor-v3'] .xc-viz-frame {
+  border: 1.25px dashed var(--bp-hair, var(--cream-hairline));
+  box-sizing: border-box;
+}
+
 [data-deck-id='v7-xencor-v3'] .xc-viz-frame {
   flex: 0 0 auto;
   height: clamp(88px, 12vh, 130px);
   margin-bottom: var(--xc-space-sm);
-  border: 1.25px dashed var(--bp-hair);
-  box-sizing: border-box;
 }
 
 /* Content-sized case row — cards stretch equally within the row */
@@ -649,16 +775,62 @@
   color: var(--bp-ink);
   text-align: center;
   font-family: var(--font-sans-bp);
-  font-size: var(--bp-fs-deck);
+  font-size: var(--bp-fs-band);
   font-weight: 500;
   line-height: 1.38;
   margin: 0;
-  /* Band sits under cards; leave gap for chrome slide# + mode controls */
-  margin-bottom: clamp(4.5rem, 7.5vh, 6.5rem);
+  /* Band rises; gap below for DeckLayout page# then NavControls */
+  margin-bottom: var(--xc-slide-number-clearance);
 }
 
 [data-deck-id='v7-xencor-v3'] .xc-statement-band__inner {
   position: relative;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-statement-band .xc-em,
+[data-deck-id='v7-xencor-v3'] .xc-statement-band b.xc-em {
+  font-weight: 700;
+}
+
+/* DeckLayout chrome — override tiny shared defaults for this deck only */
+[data-deck-id='v7-xencor-v3'] .deck-layout {
+  background: var(--bg, var(--bp-paper, transparent));
+  padding-bottom: calc(var(--deck-pad, clamp(24px, 3.5vh, 48px)) + var(--xc-control-clearance));
+}
+
+[data-deck-id='v7-xencor-v3'] .deck-layout > header .deck-mono {
+  font-family: var(--font-mono-bp) !important;
+  font-size: var(--fs-slide-eyebrow) !important;
+  letter-spacing: var(--ls-mono-wide) !important;
+  color: var(--case, var(--bp-cyan)) !important;
+}
+
+[data-deck-id='v7-xencor-v3'] .deck-layout > header .deck-display,
+[data-deck-id='v7-xencor-v3'] .deck-layout > header h2 {
+  font-family: var(--font-sans-bp) !important;
+  font-size: var(--fs-slide-headline) !important;
+  line-height: 1.2 !important;
+  font-weight: 600 !important;
+  color: var(--cream, var(--bp-ink)) !important;
+  max-width: 64ch;
+}
+
+[data-deck-id='v7-xencor-v3'] .deck-layout > footer {
+  margin-top: var(--xc-space-md);
+  padding-top: var(--xc-space-sm);
+  border-top-color: var(--cream-hairline, var(--bp-hair)) !important;
+}
+
+[data-deck-id='v7-xencor-v3'] .deck-layout > footer .deck-mono {
+  font-family: var(--font-mono-bp) !important;
+  font-size: var(--fs-slide-pageno) !important;
+  letter-spacing: var(--ls-mono) !important;
+  color: var(--cream-faint, var(--bp-ink4)) !important;
+}
+
+[data-deck-id='v7-xencor-v3'] .deck-layout > footer .deck-mono.tabular-nums {
+  font-size: var(--fs-slide-pageno) !important;
+  color: var(--cream-muted, var(--bp-ink3)) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -703,15 +875,28 @@
 [data-deck-id='v7-xencor-v3'] .xc-wyws__col {
   align-self: stretch;
   min-width: 0;
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-/* Equal-height cards via grid stretch; height follows tallest content, not slide flex */
+/* Equal-height cards: stretch to tallest in the row; content-sized overall */
 [data-deck-id='v7-xencor-v3'] .xc-wyws__col .xc-case-card {
   flex: 1 1 auto;
-  height: auto;
+  height: 100%;
+  min-height: 100%;
   align-self: stretch;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-wyws__card-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  gap: 0;
+  justify-content: flex-start;
 }
 
 [data-deck-id='v7-xencor-v3'] .xc-wyws__kick {
@@ -787,33 +972,26 @@
 [data-deck-id='v7-xencor-v3'] [data-case='1'] {
   --xc-case-accent: var(--xc-case-1);
   --xc-case-wash: var(--xc-case-1-wash);
+  --case: var(--xc-case-1);
 }
 [data-deck-id='v7-xencor-v3'] [data-case='2'] {
   --xc-case-accent: var(--xc-case-2);
   --xc-case-wash: var(--xc-case-2-wash);
+  --case: var(--xc-case-2);
 }
 [data-deck-id='v7-xencor-v3'] [data-case='3'] {
   --xc-case-accent: var(--xc-case-3);
   --xc-case-wash: var(--xc-case-3-wash);
+  --case: var(--xc-case-3);
 }
 [data-deck-id='v7-xencor-v3'] [data-case='4'] {
   --xc-case-accent: var(--xc-case-4);
   --xc-case-wash: var(--xc-case-4-wash);
+  --case: var(--xc-case-4);
 }
 
 [data-deck-id='v7-xencor-v3'] [data-case] .xc-case-card__accent {
   background: var(--xc-case-accent);
-}
-
-[data-deck-id='v7-xencor-v3'] .xc-wyws__card-body {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  flex: 0 1 auto;
-  min-height: 0;
-  gap: 0;
-  justify-content: flex-start;
 }
 
 [data-deck-id='v7-xencor-v3'] .xc-wyws__pageno {
@@ -871,76 +1049,177 @@
   font-weight: 600;
 }
 
-[data-deck-id='v7-xencor-v3'] .xc-career-card {
-  margin-top: clamp(0.45rem, 1.1vh, 0.85rem);
-  background: color-mix(in srgb, var(--panel) 60%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--cream-hairline);
-  border-radius: var(--radius-md, 8px);
-  padding: clamp(0.6rem, 1.2vw, 1.1rem);
+/* Career arc — contained viz timeline (FitStage 1920×1080) */
+[data-deck-id='v7-xencor-v3'] .xc-career {
+  --career-short-lift: max(0px, calc((900px - 100vh) * 0.35));
+  width: 100%;
+  height: 100%;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-2, 0.5rem);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-career__stage {
+  flex: 1 1 auto;
+  position: relative;
+  margin-top: var(--space-1, 0.25rem);
+  min-height: 0;
+  overflow: hidden;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-career__spine {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  transform: translateY(calc(-1 * var(--career-short-lift)));
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-career__stops {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-career__stop {
+  position: absolute;
+  left: var(--career-x);
+  top: calc(var(--career-y) - var(--career-short-lift));
+  width: var(--career-w);
+  max-width: calc(100% - var(--space-2, 0.5rem));
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: clamp(0.2rem, 0.7vh, 0.45rem);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-career__icon {
+  filter: drop-shadow(0 6px 10px color-mix(in srgb, var(--bg) 35%, transparent));
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%) translateY(-100%) scale(var(--career-icon-scale, 0.55));
+  transform-origin: bottom center;
+  pointer-events: none;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-career-card {
+  margin-top: clamp(0.3rem, 0.8vh, 0.55rem);
+  background: color-mix(in srgb, var(--panel) 72%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--cream-hairline);
+  border-top: 2.5px solid var(--career-accent, var(--amber));
+  border-radius: var(--radius-md, 8px);
+  padding: clamp(0.4rem, 0.85vw, 0.7rem) clamp(0.45rem, 0.9vw, 0.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.25rem, 0.6vh, 0.4rem);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--bg) 45%, transparent);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-career-card__head {
+  border-bottom: 1px solid var(--cream-hairline);
+  padding-bottom: clamp(0.25rem, 0.55vh, 0.4rem);
 }
 
 [data-deck-id='v7-xencor-v3'] .xc-career-card__years {
   font-family: var(--font-sans-bp);
-  font-size: var(--fs-slide-tagline);
+  font-size: clamp(0.72rem, min(0.95vw, 1.35vh), 0.88rem);
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.15;
+  color: var(--career-accent, var(--amber));
 }
 
 [data-deck-id='v7-xencor-v3'] .xc-career-card__title {
   font-family: var(--font-sans-bp);
-  font-size: var(--fs-slide-subhead);
+  font-size: clamp(0.82rem, min(1.05vw, 1.55vh), 1rem);
   color: var(--cream);
   font-weight: 600;
-  line-height: 1.3;
-  margin-top: var(--space-1, 0.25rem);
+  line-height: 1.25;
+  margin-top: 0.15rem;
 }
 
 [data-deck-id='v7-xencor-v3'] .xc-career-card__list {
   margin: 0;
   padding: 0;
-  padding-left: 1rem;
+  padding-left: 0.85rem;
   color: var(--cream-muted);
-  font-size: var(--fs-slide-subhead);
-  line-height: 1.4;
+  font-size: clamp(0.75rem, min(0.95vw, 1.4vh), 0.9rem);
+  line-height: 1.3;
   font-family: var(--font-sans-bp);
 }
 
 [data-deck-id='v7-xencor-v3'] .xc-career-card__list li {
-  margin-bottom: 4px;
+  margin-bottom: 0.15rem;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-career-card__list li:last-child {
+  margin-bottom: 0;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-career-card__em {
+  color: var(--career-accent, var(--amber));
+  font-weight: 600;
+}
+
+[data-deck-id='v7-xencor-v3'][data-theme-mode='light'] .xc-career-card {
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--cream) 10%, transparent);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-career-em {
+  color: var(--amber);
+  font-weight: 700;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   Theme preference footnote (title slide)
+   Theme preference footnote (title slide — under byline meta)
+   Hairline divider above; compact boxed Light|Dark radiogroup.
    ═══════════════════════════════════════════════════════════════════════════ */
 
 [data-deck-id='v7-xencor-v3'] .xc-theme-pref {
   display: flex;
   flex-direction: column;
-  gap: 6px;
   align-items: flex-start;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--bp-hair);
+  max-width: 100%;
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-theme-pref__box {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  padding: 4px 6px 4px 10px;
+  border: 1px solid var(--bp-hair);
+  background: color-mix(in srgb, var(--bp-paper2) 88%, transparent);
 }
 
 [data-deck-id='v7-xencor-v3'] .xc-theme-pref__label {
   font-family: var(--font-mono-bp);
-  font-size: var(--bp-fs-meta);
-  letter-spacing: 0.1em;
+  font-size: var(--bp-fs-frame-label);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--bp-ink4);
   line-height: 1.2;
+  white-space: nowrap;
 }
 
 [data-deck-id='v7-xencor-v3'] .xc-theme-pref__track {
   display: inline-flex;
   gap: 0;
-  border: 1.5px solid var(--bp-hair);
+  border: 1px solid var(--bp-hair);
   background: var(--bp-paper2);
-  padding: 2px;
+  padding: 1px;
 }
 
 [data-deck-id='v7-xencor-v3'] .xc-theme-pref__opt {
@@ -949,12 +1228,12 @@
   background: transparent;
   cursor: pointer;
   min-height: 44px;
-  min-width: 72px;
-  padding: 0 14px;
+  min-width: 56px;
+  padding: 0 10px;
   font-family: var(--font-mono-bp);
-  font-size: var(--bp-fs-tag);
+  font-size: var(--bp-fs-frame-label);
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--bp-ink3);
   transition:
@@ -965,13 +1244,13 @@
 
 [data-deck-id='v7-xencor-v3'] .xc-theme-pref__opt[data-active] {
   color: var(--bp-ink);
-  background: color-mix(in srgb, var(--bp-cyan) 14%, var(--bp-paper2));
-  box-shadow: inset 0 0 0 1.5px var(--bp-cyan);
+  background: color-mix(in srgb, var(--bp-cyan) 12%, var(--bp-paper2));
+  box-shadow: inset 0 0 0 1px var(--bp-cyan);
 }
 
 [data-deck-id='v7-xencor-v3'] .xc-theme-pref__opt:focus-visible {
   outline: 2px solid var(--bp-cyan);
-  outline-offset: 2px;
+  outline-offset: 1px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1046,6 +1325,14 @@
   letter-spacing: var(--ls-display, -0.022em);
 }
 
+[data-deck-id='v7-xencor-v3'] .xc-svg-value {
+  font-family: var(--font-mono-bp);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-svg-value {
+  font-size: var(--bp-fs-svg-value);
+}
+
 [data-deck-id='v7-xencor-v3'] .xc-ink {
   color: var(--cream);
 }
@@ -1112,6 +1399,22 @@
   font-size: var(--bp-fs-body);
   line-height: 1.45;
   margin: 0;
+}
+
+/* Sans SVG values pair with the shared mono SVG label utilities. */
+[data-deck-id='v7-xencor-v3'] .xc-svg-body-sm {
+  font-family: var(--font-sans-bp);
+  font-size: var(--bp-fs-svg-title);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-svg-body {
+  font-family: var(--font-sans-bp);
+  font-size: var(--bp-fs-svg-title);
+}
+
+[data-deck-id='v7-xencor-v3'] .xc-svg-body-lg {
+  font-family: var(--font-sans-bp);
+  font-size: var(--bp-fs-svg-value);
 }
 
 [data-deck-id='v7-xencor-v3'] .xc-card-meta {

@@ -13,7 +13,7 @@ export function AiEvidenceSlide({ eyebrow, headline, subhead, subheadMaxChars = 
 
   return (
     <SlideFrame
-      dataCase="sage"
+      dataCase="4"
       eyebrow={eyebrow}
       headline={headline}
       headlineMaxChars={68}
@@ -45,10 +45,10 @@ export function AiEvidenceSlide({ eyebrow, headline, subhead, subheadMaxChars = 
               animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.62 + i * 0.12, ease: EASE }}
               style={{
-                border: '1px solid color-mix(in srgb, var(--sage) 26%, transparent)',
-                borderTop: '3px solid var(--sage)',
+                border: '1px solid color-mix(in srgb, var(--xc-case-accent) 26%, transparent)',
+                borderTop: '3px solid var(--xc-case-accent)',
                 borderRadius: 'var(--radius-md)',
-                background: 'linear-gradient(180deg, color-mix(in srgb, var(--sage) 8%, var(--panel)), color-mix(in srgb, var(--panel) 68%, transparent))',
+                background: 'linear-gradient(180deg, color-mix(in srgb, var(--xc-case-accent) 8%, var(--panel)), color-mix(in srgb, var(--panel) 68%, transparent))',
                 padding: 'clamp(var(--space-4), 2vw, var(--space-6))',
                 display: 'flex',
                 flexDirection: 'column',
@@ -56,8 +56,8 @@ export function AiEvidenceSlide({ eyebrow, headline, subhead, subheadMaxChars = 
                 minWidth: 0,
               }}
             >
-              <Icon size={28} color="var(--sage)" strokeWidth={2.2} />
-              <div className="xc-eyebrow" style={{ color: 'var(--sage)' }}>
+              <Icon size={28} color="var(--xc-case-accent)" strokeWidth={2.2} />
+              <div className="xc-eyebrow" style={{ color: 'var(--xc-case-accent)' }}>
                 {card.label}
               </div>
               <div className="xc-tagline xc-ink" style={{ fontWeight: 700, lineHeight: 1.14 }}>

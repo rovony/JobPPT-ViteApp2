@@ -75,7 +75,7 @@ export default function Roadmap() {
 
       <Headline delay={0.22} maxChars={56}>
         Four cases. Four constraints.{' '}
-        <span style={{ color: 'var(--amber)', fontStyle: 'italic', fontWeight: 500 }}>
+        <span className="xc-amber" style={{ fontStyle: 'italic', fontWeight: 500 }}>
           One discipline.
         </span>
       </Headline>
@@ -123,10 +123,8 @@ export default function Roadmap() {
                 </div>
                 <div className="xc-agenda-card__drug">{c.drug}</div>
                 <div
-                  className="xc-body"
+                  className="xc-subhead xc-ink"
                   style={{
-                    fontSize: 'var(--fs-slide-subhead)',
-                    color: 'var(--cream)',
                     opacity: 0.88,
                     lineHeight: 1.3,
                   }}
@@ -134,8 +132,8 @@ export default function Roadmap() {
                   {c.indication}
                 </div>
                 <div
-                  className="xc-meta"
-                  style={{ color: 'var(--cream-muted)', letterSpacing: '0.08em' }}
+                  className="xc-meta xc-muted"
+                  style={{ letterSpacing: '0.08em' }}
                 >
                   {c.setting}
                 </div>
@@ -149,10 +147,8 @@ export default function Roadmap() {
                   }}
                 />
                 <div
-                  className="xc-body"
+                  className="xc-subhead xc-muted"
                   style={{
-                    fontSize: 'var(--fs-slide-subhead)',
-                    color: 'var(--cream-muted)',
                     lineHeight: 1.4,
                     flex: 1,
                   }}
@@ -182,7 +178,7 @@ export default function Roadmap() {
           textAlign: 'center',
         }}
       >
-        <div className="xc-band" style={{ color: 'var(--cream)', lineHeight: 1.25 }}>
+        <div className="xc-band xc-ink" style={{ lineHeight: 1.25 }}>
           Cases first — then portfolio breadth and the Xencor bridge.
         </div>
       </GridSlot>

@@ -16,22 +16,24 @@ import Lungs from '../components/Lungs';
  */
 export default function Cs1Divider({ deck }) {
   return (
-    <CaseHeroDivider
-      caseToken="coral"
-      caseNumber="01"
-      totalCases={4}
-      kicker="CASE STUDY 01"
-      title="Ambrisentan"
-      subtitle="Pediatric PAH · 39 patients · two agency approvals"
-      tagline="8 to <18 years · Phase IIb terminated mid-program · 2021 regulatory verdict"
-      meta={[
-        ['Compound', 'Ambrisentan · selective ETA antagonist'],
-        ['Indication', 'Pediatric PAH'],
-        ['Agency', 'EMA + PMDA'],
-      ]}
-      verdict="APPROVED"
-      illustration={<Lungs layoutId="cs1-lung" variant="hero" />}
-      source="Source · Okour et al. J Clin Pharmacol 2023 · Ivy et al. J Pediatr X 2020 · EMEA-000434-PIP01-08 · ERA = endothelin receptor antagonist"
-    />
+    <div data-case="1" style={{ width: '100%', height: '100%' }}>
+      <CaseHeroDivider
+        caseToken="coral"
+        caseNumber="01"
+        totalCases={4}
+        kicker="CASE STUDY 01"
+        title="Ambrisentan"
+        subtitle="Pediatric PAH · 39 patients · two agency approvals"
+        tagline="8 to <18 years · Phase IIb terminated mid-program · 2021 regulatory verdict"
+        meta={[
+          ['Compound', 'Ambrisentan · selective ETA antagonist'],
+          ['Indication', 'Pediatric PAH'],
+          ['Agency', 'EMA + PMDA'],
+        ]}
+        verdict="APPROVED"
+        illustration={<Lungs layoutId="cs1-lung" variant="hero" />}
+        source="Source · Okour et al. J Clin Pharmacol 2023 · Ivy et al. J Pediatr X 2020 · EMEA-000434-PIP01-08 · ERA = endothelin receptor antagonist"
+      />
+    </div>
   );
 }

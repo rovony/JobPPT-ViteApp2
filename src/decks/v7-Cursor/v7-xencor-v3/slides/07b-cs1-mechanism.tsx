@@ -26,7 +26,7 @@ export default function Cs1Mechanism() {
   const reduced = useReducedMotion();
 
   return (
-    <SlideGrid dataCase="coral" areas={STANDARD_AREAS}>
+    <SlideGrid dataCase="1" areas={STANDARD_AREAS}>
       <Eyebrow delay={0.50}>
         Case 01 · Mechanism — endothelin pathway
       </Eyebrow>

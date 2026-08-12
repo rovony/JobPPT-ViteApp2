@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Contrast, Home, LayoutGrid, Maximize, Minimize } from 'lucide-react';
 import { useDeck } from '@/lib/deck-store';
+import { formatTalkSlideCounter } from '@/lib/slide-counter';
 import { cn } from '@/lib/utils';
 import ModeSwitcher from './ModeSwitcher';
 import TopRightMenu from './TopRightMenu';
@@ -43,8 +44,9 @@ export default function NavControls({
   shareHasComments = false,
   onOpenShare,
 }) {
-  const { prev, next, toggleMode, togglePresenter, setPresenter, presenter, index, total } = useDeck();
+  const { prev, next, toggleMode, togglePresenter, setPresenter, presenter, index, total, slides } = useDeck();
   const currentSlideId = deck?.slides?.[index]?.id ?? (total > 0 ? String(index) : null);
+  const slideCounterLabel = formatTalkSlideCounter(deck?.slides ?? slides, index);
   const mode = currentMode({ presenter, isFullscreen });
 
   // Mode switcher handlers — each transitions cleanly between modes.
@@ -184,7 +186,7 @@ export default function NavControls({
               color: 'var(--cream-muted)',
             }}
           >
-            {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+            {slideCounterLabel}
           </div>
           <div className="flex items-center gap-1.5 md:gap-2 flex-wrap justify-end">
             <div className="flex items-center gap-2">
@@ -221,7 +223,7 @@ export default function NavControls({
             color: 'var(--cream-muted)',
           }}
         >
-          {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+          {slideCounterLabel}
         </div>
         <div className="flex items-center gap-1.5 md:gap-2 flex-wrap justify-end">
           <ModeSwitcher

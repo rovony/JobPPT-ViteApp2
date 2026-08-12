@@ -29,12 +29,12 @@ export default function CS2Leadership() {
   const go = inView && !reduced;
 
   return (
-    <SlideGrid dataCase="cyan" areas={STANDARD_AREAS}>
+    <SlideGrid dataCase="2" areas={STANDARD_AREAS}>
       <Eyebrow delay={0.10}>Case 03 · Leadership</Eyebrow>
 
       <Headline delay={0.25} maxChars={48}>
         Quantitative pharmacology built the bridge —{' '}
-        <span style={{ color: 'var(--cyan)' }}>partners carried it through.</span>
+        <span style={{ color: 'var(--xc-case-accent)' }}>partners carried it through.</span>
       </Headline>
 
       <Subhead delay={0.55} maxChars={120} size="lead">
@@ -59,10 +59,10 @@ export default function CS2Leadership() {
             {/* LEFT — Quantitative Pharmacology */}
             <motion.div
               style={{
-                border: '1.5px solid var(--cyan)',
+                border: '1.5px solid var(--xc-case-accent)',
                 borderRadius: 'var(--radius-md)',
                 background: `linear-gradient(180deg,
-                  color-mix(in srgb, var(--cyan) 10%, transparent),
+                  color-mix(in srgb, var(--xc-case-accent) 10%, transparent),
                   color-mix(in srgb, var(--panel) 75%, transparent) 70%)`,
                 padding: 'clamp(var(--space-3), 1.5vw, var(--space-5))',
                 display: 'flex', flexDirection: 'column', gap: 'var(--space-2)',
@@ -77,7 +77,7 @@ export default function CS2Leadership() {
               {QUANT_PHARM_SCOPE.map((item) => (
                 <div key={item} className="deck-body xc-slide-subhead xc-ink" style={{
                   lineHeight: 1.4, paddingLeft: 'var(--space-3)',
-                  borderLeft: '2px solid var(--cyan)' }}>
+                  borderLeft: '2px solid var(--xc-case-accent)' }}>
                   {item}
                 </div>
               ))}

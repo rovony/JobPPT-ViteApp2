@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import SlideGrid, { STANDARD_AREAS } from '@/components/deck/SlideGrid';
 import { Headline } from '@/components/deck/SlideParts';
 import { useDeck } from '@/lib/deck-store';
+import { formatTalkSlideCounter } from '@/lib/slide-counter';
 import React from 'react';
 
 const EASE = [0.2, 0.7, 0.3, 1];
@@ -20,7 +21,7 @@ export default function Cs1Bracket() {
 
   return (
     <SlideGrid
-      dataCase="coral"
+      dataCase="1"
       areas={STANDARD_AREAS}
       rowSizes="auto auto auto auto minmax(31rem, 1fr) auto"
     >
@@ -86,8 +87,7 @@ export default function Cs1Bracket() {
                 transition={{ duration: reduced ? 0 : 0.7, delay: reduced ? 0 : 0.85, ease: EASE }}
                 style={{ textAlign: 'center' }}
               >
-                <div className="deck-display xc-case" style={{
-                  fontSize: 'clamp(3rem, 6vw, 4.5rem)',
+                <div className="deck-display xc-numeral xc-case" style={{
                   fontWeight: 700,
                   lineHeight: 1,
                   fontVariantNumeric: 'tabular-nums',
@@ -113,8 +113,7 @@ export default function Cs1Bracket() {
                 transition={{ duration: reduced ? 0 : 0.7, delay: reduced ? 0 : 1.10, ease: EASE }}
                 style={{ textAlign: 'center' }}
               >
-                <div className="deck-display xc-case" style={{
-                  fontSize: 'clamp(3rem, 6vw, 4.5rem)',
+                <div className="deck-display xc-numeral xc-case" style={{
                   fontWeight: 700,
                   lineHeight: 1,
                   fontVariantNumeric: 'tabular-nums',
@@ -175,7 +174,7 @@ function DensityCurve({ reduced }) {
       <motion.path
         d={adultPath}
         fill="none"
-        stroke="var(--cream-faint, #6b6560)"
+        stroke="var(--cream-faint)"
         strokeWidth="2"
         opacity="0.5"
         initial={reduced ? false : { pathLength: 0 }}
@@ -184,7 +183,7 @@ function DensityCurve({ reduced }) {
       />
       <motion.path
         d={adultPath}
-        fill="color-mix(in srgb, var(--cream-faint, #6b6560) 8%, transparent)"
+        fill="color-mix(in srgb, var(--cream-faint) 8%, transparent)"
         stroke="none"
         opacity="0.3"
         initial={reduced ? false : { opacity: 0 }}
@@ -195,7 +194,7 @@ function DensityCurve({ reduced }) {
       <motion.path
         d={pedPath}
         fill="none"
-        stroke="var(--case, #e07a5f)"
+        stroke="var(--case)"
         strokeWidth="2.5"
         opacity="0.85"
         initial={reduced ? false : { pathLength: 0 }}
@@ -204,7 +203,7 @@ function DensityCurve({ reduced }) {
       />
       <motion.path
         d={pedPath}
-        fill="color-mix(in srgb, var(--case, #e07a5f) 12%, transparent)"
+        fill="color-mix(in srgb, var(--case) 12%, transparent)"
         stroke="none"
         opacity="0.4"
         initial={reduced ? false : { opacity: 0 }}
@@ -217,10 +216,10 @@ function DensityCurve({ reduced }) {
         animate={{ opacity: 1 }}
         transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 2.60, ease: EASE }}
       >
-        <line x1="20" y1={h - 18} x2="40" y2={h - 18} stroke="var(--cream-faint, #6b6560)" strokeWidth="2" opacity="0.5" />
-        <text x="46" y={h - 14} fill="var(--cream-faint, #6b6560)" style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.06em' }}>ADULT</text>
-        <line x1="110" y1={h - 18} x2="130" y2={h - 18} stroke="var(--case, #e07a5f)" strokeWidth="2.5" opacity="0.85" />
-        <text x="136" y={h - 14} fill="var(--case, #e07a5f)" style={{ fontSize: 11, fontFamily: 'var(--font-mono)', letterSpacing: '0.06em' }}>PEDIATRIC</text>
+        <line x1="20" y1={h - 18} x2="40" y2={h - 18} stroke="var(--cream-faint)" strokeWidth="2" opacity="0.5" />
+        <text x="46" y={h - 14} fill="var(--cream-faint)" className="xc-mono xc-svg-em" style={{ letterSpacing: '0.06em' }}>ADULT</text>
+        <line x1="110" y1={h - 18} x2="130" y2={h - 18} stroke="var(--case)" strokeWidth="2.5" opacity="0.85" />
+        <text x="136" y={h - 14} fill="var(--case)" className="xc-mono xc-svg-em" style={{ letterSpacing: '0.06em' }}>PEDIATRIC</text>
       </motion.g>
     </motion.svg>
   );
@@ -262,9 +261,8 @@ function StaticEyebrow({ children }) {
 function StaticSubhead({ children }) {
   return (
     <p
-      className="deck-display italic xc-muted" style={{
+      className="deck-display italic xc-subtitle xc-muted" style={{
         gridArea: 'subhead',
-        fontSize: 'clamp(1rem, min(1.5vw, 2.5vh), 1.5rem)',
         lineHeight: 'var(--lh-snug)',
         fontWeight: 400,
         maxWidth: '96ch',
@@ -276,7 +274,7 @@ function StaticSubhead({ children }) {
 }
 
 function StaticFooter({ kicker, tagline, source }) {
-  const { index, total } = useDeck();
+  const { index, slides } = useDeck();
   return (
     <div
       style={{
@@ -297,7 +295,7 @@ function StaticFooter({ kicker, tagline, source }) {
           {tagline}
         </span>
         <span className="deck-mono uppercase xc-pageno xc-faint" style={{ letterSpacing: 'var(--ls-mono)'}}>
-          {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+          {formatTalkSlideCounter(slides, index)}
         </span>
       </div>
       <span className="deck-mono xc-slide-eyebrow xc-faint" style={{ letterSpacing: 'var(--ls-mono)', lineHeight: 1.45 }}>
@@ -336,8 +334,7 @@ function ReceiptCard({ item }) {
       </div>
 
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-1)' }}>
-        <span className={`deck-display xc-h1 ${item.isHero ? 'xc-case' : 'xc-ink'}`} style={{
-          fontSize: item.isHero ? 'var(--fs-slide-display)' : undefined,
+        <span className={`deck-display ${item.isHero ? 'xc-numeral xc-case' : 'xc-h1 xc-ink'}`} style={{
           fontWeight: 700,
           lineHeight: 1,
           fontVariantNumeric: 'tabular-nums',

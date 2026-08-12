@@ -62,7 +62,7 @@ function FoundationContent() {
       {/* Eyebrow row */}
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
         <div>
-          <div className="deck-mono uppercase xc-pageno" style={{
+          <div className="xc-meta" style={{
             letterSpacing: 'var(--ls-mono-wide)', color: C.creamFaint }}>
             Pillar 01 · Foundation
           </div>
@@ -73,7 +73,7 @@ function FoundationContent() {
             Mechanism of Action
           </div>
         </div>
-        <div className="deck-mono uppercase xc-pageno" style={{
+        <div className="xc-meta" style={{
           letterSpacing: 'var(--ls-mono-wide)', color: C.cyan, fontWeight: 600 }}>
           Somatic
         </div>
@@ -115,7 +115,7 @@ function FoundationSchematic() {
       overflow: 'hidden',
     }}>
       {/* DISEASE PATHWAY — 3 stacked boxes with downward arrows */}
-      <div className="deck-mono uppercase xc-pageno" style={{
+      <div className="xc-meta" style={{
         letterSpacing: 'var(--ls-mono-wide)',
         color: C.creamFaint,
         marginBottom: '2px' }}>
@@ -136,7 +136,7 @@ function FoundationSchematic() {
           flex: 1, height: 0,
           borderTop: `1px dashed ${C.cyan}`,
         }} />
-        <span className="deck-mono uppercase xc-pageno" style={{
+        <span className="xc-meta" style={{
           letterSpacing: 'var(--ls-mono-wide)',
           color: C.cyan,
           flex: '0 0 auto' }}>
@@ -149,7 +149,7 @@ function FoundationSchematic() {
       </div>
 
       {/* DRUG PATHWAY — 3 stacked boxes mirroring disease */}
-      <div className="deck-mono uppercase xc-pageno" style={{
+      <div className="xc-meta" style={{
         letterSpacing: 'var(--ls-mono-wide)',
         color: C.cyan,
         marginBottom: '2px' }}>
@@ -184,7 +184,7 @@ function PathwayBox({ kicker, main, sub, italic, tone }) {
       gap: 0,
       minWidth: 0,
     }}>
-      <div className="deck-mono uppercase xc-pageno" style={{
+      <div className="xc-meta" style={{
         letterSpacing: 'var(--ls-mono-wide)',
         color: isDrug ? C.cyan : C.creamFaint,
         fontWeight: 600 }}>
@@ -197,14 +197,14 @@ function PathwayBox({ kicker, main, sub, italic, tone }) {
         {main}
       </div>
       {sub && (
-        <div className="xc-pageno xc-muted" style={{
+        <div className="xc-meta xc-muted" style={{
           lineHeight: 1.3,
         }}>
           {sub}
         </div>
       )}
       {italic && (
-        <div className="deck-display xc-pageno" style={{
+        <div className="xc-meta" style={{
           fontStyle: 'italic',
           color: isDrug ? C.cyan : C.creamMuted,
           lineHeight: 1.3 }}>
@@ -237,7 +237,7 @@ function LeadContent() {
       padding: 'var(--space-4)',
       flex: 1, display: 'flex', flexDirection: 'column',
     }}>
-      <div className="deck-mono uppercase xc-pageno" style={{
+      <div className="xc-meta" style={{
         letterSpacing: 'var(--ls-mono-wide)', color: C.creamFaint }}>
         Pillar 01
       </div>
@@ -279,7 +279,7 @@ function LeadContent() {
       }}>
         Drug binds mutant enzyme directly. <span className="xc-cyan">Biology conserved.</span>
       </div>
-      <div className="deck-mono xc-pageno xc-faint" style={{
+      <div className="xc-meta xc-faint" style={{
         letterSpacing: '0.04em',
         marginTop: 'var(--space-3)',
         paddingTop: 'var(--space-2)',
@@ -301,19 +301,19 @@ function LeadSchematic() {
         </marker>
       </defs>
       <circle cx="20" cy="14" r="8" style={{ fill: 'color-mix(in srgb, var(--cyan) 12%, transparent)', stroke: C.cyan, strokeWidth: 1 }} />
-      <text x="34" y="16.5" textAnchor="start" fontSize="8" letterSpacing="0.5" fontWeight="600" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>MUT</text>
+      <text x="34" y="16.5" textAnchor="start" className="xc-svg-label" letterSpacing="0.5" fontWeight="600" style={{ fill: C.cyan }}>MUT</text>
 
       <line x1="20" y1="22" x2="20" y2="58" markerEnd="url(#arr-c-lead)" style={{ stroke: C.cyan, strokeWidth: 1 }} />
 
       <circle cx="20" cy="68" r="8" style={{ fill: 'color-mix(in srgb, var(--cyan) 12%, transparent)', stroke: C.cyan, strokeWidth: 1 }} />
-      <text x="20" y="71" textAnchor="middle" fontSize="7.5" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>2HG</text>
-      <text x="34" y="70.5" textAnchor="start" fontSize="8" letterSpacing="0.5" fontWeight="600" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>↑ 2-HG</text>
+      <text x="20" y="71" textAnchor="middle" className="xc-svg-label" style={{ fill: C.cyan }}>2HG</text>
+      <text x="34" y="70.5" textAnchor="start" className="xc-svg-label" letterSpacing="0.5" fontWeight="600" style={{ fill: C.cyan }}>↑ 2-HG</text>
 
       <line x1="20" y1="76" x2="20" y2="112" markerEnd="url(#arr-c-lead)" style={{ stroke: C.cyan, strokeWidth: 1 }} />
 
       <circle cx="20" cy="122" r="8" style={{ fill: C.cyan }} />
-      <text x="20" y="125" textAnchor="middle" fontSize="8.5" fontWeight="700" style={{ fill: 'var(--bg)', fontFamily: 'var(--font-mono)' }}>Rx</text>
-      <text x="34" y="124.5" textAnchor="start" fontSize="8" letterSpacing="0.5" fontWeight="600" style={{ fill: C.cyan, fontFamily: 'var(--font-mono)' }}>DRUG</text>
+      <text x="20" y="125" textAnchor="middle" className="xc-svg-label" fontWeight="700" style={{ fill: 'var(--bg)' }}>Rx</text>
+      <text x="34" y="124.5" textAnchor="start" className="xc-svg-label" letterSpacing="0.5" fontWeight="600" style={{ fill: C.cyan }}>DRUG</text>
     </svg>
   );
 }

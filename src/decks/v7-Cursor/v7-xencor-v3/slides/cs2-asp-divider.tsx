@@ -25,7 +25,7 @@ import LymphocyteCruk from '../assets/cs3/lymphocyte-cruk.svg?react';
  *
  * Color · violet (Novel Methods family — CS2 finally lights up Theme 04).
  * The lymphocyte diagram already renders in a soft lavender/cyan palette
- * (#BC95C4 · #C7EAFB · #EAE0EF) that sits inside the CS2 violet family,
+ * (lavender · cyan · pale lilac) that sits inside the CS2 case family,
  * so the SVG is mounted at its native colours; the illustration slot
  * provides only a soft violet halo behind it for canvas anchoring.
  */
@@ -33,7 +33,7 @@ export default function Cs2AspDivider() {
   const reduce = useReducedMotion();
   return (
     <CaseHeroDivider
-      caseToken="teal"
+      caseToken="3"
       caseNumber="02"
       totalCases={4}
       kicker="CASE STUDY 02"
@@ -79,7 +79,7 @@ function LymphocyteHero({ reduced }) {
           position: 'relative',
           width: '100%',
           aspectRatio: '283 / 279',
-          color: 'var(--teal)',
+          color: 'var(--xc-case-3)',
         }}
         aria-label="Diagram of a lymphocyte — the cell that becomes a malignant lymphoblast in adult Ph-negative acute lymphoblastic leukaemia"
         role="img"
@@ -92,13 +92,13 @@ function LymphocyteHero({ reduced }) {
             position: 'absolute',
             inset: '-6%',
             background:
-              'radial-gradient(ellipse at center, color-mix(in srgb, var(--teal) 22%, transparent) 0%, transparent 68%)',
+              'radial-gradient(ellipse at center, color-mix(in srgb, var(--xc-case-3) 22%, transparent) 0%, transparent 68%)',
             filter: 'blur(18px)',
             zIndex: 0,
           }}
         />
         {/* The original CRUK file embedded a small "Lymphocyte" label
-            (Helvetica, fill #333) at the bottom-left of the diagram.
+            (Helvetica, dark gray fill) at the bottom-left of the diagram.
             That has been removed in our local copy so the slide caption
             below owns the typography. The XML license comment in the
             SVG file documents this as a CC-BY-SA derivative. */}
@@ -128,7 +128,7 @@ function LymphocyteHero({ reduced }) {
       >
         <span
           className="xc-card-label"
-          style={{ color: 'var(--teal)' }}
+          style={{ color: 'var(--xc-case-3)' }}
         >
           Lymphocyte · cell of origin
         </span>

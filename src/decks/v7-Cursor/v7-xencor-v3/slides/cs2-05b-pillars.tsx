@@ -16,7 +16,7 @@ import {
  */
 
 const C = {
-  cyan: 'var(--cyan)',
+  cyan: 'var(--xc-case-accent)',
   amber: 'var(--amber)',
   cream: 'var(--cream)',
   creamMuted: 'var(--cream-muted)',
@@ -37,7 +37,7 @@ export default function CS2Pillars() {
   const go = inView && !reduced;
 
   return (
-    <SlideGrid dataCase="cyan" areas={STANDARD_AREAS}>
+    <SlideGrid dataCase="2" areas={STANDARD_AREAS}>
       <Eyebrow delay={0.10}>Case 03 · Architecture — Five convergent pillars</Eyebrow>
 
       <Headline delay={0.25} maxChars={68}>

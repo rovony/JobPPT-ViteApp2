@@ -2,6 +2,7 @@
 import React from 'react';
 import { GridSlot } from './SlideGrid';
 import { useDeck } from '@/lib/deck-store';
+import { formatTalkSlideCounter } from '@/lib/slide-counter';
 import SplitHeadline from './SplitHeadline';
 
 /**
@@ -178,7 +179,7 @@ export function Viz({ area = 'viz', children, className, style }: any) {
  * number is sourced from deck context so callers never hardcode "03 / 20".
  */
 export function Footer({ area = 'footer', kicker, tagline, source, delay = 0.32 }: any) {
-  const { index, total } = useDeck();
+  const { index, slides } = useDeck();
   return (
     <GridSlot
       area={area}
@@ -219,7 +220,7 @@ export function Footer({ area = 'footer', kicker, tagline, source, delay = 0.32 
             color: 'var(--cream-faint)',
           }}
         >
-          {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+          {formatTalkSlideCounter(slides, index)}
         </span>
       </div>
       {source && (

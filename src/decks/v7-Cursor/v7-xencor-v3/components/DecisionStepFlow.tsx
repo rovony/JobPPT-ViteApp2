@@ -7,7 +7,8 @@ import { motion } from 'framer-motion';
  *
  * Visual DNA: blueprint STEP 01… boxes + arrows + subtext, adapted with
  * cs1-poppk rounded bordered mono panels. Theme via --cream / --panel
- * tokens (light + dark).
+ * tokens (light + dark). Type + box size live in xencor-deck.css
+ * (.bp-step-*).
  */
 
 export const DECISION_STEPS = [
@@ -15,25 +16,25 @@ export const DECISION_STEPS = [
     n: '01',
     verb: 'Define',
     body: 'Name the decision and the cost of being wrong.',
-    accent: 'var(--coral)',
+    caseId: 1,
   },
   {
     n: '02',
     verb: 'Challenge',
     body: 'State the competing explanation and failure condition.',
-    accent: 'var(--amber)',
+    caseId: 2,
   },
   {
     n: '03',
     verb: 'Test',
     body: 'Choose the evidence architecture that the data can support.',
-    accent: 'var(--cyan)',
+    caseId: 3,
   },
   {
     n: '04',
     verb: 'Act',
     body: 'Take the pre-agreed branch—and retain the limitation.',
-    accent: 'var(--sage)',
+    caseId: 4,
   },
 ];
 
@@ -41,15 +42,7 @@ function StepArrow({ delay, go }) {
   return (
     <motion.div
       aria-hidden
-      style={{
-        flex: '0 0 auto',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 'clamp(18px, 2.2vw, 36px)',
-        color: 'var(--cream-faint)',
-        paddingTop: 'clamp(1.1rem, 2.2vh, 1.6rem)',
-      }}
+      className="bp-step-arrow"
       initial={{ opacity: 0 }}
       animate={{ opacity: go ? 1 : 1 }}
       transition={{ duration: 0.4, delay, ease: [0.2, 0.7, 0.3, 1] }}
@@ -70,49 +63,19 @@ function StepArrow({ delay, go }) {
 function StepCard({ step, delay, go }) {
   return (
     <motion.div
-      style={{
-        flex: '1 1 0',
-        minWidth: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 'clamp(0.35rem, 0.8vh, 0.55rem)',
-      }}
+      className="bp-step-card"
+      data-case={step.caseId}
       initial={{ opacity: 0, y: 6 }}
       animate={go ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
       transition={{ duration: 0.45, delay, ease: [0.2, 0.7, 0.3, 1] }}
     >
-      <div
-        className="deck-mono uppercase"
-        style={{
-          fontSize: 'var(--fs-slide-eyebrow)',
-          letterSpacing: '0.12em',
-          color: step.accent,
-          fontVariantNumeric: 'tabular-nums',
-        }}
-      >
-        Step {step.n}
-      </div>
+      <div className="bp-step-eyebrow">Step {step.n}</div>
 
-      <div
-        className="bp-step-box"
-        style={{
-          border: `1.5px solid color-mix(in srgb, ${step.accent} 55%, var(--cream-hairline))`,
-          background: `color-mix(in srgb, ${step.accent} 7%, var(--panel, transparent))`,
-          minHeight: 'clamp(4.5rem, 9vh, 5.75rem)',
-        }}
-      >
-        <div
-          className="bp-step-label"
-          style={{
-            display: 'flex',
-            alignItems: 'baseline',
-            gap: '0.4rem',
-            flexWrap: 'wrap',
-          }}
-        >
-          <span style={{ color: step.accent, fontWeight: 600 }}>{step.n}</span>
-          <span style={{ color: 'var(--cream-muted)' }}>·</span>
-          <span style={{ color: 'var(--cream)', fontWeight: 600 }}>{step.verb}</span>
+      <div className="bp-step-box">
+        <div className="bp-step-label">
+          <span className="bp-step-label__n">{step.n}</span>
+          <span className="bp-step-label__sep">·</span>
+          <span className="bp-step-label__verb">{step.verb}</span>
         </div>
         <div className="bp-step-body">{step.body}</div>
       </div>
@@ -126,21 +89,14 @@ function StepCard({ step, delay, go }) {
 export default function DecisionStepFlow({ go = true, className, style }) {
   return (
     <div
-      className={className}
+      className={['bp-step-flow', className].filter(Boolean).join(' ')}
       role="list"
       aria-label="Decision sequence: Define, Challenge, Test, Act"
-      style={{
-        display: 'flex',
-        alignItems: 'stretch',
-        gap: 0,
-        width: '100%',
-        maxWidth: 'min(100%, 1180px)',
-        ...style,
-      }}
+      style={style}
     >
       {DECISION_STEPS.map((step, i) => (
         <React.Fragment key={step.n}>
-          <div role="listitem" style={{ flex: '1 1 0', minWidth: 0 }}>
+          <div role="listitem" className="bp-step-flow__item">
             <StepCard step={step} delay={1.05 + i * 0.12} go={go} />
           </div>
           {i < DECISION_STEPS.length - 1 ? (
