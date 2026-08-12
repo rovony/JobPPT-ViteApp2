@@ -4,6 +4,7 @@
     "Merck",
     "Gilead",
     "Vir Biotechnology",
+    "Xencor",
     "Internal"
   ],
   "_roles": [
@@ -87,6 +88,13 @@
     "kind": "presentation",
     "deliveredAt": "2026-06-17T15:00:00-04:00",
     "note": "Vir Biotechnology candidate seminar — rebuilt from v5-ultragenyx without modifying the source deck. Main flow: intro, Ambrisentan, ADC multi-analyte PK, AI / Pharazi hard cut, Vir landing, close; old Ivosidenib and extended AI material retained as backups."
+  },
+  "v7-xencor": {
+    "audience": "Xencor",
+    "role": "Director Pharmacometrics",
+    "kind": "presentation",
+    "deliveredAt": null,
+    "note": "Xencor Director Pharmacometrics — cloned from v6-vir as starting scaffold (company brand swapped). Rewrite company-bridge / closing for Xencor XmAb pipeline before delivery."
   },
   "cs4-flagship-v1": {
     "audience": "Internal",
