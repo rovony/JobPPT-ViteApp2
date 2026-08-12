@@ -207,7 +207,12 @@ export default function ShareViewPage() {
   const canComment = rec.permission === 'comment';
 
   return (
-    <DeckProvider total={orderedDeck.slides.length} initialIndex={initialIndex} initialPresenter={false}>
+    <DeckProvider
+      total={orderedDeck.slides.length}
+      slides={orderedDeck.slides}
+      initialIndex={initialIndex}
+      initialPresenter={false}
+    >
       <DeckStage
         deck={orderedDeck}
         viewMode="share"
